@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.auth.modules.rbac.mapper.RbacUserMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.auth.modules.rbac.entity.RbacUserEntity" id="RbacUserMap">
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="shortProfile" column="short_profile" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="isInitialPassword" column="is_initial_password" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="currentOrgId" column="current_org_id" jdbcType="VARCHAR"/>
+        <result property="orgIds" column="org_ids" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+        <result property="workNo" column="work_no" jdbcType="VARCHAR"/>
+        <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+        <result property="loginFailErrorNum" column="login_fail_error_num" jdbcType="INTEGER"/>
+        <result property="currentLoginTime" column="current_login_time" jdbcType="TIMESTAMP"/>
+        <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        user_id, user_name, nick_name, real_name, `password`, salt, short_profile, avatar, birthday, sex, email,
+        is_initial_password, phone, current_org_id, org_ids, user_status, work_no, telephone, login_fail_error_num,
+        current_login_time, unique_help, remark, create_area_code, create_position_code, create_org_sys_code,
+        create_system_code, create_tenant_id, create_user_id, create_user_name, create_time, update_user_id,
+        update_user_name, update_time, del_flag,enable_delete
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.user_id, ali.user_name, ali.nick_name, ali.real_name, ali.password, ali.salt, ali.short_profile, ali.avatar,
+        ali.birthday, ali.sex, ali.email, ali.is_initial_password, ali.phone, ali.current_org_id, ali.org_ids,
+        ali.user_status, ali.work_no, ali.telephone, ali.login_fail_error_num, ali.current_login_time, ali.unique_help,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag,ali.enable_delete
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.user_id, ali.user_name, ali.nick_name, ali.real_name, ali.password, ali.salt, ali.short_profile, ali.avatar,
+        ali.birthday, ali.sex, ali.email, ali.is_initial_password, ali.phone, ali.current_org_id, ali.org_ids,
+        ali.user_status, ali.work_no, ali.telephone, ali.login_fail_error_num, ali.current_login_time, ali.unique_help,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag,ali.enable_delete
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.RbacUserPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM auth_rbac_user ali
+        LEFT JOIN auth_rbac_correlate_user arcu ON ali.user_id = arcu.user_id AND arcu.correlate_type = 1
+        LEFT JOIN auth_rbac_org aro ON aro.org_id = arcu.correlate_id
+        <where>
+            ali.del_flag = 0
+            <if test="query.orgId != null and query.orgId != ''">
+                AND aro.org_sys_code LIKE '${query.orgId}%'
+            </if>
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.real_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.work_no) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.phone) &gt; 0
+                )
+            </if>
+            <if test="query.userStatus != null">
+                AND ali.user_status = #{query.userStatus, jdbcType=VARCHAR}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过用户id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM auth_rbac_user
+        WHERE user_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM auth_rbac_user
+        WHERE user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE auth_rbac_user
+        <set>
+            del_flag = 1,
+            unique_help = user_id,
+        </set>
+        WHERE user_id = #{userId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE auth_rbac_user
+        <set>
+            del_flag = 1,
+            unique_help = user_id,
+        </set>
+        WHERE user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

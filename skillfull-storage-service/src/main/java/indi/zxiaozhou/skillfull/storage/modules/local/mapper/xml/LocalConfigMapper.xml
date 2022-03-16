@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.storage.modules.local.mapper.LocalConfigMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.storage.modules.local.entity.LocalConfigEntity" id="LocalConfigMap">
+        <result property="localConfigId" column="local_config_id" jdbcType="VARCHAR"/>
+        <result property="localConfigName" column="local_config_name" jdbcType="VARCHAR"/>
+        <result property="localConfigDescribe" column="local_config_describe" jdbcType="VARCHAR"/>
+        <result property="saveBootDiskPath" column="save_boot_disk_path" jdbcType="VARCHAR"/>
+        <result property="unifiedPrefix" column="unified_prefix" jdbcType="VARCHAR"/>
+        <result property="configState" column="config_state" jdbcType="INTEGER"/>
+        <result property="maxSize" column="max_size" jdbcType="NUMERIC"/>
+        <result property="userSize" column="user_size" jdbcType="NUMERIC"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        local_config_id, local_config_name, local_config_describe, save_boot_disk_path, unified_prefix, config_state,
+        max_size, user_size, remark, create_area_code, create_position_code, create_org_sys_code, create_system_code,
+        create_user_id, create_tenant_id, create_user_name, create_time, update_user_id, update_user_name, update_time,
+        del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.local_config_id, ali.local_config_name, ali.local_config_describe, ali.save_boot_disk_path,
+        ali.unified_prefix, ali.config_state, ali.max_size, ali.user_size, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.local_config_id, ali.local_config_name, ali.local_config_describe, ali.save_boot_disk_path,
+        ali.unified_prefix, ali.config_state, ali.max_size, ali.user_size, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!-- 通过本地配置文件id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM storage_local_config
+        WHERE local_config_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <select id="getEnableConfigOne"
+            resultType="indi.zxiaozhou.skillfull.storage.modules.local.service.dto.LocalEnableConfigDto">
+        SELECT local_config_id,
+               local_config_name,
+               save_boot_disk_path,
+               unified_prefix,
+               max_size,
+               user_size,
+               (max_size - user_size) AS enable_user_size
+        FROM storage_local_config
+        WHERE
+        config_state = 1
+        AND ( max_size - user_size ) &gt; 0
+        ORDER BY
+        enable_user_size
+        LIMIT 1
+    </select>
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM storage_local_config
+        WHERE local_config_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE storage_local_config
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE local_config_id = #{localConfigId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE storage_local_config
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE local_config_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

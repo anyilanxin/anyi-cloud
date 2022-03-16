@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.storage.modules.local.mapper.LocalFileMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.storage.modules.local.entity.LocalFileEntity" id="LocalFileMap">
+        <result property="localFileId" column="local_file_id" jdbcType="VARCHAR"/>
+        <result property="localConfigId" column="local_config_id" jdbcType="VARCHAR"/>
+        <result property="fileOriginalName" column="file_original_name" jdbcType="VARCHAR"/>
+        <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+        <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
+        <result property="contentType" column="content_type" jdbcType="VARCHAR"/>
+        <result property="fileSize" column="file_size" jdbcType="VARCHAR"/>
+        <result property="fileSizeDetail" column="file_size_detail" jdbcType="INTEGER"/>
+        <result property="fileMd5" column="file_md5" jdbcType="VARCHAR"/>
+        <result property="fileDiskRelativePath" column="file_disk_relative_path" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        local_file_id, local_config_id, file_original_name, file_name, file_type, content_type, file_size,
+        file_size_detail,file_md5, file_disk_relative_path, remark, create_area_code, create_position_code,
+        create_org_sys_code,
+        create_system_code, create_user_id, create_tenant_id, create_user_name, create_time, update_user_id,
+        update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.local_file_id, ali.local_config_id, ali.file_original_name, ali.file_name, ali.file_type, ali.content_type,
+        ali.file_size, ali.file_size_detail, ali.file_md5, ali.file_disk_relative_path, ali.remark,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.local_file_id, ali.local_config_id, ali.file_original_name, ali.file_name, ali.file_type, ali.content_type,
+        ali.file_size,
+        ali.file_size_detail, ali.file_md5, ali.file_disk_relative_path, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="indi.zxiaozhou.skillfull.storage.modules.local.service.dto.LocalFilePageDto">
+        SELECT
+        slc.save_boot_disk_path,
+        slc.unified_prefix,
+        CONCAT(#{sysPrefix, jdbcType=VARCHAR},slc.unified_prefix,ali.file_disk_relative_path) AS preview_path,
+        <include refid="Column_List_Page_Ali"/>
+        FROM storage_local_file ali
+        INNER JOIN storage_local_config slc ON ali.local_config_id = slc.local_config_id
+        <where>
+            ali.del_flag = 0
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.file_original_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.file_type) &gt; 0
+                )
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <!-- 通过文件预览地址获取文件详细信息 -->
+    <select id="getFileById"
+            resultType="indi.zxiaozhou.skillfull.storage.modules.local.service.dto.LocalFileDto">
+        SELECT
+        slc.save_boot_disk_path,
+        slc.unified_prefix,
+        <include refid="Column_List_Ali"/>
+        FROM
+        storage_local_file ali
+        INNER JOIN storage_local_config slc ON ali.local_config_id = slc.local_config_id
+        WHERE ali.local_file_id = #{localFileId, jdbcType=VARCHAR} AND ali.del_flag = 0
+    </select>
+
+    <!-- 通过文件预览地址获取文件详细信息 -->
+    <select id="getFileByPreviewPath"
+            resultType="indi.zxiaozhou.skillfull.storage.modules.local.service.dto.LocalFileDto">
+        SELECT
+        slc.save_boot_disk_path,
+        slc.unified_prefix,
+        <include refid="Column_List_Ali"/>
+        FROM
+        storage_local_file ali
+        INNER JOIN storage_local_config slc ON ali.local_config_id = slc.local_config_id
+        WHERE CONCAT(slc.unified_prefix,ali.file_disk_relative_path) = #{previewPath, jdbcType=VARCHAR} AND ali.del_flag
+        = 0
+    </select>
+
+
+    <!-- 通过文件id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM storage_local_file
+        WHERE local_file_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE storage_local_file
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE local_file_id = #{localFileId, jdbcType=VARCHAR}
+    </update>
+</mapper>

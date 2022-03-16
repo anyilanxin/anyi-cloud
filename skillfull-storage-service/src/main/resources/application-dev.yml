@@ -1,0 +1,30 @@
+mysql:
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+  database: skillfull_storage_service
+
+
+redis:
+  host: localhost
+  port: 6379
+  password: root
+  database: 10
+
+
+rbmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+
+app:
+  server-port: 8090
+  base-path: /storage
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+  create-out-conf: false  # 启动是否创建外置配置文件

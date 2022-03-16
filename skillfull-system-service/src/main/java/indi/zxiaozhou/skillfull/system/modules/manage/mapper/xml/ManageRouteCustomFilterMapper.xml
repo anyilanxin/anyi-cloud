@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.system.modules.manage.mapper.ManageRouteCustomFilterMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.system.modules.manage.entity.ManageRouteCustomFilterEntity"
+               id="ManageRouteCustomFilterMap">
+        <result property="routeCustomFilterId" column="route_custom_filter_id" jdbcType="VARCHAR"/>
+        <result property="customFilterId" column="custom_filter_id" jdbcType="VARCHAR"/>
+        <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
+        <result property="filterType" column="filter_type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        route_custom_filter_id, custom_filter_id, route_id, filter_type
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.route_custom_filter_id, ali.custom_filter_id, ali.route_id, ali.filter_type
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.route_custom_filter_id, ali.custom_filter_id, ali.route_id, ali.filter_type
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Router_Column_List">
+        smcf.custom_filter_id AS filter_id, smcf.service_id, smcf.filter_name, smcf.filter_type_name,
+        smcf.filter_type, smcf.filter_status, smcf.rules, smcf.have_special,
+        smcf.special_url_type, smcf.enable_delete, smcf.remark, del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByRouterIds"
+            resultType="indi.zxiaozhou.skillfull.system.modules.manage.service.dto.ManageRouteCustomFilterDto">
+        SELECT
+        <include refid="Column_List_Ali"/>,
+        <include refid="Router_Column_List"/>
+        FROM sys_manage_route_custom_filter ali
+        INNER JOIN sys_manage_custom_filter smcf ON smcf.custom_filter_id = ali.custom_filter_id
+        <where>
+            smcf.del_flag = 0
+            AND smcf.filter_status = 1
+            AND ali.route_id IN
+            <foreach collection="routerIds" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
+
+    <!-- 通过路由自定义过滤器id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_manage_route_custom_filter
+        WHERE route_custom_filter_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM sys_manage_route_custom_filter
+        WHERE route_custom_filter_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_manage_route_custom_filter
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE route_custom_filter_id = #{routeCustomFilterId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_manage_route_custom_filter
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE route_custom_filter_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

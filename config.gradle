@@ -1,0 +1,107 @@
+ext {
+    set('springCloudVersion', "2021.0.0")
+    set('springCloudAlibabaVersion', "2021.1")
+    set('springAlibabaVersion', "1.0.0")
+    // 分离打包开关(打开后依赖与源码会分开)
+    set('compileSeparate', true)
+    // docker打包环境
+    set('dockerEnv', 'duyun')
+
+
+    dependencies = [
+            'mapstruct'                             : 'org.mapstruct:mapstruct:1.4.2.Final',
+            'mapstruct-processor'                   : 'org.mapstruct:mapstruct-processor:1.4.2.Final',
+            'guava'                                 : 'com.google.guava:guava:31.0-jre',
+            'hutool-all'                            : 'cn.hutool:hutool-all:5.7.13',
+            'commons-lang3'                         : 'org.apache.commons:commons-lang3:3.9',
+            'commons-codec'                         : 'commons-codec:commons-codec:1.13',
+            'commons-io'                            : 'commons-io:commons-io:1.3.2',
+            'commons-pool2'                         : 'org.apache.commons:commons-pool2',
+            'fastjson'                              : 'com.alibaba:fastjson:1.2.78',
+            'slf4j-api'                             : 'org.slf4j:slf4j-api:1.7.25',
+            'mybatis-plus-boot-starter'             : 'com.baomidou:mybatis-plus-boot-starter:3.5.1',
+            'druid-spring-boot-starter'             : 'com.alibaba:druid-spring-boot-starter:1.2.8',
+            'mysql-connector-java'                  : 'mysql:mysql-connector-java:8.0.22',
+            'easyexcel'                             : 'com.alibaba:easyexcel:3.0.3', // excel模板引擎
+            'poi-tl'                                : 'com.deepoove:poi-tl:1.10.0', // word模板引擎
+            'x-easypdf'                             : 'wiki.xsx:x-easypdf:2.7.0', // pdf模板引擎
+            'java-jwt'                              : 'com.auth0:java-jwt:3.9.0',
+            'reflections'                           : 'org.reflections:reflections:0.9.12',
+            'spring-boot-admin-starter-server'      : 'de.codecentric:spring-boot-admin-starter-server:2.6.2',
+            'JustAuth'                              : 'me.zhyd.oauth:JustAuth:1.16.5',
+            'bcprov-jdk14'                          : 'bouncycastle:bcprov-jdk14:140',
+            'micrometer-registry-prometheus'        : 'io.micrometer:micrometer-registry-prometheus:1.8.1',
+            'aliyun-java-sdk-core'                  : 'com.aliyun:aliyun-java-sdk-core:4.5.30',
+            'jython'                                : 'org.python:jython:2.7.2',
+            'jruby-complete'                        : 'org.jruby:jruby-complete:9.2.9.0',
+            'groovy-all'                            : 'org.codehaus.groovy:groovy-all:3.0.9',
+            'metadata-extractor'                    : 'com.drewnoakes:metadata-extractor:2.16.0',  // 读取图片信息数据
+            // 分布式事务seata----start
+            'seata-serializer-kryo'                 : 'io.seata:seata-serializer-kryo:1.4.2',
+            // 分布式事务seata----end
+            // springdoc api文档----start
+            'springdoc-openapi-ui'                  : 'org.springdoc:springdoc-openapi-ui:1.6.6',
+            'swagger-annotations'                   : 'io.swagger.core.v3:swagger-annotations:2.1.12',
+            'springdoc-openapi-webflux-ui'          : 'org.springdoc:springdoc-openapi-webflux-ui:1.6.6',
+            // springdoc api文档----end
+            "log4j-api"                             : 'org.apache.logging.log4j:log4j-api:2.17.1',
+            "log4j-to-slf4j"                        : 'org.apache.logging.log4j:log4j-to-slf4j:2.17.1',
+            "log4j-core"                            : 'org.apache.logging.log4j:log4j-core:2.17.1',
+
+    ]
+
+
+    version = [
+            // 主项目
+            'skillfull-cloud'                                          : '0.0.1-SNAPSHOT',
+
+            // 服务
+            'skillfull-auth-service'                                       : [version: '0.9.9', bootJar: true],
+            'skillfull-example-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-gateway-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-job-service'                                        : [version: '0.9.9', bootJar: true],
+            'skillfull-logging-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-message-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-monitor-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-storage-service'                                    : [version: '0.9.9', bootJar: true],
+            'skillfull-system-service'                                     : [version: '0.9.9', bootJar: true],
+
+            // 工具部分
+            'skillfull-core-modules:skillfull-core-common'                 : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-database'               : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-mvc'                    : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-mvc-data-permission'    : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-process'                : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-webflux'                : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-webflux-database'       : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false]
+    ]
+
+
+    docker = [
+            // docker打包多环境配置,切换设置顶部dockerEnv
+            'duyun': [
+                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.12-jre-buster',
+                    images        : "192.168.1.11:81/own-projects/",
+                    isRemortDocker: true,
+                    remortDocker  : 'http://192.168.1.11:2375',
+                    credentials   : {
+                        url = 'http://192.168.1.11:81'
+                        username = 'robot$compilesys'
+                        password = 'iEz4iHYeZ8zNrZQmei1foN4Tq7KI4564'
+                    }
+            ],
+            // docker打包多环境配置,切换设置顶部dockerEnv
+            'local': [
+                    baseImage     : 'myharbor.com:82/library/openjdk:11.0.12-jre-buster',
+                    images        : "myharbor.com:82/own-projects/",
+                    isRemortDocker: false,
+                    credentials   : {
+                        url = 'http://myharbor.com:82'
+                        username = 'robot$approot'
+                        password = 'hAYleXqFmnuO1mKegPwvgkGF47LD025W'
+                    }
+            ]
+    ]
+
+}

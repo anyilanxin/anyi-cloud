@@ -1,0 +1,439 @@
+{
+  "author": "zxiaozhou",
+  "version": "1.2.4",
+  "userSecure": "",
+  "currTypeMapperGroupName": "Default",
+  "currTemplateGroupName": "skillfull_template",
+  "currColumnConfigGroupName": "Default",
+  "currGlobalConfigGroupName": "skillfull_template",
+  "typeMapper": {
+    "Default": {
+      "name": "Default",
+      "elementList": [
+        {
+          "columnType": "varchar(\\(\\d+\\))?",
+          "javaType": "java.lang.String"
+        },
+        {
+          "columnType": "char(\\(\\d+\\))?",
+          "javaType": "java.lang.String"
+        },
+        {
+          "columnType": "text",
+          "javaType": "java.lang.String"
+        },
+        {
+          "columnType": "decimal(\\(\\d+\\))?",
+          "javaType": "java.math.BigDecimal"
+        },
+        {
+          "columnType": "decimal(\\(\\d+,\\d+\\))?",
+          "javaType": "java.math.BigDecimal"
+        },
+        {
+          "columnType": "integer",
+          "javaType": "java.lang.Integer"
+        },
+        {
+          "columnType": "int(\\(\\d+\\))?",
+          "javaType": "java.lang.Integer"
+        },
+        {
+          "columnType": "int4",
+          "javaType": "java.lang.Integer"
+        },
+        {
+          "columnType": "int8",
+          "javaType": "java.lang.Long"
+        },
+        {
+          "columnType": "bigint(\\(\\d+\\))?",
+          "javaType": "java.lang.Long"
+        },
+        {
+          "columnType": "datetime",
+          "javaType": "java.time.LocalDateTime"
+        },
+        {
+          "columnType": "timestamp",
+          "javaType": "java.time.LocalDateTime"
+        },
+        {
+          "columnType": "boolean",
+          "javaType": "java.lang.Boolean"
+        },
+        {
+          "columnType": "tinyint(\\(\\d+\\))?",
+          "javaType": "java.lang.Integer"
+        },
+        {
+          "columnType": "longtext(\\(\\d+\\))?",
+          "javaType": "java.lang.String"
+        },
+        {
+          "columnType": "smallint(\\(\\d+\\))?",
+          "javaType": "java.lang.Integer"
+        },
+        {
+          "columnType": "double(\\(\\d+,\\d+\\))?",
+          "javaType": "java.lang.Double"
+        },
+        {
+          "columnType": "date",
+          "javaType": "java.time.LocalDate"
+        },
+        {
+          "columnType": "json",
+          "javaType": "java.lang.String"
+        },
+        {
+          "columnType": "longblob",
+          "javaType": "java.lang.Object"
+        },
+        {
+          "columnType": "demoColumn",
+          "javaType": "java.lang.Object"
+        },
+        {
+          "columnType": "bit(\\(\\d+\\))?",
+          "javaType": "java.lang.Boolean"
+        },
+        {
+          "columnType": "bigint(20)",
+          "javaType": "java.lang.Object"
+        }
+      ]
+    }
+  },
+  "template": {
+    "skillfull_template": {
+      "name": "skillfull_template",
+      "elementList": [
+        {
+          "name": "controller.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Controller\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/controller\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n#set($pk=$tableInfo.pkColumn.get(0))\n#end\n##使用宏定义设置包后缀\n#setPackageSuffix(\"controller\")\n##使用全局变量实现默认包导入\n$!autoImport\nimport $!{basePage}.base.Result;\nimport $!{basePage}.validation.annotation.NotNullSize;\nimport $!{basePage}.validation.annotation.PathNotBlankOrNull;\nimport $!{basePage1}.base.service.dto.PageDto;\nimport $!{basePage2}.base.controller.BaseController;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}Vo;\nimport $!{tableInfo.savePackageName}.service.I$!{tableInfo.name}Service;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport io.swagger.v3.oas.annotations.enums.ParameterIn;
+          import
+          io.swagger.v3.oas.annotations.tags.Tag
+          ;
+          \
+          nimport
+          io.swagger.v3.oas.annotations.Parameter
+          ;
+          \
+          nimport
+          io.swagger.v3.oas.annotations.Operation
+          ;
+          \
+          nimport
+          lombok.RequiredArgsConstructor
+          ;
+          \
+          nimport
+          lombok.extern.slf4j.Slf4j
+          ;
+          \
+          nimport
+          org.springframework.http.MediaType
+          ;
+          \
+          nimport
+          org.springframework.validation.annotation.Validated
+          ;
+          \
+          nimport
+          org.springframework.web.bind.annotation.*
+          ;
+          \
+          nimport
+          javax.validation.Valid
+          ;
+          \
+          nimport
+          java.util.List
+          ;
+          \
+          n
+          #
+          #
+          获取主键
+          \
+          n
+          #
+          if(!$tableInfo.pkColumn.isEmpty())
+          \
+          n
+          #
+          set($pk
+          =
+          $tableInfo.pkColumn.get(0))
+          \
+          n
+          #
+          end
+          \
+          n
+          \
+          n/**
+          \
+          n
+          *
+          $!
+        {
+          tableInfo.comment
+        }
+        ($!
+        {
+          tableInfo.name
+        }
+        )控制层
+        \
+        n
+        *
+        \
+        n
+        *
+        @author
+        $!auth
+        \
+        n
+        *
+        @date
+        $!time.currTime()
+        \
+        n
+        *
+        @since
+        JDK1.8
+        \
+        n
+        */
+        \
+        n@Slf4j
+        \
+        n@Validated
+        \
+        n@RestController
+        \
+        n@RequiredArgsConstructor
+        \
+        n@Tag(name
+        =
+        \
+        "$!{tableInfo.name}\", description = \"$!{tableInfo.comment}Api接口相关\", hidden = true)\n@RequestMapping(value = \"/$tool.firstLowerCase($!{tableInfo.name})\", produces = MediaType.APPLICATION_JSON_VALUE)\npublic class $!{tableName} extends BaseController{\n    private final I$!{tableInfo.name}Service service;\n\n\n    @Operation(summary = \"$!{tableInfo.comment}添加@(${version})\", description = \"添加$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/insert\")\n    public Result<String> insert(@RequestBody @Valid $!{tableInfo.name}Vo vo) {\n        service.save(vo);\n        return ok(\"添加成功\");\n    }\n\n\n    @Operation(summary = \"通过${pk.comment}修改@(${version})\", description = \"修改$!{tableInfo.comment}\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @PutMapping(value = \"/update/{${pk.name}}\")\n    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name}, \n                                 @RequestBody @Valid $!{tableInfo.name}Vo vo) {\n        service.updateById(${pk.name}, vo);\n        return ok(\"修改成功\");\n    }\n\n\n    @Operation(summary = \"$!{tableInfo.comment}逻辑删除@(${version})\", description = \"删除$!{tableInfo.comment}\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @DeleteMapping(value = \"/delete-one/{${pk.name}}\")\n    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name}) {\n         service.deleteById(${pk.name});\n         return ok(\"删除成功\");\n    }\n    \n    \n    @Operation(summary = \"$!{tableInfo.comment}逻辑批量删除@(v1.0.0)\", description = \"批量删除$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/delete-batch\")\n    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = \"待删除${pk.comment}不能为空\") List<String> ${pk.name}s) {\n        service.deleteBatch(${pk.name}s);\n        return ok(\"批量删除成功\");\n    }\n\n\n    @Operation(summary = \"通过${pk.comment}查询详情@(${version})\", description = \"查询$!{tableInfo.comment}详情\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @GetMapping(value = \"/select/one/{${pk.name}}\")\n    public Result<$!{tableInfo.name}Dto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name}) {\n        return ok(service.getById(${pk.name}));\n    }\n\n\n    @Operation(summary = \"通过条件查询$!{tableInfo.comment}多条数据@(${version})\", description = \"通过条件查询$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/select/list\")\n    public Result<List<$!{tableInfo.name}Dto>> getList(@RequestBody $!{tableInfo.name}QueryVo vo) {\n        return ok(service.selectListByModel(vo));\n    }\n\n\n    @Operation(summary = \"$!{tableInfo.comment}分页查询@(${version})\", description = \"分页查询$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/select/page\")\n    public Result<PageDto<$!{tableInfo.name}PageDto>> selectPage(@RequestBody $!{tableInfo.name}PageVo vo) {\n        return ok(service.pageByModel(vo));\n    }\n}"
+        },
+        {
+          "name": "dto.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Dto\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/dto\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.dto\")\n\n##使用全局变量实现默认包导入\n$!autoImport\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.io.Serializable;\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}查询Response\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString\n@EqualsAndHashCode\n@Accessors(chain = true)\n@SuperBuilder(toBuilder = true)\n@AllArgsConstructor\n@NoArgsConstructor\n@Schema\npublic class $!{tableName}  implements Serializable  {\n    private static final long serialVersionUID = $!tool.serial();\n\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\") #end\n    \n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n    \n#end\n}"
+        },
+        {
+          "name": "entity.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Entity\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/entity\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"entity\")\n##使用全局变量实现默认包导入\n$!autoImport\nimport com.baomidou.mybatisplus.annotation.TableId;\nimport com.baomidou.mybatisplus.annotation.TableName;\nimport $!{basePage1}.base.entity.BaseEntity;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})Entity\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString(callSuper = true)\n@EqualsAndHashCode(callSuper = true)\n@SuperBuilder(toBuilder = true)\n@Accessors(chain = true)\n@AllArgsConstructor\n@NoArgsConstructor\n@TableName(\"$!{tableInfo.obj.name}\")\npublic class $!{tableName} extends BaseEntity {\n    private static final long serialVersionUID = $!tool.serial();\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n    @TableId\n    private $!{tool.getClsNameByFullName($pk.type)} $!{pk.name};\n#end\n#foreach($column in $tableInfo.otherColumn)\n    #set($have = false)\n    #foreach($felid in $publicFelids)\n        #if($column.name==$felid)\n            #set($have = true)\n            #break\n        #end\n    #end\n    #if(!$have)\n\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\") #end\n    \n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n#end\n#end\n}"
+        },
+        {
+          "name": "insertOrUpdateVo.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Vo\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/controller/vo\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"controller.vo\")\n\n##使用全局变量实现默认包导入\n$!autoImport\nimport $!{basePage}.validation.annotation.NotBlankOrNull;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.io.Serializable;\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}添加或修改Request\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString\n@Accessors(chain = true)\n@SuperBuilder(toBuilder = true)\n@EqualsAndHashCode\n@AllArgsConstructor\n@NoArgsConstructor\n@Schema\npublic class $!{tableName}  implements Serializable  {\n    private static final long serialVersionUID = $!tool.serial();\n    \n#foreach($column in $tableInfo.otherColumn)\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\", required = true) #end\n    \n    @NotBlankOrNull(message = \"${column.comment}不能为空\")\n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n    \n#end\n}"
+        },
+        {
+          "name": "mapper.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Mapper\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/mapper\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk=$tableInfo.pkColumn.get(0))\n#end\n##使用宏定义设置包后缀\n#setPackageSuffix(\"mapper\")\n##使用全局变量实现默认包导入\n$!autoImport\nimport com.baomidou.mybatisplus.core.metadata.IPage;\nimport com.baomidou.mybatisplus.extension.plugins.pagination.Page;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport $!{basePage1}.base.mapper.BaseMapper;\nimport org.apache.ibatis.annotations.Param;\nimport org.springframework.stereotype.Repository;\n\nimport java.util.Collection;\nimport java.util.List;\n\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})持久层\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Repository\npublic interface $!{tableName} extends BaseMapper<$!{tableInfo.name}Entity>{\n   /**\n     * 分页查询\n     *\n     * @param vo ${@link $!{tableInfo.name}PageVo} 查询条件\n     * @param page ${@link Page<$!{tableInfo.name}PageDto>} 分页信息\n     * @return IPage<$!{tableInfo.name}PageDto> ${@link IPage<$!{tableInfo.name}PageDto>} 结果\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    IPage<$!{tableInfo.name}PageDto> pageByModel(Page<$!{tableInfo.name}PageDto> page, @Param(\"query\") $!{tableInfo.name}PageVo vo);\n\n\n    /**\n     * 条件查询多条\n     *\n     * @param vo ${@link $!{tableInfo.name}QueryVo} 查询条件\n     * @return List<$!{tableInfo.name}Dto> ${@link List<$!{tableInfo.name}Dto>} 结果\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    List<$!{tableInfo.name}Dto> selectListByModel($!{tableInfo.name}QueryVo vo);\n    \n    \n    /**\n     * 通过${pk.comment}物理删除\n     *\n     * @param ${pk.name} ${@link String} ${pk.comment}\n     * @return int ${@link Integer} 成功状态:0-失败,1-成功\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    int physicalDeleteById(@Param(\"id\") String ${pk.name});\n    \n    \n     /**\n     * 通过${pk.comment}物理批量删除\n     *\n     * @param idList ${@link Collection} 待删除id\n     * @return int ${@link Integer} 成功状态:0-失败,大于1-成功\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    int physicalDeleteBatchIds(@Param(\"coll\") Collection<String> idList);\n}"
+        },
+        {
+          "name": "mapper.xml",
+          "code": "##引入宏定义\n$!init\n$!define\n##引入mybatis支持\n$!mybatisSupport\n\n##设置保存名称与保存位置\n$!callback.setFileName($tool.append($!{tableInfo.name}, \"Mapper.xml\"))\n#set($tempIndex = $!tableInfo.savePackageName.lastIndexOf('.') + 1)\n##set($mapppath=$tableInfo.savePackageName.substring($tempIndex))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/mapper/xml\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n#end\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n<mapper namespace=\"$!{tableInfo.savePackageName}.mapper.$!{tableInfo.name}Mapper\">\n\n    <resultMap type=\"$!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity\" id=\"$!{tableInfo.name}Map\">\n#foreach($column in $tableInfo.fullColumn)\n        <result property=\"$!column.name\" column=\"$!column.obj.name\" jdbcType=\"$!column.ext.jdbcType\"/>\n#end\n    </resultMap>\n    \n    <!--数据库字段-->\n    <sql id=\"Column_List\">\n        #allSqlColumn()\n\n    </sql>\n\n    <!--数据库字段待别名-->\n    <sql id=\"Column_List_Ali\">\n        #allSqlColumnAli()\n\n    </sql>\n    \n     <!--数据库字段-->\n    <sql id=\"Column_List_Page_Ali\">\n        #allSqlColumnPageAli()\n\n    </sql>\n\n\n    <!--通过实体作为筛选条件分页查询-->\n    <select id=\"pageByModel\" resultType=\"$!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto\">\n        SELECT\n             <include refid=\"Column_List_Page_Ali\"/>\n        FROM $!tableInfo.obj.name ali\n        <where>\n             ali.${delete} = 0\n#foreach($column in $tableInfo.fullColumn)\n#if($!column.obj.name==$createTime)\n         <if test=\"query.startTime != null\">\n             AND ali.$!column.obj.name &gt;= #{query.startTime, jdbcType=$!{column.ext.jdbcType}}\n          </if>\n          <if test=\"query.endTime != null\">\n             AND ali.$!column.obj.name &lt;= #{query.endTime, jdbcType=$!{column.ext.jdbcType}}\n          </if>\n#else \n          <if test=\"query.$!column.name != null#if($column.type.equals(\"java.lang.String\")) and query.$!column.name != ''#end\">\n             AND ali.$!column.obj.name = #{query.$!column.name, jdbcType=$!{column.ext.jdbcType}}\n          </if>\n#end\n#end\n        </where>\n    </select>\n\n\n    <!--通过实体作为筛选条件查询-->\n    <select id=\"selectListByModel\" resultType=\"$!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto\" parameterType=\"$!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo\">\n        SELECT\n            <include refid=\"Column_List\"/>\n        FROM $!tableInfo.obj.name\n        <where>\n             ${delete} = 0\n#foreach($column in $tableInfo.fullColumn)\n         <if test=\"$!column.name != null#if($column.type.equals(\"java.lang.String\")) and $!column.name != ''#end\">\n             AND $!column.obj.name = #{$!column.name, jdbcType=$!{column.ext.jdbcType}}\n         </if>\n#end\n        </where>\n    </select>\n    \n    \n    <!-- 通过${pk.comment}物理删除 -->\n    <delete id=\"physicalDeleteById\">\n        DELETE\n        FROM $!tableInfo.obj.name\n        WHERE $!pk.obj.name = #{id, jdbcType=$!{pk.ext.jdbcType}}\n    </delete>\n    \n    \n    <!-- 通过字典id物理批量删除 -->\n    <delete id=\"physicalDeleteBatchIds\">\n        DELETE\n        FROM  $!tableInfo.obj.name\n        WHERE $!pk.obj.name IN\n        <foreach collection=\"coll\" item=\"item\" open=\"(\" separator=\",\" close=\")\">\n            #{item}\n        </foreach>\n    </delete>\n    \n    \n    <!-- 通过id逻辑删除 -->\n    <update id=\"deleteById\">\n        UPDATE $!tableInfo.obj.name\n        <set>\n            ${delete} = 1,\n#foreach($column in $tableInfo.fullColumn)\n#if($column.obj.name.equals(\"unique_help\"))\n            $!column.obj.name = $!pk.obj.name,\n#end\n#end\n         </set>\n        WHERE $!pk.obj.name = #{$!pk.name, jdbcType=$!{pk.ext.jdbcType}}\n    </update>\n    \n    \n    <!-- 通过id批量逻辑删除 -->\n    <update id=\"deleteBatchIds\">\n        UPDATE $!tableInfo.obj.name\n        <set>\n            ${delete} = 1,\n#foreach($column in $tableInfo.fullColumn)\n#if($column.obj.name.equals(\"unique_help\"))\n            $!column.obj.name = $!pk.obj.name,\n#end\n#end\n        </set>\n        WHERE $!pk.obj.name IN\n        <foreach collection=\"coll\" item=\"item\" open=\"(\" separator=\",\" close=\")\">\n            #{item}\n        </foreach>\n    </update>\n</mapper>"
+        },
+        {
+          "name": "pageVo.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"PageVo\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/controller/vo\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"controller.vo\")\n\n##使用全局变量实现默认包导入\n$!autoImport\nimport $!{basePage1}.base.controller.vo.BasePageVo;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}分页查询Request\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString(callSuper = true)\n@EqualsAndHashCode(callSuper = true)\n@SuperBuilder(toBuilder = true)\n@Accessors(chain = true)\n@AllArgsConstructor\n@NoArgsConstructor\n@Schema\npublic class $!{tableName}  extends BasePageVo {\n    private static final long serialVersionUID = $!tool.serial();\n\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\") #end\n    \n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n    \n#end\n}"
+        },
+        {
+          "name": "pageDto.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"PageDto\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/dto\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.dto\")\n\n##使用全局变量实现默认包导入\n$!autoImport\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.io.Serializable;\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}分页查询Response\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString\n@Accessors(chain = true)\n@SuperBuilder(toBuilder = true)\n@AllArgsConstructor\n@NoArgsConstructor\n@EqualsAndHashCode\n@Schema\npublic class $!{tableName}  implements Serializable  {\n    private static final long serialVersionUID = $!tool.serial();\n\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\") #end\n    \n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n    \n#end\n}"
+        },
+        {
+          "name": "queryVo.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"QueryVo\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/controller/vo\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"controller.vo\")\n\n##使用全局变量实现默认包导入\n$!autoImport\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.v3.oas.annotations.media.Schema;\nimport lombok.*;\nimport lombok.experimental.Accessors;\nimport lombok.experimental.SuperBuilder;\n\nimport java.io.Serializable;\nimport java.time.LocalDateTime;\n\n/**\n * $!{tableInfo.comment}条件查询Request\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Getter\n@Setter\n@ToString\n@Accessors(chain = true)\n@SuperBuilder(toBuilder = true)\n@AllArgsConstructor\n@NoArgsConstructor\n@Schema\npublic class $!{tableName}  implements Serializable  {\n    private static final long serialVersionUID = $!tool.serial();\n\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})@Schema(name = \"$!{column.name}\", title = \"${column.comment}\") #end\n    \n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n    \n#end\n}"
+        },
+        {
+          "name": "service.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=\"I\"+$tool.append(${tableInfo.name},\"Service\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk=$tableInfo.pkColumn.get(0))\n#end\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service\")\n##使用全局变量实现默认包导入\n$!autoImport\n\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}Vo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport $!{basePage1}.base.service.BaseService;\nimport $!{basePage1}.base.service.dto.PageDto;\n\nimport java.util.List;\n\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})业务层接口\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\npublic interface $!{tableName} extends BaseService<$!{tableInfo.name}Entity> {\n    /**\n     * 保存\n     *\n     * @param vo ${@link $!{tableInfo.name}Vo} $!{tableInfo.comment}保存\n     * @throws RuntimeException ${@link RuntimeException}\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    void save($!{tableInfo.name}Vo vo) throws RuntimeException;\n\n\n    /**\n     * 通过id更新\n     * @param vo ${@link $!{tableInfo.name}Vo} $!{tableInfo.comment}更新\n     * @param ${pk.name} ${@link String} ${pk.comment}\n     * @param vo ${@link $!{tableInfo.name}Vo} $!{tableInfo.comment}更新\n     * @throws RuntimeException ${@link RuntimeException}\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    void updateById(String ${pk.name}, $!{tableInfo.name}Vo vo) throws RuntimeException;\n\n\n    /**\n     * 分页查询\n     *\n     * @param vo ${@link $!{tableInfo.name}PageVo} $!{tableInfo.comment}分页查询Vo\n     * @throws RuntimeException ${@link RuntimeException}\n     * @return PageDto<$!{tableInfo.name}PageDto> ${@link PageDto<$!{tableInfo.name}PageDto>} 分页查询结果\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    PageDto<$!{tableInfo.name}PageDto> pageByModel($!{tableInfo.name}PageVo vo) throws RuntimeException;  \n    \n    /**\n     * 条件查询多条\n     *\n     * @param vo ${@link $!{tableInfo.name}QueryVo} $!{tableInfo.comment}条件查询Vo\n     * @throws RuntimeException ${@link RuntimeException}\n     * @return List<$!{tableInfo.name}Dto> ${@link List<$!{tableInfo.name}Dto>} 查询结果\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    List<$!{tableInfo.name}Dto> selectListByModel($!{tableInfo.name}QueryVo vo) throws RuntimeException;\n\n\n    /**\n     * 通过id查询详情\n     *\n     * @param ${pk.name} ${@link String} ${pk.comment}\n     * @throws RuntimeException ${@link RuntimeException}\n     * @return $!{tableInfo.name}Dto ${@link $!{tableInfo.name}Dto} 查询结果\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    $!{tableInfo.name}Dto getById(String ${pk.name}) throws RuntimeException;\n    \n    \n    /**\n     * 通过${pk.name}删除\n     *\n     * @param ${pk.name} ${@link String} ${pk.comment}\n     * @throws RuntimeException ${@link RuntimeException}\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    void deleteById(String ${pk.name}) throws RuntimeException;\n    \n    \n     /**\n     * $!{tableInfo.comment}批量删除\n     *\n     * @param ${pk.name}s ${@link List<String>}\n     * @throws RuntimeException ${@link RuntimeException}\n     * @author $!auth\n     * @date $!time.currTime()\n     */\n    void deleteBatch(List<String> ${pk.name}s) throws RuntimeException;\n}"
+        },
+        {
+          "name": "serviceImpl.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"ServiceImpl\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/impl\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk=$tableInfo.pkColumn.get(0))\n    #set($pkNameUpper=$tool.firstUpperCase(${pk.name}))\n#end\n\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.impl\")\n##使用全局变量实现默认包导入\n$!autoImport\n\nimport cn.hutool.core.collection.CollectionUtil;\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}Vo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport $!{tableInfo.savePackageName}.mapper.$!{tableInfo.name}Mapper;\nimport $!{tableInfo.savePackageName}.service.I$!{tableInfo.name}Service;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport $!{tableInfo.savePackageName}.service.mapstruct.$!{tableInfo.name}CopyMap;\nimport $!{tableInfo.savePackageName}.service.mapstruct.$!{tableInfo.name}PageCopyMap;\nimport $!{tableInfo.savePackageName}.service.mapstruct.$!{tableInfo.name}QueryCopyMap;\nimport $!{basePage}.constant.Status;\nimport $!{basePage}.exception.ResponseException;\nimport $!{basePage1}.base.service.dto.PageDto;\nimport lombok.RequiredArgsConstructor;\nimport lombok.extern.slf4j.Slf4j;\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\nimport org.springframework.util.CollectionUtils;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Objects;\n\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})业务层实现\n *\n * @author $!auth\n * @date $!time.currTime()\n * @since JDK1.8\n */\n@Slf4j\n@Service\n@RequiredArgsConstructor\npublic class $!{tableName} extends ServiceImpl<$!{tableInfo.name}Mapper, $!{tableInfo.name}Entity> implements I$!{tableInfo.name}Service {\n    private final $!{tableInfo.name}CopyMap map;\n    private final $!{tableInfo.name}PageCopyMap pageMap;\n    private final $!{tableInfo.name}QueryCopyMap queryMap;\n    private final $!{tableInfo.name}Mapper mapper;\n\n\n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class})\n    public void save($!{tableInfo.name}Vo vo) throws RuntimeException {\n        $!{tableInfo.name}Entity entity = map.vToE(vo);\n        boolean result = super.save(entity);\n        if (!result) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"保存数据失败\");\n        }\n    }\n\n\n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class})\n    public void updateById(String ${pk.name}, $!{tableInfo.name}Vo vo) throws RuntimeException {\n        // 查询数据是否存在\n        this.getById(${pk.name});\n        // 更新数据\n        $!{tableInfo.name}Entity entity = map.vToE(vo);\n        entity.set${pkNameUpper}(${pk.name});\n        boolean result = super.updateById(entity);\n        if (!result) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"更新数据失败\");\n        }\n    }\n\n\n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)\n    public List<$!{tableInfo.name}Dto> selectListByModel($!{tableInfo.name}QueryVo vo) throws RuntimeException {\n        List<$!{tableInfo.name}Dto> list = mapper.selectListByModel(vo);\n        if (CollectionUtils.isEmpty(list)) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"未找到符合条件数据\");\n        }\n        return list;\n    }\n\n\n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)\n    public PageDto<$!{tableInfo.name}PageDto> pageByModel($!{tableInfo.name}PageVo vo) throws RuntimeException {\n        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));\n    }\n\n\n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)\n    public $!{tableInfo.name}Dto getById(String ${pk.name}) throws RuntimeException {\n        $!{tableInfo.name}Entity byId = super.getById(${pk.name});\n        if (Objects.isNull(byId)) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"未找到符合条件数据\");\n        }\n        return map.eToD(byId);\n    }\n    \n    \n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class})\n    public void deleteById(String ${pk.name}) throws RuntimeException {\n        // 查询数据是否存在\n        this.getById(${pk.name});\n        // 删除数据\n        boolean b = this.removeById(${pk.name});\n        if (!b) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"删除数据失败\");\n        }\n    }\n    \n    \n    @Override\n    @Transactional(rollbackFor = {Exception.class, Error.class})\n    public void deleteBatch(List<String> ${pk.name}s) throws RuntimeException {\n        List<$!{tableInfo.name}Entity> entities = this.listByIds(${pk.name}s);\n        if (CollectionUtil.isEmpty(entities)) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"数据不存在或已经被别人删除\");\n        }\n        List<String> waitDeleteList = new ArrayList<>();\n        entities.forEach(v -> waitDeleteList.add(v.get${pkNameUpper}()));\n        boolean b = this.removeByIds(waitDeleteList);\n        if (!b) {\n            throw new ResponseException(Status.DATABASE_BASE_ERROR, \"批量删除数据失败\");\n        }\n    }\n}"
+        },
+        {
+          "name": "copyMap.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"CopyMap\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/mapstruct\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.mapstruct\")\n##使用全局变量实现默认包导入\n\nimport $!{basePage}.base.service.mapstruct.BaseThreeMap;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}Vo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport org.mapstruct.Builder;\nimport org.mapstruct.Mapper;\nimport org.mapstruct.ReportingPolicy;\n\n/**\n * 实体相互转换\n *\n * @author $!auth\n * @since $!time.currTime()\n */\n@Mapper(componentModel = \"spring\", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))\npublic interface $!{tableInfo.name}CopyMap extends BaseThreeMap<$!{tableInfo.name}Entity, $!{tableInfo.name}Dto, $!{tableInfo.name}Vo>  {\n}"
+        },
+        {
+          "name": "queryCopyMap.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"QueryCopyMap\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/mapstruct\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.mapstruct\")\n##使用全局变量实现默认包导入\n\nimport $!{basePage}.base.service.mapstruct.BaseMap;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport org.mapstruct.Builder;\nimport org.mapstruct.Mapper;\nimport org.mapstruct.ReportingPolicy;\n\n/**\n * 实体相互转换\n *\n * @author $!auth\n * @since $!time.currTime()\n */\n@Mapper(componentModel = \"spring\", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))\npublic interface $!{tableInfo.name}QueryCopyMap extends BaseMap<$!{tableInfo.name}QueryVo, $!{tableInfo.name}Entity>  {\n}"
+        },
+        {
+          "name": "pageCopyMap.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"PageCopyMap\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/service/mapstruct\"))\n$!callback.setReformat(false)\n##使用宏定义设置包后缀\n#setPackageSuffix(\"service.mapstruct\")\n##使用全局变量实现默认包导入\n\nimport $!{basePage}.base.service.mapstruct.BaseThreeMap;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.entity.$!{tableInfo.name}Entity;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport org.mapstruct.Builder;\nimport org.mapstruct.Mapper;\nimport org.mapstruct.ReportingPolicy;\n\n/**\n * 实体相互转换\n *\n * @author $!auth\n * @since $!time.currTime()\n */\n@Mapper(componentModel = \"spring\", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))\npublic interface $!{tableInfo.name}PageCopyMap extends BaseThreeMap<$!{tableInfo.name}Entity, $!{tableInfo.name}PageDto, $!{tableInfo.name}PageVo>  {\n}"
+        },
+        {
+          "name": "webFluxController.java",
+          "code": "// +----------------------------------------------------------------------\n// | SkillFull快速开发平台 [ SkillFull ]\n// +----------------------------------------------------------------------\n// | 版权所有 2020~2021 zxiaozhou\n// +----------------------------------------------------------------------\n// | 官方网站: https://www.divisu.com\n// +----------------------------------------------------------------------\n// | 作者: zxiaozhou <z7630853@163.com>\n// +----------------------------------------------------------------------\n##引入宏定义\n$!init\n$!define\n##定义初始变量\n#set($tableName=$tool.append($tableInfo.name,\"Controller\"))\n##设置回调\n$!callback.setFileName($tool.append($tableName,\".java\"))\n$!callback.setSavePath($tool.append($tableInfo.savePath,\"/controller\"))\n$!callback.setReformat(false)\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n#set($pk=$tableInfo.pkColumn.get(0))\n#end\n##使用宏定义设置包后缀\n#setPackageSuffix(\"controller\")\n##使用全局变量实现默认包导入\n$!autoImport\nimport $!{basePage}.base.Result;\nimport $!{basePage}.validation.annotation.NotNullSize;\nimport $!{basePage}.validation.annotation.PathNotBlankOrNull;\nimport $!{basePage1}.base.service.dto.PageDto;\nimport $!{basePage2}.base.controller.BaseController;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}PageVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}QueryVo;\nimport $!{tableInfo.savePackageName}.controller.vo.$!{tableInfo.name}Vo;\nimport $!{tableInfo.savePackageName}.service.I$!{tableInfo.name}Service;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}Dto;\nimport $!{tableInfo.savePackageName}.service.dto.$!{tableInfo.name}PageDto;\nimport io.swagger.v3.oas.annotations.enums.ParameterIn;
+          import
+          io.swagger.v3.oas.annotations.tags.Tag
+          ;
+          \
+          nimport
+          io.swagger.v3.oas.annotations.Parameter
+          ;
+          \
+          nimport
+          io.swagger.v3.oas.annotations.Operation
+          ;
+          \
+          nimport
+          lombok.RequiredArgsConstructor
+          ;
+          \
+          nimport
+          lombok.extern.slf4j.Slf4j
+          ;
+          \
+          nimport
+          org.springframework.http.MediaType
+          ;
+          \
+          nimport
+          org.springframework.http.server.reactive.ServerHttpRequest
+          ;
+          \
+          nimport
+          reactor.core.publisher.Mono
+          ;
+          \
+          nimport
+          org.springframework.validation.annotation.Validated
+          ;
+          \
+          nimport
+          org.springframework.web.bind.annotation.*
+          ;
+          \
+          nimport
+          javax.validation.Valid
+          ;
+          \
+          nimport
+          java.util.List
+          ;
+          \
+          n
+          #
+          #
+          获取主键
+          \
+          n
+          #
+          if(!$tableInfo.pkColumn.isEmpty())
+          \
+          n
+          #
+          set($pk
+          =
+          $tableInfo.pkColumn.get(0))
+          \
+          n
+          #
+          end
+          \
+          n
+          \
+          n/**
+          \
+          n
+          *
+          $!
+        {
+          tableInfo.comment
+        }
+        ($!
+        {
+          tableInfo.name
+        }
+        )控制层
+        \
+        n
+        *
+        \
+        n
+        *
+        @author
+        $!auth
+        \
+        n
+        *
+        @date
+        $!time.currTime()
+        \
+        n
+        *
+        @since
+        JDK1.8
+        \
+        n
+        */
+        \
+        n@Slf4j
+        \
+        n@Validated
+        \
+        n@RestController
+        \
+        n@RequiredArgsConstructor
+        \
+        n@Tag(name
+        =
+        \
+        "$!{tableInfo.name}\", description = \"$!{tableInfo.comment}Api接口相关\", hidden = true)\n@RequestMapping(value = \"/$tool.firstLowerCase($!{tableInfo.name})\", produces = MediaType.APPLICATION_JSON_VALUE)\npublic class $!{tableName} extends BaseController{\n    private final I$!{tableInfo.name}Service service;\n\n\n    @Operation(summary = \"$!{tableInfo.comment}添加@(${version})\", description = \"添加$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/insert\")\n    public Mono<Result<String>> insert(@RequestBody @Valid $!{tableInfo.name}Vo vo,\n                                       final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        service.save(vo);\n        return ok(\"添加成功\");\n    }\n\n\n    @Operation(summary = \"通过${pk.comment}修改@(${version})\", description = \"修改$!{tableInfo.comment}\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @PutMapping(value = \"/update/{${pk.name}}\")\n    public Mono<Result<String>> update(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name}, \n                                 @RequestBody @Valid $!{tableInfo.name}Vo vo,\n                                 final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        service.updateById(${pk.name}, vo);\n        return ok(\"修改成功\");\n    }\n\n\n    @Operation(summary = \"$!{tableInfo.comment}逻辑删除@(${version})\", description = \"删除$!{tableInfo.comment}\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @DeleteMapping(value = \"/delete-one/{${pk.name}}\")\n    public Mono<Result<String>> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name},\n                                          final ServerHttpRequest request) {\n         ServletUtils.setServerHttpRequest(request);\n         service.deleteById(${pk.name});\n         return ok(\"删除成功\");\n    }\n    \n    \n    @Operation(summary = \"$!{tableInfo.comment}逻辑批量删除@(v1.0.0)\", description = \"批量删除$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/delete-batch\")\n    public Mono<Result<String>> deleteBatchByIds(@RequestBody @NotNullSize(message = \"待删除${pk.comment}不能为空\") List<String> ${pk.name}s,\n                                                 final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        service.deleteBatch(${pk.name}s);\n        return ok(\"批量删除成功\");\n    }\n\n\n    @Operation(summary = \"通过${pk.comment}查询详情@(${version})\", description = \"查询$!{tableInfo.comment}详情\", hidden = true)\n    @Parameter(paramType = \"path\", title = \"${pk.comment}\", name = \"${pk.name}\", required = true)\n    @GetMapping(value = \"/select/one/{${pk.name}}\")\n    public Mono<Result<$!{tableInfo.name}Dto>> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = \"${pk.comment}不能为空\") String ${pk.name},\n                                                       final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        return ok(service.getById(${pk.name}));\n    }\n\n\n    @Operation(summary = \"通过条件查询$!{tableInfo.comment}多条数据@(${version})\", description = \"通过条件查询$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/select/list\")\n    public Mono<Result<List<$!{tableInfo.name}Dto>>> getList(@RequestBody $!{tableInfo.name}QueryVo vo,\n                                                     final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        return ok(service.selectListByModel(vo));\n    }\n\n\n    @Operation(summary = \"$!{tableInfo.comment}分页查询@(${version})\", description = \"分页查询$!{tableInfo.comment}\", hidden = true)\n    @PostMapping(value = \"/select/page\")\n    public Mono<Result<PageDto<$!{tableInfo.name}PageDto>>> selectPage(@RequestBody $!{tableInfo.name}PageVo vo,\n                                                                       final ServerHttpRequest request) {\n        ServletUtils.setServerHttpRequest(request);\n        return ok(service.pageByModel(vo));\n    }\n}"
+        }
+      ]
+    }
+  },
+  "columnConfig": {
+    "Default": {
+      "name": "Default",
+      "elementList": [
+        {
+          "title": "disable",
+          "type": "BOOLEAN",
+          "selectValue": ""
+        },
+        {
+          "title": "support",
+          "type": "SELECT",
+          "selectValue": "add,edit,query,del,ui"
+        }
+      ]
+    }
+  },
+  "globalConfig": {
+    "skillfull_template": {
+      "name": "skillfull_template",
+      "elementList": [
+        {
+          "name": "autoImport",
+          "value": "##自动导入包（仅导入实体属性需要的包，通常用于实体类）\n#foreach($import in $importList)\nimport $!import;\n#end"
+        },
+        {
+          "name": "define",
+          "value": "##（Velocity宏定义）\n\n##定义设置表名后缀的宏定义，调用方式：#setTableSuffix(\"Test\")\n#macro(setTableSuffix $suffix)\n    #set($tableName = $!tool.append($tableInfo.name, $suffix))\n#end\n\n##定义设置包名后缀的宏定义，调用方式：#setPackageSuffix(\"Test\")\n#macro(setPackageSuffix $suffix)\n#if($suffix!=\"\")package #end#if($tableInfo.savePackageName!=\"\")$!{tableInfo.savePackageName}.#{end}$!suffix;\n#end\n\n##定义直接保存路径与文件名简化的宏定义，调用方式：#save(\"/entity\", \".java\")\n#macro(save $path $fileName)\n    $!callback.setSavePath($tool.append($tableInfo.savePath, $path))\n    $!callback.setFileName($tool.append($tableInfo.name, $fileName))\n#end\n\n##定义表注释的宏定义，调用方式：#tableComment(\"注释信息\")\n#macro(tableComment $desc)\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})$desc\n *\n * @author $!author\n * @since $!time.currTime()\n */\n#end\n\n##定义GET，SET方法的宏定义，调用方式：#getSetMethod($column)\n#macro(getSetMethod $column)\n\n    public $!{tool.getClsNameByFullName($column.type)} get$!{tool.firstUpperCase($column.name)}() {\n        return $!{column.name};\n    }\n\n    public void set$!{tool.firstUpperCase($column.name)}($!{tool.getClsNameByFullName($column.type)} $!{column.name}) {\n        this.$!{column.name} = $!{column.name};\n    }\n#end"
+        },
+        {
+          "name": "init",
+          "value": "##初始化区域\n\n##去掉表的t_前缀\n#if($tableInfo.obj.name.startsWith(\"testttttt\"))\n    $!tableInfo.setName($tool.getClassName($tableInfo.obj.name.substring(5)))\n#end\n\n## 定义版本号\n#set($version = \"v1.0.0\")\n\n## ktwl项目标记删除字段\n#set($delete = \"delete_mark\")\n\n## 创建时间标识\n#set($createTime = \"create_time\")\n## ktwl项目\n#set($basePage = \"com.ktwlsoft.core\")\n#set($basePage1 = \"com.ktwlsoft.core\")\n#set($basePage2 = \"com.ktwlsoft.core\")\n\n## 公共字段\n#set($publicFelids = $tool.newHashSet(\n    \"createOrgId\",\n    \"createOrgName\",\n    \"createAreaCode\",\n    \"createAreaName\",\n    \"createUserId\",\n    \"createUserName\",\n    \"createTime\",\n    \"updateUserId\",\n    \"updateUserName\",\n    \"updateTime\",\n    \"deleteMark\"\n))\n\n##实现动态排除列\n#set($temp = $tool.newHashSet(\"testCreateTime\", \"otherColumn\"))\n#foreach($item in $temp)\n    #set($newList = $tool.newArrayList())\n    #foreach($column in $tableInfo.fullColumn)\n        #if($column.name!=$item)\n            ##带有反回值的方法调用时使用$tool.call来消除返回值\n            $tool.call($newList.add($column))\n        #end\n    #end\n    ##重新保存\n    $tableInfo.setFullColumn($newList)\n#end\n\n##对importList进行篡改\n#set($temp = $tool.newHashSet())\n#foreach($column in $tableInfo.fullColumn)\n    #if(!$column.type.startsWith(\"java.lang.\"))\n        ##带有反回值的方法调用时使用$tool.call来消除返回值\n        $tool.call($temp.add($column.type))\n    #end\n#end\n##覆盖\n#set($importList = $temp)"
+        },
+        {
+          "name": "mybatisSupport",
+          "value": "##针对Mybatis 进行支持，主要用于生成xml文件\n#foreach($column in $tableInfo.fullColumn)\n    ##储存列类型\n    $tool.call($column.ext.put(\"sqlType\", $tool.getField($column.obj.dataType, \"typeName\")))\n    #if($tool.newHashSet(\"java.lang.String\").contains($column.type))\n        #set($jdbcType=\"VARCHAR\")\n    #elseif($tool.newHashSet(\"java.lang.Boolean\", \"boolean\").contains($column.type))\n        #set($jdbcType=\"BOOLEAN\")\n    #elseif($tool.newHashSet(\"java.lang.Byte\", \"byte\").contains($column.type))\n        #set($jdbcType=\"BYTE\")\n    #elseif($tool.newHashSet(\"java.lang.Integer\", \"int\", \"java.lang.Short\", \"short\").contains($column.type))\n        #set($jdbcType=\"INTEGER\")\n    #elseif($tool.newHashSet(\"java.lang.Long\", \"long\").contains($column.type))\n        #set($jdbcType=\"INTEGER\")\n    #elseif($tool.newHashSet(\"java.lang.Float\", \"float\", \"java.lang.Double\", \"double\").contains($column.type))\n        #set($jdbcType=\"NUMERIC\")\n    #elseif($tool.newHashSet(\"java.util.Date\", \"java.sql.Timestamp\", \"java.time.Instant\", \"java.time.LocalDateTime\", \"java.time.OffsetDateTime\", \"  java.time.ZonedDateTime\").contains($column.type))\n        #set($jdbcType=\"TIMESTAMP\")\n    #elseif($tool.newHashSet(\"java.sql.Date\", \"java.time.LocalDate\").contains($column.type))\n        #set($jdbcType=\"TIMESTAMP\")\n    #else\n        ##其他类型\n        #set($jdbcType=\"OTHER\")\n    #end\n    $tool.call($column.ext.put(\"jdbcType\", $jdbcType))\n#end\n\n##定义宏，查询所有列\n#macro(allSqlColumn)#foreach($column in $tableInfo.fullColumn)$column.obj.name#if($velocityHasNext), #end#end#end\n\n##定义宏，查询所有列\n#macro(allSqlColumnAli)#foreach($column in $tableInfo.fullColumn)ali.$column.obj.name#if($velocityHasNext), #end#end#end\n\n##定义宏，查询所有列\n#macro(allSqlColumnPageAli)#foreach($column in $tableInfo.fullColumn)ali.$column.obj.name#if($velocityHasNext), #end#end#end"
+        }
+      ]
+    }
+  }
+}

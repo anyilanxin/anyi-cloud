@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.storage.modules.oss.mapper.OssFileMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.storage.modules.oss.entity.OssFileEntity" id="OssFileMap">
+        <result property="ossFileId" column="oss_file_id" jdbcType="VARCHAR"/>
+        <result property="fileOriginalName" column="file_original_name" jdbcType="VARCHAR"/>
+        <result property="fileFullName" column="file_full_name" jdbcType="VARCHAR"/>
+        <result property="fileOriginalFullName" column="file_original_full_name" jdbcType="VARCHAR"/>
+        <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
+        <result property="fileSize" column="file_size" jdbcType="VARCHAR"/>
+        <result property="fileSizeDetail" column="file_size_detail" jdbcType="INTEGER"/>
+        <result property="ossTag" column="oss_tag" jdbcType="VARCHAR"/>
+        <result property="fileDirPrefix" column="file_dir_prefix" jdbcType="VARCHAR"/>
+        <result property="fileMd5" column="file_md5" jdbcType="VARCHAR"/>
+        <result property="endpoint" column="endpoint" jdbcType="VARCHAR"/>
+        <result property="bucket" column="bucket" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        oss_file_id, file_original_name, file_full_name, file_original_full_name, file_type, file_size,
+        file_size_detail, oss_tag, file_dir_prefix, file_md5, endpoint, bucket, remark, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_tenant_id, create_user_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.oss_file_id, ali.file_original_name, ali.file_full_name, ali.file_original_full_name, ali.file_type,
+        ali.file_size, ali.file_size_detail, ali.oss_tag, ali.file_dir_prefix, ali.file_md5, ali.endpoint, ali.bucket,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.oss_file_id, ali.file_original_name, ali.file_full_name, ali.file_original_full_name, ali.file_type,
+        ali.file_size, ali.file_size_detail, ali.oss_tag, ali.file_dir_prefix, ali.file_md5, ali.endpoint, ali.bucket,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="indi.zxiaozhou.skillfull.storage.modules.oss.service.dto.OssFilePageDto">
+        SELECT
+        <include refid="Column_List"/>
+        FROM storage_oss_file
+        <where>
+            del_flag = 0
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, file_original_full_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, file_type) &gt; 0
+                )
+            </if>
+            <if test="query.startTime != null">
+                AND create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过文件id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM storage_oss_file
+        WHERE oss_file_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE storage_oss_file
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE oss_file_id = #{ossFileId, jdbcType=VARCHAR}
+    </update>
+</mapper>

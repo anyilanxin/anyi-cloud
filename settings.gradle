@@ -1,0 +1,33 @@
+// 指定plugin下载仓库
+pluginManagement {
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        gradlePluginPortal()
+    }
+}
+
+
+// 项目信息
+rootProject.name = 'skillfull-cloud'
+
+// 服务
+include 'skillfull-auth-service'
+include 'skillfull-example-service'
+include 'skillfull-gateway-service'
+include 'skillfull-job-service'
+include 'skillfull-logging-service'
+include 'skillfull-message-service'
+include 'skillfull-monitor-service'
+include 'skillfull-storage-service'
+include 'skillfull-system-service'
+
+// 工具
+include 'skillfull-core-modules:skillfull-core-common'
+include 'skillfull-core-modules:skillfull-core-database'
+include 'skillfull-core-modules:skillfull-core-mvc'
+include 'skillfull-core-modules:skillfull-core-mvc-data-permission'
+include 'skillfull-core-modules:skillfull-core-process'
+include 'skillfull-core-modules:skillfull-core-webflux'
+include 'skillfull-core-modules:skillfull-core-webflux-database'
+include 'skillfull-core-modules:skillfull-core-webflux-data-permission'

@@ -1,0 +1,181 @@
+spring:
+  webflux:
+    base-path: ${app.base-path:/storage}
+    format:
+      date: yyyy-mm-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  application:
+    name: storage-service
+    version: ${VERSION:#@version@#}
+  datasource:
+    url: jdbc:mysql://${mysql.host:localhost}:${mysql.port:3306}/${mysql.database:database}?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: ${mysql.username:root}
+    password: ${mysql.password:root}
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      db-type: mysql
+      enable: true
+      password: ${mysql.password:root}
+      username: ${mysql.username:root}
+      # 初始化连接大小
+      initial-size: 10
+      # 最小空闲连接数
+      min-idle: 5
+      max-active: 20
+      max-wait: 30000
+      # 可关闭的空闲连接间隔时间
+      time-between-eviction-runs-millis: 60000
+      # 配置连接在池中的最小生存时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: select '1' from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #关闭长时间不使用的连接
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      log-abandoned: true
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: false
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: ${redis.database:10}
+    host: ${redis.host:localhost}
+    password: ${redis.password:root}
+    port: ${redis.port:6379}
+    lettuce:
+      pool:
+        max-idle: 20
+        max-wait: -1
+        min-idle: 0
+        max-active: 200
+  sleuth:
+    # 遗弃掉redis的信息否则会导致使用KeyspaceEventMessageListener的应用无法启动完成
+    redis:
+      legacy:
+        enabled: true
+  rabbitmq:
+    host: ${rbmq.host:localhost}
+    port: ${rbmq.port:5672}
+    username: ${rbmq.username:guest}
+    password: ${rbmq.password:guest}
+  cloud:
+    sentinel:
+      log:
+        dir: ./logs
+    stream:
+      bindings:
+        operateLogProcess-out-0:
+          destination: operateLogProcess
+          group: logging-service
+
+
+# server配置
+server:
+  port: ${app.server-port}
+  shutdown: graceful
+  servlet:
+    context-path: ${app.base-path:/storage}
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 4
+      worker: 56
+  # 使其获取请求协议使用远程的,nginx代理需要设置:proxy_set_header X-Forwarded-Proto $scheme;
+
+
+# 开启监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  info:
+    java:
+      enabled: true
+
+
+# 日志
+logging:
+  level:
+    root: ${app.log-root-level:debug}
+    indi.zxiaozhou: ${app.log-package-level:debug}
+    com.alibaba.nacos: error
+  # 生成日志文件路径(注释不会生成)
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+  file:
+    name: ./logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-history: 7
+  register-shutdown-hook: true
+debug: true
+
+
+# mybatis
+mybatis-plus:
+  # mapper.xml路径
+  mapper-locations: classpath*:indi/zxiaozhou/skillfull/*/modules/*/mapper/xml/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: indi.zxiaozhou.skillfull.*.modules.*.entity
+  global-config:
+    banner: false
+    db-config:
+      # 主键类型(使用snowflake id)
+      id-type: ASSIGN_ID
+      # 字段插入判断策略
+      insert-strategy: not_empty
+      # 字段更新判断策略
+      update-strategy: not_null
+      # 字段查询判断策略
+      where-strategy: not_empty
+  configuration:
+    # 配置数据库驼峰与下划线互转
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+# alibaba相关配置
+alibaba:
+  cloud:
+    access-key: LTAI4G7bxvDjmgpzvQUPaok3
+    secret-key: M938nQYEjhXPuREXEXbaW30hcbigz3
+    oss:
+      authorization-mode: ak_sk
+      endpoint: https://oss-cn-chengdu.aliyuncs.com
+      bucket: skillfulcloud
+      access-expire-time: 43200 # 生成文件url访问过期时间(单位:s,默认12小时)
+
+
+# api文档配置
+springdoc:
+  version: ${spring.application.version}
+  api-prefix: /api${app.base-path} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  headers:
+    - skill-full-token
+    - Authorization
+  title: ${spring.application.name}服务
+  contact-email: z7630853@163.com
+  contact-user: zxiaozhou
+  api-docs:
+    enabled: ${app.enable-doc:false}
+  packages-to-scan: indi.zxiaozhou.skillfull
+  swagger-ui:
+    enabled: ${app.enable-doc:false}

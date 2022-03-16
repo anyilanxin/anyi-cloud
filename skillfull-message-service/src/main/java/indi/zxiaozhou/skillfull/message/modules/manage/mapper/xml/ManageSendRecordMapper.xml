@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.message.modules.manage.mapper.ManageSendRecordMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.message.modules.manage.entity.ManageSendRecordEntity"
+               id="ManageSendRecordMap">
+        <result property="esId" column="es_id" jdbcType="VARCHAR"/>
+        <result property="esTitle" column="es_title" jdbcType="VARCHAR"/>
+        <result property="templateId" column="template_id" jdbcType="VARCHAR"/>
+        <result property="templateCode" column="template_code" jdbcType="VARCHAR"/>
+        <result property="templateOriginalData" column="template_original_data" jdbcType="VARCHAR"/>
+        <result property="esType" column="es_type" jdbcType="INTEGER"/>
+        <result property="esReceiver" column="es_receiver" jdbcType="VARCHAR"/>
+        <result property="toPage" column="to_page" jdbcType="VARCHAR"/>
+        <result property="esParam" column="es_param" jdbcType="VARCHAR"/>
+        <result property="esContent" column="es_content" jdbcType="VARCHAR"/>
+        <result property="esSendTime" column="es_send_time" jdbcType="TIMESTAMP"/>
+        <result property="esSendStatus" column="es_send_status" jdbcType="VARCHAR"/>
+        <result property="esSendMaxNum" column="es_send_max_num" jdbcType="INTEGER"/>
+        <result property="esSendNum" column="es_send_num" jdbcType="INTEGER"/>
+        <result property="esResults" column="es_results" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        es_id, es_title, template_id, template_code, template_original_data, es_type, es_receiver, to_page, es_param,
+        es_content, es_send_time, es_send_status, es_send_max_num, es_send_num, es_results, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_user_id, create_user_name,
+        create_tenant_id, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.es_id, ali.es_title, ali.template_id, ali.template_code, ali.template_original_data, ali.es_type,
+        ali.es_receiver, ali.to_page, ali.es_param, ali.es_content, ali.es_send_time, ali.es_send_status,
+        ali.es_send_max_num, ali.es_send_num, ali.es_results, ali.create_area_code, ali.create_position_code,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_user_name, ali.create_tenant_id,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.es_id, ali.es_title, ali.template_id, ali.template_code, ali.template_original_data, ali.es_type,
+        ali.es_receiver, ali.to_page, ali.es_param, ali.es_content, ali.es_send_time, ali.es_send_status,
+        ali.es_send_max_num, ali.es_send_num, ali.es_results, ali.create_area_code, ali.create_position_code,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_user_name, ali.create_tenant_id,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="indi.zxiaozhou.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM msg_manage_send_record ali
+        <where>
+            ali.del_flag = 0
+
+            <if test="query.esTitle != null and query.esTitle != ''">
+                AND LOCATE(#{query.esTitle, jdbcType=VARCHAR}, ali.es_title) &gt; 0
+            </if>
+            <if test="query.esType != null">
+                AND ali.es_type = #{query.esType, jdbcType=INTEGER}
+            </if>
+            <if test="query.esReceiver != null and query.esReceiver != ''">
+                AND LOCATE(#{query.esReceiver, jdbcType=VARCHAR}, ali.es_receiver) &gt; 0
+            </if>
+            <if test="query.esSendStatus != null and query.esSendStatus != ''">
+                AND ali.es_send_status = #{query.esSendStatus, jdbcType=VARCHAR}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过消息id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM msg_manage_send_record
+        WHERE es_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM msg_manage_send_record
+        WHERE es_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE msg_manage_send_record
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE es_id = #{esId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE msg_manage_send_record
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE es_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

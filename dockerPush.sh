@@ -1,0 +1,2 @@
+
+gradle dockerPushImageAll --info

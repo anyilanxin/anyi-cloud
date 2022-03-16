@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_16k75kf" targetNamespace="marketing_department" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_larot7i" name="异常问题处理单" isExecutable="true">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property name="PROCESS_PROPERTY" value="{&#34;startTitle&#34;:&#34;${initiateUser}在${initiateTime}发起了${modelNames}流程&#34;,&#34;limitCandidateStarter&#34;:true,&#34;candidateStarterUsers&#34;:&#34;&#34;,&#34;candidateStarterUserNames&#34;:&#34;&#34;,&#34;candidateStarterGroups&#34;:&#34;&#34;,&#34;candidateStarterGroupNames&#34;:&#34;&#34;,&#34;category&#34;:&#34;development_department&#34;}" />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1" name="发起流程" camunda:initiator="initiateUser">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="START_EVENT_PROPERTY" value="{&#34;initiator&#34;:&#34;initiateUser&#34;,&#34;initiatorName&#34;:&#34;流程发起人&#34;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_16jbebt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_16jbebt" sourceRef="StartEvent_1" targetRef="Activity_08b1upi" />
+    <bpmn:sequenceFlow id="Flow_0l62mlf" sourceRef="Activity_08b1upi" targetRef="Activity_19a6uli" />
+    <bpmn:sequenceFlow id="Flow_1uitg3f" sourceRef="Event_1o4tzxg" targetRef="Activity_1yv99fu" />
+    <bpmn:boundaryEvent id="Event_1o4tzxg" name="操过一定时间自动转入高级" attachedToRef="Activity_19a6uli">
+      <bpmn:outgoing>Flow_1uitg3f</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0pi8616" />
+    </bpmn:boundaryEvent>
+    <bpmn:userTask id="Activity_08b1upi" name="实施填写表单">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="USER_TASK_PROPERTY" value="{&#34;automaticSkip&#34;:false,&#34;candidateGroupNames&#34;:&#34;&#34;,&#34;candidateGroupsType&#34;:1,&#34;candidateUsers&#34;:&#34;&#34;,&#34;candidateUserNames&#34;:&#34;&#34;,&#34;candidateUsersType&#34;:1,&#34;assigneeName&#34;:&#34;&#34;,&#34;assigneeType&#34;:1,&#34;dueFormatDate&#34;:&#34;&#34;,&#34;dueDateType&#34;:1,&#34;followUpFormatDate&#34;:&#34;&#34;,&#34;followUpDateType&#34;:1,&#34;notificationType&#34;:[],&#34;buttons&#34;:[]}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_16jbebt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l62mlf</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_19a6uli" name="初级研发处理">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="USER_TASK_PROPERTY" value="{&#34;automaticSkip&#34;:false,&#34;candidateGroupNames&#34;:&#34;&#34;,&#34;candidateGroupsType&#34;:1,&#34;candidateUsers&#34;:&#34;&#34;,&#34;candidateUserNames&#34;:&#34;&#34;,&#34;candidateUsersType&#34;:1,&#34;assigneeName&#34;:&#34;&#34;,&#34;assigneeType&#34;:1,&#34;dueFormatDate&#34;:&#34;&#34;,&#34;dueDateType&#34;:1,&#34;followUpFormatDate&#34;:&#34;&#34;,&#34;followUpDateType&#34;:1,&#34;notificationType&#34;:[],&#34;buttons&#34;:[]}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0l62mlf</bpmn:incoming>
+      <bpmn:incoming>Flow_1r5g0ij</bpmn:incoming>
+      <bpmn:outgoing>Flow_18pd7tb</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1yv99fu" name="高级研发处理">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="USER_TASK_PROPERTY" value="{&#34;automaticSkip&#34;:false,&#34;candidateGroupNames&#34;:&#34;&#34;,&#34;candidateGroupsType&#34;:1,&#34;candidateUsers&#34;:&#34;&#34;,&#34;candidateUserNames&#34;:&#34;&#34;,&#34;candidateUsersType&#34;:1,&#34;assigneeName&#34;:&#34;&#34;,&#34;assigneeType&#34;:1,&#34;dueFormatDate&#34;:&#34;&#34;,&#34;dueDateType&#34;:1,&#34;followUpFormatDate&#34;:&#34;&#34;,&#34;followUpDateType&#34;:1,&#34;notificationType&#34;:[],&#34;buttons&#34;:[]}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uitg3f</bpmn:incoming>
+      <bpmn:incoming>Flow_0gkd2w4</bpmn:incoming>
+      <bpmn:outgoing>Flow_04j4fms</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_18pd7tb" sourceRef="Activity_19a6uli" targetRef="Activity_0zqsvmf" />
+    <bpmn:sequenceFlow id="Flow_04j4fms" sourceRef="Activity_1yv99fu" targetRef="Activity_0zqsvmf" />
+    <bpmn:userTask id="Activity_0zqsvmf" name="实施验证">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="USER_TASK_PROPERTY" value="{&#34;automaticSkip&#34;:false,&#34;candidateGroupNames&#34;:&#34;&#34;,&#34;candidateGroupsType&#34;:1,&#34;candidateUsers&#34;:&#34;&#34;,&#34;candidateUserNames&#34;:&#34;&#34;,&#34;candidateUsersType&#34;:1,&#34;assigneeName&#34;:&#34;&#34;,&#34;assigneeType&#34;:1,&#34;dueFormatDate&#34;:&#34;&#34;,&#34;dueDateType&#34;:1,&#34;followUpFormatDate&#34;:&#34;&#34;,&#34;followUpDateType&#34;:1,&#34;notificationType&#34;:[],&#34;buttons&#34;:[]}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_18pd7tb</bpmn:incoming>
+      <bpmn:incoming>Flow_04j4fms</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nn5av1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1cdugaa">
+      <bpmn:incoming>Flow_1nn5av1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gkd2w4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1r5g0ij</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1tgpazc</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1nn5av1" sourceRef="Activity_0zqsvmf" targetRef="Gateway_1cdugaa" />
+    <bpmn:sequenceFlow id="Flow_0gkd2w4" name="处理人为高级研发(验证未通过)" sourceRef="Gateway_1cdugaa" targetRef="Activity_1yv99fu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${nrOfInstanceStatus==30 &amp;&amp; handleRole=='senior'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1r5g0ij" name="处理人为初级研发(验证未通过)" sourceRef="Gateway_1cdugaa" targetRef="Activity_19a6uli">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${nrOfInstanceStatus==30 &amp;&amp; handleRole=='primary'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1tgpazc" name="验证通过" sourceRef="Gateway_1cdugaa" targetRef="Activity_0hjqkps">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${nrOfInstanceStatus==30}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1hi1fze" name="结束">
+      <bpmn:incoming>Flow_0duhj6l</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0duhj6l" sourceRef="Activity_0hjqkps" targetRef="Event_1hi1fze" />
+    <bpmn:serviceTask id="Activity_0hjqkps" name="存入问题库">
+      <bpmn:incoming>Flow_1tgpazc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0duhj6l</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_larot7i">
+      <bpmndi:BPMNEdge id="Flow_0duhj6l_di" bpmnElement="Flow_0duhj6l" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="1120" y="97" />
+        <di:waypoint x="1232" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tgpazc_di" bpmnElement="Flow_1tgpazc" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:border-color="#43a047" background-color="#c8e6c9">
+        <di:waypoint x="915" y="97" />
+        <di:waypoint x="1020" y="97" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="946" y="79" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r5g0ij_di" bpmnElement="Flow_1r5g0ij" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="890" y="72" />
+        <di:waypoint x="890" y="-40" />
+        <di:waypoint x="510" y="-40" />
+        <di:waypoint x="510" y="57" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="862" y="-14" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gkd2w4_di" bpmnElement="Flow_0gkd2w4" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="890" y="122" />
+        <di:waypoint x="890" y="270" />
+        <di:waypoint x="560" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="862" y="209" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nn5av1_di" bpmnElement="Flow_1nn5av1" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="760" y="97" />
+        <di:waypoint x="865" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04j4fms_di" bpmnElement="Flow_04j4fms" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="560" y="230" />
+        <di:waypoint x="710" y="230" />
+        <di:waypoint x="710" y="137" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18pd7tb_di" bpmnElement="Flow_18pd7tb" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="560" y="97" />
+        <di:waypoint x="660" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uitg3f_di" bpmnElement="Flow_1uitg3f" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="510" y="155" />
+        <di:waypoint x="510" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l62mlf_di" bpmnElement="Flow_0l62mlf" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="400" y="97" />
+        <di:waypoint x="460" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16jbebt_di" bpmnElement="Flow_16jbebt" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="300" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1" bioc:stroke="#1e88e5" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#1e88e5">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="175" y="122" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1l11q1t_di" bpmnElement="Activity_08b1upi" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="300" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ssq5n2_di" bpmnElement="Activity_19a6uli" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="460" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05mpmzw_di" bpmnElement="Activity_1yv99fu" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="460" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xxo5pp_di" bpmnElement="Activity_0zqsvmf" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="660" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cdugaa_di" bpmnElement="Gateway_1cdugaa" isMarkerVisible="true" bioc:stroke="#fb8c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#fb8c00">
+        <dc:Bounds x="865" y="72" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hi1fze_di" bpmnElement="Event_1hi1fze" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1232" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1239" y="122" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1weiu9u_di" bpmnElement="Activity_0hjqkps" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="1020" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0mapdp8_di" bpmnElement="Event_1o4tzxg" bioc:stroke="#fb8c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#fb8c00">
+        <dc:Bounds x="492" y="119" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="471" y="156" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

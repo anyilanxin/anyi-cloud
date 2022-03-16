@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.auth.modules.rbac.mapper.RbacOrgMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.auth.modules.rbac.entity.RbacOrgEntity" id="RbacOrgMap">
+        <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="orgNameEn" column="org_name_en" jdbcType="VARCHAR"/>
+        <result property="orgNameAbbr" column="org_name_abbr" jdbcType="VARCHAR"/>
+        <result property="orgOrder" column="org_order" jdbcType="INTEGER"/>
+        <result property="orgType" column="org_type" jdbcType="INTEGER"/>
+        <result property="orgCode" column="org_code" jdbcType="VARCHAR"/>
+        <result property="orgSysCode" column="org_sys_code" jdbcType="VARCHAR"/>
+        <result property="orgStatus" column="org_status" jdbcType="INTEGER"/>
+        <result property="autoBind" column="auto_bind" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="fax" column="fax" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        org_id, parent_id, org_name, org_name_en, org_name_abbr, org_order, org_type, org_code, org_sys_code,
+        org_status, auto_bind, phone, fax, address, remark, unique_help, create_area_code, create_position_code,
+        create_org_sys_code, create_system_code, create_user_id, create_tenant_id, create_user_name, create_time,
+        update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.org_id, ali.parent_id, ali.org_name, ali.org_name_en, ali.org_name_abbr, ali.org_order, ali.org_type,
+        ali.org_code, ali.org_sys_code, ali.org_status, ali.auto_bind, ali.phone, ali.fax, ali.address, ali.remark,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.org_id, ali.parent_id, ali.org_name, ali.org_name_en, ali.org_name_abbr, ali.org_order, ali.org_type,
+        ali.org_code, ali.org_sys_code, ali.org_status, ali.auto_bind, ali.phone, ali.fax, ali.address, ali.remark,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.RbacOrgTreePageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM auth_rbac_org ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.orgName != null and query.orgName != ''">
+                AND LOCATE(#{query.orgName, jdbcType=VARCHAR}, ali.org_name) &gt; 0
+            </if>
+            <if test="query.orgCode != null and query.orgCode != ''">
+                AND LOCATE(#{query.orgCode, jdbcType=VARCHAR}, ali.org_code) &gt; 0
+            </if>
+            <if test="query.orgStatus != null">
+                AND ali.org_status = #{query.orgStatus, jdbcType=VARCHAR}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过组织id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM auth_rbac_org
+        WHERE org_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM auth_rbac_org
+        WHERE org_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE auth_rbac_org
+        <set>
+            del_flag = 1,
+            unique_help = org_id,
+        </set>
+        WHERE org_id = #{orgId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE auth_rbac_org
+        <set>
+            del_flag = 1,
+            unique_help = org_id,
+        </set>
+        WHERE org_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

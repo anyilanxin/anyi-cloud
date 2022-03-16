@@ -1,0 +1,132 @@
+spring:
+  webflux:
+    format:
+      date: yyyy-mm-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  application:
+    name: gateway-service
+    version: ${VERSION:#@version@#}
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: ${redis.database:0}
+    host: ${redis.host:localhost}
+    password: ${redis.password:root}
+    port: ${redis.port:6379}
+    timeout: 5000
+    lettuce:
+      pool:
+        max-idle: 20
+        max-wait: -1
+        min-idle: 0
+        max-active: 200
+  sleuth:
+    # 遗弃掉redis的信息否则会导致使用KeyspaceEventMessageListener的应用无法启动完成
+    redis:
+      legacy:
+        enabled: true
+  rabbitmq:
+    host: ${rbmq.host:localhost}
+    port: ${rbmq.port:5672}
+    username: ${rbmq.username:guest}
+    password: ${rbmq.password:guest}
+  cloud:
+    sentinel:
+      log:
+        dir: ./logs
+    function:
+      definition: routerProcess;baseConfigProcess;refreshDocProcess
+    stream:
+      bindings:
+        routerProcess-in-0:
+          destination: routerProcess
+        baseConfigProcess-in-0:
+          destination: baseConfigProcess
+        operateLogProcess-out-0:
+          destination: operateLogProcess
+          group: logging-service
+
+
+server:
+  port: ${app.server-port}
+  shutdown: graceful
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 4
+      worker: 56
+  # 使其获取请求协议使用远程的,nginx代理需要设置:proxy_set_header X-Forwarded-Proto $scheme;
+  # forward-headers-strategy: framework
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  info:
+    java:
+      enabled: true
+
+
+logging:
+  level:
+    root: ${app.log-root-level:debug}
+    indi.zxiaozhou: ${app.log-package-level:debug}
+    com.alibaba.nacos: error
+  # 生成日志文件路径(注释不会生成)
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+  file:
+    name: ./logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-history: 7
+  register-shutdown-hook: true
+debug: true
+
+
+# api文档配置
+springdoc:
+  version: ${spring.application.version}
+  api-prefix: /api/gateway # 网关swagger 调试时接口请求前缀
+  other-api-docs-prefix: /api # 通过网关访问获取swagger json前缀
+  gateway-api-docs-prefix: ${springdoc.api-prefix} # 网关访问获取swagger json前缀
+  headers:
+    - skill-full-token
+    - Authorization
+  title: ${spring.application.name}服务
+  contact-email: z7630853@163.com
+  contact-user: zxiaozhou
+  api-docs:
+    enabled: ${app.enable-doc:false}
+  packages-to-scan: indi.zxiaozhou.skillfull
+  swagger-ui:
+    # 网关统一地址前缀，需要特殊处理，此处还需要配置路由重写，即去掉/api/gateway(如果不需要统一前缀此处可以不用配置)
+    custom-path: ${springdoc.api-prefix}/webjars/swagger-ui/index.html?configUrl=${springdoc.api-prefix}/v3/api-docs/swagger-config
+    enabled: ${app.enable-doc:false}
+    query-config-enabled: true
+    use-root-path: true
+    # 网关api docs信息
+    urls:
+      - name: all
+        url: ${springdoc.api-prefix}/v3/api-docs/all
+  cache:
+    disabled: true
+
+
+

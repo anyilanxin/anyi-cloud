@@ -1,0 +1,205 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '2.6.3'
+    id 'java-library'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.bmuschko.docker-spring-boot-application' version '7.1.0'
+}
+
+
+apply from: "config.gradle"
+
+
+version = rootProject.ext.version["skillfull-cloud"]
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+// 批量创建容器并推送到仓库
+task dockerPushImageAll() {
+    subprojects.findAll { project ->
+        def versionInfo = rootProject.ext.version[project.name]
+        if (versionInfo != null && versionInfo['bootJar']) {
+            dependsOn ':' + project.name + ':dockerPushImage'
+        }
+    }
+}
+
+
+// 批量创建bootJar包
+task buildBootJarAll() {
+    subprojects.findAll { project ->
+        def versionInfo = rootProject.ext.version[project.name]
+        if (versionInfo != null && versionInfo['bootJar']) {
+            dependsOn ':' + project.name + ':bootJar'
+        }
+    }
+}
+
+
+// 所有项目下载仓库
+allprojects {
+    // 指定所有项目maven仓库
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    // 指定编译编码
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+    // 编译jdk版本
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+    // 项目全局信息
+    group = 'indi.zxiaozhou.skillfull'
+}
+
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'com.bmuschko.docker-spring-boot-application'
+
+    jar { enabled = true }
+    bootJar { enabled = false }
+
+    // 处理非resources下的mapper xml文件问题
+    task mapperXmlCopy(type: Copy) {
+        copy {
+            from("src/main/java") { include("**/xml/*.xml") }
+            into("${buildDir}/classes/java/main")
+        }
+    }
+
+    // docker打包
+    def dockerInfo = rootProject.ext.docker[dockerEnv]
+    // jar名称
+    def jarBaseName = bootJar.archiveBaseName.get()
+    // jar版本号
+    def versionInfo = rootProject.ext.version[jarBaseName]
+    if (versionInfo != null) {
+        docker {
+            springBootApplication {
+                baseImage = dockerInfo.baseImage
+                ports = [80]
+                images = [dockerInfo.images + jarBaseName + ":" + versionInfo['version']]
+            }
+            if (dockerInfo.isRemortDocker) {
+                url.set(dockerInfo.remortDocker)
+            }
+            registryCredentials dockerInfo.credentials
+        }
+    }
+
+    // 进行配置文件变量替换
+    processResources {
+        filteringCharset = 'UTF-8'
+        include('*.yml', '*.yaml', 'META-INF/**')
+        // 只处理yml、yaml文件替换
+        filesMatching('*.yml') {
+            filter(
+                    ReplaceTokens,
+                    "tokens": [
+                            version: bootJar.archiveVersion.get(),
+                            name   : bootJar.archiveBaseName.get()
+                    ],
+                    "beginToken": "#@",
+                    "endToken": "@#"
+            )
+        }
+        filesMatching('*.yaml') {
+            filter(
+                    ReplaceTokens,
+                    "tokens": [
+                            version: bootJar.archiveVersion.get(),
+                            name   : bootJar.archiveBaseName.get()
+                    ],
+                    "beginToken": "#@",
+                    "endToken": "@#"
+            )
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    // cloud依赖管理
+    dependencyManagement {
+        imports {
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+            mavenBom "com.alibaba.cloud:aliyun-spring-boot-dependencies:${springAlibabaVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    // 公共依赖
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        annotationProcessor "org.projectlombok:lombok"
+        annotationProcessor rootProject.ext.dependencies["mapstruct"]
+        annotationProcessor rootProject.ext.dependencies["mapstruct-processor"]
+
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        compileOnly "org.projectlombok:lombok"
+        compileOnly rootProject.ext.dependencies["mapstruct"]
+        compileOnly rootProject.ext.dependencies["mapstruct-processor"]
+
+        implementation 'org.springframework.cloud:spring-cloud-starter'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+        implementation 'org.springframework.boot:spring-boot-starter-cache'
+        implementation 'org.springframework.boot:spring-boot-configuration-processor'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+        implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+
+        implementation rootProject.ext.dependencies["guava"]
+        implementation rootProject.ext.dependencies["hutool-all"]
+        implementation rootProject.ext.dependencies["commons-lang3"]
+        implementation rootProject.ext.dependencies["commons-codec"]
+        implementation rootProject.ext.dependencies["swagger-annotations"]
+        implementation rootProject.ext.dependencies["fastjson"]
+        implementation rootProject.ext.dependencies["slf4j-api"]
+        implementation rootProject.ext.dependencies["commons-io"]
+        implementation rootProject.ext.dependencies["commons-pool2"]
+        implementation rootProject.ext.dependencies["bcprov-jdk14"]
+        implementation rootProject.ext.dependencies["log4j-api"]
+        implementation rootProject.ext.dependencies["log4j-to-slf4j"]
+        implementation rootProject.ext.dependencies["log4j-core"]
+
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+        testImplementation 'org.springframework.amqp:spring-rabbit-test'
+        testImplementation 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+    }
+}
+
+
+
+
+
+
+
+
+

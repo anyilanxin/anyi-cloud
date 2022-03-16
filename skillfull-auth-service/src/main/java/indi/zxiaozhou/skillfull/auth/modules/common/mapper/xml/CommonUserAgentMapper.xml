@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.auth.modules.common.mapper.CommonUserAgentMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.auth.modules.common.entity.CommonUserAgentEntity" id="CommonUserAgentMap">
+        <result property="agentId" column="agent_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="agentUserId" column="agent_user_id" jdbcType="VARCHAR"/>
+        <result property="agentStartTime" column="agent_start_time" jdbcType="TIMESTAMP"/>
+        <result property="agentEndTime" column="agent_end_time" jdbcType="TIMESTAMP"/>
+        <result property="isLimit" column="is_limit" jdbcType="INTEGER"/>
+        <result property="agentStatus" column="agent_status" jdbcType="INTEGER"/>
+        <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        agent_id, user_id, agent_user_id, agent_start_time, agent_end_time, is_limit, agent_status, unique_help, remark,
+        create_area_code, create_position_code, create_org_sys_code, create_system_code, create_user_id,
+        create_user_name, create_tenant_id, create_time, update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.agent_id, ali.user_id, ali.agent_user_id, ali.agent_start_time, ali.agent_end_time, ali.is_limit,
+        ali.agent_status, ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_user_name, ali.create_tenant_id,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.agent_id, ali.user_id, ali.agent_user_id, ali.agent_start_time, ali.agent_end_time, ali.is_limit,
+        ali.agent_status, ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_user_name, ali.create_tenant_id,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="indi.zxiaozhou.skillfull.auth.modules.common.service.dto.CommonUserAgentPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM auth_common_user_agent ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.agentId != null and query.agentId != ''">
+                AND ali.agent_id = #{query.agentId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.userId != null and query.userId != ''">
+                AND ali.user_id = #{query.userId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.agentUserId != null and query.agentUserId != ''">
+                AND ali.agent_user_id = #{query.agentUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.agentStartTime != null">
+                AND ali.agent_start_time = #{query.agentStartTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.agentEndTime != null">
+                AND ali.agent_end_time = #{query.agentEndTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.isLimit != null">
+                AND ali.is_limit = #{query.isLimit, jdbcType=INTEGER}
+            </if>
+            <if test="query.agentStatus != null">
+                AND ali.agent_status = #{query.agentStatus, jdbcType=INTEGER}
+            </if>
+            <if test="query.uniqueHelp != null and query.uniqueHelp != ''">
+                AND ali.unique_help = #{query.uniqueHelp, jdbcType=VARCHAR}
+            </if>
+            <if test="query.remark != null and query.remark != ''">
+                AND ali.remark = #{query.remark, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createAreaCode != null and query.createAreaCode != ''">
+                AND ali.create_area_code = #{query.createAreaCode, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createPositionCode != null and query.createPositionCode != ''">
+                AND ali.create_position_code = #{query.createPositionCode, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createOrgSysCode != null and query.createOrgSysCode != ''">
+                AND ali.create_org_sys_code = #{query.createOrgSysCode, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createSystemCode != null and query.createSystemCode != ''">
+                AND ali.create_system_code = #{query.createSystemCode, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createUserId != null and query.createUserId != ''">
+                AND ali.create_user_id = #{query.createUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createUserName != null and query.createUserName != ''">
+                AND ali.create_user_name = #{query.createUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="query.createTenantId != null and query.createTenantId != ''">
+                AND ali.create_tenant_id = #{query.createTenantId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.updateUserId != null and query.updateUserId != ''">
+                AND ali.update_user_id = #{query.updateUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.updateUserName != null and query.updateUserName != ''">
+                AND ali.update_user_name = #{query.updateUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="query.updateTime != null">
+                AND ali.update_time = #{query.updateTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.delFlag != null">
+                AND ali.del_flag = #{query.delFlag, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel"
+            resultType="indi.zxiaozhou.skillfull.auth.modules.common.service.dto.CommonUserAgentDto"
+            parameterType="indi.zxiaozhou.skillfull.auth.modules.common.controller.vo.CommonUserAgentQueryVo">
+        SELECT
+        <include refid="Column_List"/>
+        FROM auth_common_user_agent
+        <where>
+            del_flag = 0
+            <if test="agentId != null and agentId != ''">
+                AND agent_id = #{agentId, jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId, jdbcType=VARCHAR}
+            </if>
+            <if test="agentUserId != null and agentUserId != ''">
+                AND agent_user_id = #{agentUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="agentStartTime != null">
+                AND agent_start_time = #{agentStartTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="agentEndTime != null">
+                AND agent_end_time = #{agentEndTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="isLimit != null">
+                AND is_limit = #{isLimit, jdbcType=INTEGER}
+            </if>
+            <if test="agentStatus != null">
+                AND agent_status = #{agentStatus, jdbcType=INTEGER}
+            </if>
+            <if test="uniqueHelp != null and uniqueHelp != ''">
+                AND unique_help = #{uniqueHelp, jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND remark = #{remark, jdbcType=VARCHAR}
+            </if>
+            <if test="createAreaCode != null and createAreaCode != ''">
+                AND create_area_code = #{createAreaCode, jdbcType=VARCHAR}
+            </if>
+            <if test="createPositionCode != null and createPositionCode != ''">
+                AND create_position_code = #{createPositionCode, jdbcType=VARCHAR}
+            </if>
+            <if test="createOrgSysCode != null and createOrgSysCode != ''">
+                AND create_org_sys_code = #{createOrgSysCode, jdbcType=VARCHAR}
+            </if>
+            <if test="createSystemCode != null and createSystemCode != ''">
+                AND create_system_code = #{createSystemCode, jdbcType=VARCHAR}
+            </if>
+            <if test="createUserId != null and createUserId != ''">
+                AND create_user_id = #{createUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="createUserName != null and createUserName != ''">
+                AND create_user_name = #{createUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="createTenantId != null and createTenantId != ''">
+                AND create_tenant_id = #{createTenantId, jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUserId != null and updateUserId != ''">
+                AND update_user_id = #{updateUserId, jdbcType=VARCHAR}
+            </if>
+            <if test="updateUserName != null and updateUserName != ''">
+                AND update_user_name = #{updateUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="delFlag != null">
+                AND del_flag = #{delFlag, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过代理id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM auth_common_user_agent
+        WHERE agent_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM auth_common_user_agent
+        WHERE agent_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE auth_common_user_agent
+        <set>
+            del_flag = 1,
+            unique_help = agent_id,
+        </set>
+        WHERE agent_id = #{agentId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE auth_common_user_agent
+        <set>
+            del_flag = 1,
+            unique_help = agent_id,
+        </set>
+        WHERE agent_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

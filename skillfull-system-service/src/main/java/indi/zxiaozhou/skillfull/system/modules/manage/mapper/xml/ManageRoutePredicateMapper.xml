@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.zxiaozhou.skillfull.system.modules.manage.mapper.ManageRoutePredicateMapper">
+
+    <resultMap type="indi.zxiaozhou.skillfull.system.modules.manage.entity.ManageRoutePredicateEntity"
+               id="ManageRoutePredicateMap">
+        <result property="predicateId" column="predicate_id" jdbcType="VARCHAR"/>
+        <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
+        <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
+        <result property="predicateType" column="predicate_type" jdbcType="VARCHAR"/>
+        <result property="rules" column="rules" jdbcType="VARCHAR"/>
+        <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        <result property="predicateName" column="predicate_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        predicate_id, service_id, route_id, predicate_type, rules, enable_delete, remark, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_tenant_id, create_user_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, del_flag, predicate_name
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.predicate_id, ali.service_id, ali.route_id, ali.predicate_type, ali.rules, ali.enable_delete, ali.remark,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag, ali.predicate_name
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.predicate_id, ali.service_id, ali.route_id, ali.predicate_type, ali.rules, ali.enable_delete, ali.remark,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag, ali.predicate_name
+    </sql>
+
+    <!-- 通过断言id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_manage_route_predicate
+        WHERE predicate_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM sys_manage_route_predicate
+        WHERE predicate_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_manage_route_predicate
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE predicate_id = #{predicateId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_manage_route_predicate
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE predicate_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

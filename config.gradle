@@ -53,20 +53,20 @@ ext {
 
     version = [
             // 主项目
-            'skillfull-cloud'                                          : '0.0.1-SNAPSHOT',
+            'skillfull-cloud'                                              : '0.0.1-SNAPSHOT',
 
-            // 服务
-            'skillfull-auth-service'                                       : [version: '0.9.9', bootJar: true],
-            'skillfull-example-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-gateway-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-job-service'                                        : [version: '0.9.9', bootJar: true],
-            'skillfull-logging-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-message-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-monitor-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-storage-service'                                    : [version: '0.9.9', bootJar: true],
-            'skillfull-system-service'                                     : [version: '0.9.9', bootJar: true],
+            // 服务模块
+            'skillfull-service-modules:skillfull-auth-service'             : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-example-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-gateway-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-job-service'              : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-logging-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-message-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-monitor-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-storage-service'          : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-system-service'           : [version: '0.9.9', bootJar: true],
 
-            // 工具部分
+            // 核心模块
             'skillfull-core-modules:skillfull-core-common'                 : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-database'               : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-mvc'                    : [version: '0.9.9', bootJar: false],

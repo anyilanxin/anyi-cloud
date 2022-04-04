@@ -1,0 +1,55 @@
+// 打包版本号
+version = rootProject.ext.version["skillfull-service-modules:skillfull-auth-service"]['version']
+
+
+bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull-auth-service"]['bootJar'] }
+
+
+dependencies {
+    implementation project(':skillfull-core-modules:skillfull-core-mvc')
+    implementation project(':skillfull-core-modules:skillfull-core-process')
+    implementation project(':skillfull-core-modules:skillfull-core-database')
+    implementation project(':skillfull-core-modules:skillfull-core-mvc-data-permission')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation rootProject.ext.dependencies["JustAuth"]
+    // seata相关
+    implementation rootProject.ext.dependencies["seata-serializer-kryo"]
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata'
+}
+
+
+// 判断是否分离打包
+if (rootProject.ext["compileSeparate"]) {
+    // 分离打包处理
+    task clearJar(type: Delete) {
+        delete "$buildDir/libs/lib"
+    }
+
+    task copyJar(type: Copy) {
+        from project.configurations.productionRuntimeClasspath
+        into "$buildDir/libs/lib"
+        include '*.jar'
+        exclude "skillfull*.jar"
+    }
+
+    bootJar {
+        // 排除外部lib下依赖
+        project.configurations.productionRuntimeClasspath.files.collect {
+            {
+                if (!it.name.startsWith("skillfull")) {
+                    exclude(it.name)
+                }
+            }
+        }
+        // 打包前清空
+        dependsOn clearJar
+        dependsOn copyJar
+        // 指定依赖包的路径
+        manifest {
+            attributes "Manifest-Version": 1.0,
+                    'Class-Path': project.configurations.productionRuntimeClasspath.files.collect { "lib/$it.name" }.join(' ')
+        }
+    }
+}
+

@@ -1,0 +1,46 @@
+// 打包版本号
+version = rootProject.ext.version["skillfull-service-modules:skillfull-logging-service"]['version']
+
+
+bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull-logging-service"]['bootJar'] }
+
+
+dependencies {
+    implementation project(':skillfull-core-modules:skillfull-core-mvc')
+    implementation project(':skillfull-core-modules:skillfull-core-database')
+}
+
+
+// 判断是否分离打包
+if (rootProject.ext["compileSeparate"]) {
+    // 分离打包处理
+    task clearJar(type: Delete) {
+        delete "$buildDir/libs/lib"
+    }
+
+    task copyJar(type: Copy) {
+        from project.configurations.productionRuntimeClasspath
+        into "$buildDir/libs/lib"
+        include '*.jar'
+        exclude "skillfull*.jar"
+    }
+
+    bootJar {
+        // 排除外部lib下依赖
+        project.configurations.productionRuntimeClasspath.files.collect {
+            {
+                if (!it.name.startsWith("skillfull")) {
+                    exclude(it.name)
+                }
+            }
+        }
+        // 打包前清空
+        dependsOn clearJar
+        dependsOn copyJar
+        // 指定依赖包的路径
+        manifest {
+            attributes "Manifest-Version": 1.0,
+                    'Class-Path': project.configurations.productionRuntimeClasspath.files.collect { "lib/$it.name" }.join(' ')
+        }
+    }
+}

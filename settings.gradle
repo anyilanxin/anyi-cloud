@@ -11,18 +11,18 @@ pluginManagement {
 // 项目信息
 rootProject.name = 'skillfull-cloud'
 
-// 服务
-include 'skillfull-auth-service'
-include 'skillfull-example-service'
-include 'skillfull-gateway-service'
-include 'skillfull-job-service'
-include 'skillfull-logging-service'
-include 'skillfull-message-service'
-include 'skillfull-monitor-service'
-include 'skillfull-storage-service'
-include 'skillfull-system-service'
+// 服务模块
+include 'skillfull-service-modules:skillfull-auth-service'
+include 'skillfull-service-modules:skillfull-example-service'
+include 'skillfull-service-modules:skillfull-gateway-service'
+include 'skillfull-service-modules:skillfull-job-service'
+include 'skillfull-service-modules:skillfull-logging-service'
+include 'skillfull-service-modules:skillfull-message-service'
+include 'skillfull-service-modules:skillfull-monitor-service'
+include 'skillfull-service-modules:skillfull-storage-service'
+include 'skillfull-service-modules:skillfull-system-service'
 
-// 工具
+// 核心模块
 include 'skillfull-core-modules:skillfull-core-common'
 include 'skillfull-core-modules:skillfull-core-database'
 include 'skillfull-core-modules:skillfull-core-mvc'

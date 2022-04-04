@@ -9,7 +9,8 @@
 // +----------------------------------------------------------------------
 package indi.zxiaozhou.skillfull.gatewayapi.model;
 
-import com.alibaba.fastjson.JSONObject;
+import indi.zxiaozhou.skillfull.corecommon.base.model.common.ActionModel;
+import indi.zxiaozhou.skillfull.corecommon.base.model.stream.router.RouteMetaSpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -17,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -55,8 +57,11 @@ public class RouteResponseModel implements Serializable {
     @Schema(name = "routeOrder", title = "路由排序,越小越靠前，默认0")
     private Integer routeOrder;
 
-    @Schema(name = "metadata", title = "路由元数据")
-    private JSONObject metadata;
+    @Schema(name = "specialUrls", title = "过滤器特殊url")
+    private Map<String, RouteMetaSpecialUrlModel> specialUrls;
+
+    @Schema(name = "routeActions", title = "路由后端按钮权限指令,path:ActionModel")
+    private Map<String, Set<ActionModel>> routeActions;
 
     @Schema(name = "routePredicates", title = "路由断言")
     private List<RoutePredicate> routePredicates;
@@ -114,8 +119,8 @@ public class RouteResponseModel implements Serializable {
     @EqualsAndHashCode
     @Schema
     public static class Rule implements Serializable {
-        private static final long serialVersionUID = 4539311862270008460L;
 
+        private static final long serialVersionUID = -7095243410635985896L;
         @Schema(name = "ruleName", title = "规则名称")
         private String ruleName;
 

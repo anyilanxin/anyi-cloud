@@ -7,6 +7,7 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-core-webflux')
+    implementation project(':skillfull-api-modules:skillfull-gateway-api')
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'

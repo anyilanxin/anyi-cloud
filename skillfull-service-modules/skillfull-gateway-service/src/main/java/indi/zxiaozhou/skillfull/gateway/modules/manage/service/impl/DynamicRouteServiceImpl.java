@@ -17,7 +17,7 @@ import indi.zxiaozhou.skillfull.corecommon.exception.ResponseException;
 import indi.zxiaozhou.skillfull.gateway.core.constant.typeimpl.*;
 import indi.zxiaozhou.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import indi.zxiaozhou.skillfull.gateway.modules.manage.service.IDynamicRouteService;
-import indi.zxiaozhou.skillfull.gateway.modules.manage.service.dto.GatewayRouteDto;
+import indi.zxiaozhou.skillfull.gatewayapi.model.RouteResponseModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -106,10 +106,10 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
 
 
     @Override
-    public Flux<GatewayRouteDto> getRoutes() throws RuntimeException {
+    public Flux<RouteResponseModel> getRoutes() throws RuntimeException {
         return routeDefinitionLocator.getRouteDefinitions().map(v -> {
             // 处理基础部分
-            GatewayRouteDto dto = new GatewayRouteDto();
+            RouteResponseModel dto = new RouteResponseModel();
             dto.setRouteCode(v.getId());
             dto.setRouteOrder(v.getOrder());
             Map<String, Object> metadata = v.getMetadata();
@@ -146,17 +146,17 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 dto.setUrl(url);
             }
             // 处理断言
-            List<GatewayRouteDto.RoutePredicate> routePredicates = new ArrayList<>();
+            List<RouteResponseModel.RoutePredicate> routePredicates = new ArrayList<>();
             List<PredicateDefinition> predicates = v.getPredicates();
             if (!CollectionUtils.isEmpty(predicates)) {
                 predicates.forEach(sv -> {
-                    GatewayRouteDto.RoutePredicate predicate = new GatewayRouteDto.RoutePredicate();
+                    RouteResponseModel.RoutePredicate predicate = new RouteResponseModel.RoutePredicate();
                     predicate.setPredicateType(sv.getName());
-                    Set<GatewayRouteDto.Rule> rules = new HashSet<>();
+                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
                     Map<String, String> args = sv.getArgs();
                     if (!CollectionUtils.isEmpty(args)) {
                         args.forEach((k, ssv) -> {
-                            GatewayRouteDto.Rule rule = new GatewayRouteDto.Rule();
+                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
                             rule.setRuleName(k);
                             rule.setRuleValue(ssv);
                             rules.add(rule);
@@ -168,17 +168,17 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 dto.setRoutePredicates(routePredicates);
             }
             // 处理过滤器
-            List<GatewayRouteDto.RouteFilter> routeFilters = new ArrayList<>();
+            List<RouteResponseModel.RouteFilter> routeFilters = new ArrayList<>();
             List<FilterDefinition> filters = v.getFilters();
             if (!CollectionUtils.isEmpty(filters)) {
                 filters.forEach(sv -> {
-                    GatewayRouteDto.RouteFilter filter = new GatewayRouteDto.RouteFilter();
+                    RouteResponseModel.RouteFilter filter = new RouteResponseModel.RouteFilter();
                     filter.setFilterType(sv.getName());
-                    Set<GatewayRouteDto.Rule> rules = new HashSet<>();
+                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
                     Map<String, String> args = sv.getArgs();
                     if (!CollectionUtils.isEmpty(args)) {
                         args.forEach((k, ssv) -> {
-                            GatewayRouteDto.Rule rule = new GatewayRouteDto.Rule();
+                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
                             rule.setRuleValue(ssv);
                             rule.setRuleName(k);
                             rules.add(rule);

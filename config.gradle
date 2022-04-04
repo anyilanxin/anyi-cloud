@@ -74,7 +74,10 @@ ext {
             'skillfull-core-modules:skillfull-core-process'                : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-webflux'                : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-webflux-database'       : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false]
+            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false],
+
+            // 远程api模块
+            'skillfull-api-modules:skillfull-gateway-api'          : [version: '0.9.9', bootJar: false],
     ]
 
 

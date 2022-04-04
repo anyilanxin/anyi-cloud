@@ -14,7 +14,6 @@ import indi.zxiaozhou.skillfull.corecommon.annotation.ConstantType;
 import indi.zxiaozhou.skillfull.corecommon.constant.ISuperType;
 import indi.zxiaozhou.skillfull.corecommon.constant.model.ConstantDictModel;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.CorsWebGatewayFilterFactory;
-import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.EncryptGatewayFilterFactory;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.LogResponseGatewayFilterFactory;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.TokenRefreshGatewayFilterFactory;
 import lombok.Getter;
@@ -41,11 +40,6 @@ public enum FilterCustomPostType implements ISuperType {
      * 日志处理(response数据)
      */
     LOG_RESPONSE("LogResponse", "日志记录(后置)", LogResponseGatewayFilterFactory.class.getName(), -2, 3),
-
-    /**
-     * 加密过滤器(后置)
-     */
-    ENCRYPT("Encrypt", "加密", EncryptGatewayFilterFactory.class.getName(), -3, 3),
 
     /**
      * token刷新过滤器

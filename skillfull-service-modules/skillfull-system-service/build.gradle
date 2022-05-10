@@ -8,6 +8,7 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-core-mvc')
     implementation project(':skillfull-core-modules:skillfull-core-database')
+    implementation project(':skillfull-api-modules:skillfull-gateway-api')
     implementation project(':skillfull-core-modules:skillfull-core-mvc-data-permission')
     api rootProject.ext.dependencies["poi-tl"]
     api rootProject.ext.dependencies["x-easypdf"]

@@ -12,7 +12,7 @@ package indi.zxiaozhou.skillfull.gateway.modules.manage.service;
 import indi.zxiaozhou.skillfull.corecommon.base.model.stream.router.SystemRouterListModel;
 import indi.zxiaozhou.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
 import indi.zxiaozhou.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
-import indi.zxiaozhou.skillfull.gateway.modules.manage.service.dto.GatewayRouteDto;
+import indi.zxiaozhou.skillfull.gatewayapi.model.RouteResponseModel;
 import reactor.core.publisher.Flux;
 
 /**
@@ -62,12 +62,12 @@ public interface IDynamicRouteService {
     /**
      * 查询路由
      *
-     * @return Flux<GatewayRouteDto>${@link  Flux<GatewayRouteDto>}
+     * @return Flux<RouteResponseModel>${@link  Flux<RouteResponseModel>}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-09-10 22:49
      */
-    Flux<GatewayRouteDto> getRoutes() throws RuntimeException;
+    Flux<RouteResponseModel> getRoutes() throws RuntimeException;
 
 
     /**

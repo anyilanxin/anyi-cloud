@@ -31,3 +31,6 @@ include 'skillfull-core-modules:skillfull-core-process'
 include 'skillfull-core-modules:skillfull-core-webflux'
 include 'skillfull-core-modules:skillfull-core-webflux-database'
 include 'skillfull-core-modules:skillfull-core-webflux-data-permission'
+
+// 远程api模块
+include 'skillfull-api-modules:skillfull-gateway-api'

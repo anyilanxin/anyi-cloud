@@ -58,10 +58,7 @@ import java.util.*;
 public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity> implements IRbacUserService {
     private final RbacUserDtoMap dtoMap;
     private final RbacUserListDtoMap listDtoMap;
-    private final RbacUserPageDtoMap pageDtoMap;
     private final RbacUserVoMap voMap;
-    private final RbacUserQueryVoMap queryVoMap;
-    private final RbacUserPageVoMap pageVoMap;
     private final RbacOrgMapper orgMapper;
     private final RbacUserMapper mapper;
     private final RbacCorrelateUserOrgDtoMap correlateUserOrgDtoMap;
@@ -90,8 +87,6 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         }
         // 管理关系表处理
         this.subData(vo, entity.getUserId(), false);
-        // 同步流程引擎
-        syncService.addOrUpdateUser(entity.getUserId());
         return newPassword;
     }
 

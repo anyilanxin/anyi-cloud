@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package indi.zxiaozhou.skillfull.gateway.modules.manage.service.dto;
+package indi.zxiaozhou.skillfull.gatewayapi.model;
 
 import indi.zxiaozhou.skillfull.corecommon.base.model.common.ActionModel;
 import indi.zxiaozhou.skillfull.corecommon.base.model.stream.router.RouteMetaSpecialUrlModel;
@@ -37,7 +37,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
-public class GatewayRouteDto implements Serializable {
+public class RouteResponseModel implements Serializable {
     private static final long serialVersionUID = 8405189730553034504L;
     @Schema(name = "routeCode", title = "路由编码(唯一)")
     private String routeCode;

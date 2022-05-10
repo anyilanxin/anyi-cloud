@@ -54,7 +54,6 @@ import static indi.zxiaozhou.skillfull.corecommon.constant.SysBaseConstant.SUPER
 @Transactional(rollbackFor = {Exception.class, Error.class})
 public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEntity> implements IRbacRoleService {
     private final RbacRoleDtoMap dtoMap;
-    private final RbacRoleToRolePageMap rolePageMap;
     private final RbacRolePermissionMap rbacRolePermissionMap;
     private final RbacRoleEffectiveDtoMap effectiveDtoMap;
     private final RbacRoleBasicDtoMap basicDtoMap;

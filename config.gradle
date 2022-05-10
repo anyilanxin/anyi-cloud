@@ -40,9 +40,9 @@ ext {
             'seata-serializer-kryo'                 : 'io.seata:seata-serializer-kryo:1.4.2',
             // 分布式事务seata----end
             // springdoc api文档----start
-            'springdoc-openapi-ui'                  : 'org.springdoc:springdoc-openapi-ui:1.6.6',
-            'swagger-annotations'                   : 'io.swagger.core.v3:swagger-annotations:2.1.12',
-            'springdoc-openapi-webflux-ui'          : 'org.springdoc:springdoc-openapi-webflux-ui:1.6.6',
+            'springdoc-openapi-ui'                  : 'org.springdoc:springdoc-openapi-ui:1.6.8',
+            'springdoc-openapi-common'              : 'org.springdoc:springdoc-openapi-common:1.6.8',
+            'springdoc-openapi-webflux-ui'          : 'org.springdoc:springdoc-openapi-webflux-ui:1.6.8',
             // springdoc api文档----end
             "log4j-api"                             : 'org.apache.logging.log4j:log4j-api:2.17.1',
             "log4j-to-slf4j"                        : 'org.apache.logging.log4j:log4j-to-slf4j:2.17.1',
@@ -74,7 +74,10 @@ ext {
             'skillfull-core-modules:skillfull-core-process'                : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-webflux'                : [version: '0.9.9', bootJar: false],
             'skillfull-core-modules:skillfull-core-webflux-database'       : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false]
+            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false],
+
+            // 远程api模块
+            'skillfull-api-modules:skillfull-gateway-api'          : [version: '0.9.9', bootJar: false],
     ]
 
 

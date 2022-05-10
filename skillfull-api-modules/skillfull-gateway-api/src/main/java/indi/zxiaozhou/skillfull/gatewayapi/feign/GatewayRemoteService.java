@@ -7,14 +7,16 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package indi.zxiaozhou.skillfull.system.feign;
+package indi.zxiaozhou.skillfull.gatewayapi.feign;
 
 import cn.hutool.json.JSONObject;
 import indi.zxiaozhou.skillfull.corecommon.base.Result;
 import indi.zxiaozhou.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
+import indi.zxiaozhou.skillfull.corecommon.base.model.web.WebSecurityModel;
+import indi.zxiaozhou.skillfull.corecommon.constant.ServiceConstant;
 import indi.zxiaozhou.skillfull.corecommon.feign.FeignFallback;
 import indi.zxiaozhou.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
-import indi.zxiaozhou.skillfull.system.feign.dto.GatewayServiceRouteDto;
+import indi.zxiaozhou.skillfull.gatewayapi.model.RouteResponseModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,24 +24,24 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * 网关feign
+ * 网关服务feign
  *
  * @author zxiaozhou
  * @date 2020-09-12 16:54
  * @since JDK11
  */
-@FeignClient(value = "gateway-service", fallbackFactory = FeignFallback.class)
-public interface GatewayFeign {
+@FeignClient(value = ServiceConstant.GATEWAY_SERVICE, path = ServiceConstant.GATEWAY_SERVICE_PATH, fallbackFactory = FeignFallback.class)
+public interface GatewayRemoteService {
 
     /**
      * 查询网关路由
      *
-     * @return Result<List < GatewayServiceRouteDto>> ${@link Result<List<GatewayServiceRouteDto>>} 结果
+     * @return Result<List < GatewayServiceRouteDto>> ${@link Result<List< RouteResponseModel >>} 结果
      * @author zxiaozhou
      * @date 2020-09-15 17:03
      */
     @GetMapping("/route/select/list")
-    Result<List<GatewayServiceRouteDto>> getRoutes();
+    Result<List<RouteResponseModel>> getRoutes();
 
 
     /**
@@ -85,4 +87,26 @@ public interface GatewayFeign {
      */
     @DeleteMapping("/route/delete/{routeCode}")
     Result<String> deleteRoute(@PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode);
+
+
+    /**
+     * 获取请求安全基础信息(需要路由设置使用加密传输)
+     *
+     * @return Result<WebSecurityModel> ${@link Result< WebSecurityModel >} 结果
+     * @author zxiaozhou
+     * @date 2020-09-15 17:03
+     */
+    @GetMapping("/tools/select/base-security")
+    Result<WebSecurityModel> getBaseSecurity();
+
+
+    /**
+     * 获取请求安全基础信息手动刷新(需要路由设置使用加密传输)
+     *
+     * @return Result<WebSecurityModel> ${@link Result< WebSecurityModel >} 结果
+     * @author zxiaozhou
+     * @date 2020-09-15 17:03
+     */
+    @GetMapping("/tools/select/base-security/refresh/{serialNumber}")
+    Result<WebSecurityModel> getRefreshBaseSecurity(@PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber);
 }

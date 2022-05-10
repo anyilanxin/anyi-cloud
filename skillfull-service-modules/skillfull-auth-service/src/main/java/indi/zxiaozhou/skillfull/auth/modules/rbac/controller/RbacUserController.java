@@ -15,7 +15,6 @@ import indi.zxiaozhou.skillfull.auth.modules.rbac.controller.vo.RbacUserPageVo;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.controller.vo.RbacUserVo;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.IRbacCorrelateRoleService;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.IRbacUserService;
-import indi.zxiaozhou.skillfull.auth.modules.rbac.service.ISyncProcessService;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.RbacCorrelateRoleDto;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.RbacUserDto;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.RbacUserListDto;
@@ -60,7 +59,6 @@ import java.util.List;
 public class RbacUserController extends BaseController {
     private final IRbacUserService service;
     private final IRbacCorrelateRoleService correlateRoleService;
-    private final ISyncProcessService syncService;
 
 
     @Operation(summary = "用户表添加", tags = {"v1.0.0"}, description = "添加用户表")
@@ -157,14 +155,5 @@ public class RbacUserController extends BaseController {
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacUserPageDto>> selectPage(@RequestBody RbacUserPageVo vo) {
         return ok(service.pageByModel(vo));
-    }
-
-
-    @Operation(summary = "全量同步流程引擎", tags = {"v1.0.0"}, description = "全量同步流程引擎")
-    @GetMapping(value = "/sync/process")
-    public Result<String> syncProcess() {
-        syncService.syncRoleAll();
-        syncService.syncUserAll();
-        return ok("同步成功");
     }
 }

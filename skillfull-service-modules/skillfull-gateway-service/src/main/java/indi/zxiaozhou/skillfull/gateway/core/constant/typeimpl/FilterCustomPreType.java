@@ -49,11 +49,6 @@ public enum FilterCustomPreType implements ISuperType {
     VERIFY_SIGN("VerifySign", "验签", VerifySignGatewayFilterFactory.class.getName(), 3, 3),
 
     /**
-     * 解密过滤器
-     */
-    DECRYPT("Decrypt", "解密", DecryptGatewayFilterFactory.class.getName(), 4, 3),
-
-    /**
      * 日志处理，必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
      */
     LOG_REQUEST("LogRequest", "日志记录(前置)", LogRequestGatewayFilterFactory.class.getName(), LOAD_BALANCER_CLIENT_FILTER_ORDER + 1, 3);

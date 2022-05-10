@@ -14,8 +14,8 @@ import indi.zxiaozhou.skillfull.corecommon.base.model.system.ManageSwaggerInfoMo
 import indi.zxiaozhou.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import indi.zxiaozhou.skillfull.coredatabase.base.service.dto.PageDto;
 import indi.zxiaozhou.skillfull.coremvc.base.controller.BaseController;
-import indi.zxiaozhou.skillfull.system.feign.GatewayFeign;
-import indi.zxiaozhou.skillfull.system.feign.dto.GatewayServiceRouteDto;
+import indi.zxiaozhou.skillfull.gatewayapi.feign.GatewayRemoteService;
+import indi.zxiaozhou.skillfull.gatewayapi.model.RouteResponseModel;
 import indi.zxiaozhou.skillfull.system.modules.manage.controller.vo.InstancePageVo;
 import indi.zxiaozhou.skillfull.system.modules.manage.controller.vo.ManageServicePageVo;
 import indi.zxiaozhou.skillfull.system.modules.manage.controller.vo.ManageServiceVo;
@@ -55,7 +55,7 @@ import java.util.Map;
 @RequestMapping(value = "/manage-service", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ManageServiceController extends BaseController {
     private final IManageServiceService service;
-    private final GatewayFeign gatewayFeign;
+    private final GatewayRemoteService remoteService;
     private final INacosService nacosService;
     private final IManageSyncService syncService;
     private final ICustomNacosNamingService nacosNamingService;
@@ -145,7 +145,7 @@ public class ManageServiceController extends BaseController {
 
     @Operation(summary = "查询网关路由", tags = {"v1.0.0"}, description = "查询网关路由")
     @GetMapping(value = "/select/gateway-router")
-    public Result<List<GatewayServiceRouteDto>> getGatewayRouter() {
-        return gatewayFeign.getRoutes();
+    public Result<List<RouteResponseModel>> getGatewayRouter() {
+        return remoteService.getRoutes();
     }
 }

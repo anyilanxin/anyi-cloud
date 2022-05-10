@@ -10,7 +10,6 @@
 package indi.zxiaozhou.skillfull.gateway.core.config;
 
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.CorsWebGatewayFilterFactory;
-import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.EncryptGatewayFilterFactory;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.LogResponseGatewayFilterFactory;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.post.TokenRefreshGatewayFilterFactory;
 import indi.zxiaozhou.skillfull.gateway.modules.filter.partial.pre.AuthorizeGatewayFilterFactory;
@@ -59,18 +58,6 @@ public class GatewayFilterConfig {
     @Bean
     public VerifySignGatewayFilterFactory verifySignGatewayFilterFactory() {
         return new VerifySignGatewayFilterFactory();
-    }
-
-
-    @Bean
-    public DecryptGatewayFilterFactory decryptGatewayFilterFactory() {
-        return new DecryptGatewayFilterFactory();
-    }
-
-
-    @Bean
-    public EncryptGatewayFilterFactory encryptGatewayFilterFactory() {
-        return new EncryptGatewayFilterFactory();
     }
 
 

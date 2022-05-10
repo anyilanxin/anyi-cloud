@@ -15,7 +15,7 @@ import indi.zxiaozhou.skillfull.corecommon.validation.annotation.PathNotBlankOrN
 import indi.zxiaozhou.skillfull.corewebflux.base.controller.BaseController;
 import indi.zxiaozhou.skillfull.corewebflux.utils.ServletUtils;
 import indi.zxiaozhou.skillfull.gateway.modules.manage.service.IDynamicRouteService;
-import indi.zxiaozhou.skillfull.gateway.modules.manage.service.dto.GatewayRouteDto;
+import indi.zxiaozhou.skillfull.gatewayapi.model.RouteResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -82,7 +82,7 @@ public class DynamicRouteController extends BaseController {
 
     @Operation(summary = "查询路由", tags = {"v1.0.0"}, description = "查询路由")
     @GetMapping("/select/list")
-    Mono<Result<List<GatewayRouteDto>>> getRoutes() {
+    Mono<Result<List<RouteResponseModel>>> getRoutes() {
         return service.getRoutes().collectList().map(BaseController::getResult);
     }
 

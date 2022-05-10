@@ -15,7 +15,6 @@ import indi.zxiaozhou.skillfull.auth.modules.rbac.controller.vo.RbacRoleVo;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.IRbacCorrelateRoleService;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.IRbacRolePermissionService;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.IRbacRoleService;
-import indi.zxiaozhou.skillfull.auth.modules.rbac.service.ISyncProcessService;
 import indi.zxiaozhou.skillfull.auth.modules.rbac.service.dto.*;
 import indi.zxiaozhou.skillfull.corecommon.annotation.Anonymous;
 import indi.zxiaozhou.skillfull.corecommon.base.Result;
@@ -55,7 +54,6 @@ public class RbacRoleController extends BaseController {
     private final IRbacRoleService service;
     private final IRbacRolePermissionService permissionService;
     private final IRbacCorrelateRoleService rbacCorrelateRoleService;
-    private final ISyncProcessService syncService;
 
 
     @Operation(summary = "角色表添加", tags = {"v1.0.0"}, description = "添加角色表")
@@ -145,14 +143,5 @@ public class RbacRoleController extends BaseController {
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacRolePageDto>> selectPage(@RequestBody RbacRolePageVo vo) {
         return ok(service.pageByModel(vo));
-    }
-
-
-    @Operation(summary = "全量同步流程引擎", tags = {"v1.0.0"}, description = "全量同步流程引擎")
-    @GetMapping(value = "/sync/process")
-    public Result<String> syncProcess() {
-        syncService.syncRoleAll();
-        syncService.syncUserAll();
-        return ok("同步成功");
     }
 }

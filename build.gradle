@@ -176,7 +176,7 @@ subprojects {
         implementation rootProject.ext.dependencies["hutool-all"]
         implementation rootProject.ext.dependencies["commons-lang3"]
         implementation rootProject.ext.dependencies["commons-codec"]
-        implementation rootProject.ext.dependencies["swagger-annotations"]
+        implementation rootProject.ext.dependencies["springdoc-openapi-common"]
         implementation rootProject.ext.dependencies["fastjson"]
         implementation rootProject.ext.dependencies["slf4j-api"]
         implementation rootProject.ext.dependencies["commons-io"]

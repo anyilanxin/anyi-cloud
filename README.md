@@ -1,5 +1,5 @@
 
-<img src="./docs/images/logo.png"  height="100" width="100">
+<img src="./docs/images/logo.png"  height="200" width="200">
 
 Skill Full cloud
 ===============

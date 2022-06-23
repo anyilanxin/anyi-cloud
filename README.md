@@ -1,5 +1,5 @@
 
-![SKILLFULL](./docs/images/logo.png "Skill Full cloud")
+<img src="./docs/images/logo.png"  height="100" width="100">
 
 Skill Full cloud
 ===============

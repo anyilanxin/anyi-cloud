@@ -1,5 +1,6 @@
 #!/bin/bash
 nohup java -jar \
+-Dserver.port=8080 \
 -DPROFILES_ACTIVE=test \
 -DCONFIG_ENABLE=true \
 -DNACOS_PASSWORD=skillfull \

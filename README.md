@@ -16,3 +16,7 @@ spring cloud ,spring alibaba.rapid development platform(micro service)
 - 开发文档：  待定
 
 - QQ交流群 ： 666029437
+
+
+静待7月25号发布预览版
+-----------------------------------

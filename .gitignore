@@ -3,13 +3,11 @@
 *.iml
 jeecg-boot-modules-demo
 rebel.xml
-/target/
 !.mvn/wrapper/maven-wrapper.jar
 *.pdb
 *.hprof
 /winsw/
 /templ/
-/target/
 /config/
 /upload/
 .gradle/
@@ -22,11 +20,10 @@ rebel.xml
 .settings
 .springBeans
 .sts4-cache
-
+generated
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml
 *.ipr
 
 ### NetBeans ###

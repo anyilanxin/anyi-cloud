@@ -3,15 +3,15 @@
 <mapper namespace="com.anyilanxin.skillfull.system.modules.manage.mapper.ManageRouteMapper">
 
   <resultMap type="com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteEntity" id="ManageRouteMap">
-    <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
-    <result property="routeCode" column="route_code" jdbcType="VARCHAR"/>
-    <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
-    <result property="routeName" column="route_name" jdbcType="VARCHAR"/>
-    <result property="url" column="url" jdbcType="VARCHAR"/>
-    <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
-    <result property="loadBalancerType" column="load_balancer_type" jdbcType="INTEGER"/>
-    <result property="metadataJson" column="metadata_json" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+      <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
+      <result property="routeCode" column="route_code" jdbcType="VARCHAR"/>
+      <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
+      <result property="routeName" column="route_name" jdbcType="VARCHAR"/>
+      <result property="url" column="url" jdbcType="VARCHAR"/>
+      <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
+      <result property="loadBalancerType" column="load_balancer_type" jdbcType="INTEGER"/>
+      <result property="metadataJson" column="metadata_json" jdbcType="VARCHAR"
+              typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
       <result property="routeOrder" column="route_order" jdbcType="INTEGER"/>
       <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
       <result property="routeState" column="route_state" jdbcType="INTEGER"/>

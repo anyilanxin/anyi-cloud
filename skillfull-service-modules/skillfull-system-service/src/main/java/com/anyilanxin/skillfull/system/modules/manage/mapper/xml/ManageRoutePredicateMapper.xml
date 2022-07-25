@@ -20,12 +20,12 @@
     <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
     <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
     <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
-        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
-        <result property="predicateName" column="predicate_name" jdbcType="VARCHAR"/>
-    </resultMap>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <result property="predicateName" column="predicate_name" jdbcType="VARCHAR"/>
+  </resultMap>
   <!-- @formatter:off -->
     <!--数据库字段-->
     <sql id="Column_List">

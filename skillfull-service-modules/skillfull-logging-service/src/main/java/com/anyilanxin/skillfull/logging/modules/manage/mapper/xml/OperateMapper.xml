@@ -13,32 +13,32 @@
     <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
     <result property="requestUrl" column="request_url" jdbcType="VARCHAR"/>
     <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
-        <result property="requestParam" column="request_param" jdbcType="VARCHAR"/>
-        <result property="requestResult" column="request_result" jdbcType="VARCHAR"/>
-        <result property="logOtherData" column="log_other_data" jdbcType="VARCHAR"/>
-        <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
-        <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
-        <result property="operateStatus" column="operate_status" jdbcType="INTEGER"/>
-        <result property="dataSources" column="data_sources" jdbcType="VARCHAR"/>
-        <result property="dataSourcesDescribe" column="data_sources_describe" jdbcType="VARCHAR"/>
-        <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
-        <result property="requestStartTime" column="request_start_time" jdbcType="TIMESTAMP"/>
-        <result property="requestEndTime" column="request_end_time" jdbcType="TIMESTAMP"/>
-        <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
-        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
-        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
-        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
-        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
-        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
-        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
-        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
-        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="remark" column="remark" jdbcType="VARCHAR"/>
-        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
-    </resultMap>
+    <result property="requestParam" column="request_param" jdbcType="VARCHAR"/>
+    <result property="requestResult" column="request_result" jdbcType="VARCHAR"/>
+    <result property="logOtherData" column="log_other_data" jdbcType="VARCHAR"/>
+    <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
+    <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
+    <result property="operateStatus" column="operate_status" jdbcType="INTEGER"/>
+    <result property="dataSources" column="data_sources" jdbcType="VARCHAR"/>
+    <result property="dataSourcesDescribe" column="data_sources_describe" jdbcType="VARCHAR"/>
+    <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
+    <result property="requestStartTime" column="request_start_time" jdbcType="TIMESTAMP"/>
+    <result property="requestEndTime" column="request_end_time" jdbcType="TIMESTAMP"/>
+    <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
   <!-- @formatter:off -->
     <!--数据库字段-->
     <sql id="Column_List">

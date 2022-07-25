@@ -3,33 +3,33 @@
 <mapper namespace="com.anyilanxin.skillfull.system.modules.manage.mapper.ManageRouteMapper">
 
   <resultMap type="com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteEntity" id="ManageRouteMap">
-      <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
-      <result property="routeCode" column="route_code" jdbcType="VARCHAR"/>
-      <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
-      <result property="routeName" column="route_name" jdbcType="VARCHAR"/>
-      <result property="url" column="url" jdbcType="VARCHAR"/>
-      <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
-      <result property="loadBalancerType" column="load_balancer_type" jdbcType="INTEGER"/>
-      <result property="metadataJson" column="metadata_json" jdbcType="VARCHAR"
-              typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
-      <result property="routeOrder" column="route_order" jdbcType="INTEGER"/>
-      <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
-      <result property="routeState" column="route_state" jdbcType="INTEGER"/>
-      <result property="remark" column="remark" jdbcType="VARCHAR"/>
-      <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
-      <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
-      <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
-      <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
-      <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
-      <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
-      <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
-      <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
-      <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-      <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
-      <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
-      <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-      <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
-      <result property="serviceCode" column="service_code" jdbcType="VARCHAR"/>
+    <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
+    <result property="routeCode" column="route_code" jdbcType="VARCHAR"/>
+    <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
+    <result property="routeName" column="route_name" jdbcType="VARCHAR"/>
+    <result property="url" column="url" jdbcType="VARCHAR"/>
+    <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
+    <result property="loadBalancerType" column="load_balancer_type" jdbcType="INTEGER"/>
+    <result property="metadataJson" column="metadata_json" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="routeOrder" column="route_order" jdbcType="INTEGER"/>
+    <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+    <result property="routeState" column="route_state" jdbcType="INTEGER"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <result property="serviceCode" column="service_code" jdbcType="VARCHAR"/>
   </resultMap>
   <!-- @formatter:off -->
     <!--数据库字段-->

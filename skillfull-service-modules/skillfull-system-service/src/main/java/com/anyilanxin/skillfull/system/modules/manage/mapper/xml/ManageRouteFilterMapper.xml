@@ -4,11 +4,11 @@
 
   <resultMap type="com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteFilterEntity"
              id="ManageRouteFilterMap">
-    <result property="filterId" column="filter_id" jdbcType="VARCHAR"/>
-    <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
-    <result property="filterType" column="filter_type" jdbcType="VARCHAR"/>
-    <result property="rules" column="rules" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+      <result property="filterId" column="filter_id" jdbcType="VARCHAR"/>
+      <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
+      <result property="filterType" column="filter_type" jdbcType="VARCHAR"/>
+      <result property="rules" column="rules" jdbcType="VARCHAR"
+              typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
       <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
       <result property="remark" column="remark" jdbcType="VARCHAR"/>
       <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>

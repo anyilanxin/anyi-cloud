@@ -1,0 +1,36 @@
+###############################################################################
+#                          Generated on nacos                                 #
+###############################################################################
+version: "3"
+services:
+  nacos-server:
+    image: nacos/nacos-server:v2.1.0-slim
+    container_name: nacos-server
+    networks:
+      - database_database_net
+      - nacos_net
+    restart: always
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql-server
+      - MYSQL_SERVICE_DB_NAME=nacos_system
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=zuie_07934934KI12991
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
+      - NACOS_AUTH_ENABLE=true
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+
+
+networks:
+  database_database_net:
+    external: true
+  nacos_net:
+    driver: bridge

@@ -1,0 +1,6 @@
+version = rootProject.ext.version["skillfull-api-modules:skillfull-process-api"]['version']
+
+
+dependencies {
+    api project(':skillfull-core-modules:skillfull-common')
+}

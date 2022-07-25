@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.common.mapper.CommonDictItemMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.system.modules.common.entity.CommonDictItemEntity" id="CommonDictItemMap">
+    <result property="itemId" column="item_id" jdbcType="VARCHAR"/>
+    <result property="dictId" column="dict_id" jdbcType="VARCHAR"/>
+    <result property="itemText" column="item_text" jdbcType="VARCHAR"/>
+    <result property="itemValue" column="item_value" jdbcType="VARCHAR"/>
+    <result property="dictCode" column="dict_code" jdbcType="VARCHAR"/>
+    <result property="sortOrder" column="sort_order" jdbcType="INTEGER"/>
+    <result property="itemStatus" column="item_status" jdbcType="INTEGER"/>
+    <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        item_id, dict_id, item_text, item_value, dict_code, sort_order, item_status, unique_help, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.item_id, ali.dict_id, ali.item_text, ali.item_value, ali.dict_code, ali.sort_order, ali.item_status,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.item_id, ali.dict_id, ali.item_text, ali.item_value, ali.dict_code, ali.sort_order, ali.item_status,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="com.anyilanxin.skillfull.system.modules.common.service.dto.CommonDictItemPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>,
+        scd.dict_name
+        FROM sys_common_dict_item ali
+        LEFT JOIN sys_common_dict scd ON ali.dict_id = scd.dict_id
+        <where>
+            ali.del_flag = 0
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.item_text) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, scd.dict_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, scd.dict_code) &gt; 0
+                )
+            </if>
+            <if test="query.dictId != null and query.dictId != ''">
+                AND ali.dict_id = #{query.dictId, jdbcType=VARCHAR}
+            </if>
+            <if test="query.itemStatus != null">
+                AND ali.item_status = #{query.itemStatus, jdbcType=INTEGER}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByCode"
+            resultType="com.anyilanxin.skillfull.system.modules.common.service.dto.CommonDictItemDto">
+        SELECT
+        <include refid="Column_List_Ali"/>,
+        scd.dict_name,
+        scd.dict_type
+        FROM sys_common_dict scd
+        INNER JOIN sys_common_dict_item ali ON scd.dict_id = ali.dict_id
+        WHERE scd.del_flag = 0
+        AND scd.dict_code = #{dictCode, jdbcType=VARCHAR}
+        AND ali.del_flag = 0
+        AND ali.item_status = 1
+        AND scd.dict_status = 1
+    </select>
+
+
+    <!-- 通过字典项id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_common_dict_item
+        WHERE item_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_common_dict_item
+        <set>
+            del_flag = 1,
+            unique_help = item_id,
+        </set>
+        WHERE item_id = #{itemId, jdbcType=VARCHAR}
+    </update>
+    <!-- @formatter:off -->
+</mapper>

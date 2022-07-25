@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.manage.mapper.ManageCustomFilterMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.system.modules.manage.entity.ManageCustomFilterEntity"
+             id="ManageCustomFilterMap">
+    <result property="customFilterId" column="custom_filter_id" jdbcType="VARCHAR"/>
+    <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
+    <result property="filterName" column="filter_name" jdbcType="VARCHAR"/>
+    <result property="filterTypeName" column="filter_type_name" jdbcType="VARCHAR"/>
+    <result property="filterType" column="filter_type" jdbcType="VARCHAR"/>
+    <result property="filterStatus" column="filter_status" jdbcType="INTEGER"/>
+    <result property="rules" column="rules" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="haveSpecial" column="have_special" jdbcType="INTEGER"/>
+    <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        custom_filter_id, service_id, filter_name, filter_type_name, filter_type, filter_status, rules, have_special,
+        enable_delete, remark, create_area_code, create_position_code, create_org_sys_code,
+        create_system_code, create_user_id, create_tenant_id, create_user_name, create_time, update_user_id,
+        update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.custom_filter_id, ali.service_id, ali.filter_name, ali.filter_type_name, ali.filter_type, ali.filter_status,
+        ali.rules, ali.have_special, ali.enable_delete, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.custom_filter_id, ali.service_id, ali.filter_name, ali.filter_type_name, ali.filter_type, ali.filter_status,
+        ali.rules, ali.have_special,ali.enable_delete, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!-- 通过自定义过滤器id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_manage_custom_filter
+        WHERE custom_filter_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM sys_manage_custom_filter
+        WHERE custom_filter_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_manage_custom_filter
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE custom_filter_id = #{customFilterId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_manage_custom_filter
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE custom_filter_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

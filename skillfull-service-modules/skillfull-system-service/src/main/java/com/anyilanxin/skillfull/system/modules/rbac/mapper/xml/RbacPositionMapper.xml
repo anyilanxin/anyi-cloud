@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacPositionMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacPositionEntity" id="RbacPositionMap">
+    <result property="positionId" column="position_id" jdbcType="VARCHAR"/>
+    <result property="positionCode" column="position_code" jdbcType="VARCHAR"/>
+    <result property="positionName" column="position_name" jdbcType="VARCHAR"/>
+    <result property="autoBind" column="auto_bind" jdbcType="INTEGER"/>
+    <result property="positionRank" column="position_rank" jdbcType="INTEGER"/>
+    <result property="positionStatus" column="position_status" jdbcType="INTEGER"/>
+    <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        position_id, position_code, position_name, auto_bind, position_rank, position_status, unique_help,
+        remark, create_area_code, create_position_code, create_org_sys_code, create_system_code, create_user_id,
+        create_tenant_id, create_user_name, create_time, update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.position_id, ali.position_code, ali.position_name, ali.auto_bind, ali.position_rank, ali.position_status,
+        ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.position_id, ali.position_code, ali.position_name, ali.auto_bind, ali.position_rank, ali.position_status,
+        ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacPositionPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM sys_rbac_position ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.position_code) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.position_name) &gt; 0
+                )
+            </if>
+            <if test="query.positionStatus != null">
+                AND ali.position_status = #{query.positionStatus, jdbcType=INTEGER}
+            </if>
+
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过职位id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_position
+        WHERE position_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_position
+        WHERE position_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_position
+        <set>
+            del_flag = 1,
+            unique_help = position_id,
+         </set>
+        WHERE position_id = #{positionId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_position
+        <set>
+            del_flag = 1,
+            unique_help = position_id,
+        </set>
+        WHERE position_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

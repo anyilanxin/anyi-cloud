@@ -1,15 +1,11 @@
 spring:
   webflux:
-    base-path: ${app.base-path:/monitor}
     format:
       date: yyyy-mm-dd
       date-time: yyyy-MM-dd HH:mm:ss
       time: HH:mm:ss
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: monitor-service
-    version: ${VERSION:#@version@#}
   jackson:
     time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
@@ -21,23 +17,6 @@ spring:
           - seata-server
 
 
-# server配置
-server:
-  port: ${app.server-port}
-  shutdown: graceful
-  servlet:
-    encoding:
-      force: true
-      charset: UTF-8
-      enabled: true
-  undertow:
-    buffer-size: 1024
-    direct-buffers: true
-    threads:
-      io: 4
-      worker: 56
-  # 使其获取请求协议使用远程的,nginx代理需要设置:proxy_set_header X-Forwarded-Proto $scheme;
-  # forward-headers-strategy: framework
 
 # 开启监控
 management:
@@ -57,13 +36,13 @@ management:
 logging:
   level:
     root: ${app.log-root-level:debug}
-    indi.zxiaozhou: ${app.log-package-level:debug}
+    com.anyilanxin: ${app.log-package-level:debug}
     com.alibaba.nacos: error
   # 生成日志文件路径(注释不会生成)
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
   file:
-    name: ./logs/${spring.application.name}.log
+    name: ./logs/${spring.application.name:skillfull}.log
   logback:
     rollingpolicy:
       max-history: 7
@@ -73,16 +52,16 @@ debug: true
 
 # api文档配置
 springdoc:
-  version: ${spring.application.version}
-  api-prefix: /api${app.context-path} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  version: ${spring.application.version:1.0.0}
+  api-prefix: /api${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
   headers:
     - skill-full-token
     - Authorization
-  title: ${spring.application.name}服务
+  title: ${spring.application.name:skillfull}服务
   contact-email: z7630853@163.com
   contact-user: zxiaozhou
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: indi.zxiaozhou.skillfull
+  packages-to-scan: com.anyilanxin.skillfull
   swagger-ui:
     enabled: ${app.enable-doc:false}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.common.mapper.CommonCategoryMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.system.modules.common.entity.CommonCategoryEntity" id="CommonCategoryMap">
+    <result property="categoryId" column="category_id" jdbcType="VARCHAR"/>
+    <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+    <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+    <result property="categoryCommonCode" column="category_common_code" jdbcType="VARCHAR"/>
+    <result property="categoryCode" column="category_code" jdbcType="VARCHAR"/>
+    <result property="isParent" column="is_parent" jdbcType="INTEGER"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        category_id, parent_id, category_name, category_common_code, category_code, is_parent, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.category_id, ali.parent_id, ali.category_name, ali.category_common_code, ali.category_code, ali.is_parent,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.category_id, ali.parent_id, ali.category_name, ali.category_common_code, ali.category_code, ali.is_parent,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryPageDto">
+        SELECT
+        <include refid="Column_List"/>
+        FROM sys_common_category
+        <where>
+            del_flag = 0
+            <if test="query.categoryName != null and query.categoryName != ''">
+                AND LOCATE(#{query.categoryName, jdbcType=VARCHAR}, category_name) &gt; 0
+            </if>
+            <if test="query.categoryCode != null and query.categoryCode != ''">
+                AND LOCATE(#{query.categoryCode, jdbcType=VARCHAR}, category_code) &gt; 0
+            </if>
+            <if test="query.startTime != null">
+                AND create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过分类id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_common_category
+        WHERE category_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM sys_common_category
+        WHERE category_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_common_category
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE category_id = #{categoryId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_common_category
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE category_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

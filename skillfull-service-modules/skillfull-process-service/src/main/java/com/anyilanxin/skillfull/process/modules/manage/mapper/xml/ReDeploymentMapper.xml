@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.process.modules.manage.mapper.ReDeploymentMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.process.modules.manage.entity.ReDeploymentEntity" id="ReDeploymentMap">
+    <result property="id_" column="ID_" jdbcType="VARCHAR"/>
+    <result property="name_" column="NAME_" jdbcType="VARCHAR"/>
+    <result property="deployTime_" column="DEPLOY_TIME_" jdbcType="TIMESTAMP"/>
+    <result property="source_" column="SOURCE_" jdbcType="VARCHAR"/>
+    <result property="tenantId_" column="TENANT_ID_" jdbcType="VARCHAR"/>
+  </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        ID_, NAME_, DEPLOY_TIME_, SOURCE_, TENANT_ID_
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.ID_, ali.NAME_, ali.DEPLOY_TIME_, ali.SOURCE_, ali.TENANT_ID_
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.ID_, ali.NAME_, ali.DEPLOY_TIME_, ali.SOURCE_, ali.TENANT_ID_
+    </sql>
+    <!-- @formatter:off -->
+</mapper>

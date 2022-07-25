@@ -6,15 +6,26 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    // core-webflux依赖或其中依赖
-    implementation project(':skillfull-core-modules:skillfull-core-webflux')
-    implementation project(':skillfull-core-modules:skillfull-core-webflux-data-permission')
-    implementation project(':skillfull-core-modules:skillfull-core-database')
-
+    implementation project(':skillfull-core-modules:skillfull-mvc')
+    implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
+    implementation project(':skillfull-api-modules:skillfull-message-api')
+    implementation project(':skillfull-core-modules:skillfull-redis')
+    implementation project(':skillfull-core-modules:skillfull-database')
+    implementation('org.springframework.boot:spring-boot-starter-websocket') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'com.alibaba.cloud:aliyun-sms-spring-boot-starter'
     implementation rootProject.ext.dependencies["aliyun-java-sdk-core"]
+}
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
 }
 
 

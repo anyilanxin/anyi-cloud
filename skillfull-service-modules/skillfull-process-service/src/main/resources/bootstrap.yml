@@ -1,0 +1,42 @@
+# Spring
+spring:
+  profiles:
+    active: ${PROFILES_ACTIVE:dev}
+  application:
+    name: process-service
+    version: ${VERSION:#@version@#}
+  cloud:
+    nacos:
+      password: ${NACOS_PASSWORD:skillfullcloud}
+      username: ${NACOS_USERNAME:skillfullcloud}
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:skillfullcloud}
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path:}/actuator
+          # 灰度信息
+          gray-info:
+            active: ${spring.profiles.active}
+            version: ${spring.application.version:1.0.0}
+            enable-gray: ${app.enable-gray:false}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+      config:
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        # 配置文件格式
+        file-extension: ${NACOS_CONFIG_FILE_EXTENSION:yml}
+        name: ${NACOS_CONFIG_NAME:process-service}
+        enabled: ${CONFIG_ENABLE:false}
+        group: ${spring.cloud.nacos.discovery.group}
+        enable-remote-sync-config: true
+        shared-configs:
+          - data-id: commonshare-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+            group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+
+# 端口与请求前缀
+server:
+  port: 8088
+  servlet:
+    context-path: /process

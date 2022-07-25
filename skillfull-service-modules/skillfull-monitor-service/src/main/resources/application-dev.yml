@@ -1,6 +1,4 @@
 app:
-  server-port: 8087
-  base-path: /monitor
   log-root-level: info
   log-package-level: debug
   enable-gray: false # 是否启用灰度

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMenuMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleMenuEntity" id="RbacRoleMenuMap">
+    <result property="roleMenuId" column="role_menu_id" jdbcType="VARCHAR"/>
+    <result property="menuId" column="menu_id" jdbcType="VARCHAR"/>
+    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        role_menu_id, menu_id, role_id
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.role_menu_id, ali.menu_id, ali.role_id
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.role_menu_id, ali.menu_id, ali.role_id
+    </sql>
+
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Permission">
+        srm.menu_id, srm.parent_id, srm.`path`, srm.component, srm.path_name, srm.redirect, srm.menu_type,
+        srm.iframe, srm.iframe_type, srm.menu_status, srm.meta_title, srm.ignore_auth, srm.ignore_keep_alive,
+        srm.affix, srm.icon, srm.icon_type, srm.frame_src, srm.transition_name, srm.hide_breadcrumb,
+        srm.carry_param, srm.hide_children_in_menu, srm.current_active_menu, srm.hide_tab, srm.hide_menu,
+        srm.order_no, srm.ignore_route, srm.show_tag, srm.type, srm.content, srm.dot, srm.hide_path_for_children,
+        srm.button_action_tag, srm.button_express, srm.system_id, srm.enable_delete, srm.menu_sys_code,
+        srm.unique_help, srm.remark, srm.create_area_code, srm.create_position_code, srm.create_org_sys_code,
+        srm.create_system_code, srm.create_tenant_id, srm.create_user_id, srm.create_user_name, srm.create_time,
+        srm.update_user_id, srm.update_user_name, srm.update_time, srm.del_flag, srm.button_action
+    </sql>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectMenuAntButton"
+            resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleMenuDto">
+        SELECT
+            srr.role_code,
+            srr.role_sys_code,
+            srr.role_name,
+            srr.role_id,
+            <include refid="Column_List_Permission"/>
+        FROM sys_rbac_role_menu srrm
+        INNER JOIN sys_rbac_menu srm ON srrm.menu_id = srm.menu_id
+        INNER JOIN sys_rbac_role srr ON srr.role_id = srrm.role_id
+        WHERE
+            srm.menu_status = 1
+            AND srrm.role_id = #{roleId, jdbcType=VARCHAR}
+            AND ( srm.menu_type = 1 OR ( srm.menu_type = 0 AND srm.button_action != '' AND srm.button_action IS NOT NULL ) )
+    </select>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleMenuPageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM sys_rbac_role_menu ali
+        <where>
+             ali.del_flag = 0
+          <if test="query.roleMenuId != null and query.roleMenuId != ''">
+             AND ali.role_menu_id = #{query.roleMenuId, jdbcType=VARCHAR}
+          </if>
+          <if test="query.menuId != null and query.menuId != ''">
+             AND ali.menu_id = #{query.menuId, jdbcType=VARCHAR}
+          </if>
+          <if test="query.roleId != null and query.roleId != ''">
+             AND ali.role_id = #{query.roleId, jdbcType=VARCHAR}
+          </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleMenuDto" parameterType="com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacRoleMenuQueryVo">
+        SELECT
+            <include refid="Column_List"/>
+        FROM sys_rbac_role_menu
+        <where>
+             del_flag = 0
+         <if test="roleMenuId != null and roleMenuId != ''">
+             AND role_menu_id = #{roleMenuId, jdbcType=VARCHAR}
+         </if>
+         <if test="menuId != null and menuId != ''">
+             AND menu_id = #{menuId, jdbcType=VARCHAR}
+         </if>
+         <if test="roleId != null and roleId != ''">
+             AND role_id = #{roleId, jdbcType=VARCHAR}
+         </if>
+        </where>
+    </select>
+
+
+    <!-- 获取角色功能权限 -->
+    <select id="selectMenuListById" resultType="java.lang.String">
+        SELECT menu_id
+        FROM sys_rbac_role_menu
+        WHERE role_id = #{id, jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- 获取所有功能权限 -->
+    <select id="selectAllMenu" resultType="java.lang.String">
+        SELECT menu_id
+        FROM sys_rbac_menu
+        WHERE del_flag = 0
+    </select>
+
+
+    <!-- 通过权限角色id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_role_menu
+        WHERE role_menu_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_role_menu
+        WHERE role_menu_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_role_menu
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE role_menu_id = #{roleMenuId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_role_menu
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE role_menu_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

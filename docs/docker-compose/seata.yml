@@ -1,0 +1,30 @@
+###############################################################################
+#                          Generated on seata                                 #
+###############################################################################
+version: "3"
+services:
+  seata-server:
+    image: seataio/seata-server:1.5.1
+    container_name: seata-server
+    restart: always
+    networks:
+      - nacos_nacos_net
+      - seata_net
+    environment:
+      - spring.profiles.active=skillfullcloud
+      - SEATA_PORT=9091
+    #  - SEATA_IP=10.211.55.2
+    ports:
+      - "9091:9091"
+      - "7091:7091"
+    volumes:
+      - /opt/containerd/.data/seata/conf/application-skillfullcloud.yml:/seata-server/resources/application-skillfullcloud.yml
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+
+
+networks:
+  nacos_nacos_net:
+    external: true
+
+  seata_net:
+    driver: bridge

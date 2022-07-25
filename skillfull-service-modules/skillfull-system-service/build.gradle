@@ -6,16 +6,26 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    implementation project(':skillfull-core-modules:skillfull-core-mvc')
-    implementation project(':skillfull-core-modules:skillfull-core-database')
+    implementation project(':skillfull-core-modules:skillfull-mvc')
+    implementation project(':skillfull-api-modules:skillfull-system-api')
     implementation project(':skillfull-api-modules:skillfull-gateway-api')
-    implementation project(':skillfull-core-modules:skillfull-core-mvc-data-permission')
-    api rootProject.ext.dependencies["poi-tl"]
-    api rootProject.ext.dependencies["x-easypdf"]
-    api rootProject.ext.dependencies["easyexcel"]
-    // seata相关
-    implementation rootProject.ext.dependencies["seata-serializer-kryo"]
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata'
+    implementation project(':skillfull-api-modules:skillfull-process-api')
+    implementation project(':skillfull-api-modules:skillfull-storage-api')
+    implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
+    implementation project(':skillfull-core-modules:skillfull-redis')
+    implementation project(':skillfull-core-modules:skillfull-database')
+    implementation rootProject.ext.dependencies["poi-tl"]
+    implementation rootProject.ext.dependencies["x-easypdf"]
+    implementation rootProject.ext.dependencies["easyexcel"]
+    implementation rootProject.ext.dependencies["seata-spring-boot-starter"]
+}
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
 }
 
 

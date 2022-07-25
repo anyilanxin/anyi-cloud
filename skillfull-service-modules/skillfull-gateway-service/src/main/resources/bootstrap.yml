@@ -2,21 +2,24 @@
 spring:
   profiles:
     active: ${PROFILES_ACTIVE:dev}
+  application:
+    name: gateway-service
+    version: ${VERSION:#@version@#}
   cloud:
     nacos:
-      password: ${NACOS_PASSWORD:skillfull}
-      username: ${NACOS_USERNAME:skillfull}
+      password: ${NACOS_PASSWORD:skillfullcloud}
+      username: ${NACOS_USERNAME:skillfullcloud}
       server-addr: ${NACOS_ADDR:localhost:8848}
       discovery:
-        namespace: ${NACOS_NAMESPACE:skillfull}
+        namespace: ${NACOS_NAMESPACE:skillfullcloud}
         metadata:
           management:
-            context-path: ${server.servlet.context-path:}/actuator
+            context-path: ${spring.webflux.base-path:}/actuator
           # 灰度信息
           gray-info:
             active: ${spring.profiles.active}
-            version: ${spring.application.version}
-            enable-gray: ${app.enable-gray:false}
+            version: ${spring.application.version:1.0.0}
+            enable-gray: ${app.enable-gray:true}
       config:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式
@@ -25,6 +28,14 @@ spring:
         enabled: ${CONFIG_ENABLE:false}
         enable-remote-sync-config: true
         shared-configs:
-          - commonshare-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - data-id: commonshare-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+            group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+
+server:
+  port: 1012
+
+
 
 

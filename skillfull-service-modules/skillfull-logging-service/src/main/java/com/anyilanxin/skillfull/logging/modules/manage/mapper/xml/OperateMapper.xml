@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.logging.modules.manage.mapper.OperateMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity" id="OperateMap">
+    <result property="operateId" column="operate_id" jdbcType="VARCHAR"/>
+    <result property="operateType" column="operate_type" jdbcType="INTEGER"/>
+    <result property="logType" column="log_type" jdbcType="VARCHAR"/>
+    <result property="logTypeDescribe" column="log_type_describe" jdbcType="VARCHAR"/>
+    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+    <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+    <result property="logCode" column="log_code" jdbcType="VARCHAR"/>
+    <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
+    <result property="requestUrl" column="request_url" jdbcType="VARCHAR"/>
+    <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
+        <result property="requestParam" column="request_param" jdbcType="VARCHAR"/>
+        <result property="requestResult" column="request_result" jdbcType="VARCHAR"/>
+        <result property="logOtherData" column="log_other_data" jdbcType="VARCHAR"/>
+        <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
+        <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
+        <result property="operateStatus" column="operate_status" jdbcType="INTEGER"/>
+        <result property="dataSources" column="data_sources" jdbcType="VARCHAR"/>
+        <result property="dataSourcesDescribe" column="data_sources_describe" jdbcType="VARCHAR"/>
+        <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
+        <result property="requestStartTime" column="request_start_time" jdbcType="TIMESTAMP"/>
+        <result property="requestEndTime" column="request_end_time" jdbcType="TIMESTAMP"/>
+        <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        operate_id, operate_type, log_type, log_type_describe, user_id, user_name, log_code, request_ip, request_url,
+        request_method, request_param, request_result, log_other_data, operate_status,
+        data_sources,request_client_code,request_client_name,
+        data_sources_describe, cost_time, request_start_time, request_end_time, exception_message, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.operate_id, ali.operate_type, ali.log_type, ali.log_type_describe, ali.user_id, ali.user_name, ali.log_code,
+        ali.request_ip, ali.request_url, ali.request_method, ali.request_param, ali.request_result, ali.log_other_data,
+        ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time, ali.request_start_time,
+        ali.request_end_time, ali.exception_message, ali.create_area_code,
+        ali.create_position_code,ali.request_client_code,ali.request_client_name,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.operate_id, ali.operate_type, ali.log_type, ali.log_type_describe, ali.user_id, ali.user_name, ali.log_code,
+        ali.request_ip, ali.request_url, ali.request_method,ali.request_client_code,ali.request_client_name,
+        ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time, ali.request_start_time,
+        ali.request_end_time, ali.create_area_code, ali.create_position_code,
+        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
+        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM logging_operate ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.operateType != null">
+                AND ali.operate_type = #{query.operateType, jdbcType=INTEGER}
+            </if>
+            <if test="query.logType != null and query.logType != ''">
+                AND LOCATE(#{query.logType, jdbcType=VARCHAR}, ali.log_type) &gt; 0
+            </if>
+            <if test="query.userName != null and query.userName != ''">
+                AND LOCATE(#{query.userName, jdbcType=VARCHAR}, ali.user_name) &gt; 0
+            </if>
+            <if test="query.logCode != null and query.logCode != ''">
+                AND LOCATE(#{query.logCode, jdbcType=VARCHAR}, ali.log_code) &gt; 0
+            </if>
+            <if test="query.requestIp != null and query.requestIp != ''">
+                AND LOCATE(#{query.requestIp, jdbcType=VARCHAR}, ali.request_ip) &gt; 0
+            </if>
+            <if test="query.requestUrl != null and query.requestUrl != ''">
+                AND LOCATE(#{query.requestUrl, jdbcType=VARCHAR}, ali.request_url) &gt; 0
+            </if>
+            <if test="query.requestClientCode != null and query.requestClientCode != ''">
+                AND ali.request_client_code = #{query.requestClientCode, jdbcType=VARCHAR}
+            </if>
+            <if test="query.operateStatus != null">
+                AND ali.operate_status = #{query.operateStatus, jdbcType=INTEGER}
+            </if>
+            <if test="query.dataSources != null and query.dataSources != ''">
+                AND LOCATE(#{query.dataSources, jdbcType=VARCHAR}, ali.data_sources) &gt; 0
+            </if>
+            <if test="query.startTime != null">
+                AND ali.request_start_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.request_start_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <!-- 通过操作日志id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM logging_operate
+        WHERE operate_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM logging_operate
+        WHERE operate_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE logging_operate
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE operate_id = #{operateId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE logging_operate
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE operate_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

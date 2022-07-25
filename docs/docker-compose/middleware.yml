@@ -1,0 +1,25 @@
+###############################################################################
+#                          Generated on middleware                            #
+###############################################################################
+version: '3'
+services:
+  # rabbitmq
+  rabbitmq-server:
+    image: rabbitmq:3.10.1-management
+    container_name: rabbitmq-server
+    restart: always
+    networks:
+      - middleware_net
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: zuie_07934934KI12991
+    volumes:
+      /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+
+networks:
+  middleware_net:
+    driver: bridge

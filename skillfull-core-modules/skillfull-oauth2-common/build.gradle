@@ -1,0 +1,6 @@
+version = rootProject.ext.version["skillfull-core-modules:skillfull-oauth2-common"]['version']
+dependencies {
+    api 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
+    api project(':skillfull-core-modules:skillfull-common')
+    api project(':skillfull-core-modules:skillfull-redis')
+}

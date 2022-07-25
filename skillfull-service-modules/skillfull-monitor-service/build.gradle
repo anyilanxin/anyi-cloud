@@ -6,12 +6,19 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    implementation(project(':skillfull-core-modules:skillfull-core-common')) {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-data-redis'
-    }
+    implementation project(':skillfull-core-modules:skillfull-common')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation rootProject.ext.dependencies["spring-boot-admin-starter-server"]
 }
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
+}
+
 
 // 判断是否分离打包
 if (rootProject.ext["compileSeparate"]) {

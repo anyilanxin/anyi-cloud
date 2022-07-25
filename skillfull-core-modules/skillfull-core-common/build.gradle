@@ -1,9 +1,0 @@
-version = rootProject.ext.version["skillfull-core-modules:skillfull-core-common"]['version']
-
-
-dependencies {
-    api rootProject.ext.dependencies["java-jwt"]
-    api rootProject.ext.dependencies["easyexcel"]
-    api rootProject.ext.dependencies["reflections"]
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-}

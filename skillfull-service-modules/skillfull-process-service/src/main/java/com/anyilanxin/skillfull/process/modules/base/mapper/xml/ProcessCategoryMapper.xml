@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.process.modules.base.mapper.ProcessCategoryMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.process.modules.base.entity.ProcessCategoryEntity"
+             id="ProcessCategoryMap">
+    <result property="categoryId" column="category_id" jdbcType="VARCHAR"/>
+    <result property="categoryCode" column="category_code" jdbcType="VARCHAR"/>
+    <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+    <result property="categoryState" column="category_state" jdbcType="INTEGER"/>
+    <result property="categoryDescribe" column="category_describe" jdbcType="VARCHAR"/>
+    <result property="pictures" column="pictures" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        category_id, category_code, category_name, category_state, category_describe, pictures, remark,
+        create_area_code, create_position_code, create_org_sys_code, create_system_code, create_user_id,
+        create_user_name, create_tenant_id, create_time, update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.category_id, ali.category_code, ali.category_name, ali.category_state, ali.category_describe, ali.pictures,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_user_name, ali.create_tenant_id, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.category_id, ali.category_code, ali.category_name, ali.category_state, ali.category_describe, ali.pictures,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_user_id, ali.create_user_name, ali.create_tenant_id, ali.create_time, ali.update_user_id,
+        ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM act_custom_process_category ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.categoryName != null and query.categoryName != ''">
+                AND LOCATE(#{query.categoryName, jdbcType=VARCHAR}, ali.category_name) &gt; 0
+            </if>
+            <if test="query.categoryState != null">
+                AND ali.category_state = #{query.categoryState, jdbcType=INTEGER}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel"
+            resultType="com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryDto"
+            parameterType="com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCategoryQueryVo">
+        SELECT
+        <include refid="Column_List"/>
+        FROM act_custom_process_category
+        <where>
+            del_flag = 0
+            <if test="categoryCode != null and categoryCode != ''">
+                AND category_code = #{categoryCode, jdbcType=VARCHAR}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                LOCATE(#{categoryName, jdbcType=VARCHAR}, category_name) &gt; 0
+            </if>
+            <if test="categoryState != null">
+                AND category_state = #{categoryState, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过类别id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM act_custom_process_category
+        WHERE category_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM act_custom_process_category
+        WHERE category_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE act_custom_process_category
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE category_id = #{categoryId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE act_custom_process_category
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE category_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

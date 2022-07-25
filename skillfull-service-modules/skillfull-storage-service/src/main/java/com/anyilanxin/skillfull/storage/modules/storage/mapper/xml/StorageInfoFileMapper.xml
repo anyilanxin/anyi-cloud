@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.storage.modules.storage.mapper.StorageInfoFileMapper">
+  <resultMap type="com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity"
+             id="StorageInfoFileMap">
+    <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
+    <result property="fileOriginalName" column="file_original_name" jdbcType="VARCHAR"/>
+    <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
+    <result property="fileDirPrefix" column="file_dir_prefix" jdbcType="VARCHAR"/>
+    <result property="fileStorageType" column="file_storage_type" jdbcType="INTEGER"/>
+    <result property="contentType" column="content_type" jdbcType="VARCHAR"/>
+    <result property="fileSize" column="file_size" jdbcType="VARCHAR"/>
+    <result property="fileSizeDetail" column="file_size_detail" jdbcType="INTEGER"/>
+    <result property="fileMd5" column="file_md5" jdbcType="VARCHAR"/>
+    <result property="fileRelativePath" column="file_relative_path" jdbcType="VARCHAR"/>
+    <result property="endpoint" column="endpoint" jdbcType="VARCHAR"/>
+    <result property="fileHost" column="file_host" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        file_id, file_original_name, file_type, file_dir_prefix, file_storage_type, content_type, file_size, file_size_detail,
+        file_md5, file_relative_path, endpoint, file_host, remark, create_area_code, create_position_code, create_org_sys_code,
+        create_system_code, create_user_id, create_tenant_id, create_user_name, create_time, update_user_id, update_user_name,
+        update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.file_id, ali.file_original_name, ali.file_type, ali.file_dir_prefix, ali.file_storage_type, ali.content_type,
+        ali.file_size, ali.file_size_detail, ali.file_md5, ali.file_relative_path, ali.endpoint, ali.file_host, ali.remark,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.file_id, ali.file_original_name, ali.file_type, ali.file_dir_prefix, ali.file_storage_type, ali.content_type,
+        ali.file_size, ali.file_size_detail, ali.file_md5, ali.file_relative_path, ali.endpoint, ali.file_host, ali.remark,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_user_id,
+        ali.create_tenant_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM storage_info_file ali
+        <where>
+             ali.del_flag = 0
+          <if test="query.fileOriginalName != null and query.fileOriginalName != ''">
+              AND LOCATE(#{query.fileOriginalName, jdbcType=VARCHAR}, ali.file_original_name) &gt; 0
+          </if>
+          <if test="query.fileStorageType != null">
+             AND ali.file_storage_type = #{query.fileStorageType, jdbcType=INTEGER}
+          </if>
+         <if test="query.startTime != null">
+             AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test="query.endTime != null">
+             AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+          </if>
+        </where>
+    </select>
+
+
+    <!-- 通过文件id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM storage_info_file
+        WHERE file_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  storage_info_file
+        WHERE file_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE storage_info_file
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE file_id = #{fileId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE storage_info_file
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE file_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

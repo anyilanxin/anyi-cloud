@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacOrgUserMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgUserEntity" id="RbacOrgUserMap">
+    <result property="orgUserId" column="org_user_id" jdbcType="VARCHAR"/>
+    <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
+    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        org_user_id, org_id, user_id
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.org_user_id, ali.org_id, ali.user_id
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.org_user_id, ali.org_id, ali.user_id
+    </sql>
+
+
+    <!-- 查询用户关联的机构id -->
+    <select id="selectUserOrgListByUserId"
+            resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto">
+        SELECT
+            ali.org_id,
+            ali.parent_id,
+            ali.org_name,
+            ali.org_name_en,
+            ali.org_name_abbr,
+            ali.org_order,
+            ali.org_type,
+            ali.org_code,
+            ali.org_sys_code,
+            ali.org_status,
+            ali.social_code,
+            ali.area_code_name,
+            ali.area_code,
+            ali.org_simple_name,
+            srou.org_user_id,
+            srou.user_id
+        FROM sys_rbac_org ali
+        INNER JOIN sys_rbac_org_user srou ON ali.org_id = srou.org_id
+        WHERE srou.user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- 通过机构用户id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_org_user
+        WHERE org_user_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_org_user
+        WHERE org_user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 通过用户id物理删除 -->
+    <delete id="physicalDeleteByUserId">
+        DELETE
+        FROM sys_rbac_org_user
+        WHERE user_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_org_user
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE org_user_id = #{orgUserId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_org_user
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE org_user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

@@ -13,9 +13,19 @@ rbmq:
 
 
 app:
-  server-port: 1012
   log-root-level: info
   log-package-level: debug
   enable-gray: true # 是否启用灰度
   enable-doc: true # 是否打开swagger
   create-out-conf: false  # 启动是否创建外置配置文件
+
+
+resource:
+  common-white-list:
+    - /auth/oauth/token
+    - /auth/code/picture;get
+    - /system/common-system/init/system-info;get
+  dev-white-list:
+    - /*/v3/api-docs/**;get
+    - /webjars/swagger-ui/**;get
+  enabled: true

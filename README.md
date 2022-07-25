@@ -7,8 +7,6 @@ spring cloud ,spring alibaba.rapid development platform(micro service)
 当前最新版本： 0.9.9（发布日期：2022-07-25）
 
 
-
-
 技术文档
 -----------------------------------
 

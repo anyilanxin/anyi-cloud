@@ -6,12 +6,19 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    implementation project(':skillfull-core-modules:skillfull-core-webflux')
+    implementation project(':skillfull-core-modules:skillfull-webflux')
     implementation project(':skillfull-api-modules:skillfull-gateway-api')
+//    implementation project(':skillfull-core-modules:skillfull-redis')
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway'
-    implementation 'com.alibaba.csp:sentinel-datasource-nacos'
-//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+}
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
 }
 
 

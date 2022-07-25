@@ -1,0 +1,39 @@
+###############################################################################
+#                          Generated on database                              #
+###############################################################################
+version: '3'
+services:
+  mysql-server:
+    image: mysql:8.0.28
+    container_name: mysql-server
+    restart: always
+    networks:
+      - database_net
+    volumes:
+      - /sdb/opt/containerd/.data/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /sdb/opt/containerd/.data/mysql/data:/var/lib/mysql
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: zuie_07934934KI12991
+
+
+  # redis
+  redis-server:
+    image: redis:7.0.1
+    container_name: redis-server
+    restart: always
+    networks:
+      - database_net
+    environment:
+      requirepass: zuie_07934934KI12991
+    volumes:
+      /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+      - "6379:6379"
+
+
+networks:
+  database_net:
+    driver: bridge

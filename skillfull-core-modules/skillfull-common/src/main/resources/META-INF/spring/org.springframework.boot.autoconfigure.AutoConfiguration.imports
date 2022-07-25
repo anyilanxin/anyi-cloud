@@ -1,0 +1,4 @@
+com.anyilanxin.skillfull.corecommon.config.CoreCommonConfig
+com.anyilanxin.skillfull.corecommon.config.CustomLoadBalancerConfiguration
+com.anyilanxin.skillfull.corecommon.utils.UserContextUtils
+com.anyilanxin.skillfull.corecommon.config.SpringDocPrintApplicationRunner

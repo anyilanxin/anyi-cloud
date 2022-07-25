@@ -1,0 +1,42 @@
+// +----------------------------------------------------------------------
+// | SkillFull快速开发平台 [ SkillFull ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2021 zxiaozhou
+// +----------------------------------------------------------------------
+// | 官方网站: https://www.divisu.com
+// +----------------------------------------------------------------------
+// | 作者: zxiaozhou <z7630853@163.com>
+// +----------------------------------------------------------------------
+package com.anyilanxin.skillfull.corecommon.constant;
+
+import com.anyilanxin.skillfull.corecommon.constant.impl.SysBaseType;
+
+/**
+ * 系统基础配置常量
+ *
+ * @author zxiaozhou
+ * @date 2020-10-20 17:19
+ * @since JDK11
+ */
+public interface AuthConstant {
+    /**
+     * 超级管理员角色(系统最高权限)
+     */
+    String SUPER_ROLE = SysBaseType.SUPER_ROLE.getType();
+
+    /**
+     * 按钮权限校验角色前缀
+     */
+    String ROLE_PREFIX = "ROLE_";
+
+
+    /**
+     * 白名单或者不鉴权时默认权限表达式
+     */
+    String PERMIT_ALL_EXPRESS = "permitAll()";
+
+    /**
+     * 黑名单或者不允许访问时默认权限表达式
+     */
+    String DENY_ALL_EXPRESS = "denyAll()";
+}

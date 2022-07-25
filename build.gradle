@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version '2.6.7'
+    id 'org.springframework.boot' version '2.7.1'
     id 'java-library'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.bmuschko.docker-spring-boot-application' version '7.3.0'
@@ -23,27 +23,37 @@ configurations {
 }
 
 
-// 批量创建容器并推送到仓库
+// 批量构建镜像
+task dockerImageAll() {
+    subprojects.findAll { project ->
+        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
+        if (versionInfo != null && versionInfo['bootJar']) {
+            dependsOn ':skillfull-service-modules:' + project.name + ':dockerBuildImage'
+        }
+    }
+}
+
+
+// 批量构建镜像并推送到仓库
 task dockerPushImageAll() {
     subprojects.findAll { project ->
-        def versionInfo = rootProject.ext.version[project.name]
+        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
         if (versionInfo != null && versionInfo['bootJar']) {
-            dependsOn ':' + project.name + ':dockerPushImage'
+            dependsOn ':skillfull-service-modules:' + project.name + ':dockerPushImage'
         }
     }
 }
 
 
-// 批量创建bootJar包
+// 批量构建bootJar
 task buildBootJarAll() {
     subprojects.findAll { project ->
-        def versionInfo = rootProject.ext.version[project.name]
+        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
         if (versionInfo != null && versionInfo['bootJar']) {
-            dependsOn ':' + project.name + ':bootJar'
+            dependsOn ':skillfull-service-modules:' + project.name + ':bootJar'
         }
     }
 }
-
 
 // 所有项目下载仓库
 allprojects {
@@ -61,7 +71,7 @@ allprojects {
     sourceCompatibility = '11'
     targetCompatibility = '11'
     // 项目全局信息
-    group = 'indi.zxiaozhou.skillfull'
+    group = 'com.anyilanxin.skillfull'
 }
 
 
@@ -89,7 +99,7 @@ subprojects {
     // jar名称
     def jarBaseName = bootJar.archiveBaseName.get()
     // jar版本号
-    def versionInfo = rootProject.ext.version[jarBaseName]
+    def versionInfo = rootProject.ext.version['skillfull-service-modules:' + jarBaseName]
     if (versionInfo != null) {
         docker {
             springBootApplication {
@@ -100,14 +110,16 @@ subprojects {
             if (dockerInfo.isRemortDocker) {
                 url.set(dockerInfo.remortDocker)
             }
-            registryCredentials dockerInfo.credentials
+            if (dockerInfo.credentials != null) {
+                registryCredentials dockerInfo.credentials
+            }
         }
     }
 
     // 进行配置文件变量替换
     processResources {
         filteringCharset = 'UTF-8'
-        include('*.yml', '*.yaml', 'META-INF/**')
+        include('*.yml', '*.yaml', 'META-INF/**', 'i18n/**', "jwt.jks", 'template/**', 'banner.txt')
         // 只处理yml、yaml文件替换
         filesMatching('*.yml') {
             filter(
@@ -137,6 +149,12 @@ subprojects {
         useJUnitPlatform()
     }
 
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
     // cloud依赖管理
     dependencyManagement {
         imports {
@@ -158,26 +176,27 @@ subprojects {
         compileOnly rootProject.ext.dependencies["mapstruct"]
         compileOnly rootProject.ext.dependencies["mapstruct-processor"]
 
-        implementation 'org.springframework.cloud:spring-cloud-starter'
-        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         implementation 'org.springframework.boot:spring-boot-starter-cache'
         implementation 'org.springframework.boot:spring-boot-configuration-processor'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-aop'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.cloud:spring-cloud-starter'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
         implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
         implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
         implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+        implementation 'org.springframework.retry:spring-retry'
 
         implementation rootProject.ext.dependencies["guava"]
         implementation rootProject.ext.dependencies["hutool-all"]
         implementation rootProject.ext.dependencies["commons-lang3"]
         implementation rootProject.ext.dependencies["commons-codec"]
         implementation rootProject.ext.dependencies["springdoc-openapi-common"]
-        implementation rootProject.ext.dependencies["fastjson"]
+        implementation rootProject.ext.dependencies["fastjson2"]
         implementation rootProject.ext.dependencies["slf4j-api"]
         implementation rootProject.ext.dependencies["commons-io"]
         implementation rootProject.ext.dependencies["commons-pool2"]

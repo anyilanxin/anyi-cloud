@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.process.modules.base.mapper.DesignModelHistoryMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.process.modules.base.entity.DesignModelHistoryEntity"
+             id="DesignModelHistoryMap">
+    <result property="historyModelId" column="history_model_id" jdbcType="VARCHAR"/>
+    <result property="modelId" column="model_id" jdbcType="VARCHAR"/>
+    <result property="processDefinitionKeys" column="process_definition_keys" jdbcType="VARCHAR"/>
+    <result property="processDefinitionIds" column="process_definition_ids" jdbcType="VARCHAR"/>
+    <result property="diagramData" column="diagram_data" jdbcType="VARCHAR"/>
+    <result property="resourceNames" column="resource_names" jdbcType="VARCHAR"/>
+    <result property="resourceIds" column="resource_ids" jdbcType="VARCHAR"/>
+    <result property="deploymentName" column="deployment_name" jdbcType="VARCHAR"/>
+    <result property="deploymentId" column="deployment_id" jdbcType="VARCHAR"/>
+    <result property="category" column="category" jdbcType="VARCHAR"/>
+    <result property="diagramNames" column="diagram_names" jdbcType="VARCHAR"/>
+    <result property="version" column="version" jdbcType="INTEGER"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="deploymentTime" column="deployment_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <result property="havePool" column="have_pool" jdbcType="INTEGER"/>
+  </resultMap>
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        history_model_id, model_id, process_definition_keys, process_definition_ids, diagram_data, deployment_name,
+        deployment_id, category, version, remark, create_area_code, create_position_code, create_org_sys_code,
+        create_system_code, create_tenant_id, create_user_id, create_user_name, create_time, update_user_id,
+        update_user_name, update_time, del_flag, have_pool, diagram_names, deployment_time,resource_names, resource_ids
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.history_model_id, ali.model_id, ali.process_definition_keys, ali.process_definition_ids, ali.diagram_data,
+        ali.deployment_name, ali.deployment_id, ali.category, ali.version, ali.remark, ali.create_area_code,
+        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_tenant_id,
+        ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag, ali.have_pool, ali.diagram_names, ali.deployment_time,ali.resource_names,
+        ali.resource_ids
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.history_model_id, ali.model_id, ali.deployment_name, ali.deployment_id, ali.category,
+        ali.process_definition_ids, ali.process_definition_keys,
+        ali.version, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.deployment_time,
+        ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.have_pool,
+        ali.diagram_names,ali.resource_names, ali.resource_ids
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel"
+            resultType="com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelHistoryPageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>,
+        acpc.category_name
+        FROM act_custom_design_model_history ali
+        LEFT JOIN act_custom_process_category acpc ON ali.category = acpc.category_code
+        <where>
+            ali.del_flag = 0
+            AND ali.model_id = #{query.modelId, jdbcType=VARCHAR}
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.diagram_names) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, acpc.category_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR},ali.deployment_name) &gt; 0
+                )
+            </if>
+        </where>
+    </select>
+
+    <!-- 通过历史模型id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM act_custom_design_model_history
+        WHERE history_model_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM act_custom_design_model_history
+        WHERE history_model_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE act_custom_design_model_history
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE history_model_id = #{historyModelId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE act_custom_design_model_history
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE history_model_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

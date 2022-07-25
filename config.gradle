@@ -1,91 +1,104 @@
 ext {
-    set('springCloudVersion', "2021.0.2")
+    set('springCloudVersion', "2021.0.3")
     set('springCloudAlibabaVersion', "2021.0.1.0")
     set('springAlibabaVersion', "1.0.0")
     // 分离打包开关(打开后依赖与源码会分开)
     set('compileSeparate', true)
+    // boot jar输入出到统一目录(打开后会输出到统一目录)
+    set('compileBootJarToParent', false)
     // docker打包环境
-    set('dockerEnv', 'duyun')
+    set('dockerEnv', 'company')
 
 
     dependencies = [
-            'mapstruct'                             : 'org.mapstruct:mapstruct:1.4.2.Final',
-            'mapstruct-processor'                   : 'org.mapstruct:mapstruct-processor:1.4.2.Final',
+            'mapstruct'                             : 'org.mapstruct:mapstruct:1.5.2.Final',
+            'mapstruct-processor'                   : 'org.mapstruct:mapstruct-processor:1.5.2.Final',
             'guava'                                 : 'com.google.guava:guava:31.1-jre',
-            'hutool-all'                            : 'cn.hutool:hutool-all:5.8.0',
+            'hutool-all'                            : 'cn.hutool:hutool-all:5.8.4',
             'commons-lang3'                         : 'org.apache.commons:commons-lang3:3.12.0',
             'commons-codec'                         : 'commons-codec:commons-codec:1.15',
             'commons-io'                            : 'commons-io:commons-io:2.11.0',
             'commons-pool2'                         : 'org.apache.commons:commons-pool2:2.11.1',
-            'fastjson2'                             : 'com.alibaba.fastjson2:fastjson2:2.0.2',
-            'slf4j-api'                             : 'org.slf4j:slf4j-api:1.7.30',
-            'mybatis-plus-boot-starter'             : 'com.baomidou:mybatis-plus-boot-starter:3.5.1',
+            'fastjson2'                             : 'com.alibaba.fastjson2:fastjson2:2.0.9',
+            'slf4j-api'                             : 'org.slf4j:slf4j-api:1.7.36',
+            'mybatis-plus-boot-starter'             : 'com.baomidou:mybatis-plus-boot-starter:3.5.2',
             'dynamic-datasource-spring-boot-starter': 'com.baomidou:dynamic-datasource-spring-boot-starter:3.5.1',
-            'druid-spring-boot-starter'             : 'com.alibaba:druid-spring-boot-starter:1.2.9',
+            'druid-spring-boot-starter'             : 'com.alibaba:druid-spring-boot-starter:1.2.11',
             'mysql-connector-java'                  : 'mysql:mysql-connector-java:8.0.29',
-            'easyexcel'                             : 'com.alibaba:easyexcel:3.1.0', // excel模板引擎
+            'easyexcel'                             : 'com.alibaba:easyexcel:3.1.1', // excel模板引擎
             'poi-tl'                                : 'com.deepoove:poi-tl:1.12.0', // word模板引擎
-            'x-easypdf'                             : 'wiki.xsx:x-easypdf:2.7.8', // pdf模板引擎
+            'x-easypdf'                             : 'wiki.xsx:x-easypdf:2.9.3', // pdf模板引擎
             'reflections'                           : 'org.reflections:reflections:0.10.2',
-            'spring-boot-admin-starter-server'      : 'de.codecentric:spring-boot-admin-starter-server:2.6.7',
+            // 流程引擎camunda----start
+            'camunda-bpm-spring-boot-starter-webapp': 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.17.0',
+            'camunda-external-task-client'          : 'org.camunda.bpm:camunda-external-task-client:7.17.0',
+            'jython'                                : 'org.python:jython:2.7.2',
+            'jruby-complete'                        : 'org.jruby:jruby-complete:9.2.9.0',
+            // 流程引擎camunda----end
+            'spring-boot-admin-starter-server'      : 'de.codecentric:spring-boot-admin-starter-server:2.7.2',
             'JustAuth'                              : 'me.zhyd.oauth:JustAuth:1.16.5',
             'bcprov-jdk14'                          : 'org.bouncycastle:bcprov-jdk14:1.71',
-            'micrometer-registry-prometheus'        : 'io.micrometer:micrometer-registry-prometheus:1.9.0',
+            'micrometer-registry-prometheus'        : 'io.micrometer:micrometer-registry-prometheus:1.9.2',
             'aliyun-java-sdk-core'                  : 'com.aliyun:aliyun-java-sdk-core:4.6.0',
-            'groovy-all'                            : 'org.codehaus.groovy:groovy-all:3.0.9',
+            'groovy-all'                            : 'org.codehaus.groovy:groovy-all:3.0.11',
             'metadata-extractor'                    : 'com.drewnoakes:metadata-extractor:2.18.0',  // 读取图片信息数据
-            'seata-serializer-kryo'                 : 'io.seata:seata-serializer-kryo:1.4.2', // 分布式事务seata时间处理包
+            'seata-spring-boot-starter'             : 'io.seata:seata-spring-boot-starter:1.5.2',// 分布式事务seata
             // springdoc api文档----start
-            'springdoc-openapi-ui'                  : 'org.springdoc:springdoc-openapi-ui:1.6.8',
-            'springdoc-openapi-common'              : 'org.springdoc:springdoc-openapi-common:1.6.8',
-            'springdoc-openapi-webflux-ui'          : 'org.springdoc:springdoc-openapi-webflux-ui:1.6.8',
+            'springdoc-openapi-ui'                  : 'org.springdoc:springdoc-openapi-ui:1.6.9',
+            'springdoc-openapi-common'              : 'org.springdoc:springdoc-openapi-common:1.6.9',
+            'springdoc-openapi-webflux-ui'          : 'org.springdoc:springdoc-openapi-webflux-ui:1.6.9',
             // springdoc api文档----end
-            "log4j-api"                             : 'org.apache.logging.log4j:log4j-api:2.17.2',
-            "log4j-to-slf4j"                        : 'org.apache.logging.log4j:log4j-to-slf4j:2.17.2',
-            "log4j-core"                            : 'org.apache.logging.log4j:log4j-core:2.17.2',
-            'feign-okhttp'                          : 'io.github.openfeign:feign-okhttp:11.8',
+            "log4j-api"                             : 'org.apache.logging.log4j:log4j-api:2.18.0',
+            "log4j-to-slf4j"                        : 'org.apache.logging.log4j:log4j-to-slf4j:2.18.0',
+            "log4j-core"                            : 'org.apache.logging.log4j:log4j-core:2.18.0',
+            'feign-okhttp'                          : 'io.github.openfeign:feign-okhttp:11.9',
             // okhttps-----start
             'okhttps'                               : 'com.ejlchina:okhttps:3.5.1',
-            'okhttps-fastjson'                      : 'com.ejlchina:okhttps-fastjson:3.5.1'
+            'okhttps-fastjson'                      : 'com.ejlchina:okhttps-fastjson:3.5.1',
             // okhttps-----end
-
+            'xxl-job-core'                          : 'com.xuxueli:xxl-job-core:2.3.1',
+            'mica-ip2region'                        : 'net.dreamlu:mica-ip2region:2.7.1.1'
     ]
 
 
     version = [
             // 主项目
-            'skillfull-cloud'                                              : '0.0.1-SNAPSHOT',
+            'skillfull-cloud'                                      : '0.0.1-SNAPSHOT',
 
             // 服务模块
-            'skillfull-service-modules:skillfull-auth-service'             : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-example-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-gateway-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-job-service'              : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-logging-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-message-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-monitor-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-storage-service'          : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-system-service'           : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-auth-service'     : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-gateway-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-logging-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-message-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-process-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-monitor-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-onlinedes-service': [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-storage-service'  : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-system-service'   : [version: '0.9.9', bootJar: true],
 
             // 核心模块
-            'skillfull-core-modules:skillfull-core-common'                 : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-database'               : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-mvc'                    : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-mvc-data-permission'    : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-process'                : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-webflux'                : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-webflux-database'       : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-core-webflux-data-permission': [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-common'              : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-database'            : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-mvc'                 : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-redis'               : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-webflux'             : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-oauth2-common'       : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-logging'             : [version: '0.9.9', bootJar: false],
 
             // 远程api模块
+            'skillfull-api-modules:skillfull-process-api'          : [version: '0.9.9', bootJar: false],
+            'skillfull-api-modules:skillfull-system-api'           : [version: '0.9.9', bootJar: false],
             'skillfull-api-modules:skillfull-gateway-api'          : [version: '0.9.9', bootJar: false],
+            'skillfull-api-modules:skillfull-message-api'          : [version: '0.9.9', bootJar: false],
+            'skillfull-api-modules:skillfull-storage-api'          : [version: '0.9.9', bootJar: false],
     ]
 
 
     docker = [
             // docker打包多环境配置,切换设置顶部dockerEnv
-            'duyun': [
-                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.12-jre-buster',
+            'duyun'  : [
+                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.15-jre-buster',
                     images        : "192.168.1.11:81/own-projects/",
                     isRemortDocker: true,
                     remortDocker  : 'http://192.168.1.11:2375',
@@ -96,16 +109,23 @@ ext {
                     }
             ],
             // docker打包多环境配置,切换设置顶部dockerEnv
-            'local': [
-                    baseImage     : 'myharbor.com:82/library/openjdk:11.0.12-jre-buster',
-                    images        : "myharbor.com:82/own-projects/",
+            'local'  : [
+                    baseImage     : 'myharbor.com:82/library/openjdk:11.0.15-jre-buster',
+                    images        : "192.168.1.11:81/own-projects/",
                     isRemortDocker: false,
                     credentials   : {
                         url = 'http://myharbor.com:82'
                         username = 'robot$approot'
-                        password = 'hAYleXqFmnuO1mKegPwvgkGF47LD025W'
+                        password = 'qTkXyonFaDMhh044poV3eGnGCrGexKb6'
                     }
-            ]
+            ],
+            // docker打包多环境配置,切换设置顶部dockerEnv
+            'company': [
+                    baseImage     : 'openjdk:11.0.15-jre-buster',
+                    images        : "",
+                    isRemortDocker: true,
+                    remortDocker  : 'http://192.168.51.78:2375',
+            ],
     ]
 
 }

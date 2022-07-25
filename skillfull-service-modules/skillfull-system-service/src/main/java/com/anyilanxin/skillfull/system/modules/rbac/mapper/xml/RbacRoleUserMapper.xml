@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleUserMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleUserEntity" id="RbacRoleUserMap">
+    <result property="roleUserId" column="role_user_id" jdbcType="VARCHAR"/>
+    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <resultMap type="com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo" id="RoleInfoMap">
+    <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+    <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
+    <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="roleType" column="role_type" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+
+    <sql id="Column_Role_List_Ali">
+        ali.role_id, ali.role_name, ali.role_sys_code, ali.data_auth_type, ali.custom_data_auth_data,
+        ali.role_code, ali.parent_role_id, ali.enable_delete, ali.auto_bind, ali.role_status, ali.remark,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List">
+        role_user_id, role_id, user_id
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.role_user_id, ali.role_id, ali.user_id
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.role_user_id, ali.role_id, ali.user_id
+    </sql>
+
+
+    <!--数据库字段待别名-->
+    <sql id="Column_Menu_List_Ali">
+        ali.menu_id, ali.parent_id, ali.`path`, ali.component, ali.path_name, ali.redirect, ali.menu_type,
+        ali.iframe, ali.iframe_type, ali.menu_status, ali.meta_title, ali.ignore_auth, ali.ignore_keep_alive,
+        ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb,
+        ali.carry_param, ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu,
+        ali.order_no, ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
+        ali.button_action_tag, ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code,
+        ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action, srs.system_code
+    </sql>
+
+
+    <!-- 查询用户角色 -->
+    <select id="selectByUserId" resultMap="RoleInfoMap">
+        SELECT
+            srr.role_name,
+            srr.role_code,
+            srr.role_id,
+            srr.data_auth_type,
+            srr.custom_data_auth_data,
+            0 AS role_type
+        FROM sys_rbac_role_user srru
+        INNER JOIN sys_rbac_role srr ON srru.role_id = srr.role_id
+        WHERE srru.user_id = #{userId, jdbcType=VARCHAR}
+              AND srr.role_status = 1
+              AND srr.del_flag = 0
+    </select>
+
+
+    <!-- 获取用户角色 -->
+    <select id="selectUserRoleListById" resultType="java.lang.String">
+        SELECT ali.role_id
+        FROM sys_rbac_role_user srru
+        INNER JOIN sys_rbac_role ali ON ali.role_id = srru.role_id
+        WHERE
+            ali.del_flag = 0
+            AND srru.user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- 获取用户角色(完整数据) -->
+    <select id="selectUserRoleAllInfoListById"
+            resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDto">
+        SELECT <include refid="Column_Role_List_Ali"/>
+        FROM sys_rbac_role_user srru
+        INNER JOIN sys_rbac_role ali ON srru.role_id = ali.role_id
+        WHERE
+            ali.del_flag = 0
+            AND srru.user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- 查询用户角色授权菜单信息 -->
+    <select id="selectMenuByUserId" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto">
+        SELECT
+             <include refid="Column_Menu_List_Ali"/>
+        FROM sys_rbac_role_user srru
+        INNER JOIN sys_rbac_role srr ON srru.role_id = srr.role_id
+        INNER JOIN sys_rbac_role_menu srrm ON srrm.role_id = srr.role_id
+        INNER JOIN sys_rbac_menu ali ON ali.menu_id = srrm.menu_id
+        INNER JOIN sys_rbac_system srs ON srs.system_id = ali.system_id
+        WHERE
+            srru.user_id = #{userId, jdbcType=VARCHAR}
+            AND srr.role_status = 1
+            AND srr.del_flag = 0
+            AND ali.del_flag = 0
+            AND ali.menu_status = 1
+            AND srs.del_flag = 0
+            <if test="systemCodes != null and systemCodes.size > 0">
+                AND srs.system_code IN
+                <foreach collection="systemCodes" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+    </select>
+
+
+    <!-- 通过角色用户id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_role_user
+        WHERE role_user_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchRoleIds">
+        DELETE
+        FROM  sys_rbac_role_user
+        WHERE role_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_role_user
+        WHERE role_user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过用户id物理删除 -->
+    <delete id="physicalDeleteByUserId">
+        DELETE
+        FROM sys_rbac_role_user
+        WHERE user_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_role_user
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE role_user_id = #{roleUserId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_role_user
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE role_user_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

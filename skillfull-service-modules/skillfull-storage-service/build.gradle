@@ -6,11 +6,20 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    implementation project(':skillfull-core-modules:skillfull-core-webflux')
-    implementation project(':skillfull-core-modules:skillfull-core-database')
-    implementation project(':skillfull-core-modules:skillfull-core-webflux-data-permission')
+    implementation project(':skillfull-core-modules:skillfull-mvc')
+    implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
+    implementation project(':skillfull-api-modules:skillfull-storage-api')
+    implementation project(':skillfull-core-modules:skillfull-database')
     implementation rootProject.ext.dependencies["metadata-extractor"]
     implementation 'com.alibaba.cloud:aliyun-oss-spring-boot-starter'
+}
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
 }
 
 

@@ -2,41 +2,30 @@ spring:
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
-  application:
-    name: system-service
-    version: ${VERSION:#@version@#}
   datasource:
-    url: jdbc:mysql://${mysql.host:localhost}:${mysql.port:3306}/${mysql.database:database}?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: ${mysql.username:root}
-    password: ${mysql.password:root}
-    druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      db-type: mysql
-      enable: true
-      password: ${mysql.password:root}
-      username: ${mysql.username:root}
-      # 初始化连接大小
-      initial-size: 10
-      # 最小空闲连接数
-      min-idle: 5
-      max-active: 20
-      max-wait: 30000
-      # 可关闭的空闲连接间隔时间
-      time-between-eviction-runs-millis: 60000
-      # 配置连接在池中的最小生存时间
-      min-evictable-idle-time-millis: 300000
-      validation-query: select '1' from dual
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      #关闭长时间不使用的连接
-      remove-abandoned: true
-      remove-abandoned-timeout: 1800
-      log-abandoned: true
-      # 打开PSCache，并且指定每个连接上PSCache的大小
-      pool-prepared-statements: false
-      max-open-prepared-statements: 20
-      max-pool-prepared-statement-per-connection-size: 20
+    dynamic:
+      primary: master
+      druid:
+        # 初始化连接大小
+        initial-size: 10
+        # 最小空闲连接数
+        min-idle: 5
+        max-active: 20
+        max-wait: 30000
+        # 可关闭的空闲连接间隔时间
+        time-between-eviction-runs-millis: 60000
+        # 配置连接在池中的最小生存时间
+        min-evictable-idle-time-millis: 300000
+        validation-query: select '1' from dual
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        #关闭长时间不使用的连接
+        remove-abandoned: true
+        log-abandoned: true
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
   jackson:
     time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
@@ -52,11 +41,7 @@ spring:
         max-wait: -1
         min-idle: 0
         max-active: 200
-  sleuth:
-    # 遗弃掉redis的信息否则会导致使用KeyspaceEventMessageListener的应用无法启动完成
-    redis:
-      legacy:
-        enabled: true
+  
   rabbitmq:
     host: ${rbmq.host:localhost}
     port: ${rbmq.port:5672}
@@ -67,12 +52,13 @@ spring:
       log:
         dir: ./logs
     function:
-      definition: authActionProcess;submitProcessResult
+      definition: authUrlProcess;submitProcessResult
     stream:
       bindings:
-        authActionProcess-in-0:
-          destination: authActionProcess
-          group: auth-service
+        authUrlProcess-in-0:
+          destination: authUrlProcess
+        authUrlProcess-out-0:
+          destination: authUrlProcess
         routerProcess-out-0:
           destination: routerProcess
         baseConfigProcess-out-0:
@@ -85,10 +71,8 @@ spring:
 
 # server配置
 server:
-  port: ${app.server-port}
   shutdown: graceful
   servlet:
-    context-path: ${app.context-path}
     encoding:
       force: true
       charset: UTF-8
@@ -124,7 +108,7 @@ seata:
       password: ${spring.cloud.nacos.password}
       cluster: DEFAULT
   tx-service-group: my_test_tx_group
-  application-id: ${spring.application.name}
+  application-id: ${spring.application.name:skillfull}
   service:
     vgroup-mapping:
       tx-service-group: DEFAULT
@@ -148,13 +132,13 @@ management:
 logging:
   level:
     root: ${app.log-root-level:debug}
-    indi.zxiaozhou: ${app.log-package-level:debug}
+    com.anyilanxin: ${app.log-package-level:debug}
     com.alibaba.nacos: error
   # 生成日志文件路径(注释不会生成)
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
   file:
-    name: ./logs/${spring.application.name}.log
+    name: ./logs/${spring.application.name:skillfull}.log
   logback:
     rollingpolicy:
       max-history: 7
@@ -165,9 +149,9 @@ debug: true
 # mybatis
 mybatis-plus:
   # mapper.xml路径
-  mapper-locations: classpath*:indi/zxiaozhou/skillfull/*/modules/*/mapper/xml/*Mapper.xml
+  mapper-locations: classpath*:com/anyilanxin/skillfull/*/modules/*/mapper/xml/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: indi.zxiaozhou.skillfull.*.modules.*.entity
+  typeAliasesPackage: com.anyilanxin.skillfull.*.modules.*.entity
   global-config:
     banner: false
     db-config:
@@ -185,18 +169,29 @@ mybatis-plus:
     cache-enabled: false
 
 
+# feign相关配置
+feign:
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 120000 # 连接超时(ms)
+        readTimeout: 120000  # 读取超时(ms)
+
+
 # api文档配置
 springdoc:
-  version: ${spring.application.version}
-  api-prefix: /api${app.context-path} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  version: ${spring.application.version:1.0.0}
+  api-prefix: /api${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
   headers:
     - skill-full-token
     - Authorization
-  title: ${spring.application.name}服务
+  title: ${spring.application.name:skillfull}服务
   contact-email: z7630853@163.com
   contact-user: zxiaozhou
   api-docs:
     enabled: ${app.enable-doc}
-  packages-to-scan: indi.zxiaozhou.skillfull
+  packages-to-scan: com.anyilanxin.skillfull
   swagger-ui:
     enabled: ${app.enable-doc}

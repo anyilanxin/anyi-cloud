@@ -6,16 +6,23 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 
 dependencies {
-    implementation project(':skillfull-core-modules:skillfull-core-mvc')
-    implementation project(':skillfull-core-modules:skillfull-core-process')
-    implementation project(':skillfull-core-modules:skillfull-core-database')
-    implementation project(':skillfull-core-modules:skillfull-core-mvc-data-permission')
+    implementation project(':skillfull-core-modules:skillfull-mvc')
+    implementation project(':skillfull-api-modules:skillfull-system-api')
+    implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
+    implementation project(':skillfull-core-modules:skillfull-database')
+    implementation project(':skillfull-core-modules:skillfull-redis')
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
     implementation rootProject.ext.dependencies["JustAuth"]
-    // seata相关
-    implementation rootProject.ext.dependencies["seata-serializer-kryo"]
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata'
+}
+
+
+// 判断是否输出到统一目录
+if (rootProject.ext["compileBootJarToParent"]) {
+    tasks.withType(Jar) {
+        destinationDirectory = file("$project.parent.buildDir/bootJar")
+    }
 }
 
 
@@ -52,4 +59,3 @@ if (rootProject.ext["compileSeparate"]) {
         }
     }
 }
-

@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="1276" viewBox="0 0 876 1276" width="876" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css"><![CDATA[
+<svg xmlns="http://www.w3.org/2000/svg" height="1276" viewBox="0 0 876 1276" width="876">
+    <style type="text/css"><![CDATA[
 .st4 {fill:#000000;font-family:Arial;font-size:9.75pt}
 .st7 {fill:#000000;font-family:微软雅黑;font-size:11.25pt}
 .st5 {fill:#000000;font-family:微软雅黑;font-size:12.75pt}
@@ -6,4 +7,357 @@
 .st3 {fill:#000000;font-family:微软雅黑;font-size:15.75pt}
 .st1 {fill:#000000;font-family:微软雅黑;font-size:9.75pt}
 .st6 {font-size:9pt}
-]]></style><defs/><g transform="translate(5.5,5.5)" id="page1"><rect height="1266" x="0" y="0" width="866" fill="#ffffff"/><g transform="translate(165.52,81)"><path fill-rule="evenodd" stroke="#6d6d6d" id="shape1" d="M11,0L522,0C528.1,0,533,4.9,533,11L533,157C533,163.1,528.1,168,522,168L11,168C4.9,168,0,163.1,0,157L0,11C0,4.9,4.9,0,11,0z" fill-opacity="0.66" fill="#8470ff"/><path/></g><g transform="translate(213.52,192)" id="shape2"><path fill-rule="evenodd" stroke="#323232" d="M442,33L442,7C442,3.1,438.9,0,435,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L435,40C438.9,40,442,36.9,442,33z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="201.8" y="26">Vue.js</tspan></text></g><g transform="translate(213.52,126)" id="shape3"><path fill-rule="evenodd" stroke="#323232" d="M211,33L211,7C211,3.1,207.9,0,204,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L204,40C207.9,40,211,36.9,211,33z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="74" y="26">ElementUI</tspan></text></g><g transform="translate(444.52,125)" id="shape4"><path fill-rule="evenodd" stroke="#323232" d="M211,33L211,7C211,3.1,207.9,0,204,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L204,40C207.9,40,211,36.9,211,33z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="93.9" y="26">SPA</tspan></text></g><g transform="translate(359.02,82)" id="shape5"><text class="st2" xml:space="preserve"><tspan x="59.5" y="27">前端</tspan></text></g><path fill-rule="evenodd" transform="matrix(0,-1,1,0,213.5,320)" stroke="#323232" id="shape6" d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/><path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,320)" stroke="#323232" id="shape7" d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/><path fill-rule="evenodd" transform="matrix(0,-1,1,0,581.5,320)" stroke="#323232" id="shape8" d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/><g transform="translate(123.52,335)" id="shape9"><path fill-rule="evenodd" stroke="#323232" d="M617,47L617,0L0,0L0,47L617,47z" fill-opacity="0.66" fill="#cfebf6"/><text class="st3" xml:space="preserve"><tspan x="258.5" y="34.5">nginx集群</tspan></text></g><path fill-rule="evenodd" transform="translate(252.52,467)" stroke="#323232" id="shape10" d="M347,104C353.6,104,359,98.6,359,92L359,12C359,5.4,353.6,0,347,0L12,0C5.4,0,0,5.4,0,12L0,92C0,98.6,5.4,104,12,104L347,104z" fill="#fde9d0"/><g transform="translate(125.52,467)" id="shape11"><path fill-rule="evenodd" stroke="#323232" d="M12.5,0L100,0L100,0C92,15.6,87.5,33.3,87.5,52C87.5,70.7,92,88.4,100,104L12.5,104L12.5,104C4.5,88.4,0,70.7,0,52C0,33.3,4.5,15.6,12.5,0z" fill="#19cbb1"/><text class="st1" xml:space="preserve"><tspan x="24" y="50">静态资源</tspan><tspan x="22.8" y="69">CDN服务</tspan></text></g><g transform="translate(432.02,382)" id="shape12"><path stroke="#000000" d="M0,0L0,77" fill="none"/><path stroke="#000000" d="M4,77L0,85L-4,77L4,77" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="-38.4" y="33.9" width="78.7" fill="#ffffff"/><text class="st4" xml:space="preserve"><tspan x="-38.4" y="50.9">JWT请求授权</tspan></text></g><g transform="translate(175.52,467)" id="shape13"><path stroke="#000000" d="M0,-6L0,-53L-0.2,-53L-0.2,-85" fill="none"/><path stroke="#000000" d="M3,-6L0,0L-3,-6L3,-6" stroke-width="1" stroke-linecap="round" fill="#000000"/></g><g transform="translate(274.52,508.5)" id="shape14"><path fill-rule="evenodd" stroke="#323232" d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text></g><g transform="translate(383.69,508.5)" id="shape15"><path fill-rule="evenodd" stroke="#323232" d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text></g><g transform="translate(494.52,508.5)" id="shape16"><path fill-rule="evenodd" stroke="#323232" d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text></g><g transform="translate(320.52,466.5)" id="shape17"><text class="st5" xml:space="preserve"><tspan x="47" y="28.5">网关服务集群</tspan></text></g><path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,630)" stroke="#323232" id="shape18" d="M52,45L31.2,45L31.2,60L0,30L31.2,0L31.2,15L52,15L52,45z" fill="#ffffff"/><g transform="translate(252.52,634.5)" id="shape19"><path fill-rule="evenodd" stroke="#323232" d="M359,26L359,11C359,4.9,354.1,0,348,0L11,0C4.9,0,0,4.9,0,11L0,26C0,32.1,4.9,37,11,37L348,37C354.1,37,359,32.1,359,26z" fill="#a0d8ef" stroke-linecap="round"/><text class="st1" xml:space="preserve"><tspan class="st6" x="86.8" y="25">Ribbon负载均衡，Hystix失败容错</tspan></text></g><path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,729)" stroke="#323232" id="shape20" d="M53,45L31.8,45L31.8,60L0,30L31.8,0L31.8,15L53,15L53,45z" fill="#ffffff"/><path fill-rule="evenodd" transform="translate(252.52,756.92)" stroke="#323232" id="shape21" d="M359,200.1L359,7C359,3.1,355.9,0,352,0L7,0C3.1,0,0,3.1,0,7L0,200.1C0,203.9,3.1,207.1,7,207.1L352,207.1C355.9,207.1,359,203.9,359,200.1z" fill="#cde6c7"/><g transform="translate(492.19,786.5)" id="shape22"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">消息服务</tspan></text></g><g transform="translate(388.69,767.5)" id="shape23"><path fill-rule="evenodd" stroke="#323232" d="M91,66.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,66.5C0,70.4,3.1,73.5,7,73.5L84,73.5C87.9,73.5,91,70.4,91,66.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">系统服务</tspan><tspan x="4.4" y="44.5">(基础配置、网</tspan><tspan x="23.9" y="63.5">关管理)</tspan></text></g><g transform="translate(274.52,786.5)" id="shape24"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">授权服务</tspan></text></g><g transform="translate(325.02,722)" id="shape25"><text class="st2" xml:space="preserve"><tspan x="77.5" y="27.5">微服务群</tspan></text></g><g transform="translate(38.92,745.49)"><path fill-rule="evenodd" stroke="#6d6d6d" id="shape26" d="M0,0L131.1,0L131.1,169.4L0,169.4L0,0z" fill="#fde9d0"/></g><g transform="translate(61.67,869.19)" id="shape27"><path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text></g><g transform="translate(62.3,825.94)" id="shape28"><path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text></g><g transform="translate(61.67,780.71)" id="shape29"><path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text></g><g transform="translate(38.67,734)" id="shape30"><text class="st7" xml:space="preserve"><tspan x="5.7" y="34.3">注册配置中心集群</tspan></text></g><g transform="matrix(0.49,-0.87,0.87,0.49,131.5,733.5)" id="shape31"><path stroke-dasharray="11,5" stroke="#000000" d="M0,0C6.3,4,124,4,238.3,.3" fill="none"/><path stroke="#000000" d="M238.1,-3.7L246.3,0L238.4,4.3L238.1,-3.7" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="85.1" transform="matrix(0.49,0.87,-0.87,0.49,62.6,-107.2)" y="-9.5" width="78" fill="#ffffff"/><text class="st1" transform="matrix(0.49,0.87,-0.87,0.49,62.6,-107.2)" xml:space="preserve"><tspan x="85.1" y="7.5">拉取服务列表</tspan></text></g><path fill-rule="evenodd" transform="matrix(0,-1,1,0,399.2,1020)" stroke="#323232" id="shape32" d="M53,45L31.8,45L31.8,60L0,30L31.8,0L31.8,15L53,15L53,45z" fill="#ffffff"/><g transform="translate(154.52,1027.75)"><path fill-rule="evenodd" stroke="#323232" id="shape33" d="M0,0L560,0L560,181L0,181L0,0z" fill="#a3cf62"/></g><g transform="translate(252.52,821.46)" id="shape34"><path stroke="#000000" d="M0,0L-50.5,0L-50.5,-27.5L-74.5,-27.5" fill="none"/><path stroke="#000000" d="M-74.5,-23.5L-82.5,-27.5L-74.5,-31.5L-74.5,-23.5" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="-70.2" y="-9.5" width="52" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="-70.2" y="7.5">注册服务</tspan></text></g><g transform="translate(170,885.47)" id="shape35"><path stroke="#000000" d="M0,0L74.5,0" fill="none"/><path stroke="#000000" d="M74.5,-4L82.5,0L74.5,4L74.5,-4" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="15.1" y="-9.5" width="52" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="15.1" y="7.5">订阅服务</tspan></text></g><g transform="translate(171.04,1073.13)"><path fill-rule="evenodd" stroke="#323232" id="shape36" d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z" fill="#efefef"/></g><g transform="translate(179.04,1097.38)" id="shape37"><path fill-rule="evenodd" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z" fill="#ffffff"/><path stroke="#323232" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5" fill="none"/><text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan><tspan x="25.6" y="22.8">l</tspan><tspan x="21" y="41.8">主</tspan></text></g><g transform="translate(179.04,1142.13)" id="shape38"><path fill-rule="evenodd" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z" fill="#ffffff"/><path stroke="#323232" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5" fill="none"/><text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan><tspan x="25.6" y="22.8">l</tspan><tspan x="21" y="41.8">从</tspan></text></g><g transform="translate(252.89,1098.38)" id="shape39"><path fill-rule="evenodd" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z" fill="#ffffff"/><path stroke="#323232" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5" fill="none"/><text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan><tspan x="25.6" y="22.8">l</tspan><tspan x="21" y="41.8">备</tspan></text></g><g transform="translate(252.89,1142.13)" id="shape40"><path fill-rule="evenodd" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z" fill="#ffffff"/><path stroke="#323232" d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5" fill="none"/><text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan><tspan x="25.6" y="22.8">l</tspan><tspan x="21" y="41.8">从</tspan></text></g><g transform="translate(207.52,1066.38)" id="shape41"><text class="st1" xml:space="preserve"><tspan x="13.8" y="25">mysql集群</tspan></text></g><g transform="translate(357.78,1073.13)"><path fill-rule="evenodd" stroke="#323232" id="shape42" d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z" fill="#efefef"/></g><g transform="translate(544.52,1073.13)"><path fill-rule="evenodd" stroke="#323232" id="shape43" d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z" fill="#efefef"/></g><g transform="translate(362.21,1109.13)" id="shape44"><path fill-rule="evenodd" stroke="#323232" d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text></g><g transform="translate(362.21,1152.88)" id="shape45"><path fill-rule="evenodd" stroke="#323232" d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text></g><g transform="translate(437.39,1109.13)" id="shape46"><path fill-rule="evenodd" stroke="#323232" d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text></g><g transform="translate(439.52,1152.88)" id="shape47"><path fill-rule="evenodd" stroke="#4e4e4e" d="M0,0L66,0L66,36.5L0,36.5L0,0z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="8.2" y="24.3">sentinel</tspan></text></g><g transform="translate(389.52,1073.5)" id="shape48"><text class="st1" xml:space="preserve"><tspan x="16.5" y="25">redis集群</tspan></text></g><g transform="translate(553.52,1109.32)" id="shape49"><path fill-rule="evenodd" stroke="#323232" d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text></g><g transform="translate(553.52,1153.07)" id="shape50"><path fill-rule="evenodd" stroke="#323232" d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text></g><g transform="translate(623.21,1109.32)" id="shape51"><path fill-rule="evenodd" stroke="#323232" d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text></g><g transform="translate(623.21,1153.07)" id="shape52"><path fill-rule="evenodd" stroke="#323232" d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text></g><g transform="translate(563.04,1059.38)" id="shape53"><text class="st1" xml:space="preserve"><tspan x="6.9" y="34.5">elasticsearch集群</tspan></text></g><g transform="translate(162.52,1021.25)" id="shape54"><text class="st3" xml:space="preserve"><tspan x="233" y="32.5">数据层</tspan></text></g><g transform="translate(705.5,733.5)"><path fill-rule="evenodd" stroke="#323232" id="shape55" d="M11,0L110,0C116.1,0,121,4.9,121,11L121,143.1C121,149.1,116.1,154.1,110,154.1L11,154.1C4.9,154.1,0,149.1,0,143.1L0,11C0,4.9,4.9,0,11,0z" fill="#fde9d0"/></g><g transform="translate(716.5,774.25)" id="shape56"><path fill-rule="evenodd" stroke="#323232" d="M100,47.8L100,0L0,0L0,47.8L100,47.8z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.2" y="30">RabbitMQ</tspan></text></g><g transform="translate(716.5,829.75)" id="shape57"><path fill-rule="evenodd" stroke="#323232" d="M100,47.8L100,0L0,0L0,47.8L100,47.8z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.2" y="30">RabbitMQ</tspan></text></g><g transform="translate(713.5,734)" id="shape58"><text class="st7" xml:space="preserve"><tspan x="23" y="26">消息服务</tspan></text></g><g transform="translate(611.52,802.54)" id="shape59"><path stroke="#000000" d="M0,0L62,0L62,-26.2L86,-26.2" fill="none"/><path stroke="#000000" d="M86,-30.2L94,-26.2L86,-22.2L86,-30.2" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="37" y="-10.6" width="52" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="37" y="6.4">发送消息</tspan></text></g><g transform="translate(705.5,860.72)" id="shape60"><path stroke="#000000" d="M0,0L-62,0L-62,32.6L-86,32.6" fill="none"/><path stroke="#000000" d="M-86,36.6L-94,32.6L-86,28.6L-86,36.6" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="-87" y="-5.5" width="52" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="-87" y="11.5">接收消息</tspan></text></g><g transform="translate(170,841)" id="shape61"><path stroke="#000000" d="M0,0L74.5,0" fill="none"/><path stroke="#000000" d="M74.5,-4L82.5,0L74.5,4L74.5,-4" stroke-width="1" stroke-linecap="round" fill="#000000"/><rect height="19" x="15.1" y="-9.5" width="52" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="15.1" y="7.5">获取配置</tspan></text></g><g transform="translate(274.52,852.07)" id="shape62"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">流程服务</tspan></text></g><g transform="translate(389.52,852.07)" id="shape63"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">存储服务</tspan></text></g><g transform="translate(492.52,852.07)" id="shape64"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">日志服务</tspan></text></g><g transform="translate(274.52,907)" id="shape65"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">监控服务</tspan></text></g><g transform="translate(389.52,907)" id="shape66"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="6.5" y="25.5">代码生成服务</tspan></text></g><g transform="translate(492.52,907.63)" id="shape67"><path fill-rule="evenodd" stroke="#323232" d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z" fill="#ffffff"/><text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">调度服务</tspan></text></g></g></svg>
+]]></style>
+    <defs/>
+    <g transform="translate(5.5,5.5)" id="page1">
+        <rect height="1266" x="0" y="0" width="866" fill="#ffffff"/>
+        <g transform="translate(165.52,81)">
+            <path fill-rule="evenodd" stroke="#6d6d6d" id="shape1"
+                  d="M11,0L522,0C528.1,0,533,4.9,533,11L533,157C533,163.1,528.1,168,522,168L11,168C4.9,168,0,163.1,0,157L0,11C0,4.9,4.9,0,11,0z"
+                  fill-opacity="0.66" fill="#8470ff"/>
+            <path/>
+        </g>
+        <g transform="translate(213.52,192)" id="shape2">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M442,33L442,7C442,3.1,438.9,0,435,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L435,40C438.9,40,442,36.9,442,33z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="201.8" y="26">Vue.js</tspan></text>
+        </g>
+        <g transform="translate(213.52,126)" id="shape3">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M211,33L211,7C211,3.1,207.9,0,204,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L204,40C207.9,40,211,36.9,211,33z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="74" y="26">ElementUI</tspan></text>
+        </g>
+        <g transform="translate(444.52,125)" id="shape4">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M211,33L211,7C211,3.1,207.9,0,204,0L7,0C3.1,0,0,3.1,0,7L0,33C0,36.9,3.1,40,7,40L204,40C207.9,40,211,36.9,211,33z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="93.9" y="26">SPA</tspan></text>
+        </g>
+        <g transform="translate(359.02,82)" id="shape5">
+            <text class="st2" xml:space="preserve"><tspan x="59.5" y="27">前端</tspan></text>
+        </g>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,213.5,320)" stroke="#323232" id="shape6"
+              d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,320)" stroke="#323232" id="shape7"
+              d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,581.5,320)" stroke="#323232" id="shape8"
+              d="M56,45L33.6,45L33.6,60L0,30L33.6,0L33.6,15L56,15L56,45z" fill="#ffffff"/>
+        <g transform="translate(123.52,335)" id="shape9">
+            <path fill-rule="evenodd" stroke="#323232" d="M617,47L617,0L0,0L0,47L617,47z" fill-opacity="0.66"
+                  fill="#cfebf6"/>
+            <text class="st3" xml:space="preserve"><tspan x="258.5" y="34.5">nginx集群</tspan></text>
+        </g>
+        <path fill-rule="evenodd" transform="translate(252.52,467)" stroke="#323232" id="shape10"
+              d="M347,104C353.6,104,359,98.6,359,92L359,12C359,5.4,353.6,0,347,0L12,0C5.4,0,0,5.4,0,12L0,92C0,98.6,5.4,104,12,104L347,104z"
+              fill="#fde9d0"/>
+        <g transform="translate(125.52,467)" id="shape11">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M12.5,0L100,0L100,0C92,15.6,87.5,33.3,87.5,52C87.5,70.7,92,88.4,100,104L12.5,104L12.5,104C4.5,88.4,0,70.7,0,52C0,33.3,4.5,15.6,12.5,0z"
+                  fill="#19cbb1"/>
+            <text class="st1" xml:space="preserve"><tspan x="24" y="50">静态资源</tspan>
+                <tspan x="22.8" y="69">CDN服务</tspan></text>
+        </g>
+        <g transform="translate(432.02,382)" id="shape12">
+            <path stroke="#000000" d="M0,0L0,77" fill="none"/>
+            <path stroke="#000000" d="M4,77L0,85L-4,77L4,77" stroke-width="1" stroke-linecap="round" fill="#000000"/>
+            <rect height="19" x="-38.4" y="33.9" width="78.7" fill="#ffffff"/>
+            <text class="st4" xml:space="preserve"><tspan x="-38.4" y="50.9">JWT请求授权</tspan></text>
+        </g>
+        <g transform="translate(175.52,467)" id="shape13">
+            <path stroke="#000000" d="M0,-6L0,-53L-0.2,-53L-0.2,-85" fill="none"/>
+            <path stroke="#000000" d="M3,-6L0,0L-3,-6L3,-6" stroke-width="1" stroke-linecap="round" fill="#000000"/>
+        </g>
+        <g transform="translate(274.52,508.5)" id="shape14">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text>
+        </g>
+        <g transform="translate(383.69,508.5)" id="shape15">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text>
+        </g>
+        <g transform="translate(494.52,508.5)" id="shape16">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M78.3,40L78.3,7C78.3,3.1,75.2,0,71.3,0L7,0C3.1,0,0,3.1,0,7L0,40C0,43.9,3.1,47,7,47L71.3,47C75.2,47,78.3,43.9,78.3,40z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="12.9" y="29.5">Gateway</tspan></text>
+        </g>
+        <g transform="translate(320.52,466.5)" id="shape17">
+            <text class="st5" xml:space="preserve"><tspan x="47" y="28.5">网关服务集群</tspan></text>
+        </g>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,630)" stroke="#323232" id="shape18"
+              d="M52,45L31.2,45L31.2,60L0,30L31.2,0L31.2,15L52,15L52,45z" fill="#ffffff"/>
+        <g transform="translate(252.52,634.5)" id="shape19">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M359,26L359,11C359,4.9,354.1,0,348,0L11,0C4.9,0,0,4.9,0,11L0,26C0,32.1,4.9,37,11,37L348,37C354.1,37,359,32.1,359,26z"
+                  fill="#a0d8ef" stroke-linecap="round"/>
+            <text class="st1" xml:space="preserve"><tspan class="st6" x="86.8" y="25">Ribbon负载均衡，Hystix失败容错</tspan></text>
+        </g>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,402,729)" stroke="#323232" id="shape20"
+              d="M53,45L31.8,45L31.8,60L0,30L31.8,0L31.8,15L53,15L53,45z" fill="#ffffff"/>
+        <path fill-rule="evenodd" transform="translate(252.52,756.92)" stroke="#323232" id="shape21"
+              d="M359,200.1L359,7C359,3.1,355.9,0,352,0L7,0C3.1,0,0,3.1,0,7L0,200.1C0,203.9,3.1,207.1,7,207.1L352,207.1C355.9,207.1,359,203.9,359,200.1z"
+              fill="#cde6c7"/>
+        <g transform="translate(492.19,786.5)" id="shape22">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">消息服务</tspan></text>
+        </g>
+        <g transform="translate(388.69,767.5)" id="shape23">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,66.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,66.5C0,70.4,3.1,73.5,7,73.5L84,73.5C87.9,73.5,91,70.4,91,66.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">系统服务</tspan>
+                <tspan x="4.4" y="44.5">(基础配置、网</tspan>
+                <tspan x="23.9" y="63.5">关管理)</tspan></text>
+        </g>
+        <g transform="translate(274.52,786.5)" id="shape24">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">授权服务</tspan></text>
+        </g>
+        <g transform="translate(325.02,722)" id="shape25">
+            <text class="st2" xml:space="preserve"><tspan x="77.5" y="27.5">微服务群</tspan></text>
+        </g>
+        <g transform="translate(38.92,745.49)">
+            <path fill-rule="evenodd" stroke="#6d6d6d" id="shape26" d="M0,0L131.1,0L131.1,169.4L0,169.4L0,0z"
+                  fill="#fde9d0"/>
+        </g>
+        <g transform="translate(61.67,869.19)" id="shape27">
+            <path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text>
+        </g>
+        <g transform="translate(62.3,825.94)" id="shape28">
+            <path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text>
+        </g>
+        <g transform="translate(61.67,780.71)" id="shape29">
+            <path fill-rule="evenodd" stroke="#323232" d="M79.3,31.6L79.3,0L0,0L0,31.6L79.3,31.6z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="20.6" y="22">Nacos</tspan></text>
+        </g>
+        <g transform="translate(38.67,734)" id="shape30">
+            <text class="st7" xml:space="preserve"><tspan x="5.7" y="34.3">注册配置中心集群</tspan></text>
+        </g>
+        <g transform="matrix(0.49,-0.87,0.87,0.49,131.5,733.5)" id="shape31">
+            <path stroke-dasharray="11,5" stroke="#000000" d="M0,0C6.3,4,124,4,238.3,.3" fill="none"/>
+            <path stroke="#000000" d="M238.1,-3.7L246.3,0L238.4,4.3L238.1,-3.7" stroke-width="1" stroke-linecap="round"
+                  fill="#000000"/>
+            <rect height="19" x="85.1" transform="matrix(0.49,0.87,-0.87,0.49,62.6,-107.2)" y="-9.5" width="78"
+                  fill="#ffffff"/>
+            <text class="st1" transform="matrix(0.49,0.87,-0.87,0.49,62.6,-107.2)" xml:space="preserve"><tspan x="85.1" y="7.5">拉取服务列表</tspan></text>
+        </g>
+        <path fill-rule="evenodd" transform="matrix(0,-1,1,0,399.2,1020)" stroke="#323232" id="shape32"
+              d="M53,45L31.8,45L31.8,60L0,30L31.8,0L31.8,15L53,15L53,45z" fill="#ffffff"/>
+        <g transform="translate(154.52,1027.75)">
+            <path fill-rule="evenodd" stroke="#323232" id="shape33" d="M0,0L560,0L560,181L0,181L0,0z" fill="#a3cf62"/>
+        </g>
+        <g transform="translate(252.52,821.46)" id="shape34">
+            <path stroke="#000000" d="M0,0L-50.5,0L-50.5,-27.5L-74.5,-27.5" fill="none"/>
+            <path stroke="#000000" d="M-74.5,-23.5L-82.5,-27.5L-74.5,-31.5L-74.5,-23.5" stroke-width="1"
+                  stroke-linecap="round" fill="#000000"/>
+            <rect height="19" x="-70.2" y="-9.5" width="52" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="-70.2" y="7.5">注册服务</tspan></text>
+        </g>
+        <g transform="translate(170,885.47)" id="shape35">
+            <path stroke="#000000" d="M0,0L74.5,0" fill="none"/>
+            <path stroke="#000000" d="M74.5,-4L82.5,0L74.5,4L74.5,-4" stroke-width="1" stroke-linecap="round"
+                  fill="#000000"/>
+            <rect height="19" x="15.1" y="-9.5" width="52" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="15.1" y="7.5">订阅服务</tspan></text>
+        </g>
+        <g transform="translate(171.04,1073.13)">
+            <path fill-rule="evenodd" stroke="#323232" id="shape36"
+                  d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z"
+                  fill="#efefef"/>
+        </g>
+        <g transform="translate(179.04,1097.38)" id="shape37">
+            <path fill-rule="evenodd"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z"
+                  fill="#ffffff"/>
+            <path stroke="#323232"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5"
+                  fill="none"/>
+            <text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan>
+                <tspan x="25.6" y="22.8">l</tspan>
+                <tspan x="21" y="41.8">主</tspan></text>
+        </g>
+        <g transform="translate(179.04,1142.13)" id="shape38">
+            <path fill-rule="evenodd"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z"
+                  fill="#ffffff"/>
+            <path stroke="#323232"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5"
+                  fill="none"/>
+            <text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan>
+                <tspan x="25.6" y="22.8">l</tspan>
+                <tspan x="21" y="41.8">从</tspan></text>
+        </g>
+        <g transform="translate(252.89,1098.38)" id="shape39">
+            <path fill-rule="evenodd"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z"
+                  fill="#ffffff"/>
+            <path stroke="#323232"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5"
+                  fill="none"/>
+            <text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan>
+                <tspan x="25.6" y="22.8">l</tspan>
+                <tspan x="21" y="41.8">备</tspan></text>
+        </g>
+        <g transform="translate(252.89,1142.13)" id="shape40">
+            <path fill-rule="evenodd"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0z"
+                  fill="#ffffff"/>
+            <path stroke="#323232"
+                  d="M4.6,0L54.9,0L54.9,0C57.4,0,59.5,8.2,59.5,18.3C59.5,28.3,57.4,36.5,54.9,36.5L4.6,36.5L4.6,36.5C2,36.5,0,28.3,0,18.3C0,8.2,2,0,4.6,0zM54.9,0C52.4,0,50.4,8.2,50.4,18.3C50.4,28.3,52.4,36.5,54.9,36.5"
+                  fill="none"/>
+            <text class="st1" xml:space="preserve"><tspan x="10.6" y="6.8">mysq</tspan>
+                <tspan x="25.6" y="22.8">l</tspan>
+                <tspan x="21" y="41.8">从</tspan></text>
+        </g>
+        <g transform="translate(207.52,1066.38)" id="shape41">
+            <text class="st1" xml:space="preserve"><tspan x="13.8" y="25">mysql集群</tspan></text>
+        </g>
+        <g transform="translate(357.78,1073.13)">
+            <path fill-rule="evenodd" stroke="#323232" id="shape42"
+                  d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z"
+                  fill="#efefef"/>
+        </g>
+        <g transform="translate(544.52,1073.13)">
+            <path fill-rule="evenodd" stroke="#323232" id="shape43"
+                  d="M11,0L143,0C149.1,0,154,4.9,154,11L154,115.8C154,121.8,149.1,126.8,143,126.8L11,126.8C4.9,126.8,0,121.8,0,115.8L0,11C0,4.9,4.9,0,11,0z"
+                  fill="#efefef"/>
+        </g>
+        <g transform="translate(362.21,1109.13)" id="shape44">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text>
+        </g>
+        <g transform="translate(362.21,1152.88)" id="shape45">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text>
+        </g>
+        <g transform="translate(437.39,1109.13)" id="shape46">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M17.6,36.5L52.7,36.5L70.3,18.3L52.7,0L17.6,0L0,18.3L17.6,36.5z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.6" y="24.3">redis</tspan></text>
+        </g>
+        <g transform="translate(439.52,1152.88)" id="shape47">
+            <path fill-rule="evenodd" stroke="#4e4e4e" d="M0,0L66,0L66,36.5L0,36.5L0,0z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="8.2" y="24.3">sentinel</tspan></text>
+        </g>
+        <g transform="translate(389.52,1073.5)" id="shape48">
+            <text class="st1" xml:space="preserve"><tspan x="16.5" y="25">redis集群</tspan></text>
+        </g>
+        <g transform="translate(553.52,1109.32)" id="shape49">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text>
+        </g>
+        <g transform="translate(553.52,1153.07)" id="shape50">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text>
+        </g>
+        <g transform="translate(623.21,1109.32)" id="shape51">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text>
+        </g>
+        <g transform="translate(623.21,1153.07)" id="shape52">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M0,31.6L0,0L60.8,0L60.8,31.6L60.8,31.6C56.5,28.8,51.2,27.1,45.6,27.1C40,27.1,34.8,28.8,30.4,31.6L30.4,31.6C26,34.5,20.8,36.1,15.2,36.1C9.6,36.1,4.4,34.5,0,31.6z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="23.4" y="19.5">ES</tspan></text>
+        </g>
+        <g transform="translate(563.04,1059.38)" id="shape53">
+            <text class="st1" xml:space="preserve"><tspan x="6.9" y="34.5">elasticsearch集群</tspan></text>
+        </g>
+        <g transform="translate(162.52,1021.25)" id="shape54">
+            <text class="st3" xml:space="preserve"><tspan x="233" y="32.5">数据层</tspan></text>
+        </g>
+        <g transform="translate(705.5,733.5)">
+            <path fill-rule="evenodd" stroke="#323232" id="shape55"
+                  d="M11,0L110,0C116.1,0,121,4.9,121,11L121,143.1C121,149.1,116.1,154.1,110,154.1L11,154.1C4.9,154.1,0,149.1,0,143.1L0,11C0,4.9,4.9,0,11,0z"
+                  fill="#fde9d0"/>
+        </g>
+        <g transform="translate(716.5,774.25)" id="shape56">
+            <path fill-rule="evenodd" stroke="#323232" d="M100,47.8L100,0L0,0L0,47.8L100,47.8z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.2" y="30">RabbitMQ</tspan></text>
+        </g>
+        <g transform="translate(716.5,829.75)" id="shape57">
+            <path fill-rule="evenodd" stroke="#323232" d="M100,47.8L100,0L0,0L0,47.8L100,47.8z" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.2" y="30">RabbitMQ</tspan></text>
+        </g>
+        <g transform="translate(713.5,734)" id="shape58">
+            <text class="st7" xml:space="preserve"><tspan x="23" y="26">消息服务</tspan></text>
+        </g>
+        <g transform="translate(611.52,802.54)" id="shape59">
+            <path stroke="#000000" d="M0,0L62,0L62,-26.2L86,-26.2" fill="none"/>
+            <path stroke="#000000" d="M86,-30.2L94,-26.2L86,-22.2L86,-30.2" stroke-width="1" stroke-linecap="round"
+                  fill="#000000"/>
+            <rect height="19" x="37" y="-10.6" width="52" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="37" y="6.4">发送消息</tspan></text>
+        </g>
+        <g transform="translate(705.5,860.72)" id="shape60">
+            <path stroke="#000000" d="M0,0L-62,0L-62,32.6L-86,32.6" fill="none"/>
+            <path stroke="#000000" d="M-86,36.6L-94,32.6L-86,28.6L-86,36.6" stroke-width="1" stroke-linecap="round"
+                  fill="#000000"/>
+            <rect height="19" x="-87" y="-5.5" width="52" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="-87" y="11.5">接收消息</tspan></text>
+        </g>
+        <g transform="translate(170,841)" id="shape61">
+            <path stroke="#000000" d="M0,0L74.5,0" fill="none"/>
+            <path stroke="#000000" d="M74.5,-4L82.5,0L74.5,4L74.5,-4" stroke-width="1" stroke-linecap="round"
+                  fill="#000000"/>
+            <rect height="19" x="15.1" y="-9.5" width="52" fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="15.1" y="7.5">获取配置</tspan></text>
+        </g>
+        <g transform="translate(274.52,852.07)" id="shape62">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">流程服务</tspan></text>
+        </g>
+        <g transform="translate(389.52,852.07)" id="shape63">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">存储服务</tspan></text>
+        </g>
+        <g transform="translate(492.52,852.07)" id="shape64">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">日志服务</tspan></text>
+        </g>
+        <g transform="translate(274.52,907)" id="shape65">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">监控服务</tspan></text>
+        </g>
+        <g transform="translate(389.52,907)" id="shape66">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="6.5" y="25.5">代码生成服务</tspan></text>
+        </g>
+        <g transform="translate(492.52,907.63)" id="shape67">
+            <path fill-rule="evenodd" stroke="#323232"
+                  d="M91,28.5L91,7C91,3.1,87.9,0,84,0L7,0C3.1,0,0,3.1,0,7L0,28.5C0,32.4,3.1,35.5,7,35.5L84,35.5C87.9,35.5,91,32.4,91,28.5z"
+                  fill="#ffffff"/>
+            <text class="st1" xml:space="preserve"><tspan x="19.5" y="25.5">调度服务</tspan></text>
+        </g>
+    </g>
+</svg>

@@ -2,5 +2,5 @@ version = rootProject.ext.version["skillfull-api-modules:skillfull-gateway-api"]
 
 
 dependencies {
-    api project(':skillfull-core-modules:skillfull-core-common')
+    api project(':skillfull-core-modules:skillfull-common')
 }

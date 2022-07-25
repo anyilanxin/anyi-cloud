@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.common.mapper.CommonAreaMapper">
+
+  <resultMap type="com.anyilanxin.skillfull.system.modules.common.entity.CommonAreaEntity" id="CommonAreaMap">
+    <result property="areaId" column="area_id" jdbcType="VARCHAR"/>
+    <result property="provinceId" column="province_id" jdbcType="VARCHAR"/>
+    <result property="simpleName" column="simple_name" jdbcType="VARCHAR"/>
+    <result property="areaLevel" column="area_level" jdbcType="INTEGER"/>
+    <result property="areaName" column="area_name" jdbcType="VARCHAR"/>
+    <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+    <result property="cityId" column="city_id" jdbcType="VARCHAR"/>
+    <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+    <result property="lon" column="lon" jdbcType="VARCHAR"/>
+    <result property="lat" column="lat" jdbcType="VARCHAR"/>
+    <result property="zipCode" column="zip_code" jdbcType="VARCHAR"/>
+    <result property="wholeName" column="whole_name" jdbcType="VARCHAR"/>
+    <result property="prePinYin" column="pre_pin_yin" jdbcType="VARCHAR"/>
+    <result property="pinYin" column="pin_yin" jdbcType="VARCHAR"/>
+    <result property="simplePy" column="simple_py" jdbcType="VARCHAR"/>
+    <result property="countyId" column="county_id" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        area_id, province_id, simple_name, area_level, area_name, area_code, city_id, parent_id, lon, lat, zip_code,
+        whole_name, pre_pin_yin, pin_yin, simple_py, county_id, remark, create_user_id, create_user_name,
+        create_time, create_area_code, create_position_code, create_org_sys_code, create_system_code, create_tenant_id,
+        update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.area_id, ali.province_id, ali.simple_name, ali.area_level, ali.area_name, ali.area_code, ali.city_id,
+        ali.parent_id, ali.lon, ali.lat, ali.zip_code, ali.whole_name, ali.pre_pin_yin, ali.pin_yin, ali.simple_py,
+        ali.county_id, ali.remark, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+    <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.area_id, ali.province_id, ali.simple_name, ali.area_level, ali.area_name, ali.area_code, ali.city_id,
+        ali.parent_id, ali.lon, ali.lat, ali.zip_code, ali.whole_name, ali.pre_pin_yin, ali.pin_yin, ali.simple_py,
+        ali.county_id, ali.remark, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaPageDto">
+        SELECT
+        <include refid="Column_List"/>
+        FROM sys_common_area
+        <where>
+            del_flag = 0
+            <if test="query.areaName != null and query.areaName != ''">
+                AND LOCATE(#{query.areaName, jdbcType=VARCHAR}, area_name) &gt; 0
+            </if>
+            <if test="query.areaId != null and query.areaId != ''">
+                AND LOCATE(#{query.areaId, jdbcType=VARCHAR}, area_id) &gt; 0
+            </if>
+            <if test="query.zipCode != null and query.zipCode != ''">
+                AND LOCATE(#{query.zipCode, jdbcType=VARCHAR}, zip_code) &gt; 0
+            </if>
+            <if test="query.startTime != null">
+                AND create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 通过区域id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_common_area
+        WHERE area_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_common_area
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE area_id = #{areaId, jdbcType=VARCHAR}
+    </update>
+    <!-- @formatter:off -->
+</mapper>

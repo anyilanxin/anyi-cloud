@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleEntity" id="RbacRoleMap">
+    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+    <result property="roleSysCode" column="role_sys_code" jdbcType="VARCHAR"/>
+    <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
+    <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+    <result property="parentRoleId" column="parent_role_id" jdbcType="VARCHAR"/>
+    <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+    <result property="autoBind" column="auto_bind" jdbcType="INTEGER"/>
+    <result property="roleStatus" column="role_status" jdbcType="INTEGER"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        role_id, role_name, role_sys_code, data_auth_type, custom_data_auth_data, role_code,
+        parent_role_id, enable_delete, auto_bind, role_status, remark, unique_help, create_area_code,
+        create_position_code, create_org_sys_code, create_system_code, create_tenant_id, create_user_id,
+        create_user_name, create_time, update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.role_id, ali.role_name, ali.role_sys_code, ali.data_auth_type, ali.custom_data_auth_data,
+        ali.role_code, ali.parent_role_id, ali.enable_delete, ali.auto_bind, ali.role_status, ali.remark,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.role_id, ali.role_name, ali.role_sys_code,
+        ali.role_code, ali.parent_role_id, ali.enable_delete, ali.auto_bind, ali.role_status, ali.remark,
+        ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+        ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+        ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRolePageDto">
+        SELECT
+        <include refid="Column_List_Page_Ali"/>
+        FROM sys_rbac_role ali
+        <where>
+            ali.del_flag = 0
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.role_name) &gt; 0
+                OR
+                LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.role_code) &gt; 0
+                )
+            </if>
+            <if test="query.roleStatus != null">
+                AND ali.role_status = #{query.roleStatus, jdbcType=INTEGER}
+            </if>
+            <if test="query.startTime != null">
+                AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="query.endTime != null">
+                AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleDto" parameterType="com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacRoleQueryVo">
+        SELECT
+            <include refid="Column_List"/>
+        FROM sys_rbac_role
+        <where>
+             del_flag = 0
+         <if test="roleId != null and roleId != ''">
+             AND role_id = #{roleId, jdbcType=VARCHAR}
+         </if>
+         <if test="roleName != null and roleName != ''">
+             AND role_name = #{roleName, jdbcType=VARCHAR}
+         </if>
+         <if test="roleSysCode != null and roleSysCode != ''">
+             AND role_sys_code = #{roleSysCode, jdbcType=VARCHAR}
+         </if>
+         <if test="dataAuthType != null">
+             AND data_auth_type = #{dataAuthType, jdbcType=INTEGER}
+         </if>
+         <if test="customDataAuthData != null and customDataAuthData != ''">
+             AND custom_data_auth_data = #{customDataAuthData, jdbcType=VARCHAR}
+         </if>
+         <if test="roleCode != null and roleCode != ''">
+             AND role_code = #{roleCode, jdbcType=VARCHAR}
+         </if>
+         <if test="parentRoleId != null and parentRoleId != ''">
+             AND parent_role_id = #{parentRoleId, jdbcType=VARCHAR}
+         </if>
+         <if test="enableDelete != null">
+             AND enable_delete = #{enableDelete, jdbcType=INTEGER}
+         </if>
+         <if test="autoBind != null">
+             AND auto_bind = #{autoBind, jdbcType=INTEGER}
+         </if>
+         <if test="roleStatus != null">
+             AND role_status = #{roleStatus, jdbcType=INTEGER}
+         </if>
+         <if test="remark != null and remark != ''">
+             AND remark = #{remark, jdbcType=VARCHAR}
+         </if>
+         <if test="uniqueHelp != null and uniqueHelp != ''">
+             AND unique_help = #{uniqueHelp, jdbcType=VARCHAR}
+         </if>
+         <if test="createAreaCode != null and createAreaCode != ''">
+             AND create_area_code = #{createAreaCode, jdbcType=VARCHAR}
+         </if>
+         <if test="createPositionCode != null and createPositionCode != ''">
+             AND create_position_code = #{createPositionCode, jdbcType=VARCHAR}
+         </if>
+         <if test="createOrgSysCode != null and createOrgSysCode != ''">
+             AND create_org_sys_code = #{createOrgSysCode, jdbcType=VARCHAR}
+         </if>
+         <if test="createSystemCode != null and createSystemCode != ''">
+             AND create_system_code = #{createSystemCode, jdbcType=VARCHAR}
+         </if>
+         <if test="createTenantId != null and createTenantId != ''">
+             AND create_tenant_id = #{createTenantId, jdbcType=VARCHAR}
+         </if>
+         <if test="createUserId != null and createUserId != ''">
+             AND create_user_id = #{createUserId, jdbcType=VARCHAR}
+         </if>
+         <if test="createUserName != null and createUserName != ''">
+             AND create_user_name = #{createUserName, jdbcType=VARCHAR}
+         </if>
+         <if test="createTime != null">
+             AND create_time = #{createTime, jdbcType=TIMESTAMP}
+         </if>
+         <if test="updateUserId != null and updateUserId != ''">
+             AND update_user_id = #{updateUserId, jdbcType=VARCHAR}
+         </if>
+         <if test="updateUserName != null and updateUserName != ''">
+             AND update_user_name = #{updateUserName, jdbcType=VARCHAR}
+         </if>
+         <if test="updateTime != null">
+             AND update_time = #{updateTime, jdbcType=TIMESTAMP}
+         </if>
+         <if test="delFlag != null">
+             AND del_flag = #{delFlag, jdbcType=INTEGER}
+         </if>
+        </where>
+    </select>
+
+
+    <!-- 获取用户授权的角色 -->
+    <select id="getUserAuthRole" resultType="com.anyilanxin.skillfull.systemapi.model.UserRoleModel">
+        SELECT
+        rr.role_id,
+        rr.role_name,
+        rr.role_code,
+        role.user_id
+        FROM
+        (
+        -- 用户角色
+        SELECT role_id,ru.user_id
+        FROM sys_rbac_user ru
+        INNER JOIN sys_rbac_correlate_role rcr ON ru.user_id = rcr.correlate_id
+        WHERE correlate_type = 3
+        <if test="userId != null and userId!=''">
+            AND user_id = #{userId, jdbcType=VARCHAR}
+        </if>
+        -- 用户组角色,职位角色
+        UNION
+        SELECT rcr.role_id,ru.user_id
+        FROM sys_rbac_user ru
+        INNER JOIN sys_rbac_correlate_user rcu ON ru.user_id = rcu.user_id
+        INNER JOIN sys_rbac_correlate_role rcr ON rcr.correlate_id = rcu.correlate_id
+        WHERE rcu.correlate_type != 1
+        AND rcr.correlate_type != 1
+        <if test="userId != null and userId!=''">
+            AND ru.user_id = #{userId, jdbcType=VARCHAR}
+        </if>
+        -- 机构角色
+        <if test="orgId != null and orgId!=''">
+            UNION
+            SELECT rucr.role_id,ru.user_id
+            FROM sys_rbac_user ru
+            INNER JOIN sys_rbac_user_correlate_role rucr ON ru.user_id = rucr.user_id
+            WHERE rucr.correlate_id = #{orgId, jdbcType=VARCHAR}
+            <if test="userId != null and userId!=''">
+                AND ru.user_id = #{userId, jdbcType=VARCHAR}
+            </if>
+        </if>
+        ) role
+        INNER JOIN sys_rbac_role rr ON role.role_id = rr.role_id
+        WHERE rr.role_status = 1
+    </select>
+
+
+    <!-- 通过角色id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_role
+        WHERE role_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_role
+        WHERE role_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_role
+        <set>
+            del_flag = 1,
+            unique_help = role_id,
+         </set>
+        WHERE role_id = #{roleId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_role
+        <set>
+            del_flag = 1,
+            unique_help = role_id,
+        </set>
+        WHERE role_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

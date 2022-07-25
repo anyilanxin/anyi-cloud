@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacUserIdentityMapper">
+  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserIdentityEntity"
+             id="RbacUserIdentityMap">
+    <result property="identityId" column="identity_id" jdbcType="VARCHAR"/>
+    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+    <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+    <result property="sex" column="sex" jdbcType="INTEGER"/>
+    <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
+    <result property="idCard" column="id_card" jdbcType="VARCHAR"/>
+    <result property="idCardIssue" column="id_card_issue" jdbcType="VARCHAR"/>
+    <result property="idCardEffective" column="id_card_effective" jdbcType="TIMESTAMP"/>
+    <result property="idCardEffectiveEnd" column="id_card_effective_end" jdbcType="TIMESTAMP"/>
+    <result property="positivePhoto" column="positive_photo" jdbcType="VARCHAR"/>
+    <result property="backPhoto" column="back_photo" jdbcType="VARCHAR"/>
+    <result property="handheldPhoto" column="handheld_photo" jdbcType="VARCHAR"/>
+    <result property="identityStatus" column="identity_status" jdbcType="INTEGER"/>
+    <result property="auditStartTime" column="audit_start_time" jdbcType="TIMESTAMP"/>
+    <result property="auditEndTime" column="audit_end_time" jdbcType="TIMESTAMP"/>
+    <result property="bankCardPositive" column="bank_card_positive" jdbcType="VARCHAR"/>
+    <result property="bankCardBack" column="bank_card_back" jdbcType="VARCHAR"/>
+    <result property="bankCardNum" column="bank_card_num" jdbcType="VARCHAR"/>
+    <result property="bankReservePhone" column="bank_reserve_phone" jdbcType="VARCHAR"/>
+    <result property="belongArea" column="belong_area" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        identity_id, user_id, real_name, sex, nationality, id_card, id_card_issue, id_card_effective, id_card_effective_end,
+        positive_photo, back_photo, handheld_photo, identity_status, audit_start_time, audit_end_time, bank_card_positive,
+        bank_card_back, bank_card_num, bank_reserve_phone, belong_area, remark, create_area_code, create_position_code,
+        create_org_sys_code, create_system_code, create_tenant_id, create_user_id, create_user_name, create_time,
+        update_user_id, update_user_name, update_time, del_flag
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.identity_id, ali.user_id, ali.real_name, ali.sex, ali.nationality, ali.id_card, ali.id_card_issue, ali.id_card_effective,
+        ali.id_card_effective_end, ali.positive_photo, ali.back_photo, ali.handheld_photo, ali.identity_status, ali.audit_start_time,
+        ali.audit_end_time, ali.bank_card_positive, ali.bank_card_back, ali.bank_card_num, ali.bank_reserve_phone, ali.belong_area,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.identity_id, ali.user_id, ali.real_name, ali.sex, ali.nationality, ali.id_card, ali.id_card_issue, ali.id_card_effective,
+        ali.id_card_effective_end, ali.positive_photo, ali.back_photo, ali.handheld_photo, ali.identity_status, ali.audit_start_time,
+        ali.audit_end_time, ali.bank_card_positive, ali.bank_card_back, ali.bank_card_num, ali.bank_reserve_phone, ali.belong_area,
+        ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
+        ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
+        ali.update_time, ali.del_flag
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserIdentityPageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM sys_rbac_user_identity ali
+        <where>
+             ali.del_flag = 0
+          <if test="query.realName != null and query.realName != ''">
+             AND LOCATE(#{query.realName, jdbcType=VARCHAR}, ali.real_name) &gt; 0
+          </if>
+          <if test="query.idCard != null and query.idCard != ''">
+             AND LOCATE(#{query.idCard, jdbcType=VARCHAR}, ali.id_card) &gt; 0
+          </if>
+          <if test="query.startTime != null">
+             AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test="query.endTime != null">
+             AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+          </if>
+        </where>
+    </select>
+
+
+    <!-- 通过实名信息id物理删除 -->
+    <delete id="physicalDeleteById">
+        DELETE
+        FROM sys_rbac_user_identity
+        WHERE identity_id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+
+    <!-- 通过字典id物理批量删除 -->
+    <delete id="physicalDeleteBatchIds">
+        DELETE
+        FROM  sys_rbac_user_identity
+        WHERE identity_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE sys_rbac_user_identity
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE identity_id = #{identityId, jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE sys_rbac_user_identity
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE identity_id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:off -->
+</mapper>

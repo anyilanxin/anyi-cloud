@@ -9,20 +9,14 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.gateway.core.config;
 
-import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.gateway.filter.partial.post.CorsWebGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
-import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.AccessDecisionVoter;
 import com.anyilanxin.skillfull.gateway.filter.webfilter.CorsOptionsWebFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 网关过滤器配置
@@ -43,11 +37,8 @@ public class GatewayFilterConfig {
 
 
     @Bean
-    public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory(final Map<String, AccessDecisionVoter<?>> decisionVoter,
-                                                                       final CustomSecurityProperties securityProperties) {
-        List<AccessDecisionVoter<?>> accessDecisionVoters = new ArrayList<>();
-        decisionVoter.forEach((k, v) -> accessDecisionVoters.add(v));
-        return new AuthorizeGatewayFilterFactory(accessDecisionVoters, securityProperties);
+    public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory() {
+        return new AuthorizeGatewayFilterFactory();
     }
 
 

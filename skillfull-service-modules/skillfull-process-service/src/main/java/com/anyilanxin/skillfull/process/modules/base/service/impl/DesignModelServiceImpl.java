@@ -15,7 +15,7 @@ import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.skillfull.process.extend.constant.impl.ModelStateType;
+import com.anyilanxin.skillfull.process.core.constant.ModelStateType;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.DeleteDesignModelVo;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.DesignModelPageVo;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.DesignModelVo;

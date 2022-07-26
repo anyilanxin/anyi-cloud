@@ -73,9 +73,6 @@ public class DeploymentDetailDto implements Serializable {
     @Schema(name = "startFormKey", title = "开始表单key")
     private String startFormKey;
 
-    @Schema(name = "startFormData", title = "开始节点表单信息")
-    private FormData startFormData;
-
     @Schema(name = "category", title = "类别")
     private String category;
 

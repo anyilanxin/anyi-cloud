@@ -55,7 +55,6 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
     private final RbacOrgRoleUserMapper rbacOrgRoleUserMapper;
     private final PermissionOrgMenuActionMap menuActionMap;
     private final RbacOrgRoleMenuMapper roleMenuMapper;
-    private final IRbacOrgRoleResourceApiService apiService;
     private final RbacOrgRoleMapper mapper;
 
 
@@ -152,9 +151,6 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         // 更新菜单关联
         menuService.deleteBatch(List.of(rbacRoleEntity.getOrgRoleId()));
         menuService.saveBatch(rbacRoleEntity.getOrgRoleId(), vo.getMenuIds());
-        // 更新资源关联
-        apiService.deleteBatch(List.of(rbacRoleEntity.getOrgRoleId()));
-        apiService.saveBatch(rbacRoleEntity.getOrgRoleId(), vo.getApiIds());
     }
 
 

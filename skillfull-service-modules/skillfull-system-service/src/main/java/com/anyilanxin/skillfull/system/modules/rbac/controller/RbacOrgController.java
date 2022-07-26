@@ -16,7 +16,6 @@ import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrN
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacOrgPageVo;
-import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacOrgResourceApiPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacOrgVo;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgMenuService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgService;
@@ -55,8 +54,6 @@ import java.util.List;
 @RequestMapping(value = "/rbac-org", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RbacOrgController extends BaseController {
     private final IRbacOrgService service;
-    private final IRbacResourceService resourceService;
-    private final IRbacOrgResourceApiService apiService;
     private final IRbacOrgMenuService menuService;
 
     @Operation(summary = "组织表添加", tags = {"v1.0.0"}, description = "添加组织表")
@@ -172,20 +169,5 @@ public class RbacOrgController extends BaseController {
                                                      @RequestParam(required = false) String systemId,
                                                      @RequestParam(required = false) Integer status) {
         return ok(menuService.getMenuTree(orgId, systemId, status));
-    }
-
-
-    @Operation(summary = "通过条件查询资源表多条数据", tags = {"v1.0.0"}, description = "通过条件查询资源表")
-    @GetMapping(value = "/select-resource/list")
-    @Parameter(in = ParameterIn.QUERY, description = "类型:0-禁用的,1-有效的，不传所有", name = "type", required = true)
-    public Result<List<RbacResourceDto>> selectResourceList(@RequestParam(required = false) Integer type) {
-        return ok(resourceService.selectList(type));
-    }
-
-
-    @Operation(summary = "资源api表分页查询", tags = {"v1.0.0"}, description = "分页查询资源api表")
-    @PostMapping(value = "/select-resource-api/page")
-    public Result<PageDto<RbacOrgResourceApiPageDto>> selectResourcePage(@RequestBody RbacOrgResourceApiPageVo vo) {
-        return ok(apiService.selectResourcePage(vo));
     }
 }

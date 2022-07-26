@@ -57,10 +57,8 @@ import java.util.stream.Collectors;
 public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity> implements IRbacOrgService {
     private final RbacOrgCopyMap map;
     private final IRbacRoleService rbacRoleService;
-    private final RbacOrgResourceApiMapper apiMapper;
     private final RbacOrgMenuMapper menuMapper;
     private final IRbacOrgMenuService menuService;
-    private final IRbacOrgResourceApiService resourceApiService;
     private final RbacOrgQueryCopyMap queryMap;
     private final RbacOrgMapper mapper;
 
@@ -91,8 +89,6 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
     public void saveAuth(String orgId, RbacOrgVo vo) {
         // 存储机构功能权限
         menuService.save(orgId, vo.getOrgMenuIds());
-        // 存储机构资源权限
-        resourceApiService.save(orgId, vo.getOrgResourceIds());
     }
 
 
@@ -251,15 +247,6 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             menus = Collections.emptySet();
         }
         rbacOrgDto.setOrgMenuIds(menus);
-        // 查询资源权限
-        Set<String> resourceAuth = apiMapper.selectAllResource(orgId);
-        Set<RbacResourceApiPageDto> selectApiInfos = apiMapper.selectAllAllInfoResource(orgId);
-        if (CollUtil.isEmpty(resourceAuth)) {
-            resourceAuth = Collections.emptySet();
-            selectApiInfos = Collections.emptySet();
-        }
-        rbacOrgDto.setOrgResourceIds(resourceAuth);
-        rbacOrgDto.setOrgResourceInfos(selectApiInfos);
         return rbacOrgDto;
     }
 

@@ -11,16 +11,15 @@ package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourceActionModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourcePermissionInfoModel;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.anyilanxin.skillfull.corecommon.base.model.stream.router.*;
 import com.anyilanxin.skillfull.corecommon.base.model.system.SpecialUrlModel;
-import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
-import com.anyilanxin.skillfull.corecommon.constant.BindingStreamConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
-import com.anyilanxin.skillfull.coremvc.component.BindingComponent;
+import com.anyilanxin.skillfull.corecommon.constant.RedisSubscribeConstant;
+import com.anyilanxin.skillfull.coreredis.utils.MsgSendUtils;
 import com.anyilanxin.skillfull.system.modules.manage.entity.*;
 import com.anyilanxin.skillfull.system.modules.manage.mapper.*;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService;
@@ -30,6 +29,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -48,8 +48,8 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.LO
 @Service
 @RequiredArgsConstructor
 public class ManageSyncServiceImpl implements IManageSyncService {
-    private final BindingComponent bindingComponent;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
     private final ManageServiceMapper serviceMapper;
     private final ManageRouteFilterMapper filterMapper;
     private final ManageRouteMapper routeMapper;
@@ -61,25 +61,67 @@ public class ManageSyncServiceImpl implements IManageSyncService {
     private final RouterFilterCopyMap filterCopyMap;
     private final RouterPredicateCopyMap predicateCopyMap;
     private final ManageSpecialUrlMapper specialUrlMapper;
-    private final RbacResourceApiMapper resourceApiMapper;
-    private final RbacResourceMapper resourceMapper;
 
     @Override
-    public void syncRoute(boolean force) {
+    public void reloadRoute(boolean force) {
         // 非强制时检测锁情况
         if (!force) {
-            Object redisLockValue = redisTemplate.opsForValue().get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE + "_LOCK");
+            Object redisLockValue = stringRedisTemplate.opsForValue().get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK);
             if (Objects.nonNull(redisLockValue)) {
                 return;
             }
         }
-        // 获取路由信息并写入redis
-        SystemRouterListModel systemRouterListModel = getSystemRouterListModel();
-        redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE, systemRouterListModel);
+        // 删除所有
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "");
+        if (CollUtil.isNotEmpty(keys)) {
+            stringRedisTemplate.delete(keys);
+        }
+        // 获取所有有效的服务信息
+        LambdaQueryWrapper<ManageServiceEntity> serviceLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        serviceLambdaQueryWrapper.eq(ManageServiceEntity::getServiceState, 1);
+        List<ManageServiceEntity> manageServiceEntities = serviceMapper.selectList(serviceLambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(manageServiceEntities)) {
+            // 查询服务项所有有效的路由信息
+            Set<String> serviceIds = new HashSet<>(manageServiceEntities.size());
+            manageServiceEntities.forEach(v -> serviceIds.add(v.getServiceId()));
+            // 获取路由信息并写入redis
+            routerToRedis(serviceIds, false);
+        }
         // 通知网关刷新
-        bindingComponent.out(BindingStreamConstant.ROUTER_PROCESS, systemRouterListModel);
+        MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
         // 加锁
-        redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE + "_LOCK", true, LOCK_EXPIRES, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK, true, LOCK_EXPIRES, TimeUnit.SECONDS);
+    }
+
+
+    @Override
+    public void updateServiceRoute(String serviceId) {
+        // 先删除当前服务所有路由
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
+        if (CollUtil.isNotEmpty(keys)) {
+            stringRedisTemplate.delete(keys);
+            keys.forEach(v -> {
+                // 通知网关刷新
+                String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+            });
+        }
+        routerToRedis(Set.of(serviceId), true);
+    }
+
+
+    @Override
+    public void deleteServiceRoute(String serviceId) {
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
+        if (CollUtil.isNotEmpty(keys)) {
+            stringRedisTemplate.delete(keys);
+            keys.forEach(v -> {
+                String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                // 通知网关删除
+                MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+            });
+
+        }
     }
 
 
@@ -90,15 +132,8 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * @author zxiaozhou
      * @date 2021-12-22 23:42
      */
-    private SystemRouterListModel getSystemRouterListModel() {
-        // 获取所有有效的服务信息
-        LambdaQueryWrapper<ManageServiceEntity> serviceLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        serviceLambdaQueryWrapper.eq(ManageServiceEntity::getServiceState, 1);
-        List<ManageServiceEntity> manageServiceEntities = serviceMapper.selectList(serviceLambdaQueryWrapper);
-        if (CollUtil.isNotEmpty(manageServiceEntities)) {
-            // 查询服务项所有有效的路由信息
-            Set<String> serviceIds = new HashSet<>(manageServiceEntities.size());
-            manageServiceEntities.forEach(v -> serviceIds.add(v.getServiceId()));
+    private void routerToRedis(Set<String> serviceIds, boolean update) {
+        if (CollUtil.isNotEmpty(serviceIds)) {
             LambdaQueryWrapper<ManageRouteEntity> routeLambdaQueryWrapper = new LambdaQueryWrapper<>();
             routeLambdaQueryWrapper.in(ManageRouteEntity::getServiceId, serviceIds)
                     .eq(ManageRouteEntity::getRouteState, 1);
@@ -118,7 +153,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                 Map<String, List<RoutePredicateModel>> predicates = getPredicates(routeIds);
                 // 获取自定义过滤器
                 Map<String, List<RouteFilterModel>> customFilters = getCustomFilters(routeIds);
-                // 数据整理
+                // 数据整理与存入redis
                 routerInfoModels.forEach(v -> {
                     String routeId = v.getRouteId();
                     List<RouteFilterModel> filter = filters.get(routeId);
@@ -131,11 +166,14 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     }
                     v.setRouteFilters(filter);
                     v.setRoutePredicates(predicates.get(routeId));
+                    v.setRouteId(v.getServiceCode() + ":" + v.getRouteId());
+                    stringRedisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(), JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
+                    if (update) {
+                        MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
+                    }
                 });
-                return new SystemRouterListModel(routerInfoModels);
             }
         }
-        return new SystemRouterListModel();
     }
 
 
@@ -204,7 +242,6 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RouteFilterModel>> getCustomFilters(Set<String> routeIds) {
-        Map<String, RbacResourceEntity> resourceInfo = getResourceInfo();
         // 最终返回结果
         Map<String, List<RouteFilterModel>> customFilters = new HashMap<>(routeIds.size() * 2);
         // 获取有效的自定义过滤器
@@ -225,49 +262,9 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     if (sv.getRouteId().equals(v)) {
                         RouteMetaSpecialUrlModel metaSpecialUrlModel = specialUrls.get(sv.getFilterId());
                         Map<String, String> ruleMap = new HashMap<>();
-                        if (!CoreCommonGatewayConstant.AUTHORIZE_FILTER.equals(sv.getFilterType())) {
-                            if (sv.getHaveSpecial() == 1) {
-                                if (Objects.nonNull(metaSpecialUrlModel)) {
-                                    ruleMap.put(CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY, JSONObject.toJSONString(metaSpecialUrlModel));
-                                }
-                            }
-                        }
-                        // 如果是鉴权过滤器还有鉴权指令(具体类型为网关常量:FilterCustomPreType中的值)
-                        else {
-                            List<ResourceActionModel> resourceActionAllList = new ArrayList<>();
+                        if (sv.getHaveSpecial() == 1) {
                             if (Objects.nonNull(metaSpecialUrlModel)) {
-                                List<SpecialUrlModel> blackSpecialUrls = metaSpecialUrlModel.getBlackSpecialUrls();
-                                List<SpecialUrlModel> whiteSpecialUrls = metaSpecialUrlModel.getWhiteSpecialUrls();
-                                List<SpecialUrlModel> allSpecialUrls = new ArrayList<>();
-                                if (CollUtil.isNotEmpty(blackSpecialUrls)) {
-                                    allSpecialUrls.addAll(blackSpecialUrls);
-                                }
-                                if (CollUtil.isNotEmpty(whiteSpecialUrls)) {
-                                    allSpecialUrls.addAll(whiteSpecialUrls);
-                                }
-                                RbacResourceEntity resourceEntity = resourceInfo.get(sv.getServiceCode());
-                                allSpecialUrls.forEach(ssv -> {
-                                    ResourceActionModel model = ResourceActionModel.builder()
-                                            .apiUriAll(ssv.getUrl())
-                                            .resourceCode(sv.getServiceCode())
-                                            .authType(2)
-                                            .requestMethod(StringUtils.join(ssv.getRequestMethodSet(), ","))
-                                            .permissionExpress(ssv.getSpecialUrlType() == 1 ? AuthConstant.PERMIT_ALL_EXPRESS : AuthConstant.DENY_ALL_EXPRESS)
-                                            .requireAuth(ssv.getSpecialUrlType() == 1 ? 0 : 1)
-                                            .build();
-                                    if (Objects.nonNull(resourceEntity)) {
-                                        model.setApiUri(ssv.getUrl().replaceFirst(resourceEntity.getRequestPrefix(), ""));
-                                        model.setRequestPrefix(resourceEntity.getRequestPrefix());
-                                    }
-                                    resourceActionAllList.add(model);
-                                });
-                            }
-                            List<ResourceActionModel> resourceActionModels = getPermission().get(sv.getServiceCode());
-                            if (CollUtil.isNotEmpty(resourceActionModels)) {
-                                resourceActionAllList.addAll(resourceActionModels);
-                            }
-                            if (CollUtil.isNotEmpty(resourceActionAllList)) {
-                                ruleMap.put(CoreCommonGatewayConstant.ATTRIBUTES_KEY, JSONObject.toJSONString(resourceActionAllList));
+                                ruleMap.put(CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY, JSONObject.toJSONString(metaSpecialUrlModel));
                             }
                         }
                         RouteFilterModel routeFilterModel = customFilterCopyMap.bToA(sv);
@@ -285,60 +282,6 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         return customFilters;
     }
 
-
-    @Override
-    public void syncApiAuth(boolean force) {
-        // 非强制时检测锁情况
-        if (!force) {
-            Object redisLockValue = redisTemplate.opsForValue().get(CoreCommonCacheConstant.URL_ALL_AUTH_KEY + "_LOCK");
-            if (Objects.nonNull(redisLockValue)) {
-                return;
-            }
-        }
-        // 获取权限信息并写入redis
-        Map<String, List<ResourceActionModel>> permission = getPermission();
-        ResourcePermissionInfoModel infoModel = new ResourcePermissionInfoModel(permission);
-        redisTemplate.opsForValue().set(CoreCommonCacheConstant.URL_ALL_AUTH_KEY, infoModel);
-        // 通知其他服务刷新
-        bindingComponent.out(BindingStreamConstant.AUTH_URL_PROCESS, infoModel);
-        // 加锁
-        redisTemplate.opsForValue().set(CoreCommonCacheConstant.URL_ALL_AUTH_KEY + "_LOCK", true, LOCK_EXPIRES, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void syncRouteAndAuth(boolean force) {
-        syncApiAuth(force);
-        syncRoute(force);
-    }
-
-    /**
-     * 获取资源权限
-     *
-     * @return Map<String, List < ResourcePermission>> ${@link Map<String, List<  ResourceActionModel  >>}
-     * @author zxiaozhou
-     * @date 2022-03-02 01:50
-     */
-    public Map<String, List<ResourceActionModel>> getPermission() {
-        List<ResourceActionModel> apiPermissions = resourceApiMapper.getApiPermissions();
-        if (CollUtil.isNotEmpty(apiPermissions)) {
-            Map<String, List<ResourceActionModel>> result = new HashMap<>(apiPermissions.size());
-            apiPermissions.forEach(v -> {
-                List<ResourceActionModel> resourcePermissions = result.get(v.getResourceCode());
-                if (CollectionUtil.isEmpty(resourcePermissions)) {
-                    resourcePermissions = new ArrayList<>(128);
-                }
-                if (Objects.isNull(v.getRequireAuth()) || v.getRequireAuth() == 0) {
-                    v.setPermissionExpress(AuthConstant.PERMIT_ALL_EXPRESS);
-                }
-                if (StringUtils.isNotBlank(v.getPermissionExpress())) {
-                    resourcePermissions.add(v);
-                    result.put(v.getResourceCode(), resourcePermissions);
-                }
-            });
-            return result;
-        }
-        return Collections.emptyMap();
-    }
 
     /**
      * 获取特殊url
@@ -379,24 +322,5 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             });
         }
         return filterTypeUrlMap;
-    }
-
-
-    /**
-     * 获取有效的资源信息
-     *
-     * @return Map<String, ManageServiceDto> Map<资源编码, ManageServiceDto>
-     * @author zxiaozhou
-     * @date 2022-03-05 14:56
-     */
-    public Map<String, RbacResourceEntity> getResourceInfo() {
-        LambdaQueryWrapper<RbacResourceEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(RbacResourceEntity::getResourceStatus, 1);
-        List<RbacResourceEntity> manageResourceEntities = resourceMapper.selectList(lambdaQueryWrapper);
-        Map<String, RbacResourceEntity> resourceDtoMap = new HashMap<>();
-        if (CollUtil.isNotEmpty(manageResourceEntities)) {
-            manageResourceEntities.forEach(v -> resourceDtoMap.put(v.getResourceCode(), v));
-        }
-        return resourceDtoMap;
     }
 }

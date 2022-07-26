@@ -3,6 +3,7 @@ version = rootProject.ext.version["skillfull-core-modules:skillfull-redis"]['ver
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     api project(':skillfull-core-modules:skillfull-common')
     compileOnly 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }

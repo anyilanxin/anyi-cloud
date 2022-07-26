@@ -46,12 +46,24 @@ public interface CoreCommonCacheConstant {
     /**
      * 有效路由缓存
      */
-    String SYSTEM_ROUTE_INFO_CACHE = "SYSTEM_ROUTE_INFO_CACHE";
+    String SYSTEM_ROUTE_INFO_CACHE_PREFIX = "SYSTEM_ROUTE_INFO_CACHE:";
+
+
+    /**
+     * 有效路由缓存锁
+     */
+    String SYSTEM_ROUTE_INFO_CACHE_LOCK = "SYSTEM_ROUTE_INFO_CACHE_LOCK";
 
     /**
      * 系统所有有效按钮权限缓存
      */
-    String SYSTEM_AUTH_ACTION_CACHE = "SYSTEM_AUTH_ACTION_CACHE:";
+    String SYSTEM_AUTH_ACTION_CACHE_PREFIX = "SYSTEM_AUTH_ACTION_CACHE:";
+
+
+    /**
+     * 系统所有有效按钮权限缓存锁
+     */
+    String SYSTEM_AUTH_ACTION_CACHE_LOCK = "SYSTEM_AUTH_ACTION_CACHE_LOCK";
 
     /**
      * 数据加解密基本信息缓存
@@ -67,9 +79,4 @@ public interface CoreCommonCacheConstant {
      * 权限相关前缀
      */
     String AUTH_PREFIX = "SKILLFULL_AUTH:";
-
-    /**
-     * url权限,具体存储类型:ResourcePermissionModel
-     */
-    String URL_ALL_AUTH_KEY = AUTH_PREFIX + "URL_ALL_AUTH";
 }

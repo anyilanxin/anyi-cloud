@@ -22,7 +22,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -78,12 +80,8 @@ public class CoreRedisCommonConfig {
      * @date 2020-06-30 17:47
      */
     @Bean
-    @ConditionalOnMissingBean
     public StringRedisTemplate stringRedisTemplate() {
-        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
-        stringRedisTemplate.setValueSerializer(getSerializer());
-        stringRedisTemplate.setConnectionFactory(redisConnectionFactory);
-        return stringRedisTemplate;
+        return new StringRedisTemplate(redisConnectionFactory);
     }
 
 
@@ -126,4 +124,18 @@ public class CoreRedisCommonConfig {
         return jackson2JsonRedisSerializer;
     }
 
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ReactiveStringRedisTemplate reactiveStringRedisTemplate(ReactiveRedisConnectionFactory factory) {
+        RedisSerializer<String> serializer = new StringRedisSerializer();
+        RedisSerializationContext<String, String> serializationContext = RedisSerializationContext
+                .<String, String>newSerializationContext()
+                .key(serializer)
+                .value(serializer)
+                .hashKey(serializer)
+                .hashValue(serializer)
+                .build();
+        return new ReactiveStringRedisTemplate(factory, serializationContext);
+    }
 }

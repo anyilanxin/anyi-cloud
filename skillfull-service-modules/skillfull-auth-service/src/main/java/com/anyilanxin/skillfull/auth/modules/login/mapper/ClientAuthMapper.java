@@ -16,17 +16,6 @@ import java.util.Set;
 public interface ClientAuthMapper {
 
     /**
-     * 获取客户端关联的资源权限
-     *
-     * @param clientDetailId
-     * @return List<RbacResourceApiSimpleDto>
-     * @author zxiaozhou
-     * @date 2022-07-12 12:18
-     */
-    Set<RbacResourceApiSimpleDto> selectResourceApiByClientDetailId(@Param("clientDetailId") String clientDetailId);
-
-
-    /**
      * 获取客户端角色
      *
      * @param clientDetailId 客户端明细id
@@ -35,17 +24,6 @@ public interface ClientAuthMapper {
      * @date 2022-04-06 00:08
      */
     Set<RoleInfo> getClientAuthRole(@Param("clientDetailId") String clientDetailId);
-
-
-    /**
-     * 获取客户端授权角色关联的资源权限
-     *
-     * @param clientDetailId
-     * @return List<RbacResourceApiSimpleDto>
-     * @author zxiaozhou
-     * @date 2022-07-12 12:18
-     */
-    Set<RbacResourceApiSimpleDto> selectResourceRoleApiByClientDetailId(@Param("clientDetailId") String clientDetailId);
 
 
     /**

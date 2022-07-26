@@ -39,7 +39,6 @@ public class SystemStartConfig implements ApplicationRunner {
         coreCommonService.loadConstantDict(false);
         // 路由信息写入redis并通知网关
         log.debug("------------StartConfig------------>loadRoute:{}", "开始加载路由权限信息");
-        syncService.syncRoute(false);
-        syncService.syncApiAuth(false);
+        syncService.reloadRoute(false);
     }
 }

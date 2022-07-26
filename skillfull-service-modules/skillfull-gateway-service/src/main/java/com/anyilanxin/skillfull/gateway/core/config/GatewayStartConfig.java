@@ -38,7 +38,7 @@ public class GatewayStartConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         // 加载路由信息
-        routeService.loadRoute(null);
+        routeService.loadRoute();
         // 加载常量字典
         coreCommonService.loadConstantDict(false);
     }

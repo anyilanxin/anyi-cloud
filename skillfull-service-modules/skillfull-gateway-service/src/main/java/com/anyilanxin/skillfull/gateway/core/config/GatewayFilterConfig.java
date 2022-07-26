@@ -36,21 +36,9 @@ import java.util.Map;
 public class GatewayFilterConfig {
 
 
-//    @Bean
-//    public TokenUnifiedWebFilter tokenUnifiedWebFilter() {
-//        return new TokenUnifiedWebFilter();
-//    }
-
-
     @Bean
     public CorsOptionsWebFilter corsOptionsWebFilter() {
         return new CorsOptionsWebFilter();
-    }
-
-
-    @Bean
-    public TokenRefreshGatewayFilterFactory tokenRefreshGatewayFilterFactory() {
-        return new TokenRefreshGatewayFilterFactory();
     }
 
 
@@ -60,24 +48,6 @@ public class GatewayFilterConfig {
         List<AccessDecisionVoter<?>> accessDecisionVoters = new ArrayList<>();
         decisionVoter.forEach((k, v) -> accessDecisionVoters.add(v));
         return new AuthorizeGatewayFilterFactory(accessDecisionVoters, securityProperties);
-    }
-
-
-    @Bean
-    public VerifySignGatewayFilterFactory verifySignGatewayFilterFactory() {
-        return new VerifySignGatewayFilterFactory();
-    }
-
-
-    @Bean
-    public DecryptGatewayFilterFactory decryptGatewayFilterFactory() {
-        return new DecryptGatewayFilterFactory();
-    }
-
-
-    @Bean
-    public EncryptGatewayFilterFactory encryptGatewayFilterFactory() {
-        return new EncryptGatewayFilterFactory();
     }
 
 
@@ -97,10 +67,4 @@ public class GatewayFilterConfig {
     public CorsWebGatewayFilterFactory corsWebGatewayFilterFactory() {
         return new CorsWebGatewayFilterFactory();
     }
-
-    @Bean
-    public BlacklistGatewayFilterFactory blacklistGatewayFilterFactory() {
-        return new BlacklistGatewayFilterFactory();
-    }
-
 }

@@ -10,7 +10,6 @@
 package com.anyilanxin.skillfull.gateway.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourceActionModel;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.ConfigAttribute;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.matcher.AntPathRequestMatcher;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.matcher.RequestMatcher;

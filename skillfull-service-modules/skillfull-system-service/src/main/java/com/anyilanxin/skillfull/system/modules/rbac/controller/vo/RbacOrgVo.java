@@ -116,7 +116,4 @@ public class RbacOrgVo implements Serializable {
 
     @Schema(name = "orgMenuIds", title = "机构菜单权限")
     private Set<String> orgMenuIds;
-
-    @Schema(name = "orgResourceIds", title = "机构资源权限")
-    private Set<String> orgResourceIds;
 }

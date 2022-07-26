@@ -120,12 +120,6 @@ public class RbacOrgDto implements Serializable {
     @Schema(name = "orgMenuIds", title = "机构菜单权限")
     private Set<String> orgMenuIds;
 
-    @Schema(name = "orgResourceIds", title = "机构资源权限")
-    private Set<String> orgResourceIds;
-
-    @Schema(name = "orgResourceInfos", title = "机构资源明细")
-    private Set<RbacResourceApiPageDto> orgResourceInfos;
-
     @Schema(name = "additionalInformation", title = "扩展信息,json object")
     private Map<String, Object> additionalInformation;
 

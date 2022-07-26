@@ -18,7 +18,6 @@ import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacClientAuthVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacClientDetailsPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacClientDetailsVo;
-import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacClientResourceApiPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacClientDetailsService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacClientDetailsDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacClientDetailsPageDto;
@@ -54,7 +53,6 @@ import java.util.List;
 @RequestMapping(value = "/rbac-client", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RbacClientDetailsController extends BaseController {
     private final IRbacClientDetailsService service;
-    private final IRbacClientResourceApiService resourceApiService;
 
     @Operation(summary = "授权客户端信息添加", tags = {"v1.0.0"}, description = "添加授权客户端信息")
     @PostMapping(value = "/insert")
@@ -126,24 +124,5 @@ public class RbacClientDetailsController extends BaseController {
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacClientDetailsPageDto>> selectPage(@RequestBody RbacClientDetailsPageVo vo) {
         return ok(service.pageByModel(vo));
-    }
-
-
-    @Operation(summary = "查询客户端资源列表", tags = {"v1.0.0"}, description = "查询客户端资源列表")
-    @GetMapping(value = "/select-resource/list")
-    @Parameters({
-            @Parameter(description = "类型:0-禁用的,1-有效的，不传所有", name = "type"),
-            @Parameter(description = "客户端信息id", name = "clientDetailId", required = true),
-    })
-    public Result<List<RbacResourceDto>> selectResourceList(@RequestParam(required = false) Integer type,
-                                                            @RequestParam(required = false) @NotBlank(message = "客户端信息id不能为空") String clientDetailId) {
-        return ok(resourceApiService.selectList(type, clientDetailId));
-    }
-
-
-    @Operation(summary = "客户端资源api表分页查询", tags = {"v1.0.0"}, description = "客户端资源api表分页查询")
-    @PostMapping(value = "/select-resource-api/page")
-    public Result<PageDto<RbacResourceApiPageDto>> selectResourcePage(@RequestBody RbacClientResourceApiPageVo vo) {
-        return ok(resourceApiService.selectResourcePage(vo));
     }
 }

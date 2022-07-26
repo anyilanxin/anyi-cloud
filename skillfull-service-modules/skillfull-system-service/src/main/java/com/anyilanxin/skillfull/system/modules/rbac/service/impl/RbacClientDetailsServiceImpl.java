@@ -54,9 +54,7 @@ import java.util.*;
 public class RbacClientDetailsServiceImpl extends ServiceImpl<RbacClientDetailsMapper, RbacClientDetailsEntity> implements IRbacClientDetailsService {
     private final RbacClientDetailsCopyMap map;
     private final RbacRoleClientMapper rbacRoleClientMapper;
-    private final RbacClientResourceApiMapper resourceApiMapper;
     private final RbacRoleMapper rbacRoleMapper;
-    private final IRbacClientResourceApiService resourceApiService;
     private final IRbacRoleClientService roleClientService;
     private final PasswordEncoder passwordEncoder;
     private final RbacClientDetailsMapper mapper;
@@ -142,17 +140,6 @@ public class RbacClientDetailsServiceImpl extends ServiceImpl<RbacClientDetailsM
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacClientDetailsDto rbacClientDetailsDto = map.eToD(byId);
-        // 获取资源权限
-        Set<String> resourceIds = resourceApiMapper.selectResourceApiListById(clientDetailId);
-        if (CollectionUtil.isEmpty(resourceIds)) {
-            resourceIds = Collections.emptySet();
-        }
-        Set<RbacResourceApiPageDto> resrouceInfos = resourceApiMapper.selectResourceApiAllInfoListById(clientDetailId);
-        if (CollectionUtil.isEmpty(resrouceInfos)) {
-            resrouceInfos = Collections.emptySet();
-        }
-        rbacClientDetailsDto.setClientResourceApiIds(resourceIds);
-        rbacClientDetailsDto.setClientResourceApiInfos(resrouceInfos);
         // 获取管关联角色
         Set<String> roleIds = rbacRoleClientMapper.selectRoleListById(clientDetailId);
         if (CollectionUtil.isEmpty(roleIds)) {
@@ -219,8 +206,5 @@ public class RbacClientDetailsServiceImpl extends ServiceImpl<RbacClientDetailsM
         // 更新角色关联
         roleClientService.deleteBatch(List.of(clientDetailId));
         roleClientService.saveBatch(clientDetailId, vo.getRoleIds());
-        // 更新资源关联
-        resourceApiService.deleteBatch(List.of(clientDetailId));
-        resourceApiService.saveBatch(clientDetailId, vo.getClientResourceApiIds());
     }
 }

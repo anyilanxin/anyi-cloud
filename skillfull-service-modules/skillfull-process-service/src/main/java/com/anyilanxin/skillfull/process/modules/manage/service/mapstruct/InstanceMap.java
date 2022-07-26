@@ -10,7 +10,6 @@
 package com.anyilanxin.skillfull.process.modules.manage.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.skillfull.process.modules.manage.service.dto.InstanceDetailDto;
 import org.camunda.bpm.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

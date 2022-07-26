@@ -25,22 +25,25 @@ public interface IManageSyncService {
      * @author zxiaozhou
      * @date 2021-12-22 22:00
      */
-    void syncRoute(boolean force);
-
-    /**
-     * 同步网关按钮权限
-     *
-     * @author zxiaozhou
-     * @date 2021-11-08 16:32
-     */
-    void syncApiAuth(boolean force);
+    void reloadRoute(boolean force);
 
 
     /**
-     * 同步路由与按钮权限
+     * 同步指定服务路由
      *
+     * @param serviceId 服务id
      * @author zxiaozhou
-     * @date 2021-11-08 16:32
+     * @date 2021-12-22 22:00
      */
-    void syncRouteAndAuth(boolean force);
+    void updateServiceRoute(String serviceId);
+
+
+    /**
+     * 删除服务路由
+     *
+     * @param serviceId 服务id
+     * @author zxiaozhou
+     * @date 2021-12-22 22:00
+     */
+    void deleteServiceRoute(String serviceId);
 }

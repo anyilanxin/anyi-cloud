@@ -12,7 +12,6 @@ package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourceActionModel;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
 import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.AccessDecisionManager;

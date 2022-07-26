@@ -66,7 +66,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -89,7 +90,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -168,7 +170,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 删除自定义过滤器关联关系
         routeCustomFilterService.deleteByRouterId(routeId);
         // 刷新路由
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -209,6 +212,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新状态失败");
         }
         // 刷新路由
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
+        ;
     }
 }

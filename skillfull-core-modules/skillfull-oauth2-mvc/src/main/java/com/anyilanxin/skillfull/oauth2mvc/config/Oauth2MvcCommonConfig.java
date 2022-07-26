@@ -15,7 +15,6 @@ import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCo
 import com.anyilanxin.skillfull.oauth2mvc.CustomBearerTokenExtractor;
 import com.anyilanxin.skillfull.oauth2mvc.GetLoginUserInfoImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -28,8 +27,6 @@ import org.springframework.security.oauth2.core.AbstractOAuth2Token;
 import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.client.RestTemplate;
-
-import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.DEFAULT_RESOURCE_ID;
 
 /**
  * oauth2 webflux公共配置
@@ -59,15 +56,6 @@ public class Oauth2MvcCommonConfig {
     @Bean
     public BearerTokenExtractor bearerTokenExtractor() {
         return new CustomBearerTokenExtractor();
-    }
-
-
-    /**
-     * 权限读取
-     */
-    @Bean
-    public RequestConfigMappingService requestConfigMappingService(@Value("${spring.application.name:" + DEFAULT_RESOURCE_ID + "}") String applicationName) {
-        return new RedisRequestConfigMappingService(redisTemplate, authConfigAttribute(), applicationName);
     }
 
 

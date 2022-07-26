@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 流程图用户任务信息
@@ -29,9 +28,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ProcessInfoDto implements Serializable {
     private static final long serialVersionUID = -9172543358400492801L;
@@ -78,7 +75,4 @@ public class ProcessInfoDto implements Serializable {
 
     @Schema(name = "deploymentName", title = "部署名称")
     private String deploymentName;
-
-    @Schema(name = "userTasks", title = "用户任务信息")
-    List<ProcessTaskInfoDto> userTasks;
 }

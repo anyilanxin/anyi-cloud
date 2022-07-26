@@ -17,8 +17,8 @@ import com.anyilanxin.skillfull.corecommon.utils.CoreCommonDateUtils;
 import com.anyilanxin.skillfull.corecommon.utils.UserContextUtils;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.process.core.constant.CommonProcessConstant;
-import com.anyilanxin.skillfull.process.extend.constant.impl.ModelStateType;
-import com.anyilanxin.skillfull.process.extend.constant.impl.ProcessInstanceState;
+import com.anyilanxin.skillfull.process.core.constant.ModelStateType;
+import com.anyilanxin.skillfull.process.core.constant.ProcessInstanceState;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.DesignModelHistoryVo;
 import com.anyilanxin.skillfull.process.modules.base.entity.DesignModelEntity;
 import com.anyilanxin.skillfull.process.modules.base.entity.DesignModelHistoryEntity;
@@ -31,7 +31,9 @@ import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 import com.anyilanxin.skillfull.process.modules.manage.entity.ReDeploymentEntity;
 import com.anyilanxin.skillfull.process.modules.manage.mapper.ReDeploymentMapper;
 import com.anyilanxin.skillfull.process.modules.manage.service.IDefinitionManageService;
-import com.anyilanxin.skillfull.process.modules.manage.service.dto.*;
+import com.anyilanxin.skillfull.process.modules.manage.service.dto.DeploymentDetailDto;
+import com.anyilanxin.skillfull.process.modules.manage.service.dto.ProcessDefinitionPageDto;
+import com.anyilanxin.skillfull.process.modules.manage.service.dto.ProcessInfoDto;
 import com.anyilanxin.skillfull.process.modules.manage.service.mapstruct.ProcessDefinitionPageMap;
 import com.anyilanxin.skillfull.process.modules.manage.service.mapstruct.ProcessInfoCopyMap;
 import com.anyilanxin.skillfull.process.utils.Base64FileUtils;
@@ -42,8 +44,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RepositoryService;
-import org.camunda.bpm.engine.form.FormField;
-import org.camunda.bpm.engine.form.StartFormData;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.impl.persistence.entity.DeploymentEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -114,10 +114,6 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         }
         // 获取节点任务信息
         InputStream processModel = repositoryService.getProcessModel(processDefinition.getId());
-        if (Objects.nonNull(processModel)) {
-            List<ProcessTaskInfoDto> bpmnUserTask = ProcessBpmnUtils.getBpmnUserTaskToList(processModel);
-            processInfoDto.setUserTasks(bpmnUserTask);
-        }
         processInfoDto.setDiagramData(Base64FileUtils.inputStreamToBase64(processModel));
         return processInfoDto;
     }
@@ -456,15 +452,6 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         if (deploymentDetailDto.isHasStartFormKey()) {
             String startFormKey = formService.getStartFormKey(deploymentDetailDto.getProcessDefinitionId());
             deploymentDetailDto.setStartFormKey(startFormKey);
-        }
-        // 获取开始表单信息
-        StartFormData startFormData = formService.getStartFormData(deploymentDetailDto.getProcessDefinitionId());
-        if (Objects.nonNull(startFormData)) {
-            List<FormField> formFields = startFormData.getFormFields();
-            FormData formData = new FormData();
-            formData.setFormKey(startFormData.getFormKey());
-            formData.setFormFields(formFields);
-            deploymentDetailDto.setStartFormData(formData);
         }
         return deploymentDetailDto;
 

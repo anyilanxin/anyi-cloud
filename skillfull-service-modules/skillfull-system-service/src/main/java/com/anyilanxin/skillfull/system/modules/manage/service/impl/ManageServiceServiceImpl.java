@@ -62,7 +62,7 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 刷新网关
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
     }
 
 
@@ -79,7 +79,7 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 刷新网关
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
     }
 
 
@@ -153,7 +153,7 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
         // 删除自定义过滤器
         customFilterService.deleteByServiceId(serviceId);
         // 刷新网关
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
     }
 
 

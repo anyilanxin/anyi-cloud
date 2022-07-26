@@ -142,7 +142,7 @@ public class ManageServiceController extends BaseController {
     @Operation(summary = "手动刷新网关", tags = {"v1.0.0"}, description = "手动刷新网关")
     @GetMapping(value = "/refresh-gateway")
     public Result<String> refreshGateway() {
-        syncService.syncRoute(true);
+        syncService.reloadRoute(true);
         return ok("刷新网关成功");
     }
 

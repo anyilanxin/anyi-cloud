@@ -9,7 +9,6 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.gateway.modules.manage.service;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterListModel;
 import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
@@ -70,11 +69,10 @@ public interface IDynamicRouteService {
     /**
      * 加载或刷新路由
      *
-     * @param routerListModel ${@link SystemRouterListModel} 路由信息
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-09-13 00:39
      */
-    void loadRoute(SystemRouterListModel routerListModel) throws RuntimeException;
+    void loadRoute() throws RuntimeException;
 
 }

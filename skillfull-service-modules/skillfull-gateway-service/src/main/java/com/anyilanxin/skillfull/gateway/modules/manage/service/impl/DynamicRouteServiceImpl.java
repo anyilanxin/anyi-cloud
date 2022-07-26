@@ -13,8 +13,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteFilterModel;
 import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RoutePredicateModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterListModel;
 import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
+import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
@@ -24,21 +24,24 @@ import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cloud.gateway.support.NotFoundException;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.net.URI;
 import java.util.*;
-
-import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE;
 
 /**
  * 动态路由服务
@@ -51,8 +54,9 @@ import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConsta
 @Service
 @RequiredArgsConstructor
 public class DynamicRouteServiceImpl implements IDynamicRouteService {
+    private final ApplicationEventPublisher publisher;
+    private final ReactiveStringRedisTemplate reactiveStringRedisTemplate;
     private final RouteDefinitionRepository routeDefinitionRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
 
 
     @Override
@@ -67,33 +71,22 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         } catch (Exception e) {
             throw new ResponseException("添加路由失败:" + e.getMessage());
         }
+        notifyChanged();
     }
 
 
     @Override
     public void updateRoute(SystemRouterModel vo) throws RuntimeException {
-        try {
-            RouteDefinition definition = getRouteDefinition(vo);
-            if (Objects.nonNull(definition)) {
-                routeDefinitionRepository
-                        .delete(Mono.just(definition.getId()))
-                        .then(Mono.just(definition))
-                        .subscribe();
-            }
-        } catch (Exception e) {
-            throw new ResponseException("更新路由失败:" + e.getMessage());
-        }
-
+        addRoute(vo);
     }
 
 
     @Override
     public void deleteRoute(String routeId) throws RuntimeException {
-        try {
-            routeDefinitionRepository.delete(Mono.just(routeId)).subscribe();
-        } catch (Exception e) {
-            throw new ResponseException("删除失败,服务可能不存在");
-        }
+        routeDefinitionRepository
+                .delete(Mono.just(routeId)).then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
+                .onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build())).subscribe();
+        notifyChanged();
     }
 
 
@@ -166,33 +159,29 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
 
 
     @Override
-    public void loadRoute(SystemRouterListModel routerListModel) throws RuntimeException {
-        log.debug("------------DynamicRouteServiceImpl------------>loadRoute:{}", "开始加载路由:\n" + JSONObject.toJSONString(routerListModel));
-        // 删除历史路由
-        routeDefinitionRepository.getRouteDefinitions().flatMap(v -> {
-            deleteRoute(v.getId());
-            return Mono.just(true);
-        }).subscribe().dispose();
-        // 加载新路由
-        if (Objects.isNull(routerListModel)) {
-            Object object = redisTemplate.opsForValue().get(SYSTEM_ROUTE_INFO_CACHE);
-            if (Objects.nonNull(object) && object instanceof SystemRouterListModel) {
-                routerListModel = (SystemRouterListModel) object;
-            }
-        }
-        if (Objects.nonNull(routerListModel)) {
-            List<SystemRouterModel> routerInfoModels = routerListModel.getRouterInfoModels();
-            if (CollUtil.isNotEmpty(routerInfoModels)) {
-                // 路由写入内存
-                routerInfoModels.forEach(sv -> {
-                    try {
-                        addRoute(sv);
-                    } catch (Exception e) {
-                        log.error("------------DynamicRouteServiceImpl-----加载路由失败------->loadRoute--->\n参数:\n{}\n异常消息:\n{}", sv, e.getMessage());
-                    }
-                });
-            }
-        }
+    public void loadRoute() throws RuntimeException {
+        routeDefinitionRepository.getRouteDefinitions().flatMap(item -> {
+                    deleteRoute(item.getId());
+                    return Mono.empty();
+                })
+                .collectList()
+                .publishOn(Schedulers.boundedElastic())
+                .doOnNext(v -> reactiveStringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*")
+                        .flatMap(key -> reactiveStringRedisTemplate.opsForValue().get(key).flatMap(item -> {
+                            SystemRouterModel vo = JSONObject.parseObject(item, SystemRouterModel.class);
+                            RouteDefinition routeDefinition = getRouteDefinition(vo);
+                            if (Objects.nonNull(routeDefinition)) {
+                                return routeDefinitionRepository.save(Mono.just(routeDefinition));
+                            }
+                            return Mono.empty();
+                        }))
+                        .onErrorContinue((throwable, routeDefinition) -> {
+                            if (log.isErrorEnabled()) {
+                                log.error("get routes from redis error cause : {}", throwable.toString(), throwable);
+                            }
+                        }).subscribe())
+                .subscribe();
+        notifyChanged();
     }
 
 
@@ -211,7 +200,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
          * 2.如果非负载均衡器,url必填并且开头必须是http,https,ws,wss
          */
         RouteDefinition definition = new RouteDefinition();
-        definition.setId(vo.getRouteCode());
+        definition.setId(vo.getRouteId());
         definition.setOrder(vo.getRouteOrder());
         if (CollUtil.isNotEmpty(vo.getMetadata())) {
             definition.setMetadata(vo.getMetadata());
@@ -232,19 +221,21 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         //设置断言
         List<PredicateDefinition> pdList = new ArrayList<>();
         List<RoutePredicateModel> routePredicates = vo.getRoutePredicates();
-        for (RoutePredicateModel predicate : routePredicates) {
-            // 验证断言类型是否存在
-            if (!PredicateSysType.isHaveByType(predicate.getPredicateType())) {
-                log.error("------------DynamicRouteServiceImpl------断言设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", predicate, "断言类型:" + predicate.getPredicateType() + "不存在,当前只能为:" + PredicateSysType.getAllType());
-                continue;
+        if (CollUtil.isNotEmpty(routePredicates)) {
+            for (RoutePredicateModel predicate : routePredicates) {
+                // 验证断言类型是否存在
+                if (!PredicateSysType.isHaveByType(predicate.getPredicateType())) {
+                    log.error("------------DynamicRouteServiceImpl------断言设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", predicate, "断言类型:" + predicate.getPredicateType() + "不存在,当前只能为:" + PredicateSysType.getAllType());
+                    continue;
+                }
+                Map<String, String> rules = predicate.getRules();
+                PredicateDefinition predicateDefinition = new PredicateDefinition();
+                if (CollUtil.isNotEmpty(rules)) {
+                    predicateDefinition.setArgs(rules);
+                }
+                predicateDefinition.setName(predicate.getPredicateType());
+                pdList.add(predicateDefinition);
             }
-            Map<String, String> rules = predicate.getRules();
-            PredicateDefinition predicateDefinition = new PredicateDefinition();
-            if (CollUtil.isNotEmpty(rules)) {
-                predicateDefinition.setArgs(rules);
-            }
-            predicateDefinition.setName(predicate.getPredicateType());
-            pdList.add(predicateDefinition);
         }
         definition.setPredicates(pdList);
         //设置过滤器
@@ -275,5 +266,16 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         }
         definition.setFilters(filters);
         return definition;
+    }
+
+
+    /**
+     * 刷新路由
+     *
+     * @author zxiaozhou
+     * @date 2020-09-11 12:05
+     */
+    private void notifyChanged() {
+        publisher.publishEvent(new RefreshRoutesEvent(this));
     }
 }

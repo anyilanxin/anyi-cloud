@@ -33,11 +33,8 @@ public class RouterDeleteEventListener extends RedisKeyDeleteEventMessageListene
         log.debug("------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}", message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         if (StringUtils.isNotBlank(key)) {
-            if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE) && !super.serviceLock(key)) {
-                syncService.syncRoute(true);
-            }
-            if (key.equals(CoreCommonCacheConstant.URL_ALL_AUTH_KEY) && !super.serviceLock(key)) {
-                syncService.syncApiAuth(true);
+            if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX) && !super.serviceLock(key)) {
+                syncService.reloadRoute(true);
             }
         }
     }

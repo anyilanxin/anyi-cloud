@@ -9,7 +9,6 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.auth.modules.login.mapper.ClientAuthMapper;
 import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
 import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
@@ -17,10 +16,11 @@ import com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAu
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户中心
@@ -54,30 +54,6 @@ public class ClientAuthServiceImpl implements IClientAuthService {
         clientDetailsModel.setRoleInfos(clientAuthRole);
         clientDetailsModel.setRoleCodes(roleCodes);
         clientDetailsModel.setRoleIds(roleIds);
-        // 获取授权角色资源权限
-        Set<RbacResourceApiSimpleDto> resourceApiSimpleDtos = clientAuthMapper.selectResourceRoleApiByClientDetailId(clientDetailId);
-        if (CollUtil.isEmpty(resourceApiSimpleDtos)) {
-            resourceApiSimpleDtos = new HashSet<>();
-        }
-        // 获取关联资源权限
-        Set<RbacResourceApiSimpleDto> clientResourceInfos = clientAuthMapper.selectResourceApiByClientDetailId(clientDetailId);
-        if (CollUtil.isNotEmpty(clientResourceInfos)) {
-            resourceApiSimpleDtos.addAll(clientResourceInfos);
-        }
-        if (CollUtil.isNotEmpty(resourceApiSimpleDtos)) {
-            Map<String, Set<String>> actionMap = new HashMap<>(resourceApiSimpleDtos.size());
-            resourceApiSimpleDtos.forEach(v -> {
-                Set<String> actions = actionMap.get(v.getResourceCode());
-                if (CollUtil.isEmpty(actions)) {
-                    actions = new HashSet<>(64);
-                }
-                if (StringUtils.isNotBlank(v.getPermissionAction())) {
-                    actions.addAll(Set.of(v.getPermissionAction().split("[,，]")));
-                }
-                actionMap.put(v.getResourceCode(), actions);
-            });
-            clientDetailsModel.setActions(actionMap);
-        }
         return clientDetailsModel;
     }
 }

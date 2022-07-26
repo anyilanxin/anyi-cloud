@@ -10,10 +10,8 @@
 package com.anyilanxin.skillfull.oauth2common.utils;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourceActionModel;
 import com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.base.model.system.UserAndResourceAuthModel;
-import com.anyilanxin.skillfull.corecommon.constant.impl.AuthType;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullGrantedAuthority;
@@ -23,9 +21,6 @@ import com.anyilanxin.skillfull.oauth2common.mapstruct.ClientDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.UserDetailsCopyMap;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,12 +29,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author zxiaozhou
@@ -57,47 +52,6 @@ public class Oauth2CommonUtils {
     @PostConstruct
     private void init() {
         utils = this;
-    }
-
-
-    /**
-     * resourceAction 转换为security Attribute
-     *
-     * @param userAll             ${@link Boolean} 是否用全url,网关时需要使用下游全url
-     * @param resourcePermissions ${@link List<ResourceActionModel>}
-     * @return LinkedHashMap<RequestMatcher, Collection < ConfigAttribute>> ${@link LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>}
-     * @author zxiaozhou
-     * @date 2022-03-03 14:23
-     */
-    public static LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> resourceActionToAttribute(List<ResourceActionModel> resourcePermissions, boolean userAll) {
-        if (CollUtil.isEmpty(resourcePermissions)) {
-            return new LinkedHashMap<>();
-        }
-        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> authConfigAttributeMap = new LinkedHashMap<>(resourcePermissions.size());
-        resourcePermissions.forEach(v -> {
-            String requestMethodInfo = v.getRequestMethod();
-            String apiUri = v.getApiUri();
-            String apiUriAll = v.getApiUriAll();
-            String permissionExpress = v.getPermissionExpress();
-            if (v.getAuthType() != AuthType.GATEWAY.getType()) {
-                if (StringUtils.isNotBlank(requestMethodInfo)) {
-                    String[] requestMethods = requestMethodInfo.split("[,，]");
-                    for (String requestMethod : requestMethods) {
-                        HttpMethod httpMethod = HttpMethod.resolve(requestMethod.toUpperCase());
-                        if (Objects.nonNull(httpMethod)) {
-                            AntPathRequestMatcher matcher = new AntPathRequestMatcher(userAll ? apiUriAll : apiUri, httpMethod.name());
-                            List<ConfigAttribute> configAttributes = SecurityConfig.createList(permissionExpress);
-                            authConfigAttributeMap.put(matcher, configAttributes);
-                        }
-                    }
-                } else {
-                    AntPathRequestMatcher matcher = new AntPathRequestMatcher(userAll ? apiUriAll : apiUri);
-                    List<ConfigAttribute> configAttributes = SecurityConfig.createList(permissionExpress);
-                    authConfigAttributeMap.put(matcher, configAttributes);
-                }
-            }
-        });
-        return authConfigAttributeMap;
     }
 
     /**

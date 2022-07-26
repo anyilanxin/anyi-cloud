@@ -64,13 +64,11 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
     private final RbacRoleCopyMap map;
     private final RbacRoleMenuMapper roleMenuMapper;
     private final RbacRoleUserMapper rbacRoleUserMapper;
-    private final RbacRoleResourceApiMapper resourceApiMapper;
     private final PermissionMenuActionMap menuActionMap;
     private final RbacRoleAndMenuDtoMap rbacRoleAndMenuDtoMap;
     private final RbacRoleBasicDtoMap basicDtoMap;
     private final IRbacRoleMenuService roleMenuService;
     private final RbacMenuMapper menuMapper;
-    private final IRbacRoleResourceApiService resourceApiService;
     private final RbacRoleMapper mapper;
     private final ISyncProcessService syncService;
 
@@ -183,22 +181,6 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
             menus = Collections.emptyList();
         }
         rbacRoleDto.setMenuIds(menus);
-        // 查询资源权限
-        List<String> resourceAuth;
-        List<RbacResourceApiPageDto> selectApiInfos;
-        if (AuthConstant.SUPER_ROLE.equals(byId.getRoleCode())) {
-            resourceAuth = resourceApiMapper.selectAllResource();
-            selectApiInfos = resourceApiMapper.selectAllAllInfoResource();
-        } else {
-            resourceAuth = resourceApiMapper.selectResourceApiListById(roleId);
-            selectApiInfos = resourceApiMapper.selectResourceApiAllInfoListById(roleId);
-        }
-        if (CollUtil.isEmpty(resourceAuth)) {
-            resourceAuth = Collections.emptyList();
-            selectApiInfos = Collections.emptyList();
-        }
-        rbacRoleDto.setApiIds(resourceAuth);
-        rbacRoleDto.setSelectApiInfos(selectApiInfos);
         return rbacRoleDto;
     }
 
@@ -218,8 +200,6 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
         roleIds.add(roleId);
         // 删除角色菜单关联
         roleMenuService.deleteBatch(roleIds);
-        // 删除角色资源关联
-        resourceApiService.deleteBatch(roleIds);
         // 删除用户关联
         rbacRoleUserMapper.physicalDeleteBatchRoleIds(roleIds);
         // 同步流程引擎
@@ -256,9 +236,6 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
         // 更新菜单关联
         roleMenuService.deleteBatch(List.of(rbacRoleEntity.getRoleId()));
         roleMenuService.saveBatch(rbacRoleEntity.getRoleId(), vo.getMenuIds());
-        // 更新资源关联
-        resourceApiService.deleteBatch(List.of(rbacRoleEntity.getRoleId()));
-        resourceApiService.saveBatch(rbacRoleEntity.getRoleId(), vo.getApiIds());
     }
 
 

@@ -41,7 +41,7 @@ spring:
         max-wait: -1
         min-idle: 0
         max-active: 200
-  
+
   rabbitmq:
     host: ${rbmq.host:localhost}
     port: ${rbmq.port:5672}
@@ -51,23 +51,11 @@ spring:
     sentinel:
       log:
         dir: ./logs
-    function:
-      definition: submitProcess;authUrlProcess
     stream:
       bindings:
-        submitProcess-in-0:
-          destination: submitProcess
-          group: process-service
-        submitProcessResult-out-0:
-          destination: submitProcessResult
-        processMsgProcess-out-0:
-          destination: processMsgProcess
-          group: message-service
         operateLogProcess-out-0:
           destination: operateLogProcess
           group: logging-service
-        authUrlProcess-in-0:
-          destination: authUrlProcess
 
 
 # 流程配置

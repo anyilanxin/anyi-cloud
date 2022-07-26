@@ -40,14 +40,8 @@ spring:
     sentinel:
       log:
         dir: ./logs
-    function:
-      definition: routerProcess;baseConfigProcess;refreshDocProcess
     stream:
       bindings:
-        routerProcess-in-0:
-          destination: routerProcess
-        baseConfigProcess-in-0:
-          destination: baseConfigProcess
         operateLogProcess-out-0:
           destination: operateLogProcess
           group: logging-service

@@ -34,7 +34,6 @@
     <result property="additionalInformation" column="additional_information" jdbcType="VARCHAR"
             typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
   </resultMap>
-
   <!-- @formatter:off -->
 
   <!--数据库字段-->
@@ -44,25 +43,6 @@
     last_auth_time,limit_error,max_error_num,client_status,hava_auto_approve,access_token_validity_seconds,
     refresh_token_validity_seconds,code_validity_seconds,additional_information
   </sql>
-
-  <!-- 获取客户端关联的资源权限 -->
-  <select id="selectResourceApiByClientDetailId"
-          resultType="com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacResourceApiSimpleDto">
-    SELECT
-      srra.api_id,
-      srra.resource_id,
-      srra.resource_code,
-      srra.permission_express,
-      srra.permission_action
-    FROM sys_rbac_client_details srcd
-           INNER JOIN sys_rbac_client_resource_api srcra ON srcd.client_detail_id = srcra.client_detail_id
-           INNER JOIN sys_rbac_resource_api srra ON srra.api_id = srcra.api_id
-    WHERE
-      srcd.del_flag = 0
-      AND srra.permission_action IS NOT NULL
-      AND srra.permission_action != ''
-	      AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
-  </select>
 
 
   <!-- 获取客户端角色 -->
@@ -74,37 +54,13 @@
       srcd.client_detail_id,
       srcd.client_id
     FROM sys_rbac_client_details srcd
-           INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
-           INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
+    INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
+    INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
     WHERE
       srr.role_status = 1
       AND srr.del_flag = 0
       AND srcd.del_flag = 0
       AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
-  </select>
-
-
-  <!-- 获取客户端授权角色关联的资源权限 -->
-  <select id="selectResourceRoleApiByClientDetailId"
-          resultType="com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacResourceApiSimpleDto">
-    SELECT
-      srra.api_id,
-      srra.resource_id,
-      srra.resource_code,
-      srra.permission_express,
-      srra.permission_action
-    FROM sys_rbac_client_details srcd
-           INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
-           INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
-           INNER JOIN sys_rbac_role_resource_api srrra ON srrra.api_id = srrra.api_id
-           INNER JOIN sys_rbac_resource_api srra ON srra.api_id = srrra.api_id
-    WHERE
-      srr.role_status = 1
-      AND srr.del_flag = 0
-      AND srcd.del_flag = 0
-      AND srra.permission_action IS NOT NULL
-      AND srra.permission_action != ''
-	      AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
   </select>
 
 
@@ -116,8 +72,6 @@
     WHERE client_id = #{clientId, jdbcType=VARCHAR}
           AND del_flag = 0
   </select>
-
-
 
     <!-- @formatter:off -->
 </mapper>

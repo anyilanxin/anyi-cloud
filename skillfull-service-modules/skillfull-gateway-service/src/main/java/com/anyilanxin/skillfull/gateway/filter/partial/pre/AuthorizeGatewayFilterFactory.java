@@ -9,18 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
-import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.anyilanxin.skillfull.corecommon.auth.model.ResourceActionModel;
-import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
-import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
-import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.AccessDecisionManager;
-import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.AccessDecisionVoter;
-import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.ConfigAttribute;
-import com.anyilanxin.skillfull.gateway.filter.partial.pre.checkauth.matcher.RequestMatcher;
-import com.anyilanxin.skillfull.gateway.utils.AuthorizeUtils;
-import com.anyilanxin.skillfull.gateway.utils.Oauth2CommonUtils;
+import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteMetaSpecialUrlModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -28,20 +18,18 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.core.Ordered;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
-import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.ATTRIBUTES_KEY;
+import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY;
 import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 /**
- * 鉴权过滤器
+ * 验签过滤器
  *
  * @author zxiaozhou
  * @date 2020-09-11 22:34
@@ -49,53 +37,45 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
  */
 @Slf4j
 public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthorizeGatewayFilterFactory.Config> {
-    private final Map<Integer, AccessDecisionManager> accessDecisionManager = new HashMap<>(3);
-    private final CustomSecurityProperties securityProperties;
 
-    public AuthorizeGatewayFilterFactory(final List<AccessDecisionVoter<?>> decisionVoters, CustomSecurityProperties securityProperties) {
-        super(AuthorizeGatewayFilterFactory.Config.class);
-        this.securityProperties = securityProperties;
+    public AuthorizeGatewayFilterFactory() {
+        super(Config.class);
     }
 
     @Override
     public List<String> shortcutFieldOrder() {
-        return Arrays.asList(CoreCommonGatewayConstant.PARAM_TYPE_KEY, ATTRIBUTES_KEY);
+        return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
     }
 
 
     @Override
     public GatewayFilter apply(Config config) {
-        AuthorizeGatewayFilter gatewayFilter = new AuthorizeGatewayFilter(config, accessDecisionManager, securityProperties);
+        VerifySignGatewayFilter gatewayFilter = new VerifySignGatewayFilter(config);
         gatewayFilter.setFactory(this);
         return gatewayFilter;
     }
 
 
-    private static class AuthorizeGatewayFilter implements GatewayFilter, Ordered {
-        private final Config config;
-        private final AccessDecisionManager accessDecisionManager;
-        private final boolean enabled;
-        private final LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> whiteList;
-        private GatewayFilterFactory<Config> gatewayFilterFactory;
-        private final Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+    private static class VerifySignGatewayFilter implements GatewayFilter, Ordered {
 
-        public AuthorizeGatewayFilter(Config config,
-                                      Map<Integer, AccessDecisionManager> accessDecisionManager,
-                                      CustomSecurityProperties securityProperties) {
+        private final Config config;
+
+        private GatewayFilterFactory<Config> gatewayFilterFactory;
+
+        public VerifySignGatewayFilter(Config config) {
             this.config = config;
-            this.accessDecisionManager = accessDecisionManager.get(this.config.getDecision());
-            this.enabled = securityProperties.isEnabled();
-            this.whiteList = AuthorizeUtils.createWhiteList(securityProperties);
         }
 
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
+            log.debug("------------VerifySignGatewayFilter------------>filter:{}", "鉴权过滤器");
+            // 继续运行
+            return chain.filter(exchange);
         }
 
         @Override
         public int getOrder() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -110,45 +90,24 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
         public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
         }
-
     }
 
 
     @Validated
     public static class Config {
         /**
-         * 决策类型: 0：一票赞成即通过，1：大多数投票赞成即通过，2：所有投票赞成才通过,默认0
+         * 特殊url
          */
-        private int decision;
-        /**
-         * 资源权限List<ResourceActionModel>
-         */
-        private LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> attributes = new LinkedHashMap<>();
+        private RouteMetaSpecialUrlModel specialUrl;
 
+        public RouteMetaSpecialUrlModel getSpecialUrl() {
+            return specialUrl;
+        }
 
-        public LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> getAttributes(LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> whiteList) {
-            if (CollUtil.isNotEmpty(whiteList)) {
-                this.attributes.putAll(whiteList);
+        public Config setSpecialUrl(String specialUrl) {
+            if (StringUtils.isNotBlank(specialUrl)) {
+                this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
             }
-            return this.attributes;
-        }
-
-        public int getDecision() {
-            return this.decision;
-        }
-
-        public Config setAttributes(String attributes) {
-            if (StringUtils.isNotBlank(attributes)) {
-                TypeReference<List<ResourceActionModel>> typeReference = new TypeReference<>() {
-                };
-                List<ResourceActionModel> resourcePermissions = JSONObject.parseObject(attributes, typeReference);
-                this.attributes = Oauth2CommonUtils.resourceActionToAttribute(resourcePermissions, true);
-            }
-            return this;
-        }
-
-        public Config setDecision(int decision) {
-            this.decision = decision;
             return this;
         }
     }

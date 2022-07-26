@@ -88,10 +88,4 @@ public class RbacRoleDto implements Serializable {
 
     @Schema(name = "menuIds", title = "菜单列表")
     private List<String> menuIds;
-
-    @Schema(name = "apiIds", title = "资源api列表(只有非角色权限指令才有必要授权)")
-    private List<String> apiIds;
-
-    @Schema(name = "selectApiInfos", title = "资源api列表完整信息(只有非角色权限指令才有必要授权)")
-    private List<RbacResourceApiPageDto> selectApiInfos;
 }

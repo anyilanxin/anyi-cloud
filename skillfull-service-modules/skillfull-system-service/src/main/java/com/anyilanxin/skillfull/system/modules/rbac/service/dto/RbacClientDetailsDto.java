@@ -148,12 +148,6 @@ public class RbacClientDetailsDto implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
-    @Schema(name = "clientResourceApiIds", title = "资源权限")
-    private Set<String> clientResourceApiIds;
-
-    @Schema(name = "clientResourceApiInfos", title = "资源明细")
-    private Set<RbacResourceApiPageDto> clientResourceApiInfos;
-
     @Schema(name = "roleIds", title = "角色id")
     private Set<String> roleIds;
 

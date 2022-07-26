@@ -17,7 +17,3 @@ spring cloud ,spring alibaba.rapid development platform(micro service)
 - QQ交流群 ： 666029437
 
 - 前端地址 ：https://github.com/zxiaozhou/skillfull-cloud-vue
-
-
-静待7月25号发布预览版
------------------------------------

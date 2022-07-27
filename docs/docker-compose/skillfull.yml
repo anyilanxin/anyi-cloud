@@ -163,7 +163,6 @@ services:
           memory: 1G
     volumes:
       - /opt/containerd/.data/upload:/app/upload
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     networks:
       - database_database_net
       - middleware_middleware_net

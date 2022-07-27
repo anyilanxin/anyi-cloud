@@ -7,8 +7,6 @@ services:
     image: skillfull-gateway-service:0.9.9
     container_name: gateway-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -42,8 +40,6 @@ services:
       NACOS_ADDR: nacos-server:8848
       NACOS_NAMESPACE: skillfullcloud
       server.port: 80
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     deploy:
       resources:
         limits:
@@ -59,8 +55,6 @@ services:
     image: skillfull-logging-service:0.9.9
     container_name: logging-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -84,8 +78,6 @@ services:
     image: skillfull-message-service:0.9.9
     container_name: message-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -110,8 +102,6 @@ services:
     image: skillfull-monitor-service:0.9.9
     container_name: monitor-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -135,8 +125,6 @@ services:
     image: skillfull-process-service:0.9.9
     container_name: process-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -187,8 +175,6 @@ services:
     image: skillfull-system-service:0.9.9
     container_name: system-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'

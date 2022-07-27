@@ -25,6 +25,5 @@ services:
 networks:
   nacos_nacos_net:
     external: true
-
   seata_net:
     driver: bridge

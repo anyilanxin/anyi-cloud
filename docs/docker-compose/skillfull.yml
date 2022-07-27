@@ -7,8 +7,6 @@ services:
     image: skillfull-gateway-service:0.9.9
     container_name: gateway-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -42,58 +40,6 @@ services:
       NACOS_ADDR: nacos-server:8848
       NACOS_NAMESPACE: skillfullcloud
       server.port: 80
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-    networks:
-      - database_database_net
-      - middleware_middleware_net
-      - nacos_nacos_net
-      - seata_seata_net
-
-
-  example-service:
-    image: skillfull-example-service:0.9.9
-    container_name: example-service
-    restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    environment:
-      PROFILES_ACTIVE: test
-      CONFIG_ENABLE: 'true'
-      NACOS_PASSWORD: skillfullcloud
-      NACOS_USERNAME: skillfullcloud
-      NACOS_ADDR: nacos-server:8848
-      NACOS_NAMESPACE: skillfullcloud
-      server.port: 80
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-    networks:
-      - database_database_net
-      - middleware_middleware_net
-      - nacos_nacos_net
-      - seata_seata_net
-
-
-  job-service:
-    image: skillfull-job-service:0.9.9
-    container_name: job-service
-    restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    environment:
-      PROFILES_ACTIVE: test
-      CONFIG_ENABLE: 'true'
-      NACOS_PASSWORD: skillfullcloud
-      NACOS_USERNAME: skillfullcloud
-      NACOS_ADDR: nacos-server:8848
-      NACOS_NAMESPACE: skillfullcloud
-      server.port: 80
     deploy:
       resources:
         limits:
@@ -109,8 +55,6 @@ services:
     image: skillfull-logging-service:0.9.9
     container_name: logging-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -134,8 +78,6 @@ services:
     image: skillfull-message-service:0.9.9
     container_name: message-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -160,33 +102,6 @@ services:
     image: skillfull-monitor-service:0.9.9
     container_name: monitor-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    environment:
-      PROFILES_ACTIVE: test
-      CONFIG_ENABLE: 'true'
-      NACOS_PASSWORD: skillfullcloud
-      NACOS_USERNAME: skillfullcloud
-      NACOS_ADDR: nacos-server:8848
-      NACOS_NAMESPACE: skillfullcloud
-      server.port: 80
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-    networks:
-      - database_database_net
-      - middleware_middleware_net
-      - nacos_nacos_net
-      - seata_seata_net
-
-
-  onlinedes-service:
-    image: skillfull-onlinedes-service:0.9.9
-    container_name: onlinedes-service
-    restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -210,8 +125,6 @@ services:
     image: skillfull-process-service:0.9.9
     container_name: process-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'
@@ -230,31 +143,6 @@ services:
       - nacos_nacos_net
       - seata_seata_net
 
-
-
-  shared-service:
-    image: skillfull-shared-service:0.9.9
-    container_name: shared-service
-    restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    environment:
-      PROFILES_ACTIVE: test
-      CONFIG_ENABLE: 'true'
-      NACOS_PASSWORD: skillfullcloud
-      NACOS_USERNAME: skillfullcloud
-      NACOS_ADDR: nacos-server:8848
-      NACOS_NAMESPACE: skillfullcloud
-      server.port: 80
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-    networks:
-      - database_database_net
-      - middleware_middleware_net
-      - nacos_nacos_net
-      - seata_seata_net
 
 
   storage-service:
@@ -287,33 +175,6 @@ services:
     image: skillfull-system-service:0.9.9
     container_name: system-service
     restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-    environment:
-      PROFILES_ACTIVE: test
-      CONFIG_ENABLE: 'true'
-      NACOS_PASSWORD: skillfullcloud
-      NACOS_USERNAME: skillfullcloud
-      NACOS_ADDR: nacos-server:8848
-      NACOS_NAMESPACE: skillfullcloud
-      server.port: 80
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-    networks:
-      - database_database_net
-      - middleware_middleware_net
-      - nacos_nacos_net
-      - seata_seata_net
-
-
-  tools-service:
-    image: skillfull-tools-service:0.9.9
-    container_name: tools-service
-    restart: always
-    volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     environment:
       PROFILES_ACTIVE: test
       CONFIG_ENABLE: 'true'

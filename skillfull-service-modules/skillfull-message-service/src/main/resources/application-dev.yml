@@ -6,7 +6,7 @@ spring:
         # 主库数据源
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/skillfull_message_service?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://localhost:3306/skillfull_cloud_open?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
           username: root
           password: root
       # 开启seata代理
@@ -30,9 +30,7 @@ rbmq:
 app:
   log-root-level: info
   log-package-level: debug
-  enable-gray: true # 是否启用灰度
   enable-doc: true # 是否打开swagger
-  create-out-conf: false  # 启动是否创建外置配置文件
 
 
 # 资源白名单设置

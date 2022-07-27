@@ -1,6 +1,4 @@
 app:
   log-root-level: info
   log-package-level: debug
-  enable-gray: false # 是否启用灰度
   enable-doc: false # 是否打开swagger
-  create-out-conf: false  # 启动是否创建外置配置文件

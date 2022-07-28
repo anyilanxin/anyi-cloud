@@ -19,8 +19,8 @@ INSERT INTO `sys_rbac_role` (`role_id`, `role_name`, `role_sys_code`, `role_code
 
 -- 初始化角色用户关联
 DELETE FROM `sys_rbac_role_user`;
-INSERT INTO `skillfull_system_service`.`sys_rbac_role_user` (`role_user_id`, `user_id`, `role_id`) VALUES ('1547045379262431232', '1444190920879161344', '1314235356968173568');
-INSERT INTO `skillfull_system_service`.`sys_rbac_role_user` (`role_user_id`, `user_id`, `role_id`) VALUES ('1547146230060597248', '1547044236679495680', '1544242595517480960');
+INSERT INTO `sys_rbac_role_user` (`role_user_id`, `user_id`, `role_id`) VALUES ('1547045379262431232', '1444190920879161344', '1314235356968173568');
+INSERT INTO `sys_rbac_role_user` (`role_user_id`, `user_id`, `role_id`) VALUES ('1547146230060597248', '1547044236679495680', '1544242595517480960');
 
 -- 初始化系统信息表
 DELETE FROM `sys_rbac_system`;

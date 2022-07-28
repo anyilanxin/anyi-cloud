@@ -130,8 +130,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId) throws RuntimeException {
-        List<CommonAreaTreeDto> parentOrgList = new ArrayList<>(128);
-        List<CommonAreaTreeDto> childOrgList = new ArrayList<>(256);
+        List<CommonAreaTreeDto> resultList = new ArrayList<>(128);
         // 1. 查询下级并检测是否下级还有下级
         LambdaQueryWrapper<CommonAreaEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotBlank(parentId)) {
@@ -139,59 +138,81 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         } else {
             lambdaQueryWrapper.and(v -> v.isNull(CommonAreaEntity::getParentId).or().eq(CommonAreaEntity::getParentId, ""));
         }
+        List<CommonAreaTreeDto> activateAreaList = new ArrayList<>(1);
+        //  如果有需要激活的id，获取整个省区域
+        String activateProvinceId = "";
+        if (StringUtils.isNotBlank(activateAreaId) && StringUtils.isBlank(parentId)) {
+            List<CommonAreaTreeDto> activateChildren = new ArrayList<>(256);
+            List<CommonAreaTreeDto> activateParentAreaList = new ArrayList<>(1);
+            CommonAreaEntity activateEntity = super.getById(activateAreaId);
+            CommonAreaEntity activateProvinceEntity = super.getById(activateEntity.getProvinceId());
+            activateProvinceId = activateEntity.getProvinceId();
+            activateParentAreaList.add(treeCopyMap.bToA(activateProvinceEntity));
+            LambdaQueryWrapper<CommonAreaEntity> activateLambdaQueryWrapper = Wrappers.<CommonAreaEntity>lambdaQuery()
+                    .likeRight(CommonAreaEntity::getAreaId, getLike(activateAreaId, activateEntity))
+                    .ne(CommonAreaEntity::getAreaId, activateEntity.getProvinceId());
+            List<CommonAreaEntity> list = this.list(activateLambdaQueryWrapper);
+            if (CollUtil.isNotEmpty(list)) {
+                activateChildren.addAll(treeCopyMap.bToA(list));
+            }
+            TreeToolUtils<CommonAreaTreeDto> treeToolUtils = new TreeToolUtils<>(activateParentAreaList, activateChildren, new TreeToolUtils.TreeId<>() {
+                @Override
+                public String getId(CommonAreaTreeDto areaTreeDto) {
+                    return areaTreeDto.getAreaId();
+                }
+
+                @Override
+                public String getParentId(CommonAreaTreeDto areaTreeDto) {
+                    return areaTreeDto.getParentId();
+                }
+            });
+            activateAreaList = treeToolUtils.getTree();
+            lambdaQueryWrapper.ne(CommonAreaEntity::getAreaId, activateEntity.getProvinceId());
+        }
         List<CommonAreaEntity> orgEntities = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(orgEntities)) {
-            List<String> orgIdsList = new ArrayList<>(orgEntities.size());
+            if (CollUtil.isNotEmpty(activateAreaList)) {
+                resultList.addAll(activateAreaList);
+            }
+            List<String> areaIdsList = new ArrayList<>(orgEntities.size());
             orgEntities.forEach(v -> {
-                parentOrgList.add(treeCopyMap.bToA(v));
-                orgIdsList.add(v.getAreaId());
+                resultList.add(treeCopyMap.bToA(v));
+                areaIdsList.add(v.getAreaId());
             });
-            Map<String, Boolean> checkResults = checkHaveChildren(orgIdsList);
-            parentOrgList.forEach(v -> {
+            if (StringUtils.isNotBlank(activateProvinceId)) {
+                areaIdsList.add(activateProvinceId);
+            }
+            Map<String, Boolean> checkResults = checkHaveChildren(areaIdsList);
+            resultList.forEach(v -> {
                 Boolean result = checkResults.get(v.getAreaId());
                 v.setHasChildren(Objects.nonNull(result));
                 v.setIsLeaf(!Objects.nonNull(result));
             });
-            // 2. 如果有需要激活的id，获取父级到需要激活的整个树数据
-            if (StringUtils.isNotBlank(activateAreaId)) {
-                CommonAreaEntity byId = super.getById(activateAreaId);
-                if (Objects.nonNull(byId)) {
-                    String areaId = byId.getAreaId().replaceAll("0", " ").trim().replaceAll(" ", "0");
-                    String areaParentId = "";
-                    String rawAreaParentId = "";
-                    for (CommonAreaTreeDto areaTreeDto : parentOrgList) {
-                        String nowAreaId = areaTreeDto.getAreaId().replaceAll("0", " ").trim().replaceAll(" ", "0");
-                        if (areaId.startsWith(nowAreaId)) {
-                            areaParentId = nowAreaId;
-                            rawAreaParentId = areaTreeDto.getAreaId();
-                            break;
-                        }
-                    }
-                    if (StringUtils.isNotBlank(areaParentId)) {
-                        lambdaQueryWrapper = Wrappers.<CommonAreaEntity>lambdaQuery()
-                                .likeRight(CommonAreaEntity::getAreaId, areaParentId)
-                                .ne(CommonAreaEntity::getAreaId, rawAreaParentId);
-                        List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
-                        if (CollUtil.isNotEmpty(list)) {
-                            childOrgList.addAll(treeCopyMap.bToA(list));
-                        }
-                    }
-                }
-            }
+            resultList.sort(Comparator.comparing(CommonAreaTreeDto::getAreaId));
         }
-        // 3. 构建树
-        TreeToolUtils<CommonAreaTreeDto> treeToolUtils = new TreeToolUtils<>(parentOrgList, childOrgList, new TreeToolUtils.TreeId<>() {
-            @Override
-            public String getId(CommonAreaTreeDto areaTreeDto) {
-                return areaTreeDto.getAreaId();
-            }
+        return resultList;
+    }
 
-            @Override
-            public String getParentId(CommonAreaTreeDto areaTreeDto) {
-                return areaTreeDto.getParentId();
-            }
-        });
-        return treeToolUtils.getTree();
+
+    /**
+     * 获取需要激活的like表达式
+     *
+     * @param activateAreaId
+     * @return String
+     * @author zxiaozhou
+     * @date 2022-07-29 00:36
+     */
+    private String getLike(String activateAreaId, CommonAreaEntity byId) {
+        String effectiveProvinceId = byId.getProvinceId().replaceAll("0", " ").trim().replaceAll(" ", "0");
+        String effectiveParentId = byId.getParentId().replaceAll("0", " ").trim().replaceAll(" ", "0");
+        String effectiveAreaId = activateAreaId.replaceAll("0", " ").trim().replaceAll(" ", "0");
+        int lengthEffectiveProvinceId = effectiveProvinceId.length();
+        int lengthEffectiveAreaId = effectiveAreaId.length();
+        int lengthEffectiveParentId = effectiveParentId.length();
+        int likeNum = lengthEffectiveAreaId - lengthEffectiveProvinceId;
+        int zeroNum = lengthEffectiveAreaId - lengthEffectiveParentId;
+        String likeAreaValue = effectiveProvinceId + String.join("", Collections.nCopies(likeNum, "_"));
+        return likeAreaValue + String.join("", Collections.nCopies(zeroNum, "0"));
     }
 
 

@@ -19,7 +19,6 @@ services:
       - "7091:7091"
     volumes:
       - /opt/containerd/.data/seata/conf/application-skillfullcloud.yml:/seata-server/resources/application-skillfullcloud.yml
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
 
 
 networks:

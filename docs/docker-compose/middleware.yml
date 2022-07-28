@@ -12,9 +12,7 @@ services:
       - middleware_net
     environment:
       RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: zuie_07934934KI12991
-    volumes:
-      /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      RABBITMQ_DEFAULT_PASS: guest
     ports:
       - "15672:15672"
       - "5672:5672"

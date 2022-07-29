@@ -30,9 +30,7 @@ import java.util.Map;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class FormSubmitProcessModel implements Serializable {
     private static final long serialVersionUID = 3926458899033457164L;

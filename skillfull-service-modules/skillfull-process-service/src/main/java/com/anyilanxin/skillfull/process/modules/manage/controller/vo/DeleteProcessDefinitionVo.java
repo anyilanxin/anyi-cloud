@@ -27,9 +27,7 @@ import java.io.Serializable;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class DeleteProcessDefinitionVo implements Serializable {
     private static final long serialVersionUID = -7851649274002412250L;

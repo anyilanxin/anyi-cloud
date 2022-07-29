@@ -27,9 +27,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class SubmitFormModel implements Serializable {
     private static final long serialVersionUID = 3926458899033457164L;

@@ -28,9 +28,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ProcessDefinitionPageDto implements Serializable {
     private static final long serialVersionUID = 8611965226387452452L;

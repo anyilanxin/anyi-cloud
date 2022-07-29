@@ -28,9 +28,7 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ProcessInstanceBatchVo implements Serializable {
     private static final long serialVersionUID = -8339136439559724835L;

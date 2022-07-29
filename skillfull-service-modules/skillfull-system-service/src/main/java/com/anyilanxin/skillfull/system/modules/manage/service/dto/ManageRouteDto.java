@@ -36,9 +36,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class ManageRouteDto implements Serializable {

@@ -27,9 +27,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class ManageSpecialUrlDto implements Serializable {

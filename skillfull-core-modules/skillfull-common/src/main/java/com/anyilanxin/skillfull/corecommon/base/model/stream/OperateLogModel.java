@@ -27,9 +27,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class OperateLogModel implements Serializable {
     private static final long serialVersionUID = -5373929396939925329L;

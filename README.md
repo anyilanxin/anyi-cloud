@@ -12,7 +12,7 @@ spring cloud ,spring alibaba.rapid development platform(micro service)
 
 - 在线演示 ： [https://divisu.com](https://divisu.com)
 
-- 开发文档：  [https://divisu.com/doc-cloud/](https://divisu.com/doc-cloud/)
+- 开发文档：  [https://divisu.com/doc-cloud](https://divisu.com/doc-cloud/)
 
 - QQ交流群 ： 666029437
 

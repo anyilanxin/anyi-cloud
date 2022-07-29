@@ -37,9 +37,7 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class BasePageVo implements Serializable {
     private static final long serialVersionUID = 6447362475456626689L;

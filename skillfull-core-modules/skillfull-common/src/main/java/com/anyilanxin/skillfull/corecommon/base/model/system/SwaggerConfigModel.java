@@ -27,9 +27,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class SwaggerConfigModel implements Serializable {

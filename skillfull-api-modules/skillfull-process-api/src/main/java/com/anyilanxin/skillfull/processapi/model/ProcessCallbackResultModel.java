@@ -31,9 +31,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ProcessCallbackResultModel implements Serializable {
     private static final long serialVersionUID = 4141293311374431672L;

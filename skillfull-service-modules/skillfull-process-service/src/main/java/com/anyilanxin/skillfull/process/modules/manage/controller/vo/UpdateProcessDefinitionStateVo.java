@@ -28,9 +28,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class UpdateProcessDefinitionStateVo implements Serializable {
     private static final long serialVersionUID = -8339136439559724835L;

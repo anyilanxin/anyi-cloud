@@ -28,9 +28,7 @@ import java.util.Map;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class SystemRouterModel implements Serializable {

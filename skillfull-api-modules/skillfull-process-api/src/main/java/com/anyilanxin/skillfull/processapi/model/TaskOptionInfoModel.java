@@ -17,9 +17,7 @@ import java.util.Date;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class TaskOptionInfoModel implements Serializable {
     private static final long serialVersionUID = 3859688714134530556L;

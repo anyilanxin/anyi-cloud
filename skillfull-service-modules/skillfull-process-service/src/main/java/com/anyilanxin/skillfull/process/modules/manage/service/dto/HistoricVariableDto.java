@@ -28,9 +28,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class HistoricVariableDto implements Serializable {
     private static final long serialVersionUID = -796467855703929445L;

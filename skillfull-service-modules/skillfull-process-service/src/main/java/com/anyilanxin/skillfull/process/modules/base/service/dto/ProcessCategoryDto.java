@@ -27,9 +27,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class ProcessCategoryDto implements Serializable {

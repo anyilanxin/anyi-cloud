@@ -31,9 +31,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class DeploymentHistoryVo implements Serializable {
     private static final long serialVersionUID = 397848532480067008L;

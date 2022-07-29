@@ -31,9 +31,7 @@ import java.util.Map;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class RouterCustomFilterDto implements Serializable {

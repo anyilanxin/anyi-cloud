@@ -199,6 +199,7 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
                 ValidServiceInfoDto dto = ValidServiceInfoDto.builder()
                         .label(v.getServiceName())
                         .value(v.getServiceCode())
+                        .serviceCode(v.getServiceCode())
                         .build();
                 result.add(dto);
             });

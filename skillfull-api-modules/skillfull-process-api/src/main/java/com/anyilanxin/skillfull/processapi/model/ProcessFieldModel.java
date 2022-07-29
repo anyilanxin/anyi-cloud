@@ -29,9 +29,7 @@ import java.util.Map;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ProcessFieldModel implements Serializable {
     private static final long serialVersionUID = 4141293311374431672L;

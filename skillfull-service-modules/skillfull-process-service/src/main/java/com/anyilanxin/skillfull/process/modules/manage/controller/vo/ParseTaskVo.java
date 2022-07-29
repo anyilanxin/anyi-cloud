@@ -26,9 +26,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class ParseTaskVo implements Serializable {
     private static final long serialVersionUID = 4236977857621846382L;

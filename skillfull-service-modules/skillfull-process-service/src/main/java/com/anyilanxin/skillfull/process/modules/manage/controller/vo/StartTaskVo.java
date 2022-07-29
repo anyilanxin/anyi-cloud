@@ -28,9 +28,7 @@ import java.util.Map;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 public class StartTaskVo implements Serializable {
     private static final long serialVersionUID = -1645521148889803833L;

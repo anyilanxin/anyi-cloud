@@ -26,9 +26,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @SuperBuilder(toBuilder = true)
-
 @NoArgsConstructor
 @Schema
 public class ValidServiceInfoDto implements Serializable {
@@ -36,6 +34,9 @@ public class ValidServiceInfoDto implements Serializable {
 
     @Schema(name = "label", title = "服务名称")
     private String label;
+
+    @Schema(name = "serviceCode", title = "服务编码")
+    private String serviceCode;
 
     @Schema(name = "value", title = "服务id")
     private String value;

@@ -402,7 +402,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      * @date 2021-08-22 20:21
      */
     String getEffectiveAreaId(String areaId, int areaLevel) {
-        String effectiveAreaId = areaId;
+        String effectiveAreaId;
         if (areaLevel <= 3) {
             effectiveAreaId = areaId.substring(0, areaLevel * 2 + 1);
         }

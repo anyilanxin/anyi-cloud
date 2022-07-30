@@ -118,18 +118,6 @@ public class UserCenterServiceImpl implements IUserCenterService {
         if (CollUtil.isEmpty(notButtons)) {
             return Collections.emptyList();
         }
-        // 获取所有按钮信息并转换为map
-        Set<RbacMenuDto> allButton = menuMapper.getAllButton(systemCodeSet);
-        Map<String, List<RbacMenuDto>> allButtonMap = new HashMap<>(128);
-        if (CollUtil.isNotEmpty(allButton)) {
-            allButton.forEach(v -> {
-                List<RbacMenuDto> rbacMenuDtos = allButtonMap.get(v.getParentId());
-                if (CollUtil.isEmpty(rbacMenuDtos)) {
-                    rbacMenuDtos = new ArrayList<>(64);
-                }
-                allButtonMap.put(v.getParentId(), rbacMenuDtos);
-            });
-        }
         // 组装最后路由信息
         List<UserRouteModel> routeModelList = new ArrayList<>(notButtons.size());
         notButtons.forEach(v -> {
@@ -138,8 +126,7 @@ public class UserCenterServiceImpl implements IUserCenterService {
             // 处理meta
             UserRouteMetaModel metaModel = menuCopyMap.dToV(v);
             metaModel.setTitle(v.getMetaTitle());
-            metaModel.setNoRoleActionSet(Collections.emptySet());
-            metaModel.setActionTagExpression(Collections.emptyMap());
+            metaModel.setActionSet(Collections.emptySet());
             // 处理tag
             if (v.isShowTag()) {
                 RouteTagModel tag = new RouteTagModel();
@@ -148,25 +135,16 @@ public class UserCenterServiceImpl implements IUserCenterService {
                 tag.setType(v.getType());
                 metaModel.setTag(tag);
             }
-            // 处理按钮权限校验映射
-            List<RbacMenuDto> allMenuAuths = allButtonMap.get(v.getMenuId());
-            if (CollUtil.isNotEmpty(allButtonMap)) {
-                Map<String, String> actionTagExpression = new HashMap<>(allMenuAuths.size());
-                allMenuAuths.forEach(sv -> {
-                    actionTagExpression.put(sv.getButtonActionTag(), sv.getButtonExpress());
-                });
-                metaModel.setActionTagExpression(actionTagExpression);
-            }
             // 处理授权的非角色权限指令
             List<RbacMenuDto> rbacMenuDtos = buttonMap.get(v.getMenuId());
             if (CollUtil.isNotEmpty(rbacMenuDtos)) {
-                Set<String> noRoleActionSet = new HashSet<>(rbacMenuDtos.size());
+                Set<String> actionSet = new HashSet<>(rbacMenuDtos.size());
                 rbacMenuDtos.forEach(sv -> {
                     if (StringUtils.isNotBlank(sv.getButtonAction())) {
-                        noRoleActionSet.addAll(Set.of(sv.getButtonAction().split("[,，]")));
+                        actionSet.addAll(Set.of(sv.getButtonAction().split("[,，]")));
                     }
                 });
-                metaModel.setNoRoleActionSet(noRoleActionSet);
+                metaModel.setActionSet(actionSet);
             }
             userRouteModel.setMeta(metaModel);
             routeModelList.add(userRouteModel);

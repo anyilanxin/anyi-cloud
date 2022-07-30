@@ -16,7 +16,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -84,11 +83,8 @@ public class UserRouteMetaModel implements Serializable {
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")
     private boolean hidePathForChildren;
 
-    @Schema(name = "noRoleActionSet", title = "前端授权费角色指令")
-    private Set<String> noRoleActionSet;
-
-    @Schema(name = "actionTagExpression", title = "前端按钮权限标识校验表达式映射")
-    private Map<String, String> actionTagExpression;
+    @Schema(name = "actionSet", title = "授权指令")
+    private Set<String> actionSet;
 
     @Schema(name = "tag", title = "路由tag信息")
     private RouteTagModel tag;

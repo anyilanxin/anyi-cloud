@@ -138,7 +138,7 @@ public class RbacResourceApiQueryVo implements Serializable {
     @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0")
     private Integer delFlag;
 
-    @Schema(name = "permissionAction", title = "鉴权指令，只有表达式为非角色是使用")
+    @Schema(name = "permissionAction", title = "按钮鉴权指令")
     private String permissionAction;
 
 }

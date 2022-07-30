@@ -67,17 +67,6 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
 
 
     /**
-     * 获取所有有效的按钮权限信息
-     *
-     * @param systemCodeSet 系统编码
-     * @return Set<UserRouteModel>
-     * @author zxiaozhou
-     * @date 2022-07-12 21:46
-     */
-    Set<RbacMenuDto> getAllButton(@Param("systemCodes") Set<String> systemCodeSet);
-
-
-    /**
      * 获取所有有效的菜单信息
      *
      * @param systemCodeSet 系统编码

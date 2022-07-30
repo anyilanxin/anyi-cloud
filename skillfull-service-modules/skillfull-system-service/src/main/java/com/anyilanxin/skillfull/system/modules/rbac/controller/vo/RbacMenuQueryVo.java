@@ -132,11 +132,7 @@ public class RbacMenuQueryVo implements Serializable {
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")
     private boolean hidePathForChildren;
 
-    @Schema(name = "buttonActionTag", title = "按钮权限标识")
-    private String buttonActionTag;
 
-    @Schema(name = "buttonExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")
-    private String buttonExpress;
 
     @Schema(name = "systemId", title = "所属系统")
     private String systemId;
@@ -191,7 +187,7 @@ public class RbacMenuQueryVo implements Serializable {
     @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0")
     private Integer delFlag;
 
-    @Schema(name = "buttonAction", title = "鉴权指令，只有表达式为非角色是使用")
+    @Schema(name = "buttonAction", title = "按钮鉴权指令")
     private String buttonAction;
 
 }

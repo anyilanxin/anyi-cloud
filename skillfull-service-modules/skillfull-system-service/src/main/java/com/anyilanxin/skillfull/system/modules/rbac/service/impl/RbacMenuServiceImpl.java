@@ -125,14 +125,11 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         }
         // 按钮部分
         else if (entity.getMenuType() == MenuType.BUTTON.getType()) {
-            if (StringUtils.isBlank(entity.getButtonActionTag())) {
+            if (StringUtils.isBlank(entity.getButtonAction())) {
                 throw new ResponseException(Status.VERIFICATION_FAILED, "权限标识不能为空");
             }
             if (StringUtils.isBlank(entity.getParentId()) && StringUtils.isBlank(entity.getMenuId())) {
                 throw new ResponseException(Status.VERIFICATION_FAILED, "上级id不能为空");
-            }
-            if (StringUtils.isBlank(entity.getButtonExpress())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "鉴权表达式不能为空");
             }
         }
     }

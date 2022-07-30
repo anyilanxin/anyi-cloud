@@ -59,7 +59,7 @@ public class RbacResourceApiExportVo implements Serializable {
     @Schema(name = "permissionExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")
     private String permissionExpress;
 
-    @Schema(name = "permissionAction", title = "鉴权指令，只有表达式为非角色是使用")
+    @Schema(name = "permissionAction", title = "按钮鉴权指令")
     private String permissionAction;
 
     @Schema(name = "remark", title = "备注")

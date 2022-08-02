@@ -15,6 +15,8 @@ import com.anyilanxin.skillfull.corecommon.validation.annotation.NotNullSize;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacJoinOrgVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgUserService;
@@ -36,7 +38,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -107,11 +108,9 @@ public class RbacUserController extends BaseController {
 
 
     @Operation(summary = "加入机构", tags = {"v1.0.0"}, description = "加入机构")
-    @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
-    @PostMapping(value = "/join-org/{userId}")
-    public Result<String> joinOrg(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId,
-                                  @RequestBody @Size(min = 1, message = "请选择机构") List<String> orgIds) {
-        orgUserService.joinOrg(userId, orgIds);
+    @PostMapping(value = "/join-org")
+    public Result<String> joinOrg(@RequestBody @Valid RbacJoinOrgVo vo) {
+        orgUserService.joinOrg(vo);
         return ok("加入机构成功");
     }
 
@@ -154,6 +153,12 @@ public class RbacUserController extends BaseController {
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacUserPageDto>> selectPage(@RequestBody RbacUserPageVo vo) {
         return ok(service.pageByModel(vo));
+    }
+
+    @Operation(summary = "分页查询可关联的用户信息", tags = {"v1.0.0"}, description = "分页查询可关联的用户信息")
+    @PostMapping(value = "/select/enable-user-page")
+    public Result<PageDto<RbacUserPageDto>> selectEnableUserPage(@RequestBody @Valid RbacEnalbeUserPageVo vo) {
+        return ok(service.selectEnableUserPage(vo));
     }
 
 

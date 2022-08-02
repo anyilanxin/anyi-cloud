@@ -10,9 +10,8 @@
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacJoinOrgVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgUserEntity;
-
-import java.util.List;
 
 /**
  * 机构-用户(RbacOrgUser)业务层接口
@@ -26,12 +25,11 @@ public interface IRbacOrgUserService extends BaseService<RbacOrgUserEntity> {
     /**
      * 加入机构
      *
-     * @param userId 用户id
-     * @param orgIds 机构ids
+     * @param vo
      * @author zxiaozhou
      * @date 2022-07-11 00:42
      */
-    void joinOrg(String userId, List<String> orgIds);
+    void joinOrg(RbacJoinOrgVo vo);
 
 
     /**

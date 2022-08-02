@@ -11,6 +11,7 @@ package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
@@ -117,5 +118,16 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @date 2022-06-03 02:38
      */
     String resetPassword(String userId);
+
+
+    /**
+     * 分页查询可关联的用户信息
+     *
+     * @param vo
+     * @return PageDto<RbacUserPageDto>
+     * @author zxiaozhou
+     * @date 2022-08-02 15:44
+     */
+    PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo);
 
 }

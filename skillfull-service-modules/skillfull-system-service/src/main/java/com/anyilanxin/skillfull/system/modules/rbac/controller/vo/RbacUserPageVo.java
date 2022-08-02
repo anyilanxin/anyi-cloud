@@ -35,9 +35,6 @@ public class RbacUserPageVo extends BasePageVo {
     @Schema(name = "orgId", title = "机构id")
     private String orgId;
 
-    @Schema(name = "ignoreOrgId", title = "忽略机构用户")
-    private String ignoreOrgId;
-
     @Schema(name = "keyword", title = "用户名或手机号或真实姓名查询")
     private String keyword;
 

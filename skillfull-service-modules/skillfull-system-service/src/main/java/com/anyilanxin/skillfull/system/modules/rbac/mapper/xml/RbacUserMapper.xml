@@ -118,7 +118,7 @@
   <select id="selectEnableUserPage"
           resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
     SELECT
-      <include refid="Column_List_Page_Ali"/>
+      DISTINCT <include refid="Column_List_Page_Ali"/>
     FROM sys_rbac_user ali
     LEFT JOIN sys_rbac_org_user srou ON ali.user_id = srou.user_id
     <where>

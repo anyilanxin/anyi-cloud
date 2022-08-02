@@ -88,6 +88,7 @@ public class UserAuthServiceImpl implements IUserAuthService {
             if (Objects.nonNull(orgDto)) {
                 userAndResourceAuthModel.setCurrentOrgCode(orgDto.getOrgCode());
                 userAndResourceAuthModel.setCurrentOrgId(orgDto.getOrgId());
+                userAndResourceAuthModel.setCurrentOrgName(orgDto.getOrgName());
                 userAndResourceAuthModel.setCurrentAreaCode(orgDto.getAreaCode());
                 userAndResourceAuthModel.setCurrentAreaName(orgDto.getAreaCodeName());
                 userAndResourceAuthModel.setOrgInfo(orgDto);

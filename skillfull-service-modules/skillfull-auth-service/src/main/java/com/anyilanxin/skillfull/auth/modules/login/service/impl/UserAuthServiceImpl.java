@@ -107,7 +107,7 @@ public class UserAuthServiceImpl implements IUserAuthService {
         if (Objects.isNull(entity)) {
             throw new ResponseException("用户信息不存在");
         }
-        if (StringUtils.isNotBlank(orgId)) {
+        if (StringUtils.isBlank(orgId)) {
             orgId = entity.getCurrentOrgId();
         }
         UserAndResourceAuthModel userAndResourceAuthModel = authCopyMap.bToA(entity);

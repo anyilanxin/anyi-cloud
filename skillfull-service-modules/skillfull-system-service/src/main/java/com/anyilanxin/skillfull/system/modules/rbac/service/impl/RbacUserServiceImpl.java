@@ -19,6 +19,7 @@ import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.corecommon.utils.UserContextUtils;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserPageVo;
 import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
@@ -170,6 +171,12 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    }
+
+
+    @Override
+    public PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo) {
+        return new PageDto<>(mapper.selectEnableUserPage(vo.getPage(), vo));
     }
 
 

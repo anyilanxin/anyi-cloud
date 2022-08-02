@@ -12,6 +12,7 @@ package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacJoinOrgVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacOrgUserMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgRoleUserService;
@@ -42,13 +43,13 @@ public class RbacOrgUserServiceImpl extends ServiceImpl<RbacOrgUserMapper, RbacO
     private final IRbacOrgRoleUserService orgRoleUserService;
 
     @Override
-    public void joinOrg(String userId, List<String> orgIds) {
-        if (CollUtil.isNotEmpty(orgIds)) {
-            List<RbacOrgUserEntity> orgUserEntities = new ArrayList<>(orgIds.size());
-            orgIds.forEach(v -> {
+    public void joinOrg(RbacJoinOrgVo vo) {
+        if (CollUtil.isNotEmpty(vo.getUserIds())) {
+            List<RbacOrgUserEntity> orgUserEntities = new ArrayList<>(vo.getUserIds().size());
+            vo.getUserIds().forEach(v -> {
                 RbacOrgUserEntity userEntity = RbacOrgUserEntity.builder()
-                        .orgId(v)
-                        .userId(userId)
+                        .orgId(vo.getOrgId())
+                        .userId(v)
                         .build();
                 orgUserEntities.add(userEntity);
             });

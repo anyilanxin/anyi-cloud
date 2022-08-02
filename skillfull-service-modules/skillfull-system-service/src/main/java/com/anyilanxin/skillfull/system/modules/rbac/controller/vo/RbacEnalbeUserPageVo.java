@@ -7,43 +7,37 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.system.modules.rbac.entity;
+package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.anyilanxin.skillfull.database.datasource.base.controller.vo.BasePageVo;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 
 /**
- * 机构-用户(RbacOrgUser)Entity
+ * 用户表分页查询Request
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @date 2022-07-02 23:01:20
+ * @date 2022-05-02 16:12:21
  * @since JDK1.8
  */
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@TableName("sys_rbac_org_user")
-public class RbacOrgUserEntity implements Serializable {
-    private static final long serialVersionUID = -77623248473339478L;
+@Schema
+public class RbacEnalbeUserPageVo extends BasePageVo {
+    private static final long serialVersionUID = -64411430629112483L;
 
-    @TableId
-    private String orgUserId;
-
-    /**
-     * 机构id
-     */
+    @Schema(name = "orgId", title = "机构id", required = true)
+    @NotBlank(message = "机构id不能为空")
     private String orgId;
 
-    /**
-     * 用户id
-     */
-    private String userId;
+    @Schema(name = "keyword", title = "用户名或手机号或真实姓名查询")
+    private String keyword;
 }

@@ -85,15 +85,18 @@ public class UserAuthServiceImpl implements IUserAuthService {
         }
         if (StringUtils.isNotBlank(orgId)) {
             OrgSimpleInfo orgDto = userAuthMapper.selectOrgInfoById(orgId);
-            userAndResourceAuthModel.setCurrentOrgCode(orgDto.getOrgCode());
-            userAndResourceAuthModel.setCurrentOrgId(orgDto.getOrgId());
-            userAndResourceAuthModel.setCurrentAreaCode(orgDto.getAreaCode());
-            userAndResourceAuthModel.setCurrentAreaName(orgDto.getAreaCodeName());
-            userAndResourceAuthModel.setOrgInfo(orgDto);
-            // 获取机构授权角色
-            Set<RoleInfo> orgRoleInfos = userAuthMapper.selectByUserIdAndOrgId(userAndResourceAuthModel.getUserId(), orgId);
-            if (CollUtil.isNotEmpty(orgRoleInfos)) {
-                roleInfos.addAll(orgRoleInfos);
+            if (Objects.nonNull(orgDto)) {
+                userAndResourceAuthModel.setCurrentOrgCode(orgDto.getOrgCode());
+                userAndResourceAuthModel.setCurrentOrgId(orgDto.getOrgId());
+                userAndResourceAuthModel.setCurrentOrgName(orgDto.getOrgName());
+                userAndResourceAuthModel.setCurrentAreaCode(orgDto.getAreaCode());
+                userAndResourceAuthModel.setCurrentAreaName(orgDto.getAreaCodeName());
+                userAndResourceAuthModel.setOrgInfo(orgDto);
+                // 获取机构授权角色
+                Set<RoleInfo> orgRoleInfos = userAuthMapper.selectByUserIdAndOrgId(userAndResourceAuthModel.getUserId(), orgId);
+                if (CollUtil.isNotEmpty(orgRoleInfos)) {
+                    roleInfos.addAll(orgRoleInfos);
+                }
             }
         }
     }
@@ -104,7 +107,7 @@ public class UserAuthServiceImpl implements IUserAuthService {
         if (Objects.isNull(entity)) {
             throw new ResponseException("用户信息不存在");
         }
-        if (StringUtils.isNotBlank(orgId)) {
+        if (StringUtils.isBlank(orgId)) {
             orgId = entity.getCurrentOrgId();
         }
         UserAndResourceAuthModel userAndResourceAuthModel = authCopyMap.bToA(entity);

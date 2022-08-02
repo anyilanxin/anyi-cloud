@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * 加入机构信息
@@ -30,7 +30,7 @@ public class RbacJoinOrgVo implements Serializable {
     @Schema(name = "userIds", title = "用户ids", required = true)
     @NotNull(message = "用户ids不能为空")
     @Size(min = 1, message = "用户ids不能为空")
-    private List<String> userIds;
+    private Set<String> userIds;
 
     @Schema(name = "orgId", title = "组织id", required = true)
     @NotBlank(message = "组织id不能为空")

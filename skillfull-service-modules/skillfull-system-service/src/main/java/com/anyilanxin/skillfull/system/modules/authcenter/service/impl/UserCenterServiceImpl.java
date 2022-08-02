@@ -31,12 +31,11 @@ import com.anyilanxin.skillfull.system.modules.authcenter.service.IUserCenterSer
 import com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct.UpdateUserInfoCopyMap;
 import com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct.UserMenuCopyMap;
 import com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct.UserMenuThreeCopyMap;
+import com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct.UserOrgCopyMap;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
-import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacMenuMapper;
-import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacOrgRoleUserMapper;
-import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleUserMapper;
-import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacUserMapper;
+import com.anyilanxin.skillfull.system.modules.rbac.mapper.*;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto;
+import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -62,6 +61,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserCenterServiceImpl implements IUserCenterService {
     private final RbacUserMapper userMapper;
+    private final RbacOrgUserMapper orgUserMapper;
+    private final UserOrgCopyMap userOrgCopyMap;
     private final UserMenuThreeCopyMap threeCopyMap;
     private final RbacMenuMapper menuMapper;
     private final UserMenuCopyMap menuCopyMap;
@@ -162,6 +163,7 @@ public class UserCenterServiceImpl implements IUserCenterService {
         }
         // 分离最顶级、下级
         List<UserRouteTreeModel> routerInfoParents = new ArrayList<>(routerInfo.size());
+        List<UserRouteTreeModel> routerInfoChildren = new ArrayList<>(routerInfo.size());
         for (UserRouteModel routeModel : routerInfo) {
             String parentId = routeModel.getParentId();
             List<UserRouteModel> collect = routerInfo.stream().filter(v -> v.getMenuId().equals(parentId)).collect(Collectors.toList());
@@ -171,11 +173,13 @@ public class UserCenterServiceImpl implements IUserCenterService {
                     userRouteTreeModel.setPath("/" + (StringUtils.isNotBlank(userRouteTreeModel.getPath()) ? userRouteTreeModel.getPath() : ""));
                 }
                 routerInfoParents.add(userRouteTreeModel);
+            } else {
+                routerInfoChildren.add(threeCopyMap.aToB(routeModel));
             }
         }
         Collections.sort(routerInfoParents);
         // 组装树形
-        TreeToolUtils<UserRouteTreeModel> treeToolUtils = new TreeToolUtils<>(routerInfoParents, threeCopyMap.aToB(routerInfo), new TreeToolUtils.TreeId<>() {
+        TreeToolUtils<UserRouteTreeModel> treeToolUtils = new TreeToolUtils<>(routerInfoParents, routerInfoChildren, new TreeToolUtils.TreeId<>() {
             @Override
             public String getId(UserRouteTreeModel model) {
                 return model.getMenuId();
@@ -188,6 +192,7 @@ public class UserCenterServiceImpl implements IUserCenterService {
         });
         return treeToolUtils.getTree();
     }
+
 
     @Override
     public void updateUserInfo(UpdateInfoVo vo) {
@@ -281,6 +286,35 @@ public class UserCenterServiceImpl implements IUserCenterService {
 
     @Override
     public List<UserOrgTreeInfo> getUserOrgInfo() {
-        return null;
+        List<RbacOrgUserDto> rbacOrgUserDtos = orgUserMapper.selectUserOrgListByUserId(UserContextUtils.getUserId());
+        if (CollUtil.isEmpty(rbacOrgUserDtos)) {
+            return Collections.emptyList();
+        }
+        // 分离顶级出顶级
+        List<UserOrgTreeInfo> userOrgTreeInfos = userOrgCopyMap.dToE(rbacOrgUserDtos);
+        List<UserOrgTreeInfo> userOrgTreeParent = new ArrayList<>(rbacOrgUserDtos.size());
+        List<UserOrgTreeInfo> userOrgTreeChildren = new ArrayList<>(rbacOrgUserDtos.size());
+        for (UserOrgTreeInfo userDto : userOrgTreeInfos) {
+            String parentId = userDto.getParentId();
+            List<UserOrgTreeInfo> collect = userOrgTreeInfos.stream().filter(v -> v.getOrgId().equals(parentId)).collect(Collectors.toList());
+            if (CollUtil.isEmpty(collect)) {
+                userOrgTreeParent.add(userDto);
+            } else {
+                userOrgTreeChildren.add(userDto);
+            }
+        }
+        // 构建树形
+        TreeToolUtils<UserOrgTreeInfo> treeToolUtils = new TreeToolUtils<>(userOrgTreeParent, userOrgTreeChildren, new TreeToolUtils.TreeId<>() {
+            @Override
+            public String getId(UserOrgTreeInfo model) {
+                return model.getOrgId();
+            }
+
+            @Override
+            public String getParentId(UserOrgTreeInfo model) {
+                return model.getParentId();
+            }
+        });
+        return treeToolUtils.getTree();
     }
 }

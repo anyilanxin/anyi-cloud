@@ -29,6 +29,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMenuMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleUserMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleMenuService;
+import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleResourceApiService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.ISyncProcessService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.*;
@@ -64,11 +65,13 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
     private final RbacRoleCopyMap map;
     private final RbacRoleMenuMapper roleMenuMapper;
     private final RbacRoleUserMapper rbacRoleUserMapper;
+    private final RbacRoleResourceApiMapper resourceApiMapper;
     private final PermissionMenuActionMap menuActionMap;
     private final RbacRoleAndMenuDtoMap rbacRoleAndMenuDtoMap;
     private final RbacRoleBasicDtoMap basicDtoMap;
     private final IRbacRoleMenuService roleMenuService;
     private final RbacMenuMapper menuMapper;
+    private final IRbacRoleResourceApiService resourceApiService;
     private final RbacRoleMapper mapper;
     private final ISyncProcessService syncService;
 
@@ -147,10 +150,16 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<RbacRoleDto> selectListByModel(RbacRoleQueryVo vo) throws RuntimeException {
-        List<RbacRoleDto> list = mapper.selectListByModel(vo);
+        List<RbacRoleDto> list = mapper.selectListByModel(vo, AuthConstant.SUPER_ROLE);
         if (CollUtil.isEmpty(list)) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
+        list.forEach(v -> {
+            // 判断是否为超级管理员角色
+            if (AuthConstant.SUPER_ROLE.equals(v.getRoleCode())) {
+                v.setSuperRole(true);
+            }
+        });
         return list;
     }
 
@@ -158,7 +167,7 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<RbacRolePageDto> pageByModel(RbacRolePageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo, AuthConstant.SUPER_ROLE));
     }
 
 
@@ -181,6 +190,10 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
             menus = Collections.emptyList();
         }
         rbacRoleDto.setMenuIds(menus);
+        // 判断是否为超级管理员角色
+        if (AuthConstant.SUPER_ROLE.equals(rbacRoleDto.getRoleCode())) {
+            rbacRoleDto.setSuperRole(true);
+        }
         return rbacRoleDto;
     }
 
@@ -265,7 +278,16 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
         if (CollectionUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
-        return basicDtoMap.bToA(list);
+        List<RbacRoleBasicDto> result = new ArrayList<>(list.size());
+        list.forEach(v -> {
+            // 判断是否为超级管理员角色
+            RbacRoleBasicDto rbacRoleBasicDto = basicDtoMap.bToA(v);
+            if (AuthConstant.SUPER_ROLE.equals(rbacRoleBasicDto.getRoleCode())) {
+                rbacRoleBasicDto.setSuperRole(true);
+            }
+            result.add(rbacRoleBasicDto);
+        });
+        return result;
     }
 
 
@@ -317,6 +339,10 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
                     if (CollUtil.isNotEmpty(finalActions)) {
                         v.setActionSet(finalActions);
                     }
+                    // 判断是否为超级管理员角色
+                    if (AuthConstant.SUPER_ROLE.equals(v.getRoleCode())) {
+                        v.setSuperRole(true);
+                    }
                 });
             }
             if (CollUtil.isNotEmpty(permissionInfos)) {
@@ -332,10 +358,19 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
         LambdaQueryWrapper<RbacRoleEntity> lambdaQueryWrapper = Wrappers.<RbacRoleEntity>lambdaQuery()
                 .in(RbacRoleEntity::getRoleCode, roleCodes);
         List<RbacRoleEntity> rbacRoleEntities = this.list(lambdaQueryWrapper);
-        if (CollUtil.isNotEmpty(rbacRoleEntities)) {
-            return basicDtoMap.bToA(rbacRoleEntities);
+        if (CollUtil.isEmpty(rbacRoleEntities)) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        List<RbacRoleBasicDto> result = new ArrayList<>(rbacRoleEntities.size());
+        rbacRoleEntities.forEach(v -> {
+            RbacRoleBasicDto rbacRoleBasicDto = basicDtoMap.bToA(v);
+            // 判断是否为超级管理员角色
+            if (AuthConstant.SUPER_ROLE.equals(rbacRoleBasicDto.getRoleCode())) {
+                rbacRoleBasicDto.setSuperRole(true);
+            }
+            result.add(rbacRoleBasicDto);
+        });
+        return result;
     }
 
 
@@ -344,9 +379,19 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
         LambdaQueryWrapper<RbacRoleEntity> lambdaQueryWrapper = Wrappers.<RbacRoleEntity>lambdaQuery()
                 .in(RbacRoleEntity::getRoleId, roleIds);
         List<RbacRoleEntity> rbacRoleEntities = this.list(lambdaQueryWrapper);
-        if (CollUtil.isNotEmpty(rbacRoleEntities)) {
-            return basicDtoMap.bToA(rbacRoleEntities);
+
+        if (CollUtil.isEmpty(rbacRoleEntities)) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        List<RbacRoleBasicDto> result = new ArrayList<>(rbacRoleEntities.size());
+        rbacRoleEntities.forEach(v -> {
+            RbacRoleBasicDto rbacRoleBasicDto = basicDtoMap.bToA(v);
+            // 判断是否为超级管理员角色
+            if (AuthConstant.SUPER_ROLE.equals(rbacRoleBasicDto.getRoleCode())) {
+                rbacRoleBasicDto.setSuperRole(true);
+            }
+            result.add(rbacRoleBasicDto);
+        });
+        return result;
     }
 }

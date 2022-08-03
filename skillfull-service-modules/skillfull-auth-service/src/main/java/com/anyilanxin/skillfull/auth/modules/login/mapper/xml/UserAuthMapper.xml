@@ -199,6 +199,7 @@
     SELECT
       srr.role_name,
       srr.role_code,
+      CASE WHEN srr.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role,
       srr.role_id,
       srr.data_auth_type,
       srr.custom_data_auth_data,

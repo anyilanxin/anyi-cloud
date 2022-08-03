@@ -45,6 +45,9 @@ public class RbacRoleDto implements Serializable {
     @Schema(name = "roleName", title = "角色名称")
     private String roleName;
 
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
+
     @Schema(name = "roleSysCode", title = "角色系统编码(系统自动创建)")
     private String roleSysCode;
 

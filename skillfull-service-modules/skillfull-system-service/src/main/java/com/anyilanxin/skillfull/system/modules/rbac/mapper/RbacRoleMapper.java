@@ -44,7 +44,7 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 19:29:58
      */
-    IPage<RbacRolePageDto> pageByModel(Page<RbacRolePageDto> page, @Param("query") RbacRolePageVo vo);
+    IPage<RbacRolePageDto> pageByModel(Page<RbacRolePageDto> page, @Param("query") RbacRolePageVo vo, @Param("superRoleCode") String superRoleCode);
 
 
     /**
@@ -55,7 +55,7 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 19:29:58
      */
-    List<RbacRoleDto> selectListByModel(RbacRoleQueryVo vo);
+    List<RbacRoleDto> selectListByModel(RbacRoleQueryVo vo, @Param("superRoleCode") String superRoleCode);
 
 
     /**
@@ -67,7 +67,7 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-04-06 00:08
      */
-    Set<UserRoleModel> getUserAuthRole(String userId, String orgId);
+    Set<UserRoleModel> getUserAuthRole(String userId, String orgId, @Param("superRoleCode") String superRoleCode);
 
 
     /**

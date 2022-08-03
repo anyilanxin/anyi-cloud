@@ -39,6 +39,9 @@ public class RbacRoleMenuButtonDto implements Serializable {
     @Schema(name = "roleCode", title = "角色编码")
     private String roleCode;
 
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
+
     @Schema(name = "roleSysCode", title = "角色系统编码(系统自动创建)")
     private String roleSysCode;
 

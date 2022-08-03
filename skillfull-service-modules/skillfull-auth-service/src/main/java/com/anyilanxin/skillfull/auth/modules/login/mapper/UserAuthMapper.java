@@ -105,7 +105,7 @@ public interface UserAuthMapper {
      * @author zxiaozhou
      * @date 2022-07-05 00:42
      */
-    Set<RoleInfo> selectByUserId(@Param("userId") String userId);
+    Set<RoleInfo> selectByUserId(@Param("userId") String userId, @Param("superRoleCode") String superRoleCode);
 
 
     /**

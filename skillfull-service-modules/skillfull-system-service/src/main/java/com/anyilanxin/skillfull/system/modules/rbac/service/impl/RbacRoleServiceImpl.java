@@ -29,7 +29,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleMenuMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacRoleUserMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleMenuService;
-import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleResourceApiService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.ISyncProcessService;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.*;
@@ -65,13 +64,11 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
     private final RbacRoleCopyMap map;
     private final RbacRoleMenuMapper roleMenuMapper;
     private final RbacRoleUserMapper rbacRoleUserMapper;
-    private final RbacRoleResourceApiMapper resourceApiMapper;
     private final PermissionMenuActionMap menuActionMap;
     private final RbacRoleAndMenuDtoMap rbacRoleAndMenuDtoMap;
     private final RbacRoleBasicDtoMap basicDtoMap;
     private final IRbacRoleMenuService roleMenuService;
     private final RbacMenuMapper menuMapper;
-    private final IRbacRoleResourceApiService resourceApiService;
     private final RbacRoleMapper mapper;
     private final ISyncProcessService syncService;
 

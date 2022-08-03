@@ -112,7 +112,7 @@ public class UserAuthServiceImpl implements IUserAuthService {
         }
         UserAndResourceAuthModel userAndResourceAuthModel = authCopyMap.bToA(entity);
         // 获取用户角色信息
-        Set<RoleInfo> roleInfos = userAuthMapper.selectByUserId(entity.getUserId());
+        Set<RoleInfo> roleInfos = userAuthMapper.selectByUserId(entity.getUserId(), SysBaseConstant.SUPER_ROLE);
         if (CollUtil.isEmpty(roleInfos)) {
             roleInfos = new HashSet<>(64);
         } else {

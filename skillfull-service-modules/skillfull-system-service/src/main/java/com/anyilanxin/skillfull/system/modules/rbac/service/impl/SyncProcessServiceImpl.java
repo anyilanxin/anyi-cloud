@@ -12,6 +12,7 @@ package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.anyilanxin.skillfull.corecommon.base.Result;
+import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.processapi.feign.ProcessSyncRbacRemoteService;
@@ -67,7 +68,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
             throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
         }
         // 同步角色信息
-        Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole(userId, "");
+        Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole(userId, "", AuthConstant.SUPER_ROLE);
         if (CollUtil.isNotEmpty(userRoleById)) {
             UserGroupRequestModel userGroupVo = new UserGroupRequestModel();
             userGroupVo.setUserId(userId);
@@ -98,7 +99,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         // 数据组装
         List<RbacUserEntity> rbacUserEntities = userMapper.selectList(Wrappers.emptyWrapper());
         if (CollUtil.isNotEmpty(rbacUserEntities)) {
-            Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole("", "");
+            Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole("", "", AuthConstant.SUPER_ROLE);
             Map<String, Set<String>> userAndRoles = new HashMap<>(rbacUserEntities.size());
             if (CollUtil.isNotEmpty(userRoleById)) {
                 userRoleById.forEach(v -> {

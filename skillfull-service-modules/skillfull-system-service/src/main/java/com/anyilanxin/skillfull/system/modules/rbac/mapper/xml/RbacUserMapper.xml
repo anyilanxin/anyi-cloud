@@ -88,7 +88,7 @@
         <where>
              ali.del_flag = 0
           <if test="query.orgId != null and query.orgId != ''">
-             AND ali.user_id IN ( SELECT user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
+             AND ali.user_id IN ( SELECT srou.user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
           </if>
           <if test="query.keyword != null and query.keyword != ''">
              AND (
@@ -119,7 +119,7 @@
       FROM sys_rbac_user ali
       <where>
         ali.del_flag = 0
-        ali.user_id NOT IN ( SELECT user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
+        AND ali.user_id NOT IN ( SELECT srou.user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
         <if test="query.keyword != null and query.keyword != ''">
           AND (
           LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0

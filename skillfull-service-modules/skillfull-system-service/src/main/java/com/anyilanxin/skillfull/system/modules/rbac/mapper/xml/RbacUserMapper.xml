@@ -82,13 +82,12 @@
 
 
     <!--通过实体作为筛选条件分页查询-->
-    <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
         SELECT <include refid="Column_List_Page_Ali"/>
-        <if test="query.orgId != null and query.orgId != ''">
-            INNER JOIN sys_rbac_org_user srou ON srou.user_id = ali.user_id
-        </if>
         FROM sys_rbac_user ali
+      <if test="query.orgId != null and query.orgId != ''">
+        INNER JOIN sys_rbac_org_user srou ON srou.user_id = ali.user_id
+      </if>
         <where>
              ali.del_flag = 0
           <if test="query.orgId != null and query.orgId != ''">

@@ -68,6 +68,9 @@ public class RbacRolePageDto implements Serializable {
     @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0")
     private Integer autoBind;
 
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
+
     @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0")
     private Integer roleStatus;
 

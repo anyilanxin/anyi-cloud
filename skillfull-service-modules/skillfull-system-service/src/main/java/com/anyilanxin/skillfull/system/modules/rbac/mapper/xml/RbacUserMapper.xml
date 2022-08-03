@@ -81,72 +81,65 @@
     </sql>
 
 
-  <!--通过实体作为筛选条件分页查询-->
-  <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
-    SELECT
-     DISTINCT <include refid="Column_List_Page_Ali"/>
-    FROM sys_rbac_user ali
-    LEFT JOIN sys_rbac_org_user srou ON ali.user_id = srou.user_id
-    <where>
-      ali.del_flag = 0
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
+        SELECT <include refid="Column_List_Page_Ali"/>
+        FROM sys_rbac_user ali
       <if test="query.orgId != null and query.orgId != ''">
-        AND srou.org_id =  #{query.orgId, jdbcType=VARCHAR}
+        INNER JOIN sys_rbac_org_user srou ON srou.user_id = ali.user_id
       </if>
-      <if test="query.keyword != null and query.keyword != ''">
-        AND (
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0
-        OR
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.real_name) &gt; 0
-        OR
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.phone) &gt; 0
-        )
-      </if>
-      <if test="query.userStatus != null">
-        AND ali.user_status = #{query.userStatus, jdbcType=INTEGER}
-      </if>
-      <if test="query.startTime != null">
-        AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
-      </if>
-      <if test="query.endTime != null">
-        AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
-      </if>
-    </where>
-  </select>
+        <where>
+             ali.del_flag = 0
+          <if test="query.orgId != null and query.orgId != ''">
+             AND srou.org_id =  #{query.orgId, jdbcType=VARCHAR}
+          </if>
+          <if test="query.keyword != null and query.keyword != ''">
+             AND (
+              LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0
+              OR
+              LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.real_name) &gt; 0
+              OR
+              LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.phone) &gt; 0
+              )
+          </if>
+          <if test="query.userStatus != null">
+             AND ali.user_status = #{query.userStatus, jdbcType=INTEGER}
+          </if>
+          <if test="query.startTime != null">
+             AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test="query.endTime != null">
+             AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+          </if>
+        </where>
+    </select>
 
 
-  <!-- 分页查询可关联的用户信息 -->
-  <select id="selectEnableUserPage"
+    <!-- 分页查询可关联的用户信息 -->
+    <select id="selectEnableUserPage"
           resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
-    SELECT
-      DISTINCT <include refid="Column_List_Page_Ali"/>
-    FROM sys_rbac_user ali
-    LEFT JOIN sys_rbac_org_user srou ON ali.user_id = srou.user_id
-    <where>
-      ali.del_flag = 0
-      AND (
-      srou.org_id !=  #{query.orgId, jdbcType=VARCHAR}
-      OR
-      srou.org_id IS NULL
-      OR
-      srou.org_id = ''
-      )
-      <if test="query.keyword != null and query.keyword != ''">
-        AND (
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0
-        OR
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.real_name) &gt; 0
-        OR
-        LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.phone) &gt; 0
-        )
-      </if>
-      <if test="query.startTime != null">
-        AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
-      </if>
-      <if test="query.endTime != null">
-        AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
-      </if>
-    </where>
-  </select>
+      SELECT <include refid="Column_List_Page_Ali"/>
+      FROM sys_rbac_user ali
+      <where>
+        ali.del_flag = 0
+        AND NOT EXISTS ( SELECT 1 FROM sys_rbac_org_user srou WHERE srou.org_id = #{query.orgId, jdbcType=VARCHAR} AND ali.user_id = srou.user_id )
+        <if test="query.keyword != null and query.keyword != ''">
+          AND (
+          LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0
+          OR
+          LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.real_name) &gt; 0
+          OR
+          LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.phone) &gt; 0
+          )
+        </if>
+        <if test="query.startTime != null">
+          AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="query.endTime != null">
+          AND ali.create_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+        </if>
+      </where>
+    </select>
 
     <!-- 通过用户id物理删除 -->
     <delete id="physicalDeleteById">

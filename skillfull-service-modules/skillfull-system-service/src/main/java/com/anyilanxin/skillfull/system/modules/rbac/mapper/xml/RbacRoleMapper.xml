@@ -60,7 +60,8 @@
     <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRolePageDto">
         SELECT
-        <include refid="Column_List_Page_Ali"/>
+        <include refid="Column_List_Page_Ali"/>,
+        CASE WHEN ali.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role
         FROM sys_rbac_role ali
         <where>
             ali.del_flag = 0
@@ -87,7 +88,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="selectListByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleDto" parameterType="com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacRoleQueryVo">
         SELECT
-            <include refid="Column_List"/>
+            <include refid="Column_List"/>,
+            CASE WHEN ali.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role
         FROM sys_rbac_role
         <where>
              del_flag = 0
@@ -173,6 +175,7 @@
         rr.role_id,
         rr.role_name,
         rr.role_code,
+        CASE WHEN rr.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role,
         role.user_id
         FROM
         (
@@ -197,14 +200,14 @@
         </if>
         -- 机构角色
         <if test="orgId != null and orgId!=''">
-            UNION
-            SELECT rucr.role_id,ru.user_id
-            FROM sys_rbac_user ru
-            INNER JOIN sys_rbac_user_correlate_role rucr ON ru.user_id = rucr.user_id
-            WHERE rucr.correlate_id = #{orgId, jdbcType=VARCHAR}
-            <if test="userId != null and userId!=''">
-                AND ru.user_id = #{userId, jdbcType=VARCHAR}
-            </if>
+          UNION
+          SELECT rucr.role_id,ru.user_id
+          FROM sys_rbac_user ru
+          INNER JOIN sys_rbac_user_correlate_role rucr ON ru.user_id = rucr.user_id
+          WHERE rucr.correlate_id = #{orgId, jdbcType=VARCHAR}
+          <if test="userId != null and userId!=''">
+              AND ru.user_id = #{userId, jdbcType=VARCHAR}
+          </if>
         </if>
         ) role
         INNER JOIN sys_rbac_role rr ON role.role_id = rr.role_id

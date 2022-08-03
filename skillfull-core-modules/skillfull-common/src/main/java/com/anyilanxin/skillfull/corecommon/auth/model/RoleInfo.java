@@ -33,6 +33,9 @@ public class RoleInfo implements Serializable {
     @Schema(name = "roleName", title = "角色名称")
     private String roleName;
 
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
+
     @Schema(name = "roleCode", title = "角色编码")
     private String roleCode;
 

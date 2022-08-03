@@ -31,7 +31,7 @@
         srm.affix, srm.icon, srm.icon_type, srm.frame_src, srm.transition_name, srm.hide_breadcrumb,
         srm.carry_param, srm.hide_children_in_menu, srm.current_active_menu, srm.hide_tab, srm.hide_menu,
         srm.order_no, srm.ignore_route, srm.show_tag, srm.type, srm.content, srm.dot, srm.hide_path_for_children,
-        srm.button_action_tag, srm.button_express, srm.system_id, srm.enable_delete, srm.menu_sys_code,
+        srm.system_id, srm.enable_delete, srm.menu_sys_code,
         srm.unique_help, srm.remark, srm.create_area_code, srm.create_position_code, srm.create_org_sys_code,
         srm.create_system_code, srm.create_tenant_id, srm.create_user_id, srm.create_user_name, srm.create_time,
         srm.update_user_id, srm.update_user_name, srm.update_time, srm.del_flag, srm.button_action

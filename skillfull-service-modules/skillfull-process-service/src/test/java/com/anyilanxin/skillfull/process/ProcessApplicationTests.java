@@ -13,7 +13,6 @@ import com.anyilanxin.skillfull.process.modules.rbac.service.IUserService;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.instance.Documentation;
 import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
@@ -43,10 +42,6 @@ public class ProcessApplicationTests {
         taskInstances.forEach(v -> {
             UserTask userTask = (UserTask) v;
             ExtensionElements extensionElements = userTask.getExtensionElements();
-            String user_task_property = ProcessBpmnUtils.getProcessProperty(extensionElements, "USER_TASK_PROPERTY");
-            String documentation1 = ProcessBpmnUtils.getDocumentation(userTask.getChildElementsByType(Documentation.class));
-            System.out.println(user_task_property);
-            System.out.println(documentation1);
         });
     }
 

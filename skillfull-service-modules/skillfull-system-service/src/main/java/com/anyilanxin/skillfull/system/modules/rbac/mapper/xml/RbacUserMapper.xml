@@ -122,7 +122,7 @@
       FROM sys_rbac_user ali
       <where>
         ali.del_flag = 0
-        NOT EXISTS ( SELECT 1 FROM sys_rbac_org_user srou WHERE srou.org_id = #{query.orgId, jdbcType=VARCHAR} AND ali.user_id = srou.user_id )
+        AND NOT EXISTS ( SELECT 1 FROM sys_rbac_org_user srou WHERE srou.org_id = #{query.orgId, jdbcType=VARCHAR} AND ali.user_id = srou.user_id )
         <if test="query.keyword != null and query.keyword != ''">
           AND (
           LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0

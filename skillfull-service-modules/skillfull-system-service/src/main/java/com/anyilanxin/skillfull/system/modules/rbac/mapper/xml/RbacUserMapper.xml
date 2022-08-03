@@ -82,13 +82,17 @@
 
 
     <!--通过实体作为筛选条件分页查询-->
+    <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto">
         SELECT <include refid="Column_List_Page_Ali"/>
+        <if test="query.orgId != null and query.orgId != ''">
+            INNER JOIN sys_rbac_org_user srou ON srou.user_id = ali.user_id
+        </if>
         FROM sys_rbac_user ali
         <where>
              ali.del_flag = 0
           <if test="query.orgId != null and query.orgId != ''">
-             AND ali.user_id IN ( SELECT srou.user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
+             AND srou.org_id =  #{query.orgId, jdbcType=VARCHAR}
           </if>
           <if test="query.keyword != null and query.keyword != ''">
              AND (
@@ -119,7 +123,7 @@
       FROM sys_rbac_user ali
       <where>
         ali.del_flag = 0
-        AND ali.user_id NOT IN ( SELECT srou.user_id FROM sys_rbac_org_user srou WHERE srou.org_id =  #{query.orgId, jdbcType=VARCHAR} )
+        NOT EXISTS ( SELECT 1 FROM sys_rbac_org_user srou WHERE srou.org_id = #{query.orgId, jdbcType=VARCHAR} AND ali.user_id = srou.user_id )
         <if test="query.keyword != null and query.keyword != ''">
           AND (
           LOCATE(#{query.keyword, jdbcType=VARCHAR}, ali.user_name) &gt; 0

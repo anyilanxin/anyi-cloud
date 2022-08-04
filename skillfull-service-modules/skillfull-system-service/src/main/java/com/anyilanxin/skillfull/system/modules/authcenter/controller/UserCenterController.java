@@ -9,6 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.authcenter.controller;
 
+import com.anyilanxin.skillfull.corecommon.annotation.Anonymous;
 import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserOrgTreeInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
@@ -114,6 +115,7 @@ public class UserCenterController extends BaseController {
     @Operation(summary = "找回密码", tags = {"v1.0.0"}, description = "找回密码")
     @GetMapping(value = "/update/find-password")
     @AutoLog(note = "找回密码", type = AutoLog.QUERY)
+    @Anonymous
     public Result<String> findPassword(@RequestBody @Valid FindPasswordVo vo) {
         service.findPassword(vo);
         return ok("找回密码成功");
@@ -123,6 +125,7 @@ public class UserCenterController extends BaseController {
     @Operation(summary = "修改手机号或者找回密码发送短信验证码", tags = {"v1.0.0"}, description = "修改手机号或者找回密码发送短信验证码")
     @Parameter(in = ParameterIn.PATH, description = "手机号", name = "phone", required = true)
     @GetMapping(value = "/send-sms-code/{phone}")
+    @Anonymous
     @AutoLog(note = "修改手机号或者找回密码发送短信验证码", type = AutoLog.QUERY)
     public Result<String> sendSmsCode(@PathVariable(required = false) @PathNotBlankOrNull(message = "电话号码不能为空不能为空") String phone) {
         service.sendSmsCode(phone);

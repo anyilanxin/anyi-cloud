@@ -197,6 +197,7 @@ subprojects {
         implementation rootProject.ext.dependencies["commons-codec"]
         implementation rootProject.ext.dependencies["springdoc-openapi-common"]
         implementation rootProject.ext.dependencies["fastjson2"]
+        implementation rootProject.ext.dependencies["fastjson"]
         implementation rootProject.ext.dependencies["slf4j-api"]
         implementation rootProject.ext.dependencies["commons-io"]
         implementation rootProject.ext.dependencies["commons-pool2"]

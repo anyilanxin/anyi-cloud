@@ -20,6 +20,7 @@ ext {
             'commons-io'                            : 'commons-io:commons-io:2.11.0',
             'commons-pool2'                         : 'org.apache.commons:commons-pool2:2.11.1',
             'fastjson2'                             : 'com.alibaba.fastjson2:fastjson2:2.0.9',
+            'fastjson'                              : 'com.alibaba:fastjson:1.2.83',
             'slf4j-api'                             : 'org.slf4j:slf4j-api:1.7.36',
             'mybatis-plus-boot-starter'             : 'com.baomidou:mybatis-plus-boot-starter:3.5.2',
             'dynamic-datasource-spring-boot-starter': 'com.baomidou:dynamic-datasource-spring-boot-starter:3.5.1',

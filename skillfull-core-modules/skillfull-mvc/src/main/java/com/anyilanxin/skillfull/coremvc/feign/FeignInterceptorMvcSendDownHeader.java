@@ -7,13 +7,15 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.coremvc.feign.header;
+package com.anyilanxin.skillfull.coremvc.feign;
+
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant;
-import com.anyilanxin.skillfull.corecommon.feign.strategy.header.ISetHeaderStrategy;
+import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,29 +24,43 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
+ * Feign拦截器
+ *
  * @author zxiaozhou
- * @date 2021-05-23 01:18
- * @since JDK1.8
+ * @date 2019-04-24 14:19
+ * @since JDK11
  */
-@Component(value = SysBaseConstant.FEIGN_DEFAULT)
-public class InnerAllHeaderImpl implements ISetHeaderStrategy {
-    private static final String CONTENT_LENGTH = "Content-Length";
+@Component
+@Slf4j
+public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
 
+    /**
+     * token设置
+     *
+     * @param template ${@link RequestTemplate}
+     * @author zxiaozhou
+     * @date 2019-05-15 17:52
+     */
     @Override
-    public void setHeader(RequestTemplate template) {
-        HttpServletRequest request = getHttpServletRequest();
-        if (Objects.isNull(request)) {
-            return;
+    public void apply(RequestTemplate template) {
+        try {
+            HttpServletRequest request = getHttpServletRequest();
+            if (Objects.isNull(request)) {
+                return;
+            }
+            Map<String, Set<String>> headers = getHeaders(request);
+            if (CollUtil.isNotEmpty(headers)) {
+                headers.forEach((key, value) -> {
+                    // 需要排除Content-Length，否则造成数据传输长度异常
+                    if (StringUtils.isNotBlank(key) && CollUtil.isNotEmpty(value) && !key.equalsIgnoreCase(HttpHeaders.CONTENT_LENGTH)) {
+                        template.header(key, value);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            log.error("------------apply--->设置下传请求头异常");
         }
-        Map<String, Set<String>> headers = getHeaders(request);
-        if (CollUtil.isNotEmpty(headers)) {
-            headers.forEach((key, value) -> {
-                // 需要排除Content-Length，否则造成数据传输长度异常
-                if (StringUtils.isNotBlank(key) && CollUtil.isNotEmpty(value) && !key.equalsIgnoreCase(CONTENT_LENGTH)) {
-                    template.header(key, value);
-                }
-            });
-        }
+
     }
 
 

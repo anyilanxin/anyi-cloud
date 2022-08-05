@@ -11,8 +11,6 @@ package com.anyilanxin.skillfull.corecommon.config;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import com.anyilanxin.skillfull.corecommon.auth.GetLoginUserInfoDefault;
-import com.anyilanxin.skillfull.corecommon.auth.IGetLoginUserInfo;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -52,15 +50,5 @@ public class CoreCommonConfig {
         messageBundle.setDefaultEncoding("UTF-8");
         messageBundle.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
         return messageBundle;
-    }
-
-
-    /**
-     * 默认获取用户信息(防止报错)
-     */
-    @Bean
-    @ConditionalOnMissingBean(IGetLoginUserInfo.class)
-    public IGetLoginUserInfo getLoginUserInfo() {
-        return new GetLoginUserInfoDefault();
     }
 }

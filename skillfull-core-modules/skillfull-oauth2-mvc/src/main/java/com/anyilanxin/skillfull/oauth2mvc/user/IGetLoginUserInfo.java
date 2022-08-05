@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.corecommon.auth;
+package com.anyilanxin.skillfull.oauth2mvc.user;
 
 import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserIdentity;

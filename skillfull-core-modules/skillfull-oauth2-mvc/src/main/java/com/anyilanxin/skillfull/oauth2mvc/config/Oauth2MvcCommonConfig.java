@@ -9,18 +9,16 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.oauth2mvc.config;
 
-import com.anyilanxin.skillfull.corecommon.auth.IGetLoginUserInfo;
 import com.anyilanxin.skillfull.oauth2common.config.AuthConfigAttributeModel;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2mvc.CustomBearerTokenExtractor;
-import com.anyilanxin.skillfull.oauth2mvc.GetLoginUserInfoImpl;
+import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
+import com.anyilanxin.skillfull.oauth2mvc.user.impl.GetLoginUserInfoImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.AbstractOAuth2Token;
@@ -38,7 +36,6 @@ import org.springframework.web.client.RestTemplate;
 @AutoConfiguration
 @RequiredArgsConstructor
 public class Oauth2MvcCommonConfig {
-    private final RedisTemplate<String, Object> redisTemplate;
     private final TokenStore tokenStore;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
 
@@ -88,7 +85,7 @@ public class Oauth2MvcCommonConfig {
 
 
     @Bean
-    @Primary
+    @ConditionalOnMissingBean
     public IGetLoginUserInfo getLoginUserInfo() {
         return new GetLoginUserInfoImpl(tokenStore, detailsCopyMap);
     }

@@ -1,2 +1,4 @@
 com.anyilanxin.skillfull.oauth2mvc.config.ResourceServerConfigurer
 com.anyilanxin.skillfull.oauth2mvc.config.Oauth2MvcCommonConfig
+com.anyilanxin.skillfull.oauth2mvc.FeignInterceptorMvcSendDownHeader
+com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils

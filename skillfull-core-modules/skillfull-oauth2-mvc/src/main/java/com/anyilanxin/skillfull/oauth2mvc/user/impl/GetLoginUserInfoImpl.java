@@ -7,15 +7,15 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.oauth2mvc;
+package com.anyilanxin.skillfull.oauth2mvc.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.auth.IGetLoginUserInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserIdentity;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
+import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

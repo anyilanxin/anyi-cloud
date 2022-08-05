@@ -32,7 +32,7 @@ import java.util.*;
  */
 @Component
 @Slf4j
-public class FeignInterceptor implements RequestInterceptor {
+public class FeignInterceptorCommon implements RequestInterceptor {
     private ContextHeaderStrategy contextHeaderStrategy;
     private ContextSafetyStrategy contextSafetyStrategy;
 

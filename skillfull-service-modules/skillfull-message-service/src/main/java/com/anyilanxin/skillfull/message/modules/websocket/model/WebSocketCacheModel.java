@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.message.modules.websocket.model;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.skillfull.corecommon.utils.UserContextUtils;
+import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

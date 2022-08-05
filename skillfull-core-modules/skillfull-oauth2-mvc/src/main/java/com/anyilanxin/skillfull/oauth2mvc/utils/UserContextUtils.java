@@ -7,11 +7,11 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.corecommon.utils;
+package com.anyilanxin.skillfull.oauth2mvc.utils;
 
-import com.anyilanxin.skillfull.corecommon.auth.IGetLoginUserInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
+import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

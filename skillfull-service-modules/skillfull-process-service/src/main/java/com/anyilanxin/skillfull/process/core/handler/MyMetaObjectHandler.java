@@ -11,7 +11,7 @@ package com.anyilanxin.skillfull.process.core.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
-import com.anyilanxin.skillfull.corecommon.utils.UserContextUtils;
+import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;

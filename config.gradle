@@ -64,35 +64,35 @@ ext {
 
     version = [
             // 主项目
-            'skillfull-cloud'                                      : '0.0.1-SNAPSHOT',
+            'skillfull-cloud'                                      : '1.0.0-alpha1-SNAPSHOT',
 
             // 服务模块
-            'skillfull-service-modules:skillfull-auth-service'     : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-gateway-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-logging-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-message-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-process-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-monitor-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-onlinedes-service': [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-storage-service'  : [version: '0.9.9', bootJar: true],
-            'skillfull-service-modules:skillfull-system-service'   : [version: '0.9.9', bootJar: true],
+            'skillfull-service-modules:skillfull-auth-service'     : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-gateway-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-logging-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-message-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-process-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-monitor-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-onlinedes-service': [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-storage-service'  : [version: '1.0.0-alpha1', bootJar: true],
+            'skillfull-service-modules:skillfull-system-service'   : [version: '1.0.0-alpha1', bootJar: true],
 
             // 核心模块
-            'skillfull-core-modules:skillfull-common'              : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-database'            : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-mvc'                 : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-redis'               : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-webflux'             : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-oauth2-common'       : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '0.9.9', bootJar: false],
-            'skillfull-core-modules:skillfull-logging'             : [version: '0.9.9', bootJar: false],
+            'skillfull-core-modules:skillfull-common'              : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-database'            : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-mvc'                 : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-redis'               : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-webflux'             : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-oauth2-common'       : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-core-modules:skillfull-logging'             : [version: '1.0.0-alpha1', bootJar: false],
 
             // 远程api模块
-            'skillfull-api-modules:skillfull-process-api'          : [version: '0.9.9', bootJar: false],
-            'skillfull-api-modules:skillfull-system-api'           : [version: '0.9.9', bootJar: false],
-            'skillfull-api-modules:skillfull-gateway-api'          : [version: '0.9.9', bootJar: false],
-            'skillfull-api-modules:skillfull-message-api'          : [version: '0.9.9', bootJar: false],
-            'skillfull-api-modules:skillfull-storage-api'          : [version: '0.9.9', bootJar: false],
+            'skillfull-api-modules:skillfull-process-api'          : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-api-modules:skillfull-system-api'           : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-api-modules:skillfull-gateway-api'          : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-api-modules:skillfull-message-api'          : [version: '1.0.0-alpha1', bootJar: false],
+            'skillfull-api-modules:skillfull-storage-api'          : [version: '1.0.0-alpha1', bootJar: false],
     ]
 
 

@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.AbstractOAuth2Token;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Component;
 
 /**
@@ -40,8 +40,8 @@ public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate template) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getCredentials() instanceof AbstractOAuth2Token) {
-            AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
+        if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
             template.header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getTokenValue());
         }
     }

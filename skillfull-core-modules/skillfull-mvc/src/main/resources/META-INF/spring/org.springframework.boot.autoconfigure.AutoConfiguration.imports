@@ -2,4 +2,3 @@ com.anyilanxin.skillfull.coremvc.config.FeignMvcConfig
 com.anyilanxin.skillfull.coremvc.config.ExecutorCoreMvcConfig
 com.anyilanxin.skillfull.coremvc.config.PropertyStartCoreMvcConfig
 com.anyilanxin.skillfull.coremvc.config.SpringDocConfig
-com.anyilanxin.skillfull.coremvc.feign.FeignInterceptorMvcSendDownHeader

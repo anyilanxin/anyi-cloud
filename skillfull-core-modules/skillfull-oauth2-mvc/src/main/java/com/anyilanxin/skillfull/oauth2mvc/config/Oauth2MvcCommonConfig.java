@@ -21,8 +21,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.AbstractOAuth2Token;
 import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.client.RestTemplate;
 
@@ -73,10 +73,10 @@ public class Oauth2MvcCommonConfig {
             if (authentication == null) {
                 return execution.execute(request, body);
             }
-            if (!(authentication.getCredentials() instanceof AbstractOAuth2Token)) {
+            if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)) {
                 return execution.execute(request, body);
             }
-            AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
+            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
             request.getHeaders().setBearerAuth(token.getTokenValue());
             return execution.execute(request, body);
         });

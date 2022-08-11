@@ -37,6 +37,9 @@ public class RbacMenuPageVo extends BasePageVo {
     @Schema(name = "metaTitle", title = "菜单名称")
     private String metaTitle;
 
+    @Schema(name = "systemId", title = "系统id")
+    private String systemId;
+
     @Schema(name = "menuTypes", title = "权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType")
     private List<Integer> menuTypes;
 

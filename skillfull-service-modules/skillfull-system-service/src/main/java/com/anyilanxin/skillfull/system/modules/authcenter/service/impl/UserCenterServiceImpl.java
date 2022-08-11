@@ -111,6 +111,7 @@ public class UserCenterServiceImpl implements IUserCenterService {
                 if (CollUtil.isEmpty(rbacMenuDtos)) {
                     rbacMenuDtos = new ArrayList<>(64);
                 }
+                rbacMenuDtos.add(v);
                 buttonMap.put(v.getParentId(), rbacMenuDtos);
             } else {
                 notButtons.add(v);

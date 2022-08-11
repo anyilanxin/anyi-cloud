@@ -28,8 +28,6 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("storage_info_file")
 public class StorageInfoFileEntity extends BaseEntity {

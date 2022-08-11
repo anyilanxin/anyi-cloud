@@ -28,8 +28,6 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("sys_common_category")
 public class CommonCategoryEntity extends BaseEntity {

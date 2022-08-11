@@ -30,8 +30,6 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @Schema
 public class ManageRoutePredicatePageVo extends BasePageVo {

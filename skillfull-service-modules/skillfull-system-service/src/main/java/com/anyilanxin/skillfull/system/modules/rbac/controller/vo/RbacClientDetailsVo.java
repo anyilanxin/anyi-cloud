@@ -10,8 +10,6 @@
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -78,7 +76,6 @@ public class RbacClientDetailsVo implements Serializable {
     private Integer singleLoginType;
 
     @Schema(name = "endpoints", title = "允许登录端点,json array")
-    @TableField(typeHandler = FastjsonTypeHandler.class)
     private List<String> endpoints;
 
     @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0", required = true)
@@ -96,12 +93,10 @@ public class RbacClientDetailsVo implements Serializable {
     @NotBlankOrNull(message = "状态不能为空")
     private Integer clientStatus;
 
-    @Schema(name = "accessTokenValiditySeconds", title = "访问token的有效时长(单位s)，默认1800秒", required = true)
-    @NotBlankOrNull(message = "访问token的有效时长不能为空")
+    @Schema(name = "accessTokenValiditySeconds", title = "访问token的有效时长(单位s)，默认1800秒")
     private Integer accessTokenValiditySeconds;
 
-    @Schema(name = "refreshTokenValiditySeconds", title = "刷新token的有效时长(单位s)，默认604800秒,即7天", required = true)
-    @NotBlankOrNull(message = "刷新token的有效时长不能为空")
+    @Schema(name = "refreshTokenValiditySeconds", title = "刷新token的有效时长(单位s)，默认604800秒,即7天")
     private Integer refreshTokenValiditySeconds;
 
     @Schema(name = "additionalInformation", title = "扩展信息,json object")
@@ -114,10 +109,10 @@ public class RbacClientDetailsVo implements Serializable {
     @NotBlankOrNull(message = "是否领域不能为空")
     private Integer havaScoped;
 
-    @Schema(name = "scopes", title = "领域,json array", required = true)
+    @Schema(name = "scopes", title = "领域,json array")
     private List<String> scopes;
 
-    @Schema(name = "webRegisteredRedirectUri", title = "授权后跳转的URI（授权码模式必填）", required = true)
+    @Schema(name = "webRegisteredRedirectUri", title = "授权后跳转的URI（授权码模式必填）")
     private String webRegisteredRedirectUri;
 
     @Schema(name = "havaAutoApprove", title = "是否自动批准：0-不自动，1-自动,默认0", required = true)

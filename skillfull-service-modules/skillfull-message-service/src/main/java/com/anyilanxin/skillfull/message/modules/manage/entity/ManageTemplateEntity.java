@@ -28,8 +28,6 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("msg_manage_template")
 public class ManageTemplateEntity extends BaseEntity {

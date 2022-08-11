@@ -32,8 +32,6 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName(value = "sys_manage_route", autoResultMap = true)
 public class ManageRouteEntity extends BaseEntity {

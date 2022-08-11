@@ -29,8 +29,6 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("ACT_RE_DEPLOYMENT")
 public class ReDeploymentEntity implements Serializable {

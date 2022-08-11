@@ -29,8 +29,6 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("sys_manage_route_custom_filter")
 public class ManageRouteCustomFilterEntity implements Serializable {

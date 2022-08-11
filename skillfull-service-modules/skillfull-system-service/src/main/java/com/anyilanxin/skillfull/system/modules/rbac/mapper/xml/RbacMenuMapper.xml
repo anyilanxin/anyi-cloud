@@ -125,7 +125,10 @@
           <if test="query.metaTitle != null and query.metaTitle != ''">
             AND LOCATE(#{query.metaTitle, jdbcType=VARCHAR}, ali.meta_title) &gt; 0
           </if>
-         <if test="query.startTime != null">
+          <if test="query.systemId != null and query.systemId != ''">
+            AND ali.system_id = #{query.systemId, jdbcType=VARCHAR}
+          </if>
+          <if test="query.startTime != null">
              AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
           </if>
           <if test="query.endTime != null">

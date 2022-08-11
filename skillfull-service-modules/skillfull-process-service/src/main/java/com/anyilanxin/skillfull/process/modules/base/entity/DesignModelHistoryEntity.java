@@ -33,8 +33,6 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("act_custom_design_model_history")
 public class DesignModelHistoryEntity extends BaseEntity {

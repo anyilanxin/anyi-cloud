@@ -28,8 +28,6 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("sys_manage_special_url")
 public class ManageSpecialUrlEntity extends BaseEntity {

@@ -27,8 +27,6 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @Schema
 public class WebSocketMsgModel implements Serializable {

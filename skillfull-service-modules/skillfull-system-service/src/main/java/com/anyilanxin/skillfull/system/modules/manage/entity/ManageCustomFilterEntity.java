@@ -32,8 +32,6 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName(value = "sys_manage_custom_filter", autoResultMap = true)
 public class ManageCustomFilterEntity extends BaseEntity {

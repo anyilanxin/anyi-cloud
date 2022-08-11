@@ -28,8 +28,6 @@ import javax.validation.constraints.NotBlank;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @Schema
 public class DesignModelHistoryPageVo extends BasePageVo {

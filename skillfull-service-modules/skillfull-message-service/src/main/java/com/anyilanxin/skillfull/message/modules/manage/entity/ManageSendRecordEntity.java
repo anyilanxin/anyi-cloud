@@ -36,8 +36,6 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName(value = "msg_manage_send_record", autoResultMap = true)
 public class ManageSendRecordEntity extends BaseEntity {

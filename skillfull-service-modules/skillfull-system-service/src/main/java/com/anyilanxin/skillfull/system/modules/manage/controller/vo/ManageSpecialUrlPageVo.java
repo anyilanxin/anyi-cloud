@@ -29,8 +29,6 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @Schema
 public class ManageSpecialUrlPageVo extends BasePageVo {

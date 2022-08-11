@@ -27,8 +27,6 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 public class StreamMsgModel implements Serializable {
     private static final long serialVersionUID = -3931714024892969626L;

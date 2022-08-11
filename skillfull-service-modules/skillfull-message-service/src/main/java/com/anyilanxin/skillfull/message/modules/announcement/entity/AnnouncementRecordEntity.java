@@ -33,8 +33,6 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-
-
 @NoArgsConstructor
 @TableName("msg_announcement_record")
 public class AnnouncementRecordEntity extends BaseEntity {

@@ -9,7 +9,6 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.OperateLogModel;
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.OperatePageVo;
@@ -29,24 +28,12 @@ import java.util.List;
  */
 public interface IOperateService extends BaseService<OperateEntity> {
     /**
-     * 日志存储
+     * 日志入库
      *
-     * @param model ${@link OperateLogModel}
      * @author zxiaozhou
-     * @date 2022-01-27 19:48
+     * @date 2022-08-13 11:11
      */
-    void save(OperateLogModel model) throws RuntimeException;
-
-
-    /**
-     * 日志批量存储
-     *
-     * @param models ${@link List<OperateLogModel>}
-     * @author zxiaozhou
-     * @date 2022-01-27 19:48
-     */
-    void saveBatch(List<OperateLogModel> models) throws RuntimeException;
-
+    void storage();
 
     /**
      * 分页查询

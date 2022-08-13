@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.system.modules.manage.controller.vo.ManageServicePageVo;

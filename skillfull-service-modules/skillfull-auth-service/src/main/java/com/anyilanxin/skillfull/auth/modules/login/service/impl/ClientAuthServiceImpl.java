@@ -11,9 +11,9 @@ package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.mapper.ClientAuthMapper;
 import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

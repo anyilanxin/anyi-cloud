@@ -9,7 +9,6 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.AuthLogModel;
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataPageVo;
@@ -28,24 +27,14 @@ import java.util.List;
  * @since JDK1.8
  */
 public interface IAuthDataService extends BaseService<AuthDataEntity> {
-    /**
-     * 日志存储
-     *
-     * @param model ${@link AuthLogModel}
-     * @author zxiaozhou
-     * @date 2022-01-27 19:48
-     */
-    void save(AuthLogModel model) throws RuntimeException;
-
 
     /**
-     * 日志批量存储
+     * 日志入库
      *
-     * @param models ${@link List< AuthLogModel >}
      * @author zxiaozhou
-     * @date 2022-01-27 19:48
+     * @date 2022-08-13 11:11
      */
-    void saveBatch(List<AuthLogModel> models) throws RuntimeException;
+    void storage();
 
 
     /**

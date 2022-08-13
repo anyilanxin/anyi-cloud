@@ -10,8 +10,8 @@
 package com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct;
 
 
-import com.anyilanxin.skillfull.corecommon.base.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

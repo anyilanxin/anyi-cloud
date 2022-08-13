@@ -49,7 +49,7 @@ public class AuthDataController extends BaseController {
     private final IAuthDataService service;
 
 
-    @Operation(summary = "登录日志逻辑删除", tags = {"v1.0.0"}, description = "删除登录日志")
+    @Operation(summary = "登录日志删除", tags = {"v1.0.0"}, description = "登录日志删除")
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @DeleteMapping(value = "/delete-one/{authLogId}")
     public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空") String authLogId) {
@@ -58,7 +58,7 @@ public class AuthDataController extends BaseController {
     }
 
 
-    @Operation(summary = "登录日志逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除登录日志")
+    @Operation(summary = "登录日志批量删除", tags = {"v1.0.0"}, description = "登录日志批量删除")
     @PostMapping(value = "/delete-batch")
     public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除授权日志id不能为空") List<String> authLogIds) {
         service.deleteBatch(authLogIds);

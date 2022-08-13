@@ -10,6 +10,8 @@
 package com.anyilanxin.skillfull.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IUserAuthService;
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
+import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.utils.Oauth2CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +34,8 @@ public class PhoneDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        return Oauth2CommonUtils.toUserDetails(authService.getUserByPhone(phone));
+        SkillFullUserDetails userDetails = Oauth2CommonUtils.toUserDetails(authService.getUserByPhone(phone));
+        Oauth2LogUtils.setUserDetailInfo(userDetails);
+        return userDetails;
     }
 }

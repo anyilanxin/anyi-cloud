@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.processapi.model;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.SubmitFormModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.SubmitFormModel;
 import com.anyilanxin.skillfull.processapi.constant.impl.CallbackType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

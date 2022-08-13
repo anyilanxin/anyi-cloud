@@ -9,6 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.auth.oauth2.orror;
 
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.coremvc.utils.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -70,7 +71,9 @@ public class WebOauth2ResponseExceptionTranslator implements WebResponseExceptio
         }
         log.error("------------WebOauth2ResponseExceptionTranslator------------>translate--->异常消息:{}", e.getMessage());
         e.printStackTrace();
-        return new ResponseEntity<>(new CustomOauth2Exception(getLocalMessage(LOCAL, message)), HttpStatus.valueOf(status));
+        String localMessage = getLocalMessage(LOCAL, message);
+        Oauth2LogUtils.setPostAuthLog(false, "", localMessage, null);
+        return new ResponseEntity<>(new CustomOauth2Exception(localMessage), HttpStatus.valueOf(status));
     }
 
 }

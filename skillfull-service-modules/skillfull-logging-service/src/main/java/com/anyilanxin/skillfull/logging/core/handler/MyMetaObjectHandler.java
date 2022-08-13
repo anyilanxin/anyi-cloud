@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.logging.core.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;

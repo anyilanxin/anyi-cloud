@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct;
 
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteMetaModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteMetaModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteModel;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

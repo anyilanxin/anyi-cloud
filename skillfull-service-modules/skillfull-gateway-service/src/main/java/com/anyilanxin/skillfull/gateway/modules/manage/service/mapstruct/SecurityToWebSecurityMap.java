@@ -9,10 +9,10 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.gateway.modules.manage.service.mapstruct;
 
-import com.anyilanxin.skillfull.corecommon.base.model.system.ConfigDataSecurityModel;
-import com.anyilanxin.skillfull.corecommon.base.model.system.UserDataSecurityModel;
-import com.anyilanxin.skillfull.corecommon.base.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.skillfull.corecommon.model.system.ConfigDataSecurityModel;
+import com.anyilanxin.skillfull.corecommon.model.system.UserDataSecurityModel;
+import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

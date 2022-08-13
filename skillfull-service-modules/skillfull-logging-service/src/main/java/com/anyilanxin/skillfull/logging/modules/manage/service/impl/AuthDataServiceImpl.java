@@ -9,12 +9,15 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.AuthLogModel;
+import cn.hutool.core.lang.Snowflake;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.skillfull.logging.core.constant.LoggingCommonConstant;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataPageVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.mapper.AuthDataMapper;
@@ -25,7 +28,10 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.AuthDat
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,29 +52,38 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEntity> implements IAuthDataService {
     private final AuthDataCopyMap map;
+    private final StringRedisTemplate stringRedisTemplate;
     private final AuthDataMapper mapper;
-    @Value("${app.delete-log-type:1}")
+    private final Snowflake snowflake;
+    @Value("${app.log-delete-type:1}")
     private Integer deleteLogType;
 
+    @Value("${app.log-auth-save-min:10}")
+    private Integer authSaveMin;
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(AuthLogModel model) throws RuntimeException {
-        AuthDataEntity authDataEntity = map.vToE(model);
-        boolean save = this.save(authDataEntity);
-        if (!save) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "授权日志存储失败");
-        }
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void saveBatch(List<AuthLogModel> models) throws RuntimeException {
-        List<AuthDataEntity> authDataEntities = map.vToE(models);
-        boolean save = this.saveBatch(authDataEntities);
-        if (!save) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "授权日志批量存储失败");
+    @Async
+    public void storage() {
+        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+        int saveMax = 200;
+        if (Objects.nonNull(size)) {
+            // 循环读取100条
+            if (size < saveMax) {
+                saveMax = size.intValue();
+            }
+            if (size >= authSaveMin) {
+                List<AuthDataEntity> logEntityList = new ArrayList<>(saveMax);
+                for (int i = 0; i < saveMax; i++) {
+                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+                    if (StringUtils.isNotBlank(logStr)) {
+                        AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
+                        logEntityList.add(logModel);
+                    }
+                }
+                if (CollUtil.isNotEmpty(logEntityList)) {
+                    mapper.insertBatch(logEntityList);
+                }
+            }
         }
     }
 

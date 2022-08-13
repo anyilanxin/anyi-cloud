@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.auth.modules.login.service;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 
 /**
  * 授权相关

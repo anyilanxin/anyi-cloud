@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.auth.modules.login.service;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacUserDto;
-import com.anyilanxin.skillfull.corecommon.base.model.system.UserAndResourceAuthModel;
+import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
 
 /**
  * 用户中心

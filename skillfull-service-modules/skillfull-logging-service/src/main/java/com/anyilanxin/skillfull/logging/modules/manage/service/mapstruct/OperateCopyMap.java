@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.OperateLogModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.OperateVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperateDto;
 import org.mapstruct.Builder;
@@ -22,8 +22,8 @@ import org.mapstruct.ReportingPolicy;
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @since 2022-01-26 19:51:07
+ * @since 2022-08-13 11:27:29
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface OperateCopyMap extends BaseThreeMap<OperateEntity, OperateDto, OperateLogModel> {
+public interface OperateCopyMap extends BaseThreeMap<OperateEntity, OperateDto, OperateVo> {
 }

@@ -18,6 +18,8 @@ dependencies {
     implementation rootProject.ext.dependencies["x-easypdf"]
     implementation rootProject.ext.dependencies["easyexcel"]
     implementation rootProject.ext.dependencies["seata-spring-boot-starter"]
+    implementation project(':skillfull-core-modules:skillfull-stream')
+    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
 }
 
 

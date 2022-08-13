@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.oauth2mvc.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserIdentity;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserIdentity;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;

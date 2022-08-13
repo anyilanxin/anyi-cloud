@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.oauth2mvc.utils;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

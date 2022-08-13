@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.manage.service.dto;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteFilterModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteMetaSpecialUrlModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteFilterModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

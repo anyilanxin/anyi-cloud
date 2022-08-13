@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.gateway.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.corewebflux.base.controller.BaseController;

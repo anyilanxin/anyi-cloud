@@ -83,9 +83,12 @@ ext {
             'skillfull-core-modules:skillfull-mvc'                 : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-redis'               : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-webflux'             : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-core-modules:skillfull-stream'              : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-oauth2-common'       : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-logging'             : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-core-modules:skillfull-logging-common'      : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-core-modules:skillfull-logging-mvc'         : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-core-modules:skillfull-logging-webflux'     : [version: '1.0.0-alpha2', bootJar: false],
 
             // 远程api模块
             'skillfull-api-modules:skillfull-process-api'          : [version: '1.0.0-alpha2', bootJar: false],

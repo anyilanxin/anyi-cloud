@@ -9,10 +9,10 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.systemapi.feign;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.feign.FeignFallback;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.systemapi.model.SimpleUserModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -11,10 +11,10 @@ package com.anyilanxin.skillfull.gatewayapi.feign;
 
 import cn.hutool.json.JSONObject;
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
-import com.anyilanxin.skillfull.corecommon.base.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.feign.FeignFallback;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
+import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
 import org.springframework.cloud.openfeign.FeignClient;

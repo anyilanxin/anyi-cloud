@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.manage.service.mapstruct;
 
-import com.anyilanxin.skillfull.corecommon.base.model.system.SpecialUrlModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.system.SpecialUrlModel;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageSpecialUrlEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anyilanxin.skillfull.auth.modules.login.mapper.ClientAuthMapper">
 
-  <resultMap type="com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAuthModel"
+  <resultMap type="com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel"
              id="RbacClientDetailsMap">
     <result property="clientDetailId" column="client_detail_id" jdbcType="VARCHAR"/>
     <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
@@ -46,7 +46,7 @@
 
 
   <!-- 获取客户端角色 -->
-  <select id="getClientAuthRole" resultType="com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo">
+  <select id="getClientAuthRole" resultType="com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo">
     SELECT
       srr.role_id,
       srr.role_name,

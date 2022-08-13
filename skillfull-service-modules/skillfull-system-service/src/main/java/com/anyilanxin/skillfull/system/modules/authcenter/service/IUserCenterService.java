@@ -9,9 +9,9 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.authcenter.service;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserOrgTreeInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteTreeModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteTreeModel;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.FindPasswordVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdateInfoVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdatePasswordVo;

@@ -11,11 +11,11 @@ package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteFilterModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RoutePredicateModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteFilterModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.RoutePredicateModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;

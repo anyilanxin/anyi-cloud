@@ -11,10 +11,10 @@ package com.anyilanxin.skillfull.system.modules.authcenter.controller;
 
 import com.anyilanxin.skillfull.corecommon.annotation.Anonymous;
 import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserOrgTreeInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteTreeModel;
 import com.anyilanxin.skillfull.corecommon.base.Result;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteTreeModel;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.FindPasswordVo;

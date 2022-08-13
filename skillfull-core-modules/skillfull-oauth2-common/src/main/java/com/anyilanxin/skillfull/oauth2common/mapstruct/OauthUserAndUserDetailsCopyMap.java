@@ -10,8 +10,8 @@
 package com.anyilanxin.skillfull.oauth2common.mapstruct;
 
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

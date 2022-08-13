@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.AuthLogModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataDto;
 import org.mapstruct.Builder;
@@ -22,8 +22,8 @@ import org.mapstruct.ReportingPolicy;
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @since 2022-01-26 21:53:03
+ * @since 2022-08-13 11:27:26
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface AuthDataCopyMap extends BaseThreeMap<AuthDataEntity, AuthDataDto, AuthLogModel> {
+public interface AuthDataCopyMap extends BaseThreeMap<AuthDataEntity, AuthDataDto, AuthDataVo> {
 }

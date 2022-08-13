@@ -9,12 +9,14 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.OperateLogModel;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.skillfull.logging.core.constant.LoggingCommonConstant;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.OperatePageVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.mapper.OperateMapper;
@@ -25,7 +27,10 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.Operate
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,29 +52,38 @@ import java.util.Objects;
 public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity> implements IOperateService {
     private final OperateCopyMap map;
     private final OperateMapper mapper;
+    private final StringRedisTemplate stringRedisTemplate;
     @Value("${app.delete-log-type:1}")
     private Integer deleteLogType;
 
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(OperateLogModel model) throws RuntimeException {
-        log.info("------------OperateServiceImpl-------收到日志----->save:\n{}", model);
-        OperateEntity operateEntity = map.vToE(model);
-        boolean save = this.save(operateEntity);
-        if (!save) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "操作日志存储失败");
-        }
-    }
+    @Value("${app.log-operate-save-min:20}")
+    private Integer operateSaveMin;
 
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void saveBatch(List<OperateLogModel> models) throws RuntimeException {
-        List<OperateEntity> operateEntities = map.vToE(models);
-        boolean save = this.saveBatch(operateEntities);
-        if (!save) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "操作日志批量存储失败");
+    @Async
+    public void storage() {
+        System.out.println("-----sdfsdfsdf----");
+        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+        int saveMax = 200;
+        if (Objects.nonNull(size)) {
+            // 循环读取100条
+            if (size < saveMax) {
+                saveMax = size.intValue();
+            }
+            if (size >= operateSaveMin) {
+                List<OperateEntity> logEntityList = new ArrayList<>(saveMax);
+                for (int i = 0; i < saveMax; i++) {
+                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+                    if (StringUtils.isNotBlank(logStr)) {
+                        OperateEntity logModel = JSONObject.parseObject(logStr, OperateEntity.class);
+                        logEntityList.add(logModel);
+                    }
+                }
+                if (CollUtil.isNotEmpty(logEntityList)) {
+                    mapper.insertBatch(logEntityList);
+                }
+            }
         }
     }
 

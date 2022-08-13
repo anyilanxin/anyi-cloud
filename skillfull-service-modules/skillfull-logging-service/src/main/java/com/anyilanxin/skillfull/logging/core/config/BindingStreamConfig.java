@@ -9,11 +9,10 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.core.config;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.AuthLogModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.OperateLogModel;
-import com.anyilanxin.skillfull.corecommon.constant.BindingStreamConstant;
-import com.anyilanxin.skillfull.logging.modules.manage.service.IAuthDataService;
-import com.anyilanxin.skillfull.logging.modules.manage.service.IOperateService;
+import com.anyilanxin.skillfull.logging.modules.receive.service.IReceiveService;
+import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
+import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
+import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +31,7 @@ import java.util.function.Consumer;
 @Configuration
 @RequiredArgsConstructor
 public class BindingStreamConfig {
-    private final IAuthDataService authDataService;
-    private final IOperateService operateService;
+    private final IReceiveService receiveService;
 
     /**
      * 操作日志
@@ -44,7 +42,7 @@ public class BindingStreamConfig {
      */
     @Bean(value = BindingStreamConstant.OPERATE_LOG_PROCESS)
     public Consumer<OperateLogModel> operateLogProcess() {
-        return operateService::save;
+        return receiveService::saveOperate;
     }
 
 
@@ -57,6 +55,6 @@ public class BindingStreamConfig {
      */
     @Bean(value = BindingStreamConstant.AUTH_LOG_PROCESS)
     public Consumer<AuthLogModel> authLogProcess() {
-        return authDataService::save;
+        return receiveService::saveAuth;
     }
 }

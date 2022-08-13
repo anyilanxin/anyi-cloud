@@ -11,8 +11,8 @@ package com.anyilanxin.skillfull.auth.modules.login.service.mapstruct;
 
 
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacUserDto;
-import com.anyilanxin.skillfull.corecommon.base.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

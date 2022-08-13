@@ -9,7 +9,7 @@
   </resultMap>
 
 
-  <resultMap type="com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo" id="RoleInfoMap">
+  <resultMap type="com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo" id="RoleInfoMap">
     <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
     <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
     <result property="roleId" column="role_id" jdbcType="VARCHAR"/>

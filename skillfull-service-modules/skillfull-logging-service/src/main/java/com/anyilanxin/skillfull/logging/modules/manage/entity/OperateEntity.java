@@ -25,7 +25,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @date 2022-04-09 11:48:46
+ * @date 2022-08-13 10:24:41
  * @since JDK1.8
  */
 @Getter
@@ -36,25 +36,20 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @NoArgsConstructor
 @TableName("logging_operate")
 public class OperateEntity extends BaseEntity {
-    private static final long serialVersionUID = 988138197270836997L;
+    private static final long serialVersionUID = -21170709956720345L;
 
     @TableId
     private String operateId;
 
     /**
-     * 操作类型（1查询，2添加，3修改，4删除，5其他）
+     * 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致
      */
     private Integer operateType;
 
     /**
-     * 日志类型
+     * 请求contentType
      */
-    private String logType;
-
-    /**
-     * 日志类型说明
-     */
-    private String logTypeDescribe;
+    private String contentType;
 
     /**
      * 操作人用户id
@@ -85,6 +80,16 @@ public class OperateEntity extends BaseEntity {
      * 请求ip
      */
     private String requestIp;
+
+    /**
+     * 目标服务
+     */
+    private String targetServiceCode;
+
+    /**
+     * 目标地址
+     */
+    private String targetUrl;
 
     /**
      * 请求路径

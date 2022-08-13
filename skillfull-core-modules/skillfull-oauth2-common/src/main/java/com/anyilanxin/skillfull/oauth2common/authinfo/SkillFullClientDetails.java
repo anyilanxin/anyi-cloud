@@ -11,7 +11,7 @@ package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +41,11 @@ public class SkillFullClientDetails implements ClientDetails {
      * 限制授权资源：0-不限制，1-限制。默认1
      */
     private Integer limitResource;
+
+    /**
+     * 客户端名称
+     */
+    private String clientName;
     /**
      * 授权资源
      */

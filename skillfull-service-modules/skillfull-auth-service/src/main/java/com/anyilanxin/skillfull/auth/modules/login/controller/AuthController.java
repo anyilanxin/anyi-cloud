@@ -11,8 +11,8 @@ package com.anyilanxin.skillfull.auth.modules.login.controller;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IAuthService;
 import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserInfo;
 import com.anyilanxin.skillfull.corecommon.base.Result;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

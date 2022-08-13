@@ -17,6 +17,8 @@ dependencies {
     implementation rootProject.ext.dependencies["jruby-complete"]
     implementation rootProject.ext.dependencies["groovy-all"]
     implementation rootProject.ext.dependencies["seata-spring-boot-starter"]
+    implementation project(':skillfull-core-modules:skillfull-stream')
+    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
 }
 
 

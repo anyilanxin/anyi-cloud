@@ -32,11 +32,8 @@ import lombok.experimental.SuperBuilder;
 public class OperatePageVo extends BasePageVo {
     private static final long serialVersionUID = -22255841644066775L;
 
-    @Schema(name = "operateType", title = " 操作类型（1查询，2添加，3修改，4删除，5其他）")
+    @Schema(name = "operateType", title = " 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致")
     private Integer operateType;
-
-    @Schema(name = "logType", title = "日志类型")
-    private String logType;
 
     @Schema(name = "dataSources", title = "数据来源")
     private String dataSources;

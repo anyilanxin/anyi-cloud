@@ -10,8 +10,8 @@
 package com.anyilanxin.skillfull.system.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ManageSwaggerInfoModel;
-import com.anyilanxin.skillfull.corecommon.base.model.web.WebSecurityModel;
+import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
+import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;

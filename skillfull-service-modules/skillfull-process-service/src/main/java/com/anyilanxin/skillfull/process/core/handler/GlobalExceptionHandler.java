@@ -29,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -106,6 +107,23 @@ public class GlobalExceptionHandler extends BaseController {
         Result<Object> result = e.getResult();
         log.error("------------GlobalExceptionHandler------处理自定义异常------>handlerResponseException:\n{}", e.getMessage());
         return fail(result.getCode(), result.getMessage());
+    }
+
+
+    /**
+     * 处理鉴权异常
+     *
+     * @param e ${@link UnauthorizedUserException} 处理异常
+     * @return Result ${@link Result} 响应前端
+     * @author zxiaozhou
+     * @date 2020-08-27 15:17
+     */
+    @ExceptionHandler(UnauthorizedUserException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result<String> handlerUnauthorizedUserException(UnauthorizedUserException e) {
+        e.printStackTrace();
+        log.error("-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
+        return fail(Status.TOKEN_EXPIRED, e.getMessage());
     }
 
 

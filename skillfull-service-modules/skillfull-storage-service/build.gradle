@@ -12,6 +12,8 @@ dependencies {
     implementation project(':skillfull-core-modules:skillfull-database')
     implementation rootProject.ext.dependencies["metadata-extractor"]
     implementation 'com.alibaba.cloud:aliyun-oss-spring-boot-starter'
+    implementation project(':skillfull-core-modules:skillfull-stream')
+    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
 }
 
 

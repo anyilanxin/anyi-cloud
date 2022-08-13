@@ -16,8 +16,8 @@
     <result property="logData" column="log_data" jdbcType="VARCHAR"/>
     <result property="logOtherData" column="log_other_data" jdbcType="VARCHAR"/>
     <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
-    <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
     <result property="requestStartTime" column="request_start_time" jdbcType="TIMESTAMP"/>
+    <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
     <result property="requestEndTime" column="request_end_time" jdbcType="TIMESTAMP"/>
     <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
     <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
@@ -33,36 +33,61 @@
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
   </resultMap>
+
   <!-- @formatter:off -->
-    <!--数据库字段-->
-    <sql id="Column_List">
-        auth_log_id, log_code, request_ip, auth_type, auth_user_id, auth_user_name, auth_client_code, auth_client_name,
-        auth_status, log_data, log_other_data, exception_message, cost_time, request_start_time, request_end_time,
-        create_area_code, create_position_code, create_org_sys_code, create_system_code,
-        create_tenant_id,auth_type_describe,
-        create_user_id, create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
-    </sql>
+  <!--数据库字段-->
+  <sql id="Column_List">
+    auth_log_id, log_code, request_ip, auth_type, auth_type_describe, auth_user_id, auth_user_name,
+    auth_client_code, auth_client_name, auth_status, log_data, log_other_data, exception_message,
+    request_start_time, cost_time, request_end_time, create_area_code, create_position_code,
+    create_org_sys_code, create_system_code, create_tenant_id, create_user_id, create_user_name,
+    create_time, update_user_id, update_user_name, update_time, remark, del_flag
+  </sql>
 
-    <!--数据库字段待别名-->
-    <sql id="Column_List_Ali">
-        ali.auth_log_id, ali.log_code, ali.request_ip, ali.auth_type, ali.auth_user_id, ali.auth_user_name,
-        ali.auth_client_code, ali.auth_client_name, ali.auth_status, ali.log_data,
-        ali.log_other_data,ali.auth_type_describe,
-        ali.exception_message, ali.cost_time, ali.request_start_time, ali.request_end_time, ali.create_area_code,
-        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_tenant_id,
-        ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
-        ali.update_time, ali.remark, ali.del_flag
-    </sql>
+  <!--数据库字段待别名-->
+  <sql id="Column_List_Ali">
+    ali.auth_log_id, ali.log_code, ali.request_ip, ali.auth_type, ali.auth_type_describe,
+    ali.auth_user_id, ali.auth_user_name, ali.auth_client_code, ali.auth_client_name, ali.auth_status,
+    ali.log_data, ali.log_other_data, ali.exception_message, ali.request_start_time, ali.cost_time,
+    ali.request_end_time, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+    ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+    ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+  </sql>
 
-    <!--数据库字段-->
-    <sql id="Column_List_Page_Ali">
-        ali.auth_log_id, ali.log_code, ali.request_ip, ali.auth_type, ali.auth_user_id, ali.auth_user_name,
-        ali.auth_client_code, ali.auth_client_name, ali.auth_status,ali.auth_type_describe,
-        ali.cost_time, ali.request_start_time, ali.request_end_time, ali.create_area_code,
-        ali.create_position_code, ali.create_org_sys_code, ali.create_system_code, ali.create_tenant_id,
-        ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name,
-        ali.update_time, ali.remark, ali.del_flag
-    </sql>
+  <!--数据库字段-->
+  <sql id="Column_List_Page_Ali">
+    ali.auth_log_id, ali.log_code, ali.request_ip,  ali.auth_type, ali.auth_type_describe,
+    ali.auth_user_id, ali.auth_user_name, ali.auth_client_code, ali.auth_client_name, ali.auth_status,
+    ali.request_start_time, ali.cost_time,
+    ali.request_end_time, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+    ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
+    ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+  </sql>
+
+
+    <!-- 批量插入日志信息 -->
+    <insert id="insertBatch">
+        INSERT INTO logging_auth_data
+        ( auth_log_id, log_code, request_ip,
+        auth_type, auth_type_describe, auth_user_id, auth_user_name,
+        auth_client_code, auth_client_name, auth_status, log_data,
+        log_other_data, exception_message, request_start_time, cost_time,
+        request_end_time, create_area_code, create_position_code, create_org_sys_code,
+        create_system_code, create_tenant_id, create_user_id, create_user_name,
+        create_time, remark
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.authLogId}, #{item.logCode}, #{item.requestIp},
+            #{item.authType}, #{item.authTypeDescribe}, #{item.authUserId}, #{item.authUserName},
+            #{item.authClientCode}, #{item.authClientName}, #{item.authStatus},#{item.logData},
+            #{item.logOtherData}, #{item.exceptionMessage}, #{item.requestStartTime}, #{item.costTime},
+            #{item.requestEndTime}, #{item.createAreaCode}, #{item.createPositionCode}, #{item.createOrgSysCode},
+            #{item.createSystemCode}, #{item.createTenantId}, #{item.createUserId}, #{item.createUserName},
+            #{item.createTime}, #{item.remark}
+            )
+        </foreach>
+    </insert>
 
 
     <!--通过实体作为筛选条件分页查询-->

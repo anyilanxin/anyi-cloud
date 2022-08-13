@@ -1,7 +1,7 @@
 package com.anyilanxin.skillfull.auth.modules.login.mapper;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAuthModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Set;

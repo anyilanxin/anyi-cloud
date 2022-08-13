@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 11/08/2022 21:04:56
+ Date: 14/08/2022 01:32:02
 */
 
 SET NAMES utf8mb4;
@@ -160,10 +160,10 @@ DROP TABLE IF EXISTS `logging_auth_data`;
 CREATE TABLE `logging_auth_data`
 (
     `auth_log_id`          varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '授权日志id',
-    `log_code`             varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '日志编号',
+    `log_code`             varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '日志编号',
     `request_ip`           varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求ip',
-    `auth_type`            varchar(32)                                            NOT NULL COMMENT '授权类型，具体参考授权服务中AuthType常量字典',
-    `auth_type_describe`   varchar(256)                                           NOT NULL COMMENT '授权类型描述',
+    `auth_type`            varchar(32)                                            NOT NULL COMMENT '授权类型，具体参考常量字典AuthorizedGrantTypes',
+    `auth_type_describe`   varchar(256)                                           NOT NULL COMMENT '授权类型描述，具体参考常量字典AuthorizedGrantTypes',
     `auth_user_id`         varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '授权用户id',
     `auth_user_name`       varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '授权用户名称',
     `auth_client_code`     varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '授权客户端编号',
@@ -172,10 +172,10 @@ CREATE TABLE `logging_auth_data`
     `log_data`             longtext COMMENT '日志内容',
     `log_other_data`       longtext COMMENT '日志其余内容',
     `exception_message`    longtext COMMENT '异常消息',
-    `cost_time`            bigint                                                  DEFAULT NULL COMMENT '耗时',
     `request_start_time`   datetime                                                DEFAULT NULL COMMENT '请求开始时间',
+    `cost_time`            bigint                                                  DEFAULT NULL COMMENT '耗时',
     `request_end_time`     datetime                                                DEFAULT NULL COMMENT '请求结束时间',
-    `create_area_code`     varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建区域编码',
+    `create_area_code`     varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建区域编码',
     `create_position_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建职位编码',
     `create_org_sys_code`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建机构系统编码',
     `create_system_code`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建系统编码',
@@ -188,7 +188,7 @@ CREATE TABLE `logging_auth_data`
     `update_time`          datetime                                                DEFAULT NULL COMMENT '更新时间',
     `remark`               varchar(255)                                            DEFAULT NULL COMMENT '备注',
     `del_flag`             tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除状态:0-正常,1-已删除,默认0',
-    PRIMARY KEY (`auth_log_id`),
+    PRIMARY KEY (`auth_log_id`) USING BTREE,
     KEY                    `Index_create_time` (`create_time`),
     KEY                    `Index_create_user_id` (`create_user_id`),
     KEY                    `Index_del_flag` (`del_flag`),
@@ -206,7 +206,7 @@ CREATE TABLE `logging_auth_data`
     KEY                    `Index_auth_type` (`auth_type`),
     KEY                    `Index_auth_client_code` (`auth_client_code`),
     KEY                    `Index_auth_status` (`auth_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='登录日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权日志';
 
 -- ----------------------------
 -- Table structure for logging_operate
@@ -215,41 +215,42 @@ DROP TABLE IF EXISTS `logging_operate`;
 CREATE TABLE `logging_operate`
 (
     `operate_id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作日志id',
-    `operate_type`          smallint                                                DEFAULT NULL COMMENT ' 操作类型（1查询，2添加，3修改，4删除，5其他）',
-    `log_type`              varchar(32)                                             DEFAULT NULL COMMENT '日志类型',
-    `log_type_describe`     varchar(256)                                            DEFAULT NULL COMMENT '日志类型说明',
-    `user_id`               varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '操作人用户id',
-    `user_name`             varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作人用户名称',
-    `request_client_code`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '请求客户端编号',
-    `request_client_name`   varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求客户端名称',
-    `log_code`              varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '日志编号',
-    `request_ip`            varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求ip',
-    `request_url`           varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求路径',
-    `request_method`        varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '请求方法',
+    `operate_type`          smallint                                                 DEFAULT '5' COMMENT '操作类型（1查询，2添加，3修改，4删除，5其他，默认5）具体与常量字典OperateType一致',
+    `content_type`          varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '请求contentType',
+    `user_id`               varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '操作人用户id',
+    `user_name`             varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '操作人用户名称',
+    `request_client_code`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '请求客户端编号',
+    `request_client_name`   varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '请求客户端名称',
+    `log_code`              varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '日志编号',
+    `request_ip`            varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '请求ip',
+    `target_service_code`   varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '目标服务',
+    `target_url`            varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '目标地址',
+    `request_url`           varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求路径',
+    `request_method`        varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '请求方法',
     `request_param`         longtext COMMENT '请求参数',
     `request_result`        longtext COMMENT '请求结果',
     `log_other_data`        longtext COMMENT '日志其余内容',
     `exception_message`     longtext COMMENT '异常消息',
-    `operate_status`        smallint                                                DEFAULT NULL COMMENT '操作状态：0-失败,1-成功',
-    `data_sources`          varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '数据来源',
-    `data_sources_describe` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '数据来源说明',
-    `cost_time`             bigint                                                  DEFAULT NULL COMMENT '耗时',
-    `request_start_time`    datetime                                                DEFAULT NULL COMMENT '请求开始时间',
-    `request_end_time`      datetime                                                DEFAULT NULL COMMENT '请求结束时间',
-    `create_area_code`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建区域编码',
-    `create_position_code`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建职位编码',
-    `create_org_sys_code`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建机构系统编码',
-    `create_system_code`    varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建系统编码',
-    `create_user_id`        varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建用户id',
-    `create_tenant_id`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建租户id',
-    `create_user_name`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '创建用户姓名',
-    `create_time`           datetime                                                DEFAULT NULL COMMENT '创建时间',
-    `update_user_id`        varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '更新用户id',
-    `update_user_name`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '更新用户姓名',
-    `update_time`           datetime                                                DEFAULT NULL COMMENT '更新时间',
-    `remark`                varchar(255)                                            DEFAULT NULL COMMENT '备注',
+    `operate_status`        smallint                                                 DEFAULT NULL COMMENT '操作状态：0-失败,1-成功',
+    `data_sources`          varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '数据来源',
+    `data_sources_describe` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '数据来源说明',
+    `request_start_time`    datetime                                                 DEFAULT NULL COMMENT '请求开始时间',
+    `request_end_time`      datetime                                                 DEFAULT NULL COMMENT '请求结束时间',
+    `cost_time`             bigint                                                   DEFAULT NULL COMMENT '耗时',
+    `create_area_code`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建区域编码',
+    `create_position_code`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建职位编码',
+    `create_org_sys_code`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建机构系统编码',
+    `create_system_code`    varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建系统编码',
+    `create_user_id`        varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建用户id',
+    `create_tenant_id`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建租户id',
+    `create_user_name`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '创建用户姓名',
+    `create_time`           datetime                                                 DEFAULT NULL COMMENT '创建时间',
+    `update_user_id`        varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '更新用户id',
+    `update_user_name`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   DEFAULT NULL COMMENT '更新用户姓名',
+    `update_time`           datetime                                                 DEFAULT NULL COMMENT '更新时间',
+    `remark`                varchar(255)                                             DEFAULT NULL COMMENT '备注',
     `del_flag`              tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除状态:0-正常,1-已删除,默认0',
-    PRIMARY KEY (`operate_id`),
+    PRIMARY KEY (`operate_id`) USING BTREE,
     KEY                     `Index_create_time` (`create_time`),
     KEY                     `Index_create_user_id` (`create_user_id`),
     KEY                     `Index_del_flag` (`del_flag`),
@@ -266,7 +267,8 @@ CREATE TABLE `logging_operate`
     KEY                     `Index_request_start_time` (`request_start_time`),
     KEY                     `Index_request_end_time` (`request_end_time`),
     KEY                     `Index_cost_time` (`cost_time`),
-    KEY                     `Index_request_client_code` (`request_client_code`)
+    KEY                     `Index_request_client_code` (`request_client_code`),
+    KEY                     `Index_target_service_code` (`target_service_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志';
 
 -- ----------------------------
@@ -448,24 +450,6 @@ CREATE TABLE `msg_manage_template`
     KEY                         `Index_template_type` (`template_type`),
     KEY                         `Unique_template_code` (`template_code`,`unique_help`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='消息模板';
-
--- ----------------------------
--- Table structure for seata_undo_log
--- ----------------------------
-DROP TABLE IF EXISTS `seata_undo_log`;
-CREATE TABLE `seata_undo_log`
-(
-    `id`            bigint       NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint       NOT NULL,
-    `xid`           varchar(100) NOT NULL,
-    `context`       varchar(128) NOT NULL,
-    `rollback_info` longblob     NOT NULL,
-    `log_status`    int          NOT NULL,
-    `log_created`   datetime     NOT NULL,
-    `log_modified`  datetime     NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Table structure for storage_info_file

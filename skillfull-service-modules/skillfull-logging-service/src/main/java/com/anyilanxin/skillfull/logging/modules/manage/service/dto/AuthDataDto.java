@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 /**
- * 登录日志查询Response
+ * 授权日志查询Response
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @date 2022-01-26 21:53:02
+ * @date 2022-08-13 10:24:40
  * @since JDK1.8
  */
 @Getter
@@ -35,7 +35,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @NoArgsConstructor
 @Schema
 public class AuthDataDto implements Serializable {
-    private static final long serialVersionUID = 861527679376323127L;
+    private static final long serialVersionUID = 839309637875118772L;
 
     @Schema(name = "authLogId", title = "授权日志id")
     private String authLogId;
@@ -46,8 +46,11 @@ public class AuthDataDto implements Serializable {
     @Schema(name = "requestIp", title = "请求ip")
     private String requestIp;
 
-    @Schema(name = "authType", title = "授权类型，具体参考授权服务中AuthType常量字典")
+    @Schema(name = "authType", title = "授权类型，具体参考常量字典AuthorizedGrantTypes")
     private String authType;
+
+    @Schema(name = "authTypeDescribe", title = "授权类型描述，具体参考常量字典AuthorizedGrantTypes")
+    private String authTypeDescribe;
 
     @Schema(name = "authUserId", title = "授权用户id")
     private String authUserId;
@@ -73,21 +76,37 @@ public class AuthDataDto implements Serializable {
     @Schema(name = "exceptionMessage", title = "异常消息")
     private String exceptionMessage;
 
-    @Schema(name = "costTime", title = "耗时")
-    private Long costTime;
-
-    @Schema(name = "requestStartTime", title = "请求开始时间")
+    @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
-    @Schema(name = "requestEndTime", title = "请求结束时间")
+    @Schema(name = "costTime", title = "耗时")
+    private Long costTime;
+
+    @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
+
+    @Schema(name = "createUserId", title = "创建用户id")
+    private String createUserId;
 
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
-    @Schema(name = "createTime", title = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = TIME_ZONE_GMT8)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime createTime;
+
+    @Schema(name = "updateUserId", title = "更新用户id")
+    private String updateUserId;
+
+    @Schema(name = "updateUserName", title = "更新用户姓名")
+    private String updateUserName;
+
+    @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    private LocalDateTime updateTime;
+
+    @Schema(name = "remark", title = "备注")
+    private String remark;
 }

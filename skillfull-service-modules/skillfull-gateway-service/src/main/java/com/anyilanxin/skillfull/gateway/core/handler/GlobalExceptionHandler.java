@@ -26,6 +26,7 @@ import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -86,6 +87,22 @@ public class GlobalExceptionHandler extends BaseController {
         return fail(result.getCode(), result.getMessage());
     }
 
+
+    /**
+     * 处理鉴权异常
+     *
+     * @param e ${@link UnauthorizedUserException} 处理异常
+     * @return Result ${@link Result} 响应前端
+     * @author zxiaozhou
+     * @date 2020-08-27 15:17
+     */
+    @ExceptionHandler(UnauthorizedUserException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Mono<Result<String>> handlerUnauthorizedUserException(UnauthorizedUserException e) {
+        e.printStackTrace();
+        log.error("-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
+        return fail(Status.TOKEN_EXPIRED, e.getMessage());
+    }
 
     /**
      * 处理请求参数校验(普通传参)异常

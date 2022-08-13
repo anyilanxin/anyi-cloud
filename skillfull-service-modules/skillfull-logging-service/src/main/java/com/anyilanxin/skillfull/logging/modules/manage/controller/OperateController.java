@@ -48,7 +48,7 @@ import java.util.List;
 public class OperateController extends BaseController {
     private final IOperateService service;
 
-    @Operation(summary = "操作日志逻辑删除", tags = {"v1.0.0"}, description = "删除操作日志")
+    @Operation(summary = "操作日志删除", tags = {"v1.0.0"}, description = "操作日志删除")
     @Parameter(in = ParameterIn.PATH, description = "操作日志id", name = "operateId", required = true)
     @DeleteMapping(value = "/delete-one/{operateId}")
     public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "操作日志id不能为空") String operateId) {
@@ -57,7 +57,7 @@ public class OperateController extends BaseController {
     }
 
 
-    @Operation(summary = "操作日志逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除操作日志")
+    @Operation(summary = "操作日志批量删除", tags = {"v1.0.0"}, description = "操作日志批量删除")
     @PostMapping(value = "/delete-batch")
     public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除操作日志id不能为空") List<String> operateIds) {
         service.deleteBatch(operateIds);

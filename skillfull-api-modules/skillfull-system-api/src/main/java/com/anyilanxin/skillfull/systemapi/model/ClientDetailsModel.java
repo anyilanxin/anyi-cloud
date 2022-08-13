@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.systemapi.model;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

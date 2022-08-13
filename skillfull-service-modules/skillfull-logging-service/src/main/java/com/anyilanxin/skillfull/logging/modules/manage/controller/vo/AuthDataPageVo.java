@@ -38,7 +38,7 @@ public class AuthDataPageVo extends BasePageVo {
     @Schema(name = "requestIp", title = "请求ip")
     private String requestIp;
 
-    @Schema(name = "authType", title = "授权类型，具体参考授权服务中AuthType常量字典")
+    @Schema(name = "authType", title = "授权类型，具体参考常量字典AuthorizedGrantTypes")
     private String authType;
 
     @Schema(name = "authUserName", title = "授权用户名称")

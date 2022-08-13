@@ -2,8 +2,8 @@ package com.anyilanxin.skillfull.auth.modules.login.mapper;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacOrgUserDto;
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacUserDto;
-import com.anyilanxin.skillfull.corecommon.auth.model.OrgSimpleInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.OrgSimpleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

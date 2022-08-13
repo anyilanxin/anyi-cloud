@@ -55,7 +55,7 @@
 
 
     <!-- 获取客户端角色 -->
-    <select id="getClientAuthRole" resultType="com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo">
+    <select id="getClientAuthRole" resultType="com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo">
         SELECT
             srr.role_id,
             srr.role_name,

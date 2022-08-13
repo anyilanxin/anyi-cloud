@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.gateway.modules.manage.service;
 
-import com.anyilanxin.skillfull.corecommon.base.model.web.WebSecurityModel;
+import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 
 /**
  * 工具了服务

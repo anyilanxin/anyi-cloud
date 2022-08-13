@@ -11,9 +11,9 @@ package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.StoredRequestExtension;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
+import com.anyilanxin.skillfull.corecommon.model.auth.StoredRequestExtension;
 import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
@@ -103,28 +103,29 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                     .map(SecurityContext::getAuthentication)
                     .defaultIfEmpty(this.anonymous)
                     .filter(a -> {
-                        // 验证白名单
-                        if (isWhiteList(antPathMatcher, properties, exchange)) {
-                            return true;
-                        }
-                        // 验证资源权限
                         if (a instanceof OAuth2Authentication) {
-                            Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-                            if (Objects.isNull(route)) {
-                                return true;
-                            }
-                            String resourceId = route.getId();
+                            // 缓存用户信息到上下文
                             OAuth2Authentication authentication = (OAuth2Authentication) a;
-                            // 如果是超级管理员直接放行
                             Object principal = authentication.getPrincipal();
                             if (principal instanceof SkillFullUserDetails) {
                                 SkillFullUserDetails userDetails = (SkillFullUserDetails) principal;
                                 // 存储上下文
                                 exchange.getAttributes().put(CommonGatewayConstant.GATEWAY_USER_INFO, userDetails);
+                                // 如果是超级管理员直接放行
                                 if (userDetails.isSuperAdmin()) {
                                     return true;
                                 }
                             }
+                            // 验证白名单
+                            if (isWhiteList(antPathMatcher, properties, exchange)) {
+                                return true;
+                            }
+                            // 验证资源权限
+                            Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+                            if (Objects.isNull(route)) {
+                                return true;
+                            }
+                            String resourceId = route.getId();
                             OAuth2Request oAuth2Request = authentication.getOAuth2Request();
                             Map<String, Serializable> extensions = oAuth2Request.getExtensions();
                             if (CollUtil.isNotEmpty(extensions) && Objects.nonNull(extensions.get(StoredRequestExtension.EXTENSION_KEY))) {
@@ -142,7 +143,11 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                                 }
                             }
                         }
-                        return true;
+                        // 验证白名单
+                        if (isWhiteList(antPathMatcher, properties, exchange)) {
+                            return true;
+                        }
+                        return false;
                     })
                     .map(authModel -> exchange.mutate().build())
                     .defaultIfEmpty(exchange)

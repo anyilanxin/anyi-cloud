@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleClientEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDto;

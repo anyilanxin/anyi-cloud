@@ -10,11 +10,10 @@
 package com.anyilanxin.skillfull.logging.modules.receive.controlle;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.AuthLogModel;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.OperateLogModel;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
-import com.anyilanxin.skillfull.logging.modules.manage.service.IAuthDataService;
-import com.anyilanxin.skillfull.logging.modules.manage.service.IOperateService;
+import com.anyilanxin.skillfull.logging.modules.receive.service.IReceiveService;
+import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
+import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -46,14 +45,13 @@ import java.util.List;
 @Tag(name = "ReceiveLog", description = "日志接收")
 @RequestMapping(value = "/receive-log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ReceiveController extends BaseController {
-    private final IAuthDataService authDataService;
-    private final IOperateService operateService;
+    private final IReceiveService service;
 
 
     @Operation(summary = "接收授权日志", tags = {"v1.0.0"}, description = "接收授权日志")
     @DeleteMapping(value = "/receive/auth-log")
     public Result<String> receiveAuthLog(@RequestBody AuthLogModel model) {
-        authDataService.save(model);
+        service.saveAuth(model);
         return ok("接收成功");
     }
 
@@ -62,7 +60,7 @@ public class ReceiveController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @DeleteMapping(value = "/receive/batch/auth-log")
     public Result<String> receiveBatchAuthLog(@RequestBody List<AuthLogModel> models) {
-        authDataService.saveBatch(models);
+        service.saveAuthBatch(models);
         return ok("批量接收成功");
     }
 
@@ -70,7 +68,7 @@ public class ReceiveController extends BaseController {
     @Operation(summary = "接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/operate-log")
     public Result<String> receiveOperateLog(@RequestBody OperateLogModel model) {
-        operateService.save(model);
+        service.saveOperate(model);
         return ok("接收成功");
     }
 
@@ -78,7 +76,7 @@ public class ReceiveController extends BaseController {
     @Operation(summary = "批量接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/batch/operate-log")
     public Result<String> receiveBatchOperateLog(@RequestBody List<OperateLogModel> models) {
-        operateService.saveBatch(models);
+        service.saveOperateBatch(models);
         return ok("批量接收成功");
     }
 

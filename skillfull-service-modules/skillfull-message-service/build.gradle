@@ -18,6 +18,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'com.alibaba.cloud:aliyun-sms-spring-boot-starter'
     implementation rootProject.ext.dependencies["aliyun-java-sdk-core"]
+    implementation project(':skillfull-core-modules:skillfull-stream')
+    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
 }
 
 

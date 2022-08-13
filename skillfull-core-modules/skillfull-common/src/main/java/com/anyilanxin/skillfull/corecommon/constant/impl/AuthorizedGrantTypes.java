@@ -76,6 +76,25 @@ public enum AuthorizedGrantTypes implements ISuperType {
 
 
     /**
+     * 获取授权类型
+     *
+     * @param type ${@link String} 类型
+     * @return boolean true-存在,false-不存在
+     * @author zxiaozhou
+     * @date 2020-09-11 16:02
+     */
+    public static AuthorizedGrantTypes getByType(String type) {
+        AuthorizedGrantTypes[] values = AuthorizedGrantTypes.values();
+        for (AuthorizedGrantTypes value : values) {
+            if (value.type.equals(type)) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * 判断某个类型是否存在
      *
      * @param type ${@link String} 类型

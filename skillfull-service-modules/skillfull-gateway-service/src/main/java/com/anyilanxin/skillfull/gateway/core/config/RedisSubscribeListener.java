@@ -1,8 +1,8 @@
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IDynamicRouteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

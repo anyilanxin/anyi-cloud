@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.gateway.filter.partial.post;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.RouteMetaSpecialUrlModel;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.skillfull.gateway.utils.LogRecordUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct;
 
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteTreeModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteTreeModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

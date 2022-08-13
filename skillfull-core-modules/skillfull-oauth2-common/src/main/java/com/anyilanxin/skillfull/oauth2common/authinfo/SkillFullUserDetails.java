@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.anyilanxin.skillfull.corecommon.auth.model.RoleInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserAgent;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserIdentity;
+import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserAgent;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserIdentity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;

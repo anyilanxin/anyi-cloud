@@ -10,9 +10,9 @@
 package com.anyilanxin.skillfull.oauth2common.utils;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ClientAndResourceAuthModel;
-import com.anyilanxin.skillfull.corecommon.base.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
+import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
+import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;

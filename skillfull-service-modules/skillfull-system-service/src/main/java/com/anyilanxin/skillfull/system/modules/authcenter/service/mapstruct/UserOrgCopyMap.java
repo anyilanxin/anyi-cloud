@@ -10,8 +10,8 @@
 package com.anyilanxin.skillfull.system.modules.authcenter.service.mapstruct;
 
 
-import com.anyilanxin.skillfull.corecommon.auth.model.UserOrgTreeInfo;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto;
 import org.mapstruct.Builder;

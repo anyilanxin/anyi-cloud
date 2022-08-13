@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.manage.service.mapstruct;
 
-import com.anyilanxin.skillfull.corecommon.base.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

@@ -10,6 +10,7 @@
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.PictureCodeAuthenticationToken;
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.constant.impl.AuthorizedGrantTypes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +41,7 @@ public class PictureCodeTokenGranter extends AbstractTokenGranter {
 
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
+        Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         Map<String, String> requestParameters = tokenRequest.getRequestParameters();
         String accountOrPhone = requestParameters.get("userName");
         String password = requestParameters.get("password");

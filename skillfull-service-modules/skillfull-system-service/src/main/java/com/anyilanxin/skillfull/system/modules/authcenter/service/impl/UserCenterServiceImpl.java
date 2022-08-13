@@ -10,13 +10,13 @@
 package com.anyilanxin.skillfull.system.modules.authcenter.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserOrgTreeInfo;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteMetaModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteModel;
-import com.anyilanxin.skillfull.corecommon.auth.model.UserRouteTreeModel;
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.system.RouteTagModel;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteMetaModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteModel;
+import com.anyilanxin.skillfull.corecommon.model.auth.UserRouteTreeModel;
+import com.anyilanxin.skillfull.corecommon.model.system.RouteTagModel;
 import com.anyilanxin.skillfull.corecommon.utils.tree.TreeToolUtils;
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;

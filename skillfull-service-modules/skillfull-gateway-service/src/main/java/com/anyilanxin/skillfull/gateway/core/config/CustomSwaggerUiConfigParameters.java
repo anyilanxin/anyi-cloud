@@ -11,9 +11,9 @@ package com.anyilanxin.skillfull.gateway.core.config;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.system.ManageSwaggerInfoModel;
-import com.anyilanxin.skillfull.corecommon.base.model.system.SwaggerConfigModel;
 import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
+import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
+import com.anyilanxin.skillfull.corecommon.model.system.SwaggerConfigModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.SpringDocConfiguration;
 import org.springdoc.core.SwaggerUiConfigParameters;

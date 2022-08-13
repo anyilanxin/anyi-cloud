@@ -10,6 +10,8 @@
 package com.anyilanxin.skillfull.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IUserAuthService;
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
+import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.utils.Oauth2CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,8 @@ public class OpenIdDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String openId) throws UsernameNotFoundException {
-        return Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
+        SkillFullUserDetails userDetails = Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
+        Oauth2LogUtils.setUserDetailInfo(userDetails);
+        return userDetails;
     }
 }

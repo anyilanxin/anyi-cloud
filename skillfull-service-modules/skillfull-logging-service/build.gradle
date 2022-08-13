@@ -10,7 +10,9 @@ dependencies {
     implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
     implementation project(':skillfull-core-modules:skillfull-redis')
     implementation project(':skillfull-core-modules:skillfull-database')
-    implementation rootProject.ext.dependencies["mica-ip2region"]
+    api project(':skillfull-core-modules:skillfull-stream')
+    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
+    implementation project(':skillfull-core-modules:skillfull-stream')
 }
 
 

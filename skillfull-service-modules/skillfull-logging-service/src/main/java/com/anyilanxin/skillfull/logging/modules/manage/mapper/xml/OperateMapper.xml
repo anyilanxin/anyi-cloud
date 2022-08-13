@@ -5,26 +5,27 @@
   <resultMap type="com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity" id="OperateMap">
     <result property="operateId" column="operate_id" jdbcType="VARCHAR"/>
     <result property="operateType" column="operate_type" jdbcType="INTEGER"/>
-    <result property="logType" column="log_type" jdbcType="VARCHAR"/>
-    <result property="logTypeDescribe" column="log_type_describe" jdbcType="VARCHAR"/>
+    <result property="contentType" column="content_type" jdbcType="INTEGER"/>
     <result property="userId" column="user_id" jdbcType="VARCHAR"/>
     <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+    <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
+    <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
     <result property="logCode" column="log_code" jdbcType="VARCHAR"/>
     <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
+    <result property="targetServiceCode" column="target_service_code" jdbcType="VARCHAR"/>
+    <result property="targetUrl" column="target_url" jdbcType="VARCHAR"/>
     <result property="requestUrl" column="request_url" jdbcType="VARCHAR"/>
     <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
     <result property="requestParam" column="request_param" jdbcType="VARCHAR"/>
     <result property="requestResult" column="request_result" jdbcType="VARCHAR"/>
     <result property="logOtherData" column="log_other_data" jdbcType="VARCHAR"/>
-    <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
-    <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
+    <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
     <result property="operateStatus" column="operate_status" jdbcType="INTEGER"/>
     <result property="dataSources" column="data_sources" jdbcType="VARCHAR"/>
     <result property="dataSourcesDescribe" column="data_sources_describe" jdbcType="VARCHAR"/>
     <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
     <result property="requestStartTime" column="request_start_time" jdbcType="TIMESTAMP"/>
     <result property="requestEndTime" column="request_end_time" jdbcType="TIMESTAMP"/>
-    <result property="exceptionMessage" column="exception_message" jdbcType="VARCHAR"/>
     <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
     <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
     <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
@@ -39,37 +40,68 @@
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
   </resultMap>
+
   <!-- @formatter:off -->
-    <!--数据库字段-->
-    <sql id="Column_List">
-        operate_id, operate_type, log_type, log_type_describe, user_id, user_name, log_code, request_ip, request_url,
-        request_method, request_param, request_result, log_other_data, operate_status,
-        data_sources,request_client_code,request_client_name,
-        data_sources_describe, cost_time, request_start_time, request_end_time, exception_message, create_area_code,
-        create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
-        create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
-    </sql>
+  <!--数据库字段-->
+  <sql id="Column_List">
+    operate_id, operate_type,content_type, user_id, user_name, request_client_code, request_client_name,
+    log_code, request_ip, target_service_code, target_url, request_url, request_method,
+    request_param, request_result, log_other_data, exception_message, operate_status, data_sources,
+    data_sources_describe, cost_time,request_start_time, request_end_time, create_area_code,
+    create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
+    create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+  </sql>
 
-    <!--数据库字段待别名-->
-    <sql id="Column_List_Ali">
-        ali.operate_id, ali.operate_type, ali.log_type, ali.log_type_describe, ali.user_id, ali.user_name, ali.log_code,
-        ali.request_ip, ali.request_url, ali.request_method, ali.request_param, ali.request_result, ali.log_other_data,
-        ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time, ali.request_start_time,
-        ali.request_end_time, ali.exception_message, ali.create_area_code,
-        ali.create_position_code,ali.request_client_code,ali.request_client_name,
-        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
-        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
-    </sql>
+  <!--数据库字段待别名-->
+  <sql id="Column_List_Ali">
+    ali.operate_id, ali.operate_type,ali.content_type, ali.user_id, ali.user_name, ali.request_client_code,
+    ali.request_client_name, ali.log_code, ali.request_ip, ali.target_service_code,
+    ali.target_url, ali.request_url, ali.request_method, ali.request_param, ali.request_result,
+    ali.log_other_data, ali.exception_message, ali.operate_status, ali.data_sources, ali.data_sources_describe,
+    ali.cost_time, ali.request_start_time, ali.request_end_time, ali.create_area_code, ali.create_position_code,
+    ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
+    ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+  </sql>
 
-    <!--数据库字段-->
-    <sql id="Column_List_Page_Ali">
-        ali.operate_id, ali.operate_type, ali.log_type, ali.log_type_describe, ali.user_id, ali.user_name, ali.log_code,
-        ali.request_ip, ali.request_url, ali.request_method,ali.request_client_code,ali.request_client_name,
-        ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time, ali.request_start_time,
-        ali.request_end_time, ali.create_area_code, ali.create_position_code,
-        ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
-        ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
-    </sql>
+
+  <!--数据库字段-->
+  <sql id="Column_List_Page_Ali">
+    ali.operate_id, ali.operate_type,ali.content_type, ali.user_id, ali.user_name, ali.request_client_code,
+    ali.request_client_name, ali.log_code, ali.request_ip, ali.target_service_code, ali.target_url,
+    ali.request_url, ali.request_method,ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time,
+    ali.request_start_time, ali.request_end_time, ali.create_area_code, ali.create_position_code,
+    ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id,
+    ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time,
+    ali.remark, ali.del_flag
+  </sql>
+
+
+
+    <!-- 批量插入日志信息 -->
+    <insert id="insertBatch">
+        INSERT INTO logging_operate
+        ( operate_id, operate_type,content_type, user_id, user_name,
+         request_client_code, request_client_name,log_code, request_ip,
+         target_service_code, target_url, request_url,
+         request_method, request_param, request_result, log_other_data,
+         exception_message, operate_status, data_sources, data_sources_describe,
+         cost_time, request_start_time, request_end_time, create_area_code,
+         create_position_code, create_org_sys_code, create_system_code, create_user_id,
+         create_tenant_id, create_user_name, create_time, remark
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.operateId}, #{item.operateType}, #{item.contentType},#{item.userId},#{item.userName},
+            #{item.requestClientCode}, #{item.requestClientName}, #{item.logCode}, #{item.requestIp},
+            #{item.targetServiceCode}, #{item.targetUrl},#{item.requestUrl},
+            #{item.requestMethod}, #{item.requestParam}, #{item.requestResult}, #{item.logOtherData},
+            #{item.exceptionMessage}, #{item.operateStatus}, #{item.dataSources}, #{item.dataSourcesDescribe},
+            #{item.costTime}, #{item.requestStartTime}, #{item.requestEndTime}, #{item.createAreaCode},
+            #{item.createPositionCode}, #{item.createOrgSysCode}, #{item.createSystemCode}, #{item.createUserId},
+            #{item.createTenantId}, #{item.createUserName}, #{item.createTime}, #{item.remark}
+            )
+        </foreach>
+    </insert>
 
 
     <!--通过实体作为筛选条件分页查询-->
@@ -81,9 +113,6 @@
             ali.del_flag = 0
             <if test="query.operateType != null">
                 AND ali.operate_type = #{query.operateType, jdbcType=INTEGER}
-            </if>
-            <if test="query.logType != null and query.logType != ''">
-                AND LOCATE(#{query.logType, jdbcType=VARCHAR}, ali.log_type) &gt; 0
             </if>
             <if test="query.userName != null and query.userName != ''">
                 AND LOCATE(#{query.userName, jdbcType=VARCHAR}, ali.user_name) &gt; 0

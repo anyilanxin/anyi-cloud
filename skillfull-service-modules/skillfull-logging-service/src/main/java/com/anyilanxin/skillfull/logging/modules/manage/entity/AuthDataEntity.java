@@ -21,11 +21,11 @@ import java.time.LocalDateTime;
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 /**
- * 登录日志(AuthData)Entity
+ * 授权日志(AuthData)Entity
  *
  * @author zxiaozhou
  * @copyright zxiaozhou（https://divisu.com）
- * @date 2022-04-09 11:48:46
+ * @date 2022-08-13 10:24:40
  * @since JDK1.8
  */
 @Getter
@@ -36,7 +36,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 @NoArgsConstructor
 @TableName("logging_auth_data")
 public class AuthDataEntity extends BaseEntity {
-    private static final long serialVersionUID = 970454357022971292L;
+    private static final long serialVersionUID = 515180726702392212L;
 
     @TableId
     private String authLogId;
@@ -52,12 +52,12 @@ public class AuthDataEntity extends BaseEntity {
     private String requestIp;
 
     /**
-     * 授权类型，具体参考授权服务中AuthType常量字典
+     * 授权类型，具体参考常量字典AuthorizedGrantTypes
      */
     private String authType;
 
     /**
-     * 授权类型描述
+     * 授权类型描述，具体参考常量字典AuthorizedGrantTypes
      */
     private String authTypeDescribe;
 
@@ -102,15 +102,15 @@ public class AuthDataEntity extends BaseEntity {
     private String exceptionMessage;
 
     /**
-     * 耗时
-     */
-    private Long costTime;
-
-    /**
      * 请求开始时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
+
+    /**
+     * 耗时
+     */
+    private Long costTime;
 
     /**
      * 请求结束时间

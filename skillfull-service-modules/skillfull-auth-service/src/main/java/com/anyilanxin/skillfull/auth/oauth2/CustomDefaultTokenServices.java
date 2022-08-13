@@ -11,8 +11,9 @@ package com.anyilanxin.skillfull.auth.oauth2;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.skillfull.corecommon.auth.model.StoredRequestExtension;
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
+import com.anyilanxin.skillfull.corecommon.model.auth.StoredRequestExtension;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import org.springframework.security.core.Authentication;
@@ -70,7 +71,9 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
                 }
             }
         }
-        return oAuth2AccessTokenToCustomToken(super.createAccessToken(authentication));
+        OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenToCustomToken(super.createAccessToken(authentication));
+        Oauth2LogUtils.setPostAuthLog(true, "授权成功", "", (SkillFullAccessToken) oAuth2AccessToken);
+        return oAuth2AccessToken;
     }
 
 

@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
-import com.anyilanxin.skillfull.corecommon.base.model.system.ManageSwaggerInfoModel;
+import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.system.modules.manage.controller.vo.ManageServicePageVo;

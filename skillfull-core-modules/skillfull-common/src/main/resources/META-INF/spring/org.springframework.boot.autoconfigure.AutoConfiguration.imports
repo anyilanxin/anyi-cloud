@@ -1,3 +1,4 @@
 com.anyilanxin.skillfull.corecommon.config.CoreCommonConfig
 com.anyilanxin.skillfull.corecommon.config.SpringDocPrintApplicationRunner
 com.anyilanxin.skillfull.corecommon.feign.FeignInterceptorCommon
+com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils

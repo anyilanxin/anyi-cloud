@@ -9,9 +9,9 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
+import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -29,5 +29,11 @@ public class AuthCodeTokenGranter extends AuthorizationCodeTokenGranter {
 
     public AuthCodeTokenGranter(AuthorizationServerTokenServices tokenServices, AuthorizationCodeServices authorizationCodeServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
         super(tokenServices, authorizationCodeServices, clientDetailsService, requestFactory);
+    }
+
+    @Override
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
+        Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
+        return super.getOAuth2Authentication(client, tokenRequest);
     }
 }

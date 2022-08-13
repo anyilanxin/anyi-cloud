@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.gateway.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
-import com.anyilanxin.skillfull.corecommon.base.model.web.WebSecurityModel;
+import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.corewebflux.base.controller.BaseController;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IToolService;

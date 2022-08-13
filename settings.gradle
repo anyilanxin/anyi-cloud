@@ -21,15 +21,19 @@ include 'skillfull-service-modules:skillfull-process-service'
 include 'skillfull-service-modules:skillfull-storage-service'
 include 'skillfull-service-modules:skillfull-system-service'
 
+
 // 核心模块
 include 'skillfull-core-modules:skillfull-common'
 include 'skillfull-core-modules:skillfull-database'
 include 'skillfull-core-modules:skillfull-mvc'
 include 'skillfull-core-modules:skillfull-redis'
 include 'skillfull-core-modules:skillfull-webflux'
+include 'skillfull-core-modules:skillfull-stream'
 include 'skillfull-core-modules:skillfull-oauth2-common'
 include 'skillfull-core-modules:skillfull-oauth2-mvc'
-include 'skillfull-core-modules:skillfull-logging'
+include 'skillfull-core-modules:skillfull-logging-common'
+include 'skillfull-core-modules:skillfull-logging-mvc'
+include 'skillfull-core-modules:skillfull-logging-webflux'
 
 // 远程api模块
 include 'skillfull-api-modules:skillfull-process-api'

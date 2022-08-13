@@ -19,6 +19,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 操作日志(Operate)持久层
@@ -41,6 +42,14 @@ public interface OperateMapper extends BaseMapper<OperateEntity> {
      */
     IPage<OperatePageDto> pageByModel(Page<OperatePageDto> page, @Param("query") OperatePageVo vo);
 
+    /**
+     * 批量插入日志信息
+     *
+     * @param waitInsertData
+     * @author zxiaozhou
+     * @date 2022-05-23 15:47
+     */
+    int insertBatch(List<OperateEntity> waitInsertData);
 
     /**
      * 通过操作日志id物理删除

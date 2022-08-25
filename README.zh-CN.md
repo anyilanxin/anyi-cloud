@@ -10,9 +10,9 @@ spring cloud, spring alibaba, skillfull-cloud platform(micro service)
 技术文档
 -----------------------------------
 
-- 在线演示 ： [https://divisu.com](https://divisu.com)
+- 在线演示 ： [https://skillfull.divisu.com](https://skillfull.divisu.com)
 
-- 开发文档：  [https://divisu.com/doc-cloud](https://divisu.com/doc-cloud/)
+- 开发文档：  [https://skillfull.divisu.com/doc-cloud](https://skillfull.divisu.com/doc-cloud/)
 
 - 前端地址 ：[https://github.com/zxiaozhou/skillfull-cloud-vue](https://github.com/zxiaozhou/skillfull-cloud-vue)
 

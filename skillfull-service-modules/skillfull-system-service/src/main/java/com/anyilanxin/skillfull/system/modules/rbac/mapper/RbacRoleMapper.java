@@ -15,7 +15,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacRoleQueryV
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRolePageDto;
-import com.anyilanxin.skillfull.systemapi.model.UserRoleModel;
+import com.anyilanxin.skillfull.systemrpc.model.UserRoleModel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;

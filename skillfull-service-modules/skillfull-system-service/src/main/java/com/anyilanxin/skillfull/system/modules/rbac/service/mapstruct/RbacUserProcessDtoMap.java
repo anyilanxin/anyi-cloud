@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.skillfull.processapi.model.UserDetailRequestModel;
+import com.anyilanxin.skillfull.processrpc.model.UserDetailRequestModel;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

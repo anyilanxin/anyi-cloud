@@ -10,8 +10,8 @@
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import com.anyilanxin.skillfull.process.modules.rbac.service.IProcessIdentityService;
-import com.anyilanxin.skillfull.processapi.model.ProcessRoleModel;
-import com.anyilanxin.skillfull.processapi.model.ProcessUserModel;
+import com.anyilanxin.skillfull.processrpc.model.ProcessRoleModel;
+import com.anyilanxin.skillfull.processrpc.model.ProcessUserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

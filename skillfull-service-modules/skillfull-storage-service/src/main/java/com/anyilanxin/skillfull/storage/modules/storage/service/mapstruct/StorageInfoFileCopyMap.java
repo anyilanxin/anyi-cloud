@@ -12,7 +12,7 @@ package com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct;
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
 import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFileVo;
 import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

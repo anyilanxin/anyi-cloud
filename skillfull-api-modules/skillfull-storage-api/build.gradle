@@ -1,6 +1,0 @@
-version = rootProject.ext.version["skillfull-api-modules:skillfull-storage-api"]['version']
-
-
-dependencies {
-    api project(':skillfull-core-modules:skillfull-common')
-}

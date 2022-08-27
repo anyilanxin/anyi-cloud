@@ -16,7 +16,7 @@ import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrN
 import com.anyilanxin.skillfull.corewebflux.base.controller.BaseController;
 import com.anyilanxin.skillfull.corewebflux.utils.ServletUtils;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IDynamicRouteService;
-import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
+import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

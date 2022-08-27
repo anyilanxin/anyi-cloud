@@ -9,7 +9,7 @@ dependencies {
     implementation project(':skillfull-core-modules:skillfull-webflux')
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation project(':skillfull-core-modules:skillfull-oauth2-common')
-    implementation project(':skillfull-api-modules:skillfull-gateway-api')
+    implementation project(':skillfull-rpc-modules:skillfull-gateway-rpc')
 //    implementation project(':skillfull-core-modules:skillfull-redis')
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway'

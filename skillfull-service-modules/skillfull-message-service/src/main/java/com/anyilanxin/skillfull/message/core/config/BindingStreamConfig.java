@@ -10,7 +10,7 @@
 package com.anyilanxin.skillfull.message.core.config;
 
 import com.anyilanxin.skillfull.corecommon.constant.BindingStreamConstant;
-import com.anyilanxin.skillfull.messageapi.model.StreamMsgModel;
+import com.anyilanxin.skillfull.messagerpc.model.StreamMsgModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

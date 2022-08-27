@@ -20,7 +20,7 @@ import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IDynamicRouteService;
-import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
+import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

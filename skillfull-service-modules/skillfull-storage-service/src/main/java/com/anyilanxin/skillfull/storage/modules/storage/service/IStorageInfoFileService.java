@@ -14,9 +14,9 @@ import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFilePageVo;
 import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
 import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoUrlModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

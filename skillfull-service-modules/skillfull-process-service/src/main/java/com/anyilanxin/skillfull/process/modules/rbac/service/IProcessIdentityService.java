@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.process.modules.rbac.service;
 
-import com.anyilanxin.skillfull.processapi.model.ProcessRoleModel;
-import com.anyilanxin.skillfull.processapi.model.ProcessUserModel;
+import com.anyilanxin.skillfull.processrpc.model.ProcessRoleModel;
+import com.anyilanxin.skillfull.processrpc.model.ProcessUserModel;
 
 import java.util.Map;
 import java.util.Set;

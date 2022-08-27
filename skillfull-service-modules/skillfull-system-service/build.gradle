@@ -7,10 +7,10 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-mvc')
-    implementation project(':skillfull-api-modules:skillfull-system-api')
-    implementation project(':skillfull-api-modules:skillfull-gateway-api')
-    implementation project(':skillfull-api-modules:skillfull-process-api')
-    implementation project(':skillfull-api-modules:skillfull-storage-api')
+    implementation project(':skillfull-rpc-modules:skillfull-system-rpc')
+    implementation project(':skillfull-rpc-modules:skillfull-gateway-rpc')
+    implementation project(':skillfull-rpc-modules:skillfull-process-rpc')
+    implementation project(':skillfull-rpc-modules:skillfull-storage-rpc')
     implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
     implementation project(':skillfull-core-modules:skillfull-redis')
     implementation project(':skillfull-core-modules:skillfull-database')

@@ -8,7 +8,7 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-mvc')
     implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
-    implementation project(':skillfull-api-modules:skillfull-storage-api')
+    implementation project(':skillfull-rpc-modules:skillfull-storage-rpc')
     implementation project(':skillfull-core-modules:skillfull-database')
     implementation rootProject.ext.dependencies["metadata-extractor"]
     implementation 'com.alibaba.cloud:aliyun-oss-spring-boot-starter'

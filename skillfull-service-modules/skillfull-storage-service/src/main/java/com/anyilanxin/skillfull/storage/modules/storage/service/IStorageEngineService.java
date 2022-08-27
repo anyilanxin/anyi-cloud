@@ -9,9 +9,9 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.storage.modules.storage.service;
 
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoUrlModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

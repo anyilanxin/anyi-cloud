@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.message.modules.stream;
 
-import com.anyilanxin.skillfull.messageapi.model.StreamMsgModel;
+import com.anyilanxin.skillfull.messagerpc.model.StreamMsgModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

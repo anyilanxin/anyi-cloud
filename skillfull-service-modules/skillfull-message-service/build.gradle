@@ -8,7 +8,7 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-mvc')
     implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
-    implementation project(':skillfull-api-modules:skillfull-message-api')
+    implementation project(':skillfull-rpc-modules:skillfull-message-rpc')
     implementation project(':skillfull-core-modules:skillfull-redis')
     implementation project(':skillfull-core-modules:skillfull-database')
     implementation('org.springframework.boot:spring-boot-starter-websocket') {

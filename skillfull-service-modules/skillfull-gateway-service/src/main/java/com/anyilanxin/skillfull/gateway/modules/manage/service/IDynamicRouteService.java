@@ -11,7 +11,7 @@ package com.anyilanxin.skillfull.gateway.modules.manage.service;
 
 import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
-import com.anyilanxin.skillfull.gatewayapi.model.RouteResponseModel;
+import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
 import reactor.core.publisher.Flux;
 
 /**

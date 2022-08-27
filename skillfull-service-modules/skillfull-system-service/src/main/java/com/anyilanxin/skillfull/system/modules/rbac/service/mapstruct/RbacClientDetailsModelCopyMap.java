@@ -11,7 +11,7 @@ package com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacClientDetailsEntity;
-import com.anyilanxin.skillfull.systemapi.model.ClientDetailsModel;
+import com.anyilanxin.skillfull.systemrpc.model.ClientDetailsModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

@@ -22,9 +22,9 @@ import com.anyilanxin.skillfull.storage.modules.storage.service.IStorageEngineSe
 import com.anyilanxin.skillfull.storage.modules.storage.service.IStorageInfoFileService;
 import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
 import com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct.StorageInfoFileCopyMap;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageInfoUrlModel;
-import com.anyilanxin.skillfull.storageapi.model.StorageModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
+import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

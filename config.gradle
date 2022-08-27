@@ -89,11 +89,11 @@ ext {
             'skillfull-core-modules:skillfull-logging-webflux'     : [version: '1.0.0-alpha2', bootJar: false],
 
             // 远程api模块
-            'skillfull-api-modules:skillfull-process-api'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-api-modules:skillfull-system-api'           : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-api-modules:skillfull-gateway-api'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-api-modules:skillfull-message-api'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-api-modules:skillfull-storage-api'          : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-rpc-modules:skillfull-process-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-rpc-modules:skillfull-system-rpc'           : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-rpc-modules:skillfull-gateway-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-rpc-modules:skillfull-message-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-rpc-modules:skillfull-storage-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
     ]
 
 

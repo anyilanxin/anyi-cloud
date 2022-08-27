@@ -36,8 +36,8 @@ include 'skillfull-core-modules:skillfull-logging-mvc'
 include 'skillfull-core-modules:skillfull-logging-webflux'
 
 // 远程api模块
-include 'skillfull-api-modules:skillfull-process-api'
-include 'skillfull-api-modules:skillfull-system-api'
-include 'skillfull-api-modules:skillfull-gateway-api'
-include 'skillfull-api-modules:skillfull-message-api'
-include 'skillfull-api-modules:skillfull-storage-api'
+include 'skillfull-rpc-modules:skillfull-process-rpc'
+include 'skillfull-rpc-modules:skillfull-system-rpc'
+include 'skillfull-rpc-modules:skillfull-gateway-rpc'
+include 'skillfull-rpc-modules:skillfull-message-rpc'
+include 'skillfull-rpc-modules:skillfull-storage-rpc'

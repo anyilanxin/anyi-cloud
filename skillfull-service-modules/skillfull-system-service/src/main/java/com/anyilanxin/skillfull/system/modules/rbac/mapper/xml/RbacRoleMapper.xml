@@ -170,7 +170,7 @@
 
 
     <!-- 获取用户授权的角色 -->
-    <select id="getUserAuthRole" resultType="com.anyilanxin.skillfull.systemapi.model.UserRoleModel">
+    <select id="getUserAuthRole" resultType="com.anyilanxin.skillfull.systemrpc.model.UserRoleModel">
         SELECT
         rr.role_id,
         rr.role_name,

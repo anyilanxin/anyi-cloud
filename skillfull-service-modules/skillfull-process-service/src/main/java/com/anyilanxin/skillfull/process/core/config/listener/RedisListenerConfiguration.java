@@ -1,7 +1,6 @@
-package com.anyilanxin.skillfull.logging.core.config;
+package com.anyilanxin.skillfull.process.core.config.listener;
 
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
-import com.anyilanxin.skillfull.logging.core.config.listener.ConstantDeleteEventListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisLoggingConfiguration {
+public class RedisListenerConfiguration {
     private final RedisMessageListenerContainer redisMessageListenerContainer;
     private final ICoreWebmvcService coreCommonService;
 

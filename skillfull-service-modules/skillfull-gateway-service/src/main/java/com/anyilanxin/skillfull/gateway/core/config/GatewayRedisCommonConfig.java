@@ -10,8 +10,6 @@
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
-import com.anyilanxin.skillfull.corewebflux.base.service.ICoreWebfluxService;
-import com.anyilanxin.skillfull.gateway.core.config.listener.ConstantDeleteEventListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
@@ -48,9 +46,7 @@ import static java.util.Collections.singletonMap;
 @RequiredArgsConstructor
 public class GatewayRedisCommonConfig {
     private final RedisConnectionFactory redisConnectionFactory;
-    private final RedisMessageListenerContainer redisMessageListenerContainer;
-    private final ICoreWebfluxService coreCommonService;
-    
+
 
     /**
      * redisTemplate配置
@@ -130,11 +126,4 @@ public class GatewayRedisCommonConfig {
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         return jackson2JsonRedisSerializer;
     }
-
-
-    @Bean
-    public ConstantDeleteEventListener constantDeleteEventListener() {
-        return new ConstantDeleteEventListener(redisMessageListenerContainer, coreCommonService);
-    }
-
 }

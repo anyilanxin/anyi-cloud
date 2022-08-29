@@ -1,9 +1,7 @@
-package com.anyilanxin.skillfull.process.core.config;
+package com.anyilanxin.skillfull.storage.core.config.listener;
 
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
-import com.anyilanxin.skillfull.process.core.config.listener.ConstantDeleteEventListener;
 import lombok.RequiredArgsConstructor;
-import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -18,18 +16,14 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisProcessConfiguration {
+public class RedisListenerConfiguration {
     private final RedisMessageListenerContainer redisMessageListenerContainer;
     private final ICoreWebmvcService coreCommonService;
 
+
     @Bean
-    public ConstantDeleteEventListener keyExpiredListener() {
+    public ConstantDeleteEventListener constantDeleteEventListener() {
         return new ConstantDeleteEventListener(redisMessageListenerContainer, coreCommonService);
     }
 
-
-    @Bean
-    public BpmnParser bpmnParser() {
-        return new BpmnParser();
-    }
 }

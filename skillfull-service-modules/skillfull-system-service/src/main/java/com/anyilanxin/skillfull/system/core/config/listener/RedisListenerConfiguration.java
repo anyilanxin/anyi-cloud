@@ -1,9 +1,7 @@
-package com.anyilanxin.skillfull.system.core.config;
+package com.anyilanxin.skillfull.system.core.config.listener;
 
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
 import com.anyilanxin.skillfull.coreredis.listener.RedisKeyDeleteEventMessageListener;
-import com.anyilanxin.skillfull.system.core.config.listener.ConstantDeleteEventListener;
-import com.anyilanxin.skillfull.system.core.config.listener.RouterDeleteEventListener;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +18,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisSystemConfiguration {
+public class RedisListenerConfiguration {
     private final RedisMessageListenerContainer redisMessageListenerContainer;
     private final IManageSyncService syncService;
     private final ICoreWebmvcService coreCommonService;

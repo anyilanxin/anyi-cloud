@@ -1,2 +1,3 @@
 com.anyilanxin.skillfull.coreredis.config.CoreRedisCommonConfig
-com.anyilanxin.skillfull.coreredis.utils.MsgSendUtils
+com.anyilanxin.skillfull.coreredis.utils.SendRedisMsgUtils
+com.anyilanxin.skillfull.coreredis.utils.CoreRedisCommonUtils

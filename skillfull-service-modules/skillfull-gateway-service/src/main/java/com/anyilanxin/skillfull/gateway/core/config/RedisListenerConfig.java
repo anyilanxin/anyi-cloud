@@ -1,6 +1,6 @@
 package com.anyilanxin.skillfull.gateway.core.config;
 
-import com.anyilanxin.skillfull.corecommon.constant.RedisSubscribeConstant;
+import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

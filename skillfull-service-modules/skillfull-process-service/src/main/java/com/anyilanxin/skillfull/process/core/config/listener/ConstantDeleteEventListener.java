@@ -2,7 +2,7 @@ package com.anyilanxin.skillfull.process.core.config.listener;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
-import com.anyilanxin.skillfull.coremvc.listener.RedisKeyDeleteEventMessageListener;
+import com.anyilanxin.skillfull.coreredis.listener.RedisKeyDeleteEventMessageListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;

@@ -1,7 +1,7 @@
-package com.anyilanxin.skillfull.coremvc.listener;
+package com.anyilanxin.skillfull.coreredis.listener;
 
 
-import com.anyilanxin.skillfull.coremvc.utils.CoreMvcCommonUtils;
+import com.anyilanxin.skillfull.coreredis.utils.CoreRedisCommonUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.data.redis.connection.Message;
@@ -61,6 +61,6 @@ public class RedisKeyDeleteEventMessageListener extends KeyspaceEventMessageList
      * @date 2021-08-19 16:38
      */
     public boolean serviceLock(String key) {
-        return CoreMvcCommonUtils.createRedisServiceLock(key, 10L);
+        return CoreRedisCommonUtils.createRedisServiceLock(key, 10L);
     }
 }

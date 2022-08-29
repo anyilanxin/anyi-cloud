@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.corecommon.constant;
+package com.anyilanxin.skillfull.coreredis.constant;
 
 /**
  * redis订阅常量

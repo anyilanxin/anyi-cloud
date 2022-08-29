@@ -1,7 +1,7 @@
 package com.anyilanxin.skillfull.system.core.config;
 
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
-import com.anyilanxin.skillfull.coremvc.listener.RedisKeyDeleteEventMessageListener;
+import com.anyilanxin.skillfull.coreredis.listener.RedisKeyDeleteEventMessageListener;
 import com.anyilanxin.skillfull.system.core.config.listener.ConstantDeleteEventListener;
 import com.anyilanxin.skillfull.system.core.config.listener.RouterDeleteEventListener;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService;

@@ -15,10 +15,10 @@ import javax.annotation.PostConstruct;
  */
 @RequiredArgsConstructor
 @Component
-public class MsgSendUtils {
+public class SendRedisMsgUtils {
 
     private final StringRedisTemplate stringRedisTemplate;
-    private static MsgSendUtils utils;
+    private static SendRedisMsgUtils utils;
 
     @PostConstruct
     private void init() {

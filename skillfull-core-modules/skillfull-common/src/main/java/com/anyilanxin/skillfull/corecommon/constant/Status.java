@@ -43,6 +43,16 @@ public enum Status {
      */
     TOKEN_EXPIRED(4001, I18nUtil.get("Status.TOKEN_EXPIRED"), HttpStatus.UNAUTHORIZED),
 
+    /**
+     * 被提下线
+     */
+    TOKEN_KICKED_OUT(4002, I18nUtil.get("Status.TOKEN_KICKED_OUT"), HttpStatus.UNAUTHORIZED),
+
+    /**
+     * 其他地方登录下线
+     */
+    TOKEN_LOGIN_ELSEWHERE(4003, I18nUtil.get("Status.TOKEN_LOGIN_ELSEWHERE"), HttpStatus.UNAUTHORIZED),
+
     //------------------------操作异常------------------
     /**
      * 操作异常！

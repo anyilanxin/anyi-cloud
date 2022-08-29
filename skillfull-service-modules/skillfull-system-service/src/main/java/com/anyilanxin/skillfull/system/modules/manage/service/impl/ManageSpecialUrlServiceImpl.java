@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import java.util.*;
  * 路由特殊地址(ManageSpecialUrl)业务层实现
  *
  * @author zxiaozhou zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2021-12-19 09:34:50
  * @since JDK1.8
  */

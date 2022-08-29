@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
  * 消息发送记录表(ManageSendRecord)Entity
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2022-04-09 11:49:57
  * @since JDK1.8
  */

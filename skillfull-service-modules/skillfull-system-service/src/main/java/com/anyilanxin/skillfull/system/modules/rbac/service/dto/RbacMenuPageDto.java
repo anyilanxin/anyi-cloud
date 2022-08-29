@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
  * 菜单表分页查询Response
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2022-05-03 00:29:05
  * @since JDK1.8
  */
@@ -133,7 +133,6 @@ public class RbacMenuPageDto extends BaseTree<RbacMenuPageDto> implements Serial
 
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")
     private boolean hidePathForChildren;
-
 
 
     @Schema(name = "systemId", title = "所属系统")

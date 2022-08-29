@@ -58,7 +58,7 @@ public class SpringDocPrintApplicationRunner implements ApplicationRunner {
         String projectName = environment.getProperty("spring.application.name");
         log.info("\n-----------------------------------------------------------------------------\n"
                 + "SkillFull Cloud Application（" + projectName + " v" + version + " " + (StringUtils.isNotBlank(profilesActive) ? profilesActive : "") + "）is running! Access URLs:\n"
-                + "\tWebsite Preview:\thttps://divisu.com\n"
+                + "\tWebsite Preview:\thttps://skillfull.divisu.com\n"
                 + "\tApi Url Prefix:\t\thttp://" + ip + ":" + port + path + "\n"
                 + "\tSwagger Ui:\t\t\thttp://" + ip + ":" + port + swaggerUrl + "\n"
                 + "-----------------------------------------------------------------------------");

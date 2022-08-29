@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ import javax.validation.constraints.NotBlank;
  * 机构角色表分页查询Request
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2022-07-05 00:22:57
  * @since JDK1.8
  */

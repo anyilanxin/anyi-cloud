@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -33,7 +33,7 @@ import java.util.*;
  * 路由断言(ManageRoutePredicate)业务层实现
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2021-12-19 10:37:42
  * @since JDK1.8
  */

@@ -6,4 +6,4 @@
 /_______  /__|_ \__|____/____/\___  / |____/|____/____/
         \/     \/                 \/
 :: SkillFull Cloud Pro ::                (${spring.application.version:1.0.0})
-:: https://divisu.com ::
+:: https://skillfull.divisu.com ::

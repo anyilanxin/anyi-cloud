@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
  * 机构角色-菜单表查询Response
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2022-07-05 00:22:57
  * @since JDK1.8
  */
@@ -129,7 +129,6 @@ public class RbacOrgRoleMenuDto implements Serializable {
 
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")
     private boolean hidePathForChildren;
-
 
 
     @Schema(name = "buttonAction", title = "按钮鉴权指令")

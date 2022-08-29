@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | 版权所有 2020~2021 zxiaozhou
 // +----------------------------------------------------------------------
-// | 官方网站: https://www.divisu.com
+// | 官方网站: https://skillfull.divisu.com
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ import java.util.Objects;
  * 消息发送记录表(ManageSendRecord)业务层实现
  *
  * @author zxiaozhou
- * @copyright zxiaozhou（https://divisu.com）
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @date 2022-03-29 05:23:42
  * @since JDK1.8
  */

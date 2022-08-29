@@ -1,6 +1,7 @@
-package com.anyilanxin.skillfull.gateway.core.config;
+package com.anyilanxin.skillfull.gateway.core.config.listener;
 
 import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
+import com.anyilanxin.skillfull.gateway.core.handler.RedisSubscribeListenerHandle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ import org.springframework.data.redis.listener.ReactiveRedisMessageListenerConta
 @Slf4j
 @RequiredArgsConstructor
 public class RedisListenerConfig {
-    private final RedisSubscribeListener redisSubscribeListener;
+    private final RedisSubscribeListenerHandle redisSubscribeListenerHandle;
 
 
     @Bean
@@ -32,13 +33,13 @@ public class RedisListenerConfig {
         }));
         container.receive(reloadTopic())
                 .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListener::reloadRouter);
+                .subscribe(redisSubscribeListenerHandle::reloadRouter);
         container.receive(updateTopic())
                 .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListener::updateRouter);
+                .subscribe(redisSubscribeListenerHandle::updateRouter);
         container.receive(deleteTopic())
                 .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListener::deleteRouter);
+                .subscribe(redisSubscribeListenerHandle::deleteRouter);
         return container;
     }
 

@@ -1,4 +1,4 @@
-package com.anyilanxin.skillfull.gateway.core.config;
+package com.anyilanxin.skillfull.gateway.core.handler;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class RedisSubscribeListener {
+public class RedisSubscribeListenerHandle {
     private final ReactiveStringRedisTemplate reactiveStringRedisTemplate;
     private final IDynamicRouteService routeService;
 

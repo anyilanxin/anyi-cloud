@@ -57,7 +57,7 @@ ext {
             'okhttps'                               : 'com.ejlchina:okhttps:3.5.1',
             'okhttps-fastjson'                      : 'com.ejlchina:okhttps-fastjson:3.5.1',
             // okhttps-----end
-            'tencentcloud-sdk-java': 'com.tencentcloudapi:tencentcloud-sdk-java:4.0.11'
+            'tencentcloud-sdk-java'                 : 'com.tencentcloudapi:tencentcloud-sdk-java:4.0.11'
     ]
 
 

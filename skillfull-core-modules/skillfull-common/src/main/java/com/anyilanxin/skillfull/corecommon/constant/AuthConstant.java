@@ -19,8 +19,14 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.SysBaseType;
  * @since JDK11
  */
 public interface AuthConstant {
+    /**
+     * 请求头token key键
+     */
     String BEARER_TOKEN_HEADER_NAME = "SkillfullAuthorization";
 
+    /**
+     * query 参数token key键
+     */
     String ACCESS_TOKEN_QUERY_NAME = "skillfull_access_token";
 
     /**

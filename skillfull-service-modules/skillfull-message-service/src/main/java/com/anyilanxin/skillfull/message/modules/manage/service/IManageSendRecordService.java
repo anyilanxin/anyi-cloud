@@ -16,6 +16,7 @@ import com.anyilanxin.skillfull.message.modules.manage.controller.vo.ManageSendR
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto;
+import com.anyilanxin.skillfull.messagerpc.model.TemplateResultModel;
 
 import java.util.List;
 
@@ -37,6 +38,17 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @date 2022-03-29 05:23:42
      */
     void save(ManageSendRecordVo vo) throws RuntimeException;
+
+
+    /**
+     * 批量保存记录
+     *
+     * @param recordEntities
+     * @return TemplateResultModel
+     * @author zxiaozhou
+     * @date 2022-08-30 10:27
+     */
+    TemplateResultModel saveBatchRecord(List<ManageSendRecordEntity> recordEntities);
 
 
     /**

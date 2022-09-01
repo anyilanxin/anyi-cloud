@@ -22,6 +22,6 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @AutoConfiguration
 @ComponentScan
-@EnableFeignClients(basePackages = "com.anyilanxin.skillfull.messagerpc.feign")
+@EnableFeignClients(basePackages = "com.anyilanxin.skillfull.messagerpc.rpc")
 public class MessageRpcAutoConfiguration {
 }

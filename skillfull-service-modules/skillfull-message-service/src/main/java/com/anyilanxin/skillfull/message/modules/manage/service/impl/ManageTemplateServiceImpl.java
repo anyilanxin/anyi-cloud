@@ -21,6 +21,7 @@ import com.anyilanxin.skillfull.message.modules.manage.mapper.ManageTemplateMapp
 import com.anyilanxin.skillfull.message.modules.manage.service.IManageTemplateService;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplatePageDto;
+import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.mapstruct.ManageTemplateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -118,5 +119,11 @@ public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper,
         if (i <= 0) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
+    }
+
+
+    @Override
+    public ManageTemplateSendInfoDto getSendInfo(String templateCode) {
+        return null;
     }
 }

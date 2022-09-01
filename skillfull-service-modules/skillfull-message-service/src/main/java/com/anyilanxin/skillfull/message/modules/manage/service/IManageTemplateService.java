@@ -16,6 +16,7 @@ import com.anyilanxin.skillfull.message.modules.manage.controller.vo.ManageTempl
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageTemplateEntity;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplatePageDto;
+import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 
 import java.util.List;
 
@@ -96,4 +97,14 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @date 2022-03-29 05:23:43
      */
     void deleteBatch(List<String> templateIds) throws RuntimeException;
+
+    /**
+     * 根据模板编码查询发送配置信息
+     *
+     * @param templateCode
+     * @return ManageTemplateSendInfoDto
+     * @author zxiaozhou
+     * @date 2022-08-30 10:17
+     */
+    ManageTemplateSendInfoDto getSendInfo(String templateCode);
 }

@@ -38,8 +38,8 @@ public class WebSocketMsgModel implements Serializable {
     @Schema(title = "socket数据")
     private String data;
 
-    @Schema(name = "businessType", title = "消息业务类型，具体与SocketBusinessType一致")
-    private String businessType;
+    @Schema(name = "eventType", title = "消息业务类型，具体与SocketBusinessType一致")
+    private String eventType;
 
 //    public static void main(String[] args) {
 //        ChatSendMsgModel msgModel = new ChatSendMsgModel();

@@ -57,6 +57,7 @@ ext {
             'okhttps'                               : 'com.ejlchina:okhttps:3.5.1',
             'okhttps-fastjson'                      : 'com.ejlchina:okhttps-fastjson:3.5.1',
             // okhttps-----end
+            'tencentcloud-sdk-java'                 : 'com.tencentcloudapi:tencentcloud-sdk-java:4.0.11'
     ]
 
 
@@ -84,6 +85,7 @@ ext {
             'skillfull-core-modules:skillfull-stream'              : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-oauth2-common'       : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '1.0.0-alpha2', bootJar: false],
+            'skillfull-core-modules:skillfull-oauth2-webflux'      : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-logging-common'      : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-logging-mvc'         : [version: '1.0.0-alpha2', bootJar: false],
             'skillfull-core-modules:skillfull-logging-webflux'     : [version: '1.0.0-alpha2', bootJar: false],

@@ -10,6 +10,7 @@ dependencies {
     implementation project(':skillfull-core-modules:skillfull-oauth2-mvc')
     implementation project(':skillfull-rpc-modules:skillfull-message-rpc')
     implementation project(':skillfull-core-modules:skillfull-redis')
+    api project(':skillfull-core-modules:skillfull-stream')
     implementation project(':skillfull-core-modules:skillfull-database')
     implementation('org.springframework.boot:spring-boot-starter-websocket') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
@@ -18,8 +19,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'com.alibaba.cloud:aliyun-sms-spring-boot-starter'
     implementation rootProject.ext.dependencies["aliyun-java-sdk-core"]
-    implementation project(':skillfull-core-modules:skillfull-stream')
-    implementation project(':skillfull-core-modules:skillfull-logging-mvc')
+    implementation rootProject.ext.dependencies["tencentcloud-sdk-java"]
 }
 
 

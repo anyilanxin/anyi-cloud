@@ -9,12 +9,15 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.oauth2mvc.config;
 
+import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
+import com.anyilanxin.skillfull.corecommon.utils.ClientTokenUtils;
 import com.anyilanxin.skillfull.oauth2common.config.AuthConfigAttributeModel;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2mvc.CustomBearerTokenExtractor;
 import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
 import com.anyilanxin.skillfull.oauth2mvc.user.impl.GetLoginUserInfoImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -67,8 +70,8 @@ public class Oauth2MvcCommonConfig {
     @LoadBalanced
     @ConditionalOnMissingBean
     public RestTemplate restTemplate() {
-        RestTemplate rest = new RestTemplate();
-        rest.getInterceptors().add((request, body, execution) -> {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add((request, body, execution) -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null) {
                 return execution.execute(request, body);
@@ -77,10 +80,17 @@ public class Oauth2MvcCommonConfig {
                 return execution.execute(request, body);
             }
             OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
-            request.getHeaders().setBearerAuth(token.getTokenValue());
+            request.getHeaders().add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
+            // 不存在则启动客户端模式获取token
+            if (StringUtils.isBlank(token.getTokenValue())) {
+                String tokenToAuthService = ClientTokenUtils.getTokenToAuthService();
+                if (StringUtils.isNotBlank(tokenToAuthService)) {
+                    request.getHeaders().add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
+                }
+            }
             return execution.execute(request, body);
         });
-        return rest;
+        return restTemplate;
     }
 
 

@@ -22,6 +22,7 @@ import com.anyilanxin.skillfull.message.modules.manage.service.IManageSendRecord
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.mapstruct.ManageSendRecordCopyMap;
+import com.anyilanxin.skillfull.messagerpc.model.TemplateResultModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,12 @@ public class ManageSendRecordServiceImpl extends ServiceImpl<ManageSendRecordMap
         if (!result) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
+    }
+
+
+    @Override
+    public TemplateResultModel saveBatchRecord(List<ManageSendRecordEntity> recordEntities) {
+        return null;
     }
 
 

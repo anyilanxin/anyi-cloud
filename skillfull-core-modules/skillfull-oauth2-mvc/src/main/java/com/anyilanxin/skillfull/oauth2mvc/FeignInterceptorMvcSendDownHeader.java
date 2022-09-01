@@ -10,10 +10,11 @@
 package com.anyilanxin.skillfull.oauth2mvc;
 
 
+import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
  * @since JDK11
  */
 @Component
+@Order(Integer.MIN_VALUE)
 @Slf4j
 public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
 
@@ -39,10 +41,15 @@ public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate template) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
-            template.header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getTokenValue());
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+                OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
+                template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
+            }
+        } catch (Exception e) {
+            log.error("------------------设置token下传失败------apply--->{}", e.getMessage());
         }
+
     }
 }

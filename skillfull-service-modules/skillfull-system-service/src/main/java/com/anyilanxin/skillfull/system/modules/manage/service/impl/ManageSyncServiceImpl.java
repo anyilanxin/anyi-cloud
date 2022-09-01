@@ -16,10 +16,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
-import com.anyilanxin.skillfull.corecommon.constant.RedisSubscribeConstant;
 import com.anyilanxin.skillfull.corecommon.model.stream.router.*;
 import com.anyilanxin.skillfull.corecommon.model.system.SpecialUrlModel;
-import com.anyilanxin.skillfull.coreredis.utils.MsgSendUtils;
+import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
+import com.anyilanxin.skillfull.coreredis.utils.SendRedisMsgUtils;
 import com.anyilanxin.skillfull.system.modules.manage.entity.*;
 import com.anyilanxin.skillfull.system.modules.manage.mapper.*;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService;
@@ -88,7 +88,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             routerToRedis(serviceIds, false);
         }
         // 通知网关刷新
-        MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
+        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
         // 加锁
         redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK, true, LOCK_EXPIRES, TimeUnit.SECONDS);
     }
@@ -103,7 +103,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             keys.forEach(v -> {
                 // 通知网关刷新
                 String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
-                MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
             });
         }
         routerToRedis(Set.of(serviceId), true);
@@ -118,7 +118,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             keys.forEach(v -> {
                 String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
                 // 通知网关删除
-                MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
             });
 
         }
@@ -169,7 +169,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     v.setRouteId(v.getServiceCode() + ":" + v.getRouteId());
                     stringRedisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(), JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
                     if (update) {
-                        MsgSendUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
+                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
                     }
                 });
             }

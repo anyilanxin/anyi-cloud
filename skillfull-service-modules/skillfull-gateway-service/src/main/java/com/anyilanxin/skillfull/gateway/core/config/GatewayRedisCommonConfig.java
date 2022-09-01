@@ -47,6 +47,7 @@ import static java.util.Collections.singletonMap;
 public class GatewayRedisCommonConfig {
     private final RedisConnectionFactory redisConnectionFactory;
 
+
     /**
      * redisTemplate配置
      *
@@ -125,5 +126,4 @@ public class GatewayRedisCommonConfig {
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         return jackson2JsonRedisSerializer;
     }
-
 }

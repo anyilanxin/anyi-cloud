@@ -32,7 +32,6 @@ app:
   log-package-level: debug
   enable-doc: true # 是否打开swagger
 
-
 # 资源白名单设置
 resource:
   dev-white-list:

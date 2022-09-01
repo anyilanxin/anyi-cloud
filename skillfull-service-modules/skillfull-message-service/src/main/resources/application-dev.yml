@@ -31,8 +31,6 @@ app:
   log-root-level: info
   log-package-level: debug
   enable-doc: true # 是否打开swagger
-  create-out-conf: false  # 启动是否创建外置配置文件
-
 
 # 资源白名单设置
 resource:

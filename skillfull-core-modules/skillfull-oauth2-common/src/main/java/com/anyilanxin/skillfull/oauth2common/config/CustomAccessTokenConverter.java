@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import java.util.Map;
 
 /**
- * token转换器
+ * token转换器（用于控制jwt内容）
  *
  * @author zxiaozhou
  * @date 2022-02-14 04:55
@@ -27,6 +27,12 @@ import java.util.Map;
 public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
     @Override
     public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-        return super.convertAccessToken(token, authentication);
+        // 精简jwt内容防止过大
+        Map<String, ?> stringMap = super.convertAccessToken(token, authentication);
+        stringMap.remove("scope");
+        stringMap.remove("authorities");
+        stringMap.remove("token_query_name");
+        stringMap.remove("bearer_token_header_name");
+        return stringMap;
     }
 }

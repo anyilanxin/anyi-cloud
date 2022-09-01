@@ -7,7 +7,7 @@ bootJar { enabled = rootProject.ext.version["skillfull-service-modules:skillfull
 
 dependencies {
     implementation project(':skillfull-core-modules:skillfull-webflux')
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation project(':skillfull-core-modules:skillfull-oauth2-webflux')
     implementation project(':skillfull-core-modules:skillfull-oauth2-common')
     implementation project(':skillfull-rpc-modules:skillfull-gateway-rpc')
 //    implementation project(':skillfull-core-modules:skillfull-redis')

@@ -22,7 +22,10 @@ public interface RedisSubscribeConstant {
      */
     String GATEWAY_ROUTER_INFO_RELOAD = "GATEWAY_ROUTER_INFO_RELOAD";
 
-
+    /**
+     * socket消息广播处理
+     */
+    String MESSAGE_SOCKET_HANDLE = "MESSAGE_SOCKET_HANDLE";
     /**
      * 更新路由
      */

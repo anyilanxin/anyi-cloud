@@ -14,7 +14,7 @@ import com.anyilanxin.skillfull.oauth2mvc.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
+import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
-    private final BearerTokenExtractor bearerTokenExtractor;
+    private final TokenExtractor bearerTokenExtractor;
     private final TokenStore tokenStore;
 
     @Override

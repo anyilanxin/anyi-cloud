@@ -24,6 +24,8 @@ public interface CommonCoreConstant {
 
     String CONST_PREFIX = "corecommon_";
 
+    String SKILLFULL_INNTE_SET_TOKEN = "skillfull_innte_set_token";
+
     /**
      * http
      */

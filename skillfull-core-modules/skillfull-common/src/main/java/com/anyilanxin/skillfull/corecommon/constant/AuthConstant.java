@@ -19,6 +19,10 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.SysBaseType;
  * @since JDK11
  */
 public interface AuthConstant {
+    String BEARER_TOKEN_HEADER_NAME = "SkillfullAuthorization";
+
+    String ACCESS_TOKEN_QUERY_NAME = "skillfull_access_token";
+
     /**
      * 超级管理员角色(系统最高权限)
      */
@@ -27,7 +31,7 @@ public interface AuthConstant {
     /**
      * 按钮权限校验角色前缀
      */
-    String ROLE_PREFIX = "ROLE_";
+    String DEFAULT_ROLE_PREFIX = "ROLE_";
 
 
     /**

@@ -1,8 +1,10 @@
 package com.anyilanxin.skillfull.oauth2mvc.config;
 
 import cn.hutool.core.collection.CollUtil;
+import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
 import com.anyilanxin.skillfull.oauth2common.CustomOAuth2AuthenticationManager;
 import com.anyilanxin.skillfull.oauth2mvc.CustomAccessDeniedHandler;
+import com.anyilanxin.skillfull.oauth2mvc.CustomBearerTokenExtractor;
 import com.anyilanxin.skillfull.oauth2mvc.CustomLogoutSuccessHandler;
 import com.anyilanxin.skillfull.oauth2mvc.CustomOAuthEntryPoint;
 import com.anyilanxin.skillfull.oauth2mvc.config.properties.CustomSecurityProperties;
@@ -20,8 +22,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
+import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -45,7 +47,6 @@ import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.DEFAU
 @Slf4j
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     private final TokenStore tokenStore;
-    private final BearerTokenExtractor bearerTokenExtractor;
     private final ApplicationContext applicationContext;
     private final CustomSecurityProperties properties;
 
@@ -90,6 +91,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.tokenStore(tokenStore)
                 .resourceId(applicationName)
+                .tokenExtractor(tokenExtractor())
                 .authenticationManager(authenticationManager())
                 .authenticationEntryPoint(oAuthEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler());
@@ -117,6 +119,16 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
-        return new CustomLogoutSuccessHandler(bearerTokenExtractor, tokenStore);
+        return new CustomLogoutSuccessHandler(tokenExtractor(), tokenStore);
+    }
+
+
+    @Bean
+    public TokenExtractor tokenExtractor() {
+        CustomBearerTokenExtractor tokenExtractor = new CustomBearerTokenExtractor();
+        tokenExtractor.setAllowUriQueryParameter(true);
+        tokenExtractor.setAccessTokenQueryName(AuthConstant.ACCESS_TOKEN_QUERY_NAME);
+        tokenExtractor.setBearerTokenHeaderName(AuthConstant.BEARER_TOKEN_HEADER_NAME);
+        return tokenExtractor;
     }
 }

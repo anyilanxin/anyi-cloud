@@ -9,8 +9,8 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.message.core.config;
 
-import com.anyilanxin.skillfull.corecommon.constant.BindingStreamConstant;
-import com.anyilanxin.skillfull.messagerpc.model.StreamMsgModel;
+import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
+import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +38,7 @@ public class BindingStreamConfig {
      * @date 2021-05-29 17:01
      */
     @Bean(value = BindingStreamConstant.SOCKET_PROCESS)
-    public Consumer<StreamMsgModel> socketProcess() {
+    public Consumer<SocketMsgModel> socketProcess() {
         return payload -> {
             log.debug("------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
 //            handleContent.processStream(payload);

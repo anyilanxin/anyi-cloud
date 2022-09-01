@@ -97,6 +97,7 @@ logging:
   level:
     root: ${app.log-root-level:debug}
     com.anyilanxin: ${app.log-package-level:debug}
+    org.camunda: ${app.log-camunda-level:debug}
     com.alibaba.nacos: error
   # 生成日志文件路径(注释不会生成)
   pattern:

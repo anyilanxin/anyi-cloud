@@ -12,7 +12,7 @@ package com.anyilanxin.skillfull.message.modules.manage.controller.vo;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotInEnum;
-import com.anyilanxin.skillfull.message.core.constant.impl.MsgTemplateType;
+import com.anyilanxin.skillfull.messagerpc.constant.impl.MsgTemplateCommonChannelType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -59,7 +59,7 @@ public class ManageTemplateVo implements Serializable {
 
     @Schema(name = "templateType", title = "模板类型:1-微信模板,2-短信,3-邮件", required = true)
     @NotBlankOrNull(message = "模板类型:1-微信模板,2-短信,3-邮件不能为空")
-    @NotInEnum(message = "模板类型只能为:", enumClass = MsgTemplateType.class, autoMessage = true)
+    @NotInEnum(message = "模板类型只能为:", enumClass = MsgTemplateCommonChannelType.class, autoMessage = true)
     private Integer templateType;
 
     @Schema(name = "limitSend", title = "是否限制发送次数：0-不限制,1-限制。默认0", required = true)

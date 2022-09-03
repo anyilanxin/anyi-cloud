@@ -28,7 +28,7 @@ ext {
             'mysql-connector-java'                  : 'mysql:mysql-connector-java:8.0.30',
             'easyexcel'                             : 'com.alibaba:easyexcel:3.1.1', // excel模板引擎
             'poi-tl'                                : 'com.deepoove:poi-tl:1.12.0', // word模板引擎
-            'x-easypdf'                             : 'wiki.xsx:x-easypdf:2.10.0', // pdf模板引擎
+            'x-easypdf'                             : 'wiki.xsx:x-easypdf:2.10.1', // pdf模板引擎
             'reflections'                           : 'org.reflections:reflections:0.10.2',
             // 流程引擎camunda----start
             'camunda-bpm-spring-boot-starter-webapp': 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.17.0',

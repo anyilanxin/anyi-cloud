@@ -14,7 +14,7 @@ ext {
             'mapstruct'                             : 'org.mapstruct:mapstruct:1.5.2.Final',
             'mapstruct-processor'                   : 'org.mapstruct:mapstruct-processor:1.5.2.Final',
             'guava'                                 : 'com.google.guava:guava:31.1-jre',
-            'hutool-all'                            : 'cn.hutool:hutool-all:5.8.4',
+            'hutool-all'                            : 'cn.hutool:hutool-all:5.8.5',
             'commons-lang3'                         : 'org.apache.commons:commons-lang3:3.12.0',
             'commons-codec'                         : 'commons-codec:commons-codec:1.15',
             'commons-io'                            : 'commons-io:commons-io:2.11.0',

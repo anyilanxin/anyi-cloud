@@ -13,6 +13,7 @@ import com.anyilanxin.skillfull.auth.oauth2.provider.token.SmsCodeAuthentication
 import com.anyilanxin.skillfull.auth.oauth2.validate.CheckDto;
 import com.anyilanxin.skillfull.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.skillfull.auth.oauth2.validate.IValidate;
+import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -57,7 +58,7 @@ public class SmsCodeAuthenticationProvider extends AbstractUserDetailsAuthentica
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new InternalAuthenticationServiceException("用户信息不存在");
+            throw new InternalAuthenticationServiceException(I18nUtil.get("SmsCodeAuthenticationProvider.userNotFound"));
         }
         return userDetails;
     }

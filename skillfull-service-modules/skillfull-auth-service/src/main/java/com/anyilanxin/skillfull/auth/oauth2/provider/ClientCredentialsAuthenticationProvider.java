@@ -10,6 +10,7 @@
 package com.anyilanxin.skillfull.auth.oauth2.provider;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.ClientCredentialsAuthenticationToken;
+import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +52,7 @@ public class ClientCredentialsAuthenticationProvider extends AbstractUserDetails
         String credentials = token.getCredentials().toString();
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
         if (!passwordCheck.matches(credentials, userDetails.getPassword())) {
-            throw new BadCredentialsException("客户端密码错误");
+            throw new BadCredentialsException(I18nUtil.get("ClientCredentialsAuthenticationProvider.clientBadCredentials"));
         }
     }
 
@@ -60,7 +61,7 @@ public class ClientCredentialsAuthenticationProvider extends AbstractUserDetails
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(username);
         if (Objects.isNull(clientDetails)) {
-            throw new InternalAuthenticationServiceException("客户端信息不存在");
+            throw new InternalAuthenticationServiceException(I18nUtil.get("ClientCredentialsAuthenticationProvider.clientNotFound"));
         }
         String clientSecret = clientDetails.getClientSecret();
         if (StringUtils.isBlank(clientSecret)) {

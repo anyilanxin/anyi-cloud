@@ -13,6 +13,7 @@ import com.anyilanxin.skillfull.auth.oauth2.provider.token.PictureCodeAuthentica
 import com.anyilanxin.skillfull.auth.oauth2.validate.CheckDto;
 import com.anyilanxin.skillfull.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.skillfull.auth.oauth2.validate.IValidate;
+import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,7 @@ public class PictureCodeAuthenticationProvider extends AbstractUserDetailsAuthen
         SkillFullUserDetails customUserDetails = (SkillFullUserDetails) userDetails;
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
         if (!passwordCheck.matches(pictureCodeAuthenticationToken.getCredentials().toString(), customUserDetails.getSalt(), userDetails.getPassword())) {
-            throw new BadCredentialsException("用户密码错误");
+            throw new BadCredentialsException(I18nUtil.get("PictureCodeAuthenticationProvider.badCredentials"));
         }
     }
 
@@ -68,7 +69,7 @@ public class PictureCodeAuthenticationProvider extends AbstractUserDetailsAuthen
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new UsernameNotFoundException("用户信息不存在");
+            throw new UsernameNotFoundException(I18nUtil.get("PictureCodeAuthenticationProvider.userNotFound"));
         }
         return userDetails;
     }

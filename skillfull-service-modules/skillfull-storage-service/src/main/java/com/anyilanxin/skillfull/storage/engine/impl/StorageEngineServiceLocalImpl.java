@@ -74,6 +74,8 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
         String fileType = FileNameUtil.extName(fileOriginalFullName);
         if (StringUtils.isBlank(fileType)) {
             fileType = "";
+        } else {
+            fileType = "." + fileType;
         }
         // 处理文件保存文件夹
         String fileDiskRelativePathFolder = SLASH + CoreCommonDateUtils.getNowStrDate(CoreCommonDateUtils.YYYYMMDD);
@@ -134,7 +136,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
                 log.error("------------LocalFileServiceImpl------存放文件到本地失败------>upload:{}", e.getMessage());
                 throw new ResponseException(Status.ERROR, "存放文件到本地失败:" + e.getMessage());
             }
-            model.setFileRelativePath(property.getVirtualMapping() + model.getFileRelativePath());
+            model.setFileRelativePath(property.getVirtualMapping() + model.getFileRelativePath() + "?original_name=" + model.getFileOriginalName());
         }
         return model;
     }

@@ -10,13 +10,13 @@
 package com.anyilanxin.skillfull.oauth2common.utils;
 
 import cn.hutool.core.collection.CollUtil;
+import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
 import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
-import com.anyilanxin.skillfull.oauth2common.constant.Oauth2CommonConstant;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.ClientDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.UserDetailsCopyMap;
 import lombok.RequiredArgsConstructor;
@@ -81,7 +81,7 @@ public class Oauth2CommonUtils {
         }
         if (CollUtil.isNotEmpty(model.getRoleInfos())) {
             model.getRoleInfos().forEach(v -> {
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Oauth2CommonConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
                 authorities.add(authority);
             });
         }
@@ -125,7 +125,7 @@ public class Oauth2CommonUtils {
             model.getRoleInfos().forEach(v -> {
                 roleCodes.add(v.getRoleCode());
                 roleIds.add(v.getRoleId());
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Oauth2CommonConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
                 authorities.add(authority);
             });
             customClientDetails.setRoleCodes(roleCodes);

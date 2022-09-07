@@ -22,12 +22,12 @@ public interface AuthConstant {
     /**
      * 请求头token key键
      */
-    String BEARER_TOKEN_HEADER_NAME = "SkillfullAuthorization";
+    String BEARER_TOKEN_HEADER_NAME = "SkillfullAuthorization11";
 
     /**
      * query 参数token key键
      */
-    String ACCESS_TOKEN_QUERY_NAME = "skillfull_access_token";
+    String ACCESS_TOKEN_QUERY_NAME = "skillfull_access_token11";
 
     /**
      * 超级管理员角色(系统最高权限)

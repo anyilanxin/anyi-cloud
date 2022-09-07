@@ -11,11 +11,12 @@ package com.anyilanxin.skillfull.auth.oauth2;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import com.anyilanxin.skillfull.auth.core.properties.AuthProperty;
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
-import com.anyilanxin.skillfull.corecommon.model.auth.StoredRequestExtension;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
+import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +40,9 @@ import java.util.stream.Collectors;
  * @since JDK1.8
  */
 public class CustomDefaultTokenServices extends DefaultTokenServices {
+
     private ApprovalStore approvalStore;
+    private AuthProperty authProperty;
     private ClientDetailsService clientDetailsService;
 
 
@@ -112,9 +115,16 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
             if (CollectionUtil.isEmpty(extensions)) {
                 extensions = new HashMap<>();
             }
-            StoredRequestExtension storedRequestExtension = new StoredRequestExtension();
-            storedRequestExtension.setLimitResource(customClientDetails.getLimitResource());
-            extensions.put(StoredRequestExtension.EXTENSION_KEY, storedRequestExtension);
+            Integer limitResource = customClientDetails.getLimitResource();
+            if (Objects.isNull(limitResource)) {
+                limitResource = 1;
+            }
+            extensions.put(OAuth2RequestExtendConstant.LIMIT_RESOURCE, limitResource);
+            extensions.put(OAuth2RequestExtendConstant.LOGIN_ENDPOINT, "default");
+            extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, "default");
+            if (authProperty.getTokenGeneratorType() == 1) {
+                extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, UUID.randomUUID().toString());
+            }
             OAuth2Request newOAuth2Request = new OAuth2Request(oAuth2Request.getRequestParameters(),
                     oAuth2Request.getClientId(),
                     oAuth2Request.getAuthorities(),
@@ -138,6 +148,10 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
 
     public void setApprovalStore(ApprovalStore approvalStore) {
         this.approvalStore = approvalStore;
+    }
+
+    public void setAuthProperty(AuthProperty authProperty) {
+        this.authProperty = authProperty;
     }
 
 

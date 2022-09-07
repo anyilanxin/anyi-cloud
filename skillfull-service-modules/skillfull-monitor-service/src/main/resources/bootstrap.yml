@@ -15,11 +15,6 @@ spring:
         metadata:
           management:
             context-path: ${spring.webflux.base-path:}/actuator
-          # 灰度信息
-          gray-info:
-            active: ${spring.profiles.active}
-            version: ${spring.application.version:1.0.0}
-            enable-gray: ${app.enable-gray:false}
       config:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式

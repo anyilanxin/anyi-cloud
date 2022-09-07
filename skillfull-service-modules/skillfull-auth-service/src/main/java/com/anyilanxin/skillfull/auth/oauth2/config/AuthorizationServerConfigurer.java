@@ -42,7 +42,6 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
-import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.security.KeyPair;
 import java.util.ArrayList;
@@ -61,7 +60,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
     private final JdbcClientDetailsService clientDetailsService;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationManager authenticationManager;
     private final AuthProperty property;
     private final OpenIdDetailsService openIdDetailsService;

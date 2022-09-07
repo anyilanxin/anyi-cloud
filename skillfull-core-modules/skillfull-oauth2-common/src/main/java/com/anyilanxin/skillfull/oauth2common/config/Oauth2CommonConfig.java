@@ -10,6 +10,7 @@
 package com.anyilanxin.skillfull.oauth2common.config;
 
 import com.anyilanxin.skillfull.oauth2common.serializer.FastjsonRedisTokenStoreSerializationStrategy;
+import com.anyilanxin.skillfull.oauth2common.tokenstore.CustomAuthenticationKeyGenerator;
 import com.anyilanxin.skillfull.oauth2common.tokenstore.CustomRedisTokenStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -47,6 +48,7 @@ public class Oauth2CommonConfig {
     @Bean
     public TokenStore tokenStore() {
         CustomRedisTokenStore redisTokenStore = new CustomRedisTokenStore(redisConnectionFactory);
+        redisTokenStore.setAuthenticationKeyGenerator(new CustomAuthenticationKeyGenerator());
         redisTokenStore.setSerializationStrategy(new FastjsonRedisTokenStoreSerializationStrategy());
         redisTokenStore.setPrefix(AUTH_PREFIX);
         return redisTokenStore;

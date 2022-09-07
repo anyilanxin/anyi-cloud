@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.oauth2common;
 
-import com.anyilanxin.skillfull.corecommon.model.auth.StoredRequestExtension;
+import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -80,9 +80,8 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
                 Map<String, Serializable> extensions = auth.getOAuth2Request().getExtensions();
                 Collection<String> resourceIds = auth.getOAuth2Request().getResourceIds();
                 Integer limitResource = 1;
-                if (Objects.nonNull(extensions.get(StoredRequestExtension.EXTENSION_KEY))) {
-                    StoredRequestExtension requestExtension = (StoredRequestExtension) extensions.get(StoredRequestExtension.EXTENSION_KEY);
-                    limitResource = requestExtension.getLimitResource();
+                if (Objects.nonNull(extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
+                    limitResource = (Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE);
                 }
                 if (limitResource != 0 && this.resourceId != null && resourceIds != null && !resourceIds.isEmpty() && !resourceIds.contains(this.resourceId)) {
                     throw new OAuth2AccessDeniedException("Invalid token does not contain resource id (" + this.resourceId + ")");

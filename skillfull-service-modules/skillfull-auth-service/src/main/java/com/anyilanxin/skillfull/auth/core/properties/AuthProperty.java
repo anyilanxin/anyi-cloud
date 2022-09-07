@@ -32,4 +32,10 @@ public class AuthProperty {
      * 图片验证码有效时间(单位s)
      */
     private long codePictureSeconds;
+
+
+    /**
+     * 生成token方式,0-相同用户每次登录生成一样，1-相同用户每次登录生成都不一样，默认0
+     */
+    private int tokenGeneratorType;
 }

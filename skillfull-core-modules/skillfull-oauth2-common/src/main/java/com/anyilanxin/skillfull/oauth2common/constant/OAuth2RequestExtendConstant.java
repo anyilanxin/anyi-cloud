@@ -7,31 +7,18 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.corecommon.model.auth;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
+package com.anyilanxin.skillfull.oauth2common.constant;
 
 /**
- * oauth2 客户端扩展扩展信息
+ * OAuth2Request扩展信息常量
  *
  * @author zxiaozhou
- * @date 2022-03-06 23:34
- * @since JDK1.8
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
+ * @date 2022-09-07 16:20
+ * @since JDK11
  */
-@Setter
-@Getter
-@ToString
-@EqualsAndHashCode
-public class StoredRequestExtension implements Serializable {
-    public final static String EXTENSION_KEY = "STORED_REQUEST_EXTENSION";
-
-    /**
-     * 限制授权资源：0-不限制，1-限制。默认1
-     */
-    private Integer limitResource;
+public interface OAuth2RequestExtendConstant {
+    String LOGIN_UNIQUE = "serial_number";
+    String LOGIN_ENDPOINT = "endpoint";
+    String LIMIT_RESOURCE = "limit_resource";
 }

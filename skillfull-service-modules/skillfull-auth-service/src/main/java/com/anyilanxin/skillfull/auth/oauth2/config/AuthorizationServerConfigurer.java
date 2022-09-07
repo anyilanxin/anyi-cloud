@@ -1,5 +1,6 @@
 package com.anyilanxin.skillfull.auth.oauth2.config;
 
+import com.anyilanxin.skillfull.auth.core.properties.AuthProperty;
 import com.anyilanxin.skillfull.auth.modules.detail.servive.impl.JdbcClientDetailsService;
 import com.anyilanxin.skillfull.auth.modules.detail.servive.impl.OpenIdDetailsService;
 import com.anyilanxin.skillfull.auth.modules.detail.servive.impl.PasswordDetailsService;
@@ -62,6 +63,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     private final JdbcClientDetailsService clientDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationManager authenticationManager;
+    private final AuthProperty property;
     private final OpenIdDetailsService openIdDetailsService;
     private final PasswordDetailsService passwordDetailsService;
     private final PictureValidate pictureValidate;
@@ -233,6 +235,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         CustomDefaultTokenServices customDefaultTokenServices = new CustomDefaultTokenServices();
         customDefaultTokenServices.setClientDetailsService(clientDetailsService);
         customDefaultTokenServices.setTokenStore(tokenStore);
+        customDefaultTokenServices.setAuthProperty(property);
         customDefaultTokenServices.setTokenEnhancer(tokenEnhancer());
         customDefaultTokenServices.setApprovalStore(approvalStore());
         return customDefaultTokenServices;

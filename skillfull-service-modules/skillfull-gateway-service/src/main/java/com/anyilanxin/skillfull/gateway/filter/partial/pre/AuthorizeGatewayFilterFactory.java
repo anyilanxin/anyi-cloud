@@ -13,10 +13,10 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant;
-import com.anyilanxin.skillfull.corecommon.model.auth.StoredRequestExtension;
 import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
+import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -128,9 +128,8 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                             String resourceId = route.getId();
                             OAuth2Request oAuth2Request = authentication.getOAuth2Request();
                             Map<String, Serializable> extensions = oAuth2Request.getExtensions();
-                            if (CollUtil.isNotEmpty(extensions) && Objects.nonNull(extensions.get(StoredRequestExtension.EXTENSION_KEY))) {
-                                StoredRequestExtension storedRequestExtension = (StoredRequestExtension) extensions.get(StoredRequestExtension.EXTENSION_KEY);
-                                if (storedRequestExtension.getLimitResource() == 1) {
+                            if (CollUtil.isNotEmpty(extensions) && Objects.nonNull(extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
+                                if ((Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE) == 1) {
                                     Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
                                     if (CollectionUtil.isEmpty(resourceIds) || !resourceIds.contains(resourceId)) {
                                         throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);

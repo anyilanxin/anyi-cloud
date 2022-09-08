@@ -59,7 +59,7 @@ public class StorageInfoFileController extends BaseController {
             @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
             @Parameter(in = ParameterIn.QUERY, description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致", name = "fileStorageType")
     })
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<StorageInfoModel> storage(@RequestParam(value = "file") MultipartFile file,
                                             @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
                                             final HttpServletRequest request) {
@@ -72,7 +72,7 @@ public class StorageInfoFileController extends BaseController {
             @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
             @Parameter(in = ParameterIn.QUERY, description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致", name = "fileStorageType")
     })
-    @PostMapping(value = "/upload/batch", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/batch", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<List<StorageInfoModel>> storageBatch(@RequestParam(value = "files") List<MultipartFile> files,
                                                        @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
                                                        final HttpServletRequest request) {

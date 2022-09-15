@@ -1,6 +1,6 @@
 ext {
     set('springCloudVersion', "2021.0.4")
-    set('springCloudAlibabaVersion', "2021.0.1.0")
+    set('springCloudAlibabaVersion', "2021.0.4.0")
     set('springAlibabaVersion', "1.0.0")
     // 分离打包开关(打开后依赖与源码会分开)
     set('compileSeparate', true)

@@ -65,31 +65,6 @@
   </sql>
 
 
-    <!-- 批量插入日志信息 -->
-    <insert id="insertBatch">
-        INSERT INTO logging_auth_data
-        ( auth_log_id, log_code, request_ip,
-        auth_type, auth_type_describe, auth_user_id, auth_user_name,
-        auth_client_code, auth_client_name, auth_status, log_data,
-        log_other_data, exception_message, request_start_time, cost_time,
-        request_end_time, create_area_code, create_position_code, create_org_sys_code,
-        create_system_code, create_tenant_id, create_user_id, create_user_name,
-        create_time, remark
-        )
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.authLogId}, #{item.logCode}, #{item.requestIp},
-            #{item.authType}, #{item.authTypeDescribe}, #{item.authUserId}, #{item.authUserName},
-            #{item.authClientCode}, #{item.authClientName}, #{item.authStatus},#{item.logData},
-            #{item.logOtherData}, #{item.exceptionMessage}, #{item.requestStartTime}, #{item.costTime},
-            #{item.requestEndTime}, #{item.createAreaCode}, #{item.createPositionCode}, #{item.createOrgSysCode},
-            #{item.createSystemCode}, #{item.createTenantId}, #{item.createUserId}, #{item.createUserName},
-            #{item.createTime}, #{item.remark}
-            )
-        </foreach>
-    </insert>
-
-
     <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto">
         SELECT

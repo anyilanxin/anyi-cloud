@@ -75,35 +75,6 @@
     ali.remark, ali.del_flag
   </sql>
 
-
-
-    <!-- 批量插入日志信息 -->
-    <insert id="insertBatch">
-        INSERT INTO logging_operate
-        ( operate_id, operate_type,content_type, user_id, user_name,
-         request_client_code, request_client_name,log_code, request_ip,
-         target_service_code, target_url, request_url,
-         request_method, request_param, request_result, log_other_data,
-         exception_message, operate_status, data_sources, data_sources_describe,
-         cost_time, request_start_time, request_end_time, create_area_code,
-         create_position_code, create_org_sys_code, create_system_code, create_user_id,
-         create_tenant_id, create_user_name, create_time, remark
-        )
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.operateId}, #{item.operateType}, #{item.contentType},#{item.userId},#{item.userName},
-            #{item.requestClientCode}, #{item.requestClientName}, #{item.logCode}, #{item.requestIp},
-            #{item.targetServiceCode}, #{item.targetUrl},#{item.requestUrl},
-            #{item.requestMethod}, #{item.requestParam}, #{item.requestResult}, #{item.logOtherData},
-            #{item.exceptionMessage}, #{item.operateStatus}, #{item.dataSources}, #{item.dataSourcesDescribe},
-            #{item.costTime}, #{item.requestStartTime}, #{item.requestEndTime}, #{item.createAreaCode},
-            #{item.createPositionCode}, #{item.createOrgSysCode}, #{item.createSystemCode}, #{item.createUserId},
-            #{item.createTenantId}, #{item.createUserName}, #{item.createTime}, #{item.remark}
-            )
-        </foreach>
-    </insert>
-
-
     <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto">
         SELECT

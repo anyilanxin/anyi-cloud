@@ -9,6 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.core.config;
 
+import com.anyilanxin.skillfull.database.injector.MysqlBatchInjector;
 import com.anyilanxin.skillfull.logging.core.handler.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -51,4 +52,15 @@ public class MybatisPlusConfig {
     }
 
 
+    /**
+     * mysql真正批量插入注入器
+     *
+     * @return {@link MysqlBatchInjector }
+     * @author zxiaozhou
+     * @date 2022-10-07 19:06:23
+     */
+    @Bean
+    public MysqlBatchInjector mysqlBatchInjector() {
+        return new MysqlBatchInjector();
+    }
 }

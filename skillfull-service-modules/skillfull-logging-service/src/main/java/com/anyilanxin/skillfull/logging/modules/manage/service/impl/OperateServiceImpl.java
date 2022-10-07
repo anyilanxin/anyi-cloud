@@ -77,11 +77,12 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
                     String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
                         OperateEntity logModel = JSONObject.parseObject(logStr, OperateEntity.class);
+                        logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
                 }
                 if (CollUtil.isNotEmpty(logEntityList)) {
-                    mapper.insertBatch(logEntityList);
+                    mapper.insertBatchSomeColumn(logEntityList);
                 }
             }
         }

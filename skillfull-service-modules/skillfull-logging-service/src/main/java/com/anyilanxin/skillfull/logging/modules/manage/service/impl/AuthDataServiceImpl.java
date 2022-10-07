@@ -77,11 +77,12 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
                     String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
                         AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
+                        logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
                 }
                 if (CollUtil.isNotEmpty(logEntityList)) {
-                    mapper.insertBatch(logEntityList);
+                    mapper.insertBatchSomeColumn(logEntityList);
                 }
             }
         }

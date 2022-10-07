@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.mapper;
 
-import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
+import com.anyilanxin.skillfull.database.datasource.base.mapper.MysqlBaseMapper;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.OperatePageVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto;
@@ -19,7 +19,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 操作日志(Operate)持久层
@@ -30,7 +29,7 @@ import java.util.List;
  * @since JDK1.8
  */
 @Repository
-public interface OperateMapper extends BaseMapper<OperateEntity> {
+public interface OperateMapper extends MysqlBaseMapper<OperateEntity> {
     /**
      * 分页查询
      *
@@ -42,14 +41,6 @@ public interface OperateMapper extends BaseMapper<OperateEntity> {
      */
     IPage<OperatePageDto> pageByModel(Page<OperatePageDto> page, @Param("query") OperatePageVo vo);
 
-    /**
-     * 批量插入日志信息
-     *
-     * @param waitInsertData
-     * @author zxiaozhou
-     * @date 2022-05-23 15:47
-     */
-    int insertBatch(List<OperateEntity> waitInsertData);
 
     /**
      * 通过操作日志id物理删除

@@ -12,15 +12,19 @@ package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.http.HttpStatus;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.common.Constants;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.CommonParams;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.alibaba.nacos.client.naming.net.NamingProxy;
+import com.alibaba.nacos.client.naming.core.ServerListManager;
+import com.alibaba.nacos.client.naming.remote.http.NamingHttpClientManager;
+import com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy;
 import com.alibaba.nacos.client.naming.utils.InitUtils;
 import com.alibaba.nacos.client.naming.utils.UtilAndComs;
+import com.alibaba.nacos.client.security.SecurityProxy;
 import com.alibaba.nacos.client.utils.ValidatorUtils;
 import com.alibaba.nacos.common.utils.HttpMethod;
 import com.alibaba.nacos.common.utils.StringUtils;
@@ -51,7 +55,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
     private String group;
     private String endpoint;
     private String serverList;
-    private NamingProxy serverProxy;
+    private NamingHttpClientProxy serverProxy;
     private final ServiceInstancePageMap instancePageMap;
     private String clusterName;
 
@@ -69,7 +73,9 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         this.clusterName = properties.getClusterName();
         initServerAddr(properties.getNacosProperties());
         InitUtils.initWebRootContext(properties.getNacosProperties());
-        this.serverProxy = new NamingProxy(this.namespace, this.endpoint, this.serverList, properties.getNacosProperties());
+        ServerListManager serverListManager = new ServerListManager(properties.getNacosProperties(), namespace);
+        SecurityProxy securityProxy = new SecurityProxy(properties.getNacosProperties(), NamingHttpClientManager.getInstance().getNacosRestTemplate());
+        this.serverProxy = new NamingHttpClientProxy(this.namespace, securityProxy, serverListManager, properties.getNacosProperties(), null);
     }
 
 
@@ -107,7 +113,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
-                    instances = JSONObject.parseArray(jsonObject.getString("list"), Instance.class);
+                    instances = JSON.parseArray(jsonObject.getString("list"), Instance.class);
                 }
             }
             return instances;
@@ -147,7 +153,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 count = jsonObject.getIntValue("count");
                 if (count >= 1) {
-                    List<Instance> instances = JSONObject.parseArray(jsonObject.getString("list"), Instance.class);
+                    List<Instance> instances = JSON.parseArray(jsonObject.getString("list"), Instance.class);
                     pageDtos = new ArrayList<>(count);
                     for (Instance instance : instances) {
                         pageDtos.add(instancePageMap.bToA(instance));
@@ -171,7 +177,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("code") == HttpStatus.HTTP_OK) {
-                    nacosNamespacesDtos = JSONObject.parseArray(jsonObject.getString("data"), NacosNamespacesDto.class);
+                    nacosNamespacesDtos = JSON.parseArray(jsonObject.getString("data"), NacosNamespacesDto.class);
                 }
             }
             return nacosNamespacesDtos;
@@ -204,7 +210,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
-                    nacosServiceInfoDtos = JSONObject.parseArray(jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
+                    nacosServiceInfoDtos = JSON.parseArray(jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
                 }
             }
             return nacosServiceInfoDtos;

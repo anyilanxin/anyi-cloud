@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.logging.modules.manage.mapper;
 
-import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
+import com.anyilanxin.skillfull.database.datasource.base.mapper.MysqlBaseMapper;
 import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataPageVo;
 import com.anyilanxin.skillfull.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto;
@@ -19,7 +19,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 登录日志(AuthData)持久层
@@ -30,7 +29,7 @@ import java.util.List;
  * @since JDK1.8
  */
 @Repository
-public interface AuthDataMapper extends BaseMapper<AuthDataEntity> {
+public interface AuthDataMapper extends MysqlBaseMapper<AuthDataEntity> {
     /**
      * 分页查询
      *
@@ -42,14 +41,6 @@ public interface AuthDataMapper extends BaseMapper<AuthDataEntity> {
      */
     IPage<AuthDataPageDto> pageByModel(Page<AuthDataPageDto> page, @Param("query") AuthDataPageVo vo);
 
-    /**
-     * 批量插入日志信息
-     *
-     * @param waitInsertData
-     * @author zxiaozhou
-     * @date 2022-05-23 15:47
-     */
-    int insertBatch(List<AuthDataEntity> waitInsertData);
 
     /**
      * 通过授权日志id物理删除

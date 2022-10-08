@@ -32,9 +32,9 @@ ext {
             'x-easypdf'                                           : 'wiki.xsx:x-easypdf:2.10.1', // pdf模板引擎
             'reflections'                                         : 'org.reflections:reflections:0.10.2',
             // 流程引擎camunda----start
-            'camunda-bpm-spring-boot-starter-webapp'              : 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.17.0',
-            'camunda-bpm-spring-boot-starter-rest'                : 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.17.0',
-            'camunda-bpm-spring-boot-starter-external-task-client': 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:7.17.0',
+            'camunda-bpm-spring-boot-starter-webapp'              : 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.18.0',
+            'camunda-bpm-spring-boot-starter-rest'                : 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.18.0',
+            'camunda-bpm-spring-boot-starter-external-task-client': 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:7.18.0',
             'jython'                                              : 'org.python:jython:2.7.2',
             'jruby-complete'                                      : 'org.jruby:jruby-complete:9.2.9.0',
             // 流程引擎camunda----end

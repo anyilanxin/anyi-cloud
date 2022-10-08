@@ -60,7 +60,12 @@ allprojects {
     // 指定所有项目maven仓库
     repositories {
         mavenLocal()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven {
+            content {
+                excludeGroupByRegex "org\\.camunda.*"
+            }
+            url 'https://maven.aliyun.com/nexus/content/groups/public/'
+        }
         mavenCentral()
     }
     // 指定编译编码

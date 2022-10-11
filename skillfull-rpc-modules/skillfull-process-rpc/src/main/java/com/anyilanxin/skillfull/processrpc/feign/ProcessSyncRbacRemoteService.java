@@ -33,17 +33,6 @@ import java.util.Set;
 @FeignClient(value = ServiceConstant.PROCESS_SERVICE, path = ServiceConstant.PROCESS_SERVICE_PATH, fallbackFactory = FeignFallback.class)
 public interface ProcessSyncRbacRemoteService {
 
-    /**
-     * 添加或更新租户
-     *
-     * @param vo ${@link TenantRequestModel}
-     * @return Result<String> ${@link Result<String>}
-     * @author zxiaozhou
-     * @date 2021-11-08 16:12
-     */
-    @PostMapping(value = "/rbac-tenant/insert-or-update")
-    Result<String> saveOrUpdateTenant(@RequestBody @Valid TenantRequestModel vo);
-
 
     /**
      * 删除租户
@@ -55,18 +44,6 @@ public interface ProcessSyncRbacRemoteService {
      */
     @DeleteMapping(value = "/rbac-tenant/delete-one/{tenantId}")
     Result<String> deleteTenantById(@PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId);
-
-
-    /**
-     * 全量同步租户信息
-     *
-     * @param voSet ${@link Set< TenantRequestModel >}
-     * @return Result<String> ${@link Result<String>}
-     * @author zxiaozhou
-     * @date 2021-11-08 16:14
-     */
-    @PostMapping(value = "/rbac-tenant/all")
-    Result<String> syncTenant(@RequestBody @Valid Set<TenantRequestModel> voSet);
 
 
     /**
@@ -96,25 +73,13 @@ public interface ProcessSyncRbacRemoteService {
     /**
      * 全量同步用户组信息
      *
-     * @param voSet ${@link Set< TenantRequestModel >}
+     * @param voSet ${@link Set< SyncGroupRequestModel >}
      * @return Result<String> ${@link Result<String>}
      * @author zxiaozhou
      * @date 2021-11-08 16:14
      */
     @PostMapping(value = "/rbac-group/all")
     Result<String> syncGroup(@RequestBody @Valid Set<SyncGroupRequestModel> voSet);
-
-
-    /**
-     * 删除或添加租户关联关系
-     *
-     * @param vo ${@link GroupTenantRequestModel}
-     * @return Result<String> ${@link Result<String>}
-     * @author zxiaozhou
-     * @date 2021-11-08 17:26
-     */
-    @PostMapping(value = "/rbac-group/delete-or-tenant")
-    Result<String> deleteOrAddTenantGroup(@RequestBody @Valid GroupTenantRequestModel vo);
 
 
     /**
@@ -151,18 +116,6 @@ public interface ProcessSyncRbacRemoteService {
      */
     @PostMapping(value = "/rbac-user/delete-or-group")
     Result<String> deleteOrAddGroup(@RequestBody @Valid UserGroupRequestModel vo);
-
-
-    /**
-     * 删除或添加租户关联关系
-     *
-     * @param vo ${@link UserTenantRequestModel}
-     * @return Result<String> ${@link Result<String>}
-     * @author zxiaozhou
-     * @date 2021-11-08 17:26
-     */
-    @PostMapping(value = "/rbac-user/delete-or-tenant")
-    Result<String> deleteOrAddTenant(@RequestBody @Valid UserTenantRequestModel vo);
 
 
     /**

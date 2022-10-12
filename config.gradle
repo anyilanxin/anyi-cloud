@@ -106,7 +106,7 @@ ext {
             'duyun'  : [
                     baseImage     : '192.168.1.11:81/library/openjdk:11.0.15-jre-buster',
                     images        : "192.168.1.11:81/own-projects/",
-                    isRemortDocker: true,//需要配置idea远程docker打包，见：docs/other/配置远程docker打包.png
+                    isRemortDocker: true,
                     remortDocker  : 'http://192.168.1.11:2375',
                     credentials   : {
                         url = 'http://192.168.1.11:81'
@@ -129,7 +129,7 @@ ext {
             'company': [
                     baseImage     : 'openjdk:11.0.15-jre-buster',
                     images        : "",
-                    isRemortDocker: true,//需要配置idea远程docker打包，见：docs/other/配置远程docker打包.png
+                    isRemortDocker: true,
                     remortDocker  : 'http://192.168.51.78:2375',
             ],
     ]

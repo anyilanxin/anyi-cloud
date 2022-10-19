@@ -9,6 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.process.modules.base.service;
 
+import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCategoryPageVo;
@@ -119,4 +120,14 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:47:01
      */
     void deleteById(String categoryId) throws RuntimeException;
+
+
+    /**
+     * 获取建模流程类别下拉列表
+     *
+     * @return List<SelectModel>
+     * @author zxiaozhou
+     * @date 2022-10-19 07:41
+     */
+    List<SelectModel> getModelDesignList();
 }

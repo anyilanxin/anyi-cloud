@@ -13,6 +13,7 @@ package com.anyilanxin.skillfull.process.modules.base.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
+import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCategoryPageVo;
@@ -164,5 +165,15 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
+    }
+
+
+    @Override
+    public List<SelectModel> getModelDesignList() {
+        List<SelectModel> result = mapper.getModelDesignList();
+        if (CollUtil.isEmpty(result)) {
+            return Collections.emptyList();
+        }
+        return result;
     }
 }

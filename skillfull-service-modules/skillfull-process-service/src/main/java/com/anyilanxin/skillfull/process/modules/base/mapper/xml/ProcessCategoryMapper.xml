@@ -95,6 +95,16 @@
     </select>
 
 
+  <!-- 获取建模流程类别下拉列表 -->
+  <select id="getModelDesignList" resultType="com.anyilanxin.skillfull.corecommon.model.common.SelectModel">
+    SELECT
+        category_code AS value,
+        category_name AS label,
+        CASE  category_state WHEN 1 THEN 0 ELSE 1 END AS disabled
+      FROM act_custom_process_category
+      WHERE del_flag = 0
+  </select>
+
     <!-- 通过类别id物理删除 -->
     <delete id="physicalDeleteById">
         DELETE

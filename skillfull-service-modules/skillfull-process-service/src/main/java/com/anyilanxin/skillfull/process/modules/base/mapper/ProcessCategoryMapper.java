@@ -9,6 +9,7 @@
 // +----------------------------------------------------------------------
 package com.anyilanxin.skillfull.process.modules.base.mapper;
 
+import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCategoryPageVo;
 import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCategoryQueryVo;
@@ -75,4 +76,14 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      * @date 2021-11-19 10:47:01
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
+
+    /**
+     * 获取建模流程类别下拉列表
+     *
+     * @return List<SelectModel>
+     * @author zxiaozhou
+     * @date 2022-10-19 07:41
+     */
+    List<SelectModel> getModelDesignList();
 }

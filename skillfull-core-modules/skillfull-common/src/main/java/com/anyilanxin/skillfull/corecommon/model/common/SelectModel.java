@@ -7,39 +7,39 @@
 // +----------------------------------------------------------------------
 // | 作者: zxiaozhou <z7630853@163.com>
 // +----------------------------------------------------------------------
-package com.anyilanxin.skillfull.processrpc.model;
+package com.anyilanxin.skillfull.corecommon.model.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
- * 用户组信息
+ * 下拉组件model
  *
  * @author zxiaozhou
- * @date 2021-11-05 17:49
- * @since JDK1.8
+ * @date 2022-08-18 16:55
+ * @since JDK11
  */
 @Getter
 @Setter
 @ToString
-
-@SuperBuilder
-
-@NoArgsConstructor
 @EqualsAndHashCode
-@Schema
-public class GroupTenantRequestModel implements Serializable {
-    private static final long serialVersionUID = 9119670587651253109L;
+public class SelectModel implements Serializable {
+    private static final long serialVersionUID = 1660812955774L;
 
-    @Schema(name = "groupId", title = "用户组id", required = true)
-    @NotBlank(message = "用户组id不能为空")
-    protected String groupId;
+    @Schema(name = "value", title = "value值")
+    private String value;
 
-    @Schema(name = "tenantIds", title = "租户ids")
-    protected Set<String> tenantIds;
+    @Schema(name = "label", title = "label数据")
+    private String label;
+
+    @Schema(name = "extendInfo", title = "扩展信息")
+    private Object extendInfo;
+
+    @Schema(name = "disabled", title = "是否禁用")
+    private boolean disabled;
 }

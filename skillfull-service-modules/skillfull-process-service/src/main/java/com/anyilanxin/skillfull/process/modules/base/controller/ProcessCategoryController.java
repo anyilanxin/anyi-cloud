@@ -10,6 +10,7 @@
 package com.anyilanxin.skillfull.process.modules.base.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
+import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
@@ -88,5 +89,12 @@ public class ProcessCategoryController extends BaseController {
     @PostMapping(value = "/select/page")
     public Result<PageDto<ProcessCategoryPageDto>> selectPage(@RequestBody ProcessCategoryPageVo vo) {
         return ok(service.pageByModel(vo));
+    }
+
+
+    @Operation(summary = "获取建模流程类别下拉列表", tags = {"v1.0.0"}, description = "获取建模流程类别下拉列表")
+    @GetMapping(value = "/select/category-list")
+    public Result<List<SelectModel>> getModelDesignList() {
+        return ok(service.getModelDesignList());
     }
 }

@@ -291,6 +291,9 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * @date 2022-03-05 14:42
      */
     public Map<String, RouteMetaSpecialUrlModel> getSpecialUrls(Set<String> filterIds) {
+        if (CollUtil.isEmpty(filterIds)) {
+            return Collections.emptyMap();
+        }
         LambdaQueryWrapper<ManageSpecialUrlEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageSpecialUrlEntity::getCustomFilterId, filterIds);
         List<ManageSpecialUrlEntity> manageSpecialUrlEntities = specialUrlMapper.selectList(lambdaQueryWrapper);

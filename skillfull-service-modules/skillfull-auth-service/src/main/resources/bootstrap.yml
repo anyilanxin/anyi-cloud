@@ -19,7 +19,7 @@ spring:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式
         file-extension: ${NACOS_CONFIG_FILE_EXTENSION:yml}
-        name: ${NACOS_CONFIG_NAME:auth-service}
+        name: ${NACOS_CONFIG_NAME:${spring.application.name}}
         enabled: ${CONFIG_ENABLE:false}
         enable-remote-sync-config: true
         shared-configs:

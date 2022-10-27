@@ -5,5 +5,5 @@
  / ___ |/ / / / / /  / /___/ / /_/ / /_/ / /_/ /
 /_/  |_/_/ /_/_/_/   \____/_/\____/\__,_/\__,_/
 
-:: SkillFull Cloud ::                (${spring.application.version:1.0.0})
+:: AnYi Cloud ::                (${spring.application.version:1.0.0})
 :: https://skillfull.divisu.com ::

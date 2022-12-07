@@ -1,23 +1,27 @@
 ###############################################################################
-#                          Generated on middleware                            #
+#                          Generated on Middleware                            #
 ###############################################################################
 version: '3'
 services:
   # rabbitmq
   rabbitmq-server:
-    image: rabbitmq:3.10.1-management
+    image: rabbitmq:3.11.4-management-alpine
     container_name: rabbitmq-server
     restart: always
-    networks:
-      - middleware_net
+    deploy:
+      resources:
+        limits:
+          memory: 400MB
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/timezone
+      - /opt/containerd/.data/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+    networks:
+      - net
 
 networks:
-  middleware_net:
+  net:
     driver: bridge

@@ -104,7 +104,7 @@ ext {
     docker = [
             // docker打包多环境配置,切换设置顶部dockerEnv
             'duyun'  : [
-                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.15-jre-buster',
+                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.16-jre-buster',
                     images        : "192.168.1.11:81/own-projects/",
                     isRemortDocker: true,
                     remortDocker  : 'http://192.168.1.11:2375',
@@ -116,8 +116,8 @@ ext {
             ],
             // docker打包多环境配置,切换设置顶部dockerEnv
             'local'  : [
-                    baseImage     : 'myharbor.com:82/library/openjdk:11.0.15-jre-buster',
-                    images        : "192.168.1.11:81/own-projects/",
+                    baseImage     : 'openjdk:11.0.16-jre-buster',
+                    images        : "",
                     isRemortDocker: false,
                     credentials   : {
                         url = 'http://myharbor.com:82'
@@ -127,7 +127,7 @@ ext {
             ],
             // docker打包多环境配置,切换设置顶部dockerEnv
             'company': [
-                    baseImage     : 'openjdk:11.0.15-jre-buster',
+                    baseImage     : 'openjdk:11.0.16-jre-buster',
                     images        : "",
                     isRemortDocker: true,
                     remortDocker  : 'http://192.168.51.78:2375',

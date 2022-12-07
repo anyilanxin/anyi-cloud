@@ -20,7 +20,7 @@ spring:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式
         file-extension: ${NACOS_CONFIG_FILE_EXTENSION:yml}
-        name: ${NACOS_CONFIG_NAME:logging-service}
+        name: ${NACOS_CONFIG_NAME:${spring.application.name}}
         enabled: ${CONFIG_ENABLE:false}
         group: ${spring.cloud.nacos.discovery.group}
         enable-remote-sync-config: true

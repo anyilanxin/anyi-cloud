@@ -9,7 +9,7 @@ pluginManagement {
 
 
 // 项目信息
-rootProject.name = 'skillfull-cloud'
+rootProject.name = 'anyi-cloud'
 
 // 服务模块
 include 'skillfull-service-modules:skillfull-auth-service'

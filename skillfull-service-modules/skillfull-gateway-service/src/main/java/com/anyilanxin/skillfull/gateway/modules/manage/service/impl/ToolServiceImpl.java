@@ -1,22 +1,27 @@
-/**
-* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
-*
-* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-* this file except in compliance with the License. You may obtain a copy of the License at
-*
-* <p>http://www.apache.org/licenses/LICENSE-2.0
-*
-* <p>Unless required by applicable law or agreed to in writing, software distributed under the
-* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
-*
-* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
-* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
-* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
-*/
+/*
+ * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ *
+ * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
+ */
+
 package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
@@ -42,92 +47,92 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
-* 工具类服务实现
-*
-* @author zxiaozhou
-* @date 2020-09-28 10:04
-* @since JDK11
-*/
+ * 工具类服务实现
+ *
+ * @author zxiaozhou
+ * @date 2020-09-28 10:04
+ * @since JDK11
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class ToolServiceImpl implements IToolService {
-    private static final long WAIT_INVALID_SECONDS = 60 * 4;
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final SecurityToWebSecurityMap securityMap;
-    private final ConfigDataSecurityModel configDataSecurityModel;
+  private static final long WAIT_INVALID_SECONDS = 60 * 4;
+  private final RedisTemplate<String, Object> redisTemplate;
+  private final SecurityToWebSecurityMap securityMap;
+  private final ConfigDataSecurityModel configDataSecurityModel;
 
-    @Override
-    public WebSecurityModel getBaseSecurity() {
-        UserDataSecurityModel userDataSecurityModel = getSecurityModel(null);
+  @Override
+  public WebSecurityModel getBaseSecurity() {
+    UserDataSecurityModel userDataSecurityModel = getSecurityModel(null);
+    redisTemplate
+        .opsForValue()
+        .set(
+            CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
+                + userDataSecurityModel.getSerialNumber(),
+            userDataSecurityModel,
+            userDataSecurityModel.getValidityInSeconds(),
+            TimeUnit.SECONDS);
+    return securityMap.eToD(userDataSecurityModel);
+  }
+
+  @Override
+  public WebSecurityModel getRefreshBaseSecurity(String serialNumber) {
+    // 旧数据移到待失效区,并设置更短的快速失效时间
+    Object waitInvalidData =
         redisTemplate
-                .opsForValue()
-                .set(
-                        CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
-                                + userDataSecurityModel.getSerialNumber(),
-                        userDataSecurityModel,
-                        userDataSecurityModel.getValidityInSeconds(),
-                        TimeUnit.SECONDS);
-        return securityMap.eToD(userDataSecurityModel);
+            .opsForValue()
+            .get(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
+    if (Objects.nonNull(waitInvalidData) && waitInvalidData instanceof UserDataSecurityModel) {
+      redisTemplate
+          .opsForValue()
+          .set(
+              CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE + serialNumber,
+              waitInvalidData,
+              WAIT_INVALID_SECONDS,
+              TimeUnit.SECONDS);
+      redisTemplate.delete(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
+    } else {
+      throw new ResponseException(Status.VERIFICATION_FAILED, "未查询到当前序列的数据");
     }
+    UserDataSecurityModel userDataSecurityModel = getSecurityModel(serialNumber);
+    // 加入缓存
+    redisTemplate
+        .opsForValue()
+        .set(
+            CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
+                + userDataSecurityModel.getSerialNumber(),
+            userDataSecurityModel,
+            userDataSecurityModel.getValidityInSeconds(),
+            TimeUnit.SECONDS);
+    return securityMap.eToD(userDataSecurityModel);
+  }
 
-    @Override
-    public WebSecurityModel getRefreshBaseSecurity(String serialNumber) {
-        // 旧数据移到待失效区,并设置更短的快速失效时间
-        Object waitInvalidData =
-                redisTemplate
-                        .opsForValue()
-                        .get(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
-        if (Objects.nonNull(waitInvalidData) && waitInvalidData instanceof UserDataSecurityModel) {
-            redisTemplate
-                    .opsForValue()
-                    .set(
-                            CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE + serialNumber,
-                            waitInvalidData,
-                            WAIT_INVALID_SECONDS,
-                            TimeUnit.SECONDS);
-            redisTemplate.delete(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
-        } else {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "未查询到当前序列的数据");
-        }
-        UserDataSecurityModel userDataSecurityModel = getSecurityModel(serialNumber);
-        // 加入缓存
-        redisTemplate
-                .opsForValue()
-                .set(
-                        CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
-                                + userDataSecurityModel.getSerialNumber(),
-                        userDataSecurityModel,
-                        userDataSecurityModel.getValidityInSeconds(),
-                        TimeUnit.SECONDS);
-        return securityMap.eToD(userDataSecurityModel);
+  /**
+   * 创建新的密钥信息
+   *
+   * @return SecurityModel ${@link UserDataSecurityModel}
+   * @author zxiaozhou
+   * @date 2021-07-13 17:16
+   */
+  private UserDataSecurityModel getSecurityModel(String serialNumber) {
+    RSAUtils.RsaKey rsaKey = RSAUtils.getRsaKey();
+    UserDataSecurityModel userDataSecurityModel = securityMap.vToE(configDataSecurityModel);
+    userDataSecurityModel.setBase64PrivateKey(rsaKey.getBase64PrivateKey());
+    userDataSecurityModel.setBase64PublicKey(rsaKey.getBase64PublicKey());
+    LocalDateTime expiresAt =
+        Instant.ofEpochMilli(
+                System.currentTimeMillis() + userDataSecurityModel.getValidityInSeconds() * 1000)
+            .atZone(ZoneOffset.ofHours(8))
+            .toLocalDateTime();
+    userDataSecurityModel.setExpiresAt(expiresAt);
+    if (StringUtils.isNotBlank(serialNumber)) {
+      userDataSecurityModel.setSerialNumber(serialNumber);
+    } else {
+      String timeInfo =
+          CoreCommonDateUtils.dateToStr(LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
+      userDataSecurityModel.setSerialNumber(timeInfo + CoreWebFluxStringUtils.getSnowflakeId());
     }
-
-    /**
-    * 创建新的密钥信息
-    *
-    * @return SecurityModel ${@link UserDataSecurityModel}
-    * @author zxiaozhou
-    * @date 2021-07-13 17:16
-    */
-    private UserDataSecurityModel getSecurityModel(String serialNumber) {
-        RSAUtils.RsaKey rsaKey = RSAUtils.getRsaKey();
-        UserDataSecurityModel userDataSecurityModel = securityMap.vToE(configDataSecurityModel);
-        userDataSecurityModel.setBase64PrivateKey(rsaKey.getBase64PrivateKey());
-        userDataSecurityModel.setBase64PublicKey(rsaKey.getBase64PublicKey());
-        LocalDateTime expiresAt =
-                Instant.ofEpochMilli(
-                                System.currentTimeMillis() + userDataSecurityModel.getValidityInSeconds() * 1000)
-                        .atZone(ZoneOffset.ofHours(8))
-                        .toLocalDateTime();
-        userDataSecurityModel.setExpiresAt(expiresAt);
-        if (StringUtils.isNotBlank(serialNumber)) {
-            userDataSecurityModel.setSerialNumber(serialNumber);
-        } else {
-            String timeInfo =
-                    CoreCommonDateUtils.dateToStr(LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
-            userDataSecurityModel.setSerialNumber(timeInfo + CoreWebFluxStringUtils.getSnowflakeId());
-        }
-        return userDataSecurityModel;
-    }
+    return userDataSecurityModel;
+  }
 }

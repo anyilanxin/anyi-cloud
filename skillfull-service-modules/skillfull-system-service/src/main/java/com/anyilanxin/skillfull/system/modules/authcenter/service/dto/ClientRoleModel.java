@@ -1,22 +1,27 @@
-/**
-* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
-*
-* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-* this file except in compliance with the License. You may obtain a copy of the License at
-*
-* <p>http://www.apache.org/licenses/LICENSE-2.0
-*
-* <p>Unless required by applicable law or agreed to in writing, software distributed under the
-* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
-*
-* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
-* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
-* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
-*/
+/*
+ * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ *
+ * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
+ */
+
 package com.anyilanxin.skillfull.system.modules.authcenter.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,47 +32,47 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
-* 角色信息
-*
-* @author zxiaozhou
-* @date 2021-06-04 00:15
-* @since JDK1.8
-*/
+ * 角色信息
+ *
+ * @author zxiaozhou
+ * @date 2021-06-04 00:15
+ * @since JDK1.8
+ */
 @Getter
 @Setter
 @ToString
 public class ClientRoleModel implements Serializable {
-    private static final long serialVersionUID = 4071105391782937997L;
+  private static final long serialVersionUID = 4071105391782937997L;
 
-    @Schema(name = "roleName", title = "角色名称")
-    private String roleName;
+  @Schema(name = "roleName", title = "角色名称")
+  private String roleName;
 
-    @Schema(name = "roleCode", title = "角色编码")
-    private String roleCode;
+  @Schema(name = "roleCode", title = "角色编码")
+  private String roleCode;
 
-    @Schema(name = "roleId", title = "角色id")
-    private String roleId;
+  @Schema(name = "roleId", title = "角色id")
+  private String roleId;
 
-    @Schema(name = "clientDetailId", title = "客户端主键id")
-    private String clientDetailId;
+  @Schema(name = "clientDetailId", title = "客户端主键id")
+  private String clientDetailId;
 
-    @Schema(name = "clientId", title = "客户端id")
-    private String clientId;
+  @Schema(name = "clientId", title = "客户端id")
+  private String clientId;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ClientRoleModel)) {
-            return false;
-        }
-        ClientRoleModel role = (ClientRoleModel) o;
-        return Objects.equals(getRoleCode(), role.getRoleCode());
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getRoleCode());
+    if (!(o instanceof ClientRoleModel)) {
+      return false;
     }
+    ClientRoleModel role = (ClientRoleModel) o;
+    return Objects.equals(getRoleCode(), role.getRoleCode());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getRoleCode());
+  }
 }

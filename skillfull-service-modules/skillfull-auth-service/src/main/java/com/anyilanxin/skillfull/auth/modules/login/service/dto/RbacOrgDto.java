@@ -1,22 +1,27 @@
-/**
-* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
-*
-* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-* this file except in compliance with the License. You may obtain a copy of the License at
-*
-* <p>http://www.apache.org/licenses/LICENSE-2.0
-*
-* <p>Unless required by applicable law or agreed to in writing, software distributed under the
-* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
-*
-* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
-* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
-* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
-*/
+/*
+ * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ *
+ * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
+ */
+
 package com.anyilanxin.skillfull.auth.modules.login.service.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -27,13 +32,13 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
-* 组织表(RbacOrg)Entity
-*
-* @author zxiaozhou
-* @copyright zxiaozhou（https://skillfull.divisu.com）
-* @date 2022-05-02 16:39:44
-* @since JDK1.8
-*/
+ * 组织表(RbacOrg)Entity
+ *
+ * @author zxiaozhou
+ * @copyright zxiaozhou（https://skillfull.divisu.com）
+ * @date 2022-05-02 16:39:44
+ * @since JDK1.8
+ */
 @Getter
 @Setter
 @ToString
@@ -41,93 +46,93 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class RbacOrgDto implements Serializable {
-    private static final long serialVersionUID = -26667015921374659L;
+  private static final long serialVersionUID = -26667015921374659L;
 
-    /** 机构id */
-    private String orgId;
+  /** 机构id */
+  private String orgId;
 
-    /** 父级组织id */
-    private String parentId;
+  /** 父级组织id */
+  private String parentId;
 
-    /** 组织名称 */
-    private String orgName;
+  /** 组织名称 */
+  private String orgName;
 
-    /** 英文名 */
-    private String orgNameEn;
+  /** 英文名 */
+  private String orgNameEn;
 
-    /** 缩写 */
-    private String orgNameAbbr;
+  /** 缩写 */
+  private String orgNameAbbr;
 
-    /** 排序 */
-    private Integer orgOrder;
+  /** 排序 */
+  private Integer orgOrder;
 
-    /** 组织机构类型：1-公司,2-部门 */
-    private Integer orgType;
+  /** 组织机构类型：1-公司,2-部门 */
+  private Integer orgType;
 
-    /** 组织编码 */
-    private String orgCode;
+  /** 组织编码 */
+  private String orgCode;
 
-    /** 组织编码(系统) */
-    private String orgSysCode;
+  /** 组织编码(系统) */
+  private String orgSysCode;
 
-    /** 组织状态：0-禁用，1-启用，默认0 */
-    private Integer orgStatus;
+  /** 组织状态：0-禁用，1-启用，默认0 */
+  private Integer orgStatus;
 
-    /** 邮箱 */
-    private String email;
+  /** 邮箱 */
+  private String email;
 
-    /** 手机号 */
-    private String phone;
+  /** 手机号 */
+  private String phone;
 
-    /** 传真 */
-    private String fax;
+  /** 传真 */
+  private String fax;
 
-    /** 地址 */
-    private String address;
+  /** 地址 */
+  private String address;
 
-    /** 统一社会信用代码 */
-    private String socialCode;
+  /** 统一社会信用代码 */
+  private String socialCode;
 
-    /** 行政区域名称 */
-    private String areaCodeName;
+  /** 行政区域名称 */
+  private String areaCodeName;
 
-    /** 行政区域 */
-    private String areaCode;
+  /** 行政区域 */
+  private String areaCode;
 
-    /** 详细地址 */
-    private String detailAddress;
+  /** 详细地址 */
+  private String detailAddress;
 
-    /** 经验范围 */
-    private String scopeBusiness;
+  /** 经验范围 */
+  private String scopeBusiness;
 
-    /** 法人 */
-    private String legalPerson;
+  /** 法人 */
+  private String legalPerson;
 
-    /** 开户姓名 */
-    private String accountsName;
+  /** 开户姓名 */
+  private String accountsName;
 
-    /** 开户银行 */
-    private String accountsBank;
+  /** 开户银行 */
+  private String accountsBank;
 
-    /** 银行账号 */
-    private String backCard;
+  /** 银行账号 */
+  private String backCard;
 
-    /** 营业执照 */
-    private String businessLicensePicture;
+  /** 营业执照 */
+  private String businessLicensePicture;
 
-    /** 印章 */
-    private String sealPicture;
+  /** 印章 */
+  private String sealPicture;
 
-    /** 扩展信息,json object */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
-    private Map<String, Object> additionalInformation;
+  /** 扩展信息,json object */
+  @TableField(typeHandler = FastjsonTypeHandler.class)
+  private Map<String, Object> additionalInformation;
 
-    /** 备注 */
-    private String remark;
+  /** 备注 */
+  private String remark;
 
-    /** 唯一索引帮助字段,默认1，如果删除该值为主键 */
-    private String uniqueHelp;
+  /** 唯一索引帮助字段,默认1，如果删除该值为主键 */
+  private String uniqueHelp;
 
-    /** 组织机构简称 */
-    private String orgSimpleName;
+  /** 组织机构简称 */
+  private String orgSimpleName;
 }

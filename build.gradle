@@ -26,7 +26,7 @@ configurations {
 
 
 // 批量构建镜像
-task dockerImageAll() {
+tasks.register('dockerImageAll') {
     subprojects.findAll { project ->
         def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
         if (versionInfo != null && versionInfo['bootJar']) {
@@ -37,7 +37,7 @@ task dockerImageAll() {
 
 
 // 批量构建镜像并推送到仓库
-task dockerPushImageAll() {
+tasks.register('dockerPushImageAll') {
     subprojects.findAll { project ->
         def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
         if (versionInfo != null && versionInfo['bootJar']) {
@@ -48,7 +48,7 @@ task dockerPushImageAll() {
 
 
 // 批量构建bootJar
-task buildBootJarAll() {
+tasks.register('buildBootJarAll') {
     subprojects.findAll { project ->
         def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
         if (versionInfo != null && versionInfo['bootJar']) {
@@ -57,29 +57,20 @@ task buildBootJarAll() {
     }
 }
 
-
 spotless {
     java {
         target project.fileTree(project.rootDir) {
             include '**/*.java'
-            exclude 'app/build/generated/*'
+            exclude 'build/generated/*'
         }
-        googleJavaFormat()
-        indentWithTabs(2)
-        indentWithSpaces(4)
+        googleJavaFormat("1.16.0")
     }
 }
-def hook = new File("$rootProject.projectDir/.git/hooks/pre-commit")
-hook.text = """#!/bin/bash
-                echo "will run nova code format"
-                ./gradlew spotlessApply
-                """
 
 
 // 所有项目下载仓库
 allprojects {
     apply plugin: "com.github.hierynomus.license"
-    apply plugin: 'com.diffplug.gradle.spotless'
     // 指定所有项目maven仓库
     repositories {
         mavenLocal()
@@ -92,7 +83,7 @@ allprojects {
         mavenCentral()
     }
     // 指定编译编码
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
     }
     // 编译jdk版本
@@ -100,9 +91,29 @@ allprojects {
     targetCompatibility = '11'
     // 项目全局信息
     group = 'com.anyilanxin.skillfull'
+
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.text')
+        headerDefinitions {
+            anyi_custom {
+                firstLine = "/*"
+                endLine = " */"
+                beforeEachLine = " * "
+                firstLineDetectionPattern = "/\\*\$"
+                lastLineDetectionPattern = ".*\\*/(\\s|\\t)*\$"
+                allowBlankLines = false
+                isMultiline = true
+            }
+        }
+        mapping {
+            java = 'anyi_custom'
+        }
         includes(["**/*.java", "**/*.xml"])
+    }
+
+    tasks.register('codeStandard') {
+        dependsOn licenseFormat
+        dependsOn spotlessJavaApply
     }
 }
 
@@ -119,7 +130,7 @@ subprojects {
     bootJar { enabled = false }
 
     // 处理非resources下的mapper xml文件问题
-    task mapperXmlCopy(type: Copy) {
+    tasks.register('mapperXmlCopy', Copy) {
         copy {
             from("src/main/java") { include("**/xml/*.xml") }
             into("${buildDir}/classes/java/main")

@@ -1,29 +1,27 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -37,21 +35,18 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
- * 自定义token获取
- *
- * @author zxiaozhou
- * @copyright zxiaozhou（https://skillfull.divisu.com）
- * @date 2022-08-30 20:01
- * @since JDK11
- */
-public class CustomServerBearerTokenAuthenticationConverter extends ServerBearerTokenAuthenticationConverter {
-    private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$",
-            Pattern.CASE_INSENSITIVE);
+* 自定义token获取
+*
+* @author zxiaozhou
+* @copyright zxiaozhou（https://skillfull.divisu.com）
+* @date 2022-08-30 20:01
+* @since JDK11
+*/
+public class CustomServerBearerTokenAuthenticationConverter
+        extends ServerBearerTokenAuthenticationConverter {
+    private static final Pattern authorizationPattern =
+            Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$", Pattern.CASE_INSENSITIVE);
 
     private boolean allowUriQueryParameter = false;
 
@@ -61,13 +56,15 @@ public class CustomServerBearerTokenAuthenticationConverter extends ServerBearer
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
-        return Mono.fromCallable(() -> token(exchange.getRequest())).map((token) -> {
-            if (token.isEmpty()) {
-                BearerTokenError error = invalidTokenError();
-                throw new OAuth2AuthenticationException(error);
-            }
-            return new BearerTokenAuthenticationToken(token);
-        });
+        return Mono.fromCallable(() -> token(exchange.getRequest()))
+                .map(
+                        (token) -> {
+                            if (token.isEmpty()) {
+                                BearerTokenError error = invalidTokenError();
+                                throw new OAuth2AuthenticationException(error);
+                            }
+                            return new BearerTokenAuthenticationToken(token);
+                        });
     }
 
     private String token(ServerHttpRequest request) {
@@ -76,8 +73,8 @@ public class CustomServerBearerTokenAuthenticationConverter extends ServerBearer
 
         if (authorizationHeaderToken != null) {
             if (parameterToken != null) {
-                BearerTokenError error = BearerTokenErrors
-                        .invalidRequest("Found multiple bearer tokens in the request");
+                BearerTokenError error =
+                        BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
                 throw new OAuth2AuthenticationException(error);
             }
             return authorizationHeaderToken;
@@ -97,38 +94,37 @@ public class CustomServerBearerTokenAuthenticationConverter extends ServerBearer
             return parameterTokens.get(0);
         }
 
-        BearerTokenError error = BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
+        BearerTokenError error =
+                BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
         throw new OAuth2AuthenticationException(error);
-
     }
 
     /**
-     * Set if transport of access token using URI query parameter is supported. Defaults
-     * to {@code false}.
-     * <p>
-     * The spec recommends against using this mechanism for sending bearer tokens, and
-     * even goes as far as stating that it was only included for completeness.
-     *
-     * @param allowUriQueryParameter if the URI query parameter is supported
-     */
+    * Set if transport of access token using URI query parameter is supported. Defaults to {@code
+    * false}.
+    *
+    * <p>The spec recommends against using this mechanism for sending bearer tokens, and even goes as
+    * far as stating that it was only included for completeness.
+    *
+    * @param allowUriQueryParameter if the URI query parameter is supported
+    */
     public void setAllowUriQueryParameter(boolean allowUriQueryParameter) {
         this.allowUriQueryParameter = allowUriQueryParameter;
     }
 
     /**
-     * Set this value to configure what header is checked when resolving a Bearer Token.
-     * This value is defaulted to {@link HttpHeaders#AUTHORIZATION}.
-     * <p>
-     * This allows other headers to be used as the Bearer Token source such as
-     * {@link HttpHeaders#PROXY_AUTHORIZATION}
-     *
-     * @param bearerTokenHeaderName the header to check when retrieving the Bearer Token.
-     * @since 5.4
-     */
+    * Set this value to configure what header is checked when resolving a Bearer Token. This value is
+    * defaulted to {@link HttpHeaders#AUTHORIZATION}.
+    *
+    * <p>This allows other headers to be used as the Bearer Token source such as {@link
+    * HttpHeaders#PROXY_AUTHORIZATION}
+    *
+    * @param bearerTokenHeaderName the header to check when retrieving the Bearer Token.
+    * @since 5.4
+    */
     public void setBearerTokenHeaderName(String bearerTokenHeaderName) {
         this.bearerTokenHeaderName = bearerTokenHeaderName;
     }
-
 
     public void setAccessTokenQueryName(String accessTokenQueryName) {
         this.accessTokenQueryName = accessTokenQueryName;

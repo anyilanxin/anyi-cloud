@@ -6,6 +6,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
+    id "com.diffplug.gradle.spotless" version "4.5.1"
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.bmuschko.docker-spring-boot-application' version '8.1.0'
 }
@@ -56,9 +57,29 @@ task buildBootJarAll() {
     }
 }
 
+
+spotless {
+    java {
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude 'app/build/generated/*'
+        }
+        googleJavaFormat()
+        indentWithTabs(2)
+        indentWithSpaces(4)
+    }
+}
+def hook = new File("$rootProject.projectDir/.git/hooks/pre-commit")
+hook.text = """#!/bin/bash
+                echo "will run nova code format"
+                ./gradlew spotlessApply
+                """
+
+
 // 所有项目下载仓库
 allprojects {
     apply plugin: "com.github.hierynomus.license"
+    apply plugin: 'com.diffplug.gradle.spotless'
     // 指定所有项目maven仓库
     repositories {
         mavenLocal()

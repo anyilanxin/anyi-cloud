@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.process.modules.base.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,6 +41,10 @@ import com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelPage
 import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.DesignModelCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -55,29 +54,24 @@ import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 /**
- * 流程模型管理(DesignModel)业务层实现
- *
- * @author zxiaozhou
- * @date 2021-11-25 05:22:56
- * @since JDK1.8
- */
+* 流程模型管理(DesignModel)业务层实现
+*
+* @author zxiaozhou
+* @date 2021-11-25 05:22:56
+* @since JDK1.8
+*/
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, DesignModelEntity> implements IDesignModelService {
+public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, DesignModelEntity>
+        implements IDesignModelService {
     private final DesignModelCopyMap map;
     private final BpmnParser bpmnParser;
     private final DesignModelMapper mapper;
     private final RepositoryService repositoryService;
     private final DesignModelHistoryMapper historyMapper;
     private final ProcessCategoryMapper categoryMapper;
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -86,18 +80,19 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         check(null, entity.getProcessDefinitionKeys());
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
     /**
-     * 数据验证
-     *
-     * @param modelId               模型id
-     * @param processDefinitionKeys 流程定义key
-     * @author zxiaozhou
-     * @date 2022-06-05 14:47
-     */
+    * 数据验证
+    *
+    * @param modelId 模型id
+    * @param processDefinitionKeys 流程定义key
+    * @author zxiaozhou
+    * @date 2022-06-05 14:47
+    */
     private void check(String modelId, String processDefinitionKeys) {
         StringBuffer sb = new StringBuffer("");
         String[] keys = processDefinitionKeys.split("[,，]");
@@ -109,10 +104,10 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         }
         String repeatKeys = sb.toString();
         if (StringUtils.isNotBlank(repeatKeys)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "流程定义key重复，请修改：" + StringUtils.removeEnd(repeatKeys, "、"));
+            throw new ResponseException(
+                    Status.VERIFICATION_FAILED, "流程定义key重复，请修改：" + StringUtils.removeEnd(repeatKeys, "、"));
         }
     }
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -121,9 +116,9 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         DesignModelDto byId = this.getById(modelId);
         String[] oldProcessDefinitionKeys = byId.getProcessDefinitionKeys().split("[,，]");
         String[] newProcessDefinitionKeys = vo.getProcessDefinitionKeys().split("[,，]");
-//        if (!Arrays.equals(oldProcessDefinitionKeys, newProcessDefinitionKeys)) {
-//            throw new ResponseException(Status.VERIFICATION_FAILED, "修改时不允许改变流程定义key");
-//        }
+        //        if (!Arrays.equals(oldProcessDefinitionKeys, newProcessDefinitionKeys)) {
+        //            throw new ResponseException(Status.VERIFICATION_FAILED, "修改时不允许改变流程定义key");
+        //        }
         // 更新数据
         DesignModelEntity entity = map.vToE(vo);
         check(modelId, entity.getProcessDefinitionKeys());
@@ -131,28 +126,33 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(DesignModelHistoryEntity::getModelId, modelId);
         Long count = historyMapper.selectCount(lambdaQueryWrapper);
-        entity.setModelState(count > 0 ? ModelStateType.NEW_VERSION.getType() : ModelStateType.NO_DEPLOYMENT.getType());
+        entity.setModelState(
+                count > 0 ? ModelStateType.NEW_VERSION.getType() : ModelStateType.NO_DEPLOYMENT.getType());
         entity.setModelId(modelId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public PageDto<DesignModelPageDto> pageByModel(DesignModelPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public DesignModelDto getById(String modelId) throws RuntimeException {
         DesignModelEntity byId = super.getById(modelId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         DesignModelDto designModelDto = map.eToD(byId);
         // 查询类别
@@ -165,31 +165,45 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         return designModelDto;
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByModel(DeleteDesignModelVo vo) throws RuntimeException {
         DesignModelDto byId = this.getById(vo.getModelId());
         // 删除流程部署信息
         if (StringUtils.isNotBlank(byId.getDeploymentId())) {
-            Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(byId.getDeploymentId()).singleResult();
+            Deployment deployment =
+                    repositoryService
+                            .createDeploymentQuery()
+                            .deploymentId(byId.getDeploymentId())
+                            .singleResult();
             if (Objects.nonNull(deployment)) {
-                repositoryService.deleteDeployment(deployment.getId(), vo.getCascade(), vo.getSkipCustomListeners(), vo.getSkipIoMappings());
+                repositoryService.deleteDeployment(
+                        deployment.getId(),
+                        vo.getCascade(),
+                        vo.getSkipCustomListeners(),
+                        vo.getSkipIoMappings());
             }
         }
         // 删除自存历史部署信息以及引擎部署信息
         LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(DesignModelHistoryEntity::getModelId, vo.getModelId());
-        List<DesignModelHistoryEntity> designModelHistoryEntities = historyMapper.selectList(lambdaQueryWrapper);
+        List<DesignModelHistoryEntity> designModelHistoryEntities =
+                historyMapper.selectList(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(designModelHistoryEntities)) {
             Set<String> deploymentIds = new HashSet<>(designModelHistoryEntities.size());
             designModelHistoryEntities.forEach(v -> deploymentIds.add(v.getDeploymentId()));
-            deploymentIds.forEach(v -> {
-                Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(v).singleResult();
-                if (Objects.nonNull(deployment)) {
-                    repositoryService.deleteDeployment(deployment.getId(), vo.getCascade(), vo.getSkipCustomListeners(), vo.getSkipIoMappings());
-                }
-            });
+            deploymentIds.forEach(
+                    v -> {
+                        Deployment deployment =
+                                repositoryService.createDeploymentQuery().deploymentId(v).singleResult();
+                        if (Objects.nonNull(deployment)) {
+                            repositoryService.deleteDeployment(
+                                    deployment.getId(),
+                                    vo.getCascade(),
+                                    vo.getSkipCustomListeners(),
+                                    vo.getSkipIoMappings());
+                        }
+                    });
             int delete = historyMapper.delete(lambdaQueryWrapper);
             if (delete <= 0) {
                 throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除模型历史数据失败");
@@ -202,9 +216,10 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         }
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public DesignModelDeploymentStatiDto statistics() throws RuntimeException {
         DesignModelDeploymentStatiDto statistics = mapper.statistics();
         if (Objects.isNull(statistics)) {

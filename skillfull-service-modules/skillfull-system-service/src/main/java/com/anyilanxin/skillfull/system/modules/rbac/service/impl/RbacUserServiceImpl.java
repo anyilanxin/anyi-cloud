@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.captcha.generator.RandomGenerator;
@@ -52,6 +47,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserCo
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -59,23 +58,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 /**
- * 用户表(RbacUser)业务层实现
- *
- * @author zxiaozhou
- * @copyright zxiaozhou（https://skillfull.divisu.com）
- * @date 2022-05-02 16:12:21
- * @since JDK1.8
- */
+* 用户表(RbacUser)业务层实现
+*
+* @author zxiaozhou
+* @copyright zxiaozhou（https://skillfull.divisu.com）
+* @date 2022-05-02 16:12:21
+* @since JDK1.8
+*/
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity> implements IRbacUserService {
+public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity>
+        implements IRbacUserService {
     private final RbacUserCopyMap map;
     private final RbacOrgUserMapper orgUserMapper;
     private final IRbacRoleUserService roleUserService;
@@ -85,7 +80,6 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
     private final IRbacOrgRoleUserService orgRoleUserService;
     private final RbacUserMapper mapper;
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void save(RbacUserVo vo) throws RuntimeException {
@@ -93,21 +87,21 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 处理权限
         String userId = entity.getUserId();
         handleAuth(userId, vo);
     }
 
-
     /**
-     * 数据检查
-     *
-     * @param entity
-     * @author zxiaozhou
-     * @date 2022-06-02 22:20
-     */
+    * 数据检查
+    *
+    * @param entity
+    * @author zxiaozhou
+    * @date 2022-06-02 22:20
+    */
     private void check(RbacUserEntity entity) {
         // 如果新增密码必填
         if (StringUtils.isBlank(entity.getUserId())) {
@@ -126,10 +120,13 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             entity.setPassword(null);
         }
         // 检查数据唯一性
-        LambdaQueryWrapper<RbacUserEntity> lambdaQueryWrapper = Wrappers.<RbacUserEntity>lambdaQuery()
-                .and(v -> v.eq(RbacUserEntity::getUserName, entity.getUserName())
-                        .or()
-                        .eq(RbacUserEntity::getPhone, entity.getPhone()));
+        LambdaQueryWrapper<RbacUserEntity> lambdaQueryWrapper =
+                Wrappers.<RbacUserEntity>lambdaQuery()
+                        .and(
+                                v ->
+                                        v.eq(RbacUserEntity::getUserName, entity.getUserName())
+                                                .or()
+                                                .eq(RbacUserEntity::getPhone, entity.getPhone()));
         if (StringUtils.isNotBlank(entity.getUserId())) {
             lambdaQueryWrapper.ne(RbacUserEntity::getUserId, entity.getUserId());
         }
@@ -139,15 +136,14 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         }
     }
 
-
     /**
-     * 处理用户权限
-     *
-     * @param userId
-     * @param vo
-     * @author zxiaozhou
-     * @date 2022-07-02 23:19
-     */
+    * 处理用户权限
+    *
+    * @param userId
+    * @param vo
+    * @author zxiaozhou
+    * @date 2022-07-02 23:19
+    */
     void handleAuth(String userId, RbacUserVo vo) {
         // 处理用户角色(只有超级管理员可操作)
         if (!UserContextUtils.superRole() && Objects.nonNull(vo.getRoleIds())) {
@@ -163,7 +159,6 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         roleUserService.saveBatch(userId, vo.getRoleIds());
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateById(String userId, RbacUserVo vo) throws RuntimeException {
@@ -175,32 +170,35 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 处理权限
         handleAuth(userId, vo);
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
-
 
     @Override
     public PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo) {
         return new PageDto<>(mapper.selectEnableUserPage(vo.getPage(), vo));
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public RbacUserDto getById(String userId, String orgId) throws RuntimeException {
         RbacUserEntity byId = super.getById(userId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacUserDto rbacUserDto = map.eToD(byId);
         rbacUserDto.setOrgId(orgId);
@@ -222,7 +220,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
                 orgRoleIds = Collections.emptySet();
             }
             rbacUserDto.setOrgRoleIds(orgRoleIds);
-            Set<RbacRoleSimpleDto> orgRoleInfos = orgRoleUserMapper.selectUserOrgRoleAllInfoListById(userId, orgId);
+            Set<RbacRoleSimpleDto> orgRoleInfos =
+                    orgRoleUserMapper.selectUserOrgRoleAllInfoListById(userId, orgId);
             if (CollUtil.isEmpty(orgRoleInfos)) {
                 orgRoleInfos = Collections.emptySet();
             }
@@ -230,7 +229,6 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         }
         return rbacUserDto;
     }
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -240,7 +238,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         // 删除数据
         boolean b = this.removeById(userId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除机构挂接
         orgUserMapper.physicalDeleteByUserId(userId);
@@ -250,28 +249,22 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         rbacRoleUserMapper.physicalDeleteByUserId(userId);
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> userIds) throws RuntimeException {
         userIds.forEach(this::deleteById);
     }
 
-
     @Override
     public void updateState(String userId, Integer type) {
         // 查询数据是否存在
         this.getById(userId);
-        RbacUserEntity entity = RbacUserEntity.builder()
-                .userId(userId)
-                .userStatus(type)
-                .build();
+        RbacUserEntity entity = RbacUserEntity.builder().userId(userId).userStatus(type).build();
         boolean b = this.updateById(entity);
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "修改用户状态失败");
         }
     }
-
 
     @Override
     public String resetPassword(String userId) {
@@ -282,11 +275,12 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         String password = randomGenerator.generate();
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
         PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(password);
-        RbacUserEntity entity = RbacUserEntity.builder()
-                .userId(userId)
-                .password(passwordInfo.getEncodedPassword())
-                .salt(passwordInfo.getSalt())
-                .build();
+        RbacUserEntity entity =
+                RbacUserEntity.builder()
+                        .userId(userId)
+                        .password(passwordInfo.getEncodedPassword())
+                        .salt(passwordInfo.getSalt())
+                        .build();
         boolean b = this.updateById(entity);
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "重置密码失败");

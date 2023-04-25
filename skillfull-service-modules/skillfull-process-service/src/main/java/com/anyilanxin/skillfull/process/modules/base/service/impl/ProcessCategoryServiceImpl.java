@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.process.modules.base.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,6 +38,10 @@ import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.ProcessCa
 import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.ProcessCategoryQueryCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -50,27 +49,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 /**
- * 流程类别(ProcessCategory)业务层实现
- *
- * @author zxiaozhou
- * @date 2021-11-19 10:47:01
- * @since JDK1.8
- */
+* 流程类别(ProcessCategory)业务层实现
+*
+* @author zxiaozhou
+* @date 2021-11-19 10:47:01
+* @since JDK1.8
+*/
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMapper, ProcessCategoryEntity> implements IProcessCategoryService {
+public class ProcessCategoryServiceImpl
+        extends ServiceImpl<ProcessCategoryMapper, ProcessCategoryEntity>
+        implements IProcessCategoryService {
     private final ProcessCategoryCopyMap map;
     private final ProcessCategoryPageCopyMap pageMap;
     private final ProcessCategoryQueryCopyMap queryMap;
     private final ProcessCategoryMapper mapper;
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -80,18 +75,21 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         checkData(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
     /**
-     * 数据校验
-     *
-     * @param entity ${@link ProcessCategoryEntity}
-     * @author zxiaozhou
-     * @date 2021-11-19 14:25
-     */
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    * 数据校验
+    *
+    * @param entity ${@link ProcessCategoryEntity}
+    * @author zxiaozhou
+    * @date 2021-11-19 14:25
+    */
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     void checkData(ProcessCategoryEntity entity) {
         LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ProcessCategoryEntity::getCategoryCode, entity.getCategoryCode());
@@ -100,7 +98,8 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         }
         ProcessCategoryEntity one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前类别编码已经存在:" + entity.getCategoryCode());
+            throw new ResponseException(
+                    Status.VERIFICATION_FAILED, "当前类别编码已经存在:" + entity.getCategoryCode());
         }
     }
 
@@ -116,21 +115,23 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         checkData(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo) throws RuntimeException {
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
+    public List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo)
+            throws RuntimeException {
         List<ProcessCategoryDto> list = mapper.selectListByModel(vo);
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
         return list;
     }
-
 
     @Override
     public ProcessCategoryDto selectByCode(String categoryCode) {
@@ -140,22 +141,26 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
     }
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo) throws RuntimeException {
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
+    public PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo)
+            throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public ProcessCategoryDto getById(String categoryId) throws RuntimeException {
         ProcessCategoryEntity byId = super.getById(categoryId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
-
 
     @Override
     public List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes) {
@@ -168,7 +173,6 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         return Collections.emptyList();
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteById(String categoryId) throws RuntimeException {
@@ -177,10 +181,10 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
         // 删除数据
         boolean b = this.removeById(categoryId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
-
 
     @Override
     public List<SelectModel> getModelDesignList() {

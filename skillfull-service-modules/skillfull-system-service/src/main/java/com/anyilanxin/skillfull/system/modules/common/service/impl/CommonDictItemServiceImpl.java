@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,31 +38,31 @@ import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDi
 import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDictItemVoMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 /**
- * 数据字典配置项表(CommonDictItem)业务层实现
- *
- * @author zxiaozhou
- * @date 2020-11-02 09:25:26
- * @since JDK11
- */
+* 数据字典配置项表(CommonDictItem)业务层实现
+*
+* @author zxiaozhou
+* @date 2020-11-02 09:25:26
+* @since JDK11
+*/
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper, CommonDictItemEntity> implements ICommonDictItemService {
+public class CommonDictItemServiceImpl
+        extends ServiceImpl<CommonDictItemMapper, CommonDictItemEntity>
+        implements ICommonDictItemService {
     private final CommonDictItemDtoMap dtoMap;
     private final CommonDictItemVoMap voMap;
     private final CommonDictItemMapper mapper;
     private final CommonDictMapper dictMapper;
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -75,8 +70,12 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
         CommonDictItemEntity entity = voMap.aToB(vo);
         // 查询当前值是否已经存在
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.or(v -> v.eq(CommonDictItemEntity::getItemText, vo.getItemText()).or()
-                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
+        lambdaQueryWrapper
+                .or(
+                        v ->
+                                v.eq(CommonDictItemEntity::getItemText, vo.getItemText())
+                                        .or()
+                                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
                 .eq(CommonDictItemEntity::getDictId, vo.getDictId());
         List<CommonDictItemEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
@@ -94,7 +93,6 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
         }
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateById(String itemId, CommonDictItemVo vo) throws RuntimeException {
@@ -102,8 +100,12 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
         this.getById(itemId);
         // 查询字典项是否已经存在
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.or(v -> v.eq(CommonDictItemEntity::getItemText, vo.getItemText()).or()
-                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
+        lambdaQueryWrapper
+                .or(
+                        v ->
+                                v.eq(CommonDictItemEntity::getItemText, vo.getItemText())
+                                        .or()
+                                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
                 .eq(CommonDictItemEntity::getDictId, vo.getDictId())
                 .ne(CommonDictItemEntity::getItemId, itemId);
         List<CommonDictItemEntity> list = this.list(lambdaQueryWrapper);
@@ -119,31 +121,35 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
         }
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public List<CommonDictItemDto> selectListByCode(String dictCode) throws RuntimeException {
         return mapper.selectListByCode(dictCode);
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo) throws RuntimeException {
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
+    public PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo)
+            throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
-
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
     public CommonDictItemDto getById(String itemId) throws RuntimeException {
         CommonDictItemEntity byId = super.getById(itemId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -156,13 +162,13 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
         }
     }
 
-
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> itemIds) throws RuntimeException {
         List<CommonDictItemEntity> entities = this.listByIds(itemIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getItemId()));
@@ -171,7 +177,6 @@ public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper,
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "批量删除数据字典项失败");
         }
     }
-
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})

@@ -1,28 +1,25 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.oauth2mvc.config;
+
+import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.DEFAULT_RESOURCE_ID;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
@@ -33,6 +30,7 @@ import com.anyilanxin.skillfull.oauth2mvc.CustomLogoutSuccessHandler;
 import com.anyilanxin.skillfull.oauth2mvc.CustomOAuthEntryPoint;
 import com.anyilanxin.skillfull.oauth2mvc.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.oauth2mvc.utils.Oauth2Utils;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,17 +50,13 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import java.util.Set;
-
-import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.DEFAULT_RESOURCE_ID;
-
 /**
- * 资源服务器配置
- *
- * @author zhouxuanhong
- * @date 2019-05-20 19:42
- * @since JDK1.8
- */
+* 资源服务器配置
+*
+* @author zhouxuanhong
+* @date 2019-05-20 19:42
+* @since JDK1.8
+*/
 @AutoConfiguration
 @EnableResourceServer
 @EnableWebSecurity
@@ -74,10 +68,8 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     private final ApplicationContext applicationContext;
     private final CustomSecurityProperties properties;
 
-
     @Value("${spring.application.name:" + DEFAULT_RESOURCE_ID + "}")
     private String applicationName;
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -91,18 +83,23 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
             http.authorizeRequests().anyRequest().permitAll();
         } else {
             // 接管所有请求
-            Set<Oauth2Utils.WhiteListInfo> whiteList = Oauth2Utils.getWhiteList(applicationContext, properties);
-            log.info("------------CustomResourceServerConfigurer------当前鉴权白名单------>configure:\n{}", whiteList);
+            Set<Oauth2Utils.WhiteListInfo> whiteList =
+                    Oauth2Utils.getWhiteList(applicationContext, properties);
+            log.info(
+                    "------------CustomResourceServerConfigurer------当前鉴权白名单------>configure:\n{}",
+                    whiteList);
             if (CollUtil.isNotEmpty(whiteList)) {
                 for (Oauth2Utils.WhiteListInfo whiteListInfo : whiteList) {
                     Set<HttpMethod> methods = whiteListInfo.getMethods();
                     Set<String> urls = whiteListInfo.getUrls();
                     if (CollUtil.isNotEmpty(methods)) {
                         for (HttpMethod method : methods) {
-                            http.authorizeRequests().antMatchers(method, urls.toArray(new String[]{})).permitAll();
+                            http.authorizeRequests()
+                                    .antMatchers(method, urls.toArray(new String[] {}))
+                                    .permitAll();
                         }
                     } else {
-                        http.authorizeRequests().antMatchers(urls.toArray(new String[]{})).permitAll();
+                        http.authorizeRequests().antMatchers(urls.toArray(new String[] {})).permitAll();
                     }
                 }
             }
@@ -110,10 +107,10 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         }
     }
 
-
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.tokenStore(tokenStore)
+        resources
+                .tokenStore(tokenStore)
                 .resourceId(applicationName)
                 .tokenExtractor(tokenExtractor())
                 .authenticationManager(authenticationManager())
@@ -123,7 +120,8 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
     @Bean
     public OAuth2AuthenticationManager authenticationManager() {
-        CustomOAuth2AuthenticationManager customOAuth2AuthenticationManager = new CustomOAuth2AuthenticationManager();
+        CustomOAuth2AuthenticationManager customOAuth2AuthenticationManager =
+                new CustomOAuth2AuthenticationManager();
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore);
         customOAuth2AuthenticationManager.setTokenServices(defaultTokenServices);
@@ -140,12 +138,10 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         return new CustomAccessDeniedHandler();
     }
 
-
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler(tokenExtractor(), tokenStore);
     }
-
 
     @Bean
     public TokenExtractor tokenExtractor() {

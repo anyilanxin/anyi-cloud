@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.storage.modules.storage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -41,6 +36,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -48,18 +46,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.List;
-
 /**
- * 本地文件服务(StorageInfoFile)控制层
- *
- * @author zxiaozhou
- * @copyright zxiaozhou（https://skillfull.divisu.com）
- * @date 2022-04-05 09:57:58
- * @since JDK1.8
- */
+* 本地文件服务(StorageInfoFile)控制层
+*
+* @author zxiaozhou
+* @copyright zxiaozhou（https://skillfull.divisu.com）
+* @date 2022-04-05 09:57:58
+* @since JDK1.8
+*/
 @Slf4j
 @Validated
 @RestController
@@ -69,65 +63,97 @@ import java.util.List;
 public class StorageInfoFileController extends BaseController {
     private final IStorageInfoFileService service;
 
-    @Operation(summary = "上传文件", tags = {"v1.0.0"}, description = "上传文件")
+    @Operation(
+            summary = "上传文件",
+            tags = {"v1.0.0"},
+            description = "上传文件")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
-            @Parameter(in = ParameterIn.QUERY, description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致", name = "fileStorageType")
+        @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
+                name = "fileStorageType")
     })
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<StorageInfoModel> storage(@RequestParam(value = "file") MultipartFile file,
-                                            @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
-                                            final HttpServletRequest request) {
+    @PostMapping(
+            value = "/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<StorageInfoModel> storage(
+            @RequestParam(value = "file") MultipartFile file,
+            @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
+            final HttpServletRequest request) {
         return ok(service.storage(file, fileDirPrefix, request));
     }
 
-
-    @Operation(summary = "批量上传文件", tags = {"v1.0.0"}, description = "批量上传文件")
+    @Operation(
+            summary = "批量上传文件",
+            tags = {"v1.0.0"},
+            description = "批量上传文件")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
-            @Parameter(in = ParameterIn.QUERY, description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致", name = "fileStorageType")
+        @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
+                name = "fileStorageType")
     })
-    @PostMapping(value = "/upload/batch", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<List<StorageInfoModel>> storageBatch(@RequestParam(value = "files") List<MultipartFile> files,
-                                                       @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
-                                                       final HttpServletRequest request) {
+    @PostMapping(
+            value = "/upload/batch",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<List<StorageInfoModel>> storageBatch(
+            @RequestParam(value = "files") List<MultipartFile> files,
+            @RequestParam(required = false, defaultValue = "") String fileDirPrefix,
+            final HttpServletRequest request) {
         return ok(service.storageBatch(files, fileDirPrefix, request));
     }
 
-
-    @Operation(summary = "批量上传url文件到服务器", tags = {"v1.0.0"}, description = "批量上传url文件到服务器")
+    @Operation(
+            summary = "批量上传url文件到服务器",
+            tags = {"v1.0.0"},
+            description = "批量上传url文件到服务器")
     @PostMapping(value = "/upload/batch-url")
     public Result<List<StorageInfoUrlModel>> storageBatchUrl(@RequestBody @Valid StorageModel model) {
         return ok(service.storageBatchUrl(model));
     }
 
-
-    @Operation(summary = "本地文件服务逻辑删除", tags = {"v1.0.0"}, description = "删除本地文件服务")
+    @Operation(
+            summary = "本地文件服务逻辑删除",
+            tags = {"v1.0.0"},
+            description = "删除本地文件服务")
     @Parameter(in = ParameterIn.PATH, description = "文件id", name = "fileId", required = true)
     @DeleteMapping(value = "/delete-one/{fileId}")
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
+    public Result<String> deleteById(
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
         service.deleteById(fileId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-
-    @Operation(summary = "本地文件服务逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除本地文件服务")
+    @Operation(
+            summary = "本地文件服务逻辑批量删除",
+            tags = {"v1.0.0"},
+            description = "批量删除本地文件服务")
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除文件id不能为空") List<String> fileIds) {
+    public Result<String> deleteBatchByIds(
+            @RequestBody @NotNullSize(message = "待删除文件id不能为空") List<String> fileIds) {
         service.deleteBatch(fileIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-
-    @Operation(summary = "通过文件id查询详情", tags = {"v1.0.0"}, description = "查询本地文件服务详情")
+    @Operation(
+            summary = "通过文件id查询详情",
+            tags = {"v1.0.0"},
+            description = "查询本地文件服务详情")
     @Parameter(in = ParameterIn.PATH, description = "文件id", name = "fileId", required = true)
     @GetMapping(value = "/select/one/{fileId}")
-    public Result<StorageInfoModel> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
+    public Result<StorageInfoModel> getById(
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
         return ok(service.getById(fileId));
     }
 
-
-    @Operation(summary = "本地文件服务分页查询", tags = {"v1.0.0"}, description = "分页查询本地文件服务")
+    @Operation(
+            summary = "本地文件服务分页查询",
+            tags = {"v1.0.0"},
+            description = "分页查询本地文件服务")
     @PostMapping(value = "/select/page")
     public Result<PageDto<StorageInfoFilePageDto>> selectPage(@RequestBody StorageInfoFilePageVo vo) {
         return ok(service.pageByModel(vo));

@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.coremvc.aspect;
 
 import cn.hutool.core.collection.CollUtil;
@@ -30,6 +25,10 @@ import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.coremvc.aspect.model.OperateModel;
 import com.anyilanxin.skillfull.coremvc.utils.ServletUtils;
+import java.lang.reflect.Method;
+import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -37,31 +36,22 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
-import java.util.Objects;
-
-
 /**
- * 系统日志，切面处理类
- *
- * @author zxiaozhou
- * @date 2020-08-27 16:59
- * @since JDK11
- */
-//@Aspect
-//@Component
+* 系统日志，切面处理类
+*
+* @author zxiaozhou
+* @date 2020-08-27 16:59
+* @since JDK11
+*/
+// @Aspect
+// @Component
 @Slf4j
-//@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class LogAspect {
     private static final String REQUEST_JSON_TYPE = "application";
 
-
     @Pointcut("@annotation(com.anyilanxin.skillfull.corecommon.annotation.AutoLog)")
-    public void logPointCut() {
-    }
-
+    public void logPointCut() {}
 
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -76,7 +66,6 @@ public class LogAspect {
             throw e;
         }
     }
-
 
     private void saveSysLog(ProceedingJoinPoint joinPoint, Object result) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -102,20 +91,20 @@ public class LogAspect {
             model.setExceptionMessage(e.getMessage());
             model.setStackTrace(e.toString());
         } else {
-            model.setRequestResult(Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
+            model.setRequestResult(
+                    Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
         }
     }
 
-
     /**
-     * 获取方法请求参数
-     *
-     * @param methodSignature ${@link MethodSignature}
-     * @param joinPoint       ${@link ProceedingJoinPoint}
-     * @return String ${@link String}
-     * @author zhouxuanhong
-     * @date 2019-06-20 16:33
-     */
+    * 获取方法请求参数
+    *
+    * @param methodSignature ${@link MethodSignature}
+    * @param joinPoint ${@link ProceedingJoinPoint}
+    * @return String ${@link String}
+    * @author zhouxuanhong
+    * @date 2019-06-20 16:33
+    */
     private String getMethodParams(MethodSignature methodSignature, ProceedingJoinPoint joinPoint) {
         String params = "";
         JSONObject jsonObject = new JSONObject();
@@ -152,14 +141,15 @@ public class LogAspect {
         return params;
     }
 
-
     /**
-     * 判断过滤请求方法参数信息
-     *
-     * @param o 对象信息。
-     * @return true-过滤,false-不过来
-     */
+    * 判断过滤请求方法参数信息
+    *
+    * @param o 对象信息。
+    * @return true-过滤,false-不过来
+    */
     public boolean isFilterObject(final Object o) {
-        return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse;
+        return o instanceof MultipartFile
+                || o instanceof HttpServletRequest
+                || o instanceof HttpServletResponse;
     }
 }

@@ -1,55 +1,47 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 编码生成工具类
- *
- * @author zxiaozhou
- * @date 2021-03-08 10:53
- * @since JDK1.8
- */
+* 编码生成工具类
+*
+* @author zxiaozhou
+* @date 2021-03-08 10:53
+* @since JDK1.8
+*/
 public class CodeUtil {
     // 数字位数(默认生成3位的数字)
 
-    private static final int numLength = 3;//代表数字位数
-
+    private static final int numLength = 3; // 代表数字位数
 
     /**
-     * 根据父亲code,获取下级的下一个code
-     * <p>
-     * 例如：父亲CODE:A01
-     * 当前CODE:A01B03
-     * 获取的code:A01B04
-     *
-     * @param parentCode 上级code
-     * @param localCode  同级code
-     * @return
-     */
+    * 根据父亲code,获取下级的下一个code
+    *
+    * <p>例如：父亲CODE:A01 当前CODE:A01B03 获取的code:A01B04
+    *
+    * @param parentCode 上级code
+    * @param localCode 同级code
+    * @return
+    */
     public static synchronized String getSubYouBianCode(String parentCode, String localCode) {
         if (StringUtils.isBlank(parentCode)) {
             parentCode = "";
@@ -62,14 +54,12 @@ public class CodeUtil {
         return parentCode;
     }
 
-
     /**
-     * 根据前一个code，获取同级下一个code
-     * 例如:当前最大code为D01A04，下一个code为：D01A05
-     *
-     * @param code
-     * @return
-     */
+    * 根据前一个code，获取同级下一个code 例如:当前最大code为D01A04，下一个code为：D01A05
+    *
+    * @param code
+    * @return
+    */
     private static synchronized String getNextYouBianCode(String code) {
         String newcode;
         if (code == null || code.equals("")) {
@@ -104,36 +94,34 @@ public class CodeUtil {
             }
         }
         return newcode;
-
     }
 
-
     /**
-     * 将数字前面位数补零
-     *
-     * @param num
-     * @return
-     */
+    * 将数字前面位数补零
+    *
+    * @param num
+    * @return
+    */
     private static String getNextStrNum(int num) {
         return getStrNum(getNextNum(num));
     }
 
     /**
-     * 将数字前面位数补零
-     *
-     * @param num
-     * @return
-     */
+    * 将数字前面位数补零
+    *
+    * @param num
+    * @return
+    */
     private static String getStrNum(int num) {
         return String.format("%0" + numLength + "d", num);
     }
 
     /**
-     * 根据数字位数获取最大值
-     *
-     * @param length
-     * @return
-     */
+    * 根据数字位数获取最大值
+    *
+    * @param length
+    * @return
+    */
     private static int getMaxNumByLength(int length) {
         if (length == 0) {
             return 0;
@@ -145,24 +133,22 @@ public class CodeUtil {
         return Integer.parseInt(max_num);
     }
 
-
     /**
-     * 递增获取下个数字
-     *
-     * @param num
-     * @return
-     */
+    * 递增获取下个数字
+    *
+    * @param num
+    * @return
+    */
     private static int getNextNum(int num) {
         num++;
         return num;
     }
 
-
     /**
-     * 递增获取下个字母
-     *
-     * @return
-     */
+    * 递增获取下个字母
+    *
+    * @return
+    */
     private static char getNextZiMu(char zimu) {
         if (zimu == 'Z') {
             return 'A';

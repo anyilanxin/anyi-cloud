@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.system.modules.rbac.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -31,13 +26,13 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
- * 菜单表(RbacMenu)Entity
- *
- * @author zxiaozhou
- * @copyright zxiaozhou（https://skillfull.divisu.com）
- * @date 2022-05-03 00:29:05
- * @since JDK1.8
- */
+* 菜单表(RbacMenu)Entity
+*
+* @author zxiaozhou
+* @copyright zxiaozhou（https://skillfull.divisu.com）
+* @date 2022-05-03 00:29:05
+* @since JDK1.8
+*/
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -48,186 +43,113 @@ import lombok.experimental.SuperBuilder;
 public class RbacMenuEntity extends BaseEntity {
     private static final long serialVersionUID = 391242347439472730L;
 
-    @TableId
-    private String menuId;
+    @TableId private String menuId;
 
-    /**
-     * 父id
-     */
+    /** 父id */
     private String parentId;
 
-    /**
-     * 路径
-     */
+    /** 路径 */
     private String path;
 
-    /**
-     * 前端组件
-     */
+    /** 前端组件 */
     private String component;
 
-    /**
-     * 路由名称
-     */
+    /** 路由名称 */
     private String pathName;
 
-    /**
-     * 重定向地址
-     */
+    /** 重定向地址 */
     private String redirect;
 
-    /**
-     * 权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType
-     */
+    /** 权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType */
     private Integer menuType;
 
-    /**
-     * 是否外连接,实际为boolean
-     */
+    /** 是否外连接,实际为boolean */
     private boolean iframe;
 
-    /**
-     * 外连接类型:0-内嵌,1-外链接
-     */
+    /** 外连接类型:0-内嵌,1-外链接 */
     private Integer iframeType;
 
-    /**
-     * 菜单状态:0-禁用,1-启用
-     */
+    /** 菜单状态:0-禁用,1-启用 */
     private Integer menuStatus;
 
-    /**
-     * 菜单名称
-     */
+    /** 菜单名称 */
     private String metaTitle;
 
-    /**
-     * 是否忽略权限，只在权限模式为Role的时候有效,实际为boolean
-     */
+    /** 是否忽略权限，只在权限模式为Role的时候有效,实际为boolean */
     private boolean ignoreAuth;
 
-    /**
-     * 是否忽略KeepAlive缓存,实际为boolean
-     */
+    /** 是否忽略KeepAlive缓存,实际为boolean */
     private boolean ignoreKeepAlive;
 
-    /**
-     * 是否固定标签,实际为boolean
-     */
+    /** 是否固定标签,实际为boolean */
     private boolean affix;
 
-    /**
-     * 图标
-     */
+    /** 图标 */
     private String icon;
 
-    /**
-     * 图标类型:0-系统图标(基于icon),1-自定义图标(基于图片路径)
-     */
+    /** 图标类型:0-系统图标(基于icon),1-自定义图标(基于图片路径) */
     private Integer iconType;
 
-    /**
-     * 内嵌iframe的地址
-     */
+    /** 内嵌iframe的地址 */
     private String frameSrc;
 
-    /**
-     * 路由切换的动画名
-     */
+    /** 路由切换的动画名 */
     private String transitionName;
 
-    /**
-     * 隐藏该路由在面包屑上面的显示,实际为boolean
-     */
+    /** 隐藏该路由在面包屑上面的显示,实际为boolean */
     private boolean hideBreadcrumb;
 
-    /**
-     * 是否携带参数并在tab上显示,实际为boolean
-     */
+    /** 是否携带参数并在tab上显示,实际为boolean */
     private boolean carryParam;
 
-    /**
-     * 隐藏所有子菜单,实际为boolean
-     */
+    /** 隐藏所有子菜单,实际为boolean */
     private boolean hideChildrenInMenu;
 
-    /**
-     * 当前激活的菜单。用于配置详情页时左侧激活的菜单路径
-     */
+    /** 当前激活的菜单。用于配置详情页时左侧激活的菜单路径 */
     private String currentActiveMenu;
 
-    /**
-     * 当前路由不再标签页显示,实际为boolean
-     */
+    /** 当前路由不再标签页显示,实际为boolean */
     private boolean hideTab;
 
-    /**
-     * 当前路由不再菜单显示,实际为boolean
-     */
+    /** 当前路由不再菜单显示,实际为boolean */
     private boolean hideMenu;
 
-    /**
-     * 菜单排序
-     */
+    /** 菜单排序 */
     private Integer orderNo;
 
-    /**
-     * 忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean
-     */
+    /** 忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean */
     private boolean ignoreRoute;
 
-    /**
-     * 显示tag,0-不显示,1-显示，实际为boolean
-     */
+    /** 显示tag,0-不显示,1-显示，实际为boolean */
     private boolean showTag;
 
-    /**
-     * tag类型：primary、error、warn、success
-     */
+    /** tag类型：primary、error、warn、success */
     private String type;
 
-    /**
-     * tag内容
-     */
+    /** tag内容 */
     private String content;
 
-    /**
-     * 是否圆点,默认不是,实际为boolean
-     */
+    /** 是否圆点,默认不是,实际为boolean */
     private boolean dot;
 
-    /**
-     * 是否在子级菜单的完整path中忽略本级path,实际为boolean
-     */
+    /** 是否在子级菜单的完整path中忽略本级path,实际为boolean */
     private boolean hidePathForChildren;
 
-    /**
-     * 所属系统
-     */
+    /** 所属系统 */
     private String systemId;
 
-    /**
-     * 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)
-     */
+    /** 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除) */
     private Integer enableDelete;
 
-    /**
-     * 系统内置编码(系统自动生成)
-     */
+    /** 系统内置编码(系统自动生成) */
     private String menuSysCode;
 
-    /**
-     * 唯一索引帮助字段,默认1，如果删除该值为主键
-     */
+    /** 唯一索引帮助字段,默认1，如果删除该值为主键 */
     private String uniqueHelp;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 
-    /**
-     * 按钮鉴权指令
-     */
+    /** 按钮鉴权指令 */
     private String buttonAction;
 }

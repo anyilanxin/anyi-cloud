@@ -1,27 +1,22 @@
 /**
- * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
- *
- * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
- */
+* Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+*
+* <p>AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of the License at
+*
+* <p>http://www.apache.org/licenses/LICENSE-2.0
+*
+* <p>Unless required by applicable law or agreed to in writing, software distributed under the
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* <p>AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+*
+* <p>1.请不要删除和修改根目录下的LICENSE文件。 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。 3.请保留源码和相关描述文件的项目出处，作者声明等。
+* 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud 5.在修改包名，模块名称，项目代码等时，请注明软件出处
+* https://github.com/anyilanxin/anyi-cloud 6.若您的项目无法满足以上几点，可申请商业授权
+*/
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -35,6 +30,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.skillfull.process.modules.rbac.service.ITenantService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.TenantDto;
 import io.seata.spring.annotation.GlobalTransactional;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -44,15 +40,13 @@ import org.camunda.bpm.engine.identity.TenantQuery;
 import org.camunda.bpm.engine.identity.User;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
 /**
- * 租户相关
- *
- * @author zxiaozhou
- * @date 2021-11-05 17:30
- * @since JDK1.8
- */
+* 租户相关
+*
+* @author zxiaozhou
+* @date 2021-11-05 17:30
+* @since JDK1.8
+*/
 @Service
 @RequiredArgsConstructor
 public class TenantServiceImpl implements ITenantService {
@@ -71,13 +65,11 @@ public class TenantServiceImpl implements ITenantService {
         identityService.saveTenant(tenant);
     }
 
-
     @Override
     public TenantDto getTenant(String tenantId) throws RuntimeException {
         Tenant tenant = getCamundaTenant(tenantId);
         return new TenantDto().getTenant(tenant);
     }
-
 
     @Override
     @GlobalTransactional
@@ -95,7 +87,6 @@ public class TenantServiceImpl implements ITenantService {
         }
     }
 
-
     @Override
     public List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException {
         TenantQuery tenantQuery = identityService.createTenantQuery();
@@ -111,7 +102,6 @@ public class TenantServiceImpl implements ITenantService {
         return tenantList;
     }
 
-
     @Override
     public PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
         TenantQuery tenantQuery = identityService.createTenantQuery();
@@ -119,18 +109,22 @@ public class TenantServiceImpl implements ITenantService {
             tenantQuery.tenantNameLike("%" + vo.getName() + "%");
         }
         if (CollUtil.isNotEmpty(vo.getAscs())) {
-            vo.getAscs().forEach(v -> {
-                if (v.equals("name")) {
-                    tenantQuery.orderByTenantName().asc();
-                }
-            });
+            vo.getAscs()
+                    .forEach(
+                            v -> {
+                                if (v.equals("name")) {
+                                    tenantQuery.orderByTenantName().asc();
+                                }
+                            });
         }
         if (CollUtil.isNotEmpty(vo.getDescs())) {
-            vo.getAscs().forEach(v -> {
-                if (v.equals("name")) {
-                    tenantQuery.orderByTenantName().desc();
-                }
-            });
+            vo.getAscs()
+                    .forEach(
+                            v -> {
+                                if (v.equals("name")) {
+                                    tenantQuery.orderByTenantName().desc();
+                                }
+                            });
         }
         long count = tenantQuery.count();
         if (count == 0L) {
@@ -138,22 +132,22 @@ public class TenantServiceImpl implements ITenantService {
         }
         List<Tenant> list = tenantQuery.listPage(vo.getCurrent(), vo.getSize());
         List<TenantDto> tenantList = new ArrayList<>(list.size());
-        list.forEach(v -> {
-            TenantDto tenantDto = new TenantDto().getTenant(v);
-            tenantList.add(tenantDto);
-        });
+        list.forEach(
+                v -> {
+                    TenantDto tenantDto = new TenantDto().getTenant(v);
+                    tenantList.add(tenantDto);
+                });
         return new PageDto<>(count, tenantList);
     }
 
-
     /**
-     * 获取租户信息
-     *
-     * @param tenantId ${@link String} 租户id
-     * @return User ${@link User}
-     * @author zxiaozhou
-     * @date 2021-11-07 00:42
-     */
+    * 获取租户信息
+    *
+    * @param tenantId ${@link String} 租户id
+    * @return User ${@link User}
+    * @author zxiaozhou
+    * @date 2021-11-07 00:42
+    */
     private Tenant getCamundaTenant(String tenantId) {
         // 查询租户信息
         Tenant tenant = identityService.createTenantQuery().tenantId(tenantId).singleResult();
@@ -162,7 +156,6 @@ public class TenantServiceImpl implements ITenantService {
         }
         return tenant;
     }
-
 
     @Override
     @GlobalTransactional

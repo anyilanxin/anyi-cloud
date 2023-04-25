@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import com.anyilanxin.skillfull.coremvc.config.properties.CoreWebMvcProperty;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -63,7 +60,7 @@ public class CoreMvcCommonUtils {
     /**
      * 创建redis 服务级锁
      *
-     * @param key     ${@link String}
+     * @param key ${@link String}
      * @param timeout ${@link Long} 过期时间(单位:s),默认10s,只能大于0，当小于等于0时为10s
      * @author zxiaozhou
      * @date 2021-08-19 18:06
@@ -79,8 +76,7 @@ public class CoreMvcCommonUtils {
             if (Objects.nonNull(ifAbsent) && Boolean.FALSE.equals(ifAbsent)) {
                 return true;
             }
-            utils
-                    .stringRedisTemplate
+            utils.stringRedisTemplate
                     .opsForValue()
                     .set(timeoutKey, timeoutKey + "超时key", timeout, TimeUnit.SECONDS);
             return false;

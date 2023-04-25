@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -51,7 +50,6 @@ import org.mapstruct.ReportingPolicy;
         builder = @Builder(disableBuilder = true))
 public interface ManageRouteCustomFilterPageCopyMap
         extends BaseThreeMap<
-        ManageRouteCustomFilterEntity,
-        ManageRouteCustomFilterPageDto,
-        ManageRouteCustomFilterPageVo> {
-}
+                ManageRouteCustomFilterEntity,
+                ManageRouteCustomFilterPageDto,
+                ManageRouteCustomFilterPageVo> {}

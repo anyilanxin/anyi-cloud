@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.SUPER_ROLE;
@@ -62,9 +61,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacRoleCo
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -115,7 +112,7 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
      *
      * @param oldParentId ${@link String} 历史上级id
      * @param newParentId ${@link String} 现在上级id
-     * @param isUpdate    ${@link Boolean} false-新建,true-更新
+     * @param isUpdate ${@link Boolean} false-新建,true-更新
      * @return String ${@link String}
      * @author zxiaozhou
      * @date 2021-03-08 12:00
@@ -141,7 +138,9 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
                     .orderByDesc(RbacRoleEntity::getRoleSysCode)
                     .last("LIMIT 1");
             RbacRoleEntity one = this.getOne(lambdaQueryWrapper);
-            code = CodeUtil.getSubYouBianCode(null, Objects.isNull(one) ? null : one.getRoleSysCode());
+            code =
+                    CodeUtil.getSubYouBianCode(
+                            null, Objects.isNull(one) ? null : one.getRoleSysCode());
         } else {
             // 获取上级code
             RbacRoleDto byId = this.getById(newParentId);
@@ -154,7 +153,8 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
             RbacRoleEntity one = this.getOne(lambdaQueryWrapper);
             code =
                     CodeUtil.getSubYouBianCode(
-                            byId.getRoleSysCode(), Objects.isNull(one) ? null : one.getRoleSysCode());
+                            byId.getRoleSysCode(),
+                            Objects.isNull(one) ? null : one.getRoleSysCode());
         }
         return code;
     }
@@ -373,7 +373,8 @@ public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleMapper, RbacRoleEnt
                             String menuId = v.getMenuId();
                             actions.forEach(
                                     sv -> {
-                                        if (menuId.equals(sv.getParentId()) && sv.getRoleId().equals(v.getRoleId())) {
+                                        if (menuId.equals(sv.getParentId())
+                                                && sv.getRoleId().equals(v.getRoleId())) {
                                             finalActions.add(sv);
                                         }
                                     });

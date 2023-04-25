@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -54,36 +53,23 @@ import lombok.experimental.SuperBuilder;
 public class CommonCategoryEntity extends BaseEntity {
     private static final long serialVersionUID = -29101329593126397L;
 
-    @TableId
-    private String categoryId;
+    @TableId private String categoryId;
 
-    /**
-     * 父级id
-     */
+    /** 父级id */
     private String parentId;
 
-    /**
-     * 分类名称
-     */
+    /** 分类名称 */
     private String categoryName;
 
-    /**
-     * 分类统一编码
-     */
+    /** 分类统一编码 */
     private String categoryCommonCode;
 
-    /**
-     * 分类编码
-     */
+    /** 分类编码 */
     private String categoryCode;
 
-    /**
-     * 是否父节:0-不是，1-时，默认0
-     */
+    /** 是否父节:0-不是，1-时，默认0 */
     private Integer isParent;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

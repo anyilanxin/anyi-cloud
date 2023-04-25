@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2;
 
 import cn.hutool.core.collection.CollUtil;
@@ -38,11 +37,9 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
-
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -82,10 +79,12 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
                 Object principal = userAuthentication.getPrincipal();
                 if (principal instanceof UserDetails) {
                     UserDetails userDetails = (UserDetails) principal;
-                    SkillFullClientDetails customClientDetails = (SkillFullClientDetails) clientDetails;
+                    SkillFullClientDetails customClientDetails =
+                            (SkillFullClientDetails) clientDetails;
                     if (customClientDetails.getSingleLogin() == CommonNotHaveType.HAVE.getType()) {
                         Collection<Approval> approvals =
-                                this.approvalStore.getApprovals(userDetails.getUsername(), clientId);
+                                this.approvalStore.getApprovals(
+                                        userDetails.getUsername(), clientId);
                         // 相同scope不能同时登录
                         if (customClientDetails.getSingleLoginType() == 2
                                 && CollUtil.isNotEmpty(scope)
@@ -129,7 +128,7 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
      * 添加StoredRequestExtension扩展信息
      *
      * @param authentication ${@link OAuth2Authentication}
-     * @param clientDetails  ${@link ClientDetails}
+     * @param clientDetails ${@link ClientDetails}
      * @return OAuth2Authentication ${@link OAuth2Authentication}
      * @author zxiaozhou
      * @date 2022-03-06 23:51
@@ -151,7 +150,8 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
             extensions.put(OAuth2RequestExtendConstant.LOGIN_ENDPOINT, "default");
             extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, "default");
             if (authProperty.getTokenGeneratorType() == 1) {
-                extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, UUID.randomUUID().toString());
+                extensions.put(
+                        OAuth2RequestExtendConstant.LOGIN_UNIQUE, UUID.randomUUID().toString());
             }
             OAuth2Request newOAuth2Request =
                     new OAuth2Request(
@@ -164,7 +164,8 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
                             oAuth2Request.getRedirectUri(),
                             oAuth2Request.getResponseTypes(),
                             extensions);
-            return new OAuth2Authentication(newOAuth2Request, authentication.getUserAuthentication());
+            return new OAuth2Authentication(
+                    newOAuth2Request, authentication.getUserAuthentication());
         }
         return authentication;
     }

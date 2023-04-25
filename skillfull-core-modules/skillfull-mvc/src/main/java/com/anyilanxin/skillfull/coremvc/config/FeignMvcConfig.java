@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

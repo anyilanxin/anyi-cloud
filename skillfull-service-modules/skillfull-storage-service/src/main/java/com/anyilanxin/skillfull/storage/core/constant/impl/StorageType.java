@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -50,34 +47,22 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum StorageType implements ISuperType {
-    /**
-     * 本地存储
-     */
+    /** 本地存储 */
     LOCAL(1, StorageTypeConstant.LOCAL_STORAGE, "本地存储"),
 
-    /**
-     * ali oss存储
-     */
+    /** ali oss存储 */
     ALI_OSS(2, StorageTypeConstant.ALI_OSS_STORAGE, "oss存储"),
 
-    /**
-     * minio存储
-     */
+    /** minio存储 */
     MINIO(3, StorageTypeConstant.MINIO_STORAGE, "minio存储");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 存储策略
-     */
+    /** 存储策略 */
     private final String strategy;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     StorageType(int type, String strategy, String describe) {

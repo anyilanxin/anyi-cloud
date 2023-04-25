@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.listener;
 
 import com.anyilanxin.skillfull.coreredis.utils.CoreRedisCommonUtils;
@@ -52,8 +51,7 @@ public class RedisKeyDeleteEventMessageListener extends KeyspaceEventMessageList
         implements ApplicationEventPublisherAware {
     private static final Topic KEY_EVENT_DELETE_TOPIC = new PatternTopic("__keyevent@*__:del");
 
-    @Nullable
-    private ApplicationEventPublisher publisher;
+    @Nullable private ApplicationEventPublisher publisher;
 
     public RedisKeyDeleteEventMessageListener(RedisMessageListenerContainer listenerContainer) {
         super(listenerContainer);

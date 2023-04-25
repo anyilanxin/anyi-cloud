@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.controller;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IAuthCodeService;
@@ -39,10 +38,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -89,7 +86,8 @@ public class CodeController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "电话号码", name = "phone", required = true)
     @AutoLog(note = "获取登录手机验证码(会验证手机是否存在)", type = AutoLog.QUERY)
     public Result<String> getPhoneSmsCode(
-            @PathVariable @NotBlank(message = "手机号码不能为空") String phone, HttpServletRequest request) {
+            @PathVariable @NotBlank(message = "手机号码不能为空") String phone,
+            HttpServletRequest request) {
         service.getPhoneSmsCode(phone, request);
         return ok("发送短信验证码成功");
     }

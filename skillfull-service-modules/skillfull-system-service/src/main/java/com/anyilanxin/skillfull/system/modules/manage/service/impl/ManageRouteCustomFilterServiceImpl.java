@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -48,10 +47,8 @@ import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRouteCustomFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -78,7 +75,8 @@ public class ManageRouteCustomFilterServiceImpl
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override)
+    public void save(
+            List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override)
             throws RuntimeException {
         if (override) {
             deleteByRouterId(routerId);
@@ -153,7 +151,8 @@ public class ManageRouteCustomFilterServiceImpl
     }
 
     @Override
-    public List<ManageCustomFilterSimpleDto> getByRouterId(String routerId) throws RuntimeException {
+    public List<ManageCustomFilterSimpleDto> getByRouterId(String routerId)
+            throws RuntimeException {
         // 查询所有自定义过滤器id
         LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper =
                 new LambdaQueryWrapper<>();

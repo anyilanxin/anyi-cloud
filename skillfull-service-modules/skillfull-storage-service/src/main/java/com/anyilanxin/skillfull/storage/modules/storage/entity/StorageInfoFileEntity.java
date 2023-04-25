@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -54,66 +53,41 @@ import lombok.experimental.SuperBuilder;
 public class StorageInfoFileEntity extends BaseEntity {
     private static final long serialVersionUID = 614383241708803778L;
 
-    @TableId
-    private String fileId;
+    @TableId private String fileId;
 
-    /**
-     * 原始文件名(不包括扩展名)
-     */
+    /** 原始文件名(不包括扩展名) */
     private String fileOriginalName;
 
-    /**
-     * 文件类型
-     */
+    /** 文件类型 */
     private String fileType;
 
-    /**
-     * 存放文件夹名称
-     */
+    /** 存放文件夹名称 */
     private String fileDirPrefix;
 
-    /**
-     * 文件引擎类型：1-本地，2-oss,3-minio
-     */
+    /** 文件引擎类型：1-本地，2-oss,3-minio */
     private Integer fileStorageType;
 
-    /**
-     * 文件流类型
-     */
+    /** 文件流类型 */
     private String contentType;
 
-    /**
-     * 文件大小
-     */
+    /** 文件大小 */
     private String fileSize;
 
-    /**
-     * 文件详细大小
-     */
+    /** 文件详细大小 */
     private Long fileSizeDetail;
 
-    /**
-     * 文件md5值
-     */
+    /** 文件md5值 */
     private String fileMd5;
 
-    /**
-     * 文件相对路径
-     */
+    /** 文件相对路径 */
     private String fileRelativePath;
 
-    /**
-     * endpoint
-     */
+    /** endpoint */
     private String endpoint;
 
-    /**
-     * 文件域名(主要用于非本地存储使用)
-     */
+    /** 文件域名(主要用于非本地存储使用) */
     private String fileHost;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

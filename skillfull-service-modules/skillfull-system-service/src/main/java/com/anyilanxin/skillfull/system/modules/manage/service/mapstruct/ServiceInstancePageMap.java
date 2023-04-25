@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.mapstruct;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
@@ -47,5 +46,4 @@ import org.mapstruct.ReportingPolicy;
         componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
-public interface ServiceInstancePageMap extends BaseMap<ServiceInstancePageDto, Instance> {
-}
+public interface ServiceInstancePageMap extends BaseMap<ServiceInstancePageDto, Instance> {}

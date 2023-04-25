@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.message.modules.manage.entity.ManageTemplateEnti
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
-
 import java.util.List;
 
 /**
@@ -63,9 +61,9 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
     /**
      * 通过id更新
      *
-     * @param vo         ${@link ManageTemplateVo} 消息模板更新
+     * @param vo ${@link ManageTemplateVo} 消息模板更新
      * @param templateId ${@link String} 模板id
-     * @param vo         ${@link ManageTemplateVo} 消息模板更新
+     * @param vo ${@link ManageTemplateVo} 消息模板更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2022-03-29 05:23:43

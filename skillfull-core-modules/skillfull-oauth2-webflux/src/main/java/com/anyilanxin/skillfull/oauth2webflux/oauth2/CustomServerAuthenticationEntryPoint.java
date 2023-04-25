@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage;
@@ -35,11 +34,9 @@ import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage
 import cn.hutool.json.JSONUtil;
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -45,11 +44,9 @@ import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.mapstruct.ManageTemplateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

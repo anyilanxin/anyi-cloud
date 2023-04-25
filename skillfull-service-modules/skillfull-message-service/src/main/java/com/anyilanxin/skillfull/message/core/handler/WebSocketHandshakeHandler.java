@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.handler;
 
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.message.core.constant.impl.WebSocketSessionType;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
-
 import java.security.Principal;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -64,7 +61,8 @@ public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
             attributes.put(WebSocketSessionType.USER_ID.getType(), userDetails.getUserId());
         }
         if (principal.getDetails() instanceof OAuth2AuthenticationDetails) {
-            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) principal.getDetails();
+            OAuth2AuthenticationDetails token =
+                    (OAuth2AuthenticationDetails) principal.getDetails();
             attributes.put(WebSocketSessionType.TOKEN.getType(), token.getTokenValue());
         }
         attributes.put(

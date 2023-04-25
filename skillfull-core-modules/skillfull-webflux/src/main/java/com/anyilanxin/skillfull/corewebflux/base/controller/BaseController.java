@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.base.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -48,11 +47,11 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @ApiResponses({
-        @ApiResponse(responseCode = "401", description = "未授权"),
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "403", description = "拒绝访问"),
-        @ApiResponse(responseCode = "404", description = "请求路径不存在"),
-        @ApiResponse(responseCode = "500", description = "服务器内部错误")
+    @ApiResponse(responseCode = "401", description = "未授权"),
+    @ApiResponse(responseCode = "200", description = "成功"),
+    @ApiResponse(responseCode = "403", description = "拒绝访问"),
+    @ApiResponse(responseCode = "404", description = "请求路径不存在"),
+    @ApiResponse(responseCode = "500", description = "服务器内部错误")
 })
 public class BaseController {
 
@@ -122,7 +121,7 @@ public class BaseController {
     /**
      * 成功响应
      *
-     * @param data    ${@link Object} 成功响应数据
+     * @param data ${@link Object} 成功响应数据
      * @param message ${@link String} 成功响应消息
      * @return Result<T> ${@link Result<T>} 响应信息
      * @author zxiaozhou
@@ -176,7 +175,7 @@ public class BaseController {
     /**
      * 响应失败
      *
-     * @param status  ${@link Status} 失败状态
+     * @param status ${@link Status} 失败状态
      * @param message ${@link String} 失败消息
      * @return Result<T> ${@link Result<T>} 响应信息
      * @author zxiaozhou
@@ -192,7 +191,7 @@ public class BaseController {
     /**
      * 响应失败
      *
-     * @param code    ${@link Integer} 失败状态码
+     * @param code ${@link Integer} 失败状态码
      * @param message ${@link String} 失败消息
      * @return Result<T> ${@link Result<T>} 响应信息
      * @author zxiaozhou

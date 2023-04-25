@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleMenuEntity;
-
 import java.util.List;
 
 /**
@@ -48,7 +46,7 @@ public interface IRbacOrgRoleMenuService extends BaseService<RbacOrgRoleMenuEnti
      * 保存关联关系(需要先调用删除接口，否则就是追加)
      *
      * @param orgRoleId 机构角色id
-     * @param menuIds   菜单列表
+     * @param menuIds 菜单列表
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21

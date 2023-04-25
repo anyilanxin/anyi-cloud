@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.auth.core.constant.AuthCommonConstant;
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -64,7 +61,8 @@ public class CustomTokenEnhancer implements TokenEnhancer {
                 Map<String, String> requestParameters =
                         oAuth2Authentication.getOAuth2Request().getRequestParameters();
                 if (CollUtil.isNotEmpty(requestParameters)) {
-                    String endpoint = requestParameters.get(AuthCommonConstant.ENDPOINT_REQUEST_KEY);
+                    String endpoint =
+                            requestParameters.get(AuthCommonConstant.ENDPOINT_REQUEST_KEY);
                     if (StringUtils.isBlank(endpoint)) {
                         endpoint = AuthCommonConstant.ENDPOINT_DEFAULT;
                     }
@@ -72,7 +70,8 @@ public class CustomTokenEnhancer implements TokenEnhancer {
                 }
             }
             additionalInformation.put("token_query_name", AuthConstant.ACCESS_TOKEN_QUERY_NAME);
-            additionalInformation.put("bearer_token_header_name", AuthConstant.BEARER_TOKEN_HEADER_NAME);
+            additionalInformation.put(
+                    "bearer_token_header_name", AuthConstant.BEARER_TOKEN_HEADER_NAME);
             token.setAdditionalInformation(additionalInformation);
             return token;
         }

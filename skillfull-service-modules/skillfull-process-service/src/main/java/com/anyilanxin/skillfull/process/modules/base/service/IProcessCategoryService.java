@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service;
 
 import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
@@ -39,7 +38,6 @@ import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCatego
 import com.anyilanxin.skillfull.process.modules.base.entity.ProcessCategoryEntity;
 import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryDto;
 import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryPageDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -64,9 +62,9 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
     /**
      * 通过id更新
      *
-     * @param vo         ${@link ProcessCategoryVo} 流程类别更新
+     * @param vo ${@link ProcessCategoryVo} 流程类别更新
      * @param categoryId ${@link String} 类别id
-     * @param vo         ${@link ProcessCategoryVo} 流程类别更新
+     * @param vo ${@link ProcessCategoryVo} 流程类别更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-11-19 10:47:01

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant;
 
 /**
@@ -38,18 +37,12 @@ package com.anyilanxin.skillfull.messagerpc.constant;
  * @since JDK11
  */
 public interface MessageCommonContent {
-    /**
-     * ping
-     */
+    /** ping */
     String PING = "PING";
 
-    /**
-     * 正常关闭状态码
-     */
+    /** 正常关闭状态码 */
     int normalCloseCode = 1000;
 
-    /**
-     * pong
-     */
+    /** pong */
     String PONG = "PONG";
 }

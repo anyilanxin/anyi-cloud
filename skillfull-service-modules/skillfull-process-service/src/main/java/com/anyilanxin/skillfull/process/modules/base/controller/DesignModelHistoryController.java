@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,9 +43,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -91,7 +88,7 @@ public class DesignModelHistoryController extends BaseController {
     @GetMapping(value = "/select/one/{historyModelId}")
     public Result<DesignModelHistoryDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "历史模型id不能为空")
-            String historyModelId) {
+                    String historyModelId) {
         return ok(service.getById(historyModelId));
     }
 

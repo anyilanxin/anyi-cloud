@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant;
 
 /**
@@ -39,18 +38,12 @@ package com.anyilanxin.skillfull.messagerpc.constant;
  */
 public interface MsgTemplateCommonChannelConstant {
 
-    /**
-     * 微信模板消息
-     */
+    /** 微信模板消息 */
     String WX_TEMPLATE_MSG = "WX_TEMPLATE_MSG";
 
-    /**
-     * 短信消息
-     */
+    /** 短信消息 */
     String SMS_MSG = "SMS_MSG";
 
-    /**
-     * 邮件消息
-     */
+    /** 邮件消息 */
     String EMAIL_MSG = "EMAIL_MSG";
 }

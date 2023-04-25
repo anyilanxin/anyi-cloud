@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.common.entity.CommonCategoryEntit
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryPageDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryTreeDto;
-
 import java.util.List;
 
 /**
@@ -62,9 +60,9 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
     /**
      * 通过id更新
      *
-     * @param vo         ${@link CommonCategoryVo} 分类字典表更新
+     * @param vo ${@link CommonCategoryVo} 分类字典表更新
      * @param categoryId ${@link String} 分类id
-     * @param vo         ${@link CommonCategoryVo} 分类字典表更新
+     * @param vo ${@link CommonCategoryVo} 分类字典表更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
@@ -91,7 +89,8 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
      */
-    List<CommonCategoryDto> selectListByCommonCode(String categoryCommonCode) throws RuntimeException;
+    List<CommonCategoryDto> selectListByCommonCode(String categoryCommonCode)
+            throws RuntimeException;
 
     /**
      * 根据统一分类id查询分类(树形)

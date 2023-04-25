@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.tokenstore;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
-
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -42,7 +40,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
-
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
@@ -64,8 +61,7 @@ public class CustomAuthenticationKeyGenerator implements AuthenticationKeyGenera
     public static final String LOGIN_ENDPOINT = OAuth2RequestExtendConstant.LOGIN_ENDPOINT;
     public static final String LIMIT_RESOURCE = OAuth2RequestExtendConstant.LIMIT_RESOURCE;
 
-    public CustomAuthenticationKeyGenerator() {
-    }
+    public CustomAuthenticationKeyGenerator() {}
 
     public String extractKey(OAuth2Authentication authentication) {
         Map<String, String> values = new LinkedHashMap<>();
@@ -77,7 +73,9 @@ public class CustomAuthenticationKeyGenerator implements AuthenticationKeyGenera
         values.put(CLIENT_ID, authorizationRequest.getClientId());
         if (authorizationRequest.getScope() != null) {
             values.put(
-                    SCOPE, OAuth2Utils.formatParameterList(new TreeSet<>(authorizationRequest.getScope())));
+                    SCOPE,
+                    OAuth2Utils.formatParameterList(
+                            new TreeSet<>(authorizationRequest.getScope())));
         }
         if (CollectionUtil.isNotEmpty(extensions)) {
             Serializable serializable = extensions.get(LOGIN_UNIQUE);

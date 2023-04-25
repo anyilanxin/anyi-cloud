@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
@@ -40,7 +39,6 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageServiceD
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageServicePageDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.SystemStatDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ValidServiceInfoDto;
-
 import java.util.List;
 import java.util.Map;
 
@@ -66,9 +64,9 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
     /**
      * 通过id更新
      *
-     * @param vo        ${@link ManageServiceVo} 服务管理更新
+     * @param vo ${@link ManageServiceVo} 服务管理更新
      * @param serviceId ${@link String} 服务id
-     * @param vo        ${@link ManageServiceVo} 服务管理更新
+     * @param vo ${@link ManageServiceVo} 服务管理更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:20

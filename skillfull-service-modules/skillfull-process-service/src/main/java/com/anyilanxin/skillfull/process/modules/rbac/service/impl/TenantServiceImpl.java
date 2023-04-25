@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -41,9 +40,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.skillfull.process.modules.rbac.service.ITenantService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.TenantDto;
 import io.seata.spring.annotation.GlobalTransactional;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -68,7 +65,8 @@ public class TenantServiceImpl implements ITenantService {
     @Override
     @GlobalTransactional
     public void saveOrUpdate(TenantVo vo) throws RuntimeException {
-        Tenant tenant = identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
+        Tenant tenant =
+                identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
         if (Objects.isNull(tenant)) {
             tenant = vo.getCamundaTenant();
         } else {

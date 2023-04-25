@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.utils;
 
 import static com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant.GATEWAY_LOG_INFO;
@@ -43,7 +42,6 @@ import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.skillfull.loggingcommon.utils.LogUtils;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
-
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -52,7 +50,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
@@ -94,8 +91,8 @@ public class LogRecordUtils {
     /**
      * 获取请求数据
      *
-     * @param exchange       ${@link ServerWebExchange}
-     * @param chain          ${@link GatewayFilterChain}
+     * @param exchange ${@link ServerWebExchange}
+     * @param chain ${@link GatewayFilterChain}
      * @param messageReaders ${@link List<HttpMessageReader<?>>}
      * @return Mono<Void> ${@link Mono<Void>}
      * @author zxiaozhou
@@ -111,9 +108,11 @@ public class LogRecordUtils {
         String methodValue = request.getMethodValue();
         HttpMethod method = request.getMethod();
         LinkedHashSet<URI> sourceUri =
-                exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
+                exchange.getRequiredAttribute(
+                        ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         operateLogModel.setRequestUrl(
-                URLDecoder.decode(sourceUri.toArray(new URI[]{})[0].toString(), StandardCharsets.UTF_8));
+                URLDecoder.decode(
+                        sourceUri.toArray(new URI[] {})[0].toString(), StandardCharsets.UTF_8));
         List<String> requestIds = request.getHeaders().get(CommonCoreConstant.X_REQUEST_ID);
         if (CollUtil.isNotEmpty(requestIds)) {
             operateLogModel.setLogCode(requestIds.get(0));
@@ -124,7 +123,8 @@ public class LogRecordUtils {
             operateLogModel.setTargetServiceCode(route.getId().split(":")[0]);
         }
         URI targetUri = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
-        operateLogModel.setTargetUrl(URLDecoder.decode(targetUri.toString(), StandardCharsets.UTF_8));
+        operateLogModel.setTargetUrl(
+                URLDecoder.decode(targetUri.toString(), StandardCharsets.UTF_8));
         operateLogModel.setRequestIp(ServletUtils.getIpAddr(request));
         operateLogModel.setRequestMethod(methodValue);
         // 用户登录信息
@@ -168,8 +168,10 @@ public class LogRecordUtils {
                                                         return outputMessage.getBody();
                                                     }
                                                 };
-                                        exchange.getAttributes().put(GATEWAY_LOG_INFO, operateLogModel);
-                                        return chain.filter(exchange.mutate().request(decorator).build());
+                                        exchange.getAttributes()
+                                                .put(GATEWAY_LOG_INFO, operateLogModel);
+                                        return chain.filter(
+                                                exchange.mutate().request(decorator).build());
                                     }));
         } else if (HttpMethod.GET.equals(method) || HttpMethod.DELETE.equals(method)) {
             String query = targetUri.getQuery();
@@ -205,22 +207,29 @@ public class LogRecordUtils {
                     Flux<? extends DataBuffer> fluxBody = Flux.from(body);
                     // 解决返回体分段传输
                     return super.writeWith(
-                            fluxBody
-                                    .buffer()
+                            fluxBody.buffer()
                                     .map(
                                             dataBuffers -> {
-                                                DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
-                                                DataBuffer join = dataBufferFactory.join(dataBuffers);
+                                                DataBufferFactory dataBufferFactory =
+                                                        new DefaultDataBufferFactory();
+                                                DataBuffer join =
+                                                        dataBufferFactory.join(dataBuffers);
                                                 byte[] content = new byte[join.readableByteCount()];
                                                 join.read(content);
                                                 DataBufferUtils.release(join);
-                                                String responseData = new String(content, StandardCharsets.UTF_8);
+                                                String responseData =
+                                                        new String(content, StandardCharsets.UTF_8);
                                                 if (StringUtils.isNotBlank(responseData)) {
-                                                    operateLogModel.setRequestEndTime(LocalDateTime.now());
+                                                    operateLogModel.setRequestEndTime(
+                                                            LocalDateTime.now());
                                                     operateLogModel.setRequestResult(responseData);
-                                                    if (Objects.nonNull(originalResponse.getRawStatusCode())) {
+                                                    if (Objects.nonNull(
+                                                            originalResponse.getRawStatusCode())) {
                                                         operateLogModel.setOperateStatus(
-                                                                originalResponse.getRawStatusCode() == 200 ? 1 : 0);
+                                                                originalResponse.getRawStatusCode()
+                                                                                == 200
+                                                                        ? 1
+                                                                        : 0);
                                                     } else {
                                                         operateLogModel.setOperateStatus(0);
                                                     }
@@ -228,8 +237,13 @@ public class LogRecordUtils {
                                                 // 保存日志
                                                 LogUtils.sendOperateLog(operateLogModel);
                                                 byte[] uppedContent =
-                                                        new String(responseData.getBytes(), StandardCharsets.UTF_8).getBytes();
-                                                originalResponse.getHeaders().setContentLength(uppedContent.length);
+                                                        new String(
+                                                                        responseData.getBytes(),
+                                                                        StandardCharsets.UTF_8)
+                                                                .getBytes();
+                                                originalResponse
+                                                        .getHeaders()
+                                                        .setContentLength(uppedContent.length);
                                                 return bufferFactory.wrap(uppedContent);
                                             }));
                 }

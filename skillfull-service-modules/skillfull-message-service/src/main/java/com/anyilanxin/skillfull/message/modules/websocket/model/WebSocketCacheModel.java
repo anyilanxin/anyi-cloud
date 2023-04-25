@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.websocket.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,15 +54,11 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 public class WebSocketCacheModel implements Serializable {
     private static final long serialVersionUID = -6963249109704133425L;
-    /**
-     * userId为键
-     */
+    /** userId为键 */
     private ConcurrentHashMap<String, Set<WebSocketSessionModel>> socketSessions =
             new ConcurrentHashMap<>();
 
-    /**
-     * token为键,userId为值
-     */
+    /** token为键,userId为值 */
     private ConcurrentHashMap<String, String> socketToken = new ConcurrentHashMap<>();
 
     /**
@@ -106,7 +99,9 @@ public class WebSocketCacheModel implements Serializable {
             if (getSessionId() != null
                     ? !getSessionId().equals(that.getSessionId())
                     : that.getSessionId() != null) return false;
-            return getToken() != null ? getToken().equals(that.getToken()) : that.getToken() == null;
+            return getToken() != null
+                    ? getToken().equals(that.getToken())
+                    : that.getToken() == null;
         }
 
         @Override
@@ -126,7 +121,9 @@ public class WebSocketCacheModel implements Serializable {
         public void sendData(Object data) {
             String stringMsg = JSONObject.toJSONString(data);
             this.session.getAsyncRemote().sendText(stringMsg);
-            log.info("------------WebSocketSessionModel------发送websocket消息------>sendData:{}", stringMsg);
+            log.info(
+                    "------------WebSocketSessionModel------发送websocket消息------>sendData:{}",
+                    stringMsg);
         }
     }
 }

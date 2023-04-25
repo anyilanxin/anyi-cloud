@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.ATTRIBUTES_KEY;
@@ -41,11 +40,9 @@ import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityPro
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
-
 import java.io.Serializable;
 import java.net.URI;
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -111,7 +108,9 @@ public class AuthorizeGatewayFilterFactory
                         "key", "anonymous", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
         public AuthorizeGatewayFilter(
-                Config config, AntPathMatcher antPathMatcher, CustomSecurityProperties securityProperties) {
+                Config config,
+                AntPathMatcher antPathMatcher,
+                CustomSecurityProperties securityProperties) {
             this.config = config;
             this.properties = securityProperties;
             this.antPathMatcher = antPathMatcher;
@@ -132,11 +131,13 @@ public class AuthorizeGatewayFilterFactory
                                     OAuth2Authentication authentication = (OAuth2Authentication) a;
                                     Object principal = authentication.getPrincipal();
                                     if (principal instanceof SkillFullUserDetails) {
-                                        SkillFullUserDetails userDetails = (SkillFullUserDetails) principal;
+                                        SkillFullUserDetails userDetails =
+                                                (SkillFullUserDetails) principal;
                                         // 存储上下文
-                                        exchange
-                                                .getAttributes()
-                                                .put(CommonGatewayConstant.GATEWAY_USER_INFO, userDetails);
+                                        exchange.getAttributes()
+                                                .put(
+                                                        CommonGatewayConstant.GATEWAY_USER_INFO,
+                                                        userDetails);
                                         // 如果是超级管理员直接放行
                                         if (userDetails.isSuperAdmin()) {
                                             return true;
@@ -147,27 +148,43 @@ public class AuthorizeGatewayFilterFactory
                                         return true;
                                     }
                                     // 验证资源权限
-                                    Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+                                    Route route =
+                                            exchange.getAttribute(
+                                                    ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
                                     if (Objects.isNull(route)) {
                                         return true;
                                     }
                                     String resourceId = route.getId();
                                     OAuth2Request oAuth2Request = authentication.getOAuth2Request();
-                                    Map<String, Serializable> extensions = oAuth2Request.getExtensions();
+                                    Map<String, Serializable> extensions =
+                                            oAuth2Request.getExtensions();
                                     if (CollUtil.isNotEmpty(extensions)
                                             && Objects.nonNull(
-                                            extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
-                                        if ((Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE) == 1) {
-                                            Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
+                                                    extensions.get(
+                                                            OAuth2RequestExtendConstant
+                                                                    .LIMIT_RESOURCE))) {
+                                        if ((Integer)
+                                                        extensions.get(
+                                                                OAuth2RequestExtendConstant
+                                                                        .LIMIT_RESOURCE)
+                                                == 1) {
+                                            Set<String> resourceIds =
+                                                    authentication
+                                                            .getOAuth2Request()
+                                                            .getResourceIds();
                                             if (CollectionUtil.isEmpty(resourceIds)
                                                     || !resourceIds.contains(resourceId)) {
-                                                throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
+                                                throw new AccessDeniedException(
+                                                        "当前用户没有访问该资源的权限:" + resourceId);
                                             }
                                         }
                                     } else {
-                                        Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
-                                        if (CollectionUtil.isEmpty(resourceIds) || !resourceIds.contains(resourceId)) {
-                                            throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
+                                        Set<String> resourceIds =
+                                                authentication.getOAuth2Request().getResourceIds();
+                                        if (CollectionUtil.isEmpty(resourceIds)
+                                                || !resourceIds.contains(resourceId)) {
+                                            throw new AccessDeniedException(
+                                                    "当前用户没有访问该资源的权限:" + resourceId);
                                         }
                                     }
                                 }
@@ -213,7 +230,8 @@ public class AuthorizeGatewayFilterFactory
                 AntPathMatcher antPathMatcher,
                 CustomSecurityProperties properties,
                 ServerWebExchange exchange) {
-            URI uri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
+            URI uri =
+                    exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
             HttpMethod method = exchange.getRequest().getMethod();
             Set<String> commonWhiteList = properties.getCommonWhiteList();
             if (CollUtil.isEmpty(commonWhiteList)) {
@@ -250,6 +268,5 @@ public class AuthorizeGatewayFilterFactory
     }
 
     @Validated
-    public static class Config {
-    }
+    public static class Config {}
 }

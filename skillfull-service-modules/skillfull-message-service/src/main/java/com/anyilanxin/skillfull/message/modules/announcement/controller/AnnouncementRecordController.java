@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -99,7 +96,7 @@ public class AnnouncementRecordController extends BaseController {
     @PutMapping(value = "/update/{anntReadId}")
     public Result<String> update(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-            String anntReadId,
+                    String anntReadId,
             @RequestBody @Valid AnnouncementRecordVo vo) {
         service.updateById(anntReadId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -118,7 +115,7 @@ public class AnnouncementRecordController extends BaseController {
     @DeleteMapping(value = "/delete-one/{anntReadId}")
     public Result<String> deleteById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-            String anntReadId) {
+                    String anntReadId) {
         service.deleteById(anntReadId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -148,7 +145,7 @@ public class AnnouncementRecordController extends BaseController {
     @GetMapping(value = "/select/one/{anntReadId}")
     public Result<AnnouncementRecordDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-            String anntReadId) {
+                    String anntReadId) {
         return ok(service.getById(anntReadId));
     }
 

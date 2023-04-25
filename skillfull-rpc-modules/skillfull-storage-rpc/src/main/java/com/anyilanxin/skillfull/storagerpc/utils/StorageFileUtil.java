@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storagerpc.utils;
 
 import java.io.File;
@@ -35,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.activation.MimetypesFileTypeMap;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -55,7 +53,7 @@ public class StorageFileUtil {
     /**
      * 本地文件转MultipartFile
      *
-     * @param file            文件
+     * @param file 文件
      * @param requestFileName 上传接收时MultipartFile的@RequestParam参数名
      * @return MultipartFile
      * @author zxiaozhou

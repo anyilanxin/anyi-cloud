@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -50,33 +47,21 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum RoleCorrelateType implements ISuperType {
-    /**
-     * 组织机构
-     */
+    /** 组织机构 */
     ORG(1, "组织机构"),
-    /**
-     * 职位
-     */
+    /** 职位 */
     POSITION(2, "职位"),
 
-    /**
-     * 个人
-     */
+    /** 个人 */
     PERSON(3, "个人"),
 
-    /**
-     * 用户组
-     */
+    /** 用户组 */
     ROLE_USER_GROUP(4, "用户组");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     RoleCorrelateType(int type, String describe) {

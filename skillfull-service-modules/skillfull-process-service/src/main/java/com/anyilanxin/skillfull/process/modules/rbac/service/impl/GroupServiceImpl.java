@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -39,9 +38,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.skillfull.process.modules.rbac.service.IGroupService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.GroupDto;
 import io.seata.spring.annotation.GlobalTransactional;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -100,7 +97,8 @@ public class GroupServiceImpl implements IGroupService {
                     });
             // 添加新信息
             if (CollUtil.isNotEmpty(vo.getTenantIds())) {
-                vo.getTenantIds().forEach(v -> identityService.createTenantGroupMembership(v, groupId));
+                vo.getTenantIds()
+                        .forEach(v -> identityService.createTenantGroupMembership(v, groupId));
             }
         }
     }
@@ -209,7 +207,8 @@ public class GroupServiceImpl implements IGroupService {
             // 删除历史数据
             list.forEach(
                     v -> {
-                        if (!DEFAULT_GROUP_ID.equals(v.getId()) && !DEFAULT_GROUP_TYPE.equals(v.getType())) {
+                        if (!DEFAULT_GROUP_ID.equals(v.getId())
+                                && !DEFAULT_GROUP_TYPE.equals(v.getType())) {
                             // 删除关联关系
                             if (CollUtil.isNotEmpty(tenants)) {
                                 tenants.forEach(
@@ -221,7 +220,8 @@ public class GroupServiceImpl implements IGroupService {
                                                             .memberOfTenant(sv.getId())
                                                             .singleResult();
                                             if (Objects.nonNull(group)) {
-                                                identityService.deleteTenantUserMembership(sv.getId(), v.getId());
+                                                identityService.deleteTenantUserMembership(
+                                                        sv.getId(), v.getId());
                                             }
                                         });
                             }
@@ -238,7 +238,9 @@ public class GroupServiceImpl implements IGroupService {
                         Set<String> tenantIds = v.getTenantIds();
                         if (CollUtil.isNotEmpty(tenantIds)) {
                             tenantIds.forEach(
-                                    sv -> identityService.createTenantGroupMembership(sv, v.getGroupId()));
+                                    sv ->
+                                            identityService.createTenantGroupMembership(
+                                                    sv, v.getGroupId()));
                         }
                     });
         }

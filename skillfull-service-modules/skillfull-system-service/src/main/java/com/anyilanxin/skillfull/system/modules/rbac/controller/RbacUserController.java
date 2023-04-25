@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -50,12 +49,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -109,8 +106,12 @@ public class RbacUserController extends BaseController {
             tags = {"v1.0.0"},
             description = "通过用户d修改状态")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true),
-            @Parameter(in = ParameterIn.QUERY, description = "类型:1-激活,2-冻结", name = "type", required = true)
+        @Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "类型:1-激活,2-冻结",
+                name = "type",
+                required = true)
     })
     @GetMapping(value = "/update-user/state")
     public Result<String> updateState(
@@ -127,7 +128,8 @@ public class RbacUserController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @GetMapping(value = "/reset/password/{userId}")
     public Result<String> resetPassword(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId) {
         return ok(service.resetPassword(userId), "重置密码成功");
     }
 
@@ -138,7 +140,8 @@ public class RbacUserController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @DeleteMapping(value = "/delete-one/{userId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId) {
         service.deleteById(userId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -158,8 +161,8 @@ public class RbacUserController extends BaseController {
             tags = {"v1.0.0"},
             description = "移除机构")
     @Parameters({
-            @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true),
-            @Parameter(in = ParameterIn.PATH, description = "机构id", name = "orgId", required = true)
+        @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true),
+        @Parameter(in = ParameterIn.PATH, description = "机构id", name = "orgId", required = true)
     })
     @GetMapping(value = "/remove-org")
     public Result<String> removeOrg(
@@ -185,8 +188,8 @@ public class RbacUserController extends BaseController {
             tags = {"v1.0.0"},
             description = "查询用户表详情")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true),
-            @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId")
+        @Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true),
+        @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId")
     })
     @GetMapping(value = "/select/one")
     public Result<RbacUserDto> getById(

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -39,9 +38,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -79,7 +76,7 @@ public class CommonConstantDictController extends BaseController {
     @GetMapping(value = "/select/{constantTypes}")
     public Result<List<ConstantDictModel>> getListByConstantType(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "字典类型不能为空")
-            String constantTypes) {
+                    String constantTypes) {
         return ok(service.getListByConstantTypes(constantTypes));
     }
 }

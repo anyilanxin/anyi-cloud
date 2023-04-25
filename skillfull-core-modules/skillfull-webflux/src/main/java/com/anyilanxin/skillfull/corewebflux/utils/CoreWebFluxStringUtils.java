@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.utils;
 
 import cn.hutool.core.lang.Snowflake;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
-
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

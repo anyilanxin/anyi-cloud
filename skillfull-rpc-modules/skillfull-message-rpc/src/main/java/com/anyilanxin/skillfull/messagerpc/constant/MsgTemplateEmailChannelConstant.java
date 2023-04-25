@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant;
 
 /**
@@ -39,13 +38,9 @@ package com.anyilanxin.skillfull.messagerpc.constant;
  */
 public interface MsgTemplateEmailChannelConstant {
 
-    /**
-     * 163邮箱渠道
-     */
+    /** 163邮箱渠道 */
     String MAIL_163 = "MAIL_163";
 
-    /**
-     * qq邮箱渠道
-     */
+    /** qq邮箱渠道 */
     String MAIL_QQ = "MAIL_QQ";
 }

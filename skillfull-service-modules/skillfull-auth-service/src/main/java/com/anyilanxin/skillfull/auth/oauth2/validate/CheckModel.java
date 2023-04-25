@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -50,13 +49,9 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Schema
 public class CheckModel {
-    /**
-     * 验证码id
-     */
+    /** 验证码id */
     private String codeId;
 
-    /**
-     * 验证码value
-     */
+    /** 验证码value */
     private String codeValue;
 }

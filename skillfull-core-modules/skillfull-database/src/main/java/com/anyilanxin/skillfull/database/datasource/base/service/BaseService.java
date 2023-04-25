@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.database.datasource.base.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -39,5 +38,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @date 2020-06-22 17:19
  * @since JDK11
  */
-public interface BaseService<T> extends IService<T> {
-}
+public interface BaseService<T> extends IService<T> {}

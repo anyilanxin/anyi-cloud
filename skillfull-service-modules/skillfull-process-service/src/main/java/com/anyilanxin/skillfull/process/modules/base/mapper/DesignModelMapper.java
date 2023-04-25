@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -37,9 +36,7 @@ import com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelDepl
 import com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,7 +52,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link DesignModelPageVo} 查询条件
+     * @param vo ${@link DesignModelPageVo} 查询条件
      * @param page ${@link Page< DesignModelPageDto >} 分页信息
      * @return IPage<DesignModelPageDto> ${@link IPage<DesignModelPageDto>} 结果
      * @author zxiaozhou
@@ -86,7 +83,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
     /**
      * 获取某个模型数量，排除指定模型id的数量
      *
-     * @param modelId              需要排除的模型id
+     * @param modelId 需要排除的模型id
      * @param processDefinitionKey 流程定义key
      * @author zxiaozhou
      * @date 2022-06-05 14:49

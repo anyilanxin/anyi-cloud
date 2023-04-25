@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gatewayrpc;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -44,5 +43,4 @@ import org.springframework.context.annotation.ComponentScan;
 @AutoConfiguration
 @ComponentScan
 @EnableFeignClients(basePackages = "com.anyilanxin.skillfull.gatewayrpc.feign")
-public class GatewayRpcAutoConfiguration {
-}
+public class GatewayRpcAutoConfiguration {}

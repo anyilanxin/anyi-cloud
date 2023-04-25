@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -39,7 +38,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleMenuButtonDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRolePageDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -66,7 +64,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * 通过id更新
      *
      * @param orgRoleId 机构角色id
-     * @param vo        机构角色表更新数据
+     * @param vo 机构角色表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57

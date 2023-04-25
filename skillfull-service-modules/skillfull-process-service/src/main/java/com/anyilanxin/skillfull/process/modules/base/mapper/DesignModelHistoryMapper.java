@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.process.modules.base.entity.DesignModelHistoryEn
 import com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelHistoryPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -54,7 +51,7 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
     /**
      * 分页查询
      *
-     * @param vo   ${@link DesignModelHistoryPageVo} 查询条件
+     * @param vo ${@link DesignModelHistoryPageVo} 查询条件
      * @param page ${@link Page< DesignModelHistoryPageDto >} 分页信息
      * @return IPage<DesignModelHistoryPageDto> ${@link IPage<DesignModelHistoryPageDto>} 结果
      * @author zxiaozhou

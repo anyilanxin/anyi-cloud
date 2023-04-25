@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.captcha.generator.RandomGenerator;
@@ -58,12 +57,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserCo
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -123,7 +120,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             }
             // 设置密码信息
             PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-            PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(entity.getPassword());
+            PasswordCheck.PasswordInfo passwordInfo =
+                    passwordCheck.getPasswordInfo(entity.getPassword());
             entity.setPassword(passwordInfo.getEncodedPassword());
             entity.setSalt(passwordInfo.getSalt());
             entity.setIsInitialPassword(1);

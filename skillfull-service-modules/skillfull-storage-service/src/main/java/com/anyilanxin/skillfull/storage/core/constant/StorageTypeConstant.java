@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.constant;
 
 /**
@@ -38,18 +37,12 @@ package com.anyilanxin.skillfull.storage.core.constant;
  * @since JDK11
  */
 public interface StorageTypeConstant {
-    /**
-     * 本地存储
-     */
+    /** 本地存储 */
     String LOCAL_STORAGE = "LOCAL";
 
-    /**
-     * ali oss存储
-     */
+    /** ali oss存储 */
     String ALI_OSS_STORAGE = "ALI_OSS";
 
-    /**
-     * minio存储
-     */
+    /** minio存储 */
     String MINIO_STORAGE = "MINIO";
 }

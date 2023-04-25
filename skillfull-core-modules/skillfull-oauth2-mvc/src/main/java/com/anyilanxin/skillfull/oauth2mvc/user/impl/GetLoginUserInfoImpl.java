@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -37,11 +36,9 @@ import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
-
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

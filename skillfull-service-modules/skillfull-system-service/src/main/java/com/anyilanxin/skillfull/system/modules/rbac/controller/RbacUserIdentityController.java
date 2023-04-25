@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -43,9 +42,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -86,7 +83,8 @@ public class RbacUserIdentityController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "实名信息id", name = "identityId", required = true)
     @PutMapping(value = "/audit/{identityId}")
     public Result<String> audit(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "实名信息id不能为空") String identityId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "实名信息id不能为空")
+                    String identityId,
             @RequestBody @Valid RbacUserIdentityVo vo) {
         service.audit(identityId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));

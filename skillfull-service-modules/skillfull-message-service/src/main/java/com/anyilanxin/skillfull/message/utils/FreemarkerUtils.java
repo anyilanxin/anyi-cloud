@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.utils;
 
 import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
@@ -36,11 +35,9 @@ import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -57,7 +54,7 @@ public class FreemarkerUtils {
      * 解析字符串模板,通用方法
      *
      * @param templateStr ${@link String} 待解析字符串
-     * @param jsonObject  ${@link JSONObject} 填充内容
+     * @param jsonObject ${@link JSONObject} 填充内容
      * @return String ${@link String}
      * @author zxiaozhou
      * @date 2021-04-25 20:27

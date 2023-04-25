@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEn
 import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,7 +52,7 @@ public interface StorageInfoFileMapper extends BaseMapper<StorageInfoFileEntity>
     /**
      * 分页查询
      *
-     * @param vo   ${@link StorageInfoFilePageVo} 查询条件
+     * @param vo ${@link StorageInfoFilePageVo} 查询条件
      * @param page ${@link Page<StorageInfoFilePageDto>} 分页信息
      * @return IPage<StorageInfoFilePageDto> ${@link IPage<StorageInfoFilePageDto>} 结果
      * @author zxiaozhou

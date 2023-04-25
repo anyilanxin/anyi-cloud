@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.websocket.model;
 
 /**
@@ -38,43 +37,27 @@ package com.anyilanxin.skillfull.message.modules.websocket.model;
  * @since JDK1.8
  */
 public class StreamChatMsgModel {
-    /**
-     * 聊天会话id
-     */
+    /** 聊天会话id */
     private String chatSessionId;
 
-    /**
-     * 业务id,群id或者好友id
-     */
+    /** 业务id,群id或者好友id */
     private String businessId;
 
-    /**
-     * 聊天类型：1-单聊，2-群聊
-     */
+    /** 聊天类型：1-单聊，2-群聊 */
     private Integer chatSessionType;
 
-    /**
-     * 发送用户id
-     */
+    /** 发送用户id */
     private String userId;
 
-    /**
-     * 消息类型：1-文字，2-图片，3-文件，4-表情
-     */
+    /** 消息类型：1-文字，2-图片，3-文件，4-表情 */
     private Integer msgType;
 
-    /**
-     * 聊天类型:1-单聊，2-群里
-     */
+    /** 聊天类型:1-单聊，2-群里 */
     private Integer chatType;
 
-    /**
-     * 消息内容
-     */
+    /** 消息内容 */
     private String sendMsgContent;
 
-    /**
-     * 消息发送人id
-     */
+    /** 消息发送人id */
     private String sendUserId;
 }

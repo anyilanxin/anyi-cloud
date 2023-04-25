@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -45,9 +44,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -80,7 +77,7 @@ public class ManageSendRecordController extends BaseController {
     @DeleteMapping(value = "/delete-one/{sendRecordId}")
     public Result<String> deleteById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空")
-            String sendRecordId) {
+                    String sendRecordId) {
         service.deleteById(sendRecordId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -104,7 +101,7 @@ public class ManageSendRecordController extends BaseController {
     @GetMapping(value = "/select/one/{sendRecordId}")
     public Result<ManageSendRecordDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空")
-            String sendRecordId) {
+                    String sendRecordId) {
         return ok(service.getById(sendRecordId));
     }
 

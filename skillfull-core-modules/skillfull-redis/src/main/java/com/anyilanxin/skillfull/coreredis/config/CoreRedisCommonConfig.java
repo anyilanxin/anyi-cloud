@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.config;
 
 import static java.util.Collections.singletonMap;
@@ -37,9 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.time.Duration;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -119,12 +116,12 @@ public class CoreRedisCommonConfig {
         RedisCacheConfiguration config =
                 RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
         RedisCacheConfiguration redisCacheConfiguration =
-                config
-                        .serializeKeysWith(
+                config.serializeKeysWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(
                                         new StringRedisSerializer()))
                         .serializeValuesWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(getSerializer()));
+                                RedisSerializationContext.SerializationPair.fromSerializer(
+                                        getSerializer()));
         return RedisCacheManager.builder(
                         RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheConfiguration)

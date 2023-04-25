@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
@@ -49,5 +48,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
 public interface StorageInfoFileQueryCopyMap
-        extends BaseMap<StorageInfoFileQueryVo, StorageInfoFileEntity> {
-}
+        extends BaseMap<StorageInfoFileQueryVo, StorageInfoFileEntity> {}

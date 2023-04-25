@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -40,7 +39,6 @@ import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -48,7 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -67,9 +64,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class WsUtils {
     private static WsUtils utils;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
-    /**
-     * 保存连接 session 的地方
-     */
+    /** 保存连接 session 的地方 */
     public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL =
             new ConcurrentHashMap<>();
 
@@ -126,7 +121,9 @@ public class WsUtils {
      * @date 2022-08-27 15:28
      */
     private static String getSessionId(WebSocketSession session) {
-        return session.getAttributes().get(WebSocketSessionType.CUSTOM_SESSION_ID.getType()).toString();
+        return session.getAttributes()
+                .get(WebSocketSessionType.CUSTOM_SESSION_ID.getType())
+                .toString();
     }
 
     /**
@@ -150,34 +147,28 @@ public class WsUtils {
         return SESSION_POOL;
     }
 
-    /**
-     * 创建redis订阅信息
-     */
+    /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(
             WebSocketSession session, SocketMessageEventType eventType) {
         return createSubscribeMsgModel(session, null, eventType);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
+    /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(
             WebSocketSession session, SocketMsgModel socketMsgModel) {
         return createSubscribeMsgModel(session, socketMsgModel, null);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
+    /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session) {
         return createSubscribeMsgModel(session, null, null);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
+    /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMsgModel socketMsgModel, SocketMessageEventType eventType) {
+            WebSocketSession session,
+            SocketMsgModel socketMsgModel,
+            SocketMessageEventType eventType) {
         SubscribeMsgModel subscribeMsgModel;
         if (Objects.nonNull(socketMsgModel)) {
             subscribeMsgModel = (SubscribeMsgModel) socketMsgModel;
@@ -194,7 +185,8 @@ public class WsUtils {
                 Principal principal = session.getPrincipal();
                 if (principal instanceof Authentication) {
                     Authentication userPrincipal = (Authentication) principal;
-                    SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
+                    SkillFullUserDetails userDetails =
+                            (SkillFullUserDetails) (userPrincipal.getPrincipal());
                     subscribeMsgModel.setSendUserInfo(utils.detailsCopyMap.aToB(userDetails));
                 }
             }
@@ -227,7 +219,8 @@ public class WsUtils {
             if (Objects.nonNull(session) && Objects.nonNull(msgModel)) {
                 session.sendMessage(
                         new TextMessage(
-                                JSONObject.toJSONString(msgModel, JSONWriter.Feature.WriteMapNullValue)));
+                                JSONObject.toJSONString(
+                                        msgModel, JSONWriter.Feature.WriteMapNullValue)));
             }
         } catch (IOException exception) {
             log.error(
@@ -249,7 +242,8 @@ public class WsUtils {
         Principal principal = session.getPrincipal();
         if (principal instanceof Authentication) {
             Authentication userPrincipal = (Authentication) principal;
-            SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
+            SkillFullUserDetails userDetails =
+                    (SkillFullUserDetails) (userPrincipal.getPrincipal());
             return utils.detailsCopyMap.aToB(userDetails);
         }
         return null;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.mapper.ClientAuthMapper;
@@ -35,11 +34,9 @@ import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

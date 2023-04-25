@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -45,9 +44,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRoutePre
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRouteCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -151,7 +148,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
                                     customServiceFilterMap.get(v.getRouteId());
                             if (CollUtil.isNotEmpty(manageCustomFilterSimpleDtos)) {
                                 v.setCustomFilters(manageCustomFilterSimpleDtos);
-                                List<String> customFilterIdList = new ArrayList<>(manageRouteFilterMap.size());
+                                List<String> customFilterIdList =
+                                        new ArrayList<>(manageRouteFilterMap.size());
                                 manageCustomFilterSimpleDtos.forEach(
                                         sv -> customFilterIdList.add(sv.getCustomFilterId()));
                                 v.setCustomFilterIds(customFilterIdList);
@@ -178,7 +176,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 获取断言
         manageRouteDto.setRoutePredicates(predicateService.getByRouteId(routeId));
         // 获取自定义过滤器
-        List<ManageCustomFilterSimpleDto> byRouterId = routeCustomFilterService.getByRouterId(routeId);
+        List<ManageCustomFilterSimpleDto> byRouterId =
+                routeCustomFilterService.getByRouterId(routeId);
         if (CollUtil.isNotEmpty(byRouterId)) {
             manageRouteDto.setCustomFilters(byRouterId);
             List<String> customFilterIdList = new ArrayList<>(byRouterId.size());

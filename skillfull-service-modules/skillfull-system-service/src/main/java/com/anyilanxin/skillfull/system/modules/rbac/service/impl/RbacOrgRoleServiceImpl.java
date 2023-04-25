@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -52,9 +51,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRolePageD
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.PermissionOrgMenuActionMap;
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacOrgRoleCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -204,7 +201,8 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
                             String menuId = v.getMenuId();
                             actions.forEach(
                                     sv -> {
-                                        if (menuId.equals(sv.getParentId()) && sv.getRoleId().equals(v.getRoleId())) {
+                                        if (menuId.equals(sv.getParentId())
+                                                && sv.getRoleId().equals(v.getRoleId())) {
                                             finalActions.add(sv);
                                         }
                                     });

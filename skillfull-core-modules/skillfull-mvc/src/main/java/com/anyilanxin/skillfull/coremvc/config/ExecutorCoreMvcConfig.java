@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import com.anyilanxin.skillfull.coremvc.constant.CommonCoreMvcConstant;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
-
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gatewayrpc.feign;
 
 import cn.hutool.json.JSONObject;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel
 import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

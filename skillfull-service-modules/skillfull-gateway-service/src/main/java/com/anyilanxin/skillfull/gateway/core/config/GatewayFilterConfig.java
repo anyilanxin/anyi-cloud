@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityProperties;
@@ -59,7 +58,8 @@ public class GatewayFilterConfig {
 
     @Bean
     public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory(
-            final CustomSecurityProperties securityProperties, final AntPathMatcher antPathMatcher) {
+            final CustomSecurityProperties securityProperties,
+            final AntPathMatcher antPathMatcher) {
         return new AuthorizeGatewayFilterFactory(securityProperties, antPathMatcher);
     }
 

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -53,10 +52,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -127,7 +124,8 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         lambdaQueryWrapper.eq(CommonAreaEntity::getAreaId, entity.getAreaId());
         List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前区域id已经存在" + entity.getAreaId());
+            throw new ResponseException(
+                    Status.VERIFICATION_FAILED, "当前区域id已经存在" + entity.getAreaId());
         }
     }
 
@@ -164,7 +162,10 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
             lambdaQueryWrapper.eq(CommonAreaEntity::getParentId, parentId);
         } else {
             lambdaQueryWrapper.and(
-                    v -> v.isNull(CommonAreaEntity::getParentId).or().eq(CommonAreaEntity::getParentId, ""));
+                    v ->
+                            v.isNull(CommonAreaEntity::getParentId)
+                                    .or()
+                                    .eq(CommonAreaEntity::getParentId, ""));
         }
         List<CommonAreaTreeDto> activateAreaList = new ArrayList<>(1);
         //  如果有需要激活的id，获取整个省区域
@@ -178,7 +179,9 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
             activateParentAreaList.add(treeCopyMap.bToA(activateProvinceEntity));
             LambdaQueryWrapper<CommonAreaEntity> activateLambdaQueryWrapper =
                     Wrappers.<CommonAreaEntity>lambdaQuery()
-                            .likeRight(CommonAreaEntity::getAreaId, getLike(activateAreaId, activateEntity))
+                            .likeRight(
+                                    CommonAreaEntity::getAreaId,
+                                    getLike(activateAreaId, activateEntity))
                             .ne(CommonAreaEntity::getAreaId, activateEntity.getProvinceId());
             List<CommonAreaEntity> list = this.list(activateLambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
@@ -239,14 +242,16 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
     private String getLike(String activateAreaId, CommonAreaEntity byId) {
         String effectiveProvinceId =
                 byId.getProvinceId().replaceAll("0", " ").trim().replaceAll(" ", "0");
-        String effectiveParentId = byId.getParentId().replaceAll("0", " ").trim().replaceAll(" ", "0");
+        String effectiveParentId =
+                byId.getParentId().replaceAll("0", " ").trim().replaceAll(" ", "0");
         String effectiveAreaId = activateAreaId.replaceAll("0", " ").trim().replaceAll(" ", "0");
         int lengthEffectiveProvinceId = effectiveProvinceId.length();
         int lengthEffectiveAreaId = effectiveAreaId.length();
         int lengthEffectiveParentId = effectiveParentId.length();
         int likeNum = lengthEffectiveAreaId - lengthEffectiveProvinceId;
         int zeroNum = lengthEffectiveAreaId - lengthEffectiveParentId;
-        String likeAreaValue = effectiveProvinceId + String.join("", Collections.nCopies(likeNum, "_"));
+        String likeAreaValue =
+                effectiveProvinceId + String.join("", Collections.nCopies(likeNum, "_"));
         return likeAreaValue + String.join("", Collections.nCopies(zeroNum, "0"));
     }
 
@@ -260,7 +265,8 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      */
     private Map<String, Boolean> checkHaveChildren(List<String> areaIdsList) {
         LambdaQueryWrapper<CommonAreaEntity> lambdaQueryWrapper =
-                Wrappers.<CommonAreaEntity>lambdaQuery().in(CommonAreaEntity::getParentId, areaIdsList);
+                Wrappers.<CommonAreaEntity>lambdaQuery()
+                        .in(CommonAreaEntity::getParentId, areaIdsList);
         List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
         Map<String, Boolean> result = new HashMap<>(areaIdsList.size());
         if (CollUtil.isNotEmpty(list)) {
@@ -389,7 +395,8 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         lambdaQueryWrapper.eq(CommonAreaEntity::getParentId, areaId);
         List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "区域id:" + areaId + "存在下级,请先删除下级");
+            throw new ResponseException(
+                    Status.VERIFICATION_FAILED, "区域id:" + areaId + "存在下级,请先删除下级");
         }
         boolean b = this.removeById(areaId);
         if (!b) {
@@ -436,13 +443,13 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         else {
             parentId = byId.getAreaId().substring(0, 3 * (byId.getAreaLevel() - 1));
         }
-        return new String[]{parentId, byId.getAreaLevel() + ""};
+        return new String[] {parentId, byId.getAreaLevel() + ""};
     }
 
     /**
      * 获取有效的区域id
      *
-     * @param areaId    ${@link String}
+     * @param areaId ${@link String}
      * @param areaLevel ${@link Integer} 区域级别
      * @return String ${@link String}
      * @author zxiaozhou

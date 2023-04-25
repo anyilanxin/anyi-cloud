@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -46,10 +45,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -89,7 +86,8 @@ public class ProcessCategoryController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "类别id", name = "categoryId", required = true)
     @PutMapping(value = "/update/{categoryId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空") String categoryId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空")
+                    String categoryId,
             @RequestBody @Valid ProcessCategoryVo vo) {
         service.updateById(categoryId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -102,7 +100,8 @@ public class ProcessCategoryController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "类别id", name = "categoryId", required = true)
     @DeleteMapping(value = "/delete-one/{categoryId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空") String categoryId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空")
+                    String categoryId) {
         service.deleteById(categoryId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -121,7 +120,8 @@ public class ProcessCategoryController extends BaseController {
             tags = {"v1.0.0"},
             description = "分页查询流程类别")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<ProcessCategoryPageDto>> selectPage(@RequestBody ProcessCategoryPageVo vo) {
+    public Result<PageDto<ProcessCategoryPageDto>> selectPage(
+            @RequestBody ProcessCategoryPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 

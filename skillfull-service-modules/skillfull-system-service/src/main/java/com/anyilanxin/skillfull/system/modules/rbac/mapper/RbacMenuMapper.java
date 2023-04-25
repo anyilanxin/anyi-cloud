@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -37,10 +36,8 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -57,13 +54,14 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacMenuPageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-05-02 22:49:09
      */
-    IPage<RbacMenuPageDto> pageByModel(Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageVo vo);
+    IPage<RbacMenuPageDto> pageByModel(
+            Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageVo vo);
 
     /**
      * 通过权限id物理删除

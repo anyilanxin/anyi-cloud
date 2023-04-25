@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.authcenter.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -60,10 +59,8 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -117,7 +114,9 @@ public class UserCenterServiceImpl implements IUserCenterService {
             if (StringUtils.isNotBlank(UserContextUtils.getCurrentOrgId())) {
                 Set<RbacMenuDto> orgMenuInfos =
                         orgRoleUserMapper.selectMenuByUserIdAndOrgId(
-                                UserContextUtils.getUserId(), UserContextUtils.getCurrentOrgId(), systemCodeSet);
+                                UserContextUtils.getUserId(),
+                                UserContextUtils.getCurrentOrgId(),
+                                systemCodeSet);
                 if (CollUtil.isNotEmpty(orgMenuInfos)) {
                     rbacMenuAllInfos.addAll(orgMenuInfos);
                 }
@@ -170,7 +169,8 @@ public class UserCenterServiceImpl implements IUserCenterService {
                         rbacMenuDtos.forEach(
                                 sv -> {
                                     if (StringUtils.isNotBlank(sv.getButtonAction())) {
-                                        actionSet.addAll(Set.of(sv.getButtonAction().split("[,，]")));
+                                        actionSet.addAll(
+                                                Set.of(sv.getButtonAction().split("[,，]")));
                                     }
                                 });
                         metaModel.setActionSet(actionSet);
@@ -204,8 +204,8 @@ public class UserCenterServiceImpl implements IUserCenterService {
                     userRouteTreeModel.setPath(
                             "/"
                                     + (StringUtils.isNotBlank(userRouteTreeModel.getPath())
-                                    ? userRouteTreeModel.getPath()
-                                    : ""));
+                                            ? userRouteTreeModel.getPath()
+                                            : ""));
                 }
                 routerInfoParents.add(userRouteTreeModel);
             } else {
@@ -264,7 +264,10 @@ public class UserCenterServiceImpl implements IUserCenterService {
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateUserPhone(UpdatePhoneVo vo) {
         RbacUserEntity userEntity =
-                RbacUserEntity.builder().phone(vo.getPhone()).userId(UserContextUtils.getUserId()).build();
+                RbacUserEntity.builder()
+                        .phone(vo.getPhone())
+                        .userId(UserContextUtils.getUserId())
+                        .build();
         int i = userMapper.updateById(userEntity);
         if (i <= 0) {
             throw new ResponseException("修改手机号失败");
@@ -275,7 +278,8 @@ public class UserCenterServiceImpl implements IUserCenterService {
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updatePassword(UpdatePasswordVo vo) {
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-        PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(vo.getNewPassword());
+        PasswordCheck.PasswordInfo passwordInfo =
+                passwordCheck.getPasswordInfo(vo.getNewPassword());
         RbacUserEntity userEntity =
                 RbacUserEntity.builder()
                         .password(passwordInfo.getEncodedPassword())
@@ -298,7 +302,8 @@ public class UserCenterServiceImpl implements IUserCenterService {
             throw new ResponseException("用户信息不存在");
         }
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-        PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(vo.getNewPassword());
+        PasswordCheck.PasswordInfo passwordInfo =
+                passwordCheck.getPasswordInfo(vo.getNewPassword());
         RbacUserEntity userEntity =
                 RbacUserEntity.builder()
                         .password(passwordInfo.getEncodedPassword())
@@ -315,8 +320,7 @@ public class UserCenterServiceImpl implements IUserCenterService {
     @Transactional(
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
-    public void sendSmsCode(String phone) {
-    }
+    public void sendSmsCode(String phone) {}
 
     @Override
     public List<UserOrgTreeInfo> getUserOrgInfo() {

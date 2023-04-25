@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.utils;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -62,7 +60,7 @@ public class CoreRedisCommonUtils {
     /**
      * 创建redis锁
      *
-     * @param key     ${@link String}
+     * @param key ${@link String}
      * @param timeout ${@link Long} 过期时间(单位:s),默认10s,只能大于0，当小于等于0时为10s
      * @author zxiaozhou
      * @date 2021-08-19 18:06
@@ -72,14 +70,14 @@ public class CoreRedisCommonUtils {
             timeout = 10L;
         }
         if (StringUtils.isNotBlank(key)) {
-            String timeoutKey = utils.environment.getProperty("spring.application.name", "") + "_" + key;
+            String timeoutKey =
+                    utils.environment.getProperty("spring.application.name", "") + "_" + key;
             Boolean ifAbsent =
                     utils.stringRedisTemplate.opsForValue().setIfAbsent(timeoutKey, "阻拦其他客户端消费该消息");
             if (Objects.nonNull(ifAbsent) && Boolean.FALSE.equals(ifAbsent)) {
                 return true;
             }
-            utils
-                    .stringRedisTemplate
+            utils.stringRedisTemplate
                     .opsForValue()
                     .set(timeoutKey, timeoutKey + "超时key", timeout, TimeUnit.SECONDS);
             return false;

@@ -27,13 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -53,13 +50,9 @@ import lombok.experimental.SuperBuilder;
 @Schema
 public class CheckDto implements Serializable {
     private static final long serialVersionUID = -5032945213213317228L;
-    /**
-     * 验证结果
-     */
+    /** 验证结果 */
     private boolean result;
 
-    /**
-     * 验证结果信息
-     */
+    /** 验证结果信息 */
     private String msg;
 }

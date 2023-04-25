@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.config.listener;
 
 import com.alibaba.fastjson2.JSONObject;
@@ -40,9 +39,7 @@ import com.anyilanxin.skillfull.coreredis.utils.SendRedisMsgUtils;
 import com.anyilanxin.skillfull.messagerpc.constant.impl.SocketMessageEventType;
 import com.anyilanxin.skillfull.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
@@ -80,7 +77,8 @@ public class TokenExpirationEventListener extends RedisKeyExpirationEventMessage
             subscribeMsgModel.setData(model);
             SendRedisMsgUtils.sendMsg(
                     RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE,
-                    JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+                    JSONObject.toJSONString(
+                            subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
         }
     }
 }

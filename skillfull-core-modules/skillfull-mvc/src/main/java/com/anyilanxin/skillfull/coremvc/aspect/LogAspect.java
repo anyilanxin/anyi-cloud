@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.aspect;
 
 import cn.hutool.core.collection.CollUtil;
@@ -36,12 +35,10 @@ import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.coremvc.aspect.model.OperateModel;
 import com.anyilanxin.skillfull.coremvc.utils.ServletUtils;
-
 import java.lang.reflect.Method;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -64,8 +61,7 @@ public class LogAspect {
     private static final String REQUEST_JSON_TYPE = "application";
 
     @Pointcut("@annotation(com.anyilanxin.skillfull.corecommon.annotation.AutoLog)")
-    public void logPointCut() {
-    }
+    public void logPointCut() {}
 
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -114,7 +110,7 @@ public class LogAspect {
      * 获取方法请求参数
      *
      * @param methodSignature ${@link MethodSignature}
-     * @param joinPoint       ${@link ProceedingJoinPoint}
+     * @param joinPoint ${@link ProceedingJoinPoint}
      * @return String ${@link String}
      * @author zhouxuanhong
      * @date 2019-06-20 16:33
@@ -135,7 +131,9 @@ public class LogAspect {
                         try {
                             jsonObject.put(parameterNames[i], JSONObject.toJSON(objectParam));
                         } catch (Exception e) {
-                            log.debug("----------LogAspect---------->getMethodParams:{}", "日志记录获取方法参数转换json异常");
+                            log.debug(
+                                    "----------LogAspect---------->getMethodParams:{}",
+                                    "日志记录获取方法参数转换json异常");
                             if (objectParam != null) {
                                 jsonObject.put(parameterNames[i], objectParam.toString());
                             }
@@ -146,11 +144,19 @@ public class LogAspect {
             params = jsonObject.toJSONString();
             // 去掉参数中有关密码关键字的字符串
             params = params.replaceAll("\"password\":\"[0-9a-zA-Z]+\"", "\"password\":\"******\"");
-            params = params.replaceAll("\"newPassword\":\"[0-9a-zA-Z]+\"", "\"newPassword\":\"******\"");
-            params = params.replaceAll("\"oldPassword\":\"[0-9a-zA-Z]+\"", "\"oldPassword\":\"******\"");
+            params =
+                    params.replaceAll(
+                            "\"newPassword\":\"[0-9a-zA-Z]+\"", "\"newPassword\":\"******\"");
+            params =
+                    params.replaceAll(
+                            "\"oldPassword\":\"[0-9a-zA-Z]+\"", "\"oldPassword\":\"******\"");
             params = params.replaceAll("\"Password\":\"[0-9a-zA-Z]+\"", "\"Password\":\"******\"");
-            params = params.replaceAll("\"NewPassword\":\"[0-9a-zA-Z]+\"", "\"NewPassword\":\"******\"");
-            params = params.replaceAll("\"OldPassword\":\"[0-9a-zA-Z]+\"", "\"OldPassword\":\"******\"");
+            params =
+                    params.replaceAll(
+                            "\"NewPassword\":\"[0-9a-zA-Z]+\"", "\"NewPassword\":\"******\"");
+            params =
+                    params.replaceAll(
+                            "\"OldPassword\":\"[0-9a-zA-Z]+\"", "\"OldPassword\":\"******\"");
         }
         return params;
     }

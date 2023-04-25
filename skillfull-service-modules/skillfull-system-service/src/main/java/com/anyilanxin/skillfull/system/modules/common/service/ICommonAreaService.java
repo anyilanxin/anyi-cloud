@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.common.entity.CommonAreaEntity;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaPageDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaTreeDto;
-
 import java.util.List;
 
 /**
@@ -62,9 +60,9 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
     /**
      * 通过id更新
      *
-     * @param vo     ${@link CommonAreaVo} 区域表更新
+     * @param vo ${@link CommonAreaVo} 区域表更新
      * @param areaId ${@link String} 区域id
-     * @param vo     ${@link CommonAreaVo} 区域表更新
+     * @param vo ${@link CommonAreaVo} 区域表更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-11-02 09:25:04

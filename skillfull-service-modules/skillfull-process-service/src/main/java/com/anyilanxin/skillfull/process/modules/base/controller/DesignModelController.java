@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -46,9 +45,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -88,7 +85,8 @@ public class DesignModelController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "模型id", name = "modelId", required = true)
     @PutMapping(value = "/update/{modelId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "模型id不能为空") String modelId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "模型id不能为空")
+                    String modelId,
             @RequestBody @Valid DesignModelVo vo) {
         service.updateById(modelId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -111,7 +109,8 @@ public class DesignModelController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "模型id", name = "modelId", required = true)
     @GetMapping(value = "/select/one/{modelId}")
     public Result<DesignModelDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "模型id不能为空") String modelId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "模型id不能为空")
+                    String modelId) {
         return ok(service.getById(modelId));
     }
 

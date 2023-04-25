@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import static org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER;
@@ -41,10 +40,8 @@ import com.anyilanxin.skillfull.gateway.filter.partial.post.CorsWebGatewayFilter
 import com.anyilanxin.skillfull.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -57,9 +54,7 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum FilterCustomType implements ISuperType {
-    /**
-     * 鉴权过滤器
-     */
+    /** 鉴权过滤器 */
     AUTHORIZE(
             CoreCommonGatewayConstant.AUTHORIZE_FILTER,
             "鉴权",
@@ -79,34 +74,22 @@ public enum FilterCustomType implements ISuperType {
             LOAD_BALANCER_CLIENT_FILTER_ORDER + 1 + ",-2",
             1),
 
-    /**
-     * 跨域处理过滤器(后置)
-     */
+    /** 跨域处理过滤器(后置) */
     CORS_WEB("CorsWeb", "跨域处理", CorsWebGatewayFilterFactory.class.getName(), "1", 0);
 
-    /**
-     * 过滤器类型
-     */
+    /** 过滤器类型 */
     private final String filterType;
 
-    /**
-     * 过滤器描述
-     */
+    /** 过滤器描述 */
     private final String filterTypeDescribe;
 
-    /**
-     * 过滤器类型类名称
-     */
+    /** 过滤器类型类名称 */
     private final String filterTypeClassName;
 
-    /**
-     * 可添加特殊url类型:0-不可添加,1-白名单,2-黑名单,3-黑白名单
-     */
+    /** 可添加特殊url类型:0-不可添加,1-白名单,2-黑名单,3-黑白名单 */
     private final int specialUrlType;
 
-    /**
-     * 过滤器顺序
-     */
+    /** 过滤器顺序 */
     private final String order;
 
     FilterCustomType(

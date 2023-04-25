@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.templateemailmsg;
 
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateEmailMsgModel;
-
 import java.util.List;
 
 /**

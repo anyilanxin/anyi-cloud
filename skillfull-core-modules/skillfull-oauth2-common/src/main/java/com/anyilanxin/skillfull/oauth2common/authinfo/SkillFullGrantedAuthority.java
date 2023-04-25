@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
@@ -46,17 +44,11 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
  */
 public class SkillFullGrantedAuthority implements GrantedAuthority {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-    /**
-     * 权限
-     */
+    /** 权限 */
     private final String authority;
-    /**
-     * 所属资源
-     */
+    /** 所属资源 */
     private final String resourceId;
-    /**
-     * 属性
-     */
+    /** 属性 */
     private final Map<String, Object> attributes;
 
     public SkillFullGrantedAuthority(Map<String, Object> attributes, String resourceId) {

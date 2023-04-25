@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.config;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant.AUTH_PREFIX;
@@ -61,14 +60,13 @@ public class Oauth2CommonConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * token存储配置
-     */
+    /** token存储配置 */
     @Bean
     public TokenStore tokenStore() {
         CustomRedisTokenStore redisTokenStore = new CustomRedisTokenStore(redisConnectionFactory);
         redisTokenStore.setAuthenticationKeyGenerator(new CustomAuthenticationKeyGenerator());
-        redisTokenStore.setSerializationStrategy(new FastjsonRedisTokenStoreSerializationStrategy());
+        redisTokenStore.setSerializationStrategy(
+                new FastjsonRedisTokenStoreSerializationStrategy());
         redisTokenStore.setPrefix(AUTH_PREFIX);
         return redisTokenStore;
     }

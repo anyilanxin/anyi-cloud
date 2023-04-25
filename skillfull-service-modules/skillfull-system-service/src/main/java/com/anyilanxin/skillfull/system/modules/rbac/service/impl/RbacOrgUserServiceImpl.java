@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -40,11 +39,9 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgRoleUserServ
 import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacOrgUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -73,7 +70,10 @@ public class RbacOrgUserServiceImpl extends ServiceImpl<RbacOrgUserMapper, RbacO
                     .forEach(
                             v -> {
                                 RbacOrgUserEntity userEntity =
-                                        RbacOrgUserEntity.builder().orgId(vo.getOrgId()).userId(v).build();
+                                        RbacOrgUserEntity.builder()
+                                                .orgId(vo.getOrgId())
+                                                .userId(v)
+                                                .build();
                                 orgUserEntities.add(userEntity);
                             });
             boolean b = this.saveBatch(orgUserEntities);

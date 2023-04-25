@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -54,36 +53,23 @@ import lombok.experimental.SuperBuilder;
 public class ProcessCategoryEntity extends BaseEntity {
     private static final long serialVersionUID = -30458247825549992L;
 
-    @TableId
-    private String categoryId;
+    @TableId private String categoryId;
 
-    /**
-     * 类别编码(唯一)
-     */
+    /** 类别编码(唯一) */
     private String categoryCode;
 
-    /**
-     * 类别名称
-     */
+    /** 类别名称 */
     private String categoryName;
 
-    /**
-     * 类别状态:0-禁用,1-启用。默认0
-     */
+    /** 类别状态:0-禁用,1-启用。默认0 */
     private Integer categoryState;
 
-    /**
-     * 类别描述
-     */
+    /** 类别描述 */
     private String categoryDescribe;
 
-    /**
-     * 类别图片
-     */
+    /** 类别图片 */
     private String pictures;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -43,9 +42,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -131,7 +128,7 @@ public class DefinitionManageController extends BaseController {
             required = true)
     public Result<DeploymentDetailDto> getDeploymentDetail(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "流程定义id或流程定义key不能为空")
-            String processKeywordId) {
+                    String processKeywordId) {
         return ok(service.getDeploymentDetail(processKeywordId));
     }
 
@@ -151,7 +148,8 @@ public class DefinitionManageController extends BaseController {
             tags = {"v1.0.0"},
             description = "删除流程定义")
     @PostMapping(value = "/delete/process-definition")
-    public Result<String> deleteProcessDefinition(@RequestBody @Valid DeleteProcessDefinitionVo vo) {
+    public Result<String> deleteProcessDefinition(
+            @RequestBody @Valid DeleteProcessDefinitionVo vo) {
         service.deleteProcessDefinition(vo);
         return ok("删除流程定义成功");
     }

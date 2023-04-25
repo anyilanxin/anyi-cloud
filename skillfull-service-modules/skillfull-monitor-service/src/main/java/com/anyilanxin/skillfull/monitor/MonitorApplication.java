@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.monitor;
 
 import com.anyilanxin.skillfull.corecommon.annotation.SkillfulCloudApplication;
 import com.anyilanxin.skillfull.corecommon.constant.TimeZoneConstant;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
-
 import java.util.TimeZone;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 

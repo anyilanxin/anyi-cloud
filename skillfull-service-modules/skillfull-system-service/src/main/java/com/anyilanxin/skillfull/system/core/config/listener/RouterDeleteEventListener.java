@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.config.listener;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.coreredis.listener.RedisKeyDeleteEventMessageListener;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
@@ -61,7 +58,9 @@ public class RouterDeleteEventListener extends RedisKeyDeleteEventMessageListene
 
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
-        log.debug("------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}", message);
+        log.debug(
+                "------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}",
+                message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         if (StringUtils.isNotBlank(key)) {
             if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX)

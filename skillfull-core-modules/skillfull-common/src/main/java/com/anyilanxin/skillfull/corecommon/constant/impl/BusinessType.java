@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,39 +46,25 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum BusinessType implements ISuperType {
-    /**
-     * 登录过期
-     */
+    /** 登录过期 */
     TOKEN_EXPIRED("LOGIN_DATE", "登录过期"),
 
-    /**
-     * 异常消息
-     */
+    /** 异常消息 */
     EXCEPTION_MSG("EXCEPTION_MSG", "异常消息"),
 
-    /**
-     * 被踢下线
-     */
+    /** 被踢下线 */
     KICK_LOGIN("KICK_LOGIN", "被踢下线"),
 
-    /**
-     * 新临时通知消息
-     */
+    /** 新临时通知消息 */
     NEW_TEMPORARY_NOTICE_MSG("NEW_TEMPORARY_NOTICE_MSG", "新临时通知消息"),
 
-    /**
-     * 新通知消息
-     */
+    /** 新通知消息 */
     NEW_NOTICE_MSG("NEW_NOTICE_MSG", "新通知消息");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     BusinessType(String type, String typeDescribe) {

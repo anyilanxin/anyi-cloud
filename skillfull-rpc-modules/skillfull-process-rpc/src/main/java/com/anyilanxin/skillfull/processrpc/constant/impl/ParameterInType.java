@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.processrpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -50,24 +47,16 @@ import lombok.Getter;
 @ConstantType
 public enum ParameterInType implements ISuperType {
 
-    /**
-     * 地址中
-     */
+    /** 地址中 */
     QUERY("QUERY", "地址中"),
 
-    /**
-     * 请求体中
-     */
+    /** 请求体中 */
     BODY("BODY", "请求体中");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     ParameterInType(String type, String describe) {

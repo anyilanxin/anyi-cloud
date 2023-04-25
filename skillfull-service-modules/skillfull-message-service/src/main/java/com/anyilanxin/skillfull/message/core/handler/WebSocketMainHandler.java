@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.handler;
 
 /**
@@ -35,7 +34,6 @@ package com.anyilanxin.skillfull.message.core.handler;
  * @date 2022-05-11 00:44
  * @since JDK1.8
  */
-
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
@@ -53,11 +51,9 @@ import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.UpOrDownModel;
 import com.anyilanxin.skillfull.oauth2mvc.user.IGetLoginUserInfo;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -65,9 +61,7 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
-/**
- * WebSocket处理器
- */
+/** WebSocket处理器 */
 @Slf4j
 @RequiredArgsConstructor
 public class WebSocketMainHandler extends AbstractWebSocketHandler {
@@ -88,7 +82,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         log.debug(
                 "------------afterConnectionEstablished---建立ws连接-----token----->\n{}",
                 session.getAttributes().get(WebSocketSessionType.TOKEN.getType()));
-        log.debug("------------afterConnectionEstablished---建立ws连接-----userInfo-->\n:{}", principal);
+        log.debug(
+                "------------afterConnectionEstablished---建立ws连接-----userInfo-->\n:{}", principal);
         WsUtils.add(session);
         afterConnectionContent.afterConnectionHandle(session);
         // 发送消息广播集群
@@ -96,7 +91,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
     }
 
     @Override
-    protected void handlePongMessage(WebSocketSession session, PongMessage message) throws Exception {
+    protected void handlePongMessage(WebSocketSession session, PongMessage message)
+            throws Exception {
         boolean result = checkLogin(session);
         if (!result) {
             return;
@@ -105,7 +101,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message)
+            throws Exception {
         boolean result = checkLogin(session);
         if (!result) {
             return;
@@ -122,7 +119,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
                     WsUtils.createSubscribeMsgModel(session, socketMsgModel);
             SendRedisMsgUtils.sendMsg(
                     RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE,
-                    JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+                    JSONObject.toJSONString(
+                            subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
         } catch (Exception exception) {
             SocketMsgModel socketMsgModel = new SocketMsgModel(SocketMessageEventType.ERROR_EVENT);
             ErrorMsgModel model = new ErrorMsgModel();
@@ -165,7 +163,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
      * 上下线处理
      *
      * @param session
-     * @param type    0-下线，1-上线
+     * @param type 0-下线，1-上线
      * @author zxiaozhou
      * @date 2022-08-27 15:01
      */
@@ -201,7 +199,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
                 loginUserInfo.getUserInfo(objectToken.toString());
             } else {
                 CloseStatus status =
-                        new CloseStatus(Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
+                        new CloseStatus(
+                                Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
                 session.close(status);
                 return false;
             }
@@ -225,7 +224,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         Principal principal = session.getPrincipal();
         if (principal instanceof AnonymousAuthenticationToken) {
             CloseStatus status =
-                    new CloseStatus(Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
+                    new CloseStatus(
+                            Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
             session.close(status);
             return null;
         }

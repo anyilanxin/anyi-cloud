@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.encryption;
 
 import cn.hutool.core.util.CharsetUtil;
@@ -83,7 +82,7 @@ public class RSAUtils {
     /**
      * 公钥解密
      *
-     * @param publicKey  {@link String} X509格式公钥
+     * @param publicKey {@link String} X509格式公钥
      * @param ciphertext {@link String} 密文
      * @return String {@link String} 明文
      * @author zhouxuanhong
@@ -98,7 +97,7 @@ public class RSAUtils {
      * 私钥加密
      *
      * @param privateKey {@link String} PKCS8格式私钥
-     * @param plaintext  {@link String} 明文
+     * @param plaintext {@link String} 明文
      * @return String {@link String} 密文
      * @author zhouxuanhong
      * @date 2019-10-22 09:54

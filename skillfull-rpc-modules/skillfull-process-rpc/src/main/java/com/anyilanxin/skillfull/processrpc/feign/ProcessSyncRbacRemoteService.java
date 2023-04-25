@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.processrpc.feign;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.feign.FeignFallback;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.processrpc.model.*;
-
 import java.util.Set;
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,7 +65,8 @@ public interface ProcessSyncRbacRemoteService {
      */
     @DeleteMapping(value = "/rbac-tenant/delete-one/{tenantId}")
     Result<String> deleteTenantById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId);
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空")
+                    String tenantId);
 
     /**
      * 添加或更新用户组
@@ -91,7 +89,8 @@ public interface ProcessSyncRbacRemoteService {
      */
     @DeleteMapping(value = "/rbac-group/delete-one/{groupId}")
     Result<String> deleteGroupById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空") String groupId);
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空")
+                    String groupId);
 
     /**
      * 全量同步用户组信息
@@ -125,7 +124,8 @@ public interface ProcessSyncRbacRemoteService {
      */
     @DeleteMapping(value = "/rbac-user/delete-one/{userId}")
     Result<String> deleteUserById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId);
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId);
 
     /**
      * 删除或添加组关联关系

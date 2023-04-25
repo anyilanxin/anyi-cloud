@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.system;
 
 /**
@@ -35,12 +34,9 @@ package com.anyilanxin.skillfull.corecommon.model.system;
  * @date 2021-07-09 13:01
  * @since JDK1.8
  */
-
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

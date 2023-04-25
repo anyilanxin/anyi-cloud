@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import com.alibaba.fastjson.JSONObject;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.ReadListener;
@@ -39,7 +37,6 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -135,8 +132,7 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public void setReadListener(ReadListener readListener) {
-            }
+            public void setReadListener(ReadListener readListener) {}
         };
     }
 }

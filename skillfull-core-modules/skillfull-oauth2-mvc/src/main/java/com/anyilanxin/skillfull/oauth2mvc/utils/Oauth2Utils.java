@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.oauth2mvc.config.properties.CustomSecurityProperties;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -83,7 +80,7 @@ public class Oauth2Utils {
             }
             if (Objects.nonNull(preAuthorize)
                     && (preAuthorize.value().contains("isAnonymous")
-                    || preAuthorize.value().contains("permitAll"))) {
+                            || preAuthorize.value().contains("permitAll"))) {
                 WhiteListInfo whiteListInfo = requestMappingToWhite(infoEntry.getKey());
                 if (Objects.nonNull(whiteListInfo)) {
                     whiteList.add(whiteListInfo);
@@ -169,14 +166,10 @@ public class Oauth2Utils {
     @Getter
     @Setter
     public static class WhiteListInfo {
-        /**
-         * url信息
-         */
+        /** url信息 */
         private Set<String> urls;
 
-        /**
-         * url对应请求方法
-         */
+        /** url对应请求方法 */
         private Set<HttpMethod> methods;
     }
 

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -53,10 +52,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -111,7 +108,8 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
             if (entity.isShowTag()) {
                 if (StringUtils.isBlank(entity.getType())) {
                     throw new ResponseException(
-                            Status.VERIFICATION_FAILED, "tag类型不能为空，并且只能为:primary、error、warn、success");
+                            Status.VERIFICATION_FAILED,
+                            "tag类型不能为空，并且只能为:primary、error、warn、success");
                 }
             }
             if (StringUtils.isBlank(entity.getPathName())) {
@@ -132,7 +130,8 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
             }
             List<RbacMenuEntity> list = this.list(lambdaQueryWrapper);
             if (CollectionUtil.isNotEmpty(list)) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "当前路径已经存在:" + entity.getPath());
+                throw new ResponseException(
+                        Status.VERIFICATION_FAILED, "当前路径已经存在:" + entity.getPath());
             }
         }
         // 菜单部分
@@ -153,7 +152,8 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
             if (StringUtils.isBlank(entity.getButtonAction())) {
                 throw new ResponseException(Status.VERIFICATION_FAILED, "权限标识不能为空");
             }
-            if (StringUtils.isBlank(entity.getParentId()) && StringUtils.isBlank(entity.getMenuId())) {
+            if (StringUtils.isBlank(entity.getParentId())
+                    && StringUtils.isBlank(entity.getMenuId())) {
                 throw new ResponseException(Status.VERIFICATION_FAILED, "上级id不能为空");
             }
         }
@@ -164,7 +164,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
      *
      * @param oldParentId ${@link String} 历史上级id
      * @param newParentId ${@link String} 现在上级id
-     * @param isUpdate    ${@link Boolean} false-新建,true-更新
+     * @param isUpdate ${@link Boolean} false-新建,true-更新
      * @return String ${@link String}
      * @author zxiaozhou
      * @date 2021-03-08 12:00
@@ -182,11 +182,17 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         if (StringUtils.isBlank(newParentId)) {
             LambdaQueryWrapper<RbacMenuEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper
-                    .and(v -> v.isNull(RbacMenuEntity::getParentId).or().eq(RbacMenuEntity::getParentId, ""))
+                    .and(
+                            v ->
+                                    v.isNull(RbacMenuEntity::getParentId)
+                                            .or()
+                                            .eq(RbacMenuEntity::getParentId, ""))
                     .orderByDesc(RbacMenuEntity::getMenuSysCode)
                     .last("LIMIT 1");
             RbacMenuEntity one = this.getOne(lambdaQueryWrapper);
-            code = CodeUtil.getSubYouBianCode(null, Objects.isNull(one) ? null : one.getMenuSysCode());
+            code =
+                    CodeUtil.getSubYouBianCode(
+                            null, Objects.isNull(one) ? null : one.getMenuSysCode());
         } else {
             // 获取上级code
             RbacMenuDto byId = this.getById(newParentId);
@@ -199,7 +205,8 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
             RbacMenuEntity one = this.getOne(lambdaQueryWrapper);
             code =
                     CodeUtil.getSubYouBianCode(
-                            byId.getMenuSysCode(), Objects.isNull(one) ? null : one.getMenuSysCode());
+                            byId.getMenuSysCode(),
+                            Objects.isNull(one) ? null : one.getMenuSysCode());
         }
         return code;
     }

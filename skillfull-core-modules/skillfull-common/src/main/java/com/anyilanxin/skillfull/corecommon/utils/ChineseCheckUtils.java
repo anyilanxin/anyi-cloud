@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import java.util.regex.Matcher;
@@ -49,7 +48,8 @@ public class ChineseCheckUtils {
      */
     public static boolean isContainChinese(String str) {
         Pattern p =
-                Pattern.compile("[\u4E00-\u9FA5|\\！|\\，|\\。|\\（|\\）|\\《|\\》|\\“|\\”|\\？|\\：|\\；|\\【|\\】]");
+                Pattern.compile(
+                        "[\u4E00-\u9FA5|\\！|\\，|\\。|\\（|\\）|\\《|\\》|\\“|\\”|\\？|\\：|\\；|\\【|\\】]");
         Matcher m = p.matcher(str);
         return m.find();
     }

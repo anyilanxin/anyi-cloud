@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -42,11 +41,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -106,7 +103,8 @@ public class UserController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @DeleteMapping(value = "/delete-one/{userId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId) {
         service.deleteUser(userId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -128,7 +126,8 @@ public class UserController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @GetMapping(value = "/select/one/{userId}")
     public Result<UserDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId) {
         return ok(service.getUser(userId));
     }
 

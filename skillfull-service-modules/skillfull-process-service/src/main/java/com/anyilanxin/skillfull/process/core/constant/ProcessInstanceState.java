@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.core.constant;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 
@@ -52,44 +49,28 @@ import org.camunda.bpm.engine.history.HistoricProcessInstance;
 @ConstantType
 public enum ProcessInstanceState implements ISuperType {
 
-    /**
-     * 活动
-     */
+    /** 活动 */
     ACTIVE(1, HistoricProcessInstance.STATE_ACTIVE, "活动"),
 
-    /**
-     * 挂起
-     */
+    /** 挂起 */
     SUSPENDED(2, HistoricProcessInstance.STATE_SUSPENDED, "挂起"),
 
-    /**
-     * 完成
-     */
+    /** 完成 */
     COMPLETED(3, HistoricProcessInstance.STATE_COMPLETED, "完成"),
 
-    /**
-     * 外部终止
-     */
+    /** 外部终止 */
     EXTERNALLY_TERMINATED(6, HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED, "外部终止"),
 
-    /**
-     * 内部终止
-     */
+    /** 内部终止 */
     INTERNALLY_TERMINATED(7, HistoricProcessInstance.STATE_INTERNALLY_TERMINATED, "内部终止");
 
-    /**
-     * 状态
-     */
+    /** 状态 */
     private final int state;
 
-    /**
-     * 对应删除状态
-     */
+    /** 对应删除状态 */
     private final String strState;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String describe;
 
     ProcessInstanceState(int state, String strState, String describe) {
@@ -137,7 +118,7 @@ public enum ProcessInstanceState implements ISuperType {
     /**
      * 根据类型获取
      *
-     * @param strState     ${@link String} 字符串状态
+     * @param strState ${@link String} 字符串状态
      * @param deleteReason ${@link String} 删除状态
      * @return LbType
      * @author zxiaozhou

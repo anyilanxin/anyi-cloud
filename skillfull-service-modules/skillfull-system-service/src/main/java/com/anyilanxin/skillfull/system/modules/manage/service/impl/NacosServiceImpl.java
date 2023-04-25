@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,9 +48,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.INacosService;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ServiceInstanceDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ServiceInstanceDetailMap;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -95,7 +92,8 @@ public class NacosServiceImpl implements INacosService {
                     groupName,
                     serviceName,
                     e.getErrMsg());
-            throw new ResponseException(Status.ERROR, "订阅" + serviceName + "变更通知异常:" + e.getErrMsg());
+            throw new ResponseException(
+                    Status.ERROR, "订阅" + serviceName + "变更通知异常:" + e.getErrMsg());
         }
     }
 
@@ -115,7 +113,8 @@ public class NacosServiceImpl implements INacosService {
                     groupName,
                     serviceName,
                     e.getErrMsg());
-            throw new ResponseException(Status.ERROR, "取消" + serviceName + "服务变化订阅异常:" + e.getErrMsg());
+            throw new ResponseException(
+                    Status.ERROR, "取消" + serviceName + "服务变化订阅异常:" + e.getErrMsg());
         }
     }
 
@@ -146,7 +145,8 @@ public class NacosServiceImpl implements INacosService {
             int healthyNum = 0;
             int enabledNum = 0;
             int ephemeralNum = 0;
-            List<ServiceInstanceDto.ServiceInstanceDetail> serviceInstanceDetails = new ArrayList<>();
+            List<ServiceInstanceDto.ServiceInstanceDetail> serviceInstanceDetails =
+                    new ArrayList<>();
             Map<String, Instance> instanceMap = new HashMap<>(4);
             for (Instance instance : instances) {
                 ServiceInstanceDto.ServiceInstanceDetail instanceDetail = detailMap.bToA(instance);
@@ -188,7 +188,8 @@ public class NacosServiceImpl implements INacosService {
         List<ServiceInstanceDto.ServiceInstanceDetail> serviceInstanceDetails =
                 allInstances.getServiceInstanceDetails();
         if (CollectionUtil.isEmpty(serviceInstanceDetails)) {
-            throw new ResponseException(Status.ERROR, "查询" + groupName + "组中" + groupName + "服务不存在");
+            throw new ResponseException(
+                    Status.ERROR, "查询" + groupName + "组中" + groupName + "服务不存在");
         }
         Instance instance = instanceMap.get(vo.getInstanceId());
         if (Objects.isNull(instance)) {

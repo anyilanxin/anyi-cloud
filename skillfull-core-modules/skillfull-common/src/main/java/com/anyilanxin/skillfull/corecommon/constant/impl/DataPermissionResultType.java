@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -50,33 +47,21 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @ConstantType
 public enum DataPermissionResultType implements ISuperType {
-    /**
-     * mybatis分页
-     */
+    /** mybatis分页 */
     I_PAGE("com.baomidou.mybatisplus.core.metadata.IPage", "mybatis分页"),
-    /**
-     * list集合
-     */
+    /** list集合 */
     LIST("java.util.List", "list集合"),
 
-    /**
-     * set集合
-     */
+    /** set集合 */
     SET("java.util.Set", "set集合"),
 
-    /**
-     * json数组
-     */
+    /** json数组 */
     JSON_ARRAY("com.alibaba.fastjson.JSONArray", "json数组");
 
-    /**
-     * 返回值类型
-     */
+    /** 返回值类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String typeDescribe;
 
     DataPermissionResultType(String type, String typeDescribe) {

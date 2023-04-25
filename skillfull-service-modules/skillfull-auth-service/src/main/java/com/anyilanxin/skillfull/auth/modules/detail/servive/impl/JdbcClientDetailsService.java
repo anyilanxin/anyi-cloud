@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.utils.Oauth2CommonUtils;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -72,11 +69,13 @@ public class JdbcClientDetailsService implements ClientDetailsService {
         if (customClientDetails.getClientStatus() == 0) {
             throw new InvalidClientException(
                     I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdNotEnabled", customClientDetails.getClientId()));
+                            "JdbcClientDetailsService.clientIdNotEnabled",
+                            customClientDetails.getClientId()));
         } else if (customClientDetails.getClientStatus() == 2) {
             throw new InternalAuthenticationServiceException(
                     I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdIsDisabled", customClientDetails.getClientId()));
+                            "JdbcClientDetailsService.clientIdIsDisabled",
+                            customClientDetails.getClientId()));
         }
         return customClientDetails;
     }

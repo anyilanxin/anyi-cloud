@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.constant.impl.CommonNotHaveType;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotInEnum;
 import com.anyilanxin.skillfull.messagerpc.constant.impl.MsgTemplateCommonChannelType;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

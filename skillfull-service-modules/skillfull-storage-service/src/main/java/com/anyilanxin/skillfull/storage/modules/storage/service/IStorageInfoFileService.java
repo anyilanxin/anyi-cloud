@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoF
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -98,9 +95,9 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
     /**
      * 单个存储
      *
-     * @param file          ${@link MultipartFile}
+     * @param file ${@link MultipartFile}
      * @param fileDirPrefix ${@link String}
-     * @param request       ${@link HttpServletRequest}
+     * @param request ${@link HttpServletRequest}
      * @return StorageInfoModel ${@link StorageInfoModel}
      * @author zxiaozhou
      * @date 2022-04-05 10:19
@@ -111,8 +108,8 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * 批量存储
      *
      * @param fileDirPrefix ${@link String}
-     * @param request       ${@link HttpServletRequest}
-     * @param files         ${@link List<MultipartFile>}
+     * @param request ${@link HttpServletRequest}
+     * @param files ${@link List<MultipartFile>}
      * @return List<StorageInfoModel> ${@link List<StorageInfoModel>}
      * @author zxiaozhou
      * @date 2022-04-05 10:19

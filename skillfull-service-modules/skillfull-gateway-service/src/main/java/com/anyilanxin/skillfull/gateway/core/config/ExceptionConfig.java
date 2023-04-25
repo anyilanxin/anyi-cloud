@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.anyilanxin.skillfull.gateway.core.handler.WebExceptionHandler;
-
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -71,8 +68,12 @@ public class ExceptionConfig {
             WebProperties webProperties) {
         WebExceptionHandler exceptionHandler =
                 new WebExceptionHandler(
-                        errorAttributes, webProperties, serverProperties.getError(), applicationContext);
-        exceptionHandler.setViewResolvers(viewResolversProvider.getIfAvailable(Collections::emptyList));
+                        errorAttributes,
+                        webProperties,
+                        serverProperties.getError(),
+                        applicationContext);
+        exceptionHandler.setViewResolvers(
+                viewResolversProvider.getIfAvailable(Collections::emptyList));
         exceptionHandler.setMessageWriters(serverCodecConfigurer.getWriters());
         exceptionHandler.setMessageReaders(serverCodecConfigurer.getReaders());
         return exceptionHandler;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,12 +45,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacPositi
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacPositionDtoMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -175,7 +172,8 @@ public class RbacPositionServiceImpl extends ServiceImpl<RbacPositionMapper, Rba
         entity.setPositionStatus(type);
         boolean b = super.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, type == 0 ? "职位禁用失败" : "职位启用失败");
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, type == 0 ? "职位禁用失败" : "职位启用失败");
         }
     }
 }

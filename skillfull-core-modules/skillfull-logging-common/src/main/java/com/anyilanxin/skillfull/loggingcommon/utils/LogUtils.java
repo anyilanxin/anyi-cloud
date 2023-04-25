@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.loggingcommon.utils;
 
 import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.skillfull.stream.component.BindingComponent;
 import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
-
 import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -85,7 +82,8 @@ public class LogUtils {
                     && Objects.nonNull(operateLogModel.getRequestEndTime())) {
                 Duration duration =
                         Duration.between(
-                                operateLogModel.getRequestStartTime(), operateLogModel.getRequestEndTime());
+                                operateLogModel.getRequestStartTime(),
+                                operateLogModel.getRequestEndTime());
                 operateLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.OPERATE_LOG_PROCESS, operateLogModel);
@@ -104,7 +102,9 @@ public class LogUtils {
             if (Objects.nonNull(authLogModel.getRequestStartTime())
                     && Objects.nonNull(authLogModel.getRequestEndTime())) {
                 Duration duration =
-                        Duration.between(authLogModel.getRequestStartTime(), authLogModel.getRequestEndTime());
+                        Duration.between(
+                                authLogModel.getRequestStartTime(),
+                                authLogModel.getRequestEndTime());
                 authLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.AUTH_LOG_PROCESS, authLogModel);

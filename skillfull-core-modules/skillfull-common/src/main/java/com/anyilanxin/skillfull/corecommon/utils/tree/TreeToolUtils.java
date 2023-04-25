@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.tree;
 
 import cn.hutool.core.collection.CollUtil;
@@ -36,7 +35,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.anyilanxin.skillfull.corecommon.utils.tree.model.BaseTree;
 import com.google.common.collect.Lists;
-
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -45,41 +43,32 @@ import javax.annotation.Nonnull;
  * @author zxiaozhou
  */
 public class TreeToolUtils<T extends BaseTree<T>> {
-    /**
-     * 默认子级键
-     */
+    /** 默认子级键 */
     private static final String DEFAULT_ID_KEY = "id";
 
-    /**
-     * 默认父级键
-     */
+    /** 默认父级键 */
     private static final String DEFAULT_PARENT_ID_KEY = "parentId";
 
-    /**
-     * 子父级数据判断
-     */
+    /** 子父级数据判断 */
     private final TreeId<T> getTreeId;
 
-    /**
-     * 根节点数据
-     */
+    /** 根节点数据 */
     private final List<T> rootList;
 
-    /**
-     * 其他节点数据(可包含父节点)
-     */
+    /** 其他节点数据(可包含父节点) */
     private final List<T> bodyList;
 
     /**
      * 获取树形对象(自定义子父级判断)
      *
-     * @param rootList  ${@link List<T>} 根节点数据
-     * @param bodyList  ${@link List<T>} 其余数据(可包含主节点)
+     * @param rootList ${@link List<T>} 根节点数据
+     * @param bodyList ${@link List<T>} 其余数据(可包含主节点)
      * @param getTreeId ${@link TreeId<T>} 子父级判断
      * @author zxiaozhou
      * @date 2020-08-26 18:07
      */
-    public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList, @Nonnull TreeId<T> getTreeId) {
+    public TreeToolUtils(
+            @Nonnull List<T> rootList, List<T> bodyList, @Nonnull TreeId<T> getTreeId) {
         this.rootList = rootList;
         this.bodyList = bodyList;
         this.getTreeId = getTreeId;
@@ -100,9 +89,9 @@ public class TreeToolUtils<T extends BaseTree<T>> {
     /**
      * 获取树形对象(自定义子父级id)
      *
-     * @param rootList    ${@link List<T>} 根节点数据
-     * @param bodyList    ${@link List<T>} 其余数据(可包含主节点数据)
-     * @param idKey       ${@link String} 子级键
+     * @param rootList ${@link List<T>} 根节点数据
+     * @param bodyList ${@link List<T>} 其余数据(可包含主节点数据)
+     * @param idKey ${@link String} 子级键
      * @param parentIdKey ${@link String} 父级键
      * @author zxiaozhou
      * @date 2020-08-26 18:08
@@ -118,7 +107,8 @@ public class TreeToolUtils<T extends BaseTree<T>> {
                 new TreeId<T>() {
                     @Override
                     public String getId(T t) {
-                        String jsonString = JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
+                        String jsonString =
+                                JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
                         JSONObject jsonObject = JSONObject.parseObject(jsonString);
                         if (jsonObject.containsKey(idKey)) {
                             return jsonObject.getString(idKey);
@@ -128,7 +118,8 @@ public class TreeToolUtils<T extends BaseTree<T>> {
 
                     @Override
                     public String getParentId(T t) {
-                        String jsonString = JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
+                        String jsonString =
+                                JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
                         JSONObject jsonObject = JSONObject.parseObject(jsonString);
                         if (jsonObject.containsKey(parentIdKey)) {
                             return jsonObject.getString(parentIdKey);

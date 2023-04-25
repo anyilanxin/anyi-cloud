@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,34 +46,22 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum LbType implements ISuperType {
-    /**
-     * lb
-     */
+    /** lb */
     LB(0, "lb://", "http路由负载均衡"),
 
-    /**
-     * lb:ws
-     */
+    /** lb:ws */
     LB_WS(1, "lb:ws://", "ws路由负载均衡"),
 
-    /**
-     * lb:wss
-     */
+    /** lb:wss */
     LB_WSS(2, "lb:wss://", "wss路由负载均衡");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型名称
-     */
+    /** 类型名称 */
     private final String typeName;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String describe;
 
     LbType(int type, String typeName, String describe) {

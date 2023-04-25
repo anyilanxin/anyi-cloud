@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.handler;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.gateway.utils.CorsWebUtils;
-
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -101,7 +98,8 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
             code = Status.ACCESS_ERROR.getCode();
             status = HttpStatus.UNAUTHORIZED.value();
         } else if (error instanceof UnauthorizedClientException) {
-            UnauthorizedClientException unauthorizedClientException = (UnauthorizedClientException) error;
+            UnauthorizedClientException unauthorizedClientException =
+                    (UnauthorizedClientException) error;
             code = Status.ACCESS_ERROR.getCode();
             status = HttpStatus.UNAUTHORIZED.value();
         } else if (error instanceof UnauthorizedUserException) {
@@ -165,7 +163,8 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
                 exMessage = responseException.getResult().getMessage();
             } else if (ex instanceof WebExchangeBindException) {
                 WebExchangeBindException webExchangeBindException = (WebExchangeBindException) ex;
-                List<ObjectError> allErrors = webExchangeBindException.getBindingResult().getAllErrors();
+                List<ObjectError> allErrors =
+                        webExchangeBindException.getBindingResult().getAllErrors();
                 StringBuilder sb = new StringBuilder();
                 Set<ObjectError> violations = new HashSet<>(allErrors);
                 for (ObjectError violation : violations) {
@@ -188,8 +187,8 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
     /**
      * 构建异常响应消息
      *
-     * @param status       ${@link Integer} Http自身状态码
-     * @param code         ${@link Integer} 自定义状态码
+     * @param status ${@link Integer} Http自身状态码
+     * @param code ${@link Integer} 自定义状态码
      * @param errorMessage ${@link String} 异常消息
      * @return Map<String, Object> ${@link Map<String, Object>}
      * @author zxiaozhou

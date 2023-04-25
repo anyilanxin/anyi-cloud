@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.config;
 
 import com.anyilanxin.skillfull.system.core.handler.MyMetaObjectHandler;

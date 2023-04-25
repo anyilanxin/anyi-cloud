@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -52,11 +51,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -111,7 +108,8 @@ public class ManageServiceController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @PutMapping(value = "/update/{serviceId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId,
             @RequestBody @Valid ManageServiceVo vo) {
         service.updateById(serviceId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -134,7 +132,8 @@ public class ManageServiceController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @DeleteMapping(value = "/delete-one/{serviceId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId) {
         service.deleteById(serviceId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -146,7 +145,8 @@ public class ManageServiceController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/one/{serviceId}")
     public Result<ManageServiceDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId) {
         return ok(service.getById(serviceId));
     }
 

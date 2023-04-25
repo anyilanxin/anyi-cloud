@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -37,7 +36,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacSystemVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacSystemEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacSystemDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacSystemPageDto;
-
 import java.util.List;
 
 /**
@@ -63,7 +61,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      * 通过id更新
      *
      * @param systemId 系统id
-     * @param vo       系统更新数据
+     * @param vo 系统更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 11:46:37

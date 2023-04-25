@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.annotation;
 
 import java.lang.annotation.*;
-
 import org.springframework.stereotype.Indexed;
 
 /**
@@ -45,5 +43,4 @@ import org.springframework.stereotype.Indexed;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface ConstantType {
-}
+public @interface ConstantType {}

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -42,12 +41,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
@@ -89,7 +86,8 @@ public class ManageRouteController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @PutMapping(value = "/update/{routeId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空")
+                    String routeId,
             @RequestBody @Valid ManageRouteVo vo) {
         service.updateById(routeId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -102,7 +100,8 @@ public class ManageRouteController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @DeleteMapping(value = "/delete-one/{routeId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空")
+                    String routeId) {
         service.deleteById(routeId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -114,7 +113,8 @@ public class ManageRouteController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @GetMapping(value = "/select/one/{routeId}")
     public Result<ManageRouteDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空")
+                    String routeId) {
         return ok(service.getById(routeId));
     }
 
@@ -125,7 +125,8 @@ public class ManageRouteController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list/{serviceId}")
     public Result<List<ManageRouteDto>> selectList(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId) {
         return ok(service.selectList(serviceId));
     }
 
@@ -134,20 +135,20 @@ public class ManageRouteController extends BaseController {
             tags = {"v1.0.0"},
             description = "修改路由状态")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "路由id", name = "routeId", required = true),
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "操作类型:0-禁止,1-启用",
-                    name = "state",
-                    required = true)
+        @Parameter(in = ParameterIn.QUERY, description = "路由id", name = "routeId", required = true),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "操作类型:0-禁止,1-启用",
+                name = "state",
+                required = true)
     })
     @GetMapping(value = "/update-status")
     public Result<String> updateStatus(
             @RequestParam(required = false) @NotBlank(message = "路由id不能为空") String routeId,
             @RequestParam(required = false)
-            @NotNull(message = "操作类型不能为空")
-            @Range(min = 0, max = 1, message = "操作类型只能为0、1")
-            Integer state) {
+                    @NotNull(message = "操作类型不能为空")
+                    @Range(min = 0, max = 1, message = "操作类型只能为0、1")
+                    Integer state) {
         service.updateStatus(routeId, state);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }

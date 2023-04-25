@@ -27,20 +27,17 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.dto;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -89,7 +86,9 @@ public class RbacClientDetailsDto implements Serializable {
     @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
     private String signatureKey;
 
-    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array")
+    @Schema(
+            name = "authorizedGrantTypes",
+            title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array")
     private List<String> authorizedGrantTypes;
 
     @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0")
@@ -116,7 +115,11 @@ public class RbacClientDetailsDto implements Serializable {
     @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0")
     private Integer innerSystem;
 
-    @Schema(name = "lastAuthTime", title = "上次授权时间", type = "string", example = "2020-11-12 11:23:59")
+    @Schema(
+            name = "lastAuthTime",
+            title = "上次授权时间",
+            type = "string",
+            example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime lastAuthTime;
 

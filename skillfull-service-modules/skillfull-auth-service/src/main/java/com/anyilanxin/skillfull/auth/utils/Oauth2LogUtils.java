@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.utils;
 
 import com.alibaba.fastjson.JSONObject;
@@ -40,11 +39,9 @@ import com.anyilanxin.skillfull.loggingcommon.utils.LogUtils;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.TokenRequest;
@@ -71,7 +68,8 @@ public class Oauth2LogUtils {
         AuthLogModel authLogModel = getAuthLogModel();
         if (Objects.nonNull(authLogModel)) {
             authLogModel.setAuthType(tokenRequest.getGrantType());
-            AuthorizedGrantTypes byType = AuthorizedGrantTypes.getByType(tokenRequest.getGrantType());
+            AuthorizedGrantTypes byType =
+                    AuthorizedGrantTypes.getByType(tokenRequest.getGrantType());
             if (Objects.nonNull(byType)) {
                 authLogModel.setAuthTypeDescribe(byType.getDescribe());
             }
@@ -127,8 +125,8 @@ public class Oauth2LogUtils {
                     (StringUtils.isNotBlank(userDetails.getRealName()))
                             ? userDetails.getRealName()
                             : StringUtils.isNotBlank(userDetails.getNickName())
-                            ? userDetails.getNickName()
-                            : userDetails.getUsername());
+                                    ? userDetails.getNickName()
+                                    : userDetails.getUsername());
         }
     }
 

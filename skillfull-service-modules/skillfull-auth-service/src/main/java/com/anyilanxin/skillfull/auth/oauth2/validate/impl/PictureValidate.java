@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate.impl;
 
 import static com.anyilanxin.skillfull.auth.core.constant.AuthCommonConstant.PICTURE_CODE_KEY_PREFIX;
@@ -38,11 +37,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.auth.core.properties.AuthProperty;
 import com.anyilanxin.skillfull.auth.oauth2.validate.*;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -90,7 +87,8 @@ public class PictureValidate implements IValidate {
     @Override
     public CheckDto checkVerification(CheckModel parameter) {
         CheckDto checkDto = new CheckDto();
-        Object data = redisTemplate.opsForValue().get(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
+        Object data =
+                redisTemplate.opsForValue().get(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
         redisTemplate.delete(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
         if (Objects.nonNull(data)) {
             String code = data.toString();

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -56,21 +53,14 @@ import lombok.experimental.SuperBuilder;
 public class RbacOrgRoleMenuEntity implements Serializable {
     private static final long serialVersionUID = 919375711368394963L;
 
-    @TableId
-    private String orgRoleMenuId;
+    @TableId private String orgRoleMenuId;
 
-    /**
-     * 权限id
-     */
+    /** 权限id */
     private String menuId;
 
-    /**
-     * 机构角色id
-     */
+    /** 机构角色id */
     private String orgRoleId;
 
-    /**
-     * 机构id
-     */
+    /** 机构id */
     private String orgId;
 }

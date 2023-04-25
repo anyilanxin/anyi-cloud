@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.systemrpc.feign;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.feign.FeignFallback;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.systemrpc.model.SimpleUserModel;
-
 import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,7 +72,8 @@ public interface SystemRemoteUserService {
      */
     @GetMapping("/rbac-user/select/one/{userId}")
     Result<SimpleUserModel> getUserById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId);
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
+                    String userId);
 
     /**
      * 更具真实姓名模糊查询用户信息

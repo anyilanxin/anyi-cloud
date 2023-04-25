@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -47,11 +46,9 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserAg
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserAgentPageCopyMap;
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserAgentQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -105,7 +102,8 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
     @Transactional(
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
-    public List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo) throws RuntimeException {
+    public List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo)
+            throws RuntimeException {
         List<RbacUserAgentDto> list = mapper.selectListByModel(vo);
         if (CollUtil.isEmpty(list)) {
             throw new ResponseException(
@@ -118,7 +116,8 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
     @Transactional(
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
-    public PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException {
+    public PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo)
+            throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 

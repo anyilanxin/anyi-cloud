@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -52,9 +51,7 @@ import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonCa
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -116,7 +113,8 @@ public class CommonCategoryServiceImpl
             List<CommonCategoryEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
                 throw new ResponseException(
-                        Status.VERIFICATION_FAILED, "当前分类统一编码:" + entity.getCategoryCommonCode() + "已经存在");
+                        Status.VERIFICATION_FAILED,
+                        "当前分类统一编码:" + entity.getCategoryCommonCode() + "已经存在");
             }
         }
         // 分类编码是否重复
@@ -172,7 +170,8 @@ public class CommonCategoryServiceImpl
             readOnly = true)
     public List<CommonCategoryTreeDto> selectTreeListByCommonCode(String categoryCommonCode)
             throws RuntimeException {
-        List<CommonCategoryDto> commonCategoryDtos = this.selectListByCommonCode(categoryCommonCode);
+        List<CommonCategoryDto> commonCategoryDtos =
+                this.selectListByCommonCode(categoryCommonCode);
         List<CommonCategoryTreeDto> commonCategoryTreeDtos = treeDtoMap.bToA(commonCategoryDtos);
         // 获取根节点
         if (CollUtil.isNotEmpty(commonCategoryTreeDtos)) {
@@ -195,7 +194,8 @@ public class CommonCategoryServiceImpl
                                 }
 
                                 @Override
-                                public String getParentId(CommonCategoryTreeDto commonCategoryTreeDto) {
+                                public String getParentId(
+                                        CommonCategoryTreeDto commonCategoryTreeDto) {
                                     return commonCategoryTreeDto.getParentId();
                                 }
                             });
@@ -216,7 +216,8 @@ public class CommonCategoryServiceImpl
         if (CollUtil.isNotEmpty(records)) {
             Set<String> parentIds = new HashSet<>();
             records.forEach(v -> parentIds.add(v.getCategoryId()));
-            LambdaQueryWrapper<CommonCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<CommonCategoryEntity> lambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             lambdaQueryWrapper.in(CommonCategoryEntity::getParentId, parentIds);
             List<CommonCategoryEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
@@ -344,7 +345,8 @@ public class CommonCategoryServiceImpl
                                 }
 
                                 @Override
-                                public String getParentId(CommonCategoryTreeDto commonCategoryTreeDto) {
+                                public String getParentId(
+                                        CommonCategoryTreeDto commonCategoryTreeDto) {
                                     return commonCategoryTreeDto.getParentId();
                                 }
                             });

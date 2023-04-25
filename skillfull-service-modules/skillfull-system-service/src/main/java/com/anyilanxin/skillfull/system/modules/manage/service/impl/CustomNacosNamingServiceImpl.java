@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -58,9 +57,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosNamespace
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ServiceInstancePageDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ServiceInstancePageMap;
-
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,8 +117,8 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
     }
 
     @Override
-    public List<Instance> getAllInstances(String serviceCode, String groupName, List<String> clusters)
-            throws RuntimeException {
+    public List<Instance> getAllInstances(
+            String serviceCode, String groupName, List<String> clusters) throws RuntimeException {
         final Map<String, String> params = new HashMap<>(8);
         params.put(CommonParams.NAMESPACE_ID, namespace);
         params.put(CommonParams.SERVICE_NAME, serviceCode);
@@ -143,7 +140,9 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             List<Instance> instances = Collections.emptyList();
             String result =
                     serverProxy.reqApi(
-                            UtilAndComs.nacosUrlBase + "/catalog/instances", params, HttpMethod.GET);
+                            UtilAndComs.nacosUrlBase + "/catalog/instances",
+                            params,
+                            HttpMethod.GET);
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
@@ -187,12 +186,15 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         try {
             String result =
                     serverProxy.reqApi(
-                            UtilAndComs.nacosUrlBase + "/catalog/instances", params, HttpMethod.GET);
+                            UtilAndComs.nacosUrlBase + "/catalog/instances",
+                            params,
+                            HttpMethod.GET);
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 count = jsonObject.getIntValue("count");
                 if (count >= 1) {
-                    List<Instance> instances = JSON.parseArray(jsonObject.getString("list"), Instance.class);
+                    List<Instance> instances =
+                            JSON.parseArray(jsonObject.getString("list"), Instance.class);
                     pageDtos = new ArrayList<>(count);
                     for (Instance instance : instances) {
                         pageDtos.add(instancePageMap.bToA(instance));
@@ -216,7 +218,9 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         try {
             String result =
                     serverProxy.reqApi(
-                            UtilAndComs.webContext + "/v1/console/namespaces", params, HttpMethod.GET);
+                            UtilAndComs.webContext + "/v1/console/namespaces",
+                            params,
+                            HttpMethod.GET);
             List<NacosNamespacesDto> nacosNamespacesDtos = Collections.emptyList();
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
@@ -229,7 +233,8 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         } catch (NacosException e) {
             e.printStackTrace();
             log.error(
-                    "------------INacosServiceImpl------查询命名空间异常------>getAllInstances:{}", e.getErrMsg());
+                    "------------INacosServiceImpl------查询命名空间异常------>getAllInstances:{}",
+                    e.getErrMsg());
             throw new ResponseException(Status.ERROR, "查询命名空间异常:" + e.getErrMsg());
         }
     }
@@ -245,7 +250,9 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             }
         }
         params.put("groupName", groupName);
-        params.put("pageSize", String.valueOf(Objects.isNull(pageSize) ? Integer.MAX_VALUE : pageSize));
+        params.put(
+                "pageSize",
+                String.valueOf(Objects.isNull(pageSize) ? Integer.MAX_VALUE : pageSize));
         params.put("pageNo", String.valueOf(Objects.isNull(pageNo) ? Integer.MAX_VALUE : pageNo));
         params.put("hasIpCount", String.valueOf(true));
         params.put("withInstances", String.valueOf(false));
@@ -259,7 +266,8 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
                     nacosServiceInfoDtos =
-                            JSON.parseArray(jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
+                            JSON.parseArray(
+                                    jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
                 }
             }
             return nacosServiceInfoDtos;

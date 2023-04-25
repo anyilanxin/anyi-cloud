@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate;
 
 /**
@@ -38,17 +37,11 @@ package com.anyilanxin.skillfull.auth.oauth2.validate;
  * @since JDK11
  */
 public interface CodeType {
-    /**
-     * 短信验证码
-     */
+    /** 短信验证码 */
     String SMS_CODE = "sms_code";
-    /**
-     * 图片验证码
-     */
+    /** 图片验证码 */
     String PICTURE_CODE = "picture_code";
 
-    /**
-     * 邮件验证码
-     */
+    /** 邮件验证码 */
     String EMAIL_CODE = "email_code";
 }

@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.processrpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,69 +46,43 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum TaskStatus implements ISuperType {
-    /**
-     * 待审批
-     */
+    /** 待审批 */
     WAIT_AUDIT(0, "wait_audit", "待审批"),
 
-    /**
-     * 审批中
-     */
+    /** 审批中 */
     AUDIT(1, "audit", "审批中"),
 
-    /**
-     * 打回待处理
-     */
+    /** 打回待处理 */
     BACK_TO_WAIT_HANDLE(2, "back_to_wait_handle", "打回待处理"),
 
-    /**
-     * 撤回
-     */
+    /** 撤回 */
     REVOKED(10, "revoked", "撤回"),
 
-    /**
-     * 驳回
-     */
+    /** 驳回 */
     DISMISS(11, "dismiss", "驳回"),
 
-    /**
-     * 打回(回到初始节点)
-     */
+    /** 打回(回到初始节点) */
     BACK_TO(12, "back_to", "打回"),
 
-    /**
-     * 不同意
-     */
+    /** 不同意 */
     NOT_AGREE(20, "not_agree", "不同意"),
 
-    /**
-     * 同意
-     */
+    /** 同意 */
     AGREE(21, "agree", "同意"),
 
-    /**
-     * 拒绝(特权，直接取消流程)
-     */
+    /** 拒绝(特权，直接取消流程) */
     REFUSED(30, "refused", "拒绝"),
 
-    /**
-     * 作废
-     */
+    /** 作废 */
     INVALID(31, "invalid", "作废");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int value;
 
-    /**
-     * 类型名称
-     */
+    /** 类型名称 */
     private final String status;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String describe;
 
     TaskStatus(int value, String status, String describe) {

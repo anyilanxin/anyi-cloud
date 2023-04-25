@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2;
 
 import java.util.Collection;
-
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.approval.Approval;
@@ -59,12 +57,14 @@ public class CustomTokenApprovalStore extends TokenApprovalStore {
         boolean success = true;
         for (Approval approval : approvals) {
             Collection<OAuth2AccessToken> tokens =
-                    store.findTokensByClientIdAndUserName(approval.getClientId(), approval.getUserId());
+                    store.findTokensByClientIdAndUserName(
+                            approval.getClientId(), approval.getUserId());
             for (OAuth2AccessToken token : tokens) {
                 if (token.getScope().contains(approval.getScope())) {
                     OAuth2Authentication authentication = store.readAuthentication(token);
                     if (authentication != null
-                            && approval.getClientId().equals(authentication.getOAuth2Request().getClientId())) {
+                            && approval.getClientId()
+                                    .equals(authentication.getOAuth2Request().getClientId())) {
                         store.removeAccessToken(token);
                     }
                 }

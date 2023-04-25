@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -41,12 +40,10 @@ import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -94,7 +91,9 @@ public class UserAuthServiceImpl implements IUserAuthService {
      * @date 2022-07-12 18:39
      */
     void handleOrgInfo(
-            UserAndResourceAuthModel userAndResourceAuthModel, String orgId, Set<RoleInfo> roleInfos) {
+            UserAndResourceAuthModel userAndResourceAuthModel,
+            String orgId,
+            Set<RoleInfo> roleInfos) {
         // 如果机构未空，则选择最近一个，并且设置用户最近登录机构信息
         if (StringUtils.isBlank(orgId)) {
             List<RbacOrgUserDto> rbacOrgUserDtos =
@@ -115,7 +114,8 @@ public class UserAuthServiceImpl implements IUserAuthService {
                 userAndResourceAuthModel.setOrgInfo(orgDto);
                 // 获取机构授权角色
                 Set<RoleInfo> orgRoleInfos =
-                        userAuthMapper.selectByUserIdAndOrgId(userAndResourceAuthModel.getUserId(), orgId);
+                        userAuthMapper.selectByUserIdAndOrgId(
+                                userAndResourceAuthModel.getUserId(), orgId);
                 if (CollUtil.isNotEmpty(orgRoleInfos)) {
                     roleInfos.addAll(orgRoleInfos);
                 }

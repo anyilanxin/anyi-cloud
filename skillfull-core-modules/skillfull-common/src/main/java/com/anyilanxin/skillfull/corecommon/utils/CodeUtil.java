@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +49,7 @@ public class CodeUtil {
      * <p>例如：父亲CODE:A01 当前CODE:A01B03 获取的code:A01B04
      *
      * @param parentCode 上级code
-     * @param localCode  同级code
+     * @param localCode 同级code
      * @return
      */
     public static synchronized String getSubYouBianCode(String parentCode, String localCode) {

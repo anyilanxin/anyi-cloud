@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -56,7 +55,7 @@ public interface IRbacOrgUserService extends BaseService<RbacOrgUserEntity> {
      * 移除机构
      *
      * @param userId 用户id
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @author zxiaozhou
      * @date 2022-07-11 00:43
      */

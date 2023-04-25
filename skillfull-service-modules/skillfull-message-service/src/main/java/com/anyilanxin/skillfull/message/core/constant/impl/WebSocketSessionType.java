@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,29 +46,19 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum WebSocketSessionType implements ISuperType {
-    /**
-     * 用户id key
-     */
+    /** 用户id key */
     USER_ID("USER_ID", "用户id key"),
 
-    /**
-     * 用户token key
-     */
+    /** 用户token key */
     TOKEN("TOKEN", "token key"),
 
-    /**
-     * 自定义session id key
-     */
+    /** 自定义session id key */
     CUSTOM_SESSION_ID("CUSTOM_SESSION_ID", "自定义session id key");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     WebSocketSessionType(String type, String describe) {

@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -65,7 +62,9 @@ public class RbacRoleQueryVo implements Serializable {
     @Schema(name = "roleId", title = "角色id")
     private String roleId;
 
-    @Schema(name = "roleType", title = "角色类型:0-特殊隐藏类,1-正常类,2-业务角色,默认1,0-主要用于设置某些表默认角色,具体与RoleType一致")
+    @Schema(
+            name = "roleType",
+            title = "角色类型:0-特殊隐藏类,1-正常类,2-业务角色,默认1,0-主要用于设置某些表默认角色,具体与RoleType一致")
     private Integer roleType;
 
     @Schema(name = "roleName", title = "角色名称")

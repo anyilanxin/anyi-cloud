@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,11 +46,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -81,11 +78,11 @@ public class StorageInfoFileController extends BaseController {
             tags = {"v1.0.0"},
             description = "上传文件")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
-                    name = "fileStorageType")
+        @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
+                name = "fileStorageType")
     })
     @PostMapping(
             value = "/upload",
@@ -103,11 +100,11 @@ public class StorageInfoFileController extends BaseController {
             tags = {"v1.0.0"},
             description = "批量上传文件")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
-                    name = "fileStorageType")
+        @Parameter(in = ParameterIn.QUERY, description = "存储文件夹", name = "fileDirPrefix"),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "文件引擎类型：1-本地，2-ali oss,3-minio,默认1，具体与StorageType一致,具体与StorageType一致",
+                name = "fileStorageType")
     })
     @PostMapping(
             value = "/upload/batch",
@@ -125,7 +122,8 @@ public class StorageInfoFileController extends BaseController {
             tags = {"v1.0.0"},
             description = "批量上传url文件到服务器")
     @PostMapping(value = "/upload/batch-url")
-    public Result<List<StorageInfoUrlModel>> storageBatchUrl(@RequestBody @Valid StorageModel model) {
+    public Result<List<StorageInfoUrlModel>> storageBatchUrl(
+            @RequestBody @Valid StorageModel model) {
         return ok(service.storageBatchUrl(model));
     }
 
@@ -136,7 +134,8 @@ public class StorageInfoFileController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "文件id", name = "fileId", required = true)
     @DeleteMapping(value = "/delete-one/{fileId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空")
+                    String fileId) {
         service.deleteById(fileId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -159,7 +158,8 @@ public class StorageInfoFileController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "文件id", name = "fileId", required = true)
     @GetMapping(value = "/select/one/{fileId}")
     public Result<StorageInfoModel> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空") String fileId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "文件id不能为空")
+                    String fileId) {
         return ok(service.getById(fileId));
     }
 
@@ -168,7 +168,8 @@ public class StorageInfoFileController extends BaseController {
             tags = {"v1.0.0"},
             description = "分页查询本地文件服务")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<StorageInfoFilePageDto>> selectPage(@RequestBody StorageInfoFilePageVo vo) {
+    public Result<PageDto<StorageInfoFilePageDto>> selectPage(
+            @RequestBody StorageInfoFilePageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -50,5 +49,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
 public interface RbacSystemCopyMap
-        extends BaseThreeMap<RbacSystemEntity, RbacSystemDto, RbacSystemVo> {
-}
+        extends BaseThreeMap<RbacSystemEntity, RbacSystemDto, RbacSystemVo> {}

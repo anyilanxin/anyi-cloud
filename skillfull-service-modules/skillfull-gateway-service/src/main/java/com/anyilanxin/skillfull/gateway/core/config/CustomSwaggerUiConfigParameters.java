@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.HTTP;
@@ -39,10 +38,8 @@ import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.skillfull.corecommon.model.system.SwaggerConfigModel;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.SpringDocConfiguration;
 import org.springdoc.core.SwaggerUiConfigParameters;
@@ -155,13 +152,13 @@ public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
         apiDocInfoUrlModel.putAll(middleApiDocInfoUrlModel);
         // 获取内部非网关系统swagger信息
         Set<String> otherServices =
-                services.stream().filter(v -> !v.equals(applicationName)).collect(Collectors.toSet());
+                services.stream()
+                        .filter(v -> !v.equals(applicationName))
+                        .collect(Collectors.toSet());
         ParameterizedTypeReference<Result<Map<String, ManageSwaggerInfoModel>>> reference =
-                new ParameterizedTypeReference<>() {
-                };
+                new ParameterizedTypeReference<>() {};
         WebClient client = webClient.build();
-        client
-                .mutate()
+        client.mutate()
                 .build()
                 .get()
                 .uri(
@@ -178,20 +175,32 @@ public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
                         swaggerInfoData ->
                                 otherServices.forEach(
                                         v -> {
-                                            List<ServiceInstance> instances = disClient.getInstances(v);
+                                            List<ServiceInstance> instances =
+                                                    disClient.getInstances(v);
                                             if (CollUtil.isNotEmpty(instances)) {
                                                 instances.forEach(
                                                         sv -> {
                                                             String serviceId = sv.getServiceId();
-                                                            ManageSwaggerInfoModel manageSwaggerInfoModel =
-                                                                    swaggerInfoData.get(serviceId);
-                                                            if (Objects.nonNull(manageSwaggerInfoModel)) {
-                                                                Map<String, String> metadata = sv.getMetadata();
-                                                                String contextPath = metadata.get(MANAGEMENT_CONTEXT_PATH);
-                                                                contextPath = StringUtils.isBlank(contextPath) ? "" : contextPath;
-                                                                contextPath = contextPath.replace(ACTUATOR, "");
-                                                                client
-                                                                        .mutate()
+                                                            ManageSwaggerInfoModel
+                                                                    manageSwaggerInfoModel =
+                                                                            swaggerInfoData.get(
+                                                                                    serviceId);
+                                                            if (Objects.nonNull(
+                                                                    manageSwaggerInfoModel)) {
+                                                                Map<String, String> metadata =
+                                                                        sv.getMetadata();
+                                                                String contextPath =
+                                                                        metadata.get(
+                                                                                MANAGEMENT_CONTEXT_PATH);
+                                                                contextPath =
+                                                                        StringUtils.isBlank(
+                                                                                        contextPath)
+                                                                                ? ""
+                                                                                : contextPath;
+                                                                contextPath =
+                                                                        contextPath.replace(
+                                                                                ACTUATOR, "");
+                                                                client.mutate()
                                                                         .build()
                                                                         .get()
                                                                         .uri(
@@ -202,24 +211,54 @@ public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
                                                                                         + DEFAULT_PATH_SEPARATOR
                                                                                         + SWAGGGER_CONFIG_FILE)
                                                                         .exchangeToMono(
-                                                                                response -> response.bodyToMono(SwaggerConfigModel.class))
+                                                                                response ->
+                                                                                        response
+                                                                                                .bodyToMono(
+                                                                                                        SwaggerConfigModel
+                                                                                                                .class))
                                                                         .onErrorStop()
-                                                                        .filter(body -> CollUtil.isNotEmpty(body.getUrls()))
-                                                                        .map(SwaggerConfigModel::getUrls)
+                                                                        .filter(
+                                                                                body ->
+                                                                                        CollUtil
+                                                                                                .isNotEmpty(
+                                                                                                        body
+                                                                                                                .getUrls()))
+                                                                        .map(
+                                                                                SwaggerConfigModel
+                                                                                        ::getUrls)
                                                                         .doOnNext(
                                                                                 urlInfos ->
-                                                                                        urlInfos.forEach(
-                                                                                                urlInfo -> {
-                                                                                                    SwaggerUrl otherSwaggerUrl = new SwaggerUrl();
-                                                                                                    otherSwaggerUrl.setUrl(
-                                                                                                            otherApiDocsPrefix + urlInfo.getUrl());
-                                                                                                    otherSwaggerUrl.setDisplayName(
-                                                                                                            serviceId + "(" + urlInfo.getName() + ")");
-                                                                                                    otherSwaggerUrl.setName(
-                                                                                                            serviceId + "(" + urlInfo.getName() + ")");
-                                                                                                    apiDocInfoUrlModel.put(
-                                                                                                            otherSwaggerUrl.getName(), otherSwaggerUrl);
-                                                                                                }))
+                                                                                        urlInfos
+                                                                                                .forEach(
+                                                                                                        urlInfo -> {
+                                                                                                            SwaggerUrl
+                                                                                                                    otherSwaggerUrl =
+                                                                                                                            new SwaggerUrl();
+                                                                                                            otherSwaggerUrl
+                                                                                                                    .setUrl(
+                                                                                                                            otherApiDocsPrefix
+                                                                                                                                    + urlInfo
+                                                                                                                                            .getUrl());
+                                                                                                            otherSwaggerUrl
+                                                                                                                    .setDisplayName(
+                                                                                                                            serviceId
+                                                                                                                                    + "("
+                                                                                                                                    + urlInfo
+                                                                                                                                            .getName()
+                                                                                                                                    + ")");
+                                                                                                            otherSwaggerUrl
+                                                                                                                    .setName(
+                                                                                                                            serviceId
+                                                                                                                                    + "("
+                                                                                                                                    + urlInfo
+                                                                                                                                            .getName()
+                                                                                                                                    + ")");
+                                                                                                            apiDocInfoUrlModel
+                                                                                                                    .put(
+                                                                                                                            otherSwaggerUrl
+                                                                                                                                    .getName(),
+                                                                                                                            otherSwaggerUrl);
+                                                                                                        }))
                                                                         .subscribe();
                                                             }
                                                         });

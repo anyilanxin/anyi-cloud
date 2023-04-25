@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -42,9 +41,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.service.IUserService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.UserDto;
 import io.seata.spring.annotation.GlobalTransactional;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -133,7 +130,8 @@ public class UserServiceImpl implements IUserService {
                     });
             // 添加新信息
             if (CollUtil.isNotEmpty(vo.getTenantIds())) {
-                vo.getTenantIds().forEach(v -> identityService.createTenantUserMembership(v, userId));
+                vo.getTenantIds()
+                        .forEach(v -> identityService.createTenantUserMembership(v, userId));
             }
         }
     }
@@ -274,7 +272,8 @@ public class UserServiceImpl implements IUserService {
         if (CollUtil.isNotEmpty(userInfoKeys)) {
             JSONObject jsonObject = new JSONObject();
             userInfoKeys.forEach(v -> jsonObject.put(v, identityService.getUserInfo(userId, v)));
-            detailInfo = CoreCommonUtils.jsonStrToObject(jsonObject.toJSONString(), UserDetailDto.class);
+            detailInfo =
+                    CoreCommonUtils.jsonStrToObject(jsonObject.toJSONString(), UserDetailDto.class);
         }
         return detailInfo;
     }
@@ -282,7 +281,7 @@ public class UserServiceImpl implements IUserService {
     /**
      * 保存或更新详细信息
      *
-     * @param userId     ${@link String} 用户id
+     * @param userId ${@link String} 用户id
      * @param detailInfo ${@link UserDetailVo} 详细信息
      * @author zxiaozhou
      * @date 2021-11-07 00:03
@@ -355,7 +354,8 @@ public class UserServiceImpl implements IUserService {
                                                             .memberOfTenant(sv.getId())
                                                             .singleResult();
                                             if (Objects.nonNull(user)) {
-                                                identityService.deleteTenantUserMembership(sv.getId(), v.getId());
+                                                identityService.deleteTenantUserMembership(
+                                                        sv.getId(), v.getId());
                                             }
                                         });
                             }
@@ -369,7 +369,8 @@ public class UserServiceImpl implements IUserService {
                                                             .memberOfGroup(sv.getId())
                                                             .singleResult();
                                             if (Objects.nonNull(user)) {
-                                                identityService.deleteMembership(v.getId(), sv.getId());
+                                                identityService.deleteMembership(
+                                                        v.getId(), sv.getId());
                                             }
                                         });
                             }
@@ -389,11 +390,18 @@ public class UserServiceImpl implements IUserService {
                         setDetailInfo(v.getUserId(), v.getDetailInfo());
                         // 添加关联关系
                         if (CollUtil.isNotEmpty(v.getGroupIds())) {
-                            v.getGroupIds().forEach(sv -> identityService.createMembership(v.getUserId(), sv));
+                            v.getGroupIds()
+                                    .forEach(
+                                            sv ->
+                                                    identityService.createMembership(
+                                                            v.getUserId(), sv));
                         }
                         if (CollUtil.isNotEmpty(v.getTenantIds())) {
                             v.getTenantIds()
-                                    .forEach(sv -> identityService.createTenantUserMembership(sv, v.getUserId()));
+                                    .forEach(
+                                            sv ->
+                                                    identityService.createTenantUserMembership(
+                                                            sv, v.getUserId()));
                         }
                     });
         }

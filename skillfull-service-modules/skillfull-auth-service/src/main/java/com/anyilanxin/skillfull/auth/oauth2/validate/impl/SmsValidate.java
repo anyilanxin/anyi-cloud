@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate.impl;
 
 import com.alibaba.fastjson.JSONObject;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.skillfull.auth.oauth2.validate.IValidate;
 import com.anyilanxin.skillfull.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

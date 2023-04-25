@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.mapper;
 
 import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
@@ -39,10 +38,8 @@ import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategory
 import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +55,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
     /**
      * 分页查询
      *
-     * @param vo   ${@link ProcessCategoryPageVo} 查询条件
+     * @param vo ${@link ProcessCategoryPageVo} 查询条件
      * @param page ${@link Page< ProcessCategoryPageDto >} 分页信息
      * @return IPage<ProcessCategoryPageDto> ${@link IPage<ProcessCategoryPageDto>} 结果
      * @author zxiaozhou

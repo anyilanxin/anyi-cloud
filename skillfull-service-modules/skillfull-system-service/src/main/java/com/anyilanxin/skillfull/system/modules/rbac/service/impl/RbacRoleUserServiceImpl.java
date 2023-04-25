@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -40,12 +39,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleUserService
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -86,7 +83,8 @@ public class RbacRoleUserServiceImpl extends ServiceImpl<RbacRoleUserMapper, Rba
     public void deleteBatch(List<String> userIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(userIds)) {
             LambdaQueryWrapper<RbacRoleUserEntity> lambdaQueryWrapper =
-                    Wrappers.<RbacRoleUserEntity>lambdaQuery().in(RbacRoleUserEntity::getUserId, userIds);
+                    Wrappers.<RbacRoleUserEntity>lambdaQuery()
+                            .in(RbacRoleUserEntity::getUserId, userIds);
             List<RbacRoleUserEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> userRoleIds = new HashSet<>(list.size());
@@ -94,7 +92,8 @@ public class RbacRoleUserServiceImpl extends ServiceImpl<RbacRoleUserMapper, Rba
                 int i = mapper.physicalDeleteBatchIds(userRoleIds);
                 if (i <= 0) {
                     throw new ResponseException(
-                            Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                            Status.DATABASE_BASE_ERROR,
+                            I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
                 }
             }
         }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.message.modules.manage.controller.vo.ManageAnnou
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageAnnouncementEntity;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageAnnouncementDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageAnnouncementPageDto;
-
 import java.util.List;
 
 /**
@@ -63,9 +61,9 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
     /**
      * 通过id更新
      *
-     * @param vo     ${@link ManageAnnouncementVo} 系统通告公告管理更新
+     * @param vo ${@link ManageAnnouncementVo} 系统通告公告管理更新
      * @param anntId ${@link String} 通知公告id
-     * @param vo     ${@link ManageAnnouncementVo} 系统通告公告管理更新
+     * @param vo ${@link ManageAnnouncementVo} 系统通告公告管理更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2022-03-29 08:34:22
@@ -76,7 +74,8 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * 分页查询
      *
      * @param vo ${@link ManageAnnouncementPageVo} 系统通告公告管理分页查询Vo
-     * @return PageDto<ManageAnnouncementPageDto> ${@link PageDto< ManageAnnouncementPageDto >} 分页查询结果
+     * @return PageDto<ManageAnnouncementPageDto> ${@link PageDto< ManageAnnouncementPageDto >}
+     *     分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2022-03-29 08:34:22

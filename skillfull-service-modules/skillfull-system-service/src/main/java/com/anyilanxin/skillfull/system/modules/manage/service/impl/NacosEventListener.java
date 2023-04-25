@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -37,9 +36,7 @@ import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageServiceEntity;
 import com.anyilanxin.skillfull.system.modules.manage.mapper.ManageServiceMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -72,7 +69,8 @@ public class NacosEventListener implements EventListener {
      */
     private void sendMsg(NamingEvent event) {
         log.info(
-                "------------NacosEventListener------服务发生了变化------>sendMsg:{}", event.getServiceName());
+                "------------NacosEventListener------服务发生了变化------>sendMsg:{}",
+                event.getServiceName());
         LambdaQueryWrapper<ManageServiceEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageServiceEntity::getServiceCode, event.getServiceName());
         List<ManageServiceEntity> serviceEntities = systemMapper.selectList(lambdaQueryWrapper);

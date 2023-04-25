@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,9 +42,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteFil
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRouteFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,7 +71,8 @@ public class ManageRouteFilterServiceImpl
             List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override)
             throws RuntimeException {
         if (override) {
-            LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(ManageRouteFilterEntity::getRouteId, routerId);
             List<ManageRouteFilterEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
@@ -127,7 +125,8 @@ public class ManageRouteFilterServiceImpl
         if (CollUtil.isNotEmpty(list)) {
             list.forEach(
                     v -> {
-                        List<ManageRouteFilterDto> manageRouteFilterDtos = stringListMap.get(v.getRouteId());
+                        List<ManageRouteFilterDto> manageRouteFilterDtos =
+                                stringListMap.get(v.getRouteId());
                         if (CollectionUtil.isEmpty(manageRouteFilterDtos)) {
                             manageRouteFilterDtos = new ArrayList<>();
                         }

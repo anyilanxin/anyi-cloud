@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,9 +43,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -78,7 +75,7 @@ public class AuthDataController extends BaseController {
     @DeleteMapping(value = "/delete-one/{authLogId}")
     public Result<String> deleteById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空")
-            String authLogId) {
+                    String authLogId) {
         service.deleteById(authLogId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -102,7 +99,7 @@ public class AuthDataController extends BaseController {
     @GetMapping(value = "/select/one/{authLogId}")
     public Result<AuthDataDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空")
-            String authLogId) {
+                    String authLogId) {
         return ok(service.getById(authLogId));
     }
 

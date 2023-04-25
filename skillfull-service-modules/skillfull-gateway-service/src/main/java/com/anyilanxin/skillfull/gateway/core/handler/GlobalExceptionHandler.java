@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.handler;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -40,13 +39,11 @@ import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.corewebflux.base.controller.BaseController;
 import feign.FeignException;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
@@ -83,7 +80,8 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<Result<String>> handleException(Exception e) {
         String str = CoreCommonUtils.getStackTrace(e);
-        log.error("------------GlobalExceptionHandler------处理所有不可知的异常------>handleException:{}", str);
+        log.error(
+                "------------GlobalExceptionHandler------处理所有不可知的异常------>handleException:{}", str);
         if (StringUtils.isNotBlank(str)) {
             return fail(str);
         }
@@ -121,7 +119,8 @@ public class GlobalExceptionHandler extends BaseController {
     public Mono<Result<String>> handlerUnauthorizedUserException(UnauthorizedUserException e) {
         e.printStackTrace();
         log.error(
-                "-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
+                "-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}",
+                e.getMessage());
         return fail(Status.TOKEN_EXPIRED, e.getMessage());
     }
 
@@ -246,8 +245,8 @@ public class GlobalExceptionHandler extends BaseController {
         String resultStringMsg = e.contentUTF8();
         if (StringUtils.isNotBlank(resultStringMsg)) {
             return Mono.just(
-                    JSONObject.parseObject(resultStringMsg, new TypeReference<Result<Object>>() {
-                    }));
+                    JSONObject.parseObject(
+                            resultStringMsg, new TypeReference<Result<Object>>() {}));
         } else {
             return fail(e.getLocalizedMessage());
         }

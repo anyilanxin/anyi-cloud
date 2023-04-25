@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
@@ -38,9 +37,7 @@ import com.anyilanxin.skillfull.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.skillfull.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.skillfull.auth.oauth2.validate.impl.SmsValidate;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

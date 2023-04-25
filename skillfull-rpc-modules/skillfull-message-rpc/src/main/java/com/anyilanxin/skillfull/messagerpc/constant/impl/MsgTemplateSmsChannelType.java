@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.messagerpc.constant.MsgTemplateSmsChannelConstant;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -51,24 +48,16 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum MsgTemplateSmsChannelType implements ISuperType {
-    /**
-     * 阿里云渠道
-     */
+    /** 阿里云渠道 */
     ALIYUN_SMS(MsgTemplateSmsChannelConstant.ALIYUN_SMS, "阿里云渠道"),
 
-    /**
-     * 腾讯云渠道
-     */
+    /** 腾讯云渠道 */
     TENCENT_SMS(MsgTemplateSmsChannelConstant.TENCENT_SMS, "腾讯云渠道");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     MsgTemplateSmsChannelType(String type, String describe) {

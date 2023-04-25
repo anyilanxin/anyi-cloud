@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -55,10 +54,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -130,11 +127,17 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         if (StringUtils.isBlank(newParentId)) {
             LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper
-                    .and(v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""))
+                    .and(
+                            v ->
+                                    v.isNull(RbacOrgEntity::getParentId)
+                                            .or()
+                                            .eq(RbacOrgEntity::getParentId, ""))
                     .orderByDesc(RbacOrgEntity::getOrgSysCode)
                     .last("LIMIT 1");
             RbacOrgEntity one = this.getOne(lambdaQueryWrapper);
-            code = CodeUtil.getSubYouBianCode(null, Objects.isNull(one) ? null : one.getOrgSysCode());
+            code =
+                    CodeUtil.getSubYouBianCode(
+                            null, Objects.isNull(one) ? null : one.getOrgSysCode());
         } else {
             // 获取上级code
             RbacOrgDto byId = this.getById(newParentId);
@@ -169,7 +172,8 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
         RbacOrgEntity one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前机构编码已经存在:" + entity.getOrgCode());
+            throw new ResponseException(
+                    Status.VERIFICATION_FAILED, "当前机构编码已经存在:" + entity.getOrgCode());
         }
         // 查询社会信用代码是否使用
         lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -320,7 +324,8 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         entity.setOrgStatus(type);
         boolean b = super.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, type == 0 ? "机构禁用失败" : "机构启用失败");
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, type == 0 ? "机构禁用失败" : "机构启用失败");
         }
     }
 
@@ -334,7 +339,10 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             lambdaQueryWrapper.eq(RbacOrgEntity::getParentId, parentId);
         } else {
             lambdaQueryWrapper.and(
-                    v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""));
+                    v ->
+                            v.isNull(RbacOrgEntity::getParentId)
+                                    .or()
+                                    .eq(RbacOrgEntity::getParentId, ""));
         }
         List<RbacOrgEntity> orgEntities = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(orgEntities)) {

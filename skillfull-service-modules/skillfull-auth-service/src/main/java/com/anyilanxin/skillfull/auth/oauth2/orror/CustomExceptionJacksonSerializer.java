@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.orror;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
 import java.io.IOException;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -52,7 +49,8 @@ public class CustomExceptionJacksonSerializer extends StdSerializer<CustomOauth2
     }
 
     @Override
-    public void serialize(CustomOauth2Exception value, JsonGenerator gen, SerializerProvider provider)
+    public void serialize(
+            CustomOauth2Exception value, JsonGenerator gen, SerializerProvider provider)
             throws IOException {
         gen.writeObject(value.getResult());
     }

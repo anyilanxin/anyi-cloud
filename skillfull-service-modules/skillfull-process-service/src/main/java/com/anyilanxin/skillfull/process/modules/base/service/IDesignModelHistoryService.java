@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -61,7 +60,8 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * 分页查询
      *
      * @param vo ${@link DesignModelHistoryPageVo} 流程模型历史分页查询Vo
-     * @return PageDto<DesignModelHistoryPageDto> ${@link PageDto< DesignModelHistoryPageDto >} 分页查询结果
+     * @return PageDto<DesignModelHistoryPageDto> ${@link PageDto< DesignModelHistoryPageDto >}
+     *     分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-11-25 09:52:37

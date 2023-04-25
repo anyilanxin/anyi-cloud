@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.exception;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -46,9 +44,7 @@ import java.io.StringWriter;
 public class ResponseException extends RuntimeException {
     private static final long serialVersionUID = 7207809155561786625L;
 
-    /**
-     * 错误异常结果
-     */
+    /** 错误异常结果 */
     private final Result<Object> result;
 
     public ResponseException() {
@@ -70,7 +66,7 @@ public class ResponseException extends RuntimeException {
      * 构造函数
      *
      * @param status 响应代码
-     * @param data   业务数据
+     * @param data 业务数据
      */
     public ResponseException(Status status, Object data) {
         super(status.getMessage());
@@ -80,7 +76,7 @@ public class ResponseException extends RuntimeException {
     /**
      * 构造函数
      *
-     * @param status  响应代码
+     * @param status 响应代码
      * @param message 异常消息
      */
     public ResponseException(Status status, String message) {
@@ -101,7 +97,7 @@ public class ResponseException extends RuntimeException {
     /**
      * 构造函数
      *
-     * @param code    响应代码
+     * @param code 响应代码
      * @param message 消息提示
      */
     public ResponseException(int code, String message) {

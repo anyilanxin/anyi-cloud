@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -86,7 +84,8 @@ public class CustomServerBearerTokenAuthenticationConverter
         if (authorizationHeaderToken != null) {
             if (parameterToken != null) {
                 BearerTokenError error =
-                        BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
+                        BearerTokenErrors.invalidRequest(
+                                "Found multiple bearer tokens in the request");
                 throw new OAuth2AuthenticationException(error);
             }
             return authorizationHeaderToken;
@@ -115,8 +114,8 @@ public class CustomServerBearerTokenAuthenticationConverter
      * Set if transport of access token using URI query parameter is supported. Defaults to {@code
      * false}.
      *
-     * <p>The spec recommends against using this mechanism for sending bearer tokens, and even goes as
-     * far as stating that it was only included for completeness.
+     * <p>The spec recommends against using this mechanism for sending bearer tokens, and even goes
+     * as far as stating that it was only included for completeness.
      *
      * @param allowUriQueryParameter if the URI query parameter is supported
      */
@@ -125,8 +124,8 @@ public class CustomServerBearerTokenAuthenticationConverter
     }
 
     /**
-     * Set this value to configure what header is checked when resolving a Bearer Token. This value is
-     * defaulted to {@link HttpHeaders#AUTHORIZATION}.
+     * Set this value to configure what header is checked when resolving a Bearer Token. This value
+     * is defaulted to {@link HttpHeaders#AUTHORIZATION}.
      *
      * <p>This allows other headers to be used as the Bearer Token source such as {@link
      * HttpHeaders#PROXY_AUTHORIZATION}

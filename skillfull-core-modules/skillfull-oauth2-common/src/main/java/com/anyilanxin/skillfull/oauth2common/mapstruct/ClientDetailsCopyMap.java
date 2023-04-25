@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
@@ -48,5 +47,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
 public interface ClientDetailsCopyMap
-        extends BaseMap<ClientAndResourceAuthModel, SkillFullClientDetails> {
-}
+        extends BaseMap<ClientAndResourceAuthModel, SkillFullClientDetails> {}

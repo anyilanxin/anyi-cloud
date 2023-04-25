@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.messagerpc.constant.SocketMessageEventContent;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -51,43 +48,27 @@ import lombok.Getter;
 @ConstantType
 public enum SocketMessageEventType implements ISuperType {
 
-    /**
-     * 授权事件
-     */
+    /** 授权事件 */
     AUTH_EVENT(SocketMessageEventContent.AUTH_EVENT, "授权事件"),
 
-    /**
-     * 异常事件
-     */
+    /** 异常事件 */
     ERROR_EVENT(SocketMessageEventContent.ERROR_EVENT, "异常事件"),
 
-    /**
-     * 通知事件
-     */
+    /** 通知事件 */
     NOTICE_EVENT(SocketMessageEventContent.NOTICE_EVENT, "通知事件"),
 
-    /**
-     * 业务事件
-     */
+    /** 业务事件 */
     BUSINESS_EVENT(SocketMessageEventContent.BUSINESS_EVENT, "业务事件"),
 
-    /**
-     * 聊天事件
-     */
+    /** 聊天事件 */
     CHAT_EVENT(SocketMessageEventContent.CHAT_EVENT, "聊天事件"),
-    /**
-     * 上下线通知
-     */
+    /** 上下线通知 */
     UP_DOWN(SocketMessageEventContent.UP_DOWN, "上下线通知");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     SocketMessageEventType(String type, String typeDescribe) {

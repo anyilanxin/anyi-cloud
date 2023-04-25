@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
@@ -106,7 +103,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         try {
             return UserContextUtils.getUserInfo();
         } catch (Exception e) {
-            log.error("------------MyMetaObjectHandler------获取用户信息失败------>getUser:{}", e.getMessage());
+            log.error(
+                    "------------MyMetaObjectHandler------获取用户信息失败------>getUser:{}",
+                    e.getMessage());
         }
         return null;
     }

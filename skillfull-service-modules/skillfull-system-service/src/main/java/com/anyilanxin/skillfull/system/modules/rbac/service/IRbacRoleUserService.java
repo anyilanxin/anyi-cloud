@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleUserEntity;
-
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +46,7 @@ public interface IRbacRoleUserService extends BaseService<RbacRoleUserEntity> {
     /**
      * 保存
      *
-     * @param userId  用户id
+     * @param userId 用户id
      * @param roleIds 角色 id
      * @throws RuntimeException
      * @author zxiaozhou

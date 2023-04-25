@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.templatecommonmsg;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
@@ -38,12 +37,10 @@ import com.anyilanxin.skillfull.message.modules.manage.service.IManageTemplateSe
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateCommonMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateResultModel;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,7 +56,8 @@ import org.springframework.stereotype.Component;
 public class TemplateCommonMsgContent {
     private final IManageTemplateService templateService;
     private final IManageSendRecordService recordService;
-    private static final Map<String, ITemplateCommonMsgStrategy> STRATEGY = new ConcurrentHashMap<>();
+    private static final Map<String, ITemplateCommonMsgStrategy> STRATEGY =
+            new ConcurrentHashMap<>();
 
     @Autowired
     public TemplateCommonMsgContent(

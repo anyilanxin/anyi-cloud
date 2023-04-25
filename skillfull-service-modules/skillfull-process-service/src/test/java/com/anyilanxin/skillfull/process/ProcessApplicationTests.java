@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process;
 
 import com.anyilanxin.skillfull.process.modules.rbac.service.IUserService;
-
 import java.io.InputStream;
 import java.util.Collection;
-
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
@@ -48,16 +45,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ProcessApplicationTests {
-    @Autowired
-    private IUserService service;
+    @Autowired private IUserService service;
 
-    @Autowired
-    private RepositoryService repositoryService;
+    @Autowired private RepositoryService repositoryService;
 
     @Test
     void getUser() {
         InputStream processModel =
-                repositoryService.getProcessModel("Process_0l1itr1:3:5f310a62-b197-11ec-a2f2-3ef1726bb0dc");
+                repositoryService.getProcessModel(
+                        "Process_0l1itr1:3:5f310a62-b197-11ec-a2f2-3ef1726bb0dc");
         BpmnModelInstance modelInstance = Bpmn.readModelFromStream(processModel);
         ModelElementType type = modelInstance.getModel().getType(UserTask.class);
         Collection<ModelElementInstance> taskInstances = modelInstance.getModelElementsByType(type);

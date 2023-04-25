@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant;
 
 /**
@@ -38,13 +37,9 @@ package com.anyilanxin.skillfull.messagerpc.constant;
  * @since JDK11
  */
 public interface MsgTemplateSmsChannelConstant {
-    /**
-     * 阿里云渠道
-     */
+    /** 阿里云渠道 */
     String ALIYUN_SMS = "ALIYUN_SMS";
 
-    /**
-     * 腾讯云渠道
-     */
+    /** 腾讯云渠道 */
     String TENCENT_SMS = "TENCENT_SMS";
 }

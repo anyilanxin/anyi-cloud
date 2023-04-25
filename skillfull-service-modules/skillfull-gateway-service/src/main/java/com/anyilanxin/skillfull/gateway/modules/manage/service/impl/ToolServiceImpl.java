@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
@@ -41,13 +40,11 @@ import com.anyilanxin.skillfull.corecommon.utils.encryption.RSAUtils;
 import com.anyilanxin.skillfull.corewebflux.utils.CoreWebFluxStringUtils;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IToolService;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.mapstruct.SecurityToWebSecurityMap;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -95,7 +92,8 @@ public class ToolServiceImpl implements IToolService {
             redisTemplate
                     .opsForValue()
                     .set(
-                            CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE + serialNumber,
+                            CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE
+                                    + serialNumber,
                             waitInvalidData,
                             WAIT_INVALID_SECONDS,
                             TimeUnit.SECONDS);
@@ -130,7 +128,8 @@ public class ToolServiceImpl implements IToolService {
         userDataSecurityModel.setBase64PublicKey(rsaKey.getBase64PublicKey());
         LocalDateTime expiresAt =
                 Instant.ofEpochMilli(
-                                System.currentTimeMillis() + userDataSecurityModel.getValidityInSeconds() * 1000)
+                                System.currentTimeMillis()
+                                        + userDataSecurityModel.getValidityInSeconds() * 1000)
                         .atZone(ZoneOffset.ofHours(8))
                         .toLocalDateTime();
         userDataSecurityModel.setExpiresAt(expiresAt);
@@ -138,8 +137,10 @@ public class ToolServiceImpl implements IToolService {
             userDataSecurityModel.setSerialNumber(serialNumber);
         } else {
             String timeInfo =
-                    CoreCommonDateUtils.dateToStr(LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
-            userDataSecurityModel.setSerialNumber(timeInfo + CoreWebFluxStringUtils.getSnowflakeId());
+                    CoreCommonDateUtils.dateToStr(
+                            LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
+            userDataSecurityModel.setSerialNumber(
+                    timeInfo + CoreWebFluxStringUtils.getSnowflakeId());
         }
         return userDataSecurityModel;
     }

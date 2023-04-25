@@ -27,19 +27,16 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotInEnum;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 
 /**
@@ -86,11 +83,13 @@ public class NotInEnumValidator implements ConstraintValidator<NotInEnum, Object
             if (!Boolean.TYPE.equals(method.getReturnType())
                     && !Boolean.class.equals(method.getReturnType())) {
                 throw new RuntimeException(
-                        String.format("%s 方法返回值不是boolean类型 %s class", this.enumMethod, this.enumClass));
+                        String.format(
+                                "%s 方法返回值不是boolean类型 %s class", this.enumMethod, this.enumClass));
             }
             if (!Modifier.isStatic(method.getModifiers())) {
                 throw new RuntimeException(
-                        String.format("%s 当前指定枚举校验方法不是静态方法 %s class", this.enumMethod, this.enumClass));
+                        String.format(
+                                "%s 当前指定枚举校验方法不是静态方法 %s class", this.enumMethod, this.enumClass));
             }
             Boolean result = (Boolean) method.invoke(null, value);
             // 动态解析消息

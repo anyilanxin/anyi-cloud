@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.post;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.PARAM_ENABLED_KEY;
 import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 import com.anyilanxin.skillfull.gateway.utils.CorsWebUtils;
-
 import java.util.Collections;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -116,8 +113,7 @@ public class CorsWebGatewayFilterFactory
         // 控制是否开启认证
         private boolean enabled;
 
-        public Config() {
-        }
+        public Config() {}
 
         public boolean isEnabled() {
             return enabled;

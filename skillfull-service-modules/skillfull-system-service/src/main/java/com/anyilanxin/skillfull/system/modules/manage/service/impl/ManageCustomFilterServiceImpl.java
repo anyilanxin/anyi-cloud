@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,9 +48,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageCustomFilterSimpleCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -118,7 +115,8 @@ public class ManageCustomFilterServiceImpl
                     Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         ManageCustomFilterDetailDto manageCustomFilterDto = detailMap.eToD(byId);
-        manageCustomFilterDto.setSpecialUrls(specialUrlService.selectByCustomFilterId(customFilterId));
+        manageCustomFilterDto.setSpecialUrls(
+                specialUrlService.selectByCustomFilterId(customFilterId));
         return manageCustomFilterDto;
     }
 
@@ -140,7 +138,8 @@ public class ManageCustomFilterServiceImpl
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByServiceId(String serviceId) throws RuntimeException {
-        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageCustomFilterEntity::getServiceId, serviceId);
         List<ManageCustomFilterEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
@@ -160,7 +159,8 @@ public class ManageCustomFilterServiceImpl
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
     public List<ManageCustomFilterListDto> selectList(String serviceId) {
-        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageCustomFilterEntity::getServiceId, serviceId);
         List<ManageCustomFilterListDto> list = map.eToD(this.list(lambdaQueryWrapper));
         if (CollUtil.isNotEmpty(list)) {
@@ -201,7 +201,8 @@ public class ManageCustomFilterServiceImpl
         if (CollectionUtil.isEmpty(routerIds)) {
             return Collections.emptyMap();
         }
-        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper
                 .eq(ManageCustomFilterEntity::getServiceId, serviceId)
                 .eq(ManageCustomFilterEntity::getFilterStatus, 1);
@@ -233,7 +234,8 @@ public class ManageCustomFilterServiceImpl
 
     @Override
     public List<ManageCustomFilterSimpleDto> selectSimpleList(String serviceId) {
-        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper
                 .eq(ManageCustomFilterEntity::getServiceId, serviceId)
                 .eq(ManageCustomFilterEntity::getFilterStatus, 1);

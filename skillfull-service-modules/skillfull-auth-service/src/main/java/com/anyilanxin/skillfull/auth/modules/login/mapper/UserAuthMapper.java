@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.mapper;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacOrgUserDto;
 import com.anyilanxin.skillfull.auth.modules.login.service.dto.RbacUserDto;
 import com.anyilanxin.skillfull.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
-
 import java.util.List;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -113,7 +110,7 @@ public interface UserAuthMapper {
      * 查询用户在某个机构下的角色信息
      *
      * @param userId 用户id
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @return RoleInfo>
      * @author zxiaozhou
      * @date 2022-07-05 00:36

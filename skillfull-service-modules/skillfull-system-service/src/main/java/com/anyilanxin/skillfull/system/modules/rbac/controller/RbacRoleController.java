@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.annotation.Anonymous;
@@ -52,11 +51,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -124,7 +121,8 @@ public class RbacRoleController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "角色id", name = "roleId", required = true)
     @DeleteMapping(value = "/delete-one/{roleId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空") String roleId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空")
+                    String roleId) {
         service.deleteById(roleId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -147,7 +145,8 @@ public class RbacRoleController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "角色id", name = "roleId", required = true)
     @GetMapping(value = "/select/one/{roleId}")
     public Result<RbacRoleDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空") String roleId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空")
+                    String roleId) {
         return ok(service.getById(roleId));
     }
 
@@ -186,7 +185,8 @@ public class RbacRoleController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "角色id", name = "roleId", required = true)
     @GetMapping(value = "/select/menu-action/{roleId}")
     public Result<Set<RbacRoleMenuButtonDto>> getMenuActionById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空") String roleId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "角色id不能为空")
+                    String roleId) {
         return ok(service.getMenuActions(roleId));
     }
 
@@ -216,8 +216,8 @@ public class RbacRoleController extends BaseController {
             tags = {"v1.0.0"},
             description = "角色启用或禁用")
     @Parameters({
-            @Parameter(description = "角色id", name = "roleId"),
-            @Parameter(description = "状态:0-禁用、1-启用", name = "status")
+        @Parameter(description = "角色id", name = "roleId"),
+        @Parameter(description = "状态:0-禁用、1-启用", name = "status")
     })
     @GetMapping(value = "/update/status")
     public Result<String> updateStatus(

@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.loggingcommon.annotation;
 
 import com.anyilanxin.skillfull.loggingcommon.constant.impl.OperateType;
-
 import java.lang.annotation.*;
 
 /**
@@ -45,23 +43,15 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Log {
-    /**
-     * 模块
-     */
+    /** 模块 */
     String title() default "";
 
-    /**
-     * 操作类型
-     */
+    /** 操作类型 */
     OperateType businessType() default OperateType.OTHER;
 
-    /**
-     * 是否保存请求的参数
-     */
+    /** 是否保存请求的参数 */
     boolean isSaveRequestData() default true;
 
-    /**
-     * 是否保存响应的参数
-     */
+    /** 是否保存响应的参数 */
     boolean isSaveResponseData() default true;
 }

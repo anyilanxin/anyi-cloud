@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,29 +46,19 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum StorageUnitType implements ISuperType {
-    /**
-     * MB
-     */
+    /** MB */
     MB(1, "MB"),
 
-    /**
-     * GB
-     */
+    /** GB */
     GB(2, "GB"),
 
-    /**
-     * TB
-     */
+    /** TB */
     TB(3, "TB");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     StorageUnitType(int type, String describe) {

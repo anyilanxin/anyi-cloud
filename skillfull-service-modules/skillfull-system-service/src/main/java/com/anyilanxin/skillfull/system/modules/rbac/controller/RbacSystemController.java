@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,10 +43,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -88,7 +85,8 @@ public class RbacSystemController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "系统id", name = "systemId", required = true)
     @PutMapping(value = "/update/{systemId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空") String systemId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空")
+                    String systemId,
             @RequestBody @Valid RbacSystemVo vo) {
         service.updateById(systemId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -101,7 +99,8 @@ public class RbacSystemController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "系统id", name = "systemId", required = true)
     @DeleteMapping(value = "/delete-one/{systemId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空") String systemId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空")
+                    String systemId) {
         service.deleteById(systemId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -113,7 +112,8 @@ public class RbacSystemController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "系统id", name = "systemId", required = true)
     @GetMapping(value = "/select/one/{systemId}")
     public Result<RbacSystemDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空") String systemId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "系统id不能为空")
+                    String systemId) {
         return ok(service.getById(systemId));
     }
 

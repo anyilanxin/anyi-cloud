@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.base;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -36,12 +35,10 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.BusinessType;
 import com.anyilanxin.skillfull.corecommon.constant.impl.SocketMsgType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

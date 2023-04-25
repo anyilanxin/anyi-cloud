@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -40,12 +39,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleMenuService
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -88,7 +85,8 @@ public class RbacRoleMenuServiceImpl extends ServiceImpl<RbacRoleMenuMapper, Rba
     public void deleteBatch(List<String> roleIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(roleIds)) {
             LambdaQueryWrapper<RbacRoleMenuEntity> lambdaQueryWrapper =
-                    Wrappers.<RbacRoleMenuEntity>lambdaQuery().in(RbacRoleMenuEntity::getRoleId, roleIds);
+                    Wrappers.<RbacRoleMenuEntity>lambdaQuery()
+                            .in(RbacRoleMenuEntity::getRoleId, roleIds);
             List<RbacRoleMenuEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> roleMenuIds = new HashSet<>(list.size());
@@ -96,7 +94,8 @@ public class RbacRoleMenuServiceImpl extends ServiceImpl<RbacRoleMenuMapper, Rba
                 int i = mapper.physicalDeleteBatchIds(roleMenuIds);
                 if (i <= 0) {
                     throw new ResponseException(
-                            Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                            Status.DATABASE_BASE_ERROR,
+                            I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
                 }
             }
         }

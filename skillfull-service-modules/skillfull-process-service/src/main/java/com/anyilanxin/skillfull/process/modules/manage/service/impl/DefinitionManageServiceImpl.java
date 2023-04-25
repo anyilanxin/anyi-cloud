@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -59,10 +58,8 @@ import com.anyilanxin.skillfull.process.modules.manage.service.mapstruct.Process
 import com.anyilanxin.skillfull.process.modules.manage.service.mapstruct.ProcessInfoCopyMap;
 import com.anyilanxin.skillfull.process.utils.Base64FileUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.io.InputStream;
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -114,13 +111,16 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         if (StringUtils.isNotBlank(vo.getProcessDefinitionId())) {
             processDefinitionQuery.processDefinitionId(vo.getProcessDefinitionId());
         } else {
-            processDefinitionQuery.processDefinitionKey(vo.getProcessDefinitionKey()).latestVersion();
+            processDefinitionQuery
+                    .processDefinitionKey(vo.getProcessDefinitionKey())
+                    .latestVersion();
         }
         ProcessDefinition processDefinition = processDefinitionQuery.singleResult();
         if (Objects.isNull(processDefinition)) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "流程定义不存在");
         }
-        ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDefinition;
+        ProcessDefinitionEntity processDefinitionEntity =
+                (ProcessDefinitionEntity) processDefinition;
         ProcessInfoDto processInfoDto =
                 processInfoCopyMap.bToA((ProcessDefinitionEntity) processDefinition);
         processInfoDto.setProcessDefinitionKey(processDefinitionEntity.getKey());
@@ -215,13 +215,16 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
             processDefinitionPageDtoList = new ArrayList<>();
             for (ProcessDefinition definition : processDefinitions) {
                 if (definition instanceof ProcessDefinitionEntity) {
-                    ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) definition;
+                    ProcessDefinitionEntity processDefinitionEntity =
+                            (ProcessDefinitionEntity) definition;
                     ProcessDefinitionPageDto processDefinitionPageDto =
                             definitionPageMap.bToA(processDefinitionEntity);
-                    processDefinitionPageDto.setProcessDefinitionKey(processDefinitionEntity.getKey());
+                    processDefinitionPageDto.setProcessDefinitionKey(
+                            processDefinitionEntity.getKey());
                     processDefinitionPageDto.setStartableInTasklist(
                             processDefinitionEntity.isStartableInTasklist());
-                    processDefinitionPageDto.setProcessDefinitionId(processDefinitionEntity.getId());
+                    processDefinitionPageDto.setProcessDefinitionId(
+                            processDefinitionEntity.getId());
                     deploymentIds.add(processDefinitionEntity.getDeploymentId());
                     processDefinitionKeys.add(processDefinitionEntity.getKey());
                     categoryCodes.add(processDefinitionEntity.getCategory());
@@ -235,7 +238,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
             List<HistoricProcessInstance> processInstanceList =
                     historyService
                             .createHistoricProcessInstanceQuery()
-                            .processDefinitionKeyIn(processDefinitionKeys.toArray(new String[]{}))
+                            .processDefinitionKeyIn(processDefinitionKeys.toArray(new String[] {}))
                             .list();
             Map<String, List<HistoricProcessInstance>> processInstanceMap = new HashMap<>(16);
             if (CollUtil.isNotEmpty(processInstanceList)) {
@@ -273,19 +276,24 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
                             long completedNum =
                                     processInstances.stream()
                                             .filter(
-                                                    sv -> ProcessInstanceState.COMPLETED.getStrState().equals(sv.getState()))
+                                                    sv ->
+                                                            ProcessInstanceState.COMPLETED
+                                                                    .getStrState()
+                                                                    .equals(sv.getState()))
                                             .count();
                             v.setInstanceCompleteNum(completedNum);
                             v.setInstanceNum(processInstances.size());
                             v.setHaveRunTask(v.getInstanceNum() != completedNum);
                         }
-                        ReDeploymentEntity reDeploymentEntity = deploymentEntityMap.get(v.getDeploymentId());
+                        ReDeploymentEntity reDeploymentEntity =
+                                deploymentEntityMap.get(v.getDeploymentId());
                         if (Objects.nonNull(reDeploymentEntity)) {
                             v.setDeploymentName(reDeploymentEntity.getName());
                             v.setDeploymentTime(reDeploymentEntity.getDeployTime());
                         }
                         // 补全类别信息
-                        ProcessCategoryDto processCategoryDto = processCategoryMap.get(v.getCategory());
+                        ProcessCategoryDto processCategoryDto =
+                                processCategoryMap.get(v.getCategory());
                         if (Objects.nonNull(processCategoryDto)) {
                             v.setCategoryName(processCategoryDto.getCategoryName());
                         }
@@ -329,7 +337,8 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         entity.setModelState(ModelStateType.DEPLOYMENT.getType());
         entity.setDeploymentName(deploy.getName());
         // 获取部署资源信息
-        List<Resource> deploymentResources = repositoryService.getDeploymentResources(deploy.getId());
+        List<Resource> deploymentResources =
+                repositoryService.getDeploymentResources(deploy.getId());
         List<String> resourceIds = new ArrayList<>(deploymentResources.size());
         List<String> resourceNames = new ArrayList<>(deploymentResources.size());
         deploymentResources.forEach(
@@ -341,7 +350,10 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         entity.setResourceIds(StringUtils.join(resourceIds, ","));
         // 部署流程定义信息
         List<ProcessDefinition> processDefinitions =
-                repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).list();
+                repositoryService
+                        .createProcessDefinitionQuery()
+                        .deploymentId(deploy.getId())
+                        .list();
         List<String> diagramNames = new ArrayList<>(processDefinitions.size());
         List<String> processDefinitionKeys = new ArrayList<>(processDefinitions.size());
         List<String> processDefinitionIds = new ArrayList<>(processDefinitions.size());
@@ -393,7 +405,10 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         entity.setDeploymentId(deploy.getId());
         entity.setDeploymentName(deploy.getName());
         List<ProcessDefinition> processDefinitions =
-                repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).list();
+                repositoryService
+                        .createProcessDefinitionQuery()
+                        .deploymentId(deploy.getId())
+                        .list();
         List<String> diagramNames = new ArrayList<>(processDefinitions.size());
         List<String> processDefinitionKeys = new ArrayList<>(processDefinitions.size());
         List<String> processDefinitionIds = new ArrayList<>(processDefinitions.size());
@@ -407,7 +422,8 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
                 });
         entity.setProcessDefinitionKeys(StringUtils.join(processDefinitionKeys, ","));
         entity.setProcessDefinitionIds(StringUtils.join(processDefinitionIds, ","));
-        List<Resource> deploymentResources = repositoryService.getDeploymentResources(deploy.getId());
+        List<Resource> deploymentResources =
+                repositoryService.getDeploymentResources(deploy.getId());
         List<String> resourceIds = new ArrayList<>(deploymentResources.size());
         List<String> resourceNames = new ArrayList<>(deploymentResources.size());
         deploymentResources.forEach(
@@ -499,14 +515,17 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         if (Objects.isNull(processDefinition)) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "当前流程部署信息不存在");
         }
-        ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDefinition;
-        DeploymentEntity deploymentEntity = queryDeploymentById(processDefinition.getDeploymentId());
+        ProcessDefinitionEntity processDefinitionEntity =
+                (ProcessDefinitionEntity) processDefinition;
+        DeploymentEntity deploymentEntity =
+                queryDeploymentById(processDefinition.getDeploymentId());
         DeploymentDetailDto deploymentDetailDto = new DeploymentDetailDto();
         deploymentDetailDto.setNew(deploymentEntity.isNew());
         deploymentDetailDto.setProcessDefinitionKey(processDefinitionEntity.getKey());
         // 获取流程模型信息
         LambdaQueryWrapper<DesignModelEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(DesignModelEntity::getDeploymentId, processDefinition.getDeploymentId());
+        lambdaQueryWrapper.eq(
+                DesignModelEntity::getDeploymentId, processDefinition.getDeploymentId());
         DesignModelEntity designModelEntity = modelMapper.selectOne(lambdaQueryWrapper);
         if (Objects.nonNull(designModelEntity)) {
             deploymentDetailDto.setModelId(designModelEntity.getModelId());
@@ -518,7 +537,8 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         deploymentDetailDto.setDeploymentId(processDefinition.getDeploymentId());
         deploymentDetailDto.setProcessDefinitionId(processDefinitionEntity.getId());
         Integer historyTimeToLive = processDefinition.getHistoryTimeToLive();
-        InputStream processModel = repositoryService.getProcessModel(processDefinitionEntity.getId());
+        InputStream processModel =
+                repositoryService.getProcessModel(processDefinitionEntity.getId());
         deploymentDetailDto.setDiagramData(Base64FileUtils.inputStreamToBase64(processModel));
         deploymentDetailDto.setResourceNames(processDefinitionEntity.getDiagramResourceName());
         deploymentDetailDto.setDeploymentName(deploymentEntity.getName());

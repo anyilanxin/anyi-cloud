@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -104,7 +101,8 @@ public class RbacMenuController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "权限id", name = "menuId", required = true)
     @DeleteMapping(value = "/delete-one/{menuId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空")
+                    String menuId) {
         service.deleteById(menuId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -127,7 +125,8 @@ public class RbacMenuController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "权限id", name = "menuId", required = true)
     @GetMapping(value = "/select/one/{menuId}")
     public Result<RbacMenuDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空")
+                    String menuId) {
         return ok(service.getById(menuId));
     }
 
@@ -136,9 +135,9 @@ public class RbacMenuController extends BaseController {
             tags = {"v1.0.0"},
             description = "获取菜单权限树")
     @Parameters({
-            @Parameter(description = "类型:0-目录,1-菜单,2-按钮，多个英文逗号隔开", name = "type"),
-            @Parameter(description = "系统id", name = "systemId"),
-            @Parameter(description = "状态:1-有效、2-所有,默认2", name = "status")
+        @Parameter(description = "类型:0-目录,1-菜单,2-按钮，多个英文逗号隔开", name = "type"),
+        @Parameter(description = "系统id", name = "systemId"),
+        @Parameter(description = "状态:1-有效、2-所有,默认2", name = "status")
     })
     @GetMapping(value = "/select/tree")
     public Result<List<RbacMenuTreeDto>> getMenuTree(

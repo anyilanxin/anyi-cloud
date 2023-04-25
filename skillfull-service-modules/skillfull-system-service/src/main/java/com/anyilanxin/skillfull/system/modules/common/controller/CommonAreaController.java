@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -48,10 +47,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -118,7 +115,8 @@ public class CommonAreaController extends BaseController {
     @DeleteMapping(value = "/delete-one/{areaId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, allEntries = true)
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空")
+                    String areaId) {
         service.deleteById(areaId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -130,7 +128,8 @@ public class CommonAreaController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "区域id", name = "areaId", required = true)
     @GetMapping(value = "/select/one/{areaId}")
     public Result<CommonAreaDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空")
+                    String areaId) {
         return ok(service.getById(areaId));
     }
 
@@ -152,8 +151,8 @@ public class CommonAreaController extends BaseController {
             description = "通过上级区域编码获取下级(如果为空则查询顶级)")
     @GetMapping(value = "/select/list")
     @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "上级区域编码", name = "parentId"),
-            @Parameter(in = ParameterIn.QUERY, description = "需要激活的区域id", name = "activateAreaId")
+        @Parameter(in = ParameterIn.QUERY, description = "上级区域编码", name = "parentId"),
+        @Parameter(in = ParameterIn.QUERY, description = "需要激活的区域id", name = "activateAreaId")
     })
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, key = "#parentId+#activateAreaId")
     public Result<List<CommonAreaTreeDto>> getList(

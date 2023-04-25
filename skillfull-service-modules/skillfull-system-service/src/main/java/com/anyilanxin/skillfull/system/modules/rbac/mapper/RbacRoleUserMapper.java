@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDto;
-
 import java.util.Collection;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -85,7 +82,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
     /**
      * 查询用户角色授权菜单信息
      *
-     * @param userId        用户id
+     * @param userId 用户id
      * @param systemCodeSet 系统编码
      * @return Set<RbacMenuDto>
      * @author zxiaozhou

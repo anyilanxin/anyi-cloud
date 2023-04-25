@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.cache;
 
 import java.util.Iterator;
@@ -81,7 +80,8 @@ public class InMemoryCache {
      * @date 2019-06-16 15:47
      */
     public static void clearAllLikeStr(String str) {
-        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext(); ) {
+        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator();
+                it.hasNext(); ) {
             Map.Entry<String, CacheData> item = it.next();
             String key = item.getKey();
             if (key.contains(str)) {
@@ -125,8 +125,8 @@ public class InMemoryCache {
     /**
      * 添加缓存
      *
-     * @param key    ${@link String}
-     * @param t      ${@link Object}
+     * @param key ${@link String}
+     * @param t ${@link Object}
      * @param expiry ${@link Integer} 缓存过期时间,-1表示永不过期（单位s）
      * @author zxiaozhou
      * @date 2019-06-16 15:47

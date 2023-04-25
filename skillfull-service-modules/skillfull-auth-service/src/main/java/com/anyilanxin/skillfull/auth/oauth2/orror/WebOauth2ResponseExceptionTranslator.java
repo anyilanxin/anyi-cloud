@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.orror;
 
 import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage;
 
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.coremvc.utils.ServletUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +66,8 @@ public class WebOauth2ResponseExceptionTranslator
         LOCAL.put("Unsupported grant type", "WebOauth2ResponseExceptionTranslator.unsupported");
         LOCAL.put("User account is locked", "WebOauth2ResponseExceptionTranslator.accountLocked");
         LOCAL.put("User is disabled", "WebOauth2ResponseExceptionTranslator.accountDisabled");
-        LOCAL.put("User account has expired", "WebOauth2ResponseExceptionTranslator.accountExpired");
+        LOCAL.put(
+                "User account has expired", "WebOauth2ResponseExceptionTranslator.accountExpired");
         LOCAL.put(
                 "User credentials have expired",
                 "WebOauth2ResponseExceptionTranslator.accountCredentialsExpired");
@@ -87,7 +85,8 @@ public class WebOauth2ResponseExceptionTranslator
         if (e instanceof OAuth2Exception) {
             OAuth2Exception ase =
                     (OAuth2Exception)
-                            THROWABLEANALYZER.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
+                            THROWABLEANALYZER.getFirstThrowableOfType(
+                                    OAuth2Exception.class, causeChain);
             status = ase.getHttpErrorCode();
         }
         if (e instanceof UnsupportedGrantTypeException) {

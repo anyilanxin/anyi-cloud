@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.Tenant;
@@ -68,7 +65,10 @@ public class TenantDto implements Serializable {
         if (Objects.nonNull(tenant)) {
             TenantEntity tenantEntity = (TenantEntity) tenant;
             tenantModel =
-                    TenantDto.builder().tenantId(tenantEntity.getId()).name(tenantEntity.getName()).build();
+                    TenantDto.builder()
+                            .tenantId(tenantEntity.getId())
+                            .name(tenantEntity.getName())
+                            .build();
         }
         return tenantModel;
     }

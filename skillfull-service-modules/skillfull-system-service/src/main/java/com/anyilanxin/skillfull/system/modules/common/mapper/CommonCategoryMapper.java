@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.system.modules.common.entity.CommonCategoryEntit
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -54,7 +51,7 @@ public interface CommonCategoryMapper extends BaseMapper<CommonCategoryEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link CommonCategoryPageVo} 查询条件
+     * @param vo ${@link CommonCategoryPageVo} 查询条件
      * @param page ${@link Page< CommonCategoryPageDto >} 分页信息
      * @return IPage<CommonCategoryPageDto> ${@link IPage<CommonCategoryPageDto>} 结果
      * @author zxiaozhou

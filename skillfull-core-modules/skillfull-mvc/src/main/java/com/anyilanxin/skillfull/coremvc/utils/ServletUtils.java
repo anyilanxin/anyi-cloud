@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -82,23 +80,19 @@ public class ServletUtils {
         return null;
     }
 
-    /**
-     * 获取request
-     */
+    /** 获取request */
     public static HttpServletRequest getRequest() {
         return Objects.nonNull(getRequestAttributes()) ? getRequestAttributes().getRequest() : null;
     }
 
-    /**
-     * 获取response
-     */
+    /** 获取response */
     public static HttpServletResponse getResponse() {
-        return Objects.nonNull(getRequestAttributes()) ? getRequestAttributes().getResponse() : null;
+        return Objects.nonNull(getRequestAttributes())
+                ? getRequestAttributes().getResponse()
+                : null;
     }
 
-    /**
-     * 获取session
-     */
+    /** 获取session */
     public static HttpSession getSession() {
         return Objects.nonNull(getRequest()) ? getRequest().getSession() : null;
     }
@@ -130,9 +124,7 @@ public class ServletUtils {
         return false;
     }
 
-    /**
-     * 获取IP地址
-     */
+    /** 获取IP地址 */
     public static String getIpAddr(HttpServletRequest request) {
         String ip = null;
         try {

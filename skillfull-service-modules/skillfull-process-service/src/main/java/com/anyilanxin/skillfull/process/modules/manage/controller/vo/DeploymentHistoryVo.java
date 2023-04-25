@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.manage.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -70,7 +67,10 @@ public class DeploymentHistoryVo implements Serializable {
     @NotBlank(message = "原始部署id不能为空")
     private String deploymentId;
 
-    @Schema(name = "activateProcessDate", title = "流程定义激活时间(不指定则立马激活)", example = "2020-12-21 12:23")
+    @Schema(
+            name = "activateProcessDate",
+            title = "流程定义激活时间(不指定则立马激活)",
+            example = "2020-12-21 12:23")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = TIME_ZONE_GMT8)
     private LocalDateTime activateProcessDate;
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -42,10 +41,8 @@ import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IDynamicRouteService;
 import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
-
 import java.net.URI;
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -104,7 +101,8 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 .delete(Mono.just(routeId))
                 .then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
                 .onErrorResume(
-                        t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build()))
+                        t -> t instanceof NotFoundException,
+                        t -> Mono.just(ResponseEntity.notFound().build()))
                 .subscribe();
         notifyChanged();
     }
@@ -132,7 +130,8 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                                 dto.setUrl(url);
                             }
                             // 处理断言
-                            List<RouteResponseModel.RoutePredicate> routePredicates = new ArrayList<>();
+                            List<RouteResponseModel.RoutePredicate> routePredicates =
+                                    new ArrayList<>();
                             List<PredicateDefinition> predicates = v.getPredicates();
                             if (!CollectionUtils.isEmpty(predicates)) {
                                 predicates.forEach(
@@ -145,7 +144,8 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                                             if (!CollectionUtils.isEmpty(args)) {
                                                 args.forEach(
                                                         (k, ssv) -> {
-                                                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                                                            RouteResponseModel.Rule rule =
+                                                                    new RouteResponseModel.Rule();
                                                             rule.setRuleName(k);
                                                             rule.setRuleValue(ssv);
                                                             rules.add(rule);
@@ -162,14 +162,16 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                             if (!CollectionUtils.isEmpty(filters)) {
                                 filters.forEach(
                                         sv -> {
-                                            RouteResponseModel.RouteFilter filter = new RouteResponseModel.RouteFilter();
+                                            RouteResponseModel.RouteFilter filter =
+                                                    new RouteResponseModel.RouteFilter();
                                             filter.setFilterType(sv.getName());
                                             Set<RouteResponseModel.Rule> rules = new HashSet<>();
                                             Map<String, String> args = sv.getArgs();
                                             if (!CollectionUtils.isEmpty(args)) {
                                                 args.forEach(
                                                         (k, ssv) -> {
-                                                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                                                            RouteResponseModel.Rule rule =
+                                                                    new RouteResponseModel.Rule();
                                                             rule.setRuleValue(ssv);
                                                             rule.setRuleName(k);
                                                             rules.add(rule);
@@ -198,7 +200,10 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 .doOnNext(
                         v ->
                                 reactiveStringRedisTemplate
-                                        .keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*")
+                                        .keys(
+                                                CoreCommonCacheConstant
+                                                                .SYSTEM_ROUTE_INFO_CACHE_PREFIX
+                                                        + "*")
                                         .flatMap(
                                                 key ->
                                                         reactiveStringRedisTemplate
@@ -207,11 +212,22 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                                                                 .flatMap(
                                                                         item -> {
                                                                             SystemRouterModel vo =
-                                                                                    JSONObject.parseObject(item, SystemRouterModel.class);
-                                                                            RouteDefinition routeDefinition = getRouteDefinition(vo);
-                                                                            if (Objects.nonNull(routeDefinition)) {
-                                                                                return routeDefinitionRepository.save(
-                                                                                        Mono.just(routeDefinition));
+                                                                                    JSONObject
+                                                                                            .parseObject(
+                                                                                                    item,
+                                                                                                    SystemRouterModel
+                                                                                                            .class);
+                                                                            RouteDefinition
+                                                                                    routeDefinition =
+                                                                                            getRouteDefinition(
+                                                                                                    vo);
+                                                                            if (Objects.nonNull(
+                                                                                    routeDefinition)) {
+                                                                                return routeDefinitionRepository
+                                                                                        .save(
+                                                                                                Mono
+                                                                                                        .just(
+                                                                                                                routeDefinition));
                                                                             }
                                                                             return Mono.empty();
                                                                         }))

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.OpenIdAuthenticationToken;
@@ -58,8 +57,7 @@ public class OpenIdAuthenticationProvider extends AbstractUserDetailsAuthenticat
     @Override
     protected void additionalAuthenticationChecks(
             UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
-    }
+            throws AuthenticationException {}
 
     @Override
     protected UserDetails retrieveUser(

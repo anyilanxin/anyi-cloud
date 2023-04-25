@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -51,12 +50,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -111,8 +108,8 @@ public class CommonDictController extends BaseController {
             tags = {"v1.0.0"},
             description = "修改字段状态")
     @Parameters({
-            @Parameter(description = "字典id", name = "dictId", required = true),
-            @Parameter(description = "操作类型:0-禁用,1-启用", name = "type", required = true)
+        @Parameter(description = "字典id", name = "dictId", required = true),
+        @Parameter(description = "操作类型:0-禁用,1-启用", name = "type", required = true)
     })
     @GetMapping(value = "/update/state/dict")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, allEntries = true)
@@ -131,7 +128,8 @@ public class CommonDictController extends BaseController {
     @DeleteMapping(value = "/delete-one/{dictId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, allEntries = true)
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典id不能为空") String dictId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典id不能为空")
+                    String dictId) {
         service.deleteById(dictId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -156,7 +154,8 @@ public class CommonDictController extends BaseController {
     @GetMapping(value = "/select/by-code/{dictCode}")
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, key = "#dictCode")
     public Result<List<CommonDictItemDto>> getListByCode(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典编码不能为空") String dictCode) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典编码不能为空")
+                    String dictCode) {
         return ok(itemService.selectListByCode(dictCode));
     }
 
@@ -188,7 +187,8 @@ public class CommonDictController extends BaseController {
     @PutMapping(value = "/update-item/{itemId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, allEntries = true)
     public Result<String> updateItem(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典项id不能为空") String itemId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典项id不能为空")
+                    String itemId,
             @RequestBody @Valid CommonDictItemVo vo) {
         itemService.updateById(itemId, vo);
         return ok("修改子项成功");
@@ -199,8 +199,8 @@ public class CommonDictController extends BaseController {
             tags = {"v1.0.0"},
             description = "修改数据字典表")
     @Parameters({
-            @Parameter(description = "字典项id", name = "itemId", required = true),
-            @Parameter(description = "操作类型:0-禁用,1-启用", name = "type", required = true)
+        @Parameter(description = "字典项id", name = "itemId", required = true),
+        @Parameter(description = "操作类型:0-禁用,1-启用", name = "type", required = true)
     })
     @GetMapping(value = "/update/state/item")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, allEntries = true)
@@ -219,7 +219,8 @@ public class CommonDictController extends BaseController {
     @DeleteMapping(value = "/delete-item-one/{itemId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CACHE, allEntries = true)
     public Result<String> deleteItem(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典项id不能为空") String itemId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "字典项id不能为空")
+                    String itemId) {
         itemService.deleteById(itemId);
         return ok("删除子项成功");
     }

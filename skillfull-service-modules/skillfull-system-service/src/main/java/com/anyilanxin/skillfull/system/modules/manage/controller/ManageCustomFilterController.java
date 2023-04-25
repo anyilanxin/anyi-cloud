@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,12 +43,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
@@ -96,7 +93,7 @@ public class ManageCustomFilterController extends BaseController {
     @PutMapping(value = "/update/{customFilterId}")
     public Result<String> update(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空")
-            String customFilterId,
+                    String customFilterId,
             @RequestBody @Valid ManageCustomFilterVo vo) {
         service.updateById(customFilterId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -114,7 +111,7 @@ public class ManageCustomFilterController extends BaseController {
     @DeleteMapping(value = "/delete-one/{customFilterId}")
     public Result<String> deleteById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空")
-            String customFilterId) {
+                    String customFilterId) {
         service.deleteById(customFilterId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -131,7 +128,7 @@ public class ManageCustomFilterController extends BaseController {
     @GetMapping(value = "/select/one/{customFilterId}")
     public Result<ManageCustomFilterDetailDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空")
-            String customFilterId) {
+                    String customFilterId) {
         return ok(service.getById(customFilterId));
     }
 
@@ -142,7 +139,8 @@ public class ManageCustomFilterController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list/{serviceId}")
     public Result<List<ManageCustomFilterListDto>> selectList(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId) {
         return ok(service.selectList(serviceId));
     }
 
@@ -153,7 +151,8 @@ public class ManageCustomFilterController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list-simple/{serviceId}")
     public Result<List<ManageCustomFilterSimpleDto>> selectSimpleList(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空")
+                    String serviceId) {
         return ok(service.selectSimpleList(serviceId));
     }
 
@@ -162,24 +161,24 @@ public class ManageCustomFilterController extends BaseController {
             tags = {"v1.0.0"},
             description = "修改过滤器状态")
     @Parameters({
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "过滤器id",
-                    name = "customFilterId",
-                    required = true),
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "操作类型:0-禁止,1-启用",
-                    name = "state",
-                    required = true)
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "过滤器id",
+                name = "customFilterId",
+                required = true),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "操作类型:0-禁止,1-启用",
+                name = "state",
+                required = true)
     })
     @GetMapping(value = "/update-status")
     public Result<String> updateStatus(
             @RequestParam(required = false) @NotBlank(message = "过滤器id不能为空") String customFilterId,
             @RequestParam(required = false)
-            @NotNull(message = "操作类型不能为空")
-            @Range(min = 0, max = 1, message = "操作类型只能为0、1")
-            Integer state) {
+                    @NotNull(message = "操作类型不能为空")
+                    @Range(min = 0, max = 1, message = "操作类型只能为0、1")
+                    Integer state) {
         service.updateStatus(customFilterId, state);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }

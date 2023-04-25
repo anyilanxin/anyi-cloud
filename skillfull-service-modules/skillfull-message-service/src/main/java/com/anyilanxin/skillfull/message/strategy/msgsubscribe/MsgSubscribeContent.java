@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.msgsubscribe;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.skillfull.message.utils.WsUtils;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -68,7 +65,8 @@ public class MsgSubscribeContent {
      */
     public void socketMsgHandle(String msg) {
         if (StringUtils.isNotBlank(msg) && CollectionUtil.isNotEmpty(STRATEGY)) {
-            SubscribeMsgModel subscribeMsgModel = JSONObject.parseObject(msg, SubscribeMsgModel.class);
+            SubscribeMsgModel subscribeMsgModel =
+                    JSONObject.parseObject(msg, SubscribeMsgModel.class);
             IMsgSubscribeStrategy iMsgSubscribeStrategy =
                     STRATEGY.get(subscribeMsgModel.getMessageEvent());
             if (Objects.nonNull(iMsgSubscribeStrategy)) {

@@ -27,13 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import com.anyilanxin.skillfull.messagerpc.constant.impl.SocketMessageEventType;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -53,19 +50,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class SocketMsgModel implements Serializable {
     private static final long serialVersionUID = -3931714024892969626L;
-    /**
-     * 消息事件,具体与SocketMessageEventType常量一致
-     */
+    /** 消息事件,具体与SocketMessageEventType常量一致 */
     private String messageEvent;
 
-    /**
-     * 消息数据
-     */
+    /** 消息数据 */
     private Object data;
 
-    /**
-     * 序列id
-     */
+    /** 序列id */
     private String serialId;
 
     public SocketMsgModel(SocketMessageEventType eventType) {

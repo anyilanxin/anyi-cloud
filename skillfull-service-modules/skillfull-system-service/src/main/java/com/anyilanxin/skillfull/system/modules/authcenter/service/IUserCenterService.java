@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.authcenter.service;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
@@ -37,9 +36,7 @@ import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.FindPass
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdateInfoVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdatePasswordVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdatePhoneVo;
-
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**

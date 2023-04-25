@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.receive.service;
 
 import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
-
 import java.util.List;
 
 /**

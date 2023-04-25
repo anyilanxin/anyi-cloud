@@ -27,13 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.store.code;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 内存存储code

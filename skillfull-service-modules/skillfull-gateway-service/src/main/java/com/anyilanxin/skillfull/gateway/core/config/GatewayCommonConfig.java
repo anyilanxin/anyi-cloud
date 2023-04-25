@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
@@ -36,10 +35,8 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.anyilanxin.skillfull.corecommon.model.stream.ConfigTokenModel;
 import com.anyilanxin.skillfull.corecommon.model.system.ConfigDataSecurityModel;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.AbstractSwaggerUiConfigProperties;
@@ -80,8 +77,8 @@ public class GatewayCommonConfig {
      * 自定义doc config 信息获取
      *
      * @param swaggerUiConfig ${@link SwaggerUiConfigProperties}
-     * @param disClient       ${@link DiscoveryClient}
-     * @param webClient       ${@link WebClient.Builder}
+     * @param disClient ${@link DiscoveryClient}
+     * @param webClient ${@link WebClient.Builder}
      * @return SwaggerUiConfigParameters ${@link SwaggerUiConfigParameters}
      * @author zxiaozhou
      * @date 2022-01-05 03:32
@@ -100,7 +97,7 @@ public class GatewayCommonConfig {
      * 初始化swagger url信息缓存
      *
      * @return Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> ${@link Map<String,
-     * AbstractSwaggerUiConfigProperties.SwaggerUrl>}
+     *     AbstractSwaggerUiConfigProperties.SwaggerUrl>}
      * @author zxiaozhou
      * @date 2022-01-01 21:31
      */
@@ -157,14 +154,12 @@ public class GatewayCommonConfig {
         return new AntPathMatcher();
     }
 
-    /**
-     * 解决启动报错
-     */
+    /** 解决启动报错 */
     @Bean
     @Primary
     public GenericConversionService getGenericConversionService(
             @Autowired @Qualifier("webFluxConversionService")
-            FormattingConversionService conversionService) {
+                    FormattingConversionService conversionService) {
         return conversionService;
     }
 
@@ -180,8 +175,8 @@ public class GatewayCommonConfig {
         StringRedisSerializer keySerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer =
                 new Jackson2JsonRedisSerializer<>(RouteDefinition.class);
-        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition> builder =
-                RedisSerializationContext.newSerializationContext(keySerializer);
+        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition>
+                builder = RedisSerializationContext.newSerializationContext(keySerializer);
         RedisSerializationContext<String, RouteDefinition> context =
                 builder.value(valueSerializer).build();
         return new ReactiveRedisTemplate<>(factory, context);

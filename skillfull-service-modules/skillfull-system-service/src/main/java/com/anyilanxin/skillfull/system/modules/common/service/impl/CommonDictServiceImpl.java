@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,11 +48,9 @@ import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDi
 import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDictVoMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -103,9 +100,11 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         // 判断编码是否有变动，变动则更新子项
         if (!byId.getDictCode().equals(vo.getDictCode())) {
             // 查询是否有子项
-            LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(CommonDictItemEntity::getDictId, dictId);
-            List<CommonDictItemEntity> commonDictItemEntities = itemMapper.selectList(lambdaQueryWrapper);
+            List<CommonDictItemEntity> commonDictItemEntities =
+                    itemMapper.selectList(lambdaQueryWrapper);
             // 有子项则更新所有子项编码
             if (CollUtil.isNotEmpty(commonDictItemEntities)) {
                 CommonDictItemEntity itemEntity = new CommonDictItemEntity();
@@ -153,7 +152,8 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         // 查询是否有子项
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CommonDictItemEntity::getDictId, dictId);
-        List<CommonDictItemEntity> commonDictItemEntities = itemMapper.selectList(lambdaQueryWrapper);
+        List<CommonDictItemEntity> commonDictItemEntities =
+                itemMapper.selectList(lambdaQueryWrapper);
         // 有子项则更新所有子项编码
         if (CollUtil.isNotEmpty(commonDictItemEntities)) {
             int delete = itemMapper.delete(lambdaQueryWrapper);

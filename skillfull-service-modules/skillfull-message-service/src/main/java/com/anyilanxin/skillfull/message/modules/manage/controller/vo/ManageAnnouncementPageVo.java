@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -35,9 +34,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.skillfull.database.datasource.base.controller.vo.BasePageVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -95,7 +92,11 @@ public class ManageAnnouncementPageVo extends BasePageVo {
     @Schema(name = "sendType", title = "发布方式：0-手动,1-自动")
     private Integer sendType;
 
-    @Schema(name = "autoSendTime", title = "自动发布时间", type = "string", example = "2020-11-12 11:23:59")
+    @Schema(
+            name = "autoSendTime",
+            title = "自动发布时间",
+            type = "string",
+            example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime autoSendTime;
 

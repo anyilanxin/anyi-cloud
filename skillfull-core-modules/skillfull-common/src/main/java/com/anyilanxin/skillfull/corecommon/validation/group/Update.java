@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.group;
 
 /**
@@ -37,5 +36,4 @@ package com.anyilanxin.skillfull.corecommon.validation.group;
  * @date 2019-06-18 09:57
  * @since JDK11
  */
-public interface Update {
-}
+public interface Update {}

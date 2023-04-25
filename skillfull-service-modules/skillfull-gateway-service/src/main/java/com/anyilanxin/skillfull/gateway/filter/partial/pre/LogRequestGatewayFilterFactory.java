@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY;
@@ -38,10 +37,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.skillfull.gateway.utils.GatewayCommonUtils;
 import com.anyilanxin.skillfull.gateway.utils.LogRecordUtils;
-
 import java.util.Collections;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -145,9 +142,7 @@ public class LogRequestGatewayFilterFactory
 
     @Validated
     public static class Config {
-        /**
-         * 特殊url
-         */
+        /** 特殊url */
         private RouteMetaSpecialUrlModel specialUrl;
 
         public RouteMetaSpecialUrlModel getSpecialUrl() {
@@ -156,7 +151,8 @@ public class LogRequestGatewayFilterFactory
 
         public Config setSpecialUrl(String specialUrl) {
             if (StringUtils.isNotBlank(specialUrl)) {
-                this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
+                this.specialUrl =
+                        JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
             }
             return this;
         }

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.config;
 
 import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
-
 import java.util.function.Consumer;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -62,7 +59,8 @@ public class BindingStreamConfig {
     @Bean(value = BindingStreamConstant.SOCKET_PROCESS)
     public Consumer<SocketMsgModel> socketProcess() {
         return payload -> {
-            log.debug("------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
+            log.debug(
+                    "------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
             //            handleContent.processStream(payload);
         };
     }

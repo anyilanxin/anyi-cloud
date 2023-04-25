@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +63,8 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
                 .map(BearerTokenAuthenticationToken::getToken)
                 .flatMap(
                         (accessToken -> {
-                            OAuth2AccessToken oAuth2AccessToken = this.tokenStore.readAccessToken(accessToken);
+                            OAuth2AccessToken oAuth2AccessToken =
+                                    this.tokenStore.readAccessToken(accessToken);
                             // 根据access_token从数据库获取不到OAuth2AccessToken
                             if (oAuth2AccessToken == null) {
                                 throw new InvalidTokenException("无效的token");
@@ -79,7 +79,9 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
                                     && !oAuth2Authentication.isAuthenticated()) {
                                 throw new UnauthorizedClientException("当前客户端未授权");
                             } else if (!oAuth2Authentication.isClientOnly()
-                                    && !oAuth2Authentication.getUserAuthentication().isAuthenticated()) {
+                                    && !oAuth2Authentication
+                                            .getUserAuthentication()
+                                            .isAuthenticated()) {
                                 throw new UnauthorizedUserException("当前用户未授权");
                             } else {
                                 oAuth2Authentication.setDetails(oAuth2AccessToken);

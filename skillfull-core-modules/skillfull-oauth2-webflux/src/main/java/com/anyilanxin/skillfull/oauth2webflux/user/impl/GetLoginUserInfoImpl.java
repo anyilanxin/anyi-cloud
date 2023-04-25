@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.user.impl;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2webflux.user.IGetLoginUserInfo;
-
 import java.util.Set;
-
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import reactor.core.publisher.Mono;
 

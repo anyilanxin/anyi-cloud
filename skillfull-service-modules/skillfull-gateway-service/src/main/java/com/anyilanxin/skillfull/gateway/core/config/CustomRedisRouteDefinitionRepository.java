@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import org.slf4j.Logger;
@@ -72,7 +71,9 @@ public class CustomRedisRouteDefinitionRepository implements RouteDefinitionRepo
                         (throwable, routeDefinition) -> {
                             if (log.isErrorEnabled()) {
                                 log.error(
-                                        "get routes from redis error cause : {}", throwable.toString(), throwable);
+                                        "get routes from redis error cause : {}",
+                                        throwable.toString(),
+                                        throwable);
                             }
                         });
     }
@@ -87,13 +88,13 @@ public class CustomRedisRouteDefinitionRepository implements RouteDefinitionRepo
                                         return success
                                                 ? Mono.empty()
                                                 : Mono.defer(
-                                                () -> {
-                                                    return Mono.error(
-                                                            new RuntimeException(
-                                                                    String.format(
-                                                                            "Could not add route to redis repository: %s",
-                                                                            routeDefinition)));
-                                                });
+                                                        () -> {
+                                                            return Mono.error(
+                                                                    new RuntimeException(
+                                                                            String.format(
+                                                                                    "Could not add route to redis repository: %s",
+                                                                                    routeDefinition)));
+                                                        });
                                     });
                 });
     }
@@ -108,13 +109,13 @@ public class CustomRedisRouteDefinitionRepository implements RouteDefinitionRepo
                                         return success
                                                 ? Mono.empty()
                                                 : Mono.defer(
-                                                () -> {
-                                                    return Mono.error(
-                                                            new NotFoundException(
-                                                                    String.format(
-                                                                            "Could not remove route from redis repository with id: %s",
-                                                                            routeId)));
-                                                });
+                                                        () -> {
+                                                            return Mono.error(
+                                                                    new NotFoundException(
+                                                                            String.format(
+                                                                                    "Could not remove route from redis repository with id: %s",
+                                                                                    routeId)));
+                                                        });
                                     });
                 });
     }

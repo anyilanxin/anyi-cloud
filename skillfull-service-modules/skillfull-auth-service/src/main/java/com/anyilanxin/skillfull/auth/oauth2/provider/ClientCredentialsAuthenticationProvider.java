@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.ClientCredentialsAuthenticationToken;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
-
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -63,7 +60,8 @@ public class ClientCredentialsAuthenticationProvider
     private final PasswordEncoder passwordEncoder;
 
     public ClientCredentialsAuthenticationProvider(
-            final ClientDetailsService clientDetailsService, final PasswordEncoder passwordEncoder) {
+            final ClientDetailsService clientDetailsService,
+            final PasswordEncoder passwordEncoder) {
         this.clientDetailsService = clientDetailsService;
         this.passwordEncoder = passwordEncoder;
     }

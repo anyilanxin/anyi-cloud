@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.base;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,8 +68,7 @@ public class Result<T> implements Serializable {
     @Schema(title = "响应时间")
     private long timestamp;
 
-    public Result() {
-    }
+    public Result() {}
 
     public Result(Status status) {
         this.setSuccess(status.getCode() == 0);

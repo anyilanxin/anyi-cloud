@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
@@ -48,5 +47,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
 public interface CommonDictItemQueryVoMap
-        extends BaseMap<CommonDictItemQueryVo, CommonDictItemEntity> {
-}
+        extends BaseMap<CommonDictItemQueryVo, CommonDictItemEntity> {}

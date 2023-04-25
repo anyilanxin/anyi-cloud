@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -52,23 +50,15 @@ import lombok.experimental.SuperBuilder;
 public class UpOrDownModel implements Serializable {
     private static final long serialVersionUID = -3931714024892969626L;
 
-    /**
-     * 类型：0-下线，1-上下
-     */
+    /** 类型：0-下线，1-上下 */
     private int type;
 
-    /**
-     * 用户id
-     */
+    /** 用户id */
     private String userId;
 
-    /**
-     * 真实姓名
-     */
+    /** 真实姓名 */
     private String realName;
 
-    /**
-     * 头像
-     */
+    /** 头像 */
     private String avatar;
 }

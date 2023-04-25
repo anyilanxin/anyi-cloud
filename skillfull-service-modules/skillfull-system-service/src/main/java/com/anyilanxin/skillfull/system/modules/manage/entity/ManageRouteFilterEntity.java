@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -35,9 +34,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -59,47 +56,30 @@ import lombok.experimental.SuperBuilder;
 public class ManageRouteFilterEntity extends BaseEntity {
     private static final long serialVersionUID = -28363313730786050L;
 
-    @TableId
-    private String filterId;
+    @TableId private String filterId;
 
-    /**
-     * 路由id
-     */
+    /** 路由id */
     private String routeId;
 
-    /**
-     * 服务id
-     */
+    /** 服务id */
     private String serviceId;
 
-    /**
-     * 过滤器类型
-     */
+    /** 过滤器类型 */
     private String filterType;
 
-    /**
-     * 过滤器类型名称
-     */
+    /** 过滤器类型名称 */
     private String filterTypeName;
 
-    /**
-     * 过滤器名称
-     */
+    /** 过滤器名称 */
     private String filterName;
 
-    /**
-     * 过滤器规则:Map
-     */
+    /** 过滤器规则:Map */
     @TableField(typeHandler = FastjsonTypeHandler.class)
     private Map<String, String> rules;
 
-    /**
-     * 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)
-     */
+    /** 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除) */
     private Integer enableDelete;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

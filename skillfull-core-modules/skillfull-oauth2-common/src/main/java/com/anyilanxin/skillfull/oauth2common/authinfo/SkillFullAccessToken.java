@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import com.anyilanxin.skillfull.oauth2common.serializer.CustomOAuth2AccessTokenJackson1Serializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.util.*;
-
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -62,17 +59,13 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
     private Map<String, Object> additionalInformation = Collections.emptyMap();
 
-    /**
-     * Create an access token from the value provided.
-     */
+    /** Create an access token from the value provided. */
     public SkillFullAccessToken(String value) {
         super(value);
         this.value = value;
     }
 
-    /**
-     * Private constructor for JPA and other serialization tools.
-     */
+    /** Private constructor for JPA and other serialization tools. */
     @SuppressWarnings("unused")
     private SkillFullAccessToken() {
         this((String) null);
@@ -110,7 +103,8 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     @Override
     public int getExpiresIn() {
         return expiration != null
-                ? Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L).intValue()
+                ? Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L)
+                        .intValue()
                 : 0;
     }
 
@@ -151,7 +145,8 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
     /**
      * The token type, as introduced in draft 11 of the OAuth 2 spec. The spec doesn't define (yet)
-     * that the valid token types are, but says it's required so the default will just be "undefined".
+     * that the valid token types are, but says it's required so the default will just be
+     * "undefined".
      *
      * @return The token type, as introduced in draft 11 of the OAuth 2 spec.
      */
@@ -226,7 +221,8 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     }
 
     public static OAuth2AccessToken valueOf(Map<String, String> tokenParams) {
-        DefaultOAuth2AccessToken token = new DefaultOAuth2AccessToken(tokenParams.get(ACCESS_TOKEN));
+        DefaultOAuth2AccessToken token =
+                new DefaultOAuth2AccessToken(tokenParams.get(ACCESS_TOKEN));
 
         if (tokenParams.containsKey(EXPIRES_IN)) {
             long expiration = 0;
@@ -247,7 +243,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         if (tokenParams.containsKey(SCOPE)) {
             Set<String> scope = new TreeSet<>();
             for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,");
-                 tokenizer.hasMoreTokens(); ) {
+                    tokenizer.hasMoreTokens(); ) {
                 scope.add(tokenizer.nextToken());
             }
             token.setScope(scope);

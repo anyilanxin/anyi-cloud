@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.config;
 
 import com.anyilanxin.skillfull.auth.core.properties.AuthProperty;
@@ -50,12 +49,10 @@ import com.anyilanxin.skillfull.auth.oauth2.provider.SmsCodeAuthenticationProvid
 import com.anyilanxin.skillfull.auth.oauth2.store.code.RedisAuthorizationCodeServices;
 import com.anyilanxin.skillfull.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.skillfull.auth.oauth2.validate.impl.SmsValidate;
-
 import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -220,27 +217,22 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         return tokenApprovalStore;
     }
 
-    /**
-     * 授权码存储
-     */
+    /** 授权码存储 */
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
-        RedisAuthorizationCodeServices codeServices = new RedisAuthorizationCodeServices(redisTemplate);
+        RedisAuthorizationCodeServices codeServices =
+                new RedisAuthorizationCodeServices(redisTemplate);
         codeServices.setValiditySeconds(10 * 60);
         return codeServices;
     }
 
-    /**
-     * token增强器
-     */
+    /** token增强器 */
     @Bean
     public TokenEnhancer customTokenEnhancer() {
         return new CustomTokenEnhancer();
     }
 
-    /**
-     * token增强器链(聚合增强器与生产转换器)
-     */
+    /** token增强器链(聚合增强器与生产转换器) */
     @Bean
     public TokenEnhancer tokenEnhancer() {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
@@ -267,9 +259,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         return customDefaultTokenServices;
     }
 
-    /**
-     * token生成器与转换器
-     */
+    /** token生成器与转换器 */
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();

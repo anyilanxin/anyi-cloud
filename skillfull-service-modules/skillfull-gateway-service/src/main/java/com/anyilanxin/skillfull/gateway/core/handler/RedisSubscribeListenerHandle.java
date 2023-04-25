@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.handler;
 
 import com.alibaba.fastjson2.JSONObject;
@@ -71,7 +70,8 @@ public class RedisSubscribeListenerHandle {
                 .flatMap(
                         item -> {
                             if (StringUtils.isNotBlank(item)) {
-                                SystemRouterModel vo = JSONObject.parseObject(item, SystemRouterModel.class);
+                                SystemRouterModel vo =
+                                        JSONObject.parseObject(item, SystemRouterModel.class);
                                 routeService.updateRoute(vo);
                             }
                             return Mono.empty();
@@ -80,7 +80,9 @@ public class RedisSubscribeListenerHandle {
                         (throwable, routeDefinition) -> {
                             if (log.isErrorEnabled()) {
                                 log.error(
-                                        "get routes from redis error cause : {}", throwable.toString(), throwable);
+                                        "get routes from redis error cause : {}",
+                                        throwable.toString(),
+                                        throwable);
                             }
                         })
                 .subscribe();

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.utils;
 
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
@@ -64,8 +63,8 @@ public class PasswordCheck {
     /**
      * 校验密码
      *
-     * @param rawPassword     未编码密码
-     * @param salt            密码盐
+     * @param rawPassword 未编码密码
+     * @param salt 密码盐
      * @param encodedPassword 编码后密码
      * @author zxiaozhou
      * @date 2022-05-02 11:06
@@ -77,7 +76,7 @@ public class PasswordCheck {
     /**
      * 校验密码(没有盐)
      *
-     * @param rawPassword     未编码密码
+     * @param rawPassword 未编码密码
      * @param encodedPassword 编码后密码
      * @author zxiaozhou
      * @date 2022-05-02 11:06

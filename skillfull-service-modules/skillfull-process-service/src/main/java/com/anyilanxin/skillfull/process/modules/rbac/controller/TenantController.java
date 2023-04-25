@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,11 +43,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -88,7 +85,8 @@ public class TenantController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
     @DeleteMapping(value = "/delete-one/{tenantId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空")
+                    String tenantId) {
         service.deleteTenant(tenantId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -110,7 +108,8 @@ public class TenantController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
     @GetMapping(value = "/select/one/{tenantId}")
     public Result<TenantDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空")
+                    String tenantId) {
         return ok(service.getTenant(tenantId));
     }
 

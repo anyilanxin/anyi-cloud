@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -49,5 +48,4 @@ import org.mapstruct.ReportingPolicy;
         componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         builder = @Builder(disableBuilder = true))
-public interface AuthDataCopyMap extends BaseThreeMap<AuthDataEntity, AuthDataDto, AuthDataVo> {
-}
+public interface AuthDataCopyMap extends BaseThreeMap<AuthDataEntity, AuthDataDto, AuthDataVo> {}

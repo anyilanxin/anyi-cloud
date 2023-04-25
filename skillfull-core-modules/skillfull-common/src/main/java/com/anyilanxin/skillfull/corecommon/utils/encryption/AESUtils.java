@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.encryption;
 
 import cn.hutool.core.codec.Base64;
@@ -56,13 +55,14 @@ public class AESUtils {
      * @date 2019-10-23 14:07
      */
     public static String getKey() {
-        return Base64.encode(SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded());
+        return Base64.encode(
+                SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded());
     }
 
     /**
      * 明文加密
      *
-     * @param key       {@link String} 密钥
+     * @param key {@link String} 密钥
      * @param plaintext {@link String} 明文
      * @return String {@link String} 密文
      * @author zhouxuanhong
@@ -79,7 +79,7 @@ public class AESUtils {
     /**
      * 密文解密
      *
-     * @param key        {@link String} 密文
+     * @param key {@link String} 密文
      * @param ciphertext {@link String} 密文
      * @return String {@link String} 明文
      * @author zhouxuanhong

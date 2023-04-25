@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.receive.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
@@ -45,11 +44,9 @@ import com.anyilanxin.skillfull.logging.modules.receive.service.mapstruct.Operat
 import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -80,7 +77,8 @@ public class ReceiveServiceImpl implements IReceiveService {
                 .opsForList()
                 .leftPush(
                         LoggingCommonConstant.AUTH_LOG_KEY_PREFIX,
-                        JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
+                        JSONObject.toJSONString(
+                                authDataEntity, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerAuthLog();
     }
@@ -93,7 +91,8 @@ public class ReceiveServiceImpl implements IReceiveService {
                     AuthDataEntity authDataEntity = authDataCopyMap.bToA(v);
                     setUserInfo(authDataEntity);
                     authLogs.add(
-                            JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
+                            JSONObject.toJSONString(
+                                    authDataEntity, JSONWriter.Feature.WriteMapNullValue));
                 });
         stringRedisTemplate
                 .opsForList()
@@ -110,7 +109,8 @@ public class ReceiveServiceImpl implements IReceiveService {
                 .opsForList()
                 .leftPush(
                         LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX,
-                        JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
+                        JSONObject.toJSONString(
+                                operateLogModel, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerOperateLog();
     }
@@ -123,7 +123,8 @@ public class ReceiveServiceImpl implements IReceiveService {
                     OperateEntity operateLogModel = operateCopyMap.bToA(v);
                     setUserInfo(operateLogModel);
                     operateLogs.add(
-                            JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
+                            JSONObject.toJSONString(
+                                    operateLogModel, JSONWriter.Feature.WriteMapNullValue));
                 });
         stringRedisTemplate
                 .opsForList()

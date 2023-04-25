@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteCustomFi
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.RouterCustomFilterDto;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,8 +53,8 @@ public interface IManageRouteCustomFilterService
      * 保存
      *
      * @param customFilters ${@link List< ManageRouteCustomFilterVo >} 自定义过滤器
-     * @param routerId      ${@link String} 路由id
-     * @param override      ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
+     * @param routerId ${@link String} 路由id
+     * @param override ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:17
@@ -80,7 +78,7 @@ public interface IManageRouteCustomFilterService
      *
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<
-     * ManageCustomFilterSimpleDto >>}
+     *     ManageCustomFilterSimpleDto >>}
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */
@@ -92,7 +90,7 @@ public interface IManageRouteCustomFilterService
      *
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link
-     * Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
+     *     Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */

@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -51,24 +48,16 @@ import lombok.Getter;
 @ConstantType
 public enum SpecialUrlType implements ISuperType {
 
-    /**
-     * 白名单
-     */
+    /** 白名单 */
     WHITE_LIST(1, "白名单"),
 
-    /**
-     * 黑名单
-     */
+    /** 黑名单 */
     BLACK_LIST(2, "黑名单");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     SpecialUrlType(int type, String typeDescribe) {

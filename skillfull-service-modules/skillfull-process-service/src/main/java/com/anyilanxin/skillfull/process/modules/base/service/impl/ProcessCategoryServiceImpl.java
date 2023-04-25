@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,12 +48,10 @@ import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.ProcessCa
 import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.ProcessCategoryQueryCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -178,7 +175,8 @@ public class ProcessCategoryServiceImpl
     @Override
     public List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes) {
         if (CollUtil.isNotEmpty(categoryCodes)) {
-            LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             lambdaQueryWrapper.in(ProcessCategoryEntity::getCategoryCode, categoryCodes);
             List<ProcessCategoryEntity> list = this.list(lambdaQueryWrapper);
             return map.eToD(list);

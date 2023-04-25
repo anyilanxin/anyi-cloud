@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,34 +46,22 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum SocketMsgType implements ISuperType {
-    /**
-     * 授权事件
-     */
+    /** 授权事件 */
     DESIGNATED_PERSONNEL(0, "指定人"),
 
-    /**
-     * 异常事件
-     */
+    /** 异常事件 */
     DESIGNATED_ORG(1, "指定机构"),
 
-    /**
-     * 通知事件
-     */
+    /** 通知事件 */
     BROADCAST(2, "广播"),
 
-    /**
-     * 应答数据
-     */
+    /** 应答数据 */
     CALLBACK(3, "应答数据");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     SocketMsgType(int type, String typeDescribe) {

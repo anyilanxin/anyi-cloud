@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import cn.hutool.core.collection.CollUtil;
@@ -41,9 +40,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -77,7 +74,7 @@ public class SpringDocConfig {
     @Autowired
     private void setRequestMappingHandlerMapping(
             @Qualifier("requestMappingHandlerMapping")
-            RequestMappingHandlerMapping requestMappingHandlerMapping) {
+                    RequestMappingHandlerMapping requestMappingHandlerMapping) {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
     }
 
@@ -186,24 +183,33 @@ public class SpringDocConfig {
                                                 sv ->
                                                         sv.setInfo(
                                                                 new Info()
-                                                                        .title(property.getTitle() + "(总计:" + v.getTotal() + ")")
+                                                                        .title(
+                                                                                property.getTitle()
+                                                                                        + "(总计:"
+                                                                                        + v
+                                                                                                .getTotal()
+                                                                                        + ")")
                                                                         .version(v.getVersion())))
                                         .addOpenApiMethodFilter(
                                                 sv -> {
                                                     Class<?> beanType = sv.getClass();
-                                                    Hidden hidden = beanType.getAnnotation(Hidden.class);
+                                                    Hidden hidden =
+                                                            beanType.getAnnotation(Hidden.class);
                                                     if (Objects.nonNull(hidden)) {
                                                         return false;
                                                     }
-                                                    Operation annotation = sv.getAnnotation(Operation.class);
+                                                    Operation annotation =
+                                                            sv.getAnnotation(Operation.class);
                                                     if (Objects.isNull(annotation)) {
                                                         return false;
                                                     }
                                                     String[] tagInfos = annotation.tags();
-                                                    if (Objects.isNull(tagInfos) || tagInfos.length <= 0) {
+                                                    if (Objects.isNull(tagInfos)
+                                                            || tagInfos.length <= 0) {
                                                         return false;
                                                     }
-                                                    return Arrays.asList(tagInfos).contains(v.getVersion());
+                                                    return Arrays.asList(tagInfos)
+                                                            .contains(v.getVersion());
                                                 })
                                         .build();
                         defaultListableBeanFactory.registerSingleton(k, build);
@@ -211,9 +217,7 @@ public class SpringDocConfig {
         }
     }
 
-    /**
-     * 判断接口是否有效
-     */
+    /** 判断接口是否有效 */
     private boolean isEffective(HandlerMethod handlerMethod) {
         Class<?> beanType = handlerMethod.getBeanType();
         Hidden hidden = beanType.getAnnotation(Hidden.class);
@@ -234,13 +238,9 @@ public class SpringDocConfig {
     @Getter
     @Setter
     public static class DocInfoModel {
-        /**
-         * 当前版本总数
-         */
+        /** 当前版本总数 */
         private int total;
-        /**
-         * 版本
-         */
+        /** 版本 */
         private String version;
     }
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -41,7 +40,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleBasicDto
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleMenuButtonDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRolePageDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -68,7 +66,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * 通过id更新
      *
      * @param roleId 角色id
-     * @param vo     角色表更新数据
+     * @param vo 角色表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20
@@ -132,7 +130,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * 更新或添加角色权限
      *
      * @param roleId 角色id
-     * @param vo     待插入数据
+     * @param vo 待插入数据
      * @author zxiaozhou
      * @date 2022-05-03 18:43
      */

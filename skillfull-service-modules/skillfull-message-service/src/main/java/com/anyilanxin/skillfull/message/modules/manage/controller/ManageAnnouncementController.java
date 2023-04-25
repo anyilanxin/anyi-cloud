@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -94,7 +91,8 @@ public class ManageAnnouncementController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @PutMapping(value = "/update/{anntId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空")
+                    String anntId,
             @RequestBody @Valid ManageAnnouncementVo vo) {
         service.updateById(anntId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -108,7 +106,8 @@ public class ManageAnnouncementController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @DeleteMapping(value = "/delete-one/{anntId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空")
+                    String anntId) {
         service.deleteById(anntId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -133,7 +132,8 @@ public class ManageAnnouncementController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @GetMapping(value = "/select/one/{anntId}")
     public Result<ManageAnnouncementDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空")
+                    String anntId) {
         return ok(service.getById(anntId));
     }
 

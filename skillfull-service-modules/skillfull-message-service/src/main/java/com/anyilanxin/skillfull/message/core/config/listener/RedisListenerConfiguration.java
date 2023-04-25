@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.config.listener;
 
 import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
@@ -62,7 +61,8 @@ public class RedisListenerConfiguration {
         MessageListenerAdapter messageLogListenerAdapter = messageLogListenerAdapter();
         messageLogListenerAdapter.setSerializer(RedisSerializer.string());
         redisMessageListenerContainer.addMessageListener(
-                messageLogListenerAdapter, new ChannelTopic(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE));
+                messageLogListenerAdapter,
+                new ChannelTopic(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE));
         return redisMessageListenerContainer;
     }
 

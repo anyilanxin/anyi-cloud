@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.serializer;
 
 import com.alibaba.fastjson.JSON;
@@ -40,9 +39,7 @@ import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.google.common.base.Preconditions;
-
 import java.nio.charset.StandardCharsets;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -163,7 +160,9 @@ public class FastjsonRedisTokenStoreSerializationStrategy
         }
         try {
             return JSON.toJSONBytes(
-                    o, SerializerFeature.WriteClassName, SerializerFeature.DisableCircularReferenceDetect);
+                    o,
+                    SerializerFeature.WriteClassName,
+                    SerializerFeature.DisableCircularReferenceDetect);
         } catch (Exception ex) {
             throw new SerializationException("Could not serialize: " + ex.getMessage(), ex);
         }

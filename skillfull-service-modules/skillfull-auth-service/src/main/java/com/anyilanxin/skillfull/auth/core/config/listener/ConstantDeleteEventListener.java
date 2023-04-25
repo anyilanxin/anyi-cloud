@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.core.config.listener;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;
 import com.anyilanxin.skillfull.coreredis.listener.RedisKeyDeleteEventMessageListener;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
@@ -61,7 +58,8 @@ public class ConstantDeleteEventListener extends RedisKeyDeleteEventMessageListe
 
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
-        log.debug("------------ConstantDeleteEventListener------监听到变化------>onMessage:\n{}", message);
+        log.debug(
+                "------------ConstantDeleteEventListener------监听到变化------>onMessage:\n{}", message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         if (StringUtils.isNotBlank(key)
                 && key.startsWith(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE)

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -52,12 +51,10 @@ import com.anyilanxin.skillfull.process.modules.base.service.dto.DesignModelPage
 import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.DesignModelCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -101,7 +98,7 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
     /**
      * 数据验证
      *
-     * @param modelId               模型id
+     * @param modelId 模型id
      * @param processDefinitionKeys 流程定义key
      * @author zxiaozhou
      * @date 2022-06-05 14:47
@@ -118,7 +115,8 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         String repeatKeys = sb.toString();
         if (StringUtils.isNotBlank(repeatKeys)) {
             throw new ResponseException(
-                    Status.VERIFICATION_FAILED, "流程定义key重复，请修改：" + StringUtils.removeEnd(repeatKeys, "、"));
+                    Status.VERIFICATION_FAILED,
+                    "流程定义key重复，请修改：" + StringUtils.removeEnd(repeatKeys, "、"));
         }
     }
 
@@ -136,11 +134,14 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
         DesignModelEntity entity = map.vToE(vo);
         check(modelId, entity.getProcessDefinitionKeys());
         // 如果存在历史，则为新版本待部署
-        LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(DesignModelHistoryEntity::getModelId, modelId);
         Long count = historyMapper.selectCount(lambdaQueryWrapper);
         entity.setModelState(
-                count > 0 ? ModelStateType.NEW_VERSION.getType() : ModelStateType.NO_DEPLOYMENT.getType());
+                count > 0
+                        ? ModelStateType.NEW_VERSION.getType()
+                        : ModelStateType.NO_DEPLOYMENT.getType());
         entity.setModelId(modelId);
         boolean result = super.updateById(entity);
         if (!result) {
@@ -198,7 +199,8 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
             }
         }
         // 删除自存历史部署信息以及引擎部署信息
-        LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<DesignModelHistoryEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(DesignModelHistoryEntity::getModelId, vo.getModelId());
         List<DesignModelHistoryEntity> designModelHistoryEntities =
                 historyMapper.selectList(lambdaQueryWrapper);
@@ -208,7 +210,10 @@ public class DesignModelServiceImpl extends ServiceImpl<DesignModelMapper, Desig
             deploymentIds.forEach(
                     v -> {
                         Deployment deployment =
-                                repositoryService.createDeploymentQuery().deploymentId(v).singleResult();
+                                repositoryService
+                                        .createDeploymentQuery()
+                                        .deploymentId(v)
+                                        .singleResult();
                         if (Objects.nonNull(deployment)) {
                             repositoryService.deleteDeployment(
                                     deployment.getId(),

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,10 +45,8 @@ import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageSe
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -109,7 +106,8 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
     @Transactional(
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
-    public PageDto<ManageServicePageDto> pageByModel(ManageServicePageVo vo) throws RuntimeException {
+    public PageDto<ManageServicePageDto> pageByModel(ManageServicePageVo vo)
+            throws RuntimeException {
         IPage<ManageServicePageDto> resultPage = mapper.pageByModel(vo.getPage(), vo);
         List<ManageServicePageDto> records = resultPage.getRecords();
         if (!CollUtil.isEmpty(records)) {
@@ -125,7 +123,9 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
                                         if (serviceCode.equals(sv.getName())) {
                                             v.setInstanceNum(sv.getIpCount());
                                             v.setHealthyNum(sv.getHealthyInstanceCount());
-                                            v.setUnhealthyNum(sv.getClusterCount() - sv.getHealthyInstanceCount());
+                                            v.setUnhealthyNum(
+                                                    sv.getClusterCount()
+                                                            - sv.getHealthyInstanceCount());
                                         }
                                     });
                         }
@@ -211,12 +211,15 @@ public class ManageServiceServiceImpl extends ServiceImpl<ManageServiceMapper, M
             servicesOfServer.forEach(
                     sv -> {
                         allServiceNames.add(sv.getName());
-                        healthyInstanceCountAtom.updateAndGet(v1 -> v1 + sv.getHealthyInstanceCount());
+                        healthyInstanceCountAtom.updateAndGet(
+                                v1 -> v1 + sv.getHealthyInstanceCount());
                         instanceCountAtom.updateAndGet(v1 -> v1 + sv.getIpCount());
                     });
         }
         int healthyInstanceCount =
-                Objects.nonNull(healthyInstanceCountAtom.get()) ? healthyInstanceCountAtom.get() : 0;
+                Objects.nonNull(healthyInstanceCountAtom.get())
+                        ? healthyInstanceCountAtom.get()
+                        : 0;
         int instanceCount = Objects.nonNull(instanceCountAtom.get()) ? instanceCountAtom.get() : 0;
         dto.setHealthyInstanceCount(healthyInstanceCount);
         dto.setNoHealthyInstanceCount(instanceCount - healthyInstanceCount);

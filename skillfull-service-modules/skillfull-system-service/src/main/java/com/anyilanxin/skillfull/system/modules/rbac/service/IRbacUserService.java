@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto;
-
 import java.util.List;
 
 /**
@@ -64,7 +62,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * 通过id更新
      *
      * @param userId 用户id
-     * @param vo     用户表更新数据
+     * @param vo 用户表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
@@ -86,7 +84,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * 通过id查询详情
      *
      * @param userId 用户id
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @return RbacUserDto 查询结果
      * @throws RuntimeException
      * @author zxiaozhou
@@ -118,7 +116,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * 通过用户d修改状态
      *
      * @param userId 用户id
-     * @param type   类型:1-激活,2-冻结
+     * @param type 类型:1-激活,2-冻结
      * @author zxiaozhou
      * @date 2022-06-03 02:35
      */

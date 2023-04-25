@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,9 +42,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRoutePre
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRoutePredicateCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -110,7 +107,8 @@ public class ManageRoutePredicateServiceImpl
             rollbackFor = {Exception.class, Error.class},
             readOnly = true)
     public List<ManageRoutePredicateDto> getByRouteId(String routeId) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routeId);
         return map.eToD(this.list(lambdaQueryWrapper));
     }
@@ -121,7 +119,8 @@ public class ManageRoutePredicateServiceImpl
             readOnly = true)
     public Map<String, List<ManageRoutePredicateDto>> getByRouteId(Set<String> routeIds)
             throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routeIds);
         List<ManageRoutePredicateEntity> list = this.list(lambdaQueryWrapper);
         Map<String, List<ManageRoutePredicateDto>> stringListMap = new HashMap<>();
@@ -156,7 +155,8 @@ public class ManageRoutePredicateServiceImpl
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterId(String routerId) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routerId);
         this.remove(lambdaQueryWrapper);
     }
@@ -164,7 +164,8 @@ public class ManageRoutePredicateServiceImpl
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterIds(Set<String> routerIds) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routerIds);
         this.remove(lambdaQueryWrapper);
     }

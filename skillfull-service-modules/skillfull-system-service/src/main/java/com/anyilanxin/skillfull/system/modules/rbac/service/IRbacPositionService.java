@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -37,7 +36,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacPositionVo
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacPositionEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacPositionDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacPositionPageDto;
-
 import java.util.List;
 
 /**
@@ -63,7 +61,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * 通过id更新
      *
      * @param positionId 职位id
-     * @param vo         职位表更新数据
+     * @param vo 职位表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20
@@ -126,7 +124,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * 修改职位状态
      *
      * @param positionId ${@link String} 职位id
-     * @param type       ${@link Integer} 类型:0-禁用,1-启用
+     * @param type ${@link Integer} 类型:0-禁用,1-启用
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-01-30 00:39

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,12 +46,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -98,7 +95,7 @@ public class RbacClientDetailsController extends BaseController {
     @PutMapping(value = "/update/{clientDetailId}")
     public Result<String> update(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "客户端信息id不能为空")
-            String clientDetailId,
+                    String clientDetailId,
             @RequestBody @Valid RbacClientDetailsVo vo) {
         service.updateById(clientDetailId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -108,11 +105,15 @@ public class RbacClientDetailsController extends BaseController {
             summary = "更新或添加权限",
             tags = {"v1.0.0"},
             description = "更新或添加权限")
-    @Parameter(in = ParameterIn.PATH, description = "客户端id", name = "clientDetailId", required = true)
+    @Parameter(
+            in = ParameterIn.PATH,
+            description = "客户端id",
+            name = "clientDetailId",
+            required = true)
     @PutMapping(value = "/update-auth/{clientDetailId}")
     public Result<String> updateAuth(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "客户端id不能为空")
-            String clientDetailId,
+                    String clientDetailId,
             @RequestBody @Valid RbacClientAuthVo vo) {
         service.updateAuth(clientDetailId, vo);
         return ok("设置权限成功");
@@ -130,7 +131,7 @@ public class RbacClientDetailsController extends BaseController {
     @DeleteMapping(value = "/delete-one/{clientDetailId}")
     public Result<String> deleteById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "客户端信息id不能为空")
-            String clientDetailId) {
+                    String clientDetailId) {
         service.deleteById(clientDetailId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -140,20 +141,21 @@ public class RbacClientDetailsController extends BaseController {
             tags = {"v1.0.0"},
             description = "通过客户端id修改状态")
     @Parameters({
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "客户端信息id",
-                    name = "clientDetailId",
-                    required = true),
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "类型:0-禁用,1-启用，2-锁定",
-                    name = "type",
-                    required = true)
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "客户端信息id",
+                name = "clientDetailId",
+                required = true),
+        @Parameter(
+                in = ParameterIn.QUERY,
+                description = "类型:0-禁用,1-启用，2-锁定",
+                name = "type",
+                required = true)
     })
     @GetMapping(value = "/update/client/state")
     public Result<String> updateState(
-            @RequestParam(required = false) @NotBlank(message = "客户端信息id不能为空") String clientDetailId,
+            @RequestParam(required = false) @NotBlank(message = "客户端信息id不能为空")
+                    String clientDetailId,
             @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
         service.updateState(clientDetailId, type);
         return ok("修改状态成功");
@@ -182,7 +184,7 @@ public class RbacClientDetailsController extends BaseController {
     @GetMapping(value = "/select/one/{clientDetailId}")
     public Result<RbacClientDetailsDto> getById(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "客户端信息id不能为空")
-            String clientDetailId) {
+                    String clientDetailId) {
         return ok(service.getById(clientDetailId));
     }
 

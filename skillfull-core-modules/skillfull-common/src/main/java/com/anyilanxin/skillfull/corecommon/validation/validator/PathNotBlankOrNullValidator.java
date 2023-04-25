@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
-
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -48,8 +46,7 @@ public class PathNotBlankOrNullValidator
     private static final String PATH_NULL_VALUE = "undefined";
 
     @Override
-    public void initialize(PathNotBlankOrNull constraintAnnotation) {
-    }
+    public void initialize(PathNotBlankOrNull constraintAnnotation) {}
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {

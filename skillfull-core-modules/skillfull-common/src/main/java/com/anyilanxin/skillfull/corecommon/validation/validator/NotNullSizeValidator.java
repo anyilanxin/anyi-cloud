@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotNullSize;
-
 import java.util.Collection;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -56,7 +53,8 @@ public class NotNullSizeValidator implements ConstraintValidator<NotNullSize, Co
     }
 
     @Override
-    public boolean isValid(Collection value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(
+            Collection value, ConstraintValidatorContext constraintValidatorContext) {
         if (CollectionUtils.isEmpty(value)) {
             return false;
         }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.system.modules.manage.entity.ManageCustomFilterE
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterDetailDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterListDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,9 +61,9 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
     /**
      * 通过id更新
      *
-     * @param vo             ${@link ManageCustomFilterVo} 自定义过滤器更新
+     * @param vo ${@link ManageCustomFilterVo} 自定义过滤器更新
      * @param customFilterId ${@link String} 自定义过滤器id
-     * @param vo             ${@link ManageCustomFilterVo} 自定义过滤器更新
+     * @param vo ${@link ManageCustomFilterVo} 自定义过滤器更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:15
@@ -129,7 +127,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * 修改过滤器状态
      *
      * @param customFilterId ${@link String} 过滤器id
-     * @param state          ${@link Integer} 操作类型:0-禁止,1-启用
+     * @param state ${@link Integer} 操作类型:0-禁止,1-启用
      * @author zxiaozhou
      * @date 2021-12-19 15:23
      */

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -46,10 +45,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -91,7 +88,8 @@ public class ManageTemplateController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "模板id", name = "templateId", required = true)
     @PutMapping(value = "/update/{templateId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空") String templateId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空")
+                    String templateId,
             @RequestBody @Valid ManageTemplateVo vo) {
         service.updateById(templateId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -104,7 +102,8 @@ public class ManageTemplateController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "模板id", name = "templateId", required = true)
     @DeleteMapping(value = "/delete-one/{templateId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空") String templateId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空")
+                    String templateId) {
         service.deleteById(templateId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -127,7 +126,8 @@ public class ManageTemplateController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "模板id", name = "templateId", required = true)
     @GetMapping(value = "/select/one/{templateId}")
     public Result<ManageTemplateDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空") String templateId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "模板id不能为空")
+                    String templateId) {
         return ok(service.getById(templateId));
     }
 

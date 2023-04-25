@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.authcenter.controller;
 
 import com.anyilanxin.skillfull.corecommon.annotation.Anonymous;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -170,7 +167,8 @@ public class UserCenterController extends BaseController {
     @Anonymous
     @AutoLog(note = "修改手机号或者找回密码发送短信验证码", type = AutoLog.QUERY)
     public Result<String> sendSmsCode(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "电话号码不能为空不能为空") String phone) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "电话号码不能为空不能为空")
+                    String phone) {
         service.sendSmsCode(phone);
         return ok("发送短信验证码成功");
     }

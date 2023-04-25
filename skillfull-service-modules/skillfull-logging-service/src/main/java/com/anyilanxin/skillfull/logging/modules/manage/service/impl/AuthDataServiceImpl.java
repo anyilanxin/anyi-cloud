@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -47,11 +46,9 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.AuthDataCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -88,7 +85,8 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
     @Override
     @Async
     public void storage() {
-        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+        Long size =
+                stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
         int saveMax = 200;
         if (Objects.nonNull(size)) {
             // 循环读取100条
@@ -99,9 +97,12 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
                 List<AuthDataEntity> logEntityList = new ArrayList<>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
                     String logStr =
-                            stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+                            stringRedisTemplate
+                                    .opsForList()
+                                    .rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
-                        AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
+                        AuthDataEntity logModel =
+                                JSONObject.parseObject(logStr, AuthDataEntity.class);
                         logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
@@ -173,7 +174,8 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
             boolean b = this.removeByIds(waitDeleteList);
             if (!b) {
                 throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                        Status.DATABASE_BASE_ERROR,
+                        I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

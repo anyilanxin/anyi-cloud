@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,24 +46,16 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum CommonNotEnableType implements ISuperType {
-    /**
-     * 禁用
-     */
+    /** 禁用 */
     NOT(0, "禁用"),
 
-    /**
-     * 启用
-     */
+    /** 启用 */
     HAVE(1, "启用");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     CommonNotEnableType(int type, String typeDescribe) {

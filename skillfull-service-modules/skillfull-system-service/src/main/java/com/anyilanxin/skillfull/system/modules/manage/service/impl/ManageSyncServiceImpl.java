@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.LOCK_EXPIRES;
@@ -49,10 +48,8 @@ import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -98,12 +95,14 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         }
         // 删除所有
         Set<String> keys =
-                stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "");
+                stringRedisTemplate.keys(
+                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "");
         if (CollUtil.isNotEmpty(keys)) {
             stringRedisTemplate.delete(keys);
         }
         // 获取所有有效的服务信息
-        LambdaQueryWrapper<ManageServiceEntity> serviceLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageServiceEntity> serviceLambdaQueryWrapper =
+                new LambdaQueryWrapper<>();
         serviceLambdaQueryWrapper.eq(ManageServiceEntity::getServiceState, 1);
         List<ManageServiceEntity> manageServiceEntities =
                 serviceMapper.selectList(serviceLambdaQueryWrapper);
@@ -138,8 +137,10 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     v -> {
                         // 通知网关刷新
                         String routerId =
-                                v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
-                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                                v.replaceFirst(
+                                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                        SendRedisMsgUtils.sendMsg(
+                                RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
                     });
         }
         routerToRedis(Set.of(serviceId), true);
@@ -155,9 +156,11 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             keys.forEach(
                     v -> {
                         String routerId =
-                                v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                                v.replaceFirst(
+                                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
                         // 通知网关删除
-                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                        SendRedisMsgUtils.sendMsg(
+                                RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
                     });
         }
     }
@@ -171,11 +174,13 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      */
     private void routerToRedis(Set<String> serviceIds, boolean update) {
         if (CollUtil.isNotEmpty(serviceIds)) {
-            LambdaQueryWrapper<ManageRouteEntity> routeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<ManageRouteEntity> routeLambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             routeLambdaQueryWrapper
                     .in(ManageRouteEntity::getServiceId, serviceIds)
                     .eq(ManageRouteEntity::getRouteState, 1);
-            List<ManageRouteEntity> manageRouteEntities = routeMapper.selectList(routeLambdaQueryWrapper);
+            List<ManageRouteEntity> manageRouteEntities =
+                    routeMapper.selectList(routeLambdaQueryWrapper);
             if (CollUtil.isNotEmpty(manageRouteEntities)) {
                 // 路由信息
                 List<SystemRouterModel> routerInfoModels = new ArrayList<>();
@@ -210,8 +215,10 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                             stringRedisTemplate
                                     .opsForValue()
                                     .set(
-                                            CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(),
-                                            JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
+                                            CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX
+                                                    + v.getRouteId(),
+                                            JSON.toJSONString(
+                                                    v, SerializerFeature.WriteMapNullValue));
                             if (update) {
                                 SendRedisMsgUtils.sendMsg(
                                         RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
@@ -226,12 +233,13 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      *
      * @param routeIds ${@link Set<String>}
      * @return Map<String, List < RoutePredicateModel>> ${@link Map<String,
-     * List<RoutePredicateModel>>}
+     *     List<RoutePredicateModel>>}
      * @author zxiaozhou
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RoutePredicateModel>> getPredicates(Set<String> routeIds) {
-        Map<String, List<RoutePredicateModel>> routePredicateMap = new HashMap<>(routeIds.size() * 2);
+        Map<String, List<RoutePredicateModel>> routePredicateMap =
+                new HashMap<>(routeIds.size() * 2);
         LambdaQueryWrapper<ManageRoutePredicateEntity> predicateLambdaQueryWrapper =
                 new LambdaQueryWrapper<>();
         predicateLambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routeIds);
@@ -240,7 +248,8 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         if (CollUtil.isNotEmpty(manageRoutePredicateEntities)) {
             manageRoutePredicateEntities.forEach(
                     v -> {
-                        List<RoutePredicateModel> routePredicateModels = routePredicateMap.get(v.getRouteId());
+                        List<RoutePredicateModel> routePredicateModels =
+                                routePredicateMap.get(v.getRouteId());
                         if (CollectionUtil.isEmpty(routePredicateModels)) {
                             routePredicateModels = new ArrayList<>();
                         }
@@ -270,7 +279,8 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         if (CollUtil.isNotEmpty(manageRouteFilterEntities)) {
             manageRouteFilterEntities.forEach(
                     v -> {
-                        List<RouteFilterModel> routeFilterModels = routeFilterMap.get(v.getRouteId());
+                        List<RouteFilterModel> routeFilterModels =
+                                routeFilterMap.get(v.getRouteId());
                         if (CollectionUtil.isEmpty(routeFilterModels)) {
                             routeFilterModels = new ArrayList<>();
                         }
@@ -319,11 +329,14 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                                         if (sv.getHaveSpecial() == 1) {
                                             if (Objects.nonNull(metaSpecialUrlModel)) {
                                                 ruleMap.put(
-                                                        CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY,
-                                                        JSONObject.toJSONString(metaSpecialUrlModel));
+                                                        CoreCommonGatewayConstant
+                                                                .PARAM_SPECIAL_URL_KEY,
+                                                        JSONObject.toJSONString(
+                                                                metaSpecialUrlModel));
                                             }
                                         }
-                                        RouteFilterModel routeFilterModel = customFilterCopyMap.bToA(sv);
+                                        RouteFilterModel routeFilterModel =
+                                                customFilterCopyMap.bToA(sv);
                                         if (CollUtil.isNotEmpty(ruleMap)) {
                                             routeFilterModel.setRules(ruleMap);
                                         }
@@ -342,7 +355,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * 获取特殊url
      *
      * @return Map<String, RouteMetaSpecialUrlModel> ${@link Map<String,
-     * RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
+     *     RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
      * @author zxiaozhou
      * @date 2022-03-05 14:42
      */
@@ -372,8 +385,10 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                             specialUrlModel.setRequestMethodSet(
                                     new HashSet<>(Arrays.asList(requestMethod.split("[,，]"))));
                         }
-                        List<SpecialUrlModel> blackSpecialUrls = metaSpecialUrlModel.getBlackSpecialUrls();
-                        List<SpecialUrlModel> whiteSpecialUrls = metaSpecialUrlModel.getWhiteSpecialUrls();
+                        List<SpecialUrlModel> blackSpecialUrls =
+                                metaSpecialUrlModel.getBlackSpecialUrls();
+                        List<SpecialUrlModel> whiteSpecialUrls =
+                                metaSpecialUrlModel.getWhiteSpecialUrls();
                         if (specialUrlModel.getSpecialUrlType() == 1) {
                             whiteSpecialUrls.add(specialUrlModel);
                         } else {

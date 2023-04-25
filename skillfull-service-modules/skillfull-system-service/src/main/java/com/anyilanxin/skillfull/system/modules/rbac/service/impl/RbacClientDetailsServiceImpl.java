@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -52,9 +51,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDt
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacClientDetailsCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -117,7 +114,8 @@ public class RbacClientDetailsServiceImpl
             if (StringUtils.isBlank(vo.getClientSecurity())) {
                 throw new ResponseException(Status.VERIFICATION_FAILED, "客户端密码不能为空");
             }
-            LambdaQueryWrapper<RbacClientDetailsEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<RbacClientDetailsEntity> lambdaQueryWrapper =
+                    new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(RbacClientDetailsEntity::getClientId, vo.getClientId());
             RbacClientDetailsEntity one = this.getOne(lambdaQueryWrapper);
             if (Objects.nonNull(one)) {
@@ -220,7 +218,10 @@ public class RbacClientDetailsServiceImpl
         // 查询数据是否存在
         this.getById(clientDetailId);
         RbacClientDetailsEntity detailsEntity =
-                RbacClientDetailsEntity.builder().clientDetailId(clientDetailId).clientStatus(type).build();
+                RbacClientDetailsEntity.builder()
+                        .clientDetailId(clientDetailId)
+                        .clientStatus(type)
+                        .build();
         boolean result = super.updateById(detailsEntity);
         if (!result) {
             throw new ResponseException("修改状态失败");

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant;
 
 /**
@@ -39,18 +38,12 @@ package com.anyilanxin.skillfull.corecommon.constant;
  */
 public interface ActionConstant {
 
-    /**
-     * 拥有任意一个指定角色
-     */
+    /** 拥有任意一个指定角色 */
     String HAS_ANY_ROLE = "hasAnyRole";
 
-    /**
-     * 拥有任意一个指定的权限
-     */
+    /** 拥有任意一个指定的权限 */
     String HAS_ANY_AUTHORITY = "hasAnyAuthority";
 
-    /**
-     * 拥有任意一个指定Ip
-     */
+    /** 拥有任意一个指定Ip */
     String HAS_ANY_IP_ADDRESS = "hasAnyIpAddress";
 }

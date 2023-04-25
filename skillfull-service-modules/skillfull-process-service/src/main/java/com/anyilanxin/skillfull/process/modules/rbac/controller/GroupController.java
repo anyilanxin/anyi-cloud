@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -42,11 +41,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -96,7 +93,8 @@ public class GroupController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户组id", name = "groupId", required = true)
     @DeleteMapping(value = "/delete-one/{groupId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空") String groupId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空")
+                    String groupId) {
         service.deleteGroup(groupId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -118,7 +116,8 @@ public class GroupController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "用户组id", name = "groupId", required = true)
     @GetMapping(value = "/select/one/{groupId}")
     public Result<GroupDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空") String groupId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户组id不能为空")
+                    String groupId) {
         return ok(service.getGroup(groupId));
     }
 

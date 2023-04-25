@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.monitor;
 
 import org.junit.jupiter.api.Test;
@@ -37,6 +36,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MonitorApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 }

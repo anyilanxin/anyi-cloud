@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -37,7 +36,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserIdenti
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserIdentityEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserIdentityDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserIdentityPageDto;
-
 import java.util.List;
 
 /**
@@ -63,7 +61,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * 实名审核
      *
      * @param identityId 实名信息id
-     * @param vo         实名信息表更新数据
+     * @param vo 实名信息表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21

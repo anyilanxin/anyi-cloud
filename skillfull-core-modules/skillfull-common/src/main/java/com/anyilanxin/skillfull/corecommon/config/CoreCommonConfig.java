@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.config;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
-
 import java.util.Locale;
-
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -50,18 +47,14 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  */
 @AutoConfiguration
 public class CoreCommonConfig {
-    /**
-     * 雪花生成器
-     */
+    /** 雪花生成器 */
     @Bean
     @ConditionalOnMissingBean
     public Snowflake snowflake() {
         return IdUtil.getSnowflake(CommonCoreConstant.WORKER_ID, CommonCoreConstant.DATACENTER_ID);
     }
 
-    /**
-     * i18n支持
-     */
+    /** i18n支持 */
     @Bean
     @ConditionalOnMissingBean
     public ReloadableResourceBundleMessageSource messageSource() {

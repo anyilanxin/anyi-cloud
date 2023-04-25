@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -61,9 +60,9 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
     /**
      * 通过id更新
      *
-     * @param vo      ${@link DesignModelVo} 流程模型管理更新
+     * @param vo ${@link DesignModelVo} 流程模型管理更新
      * @param modelId ${@link String} 模型id
-     * @param vo      ${@link DesignModelVo} 流程模型管理更新
+     * @param vo ${@link DesignModelVo} 流程模型管理更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-11-25 05:22:56

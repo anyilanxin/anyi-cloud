@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.feign.strategy.header;
 
 import com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant;
 import feign.RequestTemplate;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +48,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ContextHeaderStrategy {
-    private static final Map<String, ISetHeaderStrategy> HEADER_STRATEGY = new ConcurrentHashMap<>();
+    private static final Map<String, ISetHeaderStrategy> HEADER_STRATEGY =
+            new ConcurrentHashMap<>();
 
     @Autowired
     public ContextHeaderStrategy(Map<String, ISetHeaderStrategy> headerStrategy) {

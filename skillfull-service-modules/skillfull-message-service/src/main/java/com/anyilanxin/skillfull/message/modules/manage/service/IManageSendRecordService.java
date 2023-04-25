@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateResultModel;
-
 import java.util.List;
 
 /**

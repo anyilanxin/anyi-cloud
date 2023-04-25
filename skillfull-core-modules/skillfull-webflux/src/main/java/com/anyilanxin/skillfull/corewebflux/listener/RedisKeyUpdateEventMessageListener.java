@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.listener;
 
 import com.anyilanxin.skillfull.corewebflux.utils.CoreWebFluxCommonUtils;
@@ -52,8 +51,7 @@ public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageList
         implements ApplicationEventPublisherAware {
     private static final Topic KEY_EVENT_UPDATE_TOPIC = new PatternTopic("__keyevent@*__:set");
 
-    @Nullable
-    private ApplicationEventPublisher publisher;
+    @Nullable private ApplicationEventPublisher publisher;
 
     public RedisKeyUpdateEventMessageListener(RedisMessageListenerContainer listenerContainer) {
         super(listenerContainer);

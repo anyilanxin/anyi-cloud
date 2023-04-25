@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -54,8 +51,8 @@ public class ResponseUtils {
      * 流写响应消息
      *
      * @param response ${@link HttpServletResponse}
-     * @param msg      ${@link String}
-     * @param status   ${@link Status}
+     * @param msg ${@link String}
+     * @param status ${@link Status}
      * @author zxiaozhou
      * @date 2022-03-02 15:01
      */
@@ -68,8 +65,8 @@ public class ResponseUtils {
      * 流写响应消息
      *
      * @param response ${@link HttpServletResponse}
-     * @param msg      ${@link String}
-     * @param status   ${@link Status}
+     * @param msg ${@link String}
+     * @param status ${@link Status}
      * @author zxiaozhou
      * @date 2022-03-02 15:01
      */
@@ -87,8 +84,8 @@ public class ResponseUtils {
      * 流写响应消息
      *
      * @param response ${@link HttpServletResponse}
-     * @param msg      ${@link String}
-     * @param status   ${@link Integer}
+     * @param msg ${@link String}
+     * @param status ${@link Integer}
      * @author zxiaozhou
      * @date 2022-03-02 15:01
      */

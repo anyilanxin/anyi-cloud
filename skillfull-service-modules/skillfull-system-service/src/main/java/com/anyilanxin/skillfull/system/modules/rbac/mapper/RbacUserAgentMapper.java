@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserAgentDto
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserAgentPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +55,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacUserAgentPageDto> 查询结果
      * @author zxiaozhou

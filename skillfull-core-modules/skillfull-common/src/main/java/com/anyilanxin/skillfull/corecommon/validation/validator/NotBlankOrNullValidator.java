@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
-
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -47,8 +44,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class NotBlankOrNullValidator implements ConstraintValidator<NotBlankOrNull, Object> {
     @Override
-    public void initialize(NotBlankOrNull constraintAnnotation) {
-    }
+    public void initialize(NotBlankOrNull constraintAnnotation) {}
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {

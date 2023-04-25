@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.COLON;
@@ -41,7 +40,6 @@ import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.google.common.base.CaseFormat;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -54,7 +52,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -165,7 +162,7 @@ public class CoreCommonUtils {
      * json字符串转实体
      *
      * @param jsonStr ${@link String} 待转换数据
-     * @param cla     ${@link Class<T>} 目标对象类型类
+     * @param cla ${@link Class<T>} 目标对象类型类
      * @return T 处理结果
      * @author zxiaozhou
      * @date 2021-01-08 13:21
@@ -293,8 +290,11 @@ public class CoreCommonUtils {
                         List<ConstantDictModel> gatewayConstantDictDtoList =
                                 (List<ConstantDictModel>) getCode.invoke(enumConstants[0]);
                         CONSTANT_DICT_CACHE.put(
-                                serviceName + COLON + typeClass.getSimpleName(), gatewayConstantDictDtoList);
-                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                                serviceName + COLON + typeClass.getSimpleName(),
+                                gatewayConstantDictDtoList);
+                    } catch (NoSuchMethodException
+                            | IllegalAccessException
+                            | InvocationTargetException e) {
                         e.printStackTrace();
                         log.error(
                                 "------------CoreCommonUtils------获取枚举下拉字典失败------>createOrGetConstantDict:{}",
@@ -321,7 +321,7 @@ public class CoreCommonUtils {
             packages = bootApplication.scanBasePackages();
         }
         if (ArrayUtils.getLength(packages) <= 0 && Objects.nonNull(clas)) {
-            packages = new String[]{clas.getPackage().getName()};
+            packages = new String[] {clas.getPackage().getName()};
         }
         return packages;
     }
@@ -356,26 +356,18 @@ public class CoreCommonUtils {
                 .replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
     }
 
-    /**
-     * 中文数字
-     */
+    /** 中文数字 */
     private static final String[] CN_NUM = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
 
-    /**
-     * 中文数字单位
-     */
+    /** 中文数字单位 */
     private static final String[] CN_UNIT = {
-            "", "十", "百", "千", "万", "十", "百", "千", "亿", "十", "百", "千"
+        "", "十", "百", "千", "万", "十", "百", "千", "亿", "十", "百", "千"
     };
 
-    /**
-     * 特殊字符：负
-     */
+    /** 特殊字符：负 */
     private static final String CN_NEGATIVE = "负";
 
-    /**
-     * 特殊字符：点
-     */
+    /** 特殊字符：点 */
     private static final String CN_POINT = "点";
 
     /**

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.loggingcommon.aspect;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,8 +55,7 @@ public class LogAspect {
      * @date 2022-04-04 18:00
      */
     @Pointcut("@annotation(com.anyilanxin.skillfull.loggingcommon.annotation.Log)")
-    public void logPointCut() {
-    }
+    public void logPointCut() {}
 
     /**
      * 环绕

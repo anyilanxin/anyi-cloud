@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.config.properties;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.SLASH;
@@ -54,19 +53,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "local")
 public class LocalFileProperty {
 
-    /**
-     * 文件虚拟映射路径
-     */
+    /** 文件虚拟映射路径 */
     private String virtualMapping;
 
-    /**
-     * 文件上传保存路径
-     */
+    /** 文件上传保存路径 */
     private String uploadFolder;
 
-    /**
-     * 系统context-path
-     */
+    /** 系统context-path */
     @Value("${server.servlet.context-path}")
     private String contextPath;
 

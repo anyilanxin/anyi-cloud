@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.messagerpc.constant.MsgTemplateEmailChannelConstant;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -51,24 +48,16 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum MsgTemplateEmailChannelType implements ISuperType {
-    /**
-     * 163邮箱渠道
-     */
+    /** 163邮箱渠道 */
     MAIL_163(MsgTemplateEmailChannelConstant.MAIL_163, "163邮箱渠道"),
 
-    /**
-     * qq邮箱渠道
-     */
+    /** qq邮箱渠道 */
     MAIL_QQ(MsgTemplateEmailChannelConstant.MAIL_QQ, "qq邮箱渠道");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     MsgTemplateEmailChannelType(String type, String describe) {

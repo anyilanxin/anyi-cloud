@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -50,24 +47,16 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum LoginType implements ISuperType {
-    /**
-     * 单设备登录
-     */
+    /** 单设备登录 */
     ONE_EQUIPMENT(1, "单设备登录"),
 
-    /**
-     * 多设备登录
-     */
+    /** 多设备登录 */
     MORE_EQUIPMENT(2, "多设备登录");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     LoginType(int type, String describe) {

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.config;
 
 import com.anyilanxin.skillfull.corecommon.constant.BindingStreamConstant;
 import com.anyilanxin.skillfull.system.modules.manage.service.IManageRouteService;
-
 import java.util.function.Consumer;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -63,7 +60,8 @@ public class BindingStreamConfig {
     @Bean(value = BindingStreamConstant.AUTH_URL_PROCESS)
     public Consumer<String> authUrlProcess() {
         return payload -> {
-            log.debug("------------BindingStreamConfig------收到消息------>authUrlProcess:\n{}", payload);
+            log.debug(
+                    "------------BindingStreamConfig------收到消息------>authUrlProcess:\n{}", payload);
             //            routeService.refreshRoute(true);
         };
     }

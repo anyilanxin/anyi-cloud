@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -93,7 +90,8 @@ public class CommonCategoryController extends BaseController {
     @PutMapping(value = "/update/{categoryId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CATEGORY_CACHE, allEntries = true)
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "分类id不能为空") String categoryId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "分类id不能为空")
+                    String categoryId,
             @RequestBody @Valid CommonCategoryVo vo) {
         service.updateById(categoryId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -107,7 +105,8 @@ public class CommonCategoryController extends BaseController {
     @DeleteMapping(value = "/delete-one/{categoryId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_DICT_CATEGORY_CACHE, allEntries = true)
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "分类id不能为空") String categoryId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "分类id不能为空")
+                    String categoryId) {
         service.deleteById(categoryId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -139,7 +138,7 @@ public class CommonCategoryController extends BaseController {
             required = true)
     public Result<List<CommonCategoryDto>> getList(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "统一分类编码不能为空")
-            String categoryCommonCode) {
+                    String categoryCommonCode) {
         return ok(service.selectListByCommonCode(categoryCommonCode));
     }
 
@@ -150,7 +149,8 @@ public class CommonCategoryController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "分类id", name = "categoryId", required = true)
     @GetMapping(value = "/select/one/{categoryId}")
     public Result<CommonCategoryDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String categoryId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空")
+                    String categoryId) {
         return ok(service.getById(categoryId));
     }
 
@@ -169,7 +169,7 @@ public class CommonCategoryController extends BaseController {
             required = true)
     public Result<List<CommonCategoryTreeDto>> getTreeList(
             @PathVariable(required = false) @PathNotBlankOrNull(message = "统一分类编码不能为空")
-            String categoryCommonCode) {
+                    String categoryCommonCode) {
         return ok(service.selectTreeListByCommonCode(categoryCommonCode));
     }
 

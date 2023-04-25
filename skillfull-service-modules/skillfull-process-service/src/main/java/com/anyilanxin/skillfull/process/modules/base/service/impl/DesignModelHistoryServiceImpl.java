@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,10 +48,8 @@ import com.anyilanxin.skillfull.process.modules.base.service.mapstruct.DesignMod
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.HistoryService;
@@ -104,77 +101,109 @@ public class DesignModelHistoryServiceImpl
         if (CollUtil.isNotEmpty(records)) {
             Set<String> processDefinitionKeysSet = new HashSet<>(records.size());
             records.forEach(
-                    v -> processDefinitionKeysSet.addAll(Set.of(v.getProcessDefinitionKeys().split("[,，]"))));
+                    v ->
+                            processDefinitionKeysSet.addAll(
+                                    Set.of(v.getProcessDefinitionKeys().split("[,，]"))));
             // 获取所有数据进行统计分析
             List<HistoricProcessInstance> processInstances =
                     historyService
                             .createHistoricProcessInstanceQuery()
-                            .processDefinitionKeyIn(processDefinitionKeysSet.toArray(new String[]{}))
+                            .processDefinitionKeyIn(
+                                    processDefinitionKeysSet.toArray(new String[] {}))
                             .list();
             if (CollUtil.isNotEmpty(processInstances)) {
                 // 数据分组求和
                 Map<String, Map<String, Long>> statisticalResult = new HashMap<>();
                 processInstances.stream()
-                        .collect(Collectors.groupingBy(HistoricProcessInstance::getProcessDefinitionId))
+                        .collect(
+                                Collectors.groupingBy(
+                                        HistoricProcessInstance::getProcessDefinitionId))
                         .forEach(
                                 (k, v) -> {
                                     long active =
                                             v.stream()
-                                                    .filter(sv -> HistoricProcessInstance.STATE_ACTIVE.equals(sv.getState()))
+                                                    .filter(
+                                                            sv ->
+                                                                    HistoricProcessInstance
+                                                                            .STATE_ACTIVE
+                                                                            .equals(sv.getState()))
                                                     .count();
                                     long suspended =
                                             v.stream()
                                                     .filter(
-                                                            sv -> HistoricProcessInstance.STATE_SUSPENDED.equals(sv.getState()))
+                                                            sv ->
+                                                                    HistoricProcessInstance
+                                                                            .STATE_SUSPENDED
+                                                                            .equals(sv.getState()))
                                                     .count();
                                     long completed =
                                             v.stream()
                                                     .filter(
-                                                            sv -> HistoricProcessInstance.STATE_COMPLETED.equals(sv.getState()))
+                                                            sv ->
+                                                                    HistoricProcessInstance
+                                                                            .STATE_COMPLETED
+                                                                            .equals(sv.getState()))
                                                     .count();
                                     long externallyTerminated =
                                             v.stream()
                                                     .filter(
                                                             sv ->
-                                                                    HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED.equals(
-                                                                            sv.getState()))
+                                                                    HistoricProcessInstance
+                                                                            .STATE_EXTERNALLY_TERMINATED
+                                                                            .equals(sv.getState()))
                                                     .count();
                                     long internallyTerminated =
                                             v.stream()
                                                     .filter(
                                                             sv ->
-                                                                    HistoricProcessInstance.STATE_INTERNALLY_TERMINATED.equals(
-                                                                            sv.getState()))
+                                                                    HistoricProcessInstance
+                                                                            .STATE_INTERNALLY_TERMINATED
+                                                                            .equals(sv.getState()))
                                                     .count();
                                     Map<String, Long> statistical = new HashMap<>();
                                     statistical.put(HistoricProcessInstance.STATE_ACTIVE, active);
-                                    statistical.put(HistoricProcessInstance.STATE_SUSPENDED, suspended);
-                                    statistical.put(HistoricProcessInstance.STATE_COMPLETED, completed);
                                     statistical.put(
-                                            HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED, externallyTerminated);
+                                            HistoricProcessInstance.STATE_SUSPENDED, suspended);
                                     statistical.put(
-                                            HistoricProcessInstance.STATE_INTERNALLY_TERMINATED, internallyTerminated);
+                                            HistoricProcessInstance.STATE_COMPLETED, completed);
+                                    statistical.put(
+                                            HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED,
+                                            externallyTerminated);
+                                    statistical.put(
+                                            HistoricProcessInstance.STATE_INTERNALLY_TERMINATED,
+                                            internallyTerminated);
                                     statisticalResult.put(k, statistical);
                                 });
                 // 分别赋值
                 records.forEach(
                         v -> {
-                            String[] processDefinitionIdSet = v.getProcessDefinitionIds().split("[,，]");
+                            String[] processDefinitionIdSet =
+                                    v.getProcessDefinitionIds().split("[,，]");
                             long active = 0;
                             long suspended = 0;
                             long completed = 0;
                             long externallyTerminated = 0;
                             long internallyTerminated = 0;
                             for (String processDefinitionId : processDefinitionIdSet) {
-                                Map<String, Long> stringLongMap = statisticalResult.get(processDefinitionId);
+                                Map<String, Long> stringLongMap =
+                                        statisticalResult.get(processDefinitionId);
                                 if (CollUtil.isNotEmpty(stringLongMap)) {
-                                    active += stringLongMap.get(HistoricProcessInstance.STATE_ACTIVE);
-                                    suspended += stringLongMap.get(HistoricProcessInstance.STATE_SUSPENDED);
-                                    completed += stringLongMap.get(HistoricProcessInstance.STATE_COMPLETED);
+                                    active +=
+                                            stringLongMap.get(HistoricProcessInstance.STATE_ACTIVE);
+                                    suspended +=
+                                            stringLongMap.get(
+                                                    HistoricProcessInstance.STATE_SUSPENDED);
+                                    completed +=
+                                            stringLongMap.get(
+                                                    HistoricProcessInstance.STATE_COMPLETED);
                                     externallyTerminated +=
-                                            stringLongMap.get(HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED);
+                                            stringLongMap.get(
+                                                    HistoricProcessInstance
+                                                            .STATE_EXTERNALLY_TERMINATED);
                                     internallyTerminated +=
-                                            stringLongMap.get(HistoricProcessInstance.STATE_INTERNALLY_TERMINATED);
+                                            stringLongMap.get(
+                                                    HistoricProcessInstance
+                                                            .STATE_INTERNALLY_TERMINATED);
                                 }
                             }
                             v.setActive(active);
@@ -183,7 +212,11 @@ public class DesignModelHistoryServiceImpl
                             v.setExternallyTerminated(externallyTerminated);
                             v.setInternallyTerminated(internallyTerminated);
                             v.setTotalNum(
-                                    active + suspended + completed + externallyTerminated + internallyTerminated);
+                                    active
+                                            + suspended
+                                            + completed
+                                            + externallyTerminated
+                                            + internallyTerminated);
                         });
             }
         }
@@ -212,31 +245,45 @@ public class DesignModelHistoryServiceImpl
         List<HistoricProcessInstance> processInstances =
                 historyService
                         .createHistoricProcessInstanceQuery()
-                        .processDefinitionKeyIn(designModelHistoryDto.getProcessDefinitionKeys().split("[,，]"))
+                        .processDefinitionKeyIn(
+                                designModelHistoryDto.getProcessDefinitionKeys().split("[,，]"))
                         .list();
         if (CollUtil.isNotEmpty(processInstances)) {
             // 数据分组求和
             long active =
                     processInstances.stream()
-                            .filter(sv -> HistoricProcessInstance.STATE_ACTIVE.equals(sv.getState()))
+                            .filter(
+                                    sv ->
+                                            HistoricProcessInstance.STATE_ACTIVE.equals(
+                                                    sv.getState()))
                             .count();
             long suspended =
                     processInstances.stream()
-                            .filter(sv -> HistoricProcessInstance.STATE_SUSPENDED.equals(sv.getState()))
+                            .filter(
+                                    sv ->
+                                            HistoricProcessInstance.STATE_SUSPENDED.equals(
+                                                    sv.getState()))
                             .count();
             long completed =
                     processInstances.stream()
-                            .filter(sv -> HistoricProcessInstance.STATE_COMPLETED.equals(sv.getState()))
+                            .filter(
+                                    sv ->
+                                            HistoricProcessInstance.STATE_COMPLETED.equals(
+                                                    sv.getState()))
                             .count();
             long externallyTerminated =
                     processInstances.stream()
                             .filter(
-                                    sv -> HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED.equals(sv.getState()))
+                                    sv ->
+                                            HistoricProcessInstance.STATE_EXTERNALLY_TERMINATED
+                                                    .equals(sv.getState()))
                             .count();
             long internallyTerminated =
                     processInstances.stream()
                             .filter(
-                                    sv -> HistoricProcessInstance.STATE_INTERNALLY_TERMINATED.equals(sv.getState()))
+                                    sv ->
+                                            HistoricProcessInstance.STATE_INTERNALLY_TERMINATED
+                                                    .equals(sv.getState()))
                             .count();
             designModelHistoryDto.setActive(active);
             designModelHistoryDto.setSuspended(suspended);
@@ -266,7 +313,10 @@ public class DesignModelHistoryServiceImpl
                         .singleResult();
         if (Objects.nonNull(deployment)) {
             repositoryService.deleteDeployment(
-                    deployment.getId(), vo.getCascade(), vo.getSkipCustomListeners(), vo.getSkipIoMappings());
+                    deployment.getId(),
+                    vo.getCascade(),
+                    vo.getSkipCustomListeners(),
+                    vo.getSkipIoMappings());
         }
         // 删除自定义历史数据
         boolean b = this.removeById(vo.getHistoryModelId());

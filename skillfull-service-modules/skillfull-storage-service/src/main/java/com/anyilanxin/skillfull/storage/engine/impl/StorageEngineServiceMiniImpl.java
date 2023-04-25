@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.engine.impl;
 
 import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
@@ -36,10 +35,8 @@ import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

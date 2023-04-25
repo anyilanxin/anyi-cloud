@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.cache.InMemoryCache;
 import com.anyilanxin.skillfull.corecommon.config.properties.SkillfullOauthProperty;
-
 import java.net.URI;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;
@@ -96,7 +93,8 @@ public class ClientTokenUtils {
                 return "";
             }
             formatUrl =
-                    formatUrl.replaceFirst(uri.getHost(), instance.getHost() + ":" + instance.getPort());
+                    formatUrl.replaceFirst(
+                            uri.getHost(), instance.getHost() + ":" + instance.getPort());
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<JSONObject> objectResponseEntity =
                     restTemplate.postForEntity(formatUrl, null, JSONObject.class);
@@ -108,7 +106,8 @@ public class ClientTokenUtils {
                         accessToken = data.getString("access_token");
                         int expiresIn = data.getIntValue("expires_in");
                         if (expiresIn > 240) {
-                            InMemoryCache.addCache(CACHE_ACCESS_TOKEN_KEY, accessToken, expiresIn - 240);
+                            InMemoryCache.addCache(
+                                    CACHE_ACCESS_TOKEN_KEY, accessToken, expiresIn - 240);
                         }
                         return accessToken;
                     }

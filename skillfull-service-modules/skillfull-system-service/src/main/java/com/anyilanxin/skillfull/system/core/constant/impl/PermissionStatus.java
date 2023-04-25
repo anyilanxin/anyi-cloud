@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -50,23 +47,15 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum PermissionStatus implements ISuperType {
-    /**
-     * 禁用
-     */
+    /** 禁用 */
     DISABLED(0, "禁用"),
-    /**
-     * 启用
-     */
+    /** 启用 */
     ENABLE(1, "启用");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     PermissionStatus(int type, String typeDescribe) {

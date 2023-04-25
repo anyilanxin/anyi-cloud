@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataPag
 import com.anyilanxin.skillfull.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto;
-
 import java.util.List;
 
 /**

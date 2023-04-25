@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.cache;
 
 import java.util.Date;
@@ -57,7 +56,8 @@ class CacheExpiry implements Delayed {
 
     @Override
     public int compareTo(Delayed delayed) {
-        return (int) (this.getDelay(TimeUnit.MILLISECONDS) - delayed.getDelay(TimeUnit.MILLISECONDS));
+        return (int)
+                (this.getDelay(TimeUnit.MILLISECONDS) - delayed.getDelay(TimeUnit.MILLISECONDS));
     }
 
     @Override

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.system.modules.manage.controller.vo.InstancePage
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosNamespacesDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ServiceInstancePageDto;
-
 import java.util.List;
 
 /**
@@ -50,8 +48,8 @@ public interface ICustomNacosNamingService {
      * 查询所有注册的服务实例信息
      *
      * @param serviceCode ${@link String} 服务编码(必填)
-     * @param groupName   ${@link String} 组，不填使用默认
-     * @param clusters    ${@link List<String>} 集群信息，不变默认
+     * @param groupName ${@link String} 组，不填使用默认
+     * @param clusters ${@link List<String>} 集群信息，不变默认
      * @return List<Instance> ${@link List<Instance>} 服务实例
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou zxiaozhou
@@ -83,14 +81,14 @@ public interface ICustomNacosNamingService {
     /**
      * 查询某个组的所有服务
      *
-     * @param pageNo    ${@link Integer} 查询页(不填默认1)
-     * @param pageSize  ${@link Integer} 显示数量(不变默认最大)
+     * @param pageNo ${@link Integer} 查询页(不填默认1)
+     * @param pageSize ${@link Integer} 显示数量(不变默认最大)
      * @param groupName ${@link String} 组名
      * @return List<NacosServiceInfoDto> ${@link List< NacosServiceInfoDto >}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou zxiaozhou
      * @date 2020-10-11 21:54
      */
-    List<NacosServiceInfoDto> getServicesOfServer(Integer pageNo, Integer pageSize, String groupName)
-            throws RuntimeException;
+    List<NacosServiceInfoDto> getServicesOfServer(
+            Integer pageNo, Integer pageSize, String groupName) throws RuntimeException;
 }

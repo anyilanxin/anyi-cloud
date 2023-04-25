@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.database.datasource.base.mapper;
 
 /**
@@ -37,5 +36,4 @@ package com.anyilanxin.skillfull.database.datasource.base.mapper;
  * @date 2020-06-22 15:24
  * @since JDK11
  */
-public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {
-}
+public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {}

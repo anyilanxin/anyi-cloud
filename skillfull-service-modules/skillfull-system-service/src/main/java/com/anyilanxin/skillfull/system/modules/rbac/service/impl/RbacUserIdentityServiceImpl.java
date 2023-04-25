@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,11 +45,9 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserId
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserIdentityPageCopyMap;
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacUserIdentityQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

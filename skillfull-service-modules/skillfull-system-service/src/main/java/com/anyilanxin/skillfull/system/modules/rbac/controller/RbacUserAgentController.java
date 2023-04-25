@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -94,7 +91,8 @@ public class RbacUserAgentController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "代理id", name = "agentId", required = true)
     @PutMapping(value = "/update/{agentId}")
     public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空") String agentId,
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空")
+                    String agentId,
             @RequestBody @Valid RbacUserAgentVo vo) {
         service.updateById(agentId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
@@ -108,7 +106,8 @@ public class RbacUserAgentController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "代理id", name = "agentId", required = true)
     @DeleteMapping(value = "/delete-one/{agentId}")
     public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空") String agentId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空")
+                    String agentId) {
         service.deleteById(agentId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
@@ -133,7 +132,8 @@ public class RbacUserAgentController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "代理id", name = "agentId", required = true)
     @GetMapping(value = "/select/one/{agentId}")
     public Result<RbacUserAgentDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空") String agentId) {
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "代理id不能为空")
+                    String agentId) {
         return ok(service.getById(agentId));
     }
 

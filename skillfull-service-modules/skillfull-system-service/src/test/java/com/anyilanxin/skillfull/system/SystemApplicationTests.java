@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system;
 
 import com.anyilanxin.skillfull.oauth2common.utils.PasswordCheck;
@@ -39,8 +38,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootTest
 class SystemApplicationTests {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Test
     public void test() {

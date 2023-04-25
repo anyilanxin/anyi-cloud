@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,11 +45,9 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.OperateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -87,7 +84,8 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
     @Async
     public void storage() {
         System.out.println("-----sdfsdfsdf----");
-        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+        Long size =
+                stringRedisTemplate.opsForList().size(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
         int saveMax = 200;
         if (Objects.nonNull(size)) {
             // 循环读取100条
@@ -102,7 +100,8 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
                                     .opsForList()
                                     .rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
-                        OperateEntity logModel = JSONObject.parseObject(logStr, OperateEntity.class);
+                        OperateEntity logModel =
+                                JSONObject.parseObject(logStr, OperateEntity.class);
                         logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
@@ -174,7 +173,8 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
             int i = mapper.deleteBatchIds(waitDeleteList);
             if (i <= 0) {
                 throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                        Status.DATABASE_BASE_ERROR,
+                        I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

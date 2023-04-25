@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.oauth2webflux.user.impl;
 
@@ -29,7 +35,9 @@ import com.anyilanxin.skillfull.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.skillfull.oauth2webflux.user.IGetLoginUserInfo;
+
 import java.util.Set;
+
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import reactor.core.publisher.Mono;
 
@@ -41,97 +49,97 @@ import reactor.core.publisher.Mono;
  * @since JDK1.8
  */
 public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
-  private final TokenStore tokenStore;
-  private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
+    private final TokenStore tokenStore;
+    private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
 
-  public GetLoginUserInfoImpl(
-      final TokenStore tokenStore, final OauthUserAndUserDetailsCopyMap detailsCopyMap) {
-    this.tokenStore = tokenStore;
-    this.detailsCopyMap = detailsCopyMap;
-  }
+    public GetLoginUserInfoImpl(
+            final TokenStore tokenStore, final OauthUserAndUserDetailsCopyMap detailsCopyMap) {
+        this.tokenStore = tokenStore;
+        this.detailsCopyMap = detailsCopyMap;
+    }
 
-  @Override
-  public Mono<UserInfo> getUserInfo(String token) {
-    return null;
-  }
+    @Override
+    public Mono<UserInfo> getUserInfo(String token) {
+        return null;
+    }
 
-  @Override
-  public Mono<UserInfo> getUserInfo() {
-    return null;
-  }
+    @Override
+    public Mono<UserInfo> getUserInfo() {
+        return null;
+    }
 
-  @Override
-  public Mono<Integer> getIdentityStatus() {
-    return null;
-  }
+    @Override
+    public Mono<Integer> getIdentityStatus() {
+        return null;
+    }
 
-  @Override
-  public Mono<UserIdentity> getIdentity() {
-    return null;
-  }
+    @Override
+    public Mono<UserIdentity> getIdentity() {
+        return null;
+    }
 
-  @Override
-  public Mono<Boolean> superRole() {
-    return null;
-  }
+    @Override
+    public Mono<Boolean> superRole() {
+        return null;
+    }
 
-  @Override
-  public Mono<Set<RoleInfo>> getRoleInfos() {
-    return null;
-  }
+    @Override
+    public Mono<Set<RoleInfo>> getRoleInfos() {
+        return null;
+    }
 
-  @Override
-  public Mono<Set<String>> getRoleCodes() {
-    return null;
-  }
+    @Override
+    public Mono<Set<String>> getRoleCodes() {
+        return null;
+    }
 
-  @Override
-  public Mono<Set<String>> getRoleIds() {
-    return null;
-  }
+    @Override
+    public Mono<Set<String>> getRoleIds() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getUserId() {
-    return null;
-  }
+    @Override
+    public Mono<String> getUserId() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getUserName() {
-    return null;
-  }
+    @Override
+    public Mono<String> getUserName() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getNickName() {
-    return null;
-  }
+    @Override
+    public Mono<String> getNickName() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getRealName() {
-    return null;
-  }
+    @Override
+    public Mono<String> getRealName() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getCurrentOrgId() {
-    return null;
-  }
+    @Override
+    public Mono<String> getCurrentOrgId() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getCurrentOrgCode() {
-    return null;
-  }
+    @Override
+    public Mono<String> getCurrentOrgCode() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getCurrentAreaCode() {
-    return null;
-  }
+    @Override
+    public Mono<String> getCurrentAreaCode() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getCurrentTenantId() {
-    return null;
-  }
+    @Override
+    public Mono<String> getCurrentTenantId() {
+        return null;
+    }
 
-  @Override
-  public Mono<String> getPhone() {
-    return null;
-  }
+    @Override
+    public Mono<String> getPhone() {
+        return null;
+    }
 }

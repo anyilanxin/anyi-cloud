@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,22 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.corecommon.model.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.io.Serializable;
-import java.util.Set;
 
 /**
  * 角色信息
@@ -43,43 +42,45 @@ import java.util.Set;
 @Setter
 @ToString
 public class RoleInfo implements Serializable {
-    private static final long serialVersionUID = 4071105391782937997L;
+  private static final long serialVersionUID = 4071105391782937997L;
 
-    @Schema(name = "roleName", title = "角色名称")
-    private String roleName;
+  @Schema(name = "roleName", title = "角色名称")
+  private String roleName;
 
-    @Schema(name = "superRole", title = "是否为超级管理员角色")
-    private boolean superRole;
+  @Schema(name = "superRole", title = "是否为超级管理员角色")
+  private boolean superRole;
 
-    @Schema(name = "roleCode", title = "角色编码")
-    private String roleCode;
+  @Schema(name = "roleCode", title = "角色编码")
+  private String roleCode;
 
-    @Schema(name = "roleId", title = "角色id")
-    private String roleId;
+  @Schema(name = "roleId", title = "角色id")
+  private String roleId;
 
-    @Schema(name = "dataAuthType", title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
-    private Integer dataAuthType;
+  @Schema(
+      name = "dataAuthType",
+      title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
+  private Integer dataAuthType;
 
-    @Schema(name = "roleType", title = "角色类型:0-普通角色，1-机构角色")
-    private Integer roleType;
+  @Schema(name = "roleType", title = "角色类型:0-普通角色，1-机构角色")
+  private Integer roleType;
 
-    @Schema(name = "customDataAuthData", title = "自定义数据权限")
-    private Set<String> customDataAuthData;
+  @Schema(name = "customDataAuthData", title = "自定义数据权限")
+  private Set<String> customDataAuthData;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof RoleInfo)) return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RoleInfo)) return false;
+    RoleInfo roleInfo = (RoleInfo) o;
 
-        RoleInfo roleInfo = (RoleInfo) o;
+    return getRoleCode() != null
+        ? getRoleCode().equals(roleInfo.getRoleCode())
+        : roleInfo.getRoleCode() == null;
+  }
 
-        return getRoleCode() != null ? getRoleCode().equals(roleInfo.getRoleCode()) : roleInfo.getRoleCode() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return getRoleCode() != null ? getRoleCode().hashCode() : 0;
-    }
+  @Override
+  public int hashCode() {
+    return getRoleCode() != null ? getRoleCode().hashCode() : 0;
+  }
 }
-

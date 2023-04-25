@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,24 +14,23 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * 机构-用户(RbacOrgUser)持久层
@@ -43,46 +42,43 @@ import java.util.List;
  */
 @Repository
 public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
-    /**
-     * 查询用户关联的机构id
-     *
-     * @param userId 用户id
-     * @return List<RbacOrgUserDto> 查询结果
-     * @author zxiaozhou
-     * @date 2022-07-02 23:01:20
-     */
-    List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
+  /**
+   * 查询用户关联的机构id
+   *
+   * @param userId 用户id
+   * @return List<RbacOrgUserDto> 查询结果
+   * @author zxiaozhou
+   * @date 2022-07-02 23:01:20
+   */
+  List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
 
+  /**
+   * 通过机构用户id物理删除
+   *
+   * @param orgUserId 机构用户id
+   * @return int 成功状态:0-失败,1-成功
+   * @author zxiaozhou
+   * @date 2022-07-02 23:01:20
+   */
+  int physicalDeleteById(@Param("id") String orgUserId);
 
-    /**
-     * 通过机构用户id物理删除
-     *
-     * @param orgUserId 机构用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxiaozhou
-     * @date 2022-07-02 23:01:20
-     */
-    int physicalDeleteById(@Param("id") String orgUserId);
+  /**
+   * 通过用户id物理删除
+   *
+   * @param userId 用户id
+   * @return int 成功状态:0-失败,1-成功
+   * @author zxiaozhou
+   * @date 2022-07-02 23:01:20
+   */
+  int physicalDeleteByUserId(@Param("id") String userId);
 
-
-    /**
-     * 通过用户id物理删除
-     *
-     * @param userId 用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxiaozhou
-     * @date 2022-07-02 23:01:20
-     */
-    int physicalDeleteByUserId(@Param("id") String userId);
-
-
-    /**
-     * 通过机构用户id物理批量删除
-     *
-     * @param idList 机构用户id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxiaozhou
-     * @date 2022-07-02 23:01:20
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+  /**
+   * 通过机构用户id物理批量删除
+   *
+   * @param idList 机构用户id列表
+   * @return int 成功状态:0-失败,大于1-成功
+   * @author zxiaozhou
+   * @date 2022-07-02 23:01:20
+   */
+  int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

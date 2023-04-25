@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.corecommon.annotation;
 
 import java.lang.annotation.ElementType;
@@ -39,24 +39,23 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DictField {
-    String SUFFIX = "_text";
+  String SUFFIX = "_text";
 
-    /**
-     * 字典编码
-     *
-     * @return String ${@link String} 字典编码
-     * @author zxiaozhou
-     * @date 2020-06-22 17:26
-     */
-    String dicCode();
+  /**
+   * 字典编码
+   *
+   * @return String ${@link String} 字典编码
+   * @author zxiaozhou
+   * @date 2020-06-22 17:26
+   */
+  String dicCode();
 
-
-    /**
-     * 拼接后缀,默认字段后边添加"_text",自定义后缀请避免属性重复
-     *
-     * @return String ${@link String} 拼接后缀
-     * @author zxiaozhou
-     * @date 2020-06-22 17:26
-     */
-    String dicText() default SUFFIX;
+  /**
+   * 拼接后缀,默认字段后边添加"_text",自定义后缀请避免属性重复
+   *
+   * @return String ${@link String} 拼接后缀
+   * @author zxiaozhou
+   * @date 2020-06-22 17:26
+   */
+  String dicText() default SUFFIX;
 }

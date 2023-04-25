@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.logging.core.config;
 
 import com.anyilanxin.skillfull.database.injector.MysqlBatchInjector;
@@ -33,49 +33,46 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 /**
  * @author zxiaozhou
  */
 @Configuration
 public class MybatisPlusConfig {
-    /**
-     * 插件配置，分页、加解密、数据权限等
-     *
-     * @author zxiaozhou
-     * @date 2019-04-03 15:21
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public MybatisPlusInterceptor plusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
-        return interceptor;
-    }
+  /**
+   * 插件配置，分页、加解密、数据权限等
+   *
+   * @author zxiaozhou
+   * @date 2019-04-03 15:21
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public MybatisPlusInterceptor plusInterceptor() {
+    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+    return interceptor;
+  }
 
+  /**
+   * sql公共字段自定义注入
+   *
+   * @return MyMetaObjectHandler ${@link MetaObjectHandler}
+   * @author zxiaozhou
+   * @date 2019-04-03 18:10
+   */
+  @Bean
+  public MetaObjectHandler metaObjectHandler() {
+    return new MyMetaObjectHandler();
+  }
 
-    /**
-     * sql公共字段自定义注入
-     *
-     * @return MyMetaObjectHandler ${@link MetaObjectHandler}
-     * @author zxiaozhou
-     * @date 2019-04-03 18:10
-     */
-    @Bean
-    public MetaObjectHandler metaObjectHandler() {
-        return new MyMetaObjectHandler();
-    }
-
-
-    /**
-     * mysql真正批量插入注入器
-     *
-     * @return {@link MysqlBatchInjector }
-     * @author zxiaozhou
-     * @date 2022-10-07 19:06:23
-     */
-    @Bean
-    public MysqlBatchInjector mysqlBatchInjector() {
-        return new MysqlBatchInjector();
-    }
+  /**
+   * mysql真正批量插入注入器
+   *
+   * @return {@link MysqlBatchInjector }
+   * @author zxiaozhou
+   * @date 2022-10-07 19:06:23
+   */
+  @Bean
+  public MysqlBatchInjector mysqlBatchInjector() {
+    return new MysqlBatchInjector();
+  }
 }

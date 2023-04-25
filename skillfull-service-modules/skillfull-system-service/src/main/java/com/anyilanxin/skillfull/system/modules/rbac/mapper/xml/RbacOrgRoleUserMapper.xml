@@ -7,7 +7,7 @@
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,36 +16,36 @@
     limitations under the License.
 
     AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
-
-    1.请不要删除和修改根目录下的LICENSE文件。
-    2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
-    3.请保留源码和相关描述文件的项目出处，作者声明等。
-    4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
-    5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
-    6.若您的项目无法满足以上几点，可申请商业授权
+      1.请不要删除和修改根目录下的LICENSE文件。
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+      3.请保留源码和相关描述文件的项目出处，作者声明等。
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+      6.若您的项目无法满足以上几点，可申请商业授权
 
 -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anyilanxin.skillfull.system.modules.rbac.mapper.RbacOrgRoleUserMapper">
-  <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleUserEntity" id="RbacOrgRoleUserMap">
-    <result property="roleUserId" column="role_user_id" jdbcType="VARCHAR"/>
-    <result property="orgRoleId" column="org_role_id" jdbcType="VARCHAR"/>
-    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
-    <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
-  </resultMap>
+    <resultMap type="com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleUserEntity" id="RbacOrgRoleUserMap">
+        <result property="roleUserId" column="role_user_id" jdbcType="VARCHAR"/>
+        <result property="orgRoleId" column="org_role_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
+    </resultMap>
 
 
-  <resultMap type="com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo" id="RoleInfoMap">
-    <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
-    <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
-    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
-    <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
-    <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
-    <result property="roleType" column="role_type" jdbcType="INTEGER"/>
-  </resultMap>
+    <resultMap type="com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo" id="RoleInfoMap">
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
+        <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+        <result property="roleType" column="role_type" jdbcType="INTEGER"/>
+    </resultMap>
 
-  <!-- @formatter:off -->
+    <!-- @formatter:off -->
     <sql id="Column_Role_List_Ali">
         ali.role_id, ali.role_name, ali.role_sys_code, ali.data_auth_type, ali.custom_data_auth_data,
         ali.role_code, ali.parent_role_id, ali.enable_delete, ali.auto_bind, ali.role_status, ali.remark,

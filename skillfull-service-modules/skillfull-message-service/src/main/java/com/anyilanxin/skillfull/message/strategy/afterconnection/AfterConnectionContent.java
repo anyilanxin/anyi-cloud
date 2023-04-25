@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,24 +14,23 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.message.strategy.afterconnection;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * afterConnection处理
@@ -43,28 +42,31 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @Slf4j
 public class AfterConnectionContent {
-    private static final Map<String, AfterConnectionStrategy> STRATEGY = new ConcurrentHashMap<>();
+  private static final Map<String, AfterConnectionStrategy> STRATEGY = new ConcurrentHashMap<>();
 
-    @Autowired
-    public AfterConnectionContent(final Map<String, AfterConnectionStrategy> strategyMap) {
-        STRATEGY.putAll(strategyMap);
-    }
+  @Autowired
+  public AfterConnectionContent(final Map<String, AfterConnectionStrategy> strategyMap) {
+    STRATEGY.putAll(strategyMap);
+  }
 
-
-    /**
-     * 链接后处理
-     *
-     * @author zxiaozhou
-     * @date 2022-08-27 12:42
-     */
-    @Async
-    public void afterConnectionHandle(WebSocketSession session) {
-        STRATEGY.forEach((k, v) -> {
-            try {
-                v.handleAfterMsg(session);
-            } catch (Exception e) {
-                log.error("------------------------afterConnectionHandle--->\n参数:\n{}\n异常消息:\n{}", session.getAttributes(), e.getMessage());
-            }
+  /**
+   * 链接后处理
+   *
+   * @author zxiaozhou
+   * @date 2022-08-27 12:42
+   */
+  @Async
+  public void afterConnectionHandle(WebSocketSession session) {
+    STRATEGY.forEach(
+        (k, v) -> {
+          try {
+            v.handleAfterMsg(session);
+          } catch (Exception e) {
+            log.error(
+                "------------------------afterConnectionHandle--->\n参数:\n{}\n异常消息:\n{}",
+                session.getAttributes(),
+                e.getMessage());
+          }
         });
-    }
+  }
 }

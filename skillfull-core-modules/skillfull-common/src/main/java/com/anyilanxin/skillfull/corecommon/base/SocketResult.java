@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.corecommon.base;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -30,13 +30,12 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.BusinessType;
 import com.anyilanxin.skillfull.corecommon.constant.impl.SocketMsgType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * web socket消息model
@@ -49,94 +48,95 @@ import java.util.List;
 @EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SocketResult implements Serializable {
-    private static final long serialVersionUID = -7991672291592110700L;
+  private static final long serialVersionUID = -7991672291592110700L;
 
-    @Schema(name = "msgType", title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)", required = true)
-    private Integer msgType;
+  @Schema(
+      name = "msgType",
+      title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)",
+      required = true)
+  private Integer msgType;
 
-    @Schema(name = "data", title = "业务数据")
-    private Object data;
+  @Schema(name = "data", title = "业务数据")
+  private Object data;
 
-    @Schema(name = "message", title = "提示信息")
-    private String message;
+  @Schema(name = "message", title = "提示信息")
+  private String message;
 
-    @Schema(name = "requestMarker", title = "请求标记")
-    private String requestMarker;
+  @Schema(name = "requestMarker", title = "请求标记")
+  private String requestMarker;
 
-    @Schema(title = "响应时间")
-    private final long timestamp;
+  @Schema(title = "响应时间")
+  private final long timestamp;
 
-    @Schema(title = "消息业务类型(与BusinessType对应)", required = true)
-    @NotNull(message = "消息业务类型不能为空")
-    private final String businessType;
+  @Schema(title = "消息业务类型(与BusinessType对应)", required = true)
+  @NotNull(message = "消息业务类型不能为空")
+  private final String businessType;
 
-    @Schema(name = "userIds", title = "接收用户ids")
-    private List<String> userIds;
+  @Schema(name = "userIds", title = "接收用户ids")
+  private List<String> userIds;
 
-    @Schema(name = "loginCodes", title = "接收登录编码")
-    private List<String> loginCodes;
+  @Schema(name = "loginCodes", title = "接收登录编码")
+  private List<String> loginCodes;
 
-    public SocketResult(BusinessType businessType) {
-        this.businessType = businessType.getType();
-        this.msgType = 3;
-        this.timestamp = System.currentTimeMillis();
+  public SocketResult(BusinessType businessType) {
+    this.businessType = businessType.getType();
+    this.msgType = 3;
+    this.timestamp = System.currentTimeMillis();
+  }
+
+  public SocketResult(BusinessType businessType, Object data) {
+    this(businessType);
+    this.data = data;
+  }
+
+  public SocketResult setMsgType(SocketMsgType msgType) {
+    this.msgType = msgType.getType();
+    return this;
+  }
+
+  public SocketResult setData(Object data) {
+    this.data = data;
+    return this;
+  }
+
+  public SocketResult setMessage(String message) {
+    this.message = message;
+    return this;
+  }
+
+  public SocketResult setRequestMarker(String requestMarker) {
+    this.requestMarker = requestMarker;
+    return this;
+  }
+
+  public SocketResult setUserId(String userId) {
+    if (CollectionUtil.isEmpty(this.userIds)) {
+      this.userIds = new ArrayList<>();
     }
+    this.userIds.add(userId);
+    return this;
+  }
 
-    public SocketResult(BusinessType businessType, Object data) {
-        this(businessType);
-        this.data = data;
+  public SocketResult setUserIds(List<String> userIds) {
+    this.userIds = userIds;
+    return this;
+  }
+
+  public SocketResult setSystemId(String loginCode) {
+    if (CollectionUtil.isEmpty(this.loginCodes)) {
+      this.loginCodes = new ArrayList<>();
     }
+    this.loginCodes.add(loginCode);
+    return this;
+  }
 
-    public SocketResult setMsgType(SocketMsgType msgType) {
-        this.msgType = msgType.getType();
-        return this;
-    }
+  public SocketResult setSystemIds(List<String> loginCodes) {
+    this.loginCodes = loginCodes;
+    return this;
+  }
 
-    public SocketResult setData(Object data) {
-        this.data = data;
-        return this;
-    }
-
-    public SocketResult setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public SocketResult setRequestMarker(String requestMarker) {
-        this.requestMarker = requestMarker;
-        return this;
-    }
-
-    public SocketResult setUserId(String userId) {
-        if (CollectionUtil.isEmpty(this.userIds)) {
-            this.userIds = new ArrayList<>();
-        }
-        this.userIds.add(userId);
-        return this;
-    }
-
-
-    public SocketResult setUserIds(List<String> userIds) {
-        this.userIds = userIds;
-        return this;
-    }
-
-    public SocketResult setSystemId(String loginCode) {
-        if (CollectionUtil.isEmpty(this.loginCodes)) {
-            this.loginCodes = new ArrayList<>();
-        }
-        this.loginCodes.add(loginCode);
-        return this;
-    }
-
-    public SocketResult setSystemIds(List<String> loginCodes) {
-        this.loginCodes = loginCodes;
-        return this;
-    }
-
-
-    @Override
-    public String toString() {
-        return JSONObject.toJSONString(this);
-    }
+  @Override
+  public String toString() {
+    return JSONObject.toJSONString(this);
+  }
 }

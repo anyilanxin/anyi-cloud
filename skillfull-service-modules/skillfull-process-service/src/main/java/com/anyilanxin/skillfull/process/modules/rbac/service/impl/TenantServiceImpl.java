@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -35,6 +35,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.skillfull.process.modules.rbac.service.ITenantService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.TenantDto;
 import io.seata.spring.annotation.GlobalTransactional;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -43,8 +44,6 @@ import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.TenantQuery;
 import org.camunda.bpm.engine.identity.User;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 /**
  * 租户相关
@@ -56,125 +55,124 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class TenantServiceImpl implements ITenantService {
-    private final IdentityService identityService;
+  private final IdentityService identityService;
 
-    @Override
-    @GlobalTransactional
-    public void saveOrUpdate(TenantVo vo) throws RuntimeException {
-        Tenant tenant = identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
-        if (Objects.isNull(tenant)) {
-            tenant = vo.getCamundaTenant();
-        } else {
-            tenant.setName(vo.getName());
-            tenant.setId(vo.getTenantId());
-        }
-        identityService.saveTenant(tenant);
+  @Override
+  @GlobalTransactional
+  public void saveOrUpdate(TenantVo vo) throws RuntimeException {
+    Tenant tenant = identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
+    if (Objects.isNull(tenant)) {
+      tenant = vo.getCamundaTenant();
+    } else {
+      tenant.setName(vo.getName());
+      tenant.setId(vo.getTenantId());
     }
+    identityService.saveTenant(tenant);
+  }
 
+  @Override
+  public TenantDto getTenant(String tenantId) throws RuntimeException {
+    Tenant tenant = getCamundaTenant(tenantId);
+    return new TenantDto().getTenant(tenant);
+  }
 
-    @Override
-    public TenantDto getTenant(String tenantId) throws RuntimeException {
-        Tenant tenant = getCamundaTenant(tenantId);
-        return new TenantDto().getTenant(tenant);
+  @Override
+  @GlobalTransactional
+  public void deleteTenant(String tenantId) throws RuntimeException {
+    getCamundaTenant(tenantId);
+    identityService.deleteTenant(tenantId);
+    // 删除关联关系
+    List<Group> groups = identityService.createGroupQuery().memberOfTenant(tenantId).list();
+    if (CollUtil.isNotEmpty(groups)) {
+      groups.forEach(v -> identityService.deleteTenantGroupMembership(tenantId, v.getId()));
     }
-
-
-    @Override
-    @GlobalTransactional
-    public void deleteTenant(String tenantId) throws RuntimeException {
-        getCamundaTenant(tenantId);
-        identityService.deleteTenant(tenantId);
-        // 删除关联关系
-        List<Group> groups = identityService.createGroupQuery().memberOfTenant(tenantId).list();
-        if (CollUtil.isNotEmpty(groups)) {
-            groups.forEach(v -> identityService.deleteTenantGroupMembership(tenantId, v.getId()));
-        }
-        List<User> users = identityService.createUserQuery().memberOfTenant(tenantId).list();
-        if (CollUtil.isNotEmpty(users)) {
-            users.forEach(v -> identityService.deleteTenantUserMembership(tenantId, v.getId()));
-        }
+    List<User> users = identityService.createUserQuery().memberOfTenant(tenantId).list();
+    if (CollUtil.isNotEmpty(users)) {
+      users.forEach(v -> identityService.deleteTenantUserMembership(tenantId, v.getId()));
     }
+  }
 
-
-    @Override
-    public List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException {
-        TenantQuery tenantQuery = identityService.createTenantQuery();
-        if (StringUtils.isNotBlank(vo.getName())) {
-            tenantQuery.tenantNameLike("%" + vo.getName() + "%");
-        }
-        List<Tenant> list = tenantQuery.list();
-        if (CollectionUtil.isEmpty(list)) {
-            return Collections.emptyList();
-        }
-        List<TenantDto> tenantList = new ArrayList<>(list.size());
-        list.forEach(v -> tenantList.add(new TenantDto().getTenant(v)));
-        return tenantList;
+  @Override
+  public List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException {
+    TenantQuery tenantQuery = identityService.createTenantQuery();
+    if (StringUtils.isNotBlank(vo.getName())) {
+      tenantQuery.tenantNameLike("%" + vo.getName() + "%");
     }
+    List<Tenant> list = tenantQuery.list();
+    if (CollectionUtil.isEmpty(list)) {
+      return Collections.emptyList();
+    }
+    List<TenantDto> tenantList = new ArrayList<>(list.size());
+    list.forEach(v -> tenantList.add(new TenantDto().getTenant(v)));
+    return tenantList;
+  }
 
-
-    @Override
-    public PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
-        TenantQuery tenantQuery = identityService.createTenantQuery();
-        if (StringUtils.isNotBlank(vo.getName())) {
-            tenantQuery.tenantNameLike("%" + vo.getName() + "%");
-        }
-        if (CollUtil.isNotEmpty(vo.getAscs())) {
-            vo.getAscs().forEach(v -> {
+  @Override
+  public PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
+    TenantQuery tenantQuery = identityService.createTenantQuery();
+    if (StringUtils.isNotBlank(vo.getName())) {
+      tenantQuery.tenantNameLike("%" + vo.getName() + "%");
+    }
+    if (CollUtil.isNotEmpty(vo.getAscs())) {
+      vo.getAscs()
+          .forEach(
+              v -> {
                 if (v.equals("name")) {
-                    tenantQuery.orderByTenantName().asc();
+                  tenantQuery.orderByTenantName().asc();
                 }
-            });
-        }
-        if (CollUtil.isNotEmpty(vo.getDescs())) {
-            vo.getAscs().forEach(v -> {
+              });
+    }
+    if (CollUtil.isNotEmpty(vo.getDescs())) {
+      vo.getAscs()
+          .forEach(
+              v -> {
                 if (v.equals("name")) {
-                    tenantQuery.orderByTenantName().desc();
+                  tenantQuery.orderByTenantName().desc();
                 }
-            });
-        }
-        long count = tenantQuery.count();
-        if (count == 0L) {
-            return new PageDto<>(0, Collections.emptyList());
-        }
-        List<Tenant> list = tenantQuery.listPage(vo.getCurrent(), vo.getSize());
-        List<TenantDto> tenantList = new ArrayList<>(list.size());
-        list.forEach(v -> {
-            TenantDto tenantDto = new TenantDto().getTenant(v);
-            tenantList.add(tenantDto);
+              });
+    }
+    long count = tenantQuery.count();
+    if (count == 0L) {
+      return new PageDto<>(0, Collections.emptyList());
+    }
+    List<Tenant> list = tenantQuery.listPage(vo.getCurrent(), vo.getSize());
+    List<TenantDto> tenantList = new ArrayList<>(list.size());
+    list.forEach(
+        v -> {
+          TenantDto tenantDto = new TenantDto().getTenant(v);
+          tenantList.add(tenantDto);
         });
-        return new PageDto<>(count, tenantList);
+    return new PageDto<>(count, tenantList);
+  }
+
+  /**
+   * 获取租户信息
+   *
+   * @param tenantId ${@link String} 租户id
+   * @return User ${@link User}
+   * @author zxiaozhou
+   * @date 2021-11-07 00:42
+   */
+  private Tenant getCamundaTenant(String tenantId) {
+    // 查询租户信息
+    Tenant tenant = identityService.createTenantQuery().tenantId(tenantId).singleResult();
+    if (Objects.isNull(tenant)) {
+      throw new ResponseException(Status.DATABASE_BASE_ERROR, "租户信息不存在");
     }
+    return tenant;
+  }
 
-
-    /**
-     * 获取租户信息
-     *
-     * @param tenantId ${@link String} 租户id
-     * @return User ${@link User}
-     * @author zxiaozhou
-     * @date 2021-11-07 00:42
-     */
-    private Tenant getCamundaTenant(String tenantId) {
-        // 查询租户信息
-        Tenant tenant = identityService.createTenantQuery().tenantId(tenantId).singleResult();
-        if (Objects.isNull(tenant)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "租户信息不存在");
-        }
-        return tenant;
+  @Override
+  @GlobalTransactional
+  public void syncTenant(Set<TenantVo> voSet) throws RuntimeException {
+    // 删除所有
+    List<Tenant> list = identityService.createTenantQuery().list();
+    if (CollUtil.isNotEmpty(list)) {
+      list.forEach(v -> identityService.deleteTenant(v.getId()));
     }
-
-
-    @Override
-    @GlobalTransactional
-    public void syncTenant(Set<TenantVo> voSet) throws RuntimeException {
-        // 删除所有
-        List<Tenant> list = identityService.createTenantQuery().list();
-        if (CollUtil.isNotEmpty(list)) {
-            list.forEach(v -> identityService.deleteTenant(v.getId()));
-        }
-        // 添加新的
-        if (CollUtil.isNotEmpty(voSet)) {
-            voSet.forEach(v -> identityService.saveTenant(v.getCamundaTenant()));
-        }
+    // 添加新的
+    if (CollUtil.isNotEmpty(voSet)) {
+      voSet.forEach(v -> identityService.saveTenant(v.getCamundaTenant()));
     }
+  }
 }

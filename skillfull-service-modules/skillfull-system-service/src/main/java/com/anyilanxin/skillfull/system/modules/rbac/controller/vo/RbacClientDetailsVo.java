@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,24 +14,23 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * 授权客户端信息添加或修改Request
@@ -49,91 +48,94 @@ import java.util.Map;
 @NoArgsConstructor
 @Schema
 public class RbacClientDetailsVo implements Serializable {
-    private static final long serialVersionUID = -40072152943296674L;
+  private static final long serialVersionUID = -40072152943296674L;
 
-    @Schema(name = "clientId", title = "客户端id", required = true)
-    @NotBlankOrNull(message = "客户端id不能为空")
-    private String clientId;
+  @Schema(name = "clientId", title = "客户端id", required = true)
+  @NotBlankOrNull(message = "客户端id不能为空")
+  private String clientId;
 
-    @Schema(name = "clientName", title = "客户端名称", required = true)
-    @NotBlankOrNull(message = "客户端名称不能为空")
-    private String clientName;
+  @Schema(name = "clientName", title = "客户端名称", required = true)
+  @NotBlankOrNull(message = "客户端名称不能为空")
+  private String clientName;
 
-    @Schema(name = "clientIco", title = "客户端图标")
-    private String clientIco;
+  @Schema(name = "clientIco", title = "客户端图标")
+  private String clientIco;
 
-    @Schema(name = "clientSecurity", title = "客户端密码(创建时必填)")
-    private String clientSecurity;
+  @Schema(name = "clientSecurity", title = "客户端密码(创建时必填)")
+  private String clientSecurity;
 
-    @Schema(name = "limitResource", title = "限制授权资源：0-不限制，1-限制。默认1", required = true)
-    @NotBlankOrNull(message = "是否限制授权资源不能为空")
-    private Integer limitResource;
+  @Schema(name = "limitResource", title = "限制授权资源：0-不限制，1-限制。默认1", required = true)
+  @NotBlankOrNull(message = "是否限制授权资源不能为空")
+  private Integer limitResource;
 
-    @Schema(name = "resourceIds", title = "授权资源ids,json array，json array")
-    private List<String> resourceIds;
+  @Schema(name = "resourceIds", title = "授权资源ids,json array，json array")
+  private List<String> resourceIds;
 
-    @Schema(name = "signatureRequired", title = "是否验签:0-不验签，1-验签，默认1", required = true)
-    @NotBlankOrNull(message = "是否验签不能为空")
-    private Integer signatureRequired;
+  @Schema(name = "signatureRequired", title = "是否验签:0-不验签，1-验签，默认1", required = true)
+  @NotBlankOrNull(message = "是否验签不能为空")
+  private Integer signatureRequired;
 
-    @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
-    private String signatureKey;
+  @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
+  private String signatureKey;
 
-    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array", required = true)
-    @NotBlankOrNull(message = "允许授权类型不能为空")
-    private List<String> authorizedGrantTypes;
+  @Schema(
+      name = "authorizedGrantTypes",
+      title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array",
+      required = true)
+  @NotBlankOrNull(message = "允许授权类型不能为空")
+  private List<String> authorizedGrantTypes;
 
-    @Schema(name = "singleLogin", title = "是否单设备登录：0-不是,1-是，默认0", required = true)
-    @NotBlankOrNull(message = "是否单设备登录不能为空")
-    private Integer singleLogin;
+  @Schema(name = "singleLogin", title = "是否单设备登录：0-不是,1-是，默认0", required = true)
+  @NotBlankOrNull(message = "是否单设备登录不能为空")
+  private Integer singleLogin;
 
-    @Schema(name = "singleLoginType", title = "单设备登录方式：1-同一用户只能在一个endpoint登录,2-同一用户可以在不同endpoint登录")
-    private Integer singleLoginType;
+  @Schema(name = "singleLoginType", title = "单设备登录方式：1-同一用户只能在一个endpoint登录,2-同一用户可以在不同endpoint登录")
+  private Integer singleLoginType;
 
-    @Schema(name = "endpoints", title = "允许登录端点,json array")
-    private List<String> endpoints;
+  @Schema(name = "endpoints", title = "允许登录端点,json array")
+  private List<String> endpoints;
 
-    @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0", required = true)
-    @NotBlankOrNull(message = "是否内部系统不能为空")
-    private Integer innerSystem;
+  @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0", required = true)
+  @NotBlankOrNull(message = "是否内部系统不能为空")
+  private Integer innerSystem;
 
-    @Schema(name = "limitError", title = "限制授权错误次数:0-不限制,1-限制。默认0", required = true)
-    @NotBlankOrNull(message = "限制授权错误次数不能为空")
-    private Integer limitError;
+  @Schema(name = "limitError", title = "限制授权错误次数:0-不限制,1-限制。默认0", required = true)
+  @NotBlankOrNull(message = "限制授权错误次数不能为空")
+  private Integer limitError;
 
-    @Schema(name = "maxErrorNum", title = "允许最大授权错误次数，当限制授权错误时必填")
-    private Integer maxErrorNum;
+  @Schema(name = "maxErrorNum", title = "允许最大授权错误次数，当限制授权错误时必填")
+  private Integer maxErrorNum;
 
-    @Schema(name = "clientStatus", title = "状态：0-未启用,1-启用，2-锁定，默认0", required = true)
-    @NotBlankOrNull(message = "状态不能为空")
-    private Integer clientStatus;
+  @Schema(name = "clientStatus", title = "状态：0-未启用,1-启用，2-锁定，默认0", required = true)
+  @NotBlankOrNull(message = "状态不能为空")
+  private Integer clientStatus;
 
-    @Schema(name = "accessTokenValiditySeconds", title = "访问token的有效时长(单位s)，默认1800秒")
-    private Integer accessTokenValiditySeconds;
+  @Schema(name = "accessTokenValiditySeconds", title = "访问token的有效时长(单位s)，默认1800秒")
+  private Integer accessTokenValiditySeconds;
 
-    @Schema(name = "refreshTokenValiditySeconds", title = "刷新token的有效时长(单位s)，默认604800秒,即7天")
-    private Integer refreshTokenValiditySeconds;
+  @Schema(name = "refreshTokenValiditySeconds", title = "刷新token的有效时长(单位s)，默认604800秒,即7天")
+  private Integer refreshTokenValiditySeconds;
 
-    @Schema(name = "additionalInformation", title = "扩展信息,json object")
-    private Map<String, Object> additionalInformation;
+  @Schema(name = "additionalInformation", title = "扩展信息,json object")
+  private Map<String, Object> additionalInformation;
 
-    @Schema(name = "remark", title = "备注")
-    private String remark;
+  @Schema(name = "remark", title = "备注")
+  private String remark;
 
-    @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0", required = true)
-    @NotBlankOrNull(message = "是否领域不能为空")
-    private Integer havaScoped;
+  @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0", required = true)
+  @NotBlankOrNull(message = "是否领域不能为空")
+  private Integer havaScoped;
 
-    @Schema(name = "scopes", title = "领域,json array")
-    private List<String> scopes;
+  @Schema(name = "scopes", title = "领域,json array")
+  private List<String> scopes;
 
-    @Schema(name = "webRegisteredRedirectUri", title = "授权后跳转的URI（授权码模式必填）")
-    private String webRegisteredRedirectUri;
+  @Schema(name = "webRegisteredRedirectUri", title = "授权后跳转的URI（授权码模式必填）")
+  private String webRegisteredRedirectUri;
 
-    @Schema(name = "havaAutoApprove", title = "是否自动批准：0-不自动，1-自动,默认0", required = true)
-    @NotBlankOrNull(message = "是否自动批准不能为空")
-    private Integer havaAutoApprove;
+  @Schema(name = "havaAutoApprove", title = "是否自动批准：0-不自动，1-自动,默认0", required = true)
+  @NotBlankOrNull(message = "是否自动批准不能为空")
+  private Integer havaAutoApprove;
 
-    @Schema(name = "codeValiditySeconds", title = "授权码有效时常(单位s)，默认300秒")
-    private Integer codeValiditySeconds;
+  @Schema(name = "codeValiditySeconds", title = "授权码有效时常(单位s)，默认300秒")
+  private Integer codeValiditySeconds;
 }

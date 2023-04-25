@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,20 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.auth.oauth2.provider.token;
 
+import java.util.Collection;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 /**
  * 短信验证码token
@@ -37,34 +36,31 @@ import java.util.Collection;
  * @since JDK1.8
  */
 public class SmsCodeAuthenticationToken extends UsernamePasswordAuthenticationToken {
-    private final String phone;
-    private String smsCode;
+  private final String phone;
+  private String smsCode;
 
-    public SmsCodeAuthenticationToken(String phone, String smsCode) {
-        super(phone, smsCode);
-        this.phone = phone;
-        this.smsCode = smsCode;
-        setAuthenticated(false);
-    }
+  public SmsCodeAuthenticationToken(String phone, String smsCode) {
+    super(phone, smsCode);
+    this.phone = phone;
+    this.smsCode = smsCode;
+    setAuthenticated(false);
+  }
 
+  public SmsCodeAuthenticationToken(
+      String phone, String smsCode, Collection<? extends GrantedAuthority> authorities) {
+    super(phone, smsCode, authorities);
+    this.phone = phone;
+    this.smsCode = smsCode;
+    super.setAuthenticated(true);
+  }
 
-    public SmsCodeAuthenticationToken(String phone, String smsCode,
-                                      Collection<? extends GrantedAuthority> authorities) {
-        super(phone, smsCode, authorities);
-        this.phone = phone;
-        this.smsCode = smsCode;
-        super.setAuthenticated(true);
-    }
+  @Override
+  public Object getCredentials() {
+    return this.smsCode;
+  }
 
-
-    @Override
-    public Object getCredentials() {
-        return this.smsCode;
-    }
-
-
-    @Override
-    public Object getPrincipal() {
-        return this.phone;
-    }
+  @Override
+  public Object getPrincipal() {
+    return this.phone;
+  }
 }

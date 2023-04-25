@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,24 +14,23 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.util.Objects;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * 用户组信息
@@ -43,34 +42,33 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-
 @SuperBuilder
-
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class GroupDto implements Serializable {
-    private static final long serialVersionUID = 9119670587651253109L;
+  private static final long serialVersionUID = 9119670587651253109L;
 
-    @Schema(name = "groupId", title = "用户组id")
-    protected String groupId;
+  @Schema(name = "groupId", title = "用户组id")
+  protected String groupId;
 
-    @Schema(name = "name", title = "用户组名称")
-    protected String name;
+  @Schema(name = "name", title = "用户组名称")
+  protected String name;
 
-    @Schema(name = "code", title = "用户组编码")
-    protected String code;
+  @Schema(name = "code", title = "用户组编码")
+  protected String code;
 
-    public GroupDto getGroup(Group group) {
-        GroupDto groupModel = null;
-        if (Objects.nonNull(group)) {
-            GroupEntity groupEntity = (GroupEntity) group;
-            groupModel = GroupDto.builder()
-                    .groupId(groupEntity.getId())
-                    .name(groupEntity.getName())
-                    .code(groupEntity.getType())
-                    .build();
-        }
-        return groupModel;
+  public GroupDto getGroup(Group group) {
+    GroupDto groupModel = null;
+    if (Objects.nonNull(group)) {
+      GroupEntity groupEntity = (GroupEntity) group;
+      groupModel =
+          GroupDto.builder()
+              .groupId(groupEntity.getId())
+              .name(groupEntity.getName())
+              .code(groupEntity.getType())
+              .build();
     }
+    return groupModel;
+  }
 }

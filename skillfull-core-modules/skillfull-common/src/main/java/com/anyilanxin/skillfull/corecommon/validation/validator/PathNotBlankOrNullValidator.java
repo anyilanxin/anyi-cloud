@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,21 +14,20 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
-
+import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 /**
  * 空或者null判断
@@ -37,22 +36,22 @@ import java.util.Objects;
  * @date 2019-06-18 10:44
  * @since JDK11
  */
-public class PathNotBlankOrNullValidator implements ConstraintValidator<PathNotBlankOrNull, Object> {
-    private static final String PATH_NULL_VALUE = "undefined";
+public class PathNotBlankOrNullValidator
+    implements ConstraintValidator<PathNotBlankOrNull, Object> {
+  private static final String PATH_NULL_VALUE = "undefined";
 
-    @Override
-    public void initialize(PathNotBlankOrNull constraintAnnotation) {
-    }
+  @Override
+  public void initialize(PathNotBlankOrNull constraintAnnotation) {}
 
-    @Override
-    public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
-        if (Objects.isNull(value)) {
-            return false;
-        }
-        if (value instanceof String) {
-            String strValue = (String) value;
-            return !PATH_NULL_VALUE.equalsIgnoreCase(strValue);
-        }
-        return true;
+  @Override
+  public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
+    if (Objects.isNull(value)) {
+      return false;
     }
+    if (value instanceof String) {
+      String strValue = (String) value;
+      return !PATH_NULL_VALUE.equalsIgnoreCase(strValue);
+    }
+    return true;
+  }
 }

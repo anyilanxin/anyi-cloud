@@ -7,7 +7,7 @@
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,42 +16,42 @@
     limitations under the License.
 
     AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
-
-    1.请不要删除和修改根目录下的LICENSE文件。
-    2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
-    3.请保留源码和相关描述文件的项目出处，作者声明等。
-    4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
-    5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
-    6.若您的项目无法满足以上几点，可申请商业授权
+      1.请不要删除和修改根目录下的LICENSE文件。
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+      3.请保留源码和相关描述文件的项目出处，作者声明等。
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+      6.若您的项目无法满足以上几点，可申请商业授权
 
 -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anyilanxin.skillfull.system.modules.common.mapper.CommonDictItemMapper">
 
-  <resultMap type="com.anyilanxin.skillfull.system.modules.common.entity.CommonDictItemEntity" id="CommonDictItemMap">
-    <result property="itemId" column="item_id" jdbcType="VARCHAR"/>
-    <result property="dictId" column="dict_id" jdbcType="VARCHAR"/>
-    <result property="itemText" column="item_text" jdbcType="VARCHAR"/>
-    <result property="itemValue" column="item_value" jdbcType="VARCHAR"/>
-    <result property="dictCode" column="dict_code" jdbcType="VARCHAR"/>
-    <result property="sortOrder" column="sort_order" jdbcType="INTEGER"/>
-    <result property="itemStatus" column="item_status" jdbcType="INTEGER"/>
-    <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
-    <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
-    <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
-    <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
-    <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
-    <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
-    <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
-    <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
-    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-    <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
-    <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
-    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-    <result property="remark" column="remark" jdbcType="VARCHAR"/>
-    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
-  </resultMap>
-  <!-- @formatter:off -->
+    <resultMap type="com.anyilanxin.skillfull.system.modules.common.entity.CommonDictItemEntity" id="CommonDictItemMap">
+        <result property="itemId" column="item_id" jdbcType="VARCHAR"/>
+        <result property="dictId" column="dict_id" jdbcType="VARCHAR"/>
+        <result property="itemText" column="item_text" jdbcType="VARCHAR"/>
+        <result property="itemValue" column="item_value" jdbcType="VARCHAR"/>
+        <result property="dictCode" column="dict_code" jdbcType="VARCHAR"/>
+        <result property="sortOrder" column="sort_order" jdbcType="INTEGER"/>
+        <result property="itemStatus" column="item_status" jdbcType="INTEGER"/>
+        <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
+        <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
+        <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
+        <result property="createOrgSysCode" column="create_org_sys_code" jdbcType="VARCHAR"/>
+        <result property="createSystemCode" column="create_system_code" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTenantId" column="create_tenant_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- @formatter:off -->
     <!--数据库字段-->
     <sql id="Column_List">
         item_id, dict_id, item_text, item_value, dict_code, sort_order, item_status, unique_help, create_area_code,

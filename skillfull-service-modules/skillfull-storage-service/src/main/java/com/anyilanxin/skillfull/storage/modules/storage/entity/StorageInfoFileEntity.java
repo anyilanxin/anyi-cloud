@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.storage.modules.storage.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -46,68 +46,43 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("storage_info_file")
 public class StorageInfoFileEntity extends BaseEntity {
-    private static final long serialVersionUID = 614383241708803778L;
+  private static final long serialVersionUID = 614383241708803778L;
 
-    @TableId
-    private String fileId;
+  @TableId private String fileId;
 
-    /**
-     * 原始文件名(不包括扩展名)
-     */
-    private String fileOriginalName;
+  /** 原始文件名(不包括扩展名) */
+  private String fileOriginalName;
 
-    /**
-     * 文件类型
-     */
-    private String fileType;
+  /** 文件类型 */
+  private String fileType;
 
-    /**
-     * 存放文件夹名称
-     */
-    private String fileDirPrefix;
+  /** 存放文件夹名称 */
+  private String fileDirPrefix;
 
-    /**
-     * 文件引擎类型：1-本地，2-oss,3-minio
-     */
-    private Integer fileStorageType;
+  /** 文件引擎类型：1-本地，2-oss,3-minio */
+  private Integer fileStorageType;
 
-    /**
-     * 文件流类型
-     */
-    private String contentType;
+  /** 文件流类型 */
+  private String contentType;
 
-    /**
-     * 文件大小
-     */
-    private String fileSize;
+  /** 文件大小 */
+  private String fileSize;
 
-    /**
-     * 文件详细大小
-     */
-    private Long fileSizeDetail;
+  /** 文件详细大小 */
+  private Long fileSizeDetail;
 
-    /**
-     * 文件md5值
-     */
-    private String fileMd5;
+  /** 文件md5值 */
+  private String fileMd5;
 
-    /**
-     * 文件相对路径
-     */
-    private String fileRelativePath;
+  /** 文件相对路径 */
+  private String fileRelativePath;
 
-    /**
-     * endpoint
-     */
-    private String endpoint;
+  /** endpoint */
+  private String endpoint;
 
-    /**
-     * 文件域名(主要用于非本地存储使用)
-     */
-    private String fileHost;
+  /** 文件域名(主要用于非本地存储使用) */
+  private String fileHost;
 
-    /**
-     * 备注
-     */
-    private String remark;
+  /** 备注 */
+  private String remark;
 }

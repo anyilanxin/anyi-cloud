@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.gateway.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -36,6 +36,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -44,9 +46,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
-import javax.validation.Valid;
-import java.util.List;
 
 /**
  * 动态路由controller
@@ -61,52 +60,65 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 public class DynamicRouteController extends BaseController {
-    private final IDynamicRouteService service;
-    private final RouteDefinitionLocator routeDefinitionLocator;
+  private final IDynamicRouteService service;
+  private final RouteDefinitionLocator routeDefinitionLocator;
 
+  @Operation(
+      summary = "添加路由",
+      tags = {"v1.0.0"},
+      description = "添加路由")
+  @PostMapping("/add")
+  Mono<Result<String>> addRoute(
+      @RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
+    ServletUtils.setServerHttpRequest(request);
+    service.addRoute(vo);
+    return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
+  }
 
-    @Operation(summary = "添加路由", tags = {"v1.0.0"}, description = "添加路由")
-    @PostMapping("/add")
-    Mono<Result<String>> addRoute(@RequestBody @Valid SystemRouterModel vo,
-                                  final ServerHttpRequest request) {
-        ServletUtils.setServerHttpRequest(request);
-        service.addRoute(vo);
-        return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
-    }
+  @Operation(
+      summary = "更新路由",
+      tags = {"v1.0.0"},
+      description = "更新路由")
+  @PutMapping("/update")
+  Mono<Result<String>> updateRoute(
+      @RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
+    ServletUtils.setServerHttpRequest(request);
+    service.updateRoute(vo);
+    return ok("更新成功");
+  }
 
+  @Operation(
+      summary = "删除路由",
+      tags = {"v1.0.0"},
+      description = "删除路由")
+  @Parameter(in = ParameterIn.PATH, description = "路由编码", name = "routeCode", required = true)
+  @DeleteMapping("/delete/{routeCode}")
+  Mono<Result<String>> deleteRoute(
+      @PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode,
+      final ServerHttpRequest request) {
+    ServletUtils.setServerHttpRequest(request);
+    service.deleteRoute(routeCode);
+    return ok(I18nUtil.get("Controller.DeleteSuccess"));
+  }
 
-    @Operation(summary = "更新路由", tags = {"v1.0.0"}, description = "更新路由")
-    @PutMapping("/update")
-    Mono<Result<String>> updateRoute(@RequestBody @Valid SystemRouterModel vo,
-                                     final ServerHttpRequest request) {
-        ServletUtils.setServerHttpRequest(request);
-        service.updateRoute(vo);
-        return ok("更新成功");
-    }
+  @Operation(
+      summary = "查询路由",
+      tags = {"v1.0.0"},
+      description = "查询路由")
+  @GetMapping("/select/list")
+  Mono<Result<List<RouteResponseModel>>> getRoutes() {
+    return service.getRoutes().collectList().map(BaseController::getResult);
+  }
 
-
-    @Operation(summary = "删除路由", tags = {"v1.0.0"}, description = "删除路由")
-    @Parameter(in = ParameterIn.PATH, description = "路由编码", name = "routeCode", required = true)
-    @DeleteMapping("/delete/{routeCode}")
-    Mono<Result<String>> deleteRoute(@PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode,
-                                     final ServerHttpRequest request) {
-        ServletUtils.setServerHttpRequest(request);
-        service.deleteRoute(routeCode);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
-    }
-
-
-    @Operation(summary = "查询路由", tags = {"v1.0.0"}, description = "查询路由")
-    @GetMapping("/select/list")
-    Mono<Result<List<RouteResponseModel>>> getRoutes() {
-        return service.getRoutes().collectList().map(BaseController::getResult);
-    }
-
-
-    @Operation(summary = "查询原始路由", tags = {"v1.0.0"}, description = "查询原始路由")
-    @GetMapping("/select/list-original")
-    Mono<Result<List<RouteDefinition>>> getOriginalRoutes() {
-        return routeDefinitionLocator.getRouteDefinitions().collectList().map(BaseController::getResult);
-    }
-
+  @Operation(
+      summary = "查询原始路由",
+      tags = {"v1.0.0"},
+      description = "查询原始路由")
+  @GetMapping("/select/list-original")
+  Mono<Result<List<RouteDefinition>>> getOriginalRoutes() {
+    return routeDefinitionLocator
+        .getRouteDefinitions()
+        .collectList()
+        .map(BaseController::getResult);
+  }
 }

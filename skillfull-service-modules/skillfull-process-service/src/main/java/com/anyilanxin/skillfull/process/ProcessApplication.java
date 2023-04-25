@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,21 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- * 6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件。
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等。
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
+ *   6.若您的项目无法满足以上几点，可申请商业授权
  */
+
 package com.anyilanxin.skillfull.process;
+
+import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_MAPPER_BASE_SCAN_PACKAGE;
 
 import com.anyilanxin.skillfull.corecommon.annotation.SkillfulCloudApplication;
 import com.anyilanxin.skillfull.corecommon.constant.TimeZoneConstant;
+import java.util.TimeZone;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,10 +37,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.util.TimeZone;
-
-import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_MAPPER_BASE_SCAN_PACKAGE;
-
 /**
  * start
  *
@@ -45,7 +44,6 @@ import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_
  * @date 2020-09-10 01:10
  * @since JDK11
  */
-
 @Slf4j
 @EnableProcessApplication
 @EnableAsync
@@ -55,9 +53,9 @@ import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_
 @SkillfulCloudApplication
 public class ProcessApplication {
 
-    public static void main(String[] args) {
-        // 设置时区避免容器时间不对
-        TimeZone.setDefault(TimeZone.getTimeZone(TimeZoneConstant.ASIA_SHANGHAI));
-        SpringApplication.run(ProcessApplication.class, args);
-    }
+  public static void main(String[] args) {
+    // 设置时区避免容器时间不对
+    TimeZone.setDefault(TimeZone.getTimeZone(TimeZoneConstant.ASIA_SHANGHAI));
+    SpringApplication.run(ProcessApplication.class, args);
+  }
 }

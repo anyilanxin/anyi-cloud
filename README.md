@@ -2,7 +2,7 @@
 
 AnYi Cloud
 ===============
-spring cloud, spring alibaba, anyi-cloud platform(micro service)
+spring cloud, spring alibaba, AnYi Cloud(micro service)
 
 当前最新版本： 1.0.0-alpha2（发布日期：2022-08-07）
 
@@ -10,9 +10,7 @@ spring cloud, spring alibaba, anyi-cloud platform(micro service)
 技术文档
 -----------------------------------
 
-- 官网地址 ：[https://anyilanxin.com](https://anyilanxin.com)
-
-- 前端地址 ：[https://github.com/zxiaozhou/anyi-cloud-vue](https://github.com/zxiaozhou/anyi-cloud-vue)
+- 官网地址 ： [https://anyilanxin.com](https://anyilanxin.com)
 
 联系我们
 -----------------------------------

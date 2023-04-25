@@ -45,8 +45,6 @@ public class AuthApplication {
 
 
 
-
-
     public static void main(String[] args) {
         // 设置时区避免容器时间不对
         TimeZone.setDefault(TimeZone.getTimeZone(TimeZoneConstant.ASIA_SHANGHAI));

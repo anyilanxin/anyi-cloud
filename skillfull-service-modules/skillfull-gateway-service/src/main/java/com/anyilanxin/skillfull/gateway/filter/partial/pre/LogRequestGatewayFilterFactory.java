@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
@@ -32,8 +38,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.skillfull.gateway.utils.GatewayCommonUtils;
 import com.anyilanxin.skillfull.gateway.utils.LogRecordUtils;
+
 import java.util.Collections;
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -56,99 +64,101 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 public class LogRequestGatewayFilterFactory
-    extends AbstractGatewayFilterFactory<LogRequestGatewayFilterFactory.Config> {
-
-  private final List<HttpMessageReader<?>> messageReaders;
-
-  public LogRequestGatewayFilterFactory() {
-    super(Config.class);
-    this.messageReaders = HandlerStrategies.withDefaults().messageReaders();
-  }
-
-  @Override
-  public List<String> shortcutFieldOrder() {
-    return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
-  }
-
-  @Override
-  public GatewayFilter apply(Config config) {
-    LogGatewayFilter gatewayFilter = new LogGatewayFilter(config, this.messageReaders);
-    gatewayFilter.setFactory(this);
-    return gatewayFilter;
-  }
-
-  private static class LogGatewayFilter implements GatewayFilter, Ordered {
-
-    private final Config config;
+        extends AbstractGatewayFilterFactory<LogRequestGatewayFilterFactory.Config> {
 
     private final List<HttpMessageReader<?>> messageReaders;
 
-    private GatewayFilterFactory<Config> gatewayFilterFactory;
-
-    public LogGatewayFilter(Config config, List<HttpMessageReader<?>> messageReaders) {
-      this.config = config;
-      this.messageReaders = messageReaders;
+    public LogRequestGatewayFilterFactory() {
+        super(Config.class);
+        this.messageReaders = HandlerStrategies.withDefaults().messageReaders();
     }
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-      log.debug("------------LogGatewayFilter------------>filter:{}", "日志记录过滤器");
-      // 验证特殊url
-      GatewayCommonUtils.CheckUrlInfo haveUrl =
-          GatewayCommonUtils.isHaveUrl(exchange, config.specialUrl);
-      // 没有url没有任何类型直接运行获取日志
-      if (haveUrl.getSpecialUrlType() == 0) {
-        return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
-      }
-      // 如果是白名单并且检测成功，这不获取日志
-      else if (haveUrl.getSpecialUrlType() == 1 && haveUrl.isResult()) {
-        return chain.filter(exchange);
-      }
-      // 如果是黑名单，并且成功则运行获取日志
-      else if (haveUrl.getSpecialUrlType() == 2 && haveUrl.isResult()) {
-        return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
-      }
-      // 其余全部读取日志
-      return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
+    public List<String> shortcutFieldOrder() {
+        return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
     }
 
     @Override
-    /**
-     * 必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
-     */
-    public int getOrder() {
-      return LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
+    public GatewayFilter apply(Config config) {
+        LogGatewayFilter gatewayFilter = new LogGatewayFilter(config, this.messageReaders);
+        gatewayFilter.setFactory(this);
+        return gatewayFilter;
     }
 
-    @Override
-    public String toString() {
-      Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-      return filterToStringCreator(obj)
-          .append("New content type", " config.getNewContentType()")
-          .append("In class", " config.getInClass()")
-          .append("Out class", "config.getOutClass()")
-          .toString();
+    private static class LogGatewayFilter implements GatewayFilter, Ordered {
+
+        private final Config config;
+
+        private final List<HttpMessageReader<?>> messageReaders;
+
+        private GatewayFilterFactory<Config> gatewayFilterFactory;
+
+        public LogGatewayFilter(Config config, List<HttpMessageReader<?>> messageReaders) {
+            this.config = config;
+            this.messageReaders = messageReaders;
+        }
+
+        @Override
+        public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+            log.debug("------------LogGatewayFilter------------>filter:{}", "日志记录过滤器");
+            // 验证特殊url
+            GatewayCommonUtils.CheckUrlInfo haveUrl =
+                    GatewayCommonUtils.isHaveUrl(exchange, config.specialUrl);
+            // 没有url没有任何类型直接运行获取日志
+            if (haveUrl.getSpecialUrlType() == 0) {
+                return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
+            }
+            // 如果是白名单并且检测成功，这不获取日志
+            else if (haveUrl.getSpecialUrlType() == 1 && haveUrl.isResult()) {
+                return chain.filter(exchange);
+            }
+            // 如果是黑名单，并且成功则运行获取日志
+            else if (haveUrl.getSpecialUrlType() == 2 && haveUrl.isResult()) {
+                return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
+            }
+            // 其余全部读取日志
+            return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
+        }
+
+        @Override
+        /**
+         * 必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
+         */
+        public int getOrder() {
+            return LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
+        }
+
+        @Override
+        public String toString() {
+            Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
+            return filterToStringCreator(obj)
+                    .append("New content type", " config.getNewContentType()")
+                    .append("In class", " config.getInClass()")
+                    .append("Out class", "config.getOutClass()")
+                    .toString();
+        }
+
+        public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
+            this.gatewayFilterFactory = gatewayFilterFactory;
+        }
     }
 
-    public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
-      this.gatewayFilterFactory = gatewayFilterFactory;
-    }
-  }
+    @Validated
+    public static class Config {
+        /**
+         * 特殊url
+         */
+        private RouteMetaSpecialUrlModel specialUrl;
 
-  @Validated
-  public static class Config {
-    /** 特殊url */
-    private RouteMetaSpecialUrlModel specialUrl;
+        public RouteMetaSpecialUrlModel getSpecialUrl() {
+            return specialUrl;
+        }
 
-    public RouteMetaSpecialUrlModel getSpecialUrl() {
-      return specialUrl;
+        public Config setSpecialUrl(String specialUrl) {
+            if (StringUtils.isNotBlank(specialUrl)) {
+                this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
+            }
+            return this;
+        }
     }
-
-    public Config setSpecialUrl(String specialUrl) {
-      if (StringUtils.isNotBlank(specialUrl)) {
-        this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
-      }
-      return this;
-    }
-  }
 }

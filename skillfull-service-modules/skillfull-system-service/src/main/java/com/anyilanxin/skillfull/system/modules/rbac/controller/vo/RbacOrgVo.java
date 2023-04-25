@@ -14,21 +14,29 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -48,86 +56,86 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgVo implements Serializable {
-  private static final long serialVersionUID = 963678539662691043L;
+    private static final long serialVersionUID = 963678539662691043L;
 
-  @Schema(name = "parentId", title = "父级组织id(更新是无效)")
-  private String parentId;
+    @Schema(name = "parentId", title = "父级组织id(更新是无效)")
+    private String parentId;
 
-  @Schema(name = "orgName", title = "组织名称", required = true)
-  @NotBlankOrNull(message = "组织名称不能为空")
-  private String orgName;
+    @Schema(name = "orgName", title = "组织名称", required = true)
+    @NotBlankOrNull(message = "组织名称不能为空")
+    private String orgName;
 
-  @Schema(name = "orgSimpleName", title = "组织机构简称")
-  private String orgSimpleName;
+    @Schema(name = "orgSimpleName", title = "组织机构简称")
+    private String orgSimpleName;
 
-  @Schema(name = "orgNameEn", title = "英文名")
-  private String orgNameEn;
+    @Schema(name = "orgNameEn", title = "英文名")
+    private String orgNameEn;
 
-  @Schema(name = "orgNameAbbr", title = "缩写")
-  private String orgNameAbbr;
+    @Schema(name = "orgNameAbbr", title = "缩写")
+    private String orgNameAbbr;
 
-  @Schema(name = "orgOrder", title = "排序")
-  private Integer orgOrder;
+    @Schema(name = "orgOrder", title = "排序")
+    private Integer orgOrder;
 
-  @Schema(name = "orgType", title = "组织机构类型：1-公司,2-部门", required = true)
-  @NotNull(message = "组织机构类不能为空")
-  //    @NotInEnum(autoMessage = true, enumClass = OrgType.class)
-  private Integer orgType;
+    @Schema(name = "orgType", title = "组织机构类型：1-公司,2-部门", required = true)
+    @NotNull(message = "组织机构类不能为空")
+    //    @NotInEnum(autoMessage = true, enumClass = OrgType.class)
+    private Integer orgType;
 
-  @Schema(name = "orgCode", title = "组织编码", required = true)
-  @NotBlankOrNull(message = "组织编码不能为空")
-  private String orgCode;
+    @Schema(name = "orgCode", title = "组织编码", required = true)
+    @NotBlankOrNull(message = "组织编码不能为空")
+    private String orgCode;
 
-  @Schema(name = "orgStatus", title = "组织状态：0-禁用，1-启用，默认0", required = true)
-  @NotBlankOrNull(message = "组织状态不能为空")
-  //    @NotInEnum(autoMessage = true, enumClass = CommonNotEnableType.class)
-  private Integer orgStatus;
+    @Schema(name = "orgStatus", title = "组织状态：0-禁用，1-启用，默认0", required = true)
+    @NotBlankOrNull(message = "组织状态不能为空")
+    //    @NotInEnum(autoMessage = true, enumClass = CommonNotEnableType.class)
+    private Integer orgStatus;
 
-  @Schema(name = "email", title = "邮箱")
-  private String email;
+    @Schema(name = "email", title = "邮箱")
+    private String email;
 
-  @Schema(name = "phone", title = "手机号")
-  private String phone;
+    @Schema(name = "phone", title = "手机号")
+    private String phone;
 
-  @Schema(name = "fax", title = "传真")
-  private String fax;
+    @Schema(name = "fax", title = "传真")
+    private String fax;
 
-  @Schema(name = "address", title = "地址")
-  private String address;
+    @Schema(name = "address", title = "地址")
+    private String address;
 
-  @Schema(name = "socialCode", title = "统一社会信用代码")
-  private String socialCode;
+    @Schema(name = "socialCode", title = "统一社会信用代码")
+    private String socialCode;
 
-  @Schema(name = "areaCodeName", title = "行政区域名称")
-  private String areaCodeName;
+    @Schema(name = "areaCodeName", title = "行政区域名称")
+    private String areaCodeName;
 
-  @Schema(name = "areaCode", title = "行政区域")
-  private String areaCode;
+    @Schema(name = "areaCode", title = "行政区域")
+    private String areaCode;
 
-  @Schema(name = "detailAddress", title = "详细地址")
-  private String detailAddress;
+    @Schema(name = "detailAddress", title = "详细地址")
+    private String detailAddress;
 
-  @Schema(name = "scopeBusiness", title = "经验范围")
-  private String scopeBusiness;
+    @Schema(name = "scopeBusiness", title = "经验范围")
+    private String scopeBusiness;
 
-  @Schema(name = "legalPerson", title = "法人")
-  private String legalPerson;
+    @Schema(name = "legalPerson", title = "法人")
+    private String legalPerson;
 
-  @Schema(name = "accountsName", title = "开户姓名")
-  private String accountsName;
+    @Schema(name = "accountsName", title = "开户姓名")
+    private String accountsName;
 
-  @Schema(name = "accountsBank", title = "开户银行")
-  private String accountsBank;
+    @Schema(name = "accountsBank", title = "开户银行")
+    private String accountsBank;
 
-  @Schema(name = "backCard", title = "银行账号")
-  private String backCard;
+    @Schema(name = "backCard", title = "银行账号")
+    private String backCard;
 
-  @Schema(name = "businessLicensePicture", title = "营业执照")
-  private String businessLicensePicture;
+    @Schema(name = "businessLicensePicture", title = "营业执照")
+    private String businessLicensePicture;
 
-  @Schema(name = "sealPicture", title = "印章")
-  private String sealPicture;
+    @Schema(name = "sealPicture", title = "印章")
+    private String sealPicture;
 
-  @Schema(name = "orgMenuIds", title = "机构菜单权限")
-  private Set<String> orgMenuIds;
+    @Schema(name = "orgMenuIds", title = "机构菜单权限")
+    private Set<String> orgMenuIds;
 }

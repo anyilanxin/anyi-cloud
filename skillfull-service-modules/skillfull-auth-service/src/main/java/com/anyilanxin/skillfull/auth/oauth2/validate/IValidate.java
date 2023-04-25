@@ -14,17 +14,24 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.auth.oauth2.validate;
 
 import com.alibaba.fastjson.JSONObject;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -35,24 +42,24 @@ import javax.servlet.http.HttpServletRequest;
  * @since JDK11
  */
 public interface IValidate {
-  /**
-   * 获取验证码信息 redis key构建:picture:codeKey+system,sms:codeKey+system+phone
-   *
-   * @param parameter ${@link JSONObject} 获取验证码参数
-   * @param request ${@link HttpServletRequest} HttpServletRequest
-   * @return ValidateDto ${@link ValidateDto} 验证码结果
-   * @author zxiaozhou
-   * @date 2020-06-29 02:25
-   */
-  ValidateDto getVerification(JSONObject parameter, HttpServletRequest request);
+    /**
+     * 获取验证码信息 redis key构建:picture:codeKey+system,sms:codeKey+system+phone
+     *
+     * @param parameter ${@link JSONObject} 获取验证码参数
+     * @param request   ${@link HttpServletRequest} HttpServletRequest
+     * @return ValidateDto ${@link ValidateDto} 验证码结果
+     * @author zxiaozhou
+     * @date 2020-06-29 02:25
+     */
+    ValidateDto getVerification(JSONObject parameter, HttpServletRequest request);
 
-  /**
-   * 验证码验证
-   *
-   * @param parameter ${@link CheckModel} 参数
-   * @return CheckDto 验证结果
-   * @author zxiaozhou
-   * @date 2020-06-29 02:25
-   */
-  CheckDto checkVerification(CheckModel parameter);
+    /**
+     * 验证码验证
+     *
+     * @param parameter ${@link CheckModel} 参数
+     * @return CheckDto 验证结果
+     * @author zxiaozhou
+     * @date 2020-06-29 02:25
+     */
+    CheckDto checkVerification(CheckModel parameter);
 }

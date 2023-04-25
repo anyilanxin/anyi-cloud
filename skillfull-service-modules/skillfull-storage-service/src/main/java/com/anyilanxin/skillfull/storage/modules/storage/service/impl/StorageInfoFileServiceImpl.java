@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.storage.modules.storage.service.impl;
 
@@ -41,10 +47,12 @@ import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -63,112 +71,112 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @RequiredArgsConstructor
 public class StorageInfoFileServiceImpl
-    extends ServiceImpl<StorageInfoFileMapper, StorageInfoFileEntity>
-    implements IStorageInfoFileService {
-  private final StorageInfoFileCopyMap map;
-  private final StorageInfoFileMapper mapper;
-  private final IStorageEngineService storageEngine;
+        extends ServiceImpl<StorageInfoFileMapper, StorageInfoFileEntity>
+        implements IStorageInfoFileService {
+    private final StorageInfoFileCopyMap map;
+    private final StorageInfoFileMapper mapper;
+    private final IStorageEngineService storageEngine;
 
-  @Override
-  @Transactional(
-      rollbackFor = {Exception.class, Error.class},
-      readOnly = true)
-  public PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo)
-      throws RuntimeException {
-    return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
-  }
-
-  @Override
-  @Transactional(
-      rollbackFor = {Exception.class, Error.class},
-      readOnly = true)
-  public StorageInfoModel getById(String fileId) throws RuntimeException {
-    StorageInfoFileEntity byId = super.getById(fileId);
-    if (Objects.isNull(byId)) {
-      throw new ResponseException(
-          Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+    @Override
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
+    public PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo)
+            throws RuntimeException {
+        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
-    return map.eToD(byId);
-  }
 
-  @Override
-  @Transactional(rollbackFor = {Exception.class, Error.class})
-  public void deleteById(String fileId) throws RuntimeException {
-    // 查询数据是否存在
-    this.getById(fileId);
-    // 删除数据
-    boolean b = this.removeById(fileId);
-    if (!b) {
-      throw new ResponseException(
-          Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+    @Override
+    @Transactional(
+            rollbackFor = {Exception.class, Error.class},
+            readOnly = true)
+    public StorageInfoModel getById(String fileId) throws RuntimeException {
+        StorageInfoFileEntity byId = super.getById(fileId);
+        if (Objects.isNull(byId)) {
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+        }
+        return map.eToD(byId);
     }
-  }
 
-  @Override
-  @Transactional(rollbackFor = {Exception.class, Error.class})
-  public void deleteBatch(List<String> fileIds) throws RuntimeException {
-    List<StorageInfoFileEntity> entities = this.listByIds(fileIds);
-    if (CollectionUtil.isEmpty(entities)) {
-      throw new ResponseException(
-          Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public void deleteById(String fileId) throws RuntimeException {
+        // 查询数据是否存在
+        this.getById(fileId);
+        // 删除数据
+        boolean b = this.removeById(fileId);
+        if (!b) {
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+        }
     }
-    List<String> waitDeleteList = new ArrayList<>();
-    entities.forEach(v -> waitDeleteList.add(v.getFileId()));
-    int i = mapper.deleteBatchIds(waitDeleteList);
-    if (i <= 0) {
-      throw new ResponseException(
-          Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public void deleteBatch(List<String> fileIds) throws RuntimeException {
+        List<StorageInfoFileEntity> entities = this.listByIds(fileIds);
+        if (CollectionUtil.isEmpty(entities)) {
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        }
+        List<String> waitDeleteList = new ArrayList<>();
+        entities.forEach(v -> waitDeleteList.add(v.getFileId()));
+        int i = mapper.deleteBatchIds(waitDeleteList);
+        if (i <= 0) {
+            throw new ResponseException(
+                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+        }
     }
-  }
 
-  @Override
-  @Transactional(rollbackFor = {Exception.class, Error.class})
-  public StorageInfoModel storage(
-      MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
-    StorageInfoModel storage = storageEngine.storage(file, fileDirPrefix, request);
-    saveBatch(List.of(storage));
-    return storage;
-  }
-
-  @Override
-  @Transactional(rollbackFor = {Exception.class, Error.class})
-  public List<StorageInfoModel> storageBatch(
-      List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
-    List<StorageInfoModel> storageInfoModels =
-        storageEngine.storageBatch(files, fileDirPrefix, request);
-    saveBatch(storageInfoModels);
-    return storageInfoModels;
-  }
-
-  @Override
-  @Transactional(rollbackFor = {Exception.class, Error.class})
-  public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {
-    List<StorageInfoUrlModel> storageInfoUrlModels = storageEngine.storageBatchUrl(model);
-    List<StorageInfoModel> models = new ArrayList<>(storageInfoUrlModels.size());
-    storageInfoUrlModels.forEach(
-        v -> {
-          if (Objects.nonNull(v.getStatus()) && v.getStatus() == 1) {
-            models.add(v);
-          }
-        });
-    saveBatch(models);
-    return storageInfoUrlModels;
-  }
-
-  /**
-   * 数据存入数据库
-   *
-   * @param models ${@link List<StorageInfoModel>}
-   * @author zxiaozhou
-   * @date 2022-04-05 11:18
-   */
-  void saveBatch(List<StorageInfoModel> models) {
-    if (CollUtil.isNotEmpty(models)) {
-      List<StorageInfoFileEntity> storageInfoFileEntities = map.dToE(models);
-      boolean b = this.saveBatch(storageInfoFileEntities);
-      if (!b) {
-        throw new ResponseException("存储文件失败");
-      }
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public StorageInfoModel storage(
+            MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
+        StorageInfoModel storage = storageEngine.storage(file, fileDirPrefix, request);
+        saveBatch(List.of(storage));
+        return storage;
     }
-  }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public List<StorageInfoModel> storageBatch(
+            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
+        List<StorageInfoModel> storageInfoModels =
+                storageEngine.storageBatch(files, fileDirPrefix, request);
+        saveBatch(storageInfoModels);
+        return storageInfoModels;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {
+        List<StorageInfoUrlModel> storageInfoUrlModels = storageEngine.storageBatchUrl(model);
+        List<StorageInfoModel> models = new ArrayList<>(storageInfoUrlModels.size());
+        storageInfoUrlModels.forEach(
+                v -> {
+                    if (Objects.nonNull(v.getStatus()) && v.getStatus() == 1) {
+                        models.add(v);
+                    }
+                });
+        saveBatch(models);
+        return storageInfoUrlModels;
+    }
+
+    /**
+     * 数据存入数据库
+     *
+     * @param models ${@link List<StorageInfoModel>}
+     * @author zxiaozhou
+     * @date 2022-04-05 11:18
+     */
+    void saveBatch(List<StorageInfoModel> models) {
+        if (CollUtil.isNotEmpty(models)) {
+            List<StorageInfoFileEntity> storageInfoFileEntities = map.dToE(models);
+            boolean b = this.saveBatch(storageInfoFileEntities);
+            if (!b) {
+                throw new ResponseException("存储文件失败");
+            }
+        }
+    }
 }

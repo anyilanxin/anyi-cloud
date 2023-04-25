@@ -110,11 +110,6 @@ allprojects {
         }
         includes(["**/*.java", "**/*.xml"])
     }
-
-    tasks.register('codeStandard') {
-        dependsOn licenseFormat
-        dependsOn spotlessJavaApply
-    }
 }
 
 

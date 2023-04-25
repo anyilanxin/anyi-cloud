@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.corecommon.model.system;
 
@@ -28,7 +34,9 @@ import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.utils.encryption.RSAUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDateTime;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,47 +55,47 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class UserDataSecurityModel extends RSAUtils.RsaKey {
 
-  private static final long serialVersionUID = 307522993673479645L;
+    private static final long serialVersionUID = 307522993673479645L;
 
-  @Schema(name = "validityInSeconds", title = "有效时间(秒)")
-  private long validityInSeconds;
+    @Schema(name = "validityInSeconds", title = "有效时间(秒)")
+    private long validityInSeconds;
 
-  @Schema(name = "expiresAt", title = "有效时间止", type = "string", example = "2020-12-21 12:22:21")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-  private LocalDateTime expiresAt;
+    @Schema(name = "expiresAt", title = "有效时间止", type = "string", example = "2020-12-21 12:22:21")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime expiresAt;
 
-  @Schema(
-      name = "currentRefreshTime",
-      title = "最近一次刷新时间",
-      type = "string",
-      example = "2020-12-21 12:22:21")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
-  private LocalDateTime currentRefreshTime;
+    @Schema(
+            name = "currentRefreshTime",
+            title = "最近一次刷新时间",
+            type = "string",
+            example = "2020-12-21 12:22:21")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
+    private LocalDateTime currentRefreshTime;
 
-  @Schema(name = "detectInSeconds", title = "触发续期检测最小时间(单位:秒)")
-  private long detectInSeconds;
+    @Schema(name = "detectInSeconds", title = "触发续期检测最小时间(单位:秒)")
+    private long detectInSeconds;
 
-  @Schema(name = "renewInSeconds", title = "续期时间(单位:秒)")
-  private long renewInSeconds;
+    @Schema(name = "renewInSeconds", title = "续期时间(单位:秒)")
+    private long renewInSeconds;
 
-  @Schema(name = "serialNumber", title = "请求序列号")
-  private String serialNumber;
+    @Schema(name = "serialNumber", title = "请求序列号")
+    private String serialNumber;
 
-  @Schema(name = "serialNumberKey", title = "请求序列号放入请求头或者query时的key")
-  private String serialNumberKey;
+    @Schema(name = "serialNumberKey", title = "请求序列号放入请求头或者query时的key")
+    private String serialNumberKey;
 
-  @Schema(name = "refreshHeaderKey", title = "请求头刷新密钥信息标识(需要url解码)")
-  private String refreshHeaderKey;
+    @Schema(name = "refreshHeaderKey", title = "请求头刷新密钥信息标识(需要url解码)")
+    private String refreshHeaderKey;
 
-  @Schema(name = "ciphertextKey", title = "密文放入body或query时的key")
-  private String ciphertextKey;
+    @Schema(name = "ciphertextKey", title = "密文放入body或query时的key")
+    private String ciphertextKey;
 
-  @Schema(name = "secretKey", title = "密钥放入body或者query时的key")
-  private String secretKey;
+    @Schema(name = "secretKey", title = "密钥放入body或者query时的key")
+    private String secretKey;
 
-  @Schema(name = "secret", title = "密钥")
-  private String secret;
+    @Schema(name = "secret", title = "密钥")
+    private String secret;
 
-  @Schema(name = "queryOtherKey", title = "get参数额外key")
-  private String queryOtherKey;
+    @Schema(name = "queryOtherKey", title = "get参数额外key")
+    private String queryOtherKey;
 }

@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.process.modules.rbac.controller;
 
@@ -38,9 +44,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -61,66 +69,66 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "RbacTenant", description = "租户相关")
 @RequestMapping(value = "/rbac-tenant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TenantController extends BaseController {
-  private final ITenantService service;
+    private final ITenantService service;
 
-  @Operation(
-      summary = "添加或更新租户",
-      tags = {"v1.0.0"},
-      description = "添加或更新租户")
-  @PostMapping(value = "/insert-or-update")
-  public Result<String> saveOrUpdate(@RequestBody @Valid TenantVo vo) {
-    service.saveOrUpdate(vo);
-    return ok("租户操作成功");
-  }
+    @Operation(
+            summary = "添加或更新租户",
+            tags = {"v1.0.0"},
+            description = "添加或更新租户")
+    @PostMapping(value = "/insert-or-update")
+    public Result<String> saveOrUpdate(@RequestBody @Valid TenantVo vo) {
+        service.saveOrUpdate(vo);
+        return ok("租户操作成功");
+    }
 
-  @Operation(
-      summary = "删除租户",
-      tags = {"v1.0.0"},
-      description = "删除租户")
-  @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
-  @DeleteMapping(value = "/delete-one/{tenantId}")
-  public Result<String> deleteById(
-      @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
-    service.deleteTenant(tenantId);
-    return ok(I18nUtil.get("Controller.DeleteSuccess"));
-  }
+    @Operation(
+            summary = "删除租户",
+            tags = {"v1.0.0"},
+            description = "删除租户")
+    @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
+    @DeleteMapping(value = "/delete-one/{tenantId}")
+    public Result<String> deleteById(
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
+        service.deleteTenant(tenantId);
+        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+    }
 
-  @Operation(
-      summary = "全量同步租户信息",
-      tags = {"v1.0.0"},
-      description = "全量同步租户信息")
-  @PostMapping(value = "/all")
-  public Result<String> syncTenant(@RequestBody @Valid Set<TenantVo> voSet) {
-    service.syncTenant(voSet);
-    return ok("租户信息操作成功");
-  }
+    @Operation(
+            summary = "全量同步租户信息",
+            tags = {"v1.0.0"},
+            description = "全量同步租户信息")
+    @PostMapping(value = "/all")
+    public Result<String> syncTenant(@RequestBody @Valid Set<TenantVo> voSet) {
+        service.syncTenant(voSet);
+        return ok("租户信息操作成功");
+    }
 
-  @Operation(
-      summary = "查询租户详情",
-      tags = {"v1.0.0"},
-      description = "查询租户详情")
-  @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
-  @GetMapping(value = "/select/one/{tenantId}")
-  public Result<TenantDto> getById(
-      @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
-    return ok(service.getTenant(tenantId));
-  }
+    @Operation(
+            summary = "查询租户详情",
+            tags = {"v1.0.0"},
+            description = "查询租户详情")
+    @Parameter(in = ParameterIn.PATH, description = "租户id", name = "tenantId", required = true)
+    @GetMapping(value = "/select/one/{tenantId}")
+    public Result<TenantDto> getById(
+            @PathVariable(required = false) @PathNotBlankOrNull(message = "租户id不能为空") String tenantId) {
+        return ok(service.getTenant(tenantId));
+    }
 
-  @Operation(
-      summary = "查询租户列表",
-      tags = {"v1.0.0"},
-      description = "查询租户列表")
-  @PostMapping(value = "/select/list")
-  public Result<List<TenantDto>> getList(@RequestBody TenantQueryVo vo) {
-    return ok(service.getTenantList(vo));
-  }
+    @Operation(
+            summary = "查询租户列表",
+            tags = {"v1.0.0"},
+            description = "查询租户列表")
+    @PostMapping(value = "/select/list")
+    public Result<List<TenantDto>> getList(@RequestBody TenantQueryVo vo) {
+        return ok(service.getTenantList(vo));
+    }
 
-  @Operation(
-      summary = "分页查询租户",
-      tags = {"v1.0.0"},
-      description = "分页查询租户")
-  @PostMapping(value = "/select/page")
-  public Result<PageDto<TenantDto>> selectPage(@RequestBody TenantQueryPageVoCamunda vo) {
-    return ok(service.getTenantPage(vo));
-  }
+    @Operation(
+            summary = "分页查询租户",
+            tags = {"v1.0.0"},
+            description = "分页查询租户")
+    @PostMapping(value = "/select/page")
+    public Result<PageDto<TenantDto>> selectPage(@RequestBody TenantQueryPageVoCamunda vo) {
+        return ok(service.getTenantPage(vo));
+    }
 }

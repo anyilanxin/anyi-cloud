@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.logging.modules.manage.entity;
 
@@ -30,7 +36,9 @@ import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -50,78 +58,125 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("logging_operate")
 public class OperateEntity extends BaseEntity {
-  private static final long serialVersionUID = -21170709956720345L;
+    private static final long serialVersionUID = -21170709956720345L;
 
-  @TableId private String operateId;
+    @TableId
+    private String operateId;
 
-  /** 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致 */
-  private Integer operateType;
+    /**
+     * 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致
+     */
+    private Integer operateType;
 
-  /** 请求contentType */
-  private String contentType;
+    /**
+     * 请求contentType
+     */
+    private String contentType;
 
-  /** 操作人用户id */
-  private String userId;
+    /**
+     * 操作人用户id
+     */
+    private String userId;
 
-  /** 操作人用户名称 */
-  private String userName;
+    /**
+     * 操作人用户名称
+     */
+    private String userName;
 
-  /** 请求客户端编号 */
-  private String requestClientCode;
+    /**
+     * 请求客户端编号
+     */
+    private String requestClientCode;
 
-  /** 请求客户端名称 */
-  private String requestClientName;
+    /**
+     * 请求客户端名称
+     */
+    private String requestClientName;
 
-  /** 日志编号 */
-  private String logCode;
+    /**
+     * 日志编号
+     */
+    private String logCode;
 
-  /** 请求ip */
-  private String requestIp;
+    /**
+     * 请求ip
+     */
+    private String requestIp;
 
-  /** 目标服务 */
-  private String targetServiceCode;
+    /**
+     * 目标服务
+     */
+    private String targetServiceCode;
 
-  /** 目标地址 */
-  private String targetUrl;
+    /**
+     * 目标地址
+     */
+    private String targetUrl;
 
-  /** 请求路径 */
-  private String requestUrl;
+    /**
+     * 请求路径
+     */
+    private String requestUrl;
 
-  /** 请求方法 */
-  private String requestMethod;
+    /**
+     * 请求方法
+     */
+    private String requestMethod;
 
-  /** 请求参数 */
-  private String requestParam;
+    /**
+     * 请求参数
+     */
+    private String requestParam;
 
-  /** 请求结果 */
-  private String requestResult;
+    /**
+     * 请求结果
+     */
+    private String requestResult;
 
-  /** 日志其余内容 */
-  private String logOtherData;
+    /**
+     * 日志其余内容
+     */
+    private String logOtherData;
 
-  /** 异常消息 */
-  private String exceptionMessage;
+    /**
+     * 异常消息
+     */
+    private String exceptionMessage;
 
-  /** 操作状态：0-失败,1-成功 */
-  private Integer operateStatus;
+    /**
+     * 操作状态：0-失败,1-成功
+     */
+    private Integer operateStatus;
 
-  /** 数据来源 */
-  private String dataSources;
+    /**
+     * 数据来源
+     */
+    private String dataSources;
 
-  /** 数据来源说明 */
-  private String dataSourcesDescribe;
+    /**
+     * 数据来源说明
+     */
+    private String dataSourcesDescribe;
 
-  /** 耗时 */
-  private Long costTime;
+    /**
+     * 耗时
+     */
+    private Long costTime;
 
-  /** 请求开始时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
-  private LocalDateTime requestStartTime;
+    /**
+     * 请求开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    private LocalDateTime requestStartTime;
 
-  /** 请求结束时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
-  private LocalDateTime requestEndTime;
+    /**
+     * 请求结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    private LocalDateTime requestEndTime;
 
-  /** 备注 */
-  private String remark;
+    /**
+     * 备注
+     */
+    private String remark;
 }

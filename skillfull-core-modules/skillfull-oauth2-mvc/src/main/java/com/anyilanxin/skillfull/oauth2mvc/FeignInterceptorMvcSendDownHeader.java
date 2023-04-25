@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.oauth2mvc;
 
@@ -46,24 +52,24 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
 
-  /**
-   * token设置
-   *
-   * @param template ${@link RequestTemplate}
-   * @author zxiaozhou
-   * @date 2019-05-15 17:52
-   */
-  @Override
-  public void apply(RequestTemplate template) {
-    try {
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-      if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-        OAuth2AuthenticationDetails token =
-            (OAuth2AuthenticationDetails) authentication.getDetails();
-        template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
-      }
-    } catch (Exception e) {
-      log.error("------------------设置token下传失败------apply--->{}", e.getMessage());
+    /**
+     * token设置
+     *
+     * @param template ${@link RequestTemplate}
+     * @author zxiaozhou
+     * @date 2019-05-15 17:52
+     */
+    @Override
+    public void apply(RequestTemplate template) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+                OAuth2AuthenticationDetails token =
+                        (OAuth2AuthenticationDetails) authentication.getDetails();
+                template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
+            }
+        } catch (Exception e) {
+            log.error("------------------设置token下传失败------apply--->{}", e.getMessage());
+        }
     }
-  }
 }

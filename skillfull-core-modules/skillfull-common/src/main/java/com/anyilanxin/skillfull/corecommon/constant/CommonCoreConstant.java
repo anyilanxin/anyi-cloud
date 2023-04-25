@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.corecommon.constant;
 
@@ -32,68 +38,108 @@ package com.anyilanxin.skillfull.corecommon.constant;
  * @since JDK11
  */
 public interface CommonCoreConstant {
-  /** 验证动态消息key */
-  String DYNAMIC_VALIDATE_MESSAGE_KEY = "SKILLFULL_VALIDATE_MESSAGE";
+    /**
+     * 验证动态消息key
+     */
+    String DYNAMIC_VALIDATE_MESSAGE_KEY = "SKILLFULL_VALIDATE_MESSAGE";
 
-  String CONST_PREFIX = "corecommon_";
+    String CONST_PREFIX = "corecommon_";
 
-  String SKILLFULL_INNTE_SET_TOKEN = "skillfull_innte_set_token";
+    String SKILLFULL_INNTE_SET_TOKEN = "skillfull_innte_set_token";
 
-  /** http */
-  String HTTP = "http://";
+    /**
+     * http
+     */
+    String HTTP = "http://";
 
-  /** https */
-  String HTTPS = "https://";
+    /**
+     * https
+     */
+    String HTTPS = "https://";
 
-  /** 斜杠 */
-  String SLASH = "/";
+    /**
+     * 斜杠
+     */
+    String SLASH = "/";
 
-  /** 冒号 */
-  String COLON = ":";
+    /**
+     * 冒号
+     */
+    String COLON = ":";
 
-  /** 横杠 */
-  String DASH = "-";
+    /**
+     * 横杠
+     */
+    String DASH = "-";
 
-  /** 空 */
-  String EMPTY = "";
+    /**
+     * 空
+     */
+    String EMPTY = "";
 
-  /** 点 */
-  String POINT = ".";
+    /**
+     * 点
+     */
+    String POINT = ".";
 
-  /** 时区 */
-  String TIME_ZONE_GMT8 = "GMT+8";
+    /**
+     * 时区
+     */
+    String TIME_ZONE_GMT8 = "GMT+8";
 
-  /** 测试缓存key */
-  String TEST_DEMO_CACHE = "skillfull:cache";
+    /**
+     * 测试缓存key
+     */
+    String TEST_DEMO_CACHE = "skillfull:cache";
 
-  /** 开发环境标记 */
-  String DEV = "DEV";
+    /**
+     * 开发环境标记
+     */
+    String DEV = "DEV";
 
-  /** 测试环境标记 */
-  String TEST = "TEST";
+    /**
+     * 测试环境标记
+     */
+    String TEST = "TEST";
 
-  /** 正式环境标记 */
-  String PRO = "PRO";
+    /**
+     * 正式环境标记
+     */
+    String PRO = "PRO";
 
-  /** 雪花终端id */
-  long WORKER_ID = 12L;
+    /**
+     * 雪花终端id
+     */
+    long WORKER_ID = 12L;
 
-  /** 雪花数据中心id */
-  long DATACENTER_ID = 12L;
-  /** 是否允许灰度调度环境变量key */
-  String ENABLE_GRAY_KEY = "spring.cloud.nacos.discovery.metadata.gray-info.enable-gray";
+    /**
+     * 雪花数据中心id
+     */
+    long DATACENTER_ID = 12L;
+    /**
+     * 是否允许灰度调度环境变量key
+     */
+    String ENABLE_GRAY_KEY = "spring.cloud.nacos.discovery.metadata.gray-info.enable-gray";
 
-  /** 灰度信息key */
-  String GRAY_HEADER_KEY = "x-gray-info";
+    /**
+     * 灰度信息key
+     */
+    String GRAY_HEADER_KEY = "x-gray-info";
 
-  /** 线程池前缀 */
-  String TASK_EXECUTOR_PREFIX = "taskExecutor-";
+    /**
+     * 线程池前缀
+     */
+    String TASK_EXECUTOR_PREFIX = "taskExecutor-";
 
-  String SYSTEM_PREFIX = "SKILL_FULL_";
+    String SYSTEM_PREFIX = "SKILL_FULL_";
 
-  /** 跟踪信息 */
-  String X_REQUEST_ID = "x-request-id";
+    /**
+     * 跟踪信息
+     */
+    String X_REQUEST_ID = "x-request-id";
 
-  /** 锁过期时间:单位秒 */
-  long LOCK_EXPIRES = 30;
+    /**
+     * 锁过期时间:单位秒
+     */
+    long LOCK_EXPIRES = 30;
 }

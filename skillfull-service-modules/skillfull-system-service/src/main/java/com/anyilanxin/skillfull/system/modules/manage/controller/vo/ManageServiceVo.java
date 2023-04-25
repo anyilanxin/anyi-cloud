@@ -14,20 +14,28 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.system.modules.manage.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -47,51 +55,51 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageServiceVo implements Serializable {
-  private static final long serialVersionUID = -44771149164191581L;
+    private static final long serialVersionUID = -44771149164191581L;
 
-  @Schema(name = "enableSwagger", title = "聚合swagger:0-不聚合,1-聚合，默认0", required = true)
-  @NotBlankOrNull(message = "聚合swagger:0-不聚合,1-聚合，默认0不能为空")
-  private Integer enableSwagger;
+    @Schema(name = "enableSwagger", title = "聚合swagger:0-不聚合,1-聚合，默认0", required = true)
+    @NotBlankOrNull(message = "聚合swagger:0-不聚合,1-聚合，默认0不能为空")
+    private Integer enableSwagger;
 
-  @Schema(name = "swaggerConfigUrl", title = "swagger配置地址")
-  private String swaggerConfigUrl;
+    @Schema(name = "swaggerConfigUrl", title = "swagger配置地址")
+    private String swaggerConfigUrl;
 
-  @Schema(name = "serviceCode", title = "服务编码", required = true)
-  @NotBlankOrNull(message = "服务名不能为空")
-  private String serviceCode;
+    @Schema(name = "serviceCode", title = "服务编码", required = true)
+    @NotBlankOrNull(message = "服务名不能为空")
+    private String serviceCode;
 
-  @Schema(name = "serviceName", title = "服务名", required = true)
-  @NotBlankOrNull(message = "服务名不能为空")
-  private String serviceName;
+    @Schema(name = "serviceName", title = "服务名", required = true)
+    @NotBlankOrNull(message = "服务名不能为空")
+    private String serviceName;
 
-  @Schema(
-      name = "isLoadBalancer",
-      title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填",
-      required = true)
-  @NotBlankOrNull(message = "服务是否负载均衡不能为空")
-  private Integer isLoadBalancer;
+    @Schema(
+            name = "isLoadBalancer",
+            title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填",
+            required = true)
+    @NotBlankOrNull(message = "服务是否负载均衡不能为空")
+    private Integer isLoadBalancer;
 
-  @Schema(name = "subscribeChange", title = "是否订阅变化:0-不订阅,1-订阅,默认0")
-  private Integer subscribeChange;
+    @Schema(name = "subscribeChange", title = "是否订阅变化:0-不订阅,1-订阅,默认0")
+    private Integer subscribeChange;
 
-  @Schema(name = "noticeChange", title = "是否发送变化通知:0-不通知,1-通知。默认0")
-  private Integer noticeChange;
+    @Schema(name = "noticeChange", title = "是否发送变化通知:0-不通知,1-通知。默认0")
+    private Integer noticeChange;
 
-  @Schema(name = "noticeType", title = "通知类型:0-邮件,1-短信,2-微信消息，当选择监听服务变化并且通知时必填")
-  private Integer noticeType;
+    @Schema(name = "noticeType", title = "通知类型:0-邮件,1-短信,2-微信消息，当选择监听服务变化并且通知时必填")
+    private Integer noticeType;
 
-  @Schema(name = "serviceMetadataJson", title = "服务元数据,数据库json存储,入库前转为字符串")
-  private Map<String, String> serviceMetadataJson;
+    @Schema(name = "serviceMetadataJson", title = "服务元数据,数据库json存储,入库前转为字符串")
+    private Map<String, String> serviceMetadataJson;
 
-  @Schema(name = "serviceState", title = "服务状态:0-禁用,1-启用。默认0")
-  private Integer serviceState;
+    @Schema(name = "serviceState", title = "服务状态:0-禁用,1-启用。默认0")
+    private Integer serviceState;
 
-  @Schema(name = "noticeTemplateId", title = "通知模板id，当选择监听服务变化并且通知时必填")
-  private String noticeTemplateId;
+    @Schema(name = "noticeTemplateId", title = "通知模板id，当选择监听服务变化并且通知时必填")
+    private String noticeTemplateId;
 
-  @Schema(name = "headUserId", title = "负责人用户id，当选择监听服务变化并且通知时必填")
-  private String headUserId;
+    @Schema(name = "headUserId", title = "负责人用户id，当选择监听服务变化并且通知时必填")
+    private String headUserId;
 
-  @Schema(name = "remark", title = "备注")
-  private String remark;
+    @Schema(name = "remark", title = "备注")
+    private String remark;
 }

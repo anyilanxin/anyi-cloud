@@ -14,13 +14,19 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.system.modules.rbac.service.dto;
 
@@ -28,10 +34,12 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -51,57 +59,57 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgRoleDto implements Serializable {
-  private static final long serialVersionUID = -94277471588927143L;
+    private static final long serialVersionUID = -94277471588927143L;
 
-  @Schema(name = "orgRoleId", title = "机构角色id")
-  private String orgRoleId;
+    @Schema(name = "orgRoleId", title = "机构角色id")
+    private String orgRoleId;
 
-  @Schema(name = "roleName", title = "角色名称")
-  private String roleName;
+    @Schema(name = "roleName", title = "角色名称")
+    private String roleName;
 
-  @Schema(
-      name = "dataAuthType",
-      title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
-  private Integer dataAuthType;
+    @Schema(
+            name = "dataAuthType",
+            title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
+    private Integer dataAuthType;
 
-  @Schema(name = "customDataAuthData", title = "自定义类角色数据权限,权限ids json array")
-  private Set<String> customDataAuthData;
+    @Schema(name = "customDataAuthData", title = "自定义类角色数据权限,权限ids json array")
+    private Set<String> customDataAuthData;
 
-  @Schema(name = "roleCode", title = "角色编码")
-  private String roleCode;
+    @Schema(name = "roleCode", title = "角色编码")
+    private String roleCode;
 
-  @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0，挂接机构时自动挂接")
-  private Integer autoBind;
+    @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0，挂接机构时自动挂接")
+    private Integer autoBind;
 
-  @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0")
-  private Integer roleStatus;
+    @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0")
+    private Integer roleStatus;
 
-  @Schema(name = "remark", title = "备注")
-  private String remark;
+    @Schema(name = "remark", title = "备注")
+    private String remark;
 
-  @Schema(name = "createUserId", title = "创建用户id")
-  private String createUserId;
+    @Schema(name = "createUserId", title = "创建用户id")
+    private String createUserId;
 
-  @Schema(name = "createUserName", title = "创建用户姓名")
-  private String createUserName;
+    @Schema(name = "createUserName", title = "创建用户姓名")
+    private String createUserName;
 
-  @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
-  private LocalDateTime createTime;
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    private LocalDateTime createTime;
 
-  @Schema(name = "updateUserId", title = "更新用户id")
-  private String updateUserId;
+    @Schema(name = "updateUserId", title = "更新用户id")
+    private String updateUserId;
 
-  @Schema(name = "updateUserName", title = "更新用户姓名")
-  private String updateUserName;
+    @Schema(name = "updateUserName", title = "更新用户姓名")
+    private String updateUserName;
 
-  @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
-  private LocalDateTime updateTime;
+    @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    private LocalDateTime updateTime;
 
-  @Schema(name = "orgId", title = "机构id")
-  private String orgId;
+    @Schema(name = "orgId", title = "机构id")
+    private String orgId;
 
-  @Schema(name = "menuIds", title = "菜单列表")
-  private List<String> menuIds;
+    @Schema(name = "menuIds", title = "菜单列表")
+    private List<String> menuIds;
 }

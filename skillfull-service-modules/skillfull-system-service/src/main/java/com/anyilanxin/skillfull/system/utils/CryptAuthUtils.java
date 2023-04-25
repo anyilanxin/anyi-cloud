@@ -14,19 +14,27 @@
  * limitations under the License.
  *
  * AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *   1.请不要删除和修改根目录下的LICENSE文件。
- *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明。
- *   3.请保留源码和相关描述文件的项目出处，作者声明等。
- *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud
- *   6.若您的项目无法满足以上几点，可申请商业授权
+ *   1.请不要删除和修改根目录下的LICENSE文件；
+ *   2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+ *   3.请保留源码和相关描述文件的项目出处，作者声明等；
+ *   4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+ *   6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+ *   7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+ *   8.本软件流程部分请遵循camunda开源协议：
+ *     https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+ *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+ *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 
 package com.anyilanxin.skillfull.system.utils;
 
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
+
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
+
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,89 +50,93 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CryptAuthUtils {
-  private static CryptAuthUtils utils;
-  private final PasswordEncoder encoder;
+    private static CryptAuthUtils utils;
+    private final PasswordEncoder encoder;
 
-  /**
-   * 加密明文密码
-   *
-   * @param password ${@link String} 明文密码
-   * @param secretKey ${@link String} 盐
-   * @return String ${@link String}
-   * @author zxiaozhou
-   * @date 2019-05-19 00:05
-   */
-  public static String getEncoderPassword(@NotNull String password, String secretKey) {
-    if (StringUtils.isNotBlank(password)) {
-      password = password.trim();
-    } else {
-      password = "";
+    /**
+     * 加密明文密码
+     *
+     * @param password  ${@link String} 明文密码
+     * @param secretKey ${@link String} 盐
+     * @return String ${@link String}
+     * @author zxiaozhou
+     * @date 2019-05-19 00:05
+     */
+    public static String getEncoderPassword(@NotNull String password, String secretKey) {
+        if (StringUtils.isNotBlank(password)) {
+            password = password.trim();
+        } else {
+            password = "";
+        }
+        if (StringUtils.isNotBlank(secretKey)) {
+            secretKey = secretKey.trim();
+        } else {
+            secretKey = "";
+        }
+        return utils.encoder.encode(password + secretKey);
     }
-    if (StringUtils.isNotBlank(secretKey)) {
-      secretKey = secretKey.trim();
-    } else {
-      secretKey = "";
+
+    /**
+     * 密码匹配
+     *
+     * @param rawPassword     ${@link CharSequence} 原密码
+     * @param encodedPassword ${@link String} 加密后的密码
+     * @author zxiaozhou
+     * @date 2019-05-19 00:41
+     */
+    public static boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return utils.encoder.matches(rawPassword, encodedPassword);
     }
-    return utils.encoder.encode(password + secretKey);
-  }
 
-  /**
-   * 密码匹配
-   *
-   * @param rawPassword ${@link CharSequence} 原密码
-   * @param encodedPassword ${@link String} 加密后的密码
-   * @author zxiaozhou
-   * @date 2019-05-19 00:41
-   */
-  public static boolean matches(CharSequence rawPassword, String encodedPassword) {
-    return utils.encoder.matches(rawPassword, encodedPassword);
-  }
+    /**
+     * 密码匹配
+     *
+     * @param password        ${@link String} 明文密码
+     * @param salt            ${@link String} 密码盐
+     * @param encodedPassword ${@link String} 加密后的密码
+     * @author zxiaozhou
+     * @date 2019-05-19 00:41
+     */
+    public static boolean matches(String password, String salt, String encodedPassword) {
+        CharSequence rawPassword = password + salt;
+        return matches(rawPassword, encodedPassword);
+    }
 
-  /**
-   * 密码匹配
-   *
-   * @param password ${@link String} 明文密码
-   * @param salt ${@link String} 密码盐
-   * @param encodedPassword ${@link String} 加密后的密码
-   * @author zxiaozhou
-   * @date 2019-05-19 00:41
-   */
-  public static boolean matches(String password, String salt, String encodedPassword) {
-    CharSequence rawPassword = password + salt;
-    return matches(rawPassword, encodedPassword);
-  }
+    /**
+     * 通过明文密码获取密码信息
+     *
+     * @param password ${@link String} 明文密码
+     * @return PasswordInfo ${@link PasswordInfo} 密码信息
+     * @author zxiaozhou
+     * @date 2020-11-12 17:35
+     */
+    public static PasswordInfo getPasswordInfo(String password) {
+        String secretKey = CoreCommonUtils.get32UUId();
+        String secretPassword = getEncoderPassword(password, secretKey);
+        PasswordInfo passwordInfo = new PasswordInfo();
+        passwordInfo.setSalt(secretKey);
+        passwordInfo.setEncodedPassword(secretPassword);
+        return passwordInfo;
+    }
 
-  /**
-   * 通过明文密码获取密码信息
-   *
-   * @param password ${@link String} 明文密码
-   * @return PasswordInfo ${@link PasswordInfo} 密码信息
-   * @author zxiaozhou
-   * @date 2020-11-12 17:35
-   */
-  public static PasswordInfo getPasswordInfo(String password) {
-    String secretKey = CoreCommonUtils.get32UUId();
-    String secretPassword = getEncoderPassword(password, secretKey);
-    PasswordInfo passwordInfo = new PasswordInfo();
-    passwordInfo.setSalt(secretKey);
-    passwordInfo.setEncodedPassword(secretPassword);
-    return passwordInfo;
-  }
+    @PostConstruct
+    private void init() {
+        utils = this;
+    }
 
-  @PostConstruct
-  private void init() {
-    utils = this;
-  }
+    @Setter
+    @Getter
+    @ToString
+    @EqualsAndHashCode
+    public static class PasswordInfo {
+        /**
+         * 密码盐
+         */
+        private String salt;
 
-  @Setter
-  @Getter
-  @ToString
-  @EqualsAndHashCode
-  public static class PasswordInfo {
-    /** 密码盐 */
-    private String salt;
-
-    /** 密文密码 */
-    private String encodedPassword;
-  }
+        /**
+         * 密文密码
+         */
+        private String encodedPassword;
+    }
 }

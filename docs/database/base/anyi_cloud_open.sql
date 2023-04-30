@@ -15,8 +15,7 @@
 */
 
 SET NAMES utf8mb4;
-SET
-    FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for act_custom_design_model
@@ -161,7 +160,7 @@ CREATE TABLE `act_custom_process_category`
 
 -- ----------------------------
 -- Table structure for logging_auth_data
--- ----------------------------
+-- ----------------------------s
 DROP TABLE IF EXISTS `logging_auth_data`;
 CREATE TABLE `logging_auth_data`
 (

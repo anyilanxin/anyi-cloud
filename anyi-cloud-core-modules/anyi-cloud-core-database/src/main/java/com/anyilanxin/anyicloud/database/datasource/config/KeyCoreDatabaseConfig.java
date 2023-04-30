@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Primary;
 /**
  * key配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-08-28 10:23
  * @since 1.0.0
  */
@@ -53,7 +53,7 @@ public class KeyCoreDatabaseConfig {
      * 自定义mybatis plus id生成器
      *
      * @return IdentifierGenerator ${@link IdentifierGenerator}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-29 01:34
      */
     @Bean

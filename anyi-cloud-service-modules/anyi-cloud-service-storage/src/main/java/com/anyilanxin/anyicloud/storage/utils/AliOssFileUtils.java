@@ -33,7 +33,9 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.anyilanxin.skillfull.storage.core.config.properties.OssProperty;
+
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,7 @@ import org.springframework.stereotype.Component;
 /**
  * oss工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-26 11:21
  * @since 1.0.0
  */
@@ -61,7 +63,7 @@ public class AliOssFileUtils {
      * 创建OSSClient
      *
      * @return OSSClient ${@link OSSClient}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-26 11:26
      */
     public static OSSClient createOssClient() {
@@ -74,7 +76,7 @@ public class AliOssFileUtils {
      *
      * @param endpoint ${@link String} oss endpoint
      * @return OSSClient ${@link OSSClient}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-26 11:26
      */
     public static OSSClient createOssClient(String endpoint) {

@@ -38,8 +38,10 @@ import com.anyilanxin.anyicloud.corecommon.base.Result;
 import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.SwaggerConfigModel;
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.SpringDocConfiguration;
 import org.springdoc.core.SwaggerUiConfigParameters;
@@ -56,7 +58,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-01-05 02:26
  * @since 1.0.0
  */
@@ -105,7 +107,7 @@ public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
      * 动态获取url
      *
      * @return Set<SwaggerUrl> ${@link Set<SwaggerUrl>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-05 02:39
      */
     private Set<SwaggerUrl> getSwaggerUrl() {

@@ -33,14 +33,16 @@ import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ActionConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 /**
  * 按钮权限检测类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 12:12
  * @since 1.0.0
  */
@@ -84,7 +86,7 @@ public enum ActionType implements ISuperType {
      *
      * @param type ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(String type) {
@@ -103,7 +105,7 @@ public enum ActionType implements ISuperType {
      *
      * @param type ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static ActionType getComplainByType(String type) {
@@ -121,7 +123,7 @@ public enum ActionType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

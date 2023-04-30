@@ -31,7 +31,9 @@ package com.anyilanxin.anyicloud.corecommon.base;
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 响应结果封装
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 16:29
  * @since 1.0.0
  */

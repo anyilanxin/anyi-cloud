@@ -36,7 +36,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * process AutoConfiguration
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-29 10:44
  * @since 1.0.0
  */

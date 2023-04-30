@@ -31,6 +31,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.store.code;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -39,7 +40,7 @@ import org.springframework.security.oauth2.provider.code.RandomValueAuthorizatio
 /**
  * 内存存储code
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 01:11
  * @since 1.0.0
  */

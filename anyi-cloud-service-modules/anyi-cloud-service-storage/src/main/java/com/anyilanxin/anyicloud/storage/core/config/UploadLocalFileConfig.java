@@ -39,7 +39,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 文件本地映射路径配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-23 13:15
  * @since 1.0.0
  */

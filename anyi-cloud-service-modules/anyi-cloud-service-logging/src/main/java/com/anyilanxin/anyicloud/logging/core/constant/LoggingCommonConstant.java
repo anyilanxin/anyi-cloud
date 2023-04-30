@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.logging.core.constant;
 /**
  * 日志服务常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-13 11:04
  * @since 1.0.0
  */

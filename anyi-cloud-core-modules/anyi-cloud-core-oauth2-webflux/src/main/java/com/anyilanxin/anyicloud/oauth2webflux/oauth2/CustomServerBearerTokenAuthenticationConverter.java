@@ -32,6 +32,7 @@ package com.anyilanxin.anyicloud.oauth2webflux.oauth2;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,7 @@ import reactor.core.publisher.Mono;
 /**
  * 自定义token获取
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-08-30 20:01
  * @since 1.0.0

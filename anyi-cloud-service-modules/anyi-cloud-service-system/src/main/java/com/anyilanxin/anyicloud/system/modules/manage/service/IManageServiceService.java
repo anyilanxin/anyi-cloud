@@ -39,13 +39,14 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServiceD
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServicePageDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.SystemStatDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ValidServiceInfoDto;
+
 import java.util.List;
 import java.util.Map;
 
 /**
  * 服务管理(ManageService)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:20
  * @since 1.0.0
@@ -56,7 +57,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      *
      * @param vo ${@link ManageServiceVo} 服务管理保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:20
      */
     void save(ManageServiceVo vo) throws RuntimeException;
@@ -69,7 +70,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * @param serviceId ${@link String} 服务id
      * @param vo        ${@link ManageServiceVo} 服务管理更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:20
      */
     void updateById(String serviceId, ManageServiceVo vo) throws RuntimeException;
@@ -80,7 +81,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      *
      * @return Map<String, ManageSwaggerInfoModel> ${@link Map <String, ManageSwaggerInfoModel >}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-14 03:19
      */
     Map<String, ManageSwaggerInfoModel> selectSwaggerInfo() throws RuntimeException;
@@ -92,7 +93,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * @param vo ${@link ManageServicePageVo} 服务管理分页查询Vo
      * @return PageDto<ManageServicePageDto> ${@link PageDto< ManageServicePageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:20
      */
     PageDto<ManageServicePageDto> pageByModel(ManageServicePageVo vo) throws RuntimeException;
@@ -104,7 +105,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * @param serviceId ${@link String} 服务id
      * @return ManageServiceDto ${@link ManageServiceDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:20
      */
     ManageServiceDto getById(String serviceId) throws RuntimeException;
@@ -115,7 +116,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      *
      * @param serviceId ${@link String} 服务id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:20
      */
     void deleteById(String serviceId) throws RuntimeException;
@@ -126,7 +127,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      *
      * @return SystemStatDto ${@link SystemStatDto}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2021-01-27 16:55
      */
     SystemStatDto systemStat() throws RuntimeException;
@@ -136,7 +137,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * 获取有效的服务列表
      *
      * @return List<ValidServiceInfoDto> ${@link List< ValidServiceInfoDto >}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-23 23:05
      */
     List<ValidServiceInfoDto> getValidServiceInfo();

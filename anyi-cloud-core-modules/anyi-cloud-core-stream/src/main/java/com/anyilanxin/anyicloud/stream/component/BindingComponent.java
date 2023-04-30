@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
 /**
  * stream工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-29 17:11
  * @since 1.0.0
  */
@@ -59,7 +59,7 @@ public class BindingComponent {
      * @param bindingName ${@link String} bind名称
      * @param t           ${@link Object} 数据
      * @param ttl         ${@link Long} 过期时间,单位:s
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-29 17:52
      */
     public <T> void out(String bindingName, T t, long ttl) {
@@ -78,7 +78,7 @@ public class BindingComponent {
      *
      * @param bindingName ${@link String} bind名称
      * @param t           ${@link Object} 数据
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-08-30 15:32
      */
     public <T> void out(String bindingName, T t) {

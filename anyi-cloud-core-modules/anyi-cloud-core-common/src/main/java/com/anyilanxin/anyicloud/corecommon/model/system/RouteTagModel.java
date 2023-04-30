@@ -30,7 +30,9 @@
 package com.anyilanxin.anyicloud.corecommon.model.system;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 /**
  * 路由meta
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-06-04 00:17
  * @since 1.0.0
  */

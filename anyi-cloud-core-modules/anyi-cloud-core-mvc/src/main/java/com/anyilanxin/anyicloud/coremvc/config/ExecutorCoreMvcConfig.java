@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.coremvc.config;
 
 import com.anyilanxin.anyicloud.coremvc.constant.CommonCoreMvcConstant;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +45,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 /**
  * 线程配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-08-28 10:23
  * @since 1.0.0
  */
@@ -53,7 +55,7 @@ public class ExecutorCoreMvcConfig {
      * 线程池配置
      *
      * @return Executor ${@link Executor}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 14:38
      */
     @Bean
@@ -80,7 +82,7 @@ public class ExecutorCoreMvcConfig {
     /**
      * 线程池上下文传递
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 14:37
      * @since 1.0.0
      */

@@ -43,7 +43,7 @@ import org.springframework.util.AntPathMatcher;
 /**
  * 网关过滤器配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-06-17 11:58
  * @since 1.0.0
  */

@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 区域表(CommonArea)QueryVo与Entity相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2020-11-02 09:25:08
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

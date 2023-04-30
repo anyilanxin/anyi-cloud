@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.Annou
 import com.anyilanxin.anyicloud.message.modules.announcement.entity.AnnouncementRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.dto.AnnouncementRecordDto;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.dto.AnnouncementRecordPageDto;
+
 import java.util.List;
 
 /**
  * 系统通知公告阅读记录(AnnouncementRecord)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 08:35:34
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      *
      * @param vo ${@link AnnouncementRecordVo} 系统通知公告阅读记录保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     void save(AnnouncementRecordVo vo) throws RuntimeException;
@@ -66,7 +67,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @param anntReadId ${@link String} 通知公告阅读记录id
      * @param vo         ${@link AnnouncementRecordVo} 系统通知公告阅读记录更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     void updateById(String anntReadId, AnnouncementRecordVo vo) throws RuntimeException;
@@ -79,7 +80,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @return PageDto<AnnouncementRecordPageDto> ${@link PageDto<  AnnouncementRecordPageDto  >}
      * 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo) throws RuntimeException;
@@ -91,7 +92,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @param vo ${@link AnnouncementRecordQueryVo} 系统通知公告阅读记录条件查询Vo
      * @return List<AnnouncementRecordDto> ${@link List<  AnnouncementRecordDto  >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo) throws RuntimeException;
@@ -103,7 +104,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @param anntReadId ${@link String} 通知公告阅读记录id
      * @return AnnouncementRecordDto ${@link AnnouncementRecordDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     AnnouncementRecordDto getById(String anntReadId) throws RuntimeException;
@@ -114,7 +115,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      *
      * @param anntReadId ${@link String} 通知公告阅读记录id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     void deleteById(String anntReadId) throws RuntimeException;
@@ -125,7 +126,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      *
      * @param anntReadIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:35:34
      */
     void deleteBatch(List<String> anntReadIds) throws RuntimeException;

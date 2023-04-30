@@ -35,14 +35,16 @@ import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 组织表(RbacOrg)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:45
  * @since 1.0.0
@@ -55,7 +57,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      * @param vo   查询条件
      * @param page 分页信息
      * @return IPage<RbacOrgPageDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     IPage<RbacOrgTreePageDto> pageByModel(Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
@@ -66,7 +68,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      *
      * @param orgId 组织id
      * @return int 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     int physicalDeleteById(@Param("id") String orgId);
@@ -77,7 +79,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      *
      * @param idList 组织id列表
      * @return int 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

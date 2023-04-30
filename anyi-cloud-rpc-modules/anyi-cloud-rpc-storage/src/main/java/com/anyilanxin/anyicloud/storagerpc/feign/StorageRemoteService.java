@@ -36,8 +36,10 @@ import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
 import io.swagger.v3.oas.annotations.Operation;
+
 import java.util.List;
 import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +50,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 存储服务feign
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 16:54
  * @since 1.0.0
  */

@@ -42,7 +42,7 @@ import org.springframework.security.oauth2.server.resource.BearerTokenAuthentica
 import reactor.core.publisher.Mono;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-19 20:53
  * @since 1.0.0
  */

@@ -59,8 +59,10 @@ import com.anyilanxin.anyicloud.process.modules.manage.service.mapstruct.Process
 import com.anyilanxin.anyicloud.process.utils.Base64FileUtils;
 import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import java.io.InputStream;
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -78,7 +80,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 流程定义管理实现
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-14 20:59
  * @since 1.0.0
  */
@@ -481,7 +483,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
      * 通过部署id查询部署信息
      *
      * @param deploymentId ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-15 09:45
      */
     private DeploymentEntity queryDeploymentById(String deploymentId) {

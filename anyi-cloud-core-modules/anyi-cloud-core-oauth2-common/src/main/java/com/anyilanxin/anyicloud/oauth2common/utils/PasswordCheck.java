@@ -37,7 +37,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * 密码校验与生成
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-02 10:54
  * @since 1.0.0
  */
@@ -68,7 +68,7 @@ public class PasswordCheck {
      * @param rawPassword     未编码密码
      * @param salt            密码盐
      * @param encodedPassword 编码后密码
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 11:06
      */
     public boolean matches(CharSequence rawPassword, String salt, String encodedPassword) {
@@ -81,7 +81,7 @@ public class PasswordCheck {
      *
      * @param rawPassword     未编码密码
      * @param encodedPassword 编码后密码
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 11:06
      */
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
@@ -94,7 +94,7 @@ public class PasswordCheck {
      *
      * @param rawPassword 为编码密码
      * @return PasswordInfo 编码后密码信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 11:14
      */
     public PasswordInfo getPasswordInfo(CharSequence rawPassword) {
@@ -109,7 +109,7 @@ public class PasswordCheck {
      *
      * @param rawPassword 为编码密码
      * @return PasswordInfo 编码后密码信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 11:14
      */
     public String getEncodePassword(CharSequence rawPassword) {

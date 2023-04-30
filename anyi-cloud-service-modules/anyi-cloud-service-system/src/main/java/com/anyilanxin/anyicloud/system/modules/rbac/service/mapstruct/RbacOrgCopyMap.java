@@ -40,7 +40,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 实体相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @since 2022-05-02 16:39:45
  */

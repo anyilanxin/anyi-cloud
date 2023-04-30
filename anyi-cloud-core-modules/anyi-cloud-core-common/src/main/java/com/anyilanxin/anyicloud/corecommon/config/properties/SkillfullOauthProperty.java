@@ -40,7 +40,7 @@ import org.springframework.stereotype.Component;
 /**
  * skillfull oauth2配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-10 02:44
  * @since 1.0.0
  */

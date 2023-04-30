@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.process.modules.base.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 流程类别添加或修改Request
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-19 10:47:01
  * @since 1.0.0
  */

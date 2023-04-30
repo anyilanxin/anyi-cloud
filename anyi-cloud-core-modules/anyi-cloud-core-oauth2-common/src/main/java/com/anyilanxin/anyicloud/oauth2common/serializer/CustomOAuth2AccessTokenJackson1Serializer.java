@@ -36,16 +36,18 @@ import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullAccessToken;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.util.Assert;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 05:43
  * @since 1.0.0
  */

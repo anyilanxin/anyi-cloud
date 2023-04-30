@@ -36,7 +36,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 验证码验证model
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-29 11:07
  * @since 1.0.0
  */

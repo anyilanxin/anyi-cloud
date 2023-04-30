@@ -31,9 +31,11 @@ package com.anyilanxin.anyicloud.corecommon.feign.strategy.header;
 
 import com.anyilanxin.anyicloud.corecommon.constant.SysBaseConstant;
 import feign.RequestTemplate;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,7 @@ import org.springframework.stereotype.Component;
 /**
  * token设置策略上下文
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-02-03 21:33
  * @since 1.0.0
  */

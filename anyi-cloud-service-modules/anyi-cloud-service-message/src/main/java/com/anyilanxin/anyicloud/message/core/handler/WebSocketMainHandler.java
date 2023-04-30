@@ -30,7 +30,7 @@
 package com.anyilanxin.anyicloud.message.core.handler;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-11 00:44
  * @since 1.0.0
  */
@@ -52,9 +52,11 @@ import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.UpOrDownModel;
 import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -161,7 +163,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
      *
      * @param session
      * @param type    0-下线，1-上线
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-27 15:01
      */
     private void upOrDownNotice(WebSocketSession session, int type) {
@@ -183,7 +185,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
      * 检测登录状态
      *
      * @param session
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-26 03:02
      */
     private boolean checkLogin(WebSocketSession session) throws IOException {
@@ -210,7 +212,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
      *
      * @param session
      * @return Principal
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-26 03:02
      */
     private Principal checkLoginReturnUser(WebSocketSession session) throws IOException {

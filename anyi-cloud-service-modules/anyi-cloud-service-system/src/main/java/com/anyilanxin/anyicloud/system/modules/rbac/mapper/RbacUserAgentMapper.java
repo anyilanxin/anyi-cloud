@@ -37,15 +37,17 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentDto
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 用户-代理人表(RbacUserAgent)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0
@@ -58,7 +60,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      * @param vo   查询条件
      * @param page 分页信息
      * @return IPage<RbacUserAgentPageDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     IPage<RbacUserAgentPageDto> pageByModel(Page<RbacUserAgentPageDto> page, @Param("query") RbacUserAgentPageVo vo);
@@ -69,7 +71,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      *
      * @param vo 查询条件
      * @return List<RbacUserAgentDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo);
@@ -80,7 +82,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      *
      * @param agentId 代理id
      * @return int 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     int physicalDeleteById(@Param("id") String agentId);
@@ -91,7 +93,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      *
      * @param idList 代理id列表
      * @return int 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

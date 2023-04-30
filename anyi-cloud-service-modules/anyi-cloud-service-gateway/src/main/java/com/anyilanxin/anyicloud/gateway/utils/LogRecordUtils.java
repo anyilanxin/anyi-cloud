@@ -41,6 +41,7 @@ import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.utils.LogUtils;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
+
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -49,6 +50,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
@@ -80,7 +82,7 @@ import reactor.core.publisher.Mono;
 /**
  * 鉴权工具
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-28 22:44
  * @since 1.0.0
  */
@@ -94,7 +96,7 @@ public class LogRecordUtils {
      * @param chain          ${@link GatewayFilterChain}
      * @param messageReaders ${@link List<HttpMessageReader<?>>}
      * @return Mono<Void> ${@link Mono<Void>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-29 14:54
      */
     public static Mono<Void> getRequestInfo(ServerWebExchange exchange, GatewayFilterChain chain, List<HttpMessageReader<?>> messageReaders) {
@@ -169,7 +171,7 @@ public class LogRecordUtils {
      *
      * @param exchange ${@link ServerWebExchange}
      * @return ServerHttpResponseDecorator ${@link ServerHttpResponseDecorator}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-14 22:22
      */
     public static ServerHttpResponseDecorator getResponseInfo(ServerWebExchange exchange) {
@@ -216,7 +218,7 @@ public class LogRecordUtils {
      * 判断是否为数据而不是流
      *
      * @param request
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-22 10:17
      */
     public static boolean isData(ServerHttpRequest request) {

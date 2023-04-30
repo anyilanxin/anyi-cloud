@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.oauth2mvc.utils;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
+
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,7 @@ import org.springframework.stereotype.Component;
 /**
  * 上下文持有者
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-07 09:07
  * @since 1.0.0
  */

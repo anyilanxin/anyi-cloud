@@ -35,8 +35,10 @@ import com.anyilanxin.anyicloud.corecommon.feign.FeignFallback;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.processrpc.model.*;
 import com.anyilanxin.skillfull.processrpc.model.*;
+
 import java.util.Set;
 import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +48,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 流程服务feign
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-21 01:55
  * @since 1.0.0
  */
@@ -58,7 +60,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param tenantId ${@link String}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:13
      */
     @DeleteMapping(value = "/rbac-tenant/delete-one/{tenantId}")
@@ -70,7 +72,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param vo ${@link GroupRequestModel}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:13
      */
     @PostMapping(value = "/rbac-group/insert-or-update")
@@ -82,7 +84,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param groupId ${@link String}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:13
      */
     @DeleteMapping(value = "/rbac-group/delete-one/{groupId}")
@@ -94,7 +96,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param voSet ${@link Set<  SyncGroupRequestModel  >}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:14
      */
     @PostMapping(value = "/rbac-group/all")
@@ -106,7 +108,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param vo ${@link UserRequestModel}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:13
      */
     @PostMapping(value = "/rbac-user/insert-or-update")
@@ -118,7 +120,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param userId ${@link String}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:14
      */
     @DeleteMapping(value = "/rbac-user/delete-one/{userId}")
@@ -130,7 +132,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param vo ${@link UserGroupRequestModel}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 17:25
      */
     @PostMapping(value = "/rbac-user/delete-or-group")
@@ -142,7 +144,7 @@ public interface ProcessSyncRbacRemoteService {
      *
      * @param voSet ${@link Set<  SyncUserRequestModel  >}
      * @return Result<String> ${@link Result<String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:14
      */
     @PostMapping(value = "/rbac-user/all")

@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.coremvc.constant;
 /**
  * 全局公共常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-07-23 19:57
  * @since 1.0.0
  */

@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.coreredis.constant;
 /**
  * redis订阅常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-29 17:04
  * @since 1.0.0
  */

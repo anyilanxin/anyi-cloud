@@ -32,15 +32,17 @@ package com.anyilanxin.anyicloud.corecommon.constant.impl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.Getter;
 
 /**
  * 鉴权类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 12:12
  * @since 1.0.0
  */
@@ -84,7 +86,7 @@ public enum AuthType implements ISuperType {
      *
      * @param type 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(Integer type) {
@@ -106,7 +108,7 @@ public enum AuthType implements ISuperType {
      *
      * @param type 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static AuthType getComplainByType(Integer type) {
@@ -127,7 +129,7 @@ public enum AuthType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

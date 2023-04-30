@@ -36,7 +36,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 /**
  * core mvc servlet util
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-07 09:24
  * @since 1.0.0
  */
@@ -48,7 +48,7 @@ public class ServletUtils {
      * 本地线程保存ServerHttpRequest
      *
      * @param request ${@link ServerHttpRequest}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-04 10:32
      */
     public static void setServerHttpRequest(ServerHttpRequest request) {
@@ -60,7 +60,7 @@ public class ServletUtils {
      * 本地线程获取ServerHttpRequest同时删除
      *
      * @return ServerHttpRequest ${@link ServerHttpRequest}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-04 10:32
      */
     public static ServerHttpRequest getServerHttpRequest(boolean remove) {
@@ -76,7 +76,7 @@ public class ServletUtils {
      * 本地线程获取ServerHttpRequest不删除
      *
      * @return ServerHttpRequest ${@link ServerHttpRequest}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-04 10:32
      */
     public static ServerHttpRequest getServerHttpRequest() {
@@ -87,7 +87,7 @@ public class ServletUtils {
     /**
      * 本地线程变量删除数据
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-04 10:32
      */
     public static void removeServerHttpRequest() {
@@ -100,7 +100,7 @@ public class ServletUtils {
      *
      * @param request
      * @return String
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-13 21:54
      */
     public static String getIpAddr(ServerHttpRequest request) {

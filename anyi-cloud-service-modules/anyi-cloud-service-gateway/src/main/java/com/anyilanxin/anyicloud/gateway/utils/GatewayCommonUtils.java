@@ -40,6 +40,7 @@ import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialU
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import io.netty.buffer.UnpooledByteBufAllocator;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -47,6 +48,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +67,7 @@ import reactor.core.publisher.Mono;
 /**
  * 网关公共工具
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-06 12:54
  * @since 1.0.0
  */
@@ -116,7 +118,7 @@ public class GatewayCommonUtils {
      * @param exchange   ${@link ServerWebExchange} 请求信息
      * @param specialUrl ${@link RouteMetaSpecialUrlModel} 配置信息
      * @return CheckUrlInfo 检测结果 ${@link CheckUrlInfo}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-28 23:15
      */
     public static CheckUrlInfo isHaveUrl(ServerWebExchange exchange, RouteMetaSpecialUrlModel specialUrl) {
@@ -138,7 +140,7 @@ public class GatewayCommonUtils {
      * @param exchange     ${@link ServerWebExchange} 请求信息
      * @param checkUrlList ${@link Set<SpecialUrlModel>} 待检验url信息
      * @return boolean 检测结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-28 22:50
      */
     public static boolean isHaveUrl(ServerWebExchange exchange, Set<SpecialUrlModel> checkUrlList) {

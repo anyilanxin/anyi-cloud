@@ -31,15 +31,17 @@ package com.anyilanxin.anyicloud.process.modules.manage.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 流程图用户任务信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-01-03 10:58
  * @since 1.0.0
  */

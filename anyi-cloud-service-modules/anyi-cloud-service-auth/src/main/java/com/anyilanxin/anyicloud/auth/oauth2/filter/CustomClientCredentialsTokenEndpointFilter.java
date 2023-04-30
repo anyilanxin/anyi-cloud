@@ -31,6 +31,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,7 +44,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 /**
  * 自定义客户端token过滤器以便自定义处理异常响应
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 23:10
  * @since 1.0.0
  */

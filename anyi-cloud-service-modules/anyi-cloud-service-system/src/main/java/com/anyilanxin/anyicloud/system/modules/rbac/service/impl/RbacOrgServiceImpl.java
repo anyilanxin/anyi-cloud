@@ -54,8 +54,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 组织表(RbacOrg)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:45
  * @since 1.0.0
@@ -101,7 +103,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      *
      * @param orgId
      * @param vo
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-07 00:27
      */
     public void saveAuth(String orgId, RbacOrgVo vo) {
@@ -115,7 +117,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      *
      * @param newParentId 现在上级id
      * @return String
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-03-08 12:00
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
@@ -144,7 +146,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      * 入库前数据校验以及生产系统机构编码
      *
      * @param entity 待入库数据
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-30 23:53
      */
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -370,7 +372,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      *
      * @param orgIdsList 父级机构id列表
      * @return Map<String, Boolean> 结果，键为parentId
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 18:38
      */
     private Map<String, Boolean> checkHaveChildren(List<String> orgIdsList) {

@@ -39,7 +39,7 @@ import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 /**
  * 流程定义管理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-14 20:48
  * @since 1.0.0
  */
@@ -50,7 +50,7 @@ public interface IDefinitionManageService {
      * @param pageVo ${@link ProcessDefinitionPageVo} 查询条件
      * @return PageDto<ProcessDefinitionPageDto> ${@link PageDto< ProcessDefinitionPageDto >}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-14 20:59
      */
     PageDto<ProcessDefinitionPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException;
@@ -61,7 +61,7 @@ public interface IDefinitionManageService {
      *
      * @param vo ${@link DeploymentVo}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-15 08:45
      */
     void createDeployment(DeploymentVo vo) throws RuntimeException;
@@ -72,7 +72,7 @@ public interface IDefinitionManageService {
      *
      * @param vo ${@link UpdateProcessDefinitionStateVo} 流程定义操作信息
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-20 09:33
      */
     void processDefinitionUpdateState(UpdateProcessDefinitionStateVo vo) throws RuntimeException;
@@ -83,7 +83,7 @@ public interface IDefinitionManageService {
      *
      * @param vo ${@link DeleteProcessDefinitionVo} 删除参数
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-15 08:45
      */
     void deleteProcessDefinition(DeleteProcessDefinitionVo vo) throws RuntimeException;
@@ -94,7 +94,7 @@ public interface IDefinitionManageService {
      *
      * @param deploymentId ${@link String} 部署id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-15 08:45
      */
     void deleteDeployment(String deploymentId) throws RuntimeException;
@@ -105,7 +105,7 @@ public interface IDefinitionManageService {
      *
      * @param processKeywordId 流程定义id或流程定义key
      * @return DeploymentResourceDto ${@link DeploymentDetailDto}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-15 09:44
      */
     DeploymentDetailDto getDeploymentDetail(String processKeywordId);
@@ -115,7 +115,7 @@ public interface IDefinitionManageService {
      * 历史再次部署
      *
      * @param vo ${@link DeploymentHistoryVo}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-26 20:59
      */
     void historyDeployment(DeploymentHistoryVo vo);
@@ -126,7 +126,7 @@ public interface IDefinitionManageService {
      *
      * @param vo ${@link ProcessInfoVo}
      * @return ProcessInfoDto ${@link ProcessInfoDto}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-03 11:20
      */
     ProcessInfoDto getProcessInfo(ProcessInfoVo vo);

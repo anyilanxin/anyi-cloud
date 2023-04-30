@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.message.modules.websocket.model;
 /**
  * stream聊天消息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-29 17:02
  * @since 1.0.0
  */

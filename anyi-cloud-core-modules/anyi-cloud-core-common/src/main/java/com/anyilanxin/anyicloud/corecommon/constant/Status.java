@@ -37,7 +37,7 @@ import org.springframework.http.HttpStatus;
 /**
  * 通用状态码
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 16:35
  * @since 1.0.0
  */

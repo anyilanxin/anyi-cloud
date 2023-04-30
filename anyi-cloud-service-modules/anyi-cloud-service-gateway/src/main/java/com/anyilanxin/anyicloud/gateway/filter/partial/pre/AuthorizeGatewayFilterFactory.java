@@ -40,9 +40,11 @@ import com.anyilanxin.anyicloud.gateway.core.config.properties.CustomSecurityPro
 import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.constant.OAuth2RequestExtendConstant;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -68,7 +70,7 @@ import reactor.core.publisher.Mono;
 /**
  * 鉴权过滤器
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 22:34
  * @since 1.0.0
  */
@@ -188,7 +190,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
          *
          * @param antPathMatcher
          * @param properties
-         * @author 安一老厨
+         * @author zxh
          * @date 2022-07-28 07:57
          */
         private static boolean isWhiteList(AntPathMatcher antPathMatcher, CustomSecurityProperties properties, ServerWebExchange exchange) {

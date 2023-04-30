@@ -30,13 +30,14 @@
 package com.anyilanxin.anyicloud.auth.oauth2.provider.token;
 
 import java.util.Collection;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
  * 图片验证码token
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 00:11
  * @since 1.0.0
  */

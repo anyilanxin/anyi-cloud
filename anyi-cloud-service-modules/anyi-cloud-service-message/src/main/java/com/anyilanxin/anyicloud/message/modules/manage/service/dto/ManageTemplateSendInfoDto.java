@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.message.modules.manage.service.dto;
 
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 发送消息所需要信息
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:42
  * @since 1.0.0

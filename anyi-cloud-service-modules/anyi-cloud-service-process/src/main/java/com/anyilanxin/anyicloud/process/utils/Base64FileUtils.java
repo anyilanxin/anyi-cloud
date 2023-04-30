@@ -33,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -40,7 +41,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * base64与文件处理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-15 23:42
  * @since 1.0.0
  */
@@ -51,7 +52,7 @@ public class Base64FileUtils {
      *
      * @param base64 ${@link String}
      * @return InputStream ${@link InputStream}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-17 22:24
      */
     public static InputStream base64ToInputStream(String base64) {
@@ -65,7 +66,7 @@ public class Base64FileUtils {
      *
      * @param str ${@link String}
      * @return InputStream ${@link InputStream}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-17 22:24
      */
     public static String strToBase64Str(String str) {
@@ -78,7 +79,7 @@ public class Base64FileUtils {
      *
      * @param inputStream ${@link InputStream}
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-17 22:30
      */
     public static String inputStreamToBase64(InputStream inputStream) {

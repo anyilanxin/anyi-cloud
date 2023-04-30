@@ -39,7 +39,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 /**
  * 授权码模式
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-12 20:42
  * @since 1.0.0
  */

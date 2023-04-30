@@ -39,6 +39,7 @@ import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -46,6 +47,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -54,7 +56,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-11 00:46
  * @since 1.0.0
  */
@@ -122,7 +124,7 @@ public class WsUtils {
      *
      * @param session
      * @return String
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-27 15:28
      */
     private static String getSessionId(WebSocketSession session) {
@@ -222,7 +224,7 @@ public class WsUtils {
      *
      * @param session
      * @param msgModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-27 16:07
      */
     public static void sendMsg(WebSocketSession session, SocketMsgModel msgModel) {
@@ -241,7 +243,7 @@ public class WsUtils {
      *
      * @param session
      * @return Principal
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-26 03:02
      */
     public static UserInfo getUserInfo(WebSocketSession session) {

@@ -31,7 +31,9 @@ package com.anyilanxin.anyicloud.message.core.config;
 
 import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.stream.constant.BindingStreamConstant;
+
 import java.util.function.Consumer;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * stream配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-29 16:59
  * @since 1.0.0
  */
@@ -53,7 +55,7 @@ public class BindingStreamConfig {
     /**
      * 处理socket广播
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-05-29 17:01
      */
     @Bean(value = BindingStreamConstant.SOCKET_PROCESS)

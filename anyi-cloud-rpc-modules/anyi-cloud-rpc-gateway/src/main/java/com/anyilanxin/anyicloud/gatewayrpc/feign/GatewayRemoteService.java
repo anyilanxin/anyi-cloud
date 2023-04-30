@@ -37,15 +37,17 @@ import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel
 import com.anyilanxin.anyicloud.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
+
 import java.util.List;
 import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * 网关服务feign
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 16:54
  * @since 1.0.0
  */
@@ -56,7 +58,7 @@ public interface GatewayRemoteService {
      * 查询网关路由
      *
      * @return Result<List < GatewayServiceRouteDto>> ${@link Result<List<  RouteResponseModel  >>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @GetMapping("/route/select/list")
@@ -67,7 +69,7 @@ public interface GatewayRemoteService {
      * 查询网关原始路由路由
      *
      * @return Result<List < JSONObject>> ${@link Result<List<JSONObject>>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @GetMapping("/route/select/list-original")
@@ -78,7 +80,7 @@ public interface GatewayRemoteService {
      * 添加路由
      *
      * @return Result<String> ${@link Result<String>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @PostMapping("/route/add")
@@ -89,7 +91,7 @@ public interface GatewayRemoteService {
      * 更新路由
      *
      * @return Result<String> ${@link Result<String>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @PostMapping("/route/update")
@@ -101,7 +103,7 @@ public interface GatewayRemoteService {
      *
      * @param routeCode ${@link String} 路由编码
      * @return Result<String> ${@link Result<String>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @DeleteMapping("/route/delete/{routeCode}")
@@ -112,7 +114,7 @@ public interface GatewayRemoteService {
      * 获取请求安全基础信息(需要路由设置使用加密传输)
      *
      * @return Result<WebSecurityModel> ${@link Result< WebSecurityModel >} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @GetMapping("/tools/select/base-security")
@@ -123,7 +125,7 @@ public interface GatewayRemoteService {
      * 获取请求安全基础信息手动刷新(需要路由设置使用加密传输)
      *
      * @return Result<WebSecurityModel> ${@link Result< WebSecurityModel >} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-15 17:03
      */
     @GetMapping("/tools/select/base-security/refresh/{serialNumber}")

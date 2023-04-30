@@ -33,9 +33,11 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
@@ -43,7 +45,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 角色表查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-08 13:44:02
  * @since 1.0.0
  */

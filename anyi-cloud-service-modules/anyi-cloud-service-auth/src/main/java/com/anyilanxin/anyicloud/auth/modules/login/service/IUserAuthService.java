@@ -35,7 +35,7 @@ import com.anyilanxin.anyicloud.corecommon.model.system.UserAndResourceAuthModel
 /**
  * 用户中心
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-02 09:17
  * @since 1.0.0
  */
@@ -46,7 +46,7 @@ public interface IUserAuthService {
      *
      * @param openId
      * @return UserAndResourceAuthModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-12 13:39
      */
     UserAndResourceAuthModel getUserByOpenId(String openId);
@@ -57,7 +57,7 @@ public interface IUserAuthService {
      *
      * @param userName
      * @return UserAndResourceAuthModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-12 13:40
      */
     UserAndResourceAuthModel getUserByAccountPhone(String userName);
@@ -68,7 +68,7 @@ public interface IUserAuthService {
      *
      * @param phone
      * @return UserAndResourceAuthModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-12 13:40
      */
     UserAndResourceAuthModel getUserByPhone(String phone);
@@ -81,7 +81,7 @@ public interface IUserAuthService {
      * @param orgId
      * @param havePassword
      * @return UserAndResourceAuthModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 20:07
      */
     UserAndResourceAuthModel getUserInfo(RbacUserDto entity, String orgId, boolean havePassword);

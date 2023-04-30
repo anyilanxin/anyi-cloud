@@ -31,11 +31,13 @@ package com.anyilanxin.anyicloud.corecommon.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,7 +53,7 @@ import org.springframework.http.HttpHeaders;
 /**
  * 灰度处理工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-01-06 19:44
  * @since 1.0.0
  */
@@ -65,7 +67,7 @@ public class GrayUtil {
      * @param instances ${@link List<ServiceInstance>}
      * @param request   ${@link Request}
      * @return GrayModel ${@link GrayModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-06 19:47
      */
     public static GrayModel getInstance(List<ServiceInstance> instances, Request<?> request) {

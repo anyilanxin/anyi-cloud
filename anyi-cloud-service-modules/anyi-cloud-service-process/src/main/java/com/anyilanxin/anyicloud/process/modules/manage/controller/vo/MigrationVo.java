@@ -30,10 +30,12 @@
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,7 +45,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 流程定义迁移
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-26 11:22
  * @since 1.0.0
  */

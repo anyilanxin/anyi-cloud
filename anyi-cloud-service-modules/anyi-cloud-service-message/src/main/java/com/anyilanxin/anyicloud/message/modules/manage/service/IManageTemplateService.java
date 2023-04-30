@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEnti
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
+
 import java.util.List;
 
 /**
  * 消息模板(ManageTemplate)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:43
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      *
      * @param vo ${@link ManageTemplateVo} 消息模板保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     void save(ManageTemplateVo vo) throws RuntimeException;
@@ -66,7 +67,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @param templateId ${@link String} 模板id
      * @param vo         ${@link ManageTemplateVo} 消息模板更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     void updateById(String templateId, ManageTemplateVo vo) throws RuntimeException;
@@ -78,7 +79,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @param vo ${@link ManageTemplatePageVo} 消息模板分页查询Vo
      * @return PageDto<ManageTemplatePageDto> ${@link PageDto<  ManageTemplatePageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo) throws RuntimeException;
@@ -90,7 +91,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @param templateId ${@link String} 模板id
      * @return ManageTemplateDto ${@link ManageTemplateDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     ManageTemplateDto getById(String templateId) throws RuntimeException;
@@ -101,7 +102,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      *
      * @param templateId ${@link String} 模板id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     void deleteById(String templateId) throws RuntimeException;
@@ -112,7 +113,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      *
      * @param templateIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:43
      */
     void deleteBatch(List<String> templateIds) throws RuntimeException;
@@ -123,7 +124,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      *
      * @param templateCode
      * @return ManageTemplateSendInfoDto
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-30 10:17
      */
     ManageTemplateSendInfoDto getSendInfo(String templateCode);

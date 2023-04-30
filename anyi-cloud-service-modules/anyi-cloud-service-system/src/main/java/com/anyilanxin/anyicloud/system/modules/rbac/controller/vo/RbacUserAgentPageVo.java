@@ -34,14 +34,16 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.anyicloud.database.datasource.base.controller.vo.BasePageVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDateTime;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 用户-代理人表分页查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0

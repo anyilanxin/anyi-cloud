@@ -34,14 +34,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 路由断言(ManageRoutePredicate)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-04-09 12:02:48
  * @since 1.0.0

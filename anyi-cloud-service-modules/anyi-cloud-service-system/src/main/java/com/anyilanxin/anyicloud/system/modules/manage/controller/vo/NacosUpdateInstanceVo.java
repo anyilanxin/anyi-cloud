@@ -30,18 +30,20 @@
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 服务实例上下线 vo
  *
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @date 2020-10-11 16:38
  * @since 1.0.0
  */

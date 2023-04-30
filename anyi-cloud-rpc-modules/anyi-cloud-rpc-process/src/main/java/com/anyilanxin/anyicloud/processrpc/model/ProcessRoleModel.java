@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.processrpc.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 角色表查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-08 13:44:02
  * @since 1.0.0
  */

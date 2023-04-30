@@ -35,10 +35,11 @@ import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.InstancePage
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.NacosNamespacesDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ServiceInstancePageDto;
+
 import java.util.List;
 
 /**
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @date 2020-10-11 19:34
  * @since 1.0.0
  */
@@ -52,7 +53,7 @@ public interface ICustomNacosNamingService {
      * @param clusters    ${@link List<String>} 集群信息，不变默认
      * @return List<Instance> ${@link List<Instance>} 服务实例
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 21:51
      */
     List<Instance> getAllInstances(String serviceCode, String groupName, List<String> clusters) throws RuntimeException;
@@ -63,7 +64,7 @@ public interface ICustomNacosNamingService {
      *
      * @return List<NacosNamespacesDto> ${@link List< NacosNamespacesDto >} 命名空间
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 21:52
      */
     List<NacosNamespacesDto> getAllNamespaces() throws RuntimeException;
@@ -74,7 +75,7 @@ public interface ICustomNacosNamingService {
      *
      * @param vo ${@link InstancePageVo}
      * @return PageDto<ServiceInstancePageDto> ${@link PageDto < ServiceInstancePageDto >}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-28 05:54
      */
     PageDto<ServiceInstancePageDto> selectInstancePage(InstancePageVo vo);
@@ -88,7 +89,7 @@ public interface ICustomNacosNamingService {
      * @param groupName ${@link String} 组名
      * @return List<NacosServiceInfoDto> ${@link List< NacosServiceInfoDto >}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 21:54
      */
     List<NacosServiceInfoDto> getServicesOfServer(Integer pageNo, Integer pageSize, String groupName) throws RuntimeException;

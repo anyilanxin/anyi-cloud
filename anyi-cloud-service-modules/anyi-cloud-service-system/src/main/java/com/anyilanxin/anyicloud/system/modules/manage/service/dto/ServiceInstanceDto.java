@@ -32,16 +32,18 @@ package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 服务实例信息
  *
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @date 2020-10-11 13:24
  * @since 1.0.0
  */

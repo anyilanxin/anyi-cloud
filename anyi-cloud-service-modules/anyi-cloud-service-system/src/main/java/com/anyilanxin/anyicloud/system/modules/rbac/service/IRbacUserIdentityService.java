@@ -36,12 +36,13 @@ import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserIdenti
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserIdentityEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserIdentityDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserIdentityPageDto;
+
 import java.util.List;
 
 /**
  * 实名信息表(RbacUserIdentity)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -52,7 +53,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      *
      * @param vo 实名信息表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void save(RbacUserIdentityVo vo) throws RuntimeException;
@@ -64,7 +65,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @param identityId 实名信息id
      * @param vo         实名信息表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void audit(String identityId, RbacUserIdentityVo vo) throws RuntimeException;
@@ -76,7 +77,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @param vo 分页查询条件
      * @return PageDto<RbacUserIdentityPageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     PageDto<RbacUserIdentityPageDto> pageByModel(RbacUserIdentityPageVo vo) throws RuntimeException;
@@ -88,7 +89,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @param identityId 实名信息id
      * @return RbacUserIdentityDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     RbacUserIdentityDto getById(String identityId) throws RuntimeException;
@@ -99,7 +100,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      *
      * @param identityId 实名信息id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String identityId) throws RuntimeException;
@@ -110,7 +111,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      *
      * @param identityIds 实名信息id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteBatch(List<String> identityIds) throws RuntimeException;

@@ -42,7 +42,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  * 开放id DaoAuthenticationProvider
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-12 23:47
  * @since 1.0.0
  */

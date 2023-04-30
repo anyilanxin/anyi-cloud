@@ -32,15 +32,17 @@ package com.anyilanxin.anyicloud.oauth2mvc.utils;
 import com.anyilanxin.anyicloud.corecommon.base.Result;
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 /**
  * 响应工具
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-02 14:58
  * @since 1.0.0
  */
@@ -53,7 +55,7 @@ public class ResponseUtils {
      * @param response ${@link HttpServletResponse}
      * @param msg      ${@link String}
      * @param status   ${@link Status}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-02 15:01
      */
     public static void writeResult(HttpServletResponse response, String msg, Status status) throws IOException {
@@ -67,7 +69,7 @@ public class ResponseUtils {
      * @param response ${@link HttpServletResponse}
      * @param msg      ${@link String}
      * @param status   ${@link Status}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-02 15:01
      */
     public static void writeResult(HttpServletResponse response, String msg, Status status, HttpStatus httpStatus) throws IOException {

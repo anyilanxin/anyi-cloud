@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.messagerpc.constant;
 /**
  * stream与socket消息类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 10:52
  * @since 1.0.0
  */

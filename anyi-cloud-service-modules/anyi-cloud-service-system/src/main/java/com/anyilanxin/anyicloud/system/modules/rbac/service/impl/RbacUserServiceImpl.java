@@ -57,10 +57,12 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserCo
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +73,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 用户表(RbacUser)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -108,7 +110,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
      * 数据检查
      *
      * @param entity
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-06-02 22:20
      */
     private void check(RbacUserEntity entity) {
@@ -145,7 +147,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
      *
      * @param userId
      * @param vo
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-02 23:19
      */
     void handleAuth(String userId, RbacUserVo vo) {

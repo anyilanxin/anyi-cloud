@@ -35,14 +35,16 @@ import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageServiceEntity
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServicePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 服务管理(ManageService)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:19
  * @since 1.0.0
@@ -55,7 +57,7 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      * @param vo   ${@link ManageServicePageVo} 查询条件
      * @param page ${@link Page< ManageServicePageDto >} 分页信息
      * @return IPage<ManageServicePageDto> ${@link IPage<ManageServicePageDto>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:19
      */
     IPage<ManageServicePageDto> pageByModel(Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
@@ -66,7 +68,7 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      *
      * @param serviceId ${@link String} 服务id
      * @return int ${@link Integer} 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:19
      */
     int physicalDeleteById(@Param("id") String serviceId);
@@ -77,7 +79,7 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      *
      * @param idList ${@link Collection} 待删除id
      * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:19
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

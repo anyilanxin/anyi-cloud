@@ -48,10 +48,12 @@ import com.anyilanxin.anyicloud.process.modules.base.service.mapstruct.ProcessCa
 import com.anyilanxin.anyicloud.process.modules.base.service.mapstruct.ProcessCategoryQueryCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -62,7 +64,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * 流程类别(ProcessCategory)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-19 10:47:01
  * @since 1.0.0
  */
@@ -92,7 +94,7 @@ public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMappe
      * 数据校验
      *
      * @param entity ${@link ProcessCategoryEntity}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 14:25
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)

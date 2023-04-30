@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
 /**
  * open id模式UserDetailsService实现
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-11 09:32
  * @since 1.0.0
  */

@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.messagerpc.model;
 
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 发送消息
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-04-07 15:19
  * @since 1.0.0

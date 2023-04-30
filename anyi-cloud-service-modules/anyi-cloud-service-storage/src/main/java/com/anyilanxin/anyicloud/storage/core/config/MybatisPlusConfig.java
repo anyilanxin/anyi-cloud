@@ -38,14 +38,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 安一老厨
+ * @author zxh
  */
 @Configuration
 public class MybatisPlusConfig {
     /**
      * 插件配置，分页、加解密、数据权限等
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-04-03 15:21
      */
     @Bean
@@ -61,7 +61,7 @@ public class MybatisPlusConfig {
      * sql公共字段自定义注入
      *
      * @return MyMetaObjectHandler ${@link MetaObjectHandler}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-04-03 18:10
      */
     @Bean

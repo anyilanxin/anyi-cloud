@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.corecommon.validation.validator;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
+
 import java.util.Collection;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
 import org.springframework.util.CollectionUtils;
 
 /**
  * 空或者数量判断(用于list)
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-06-18 10:44
  * @since 1.0.0
  */

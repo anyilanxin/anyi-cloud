@@ -37,15 +37,17 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 角色-菜单表(RbacRoleMenu)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -57,7 +59,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * 获取有效的菜单按钮权限
      *
      * @return List<RbacRoleMenuDto> 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-08 13:29:15
      */
     List<RbacRoleMenuDto> selectMenuAntButton(@Param("roleId") String roleId);
@@ -69,7 +71,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * @param vo   查询条件
      * @param page 分页信息
      * @return IPage<RbacRoleMenuPageDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     IPage<RbacRoleMenuPageDto> pageByModel(Page<RbacRoleMenuPageDto> page, @Param("query") RbacRoleMenuPageVo vo);
@@ -80,7 +82,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      *
      * @param vo 查询条件
      * @return List<RbacRoleMenuDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     List<RbacRoleMenuDto> selectListByModel(RbacRoleMenuQueryVo vo);
@@ -91,7 +93,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      *
      * @param roleId
      * @return List<String>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-04 01:18
      */
     List<String> selectMenuListById(@Param("id") String roleId);
@@ -101,7 +103,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * 获取所有功能权限
      *
      * @return List<String>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-04 01:18
      */
     List<String> selectAllMenu();
@@ -112,7 +114,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      *
      * @param roleMenuId 权限角色id
      * @return int 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String roleMenuId);
@@ -123,7 +125,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      *
      * @param idList 权限角色id列表
      * @return int 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

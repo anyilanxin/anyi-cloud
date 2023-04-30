@@ -31,6 +31,7 @@ package com.anyilanxin.anyicloud.oauth2mvc;
 
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -41,7 +42,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 /**
  * 获取token逻辑
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-23 21:28
  * @since 1.0.0
  */

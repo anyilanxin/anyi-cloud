@@ -32,14 +32,16 @@ package com.anyilanxin.anyicloud.processrpc.constant.impl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 /**
  * 流程人员身份类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-22 23:03
  * @since 1.0.0
  */
@@ -123,7 +125,7 @@ public enum TaskStatus implements ISuperType {
      *
      * @param value ${@link Integer} 值
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByValue(Integer value) {
@@ -142,7 +144,7 @@ public enum TaskStatus implements ISuperType {
      *
      * @param value ${@link Integer} 类型
      * @return LbType
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static TaskStatus getByValue(int value) {
@@ -161,7 +163,7 @@ public enum TaskStatus implements ISuperType {
      *
      * @param status ${@link String} 待匹配的字符串
      * @return LbType ${@link TaskStatus} 匹配的类型
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-28 09:32
      */
     public static TaskStatus getByStatus(String status) {
@@ -179,7 +181,7 @@ public enum TaskStatus implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllValue() {

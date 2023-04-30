@@ -34,8 +34,10 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,7 +48,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 聊天消息实体
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-29 17:02
  * @since 1.0.0
  */

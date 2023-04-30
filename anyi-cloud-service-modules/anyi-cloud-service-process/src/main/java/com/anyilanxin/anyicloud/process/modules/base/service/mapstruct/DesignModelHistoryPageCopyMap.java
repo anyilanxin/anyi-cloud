@@ -40,7 +40,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 实体相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2021-11-25 09:52:37
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

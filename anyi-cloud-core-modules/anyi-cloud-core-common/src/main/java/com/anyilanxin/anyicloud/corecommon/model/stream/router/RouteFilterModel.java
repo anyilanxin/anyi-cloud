@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.corecommon.model.stream.router;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 路由过滤器
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-12-22 23:36
  * @since 1.0.0
  */

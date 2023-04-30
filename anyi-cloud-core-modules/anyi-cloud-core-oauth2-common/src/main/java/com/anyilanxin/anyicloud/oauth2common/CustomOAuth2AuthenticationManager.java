@@ -30,11 +30,13 @@
 package com.anyilanxin.anyicloud.oauth2common;
 
 import com.anyilanxin.anyicloud.oauth2common.constant.OAuth2RequestExtendConstant;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -50,7 +52,7 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.util.Assert;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-06 21:42
  * @since 1.0.0
  */

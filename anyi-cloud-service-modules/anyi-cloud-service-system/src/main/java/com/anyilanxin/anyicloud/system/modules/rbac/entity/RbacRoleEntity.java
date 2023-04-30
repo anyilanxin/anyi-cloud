@@ -34,14 +34,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 角色表(RbacRole)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 19:29:58
  * @since 1.0.0

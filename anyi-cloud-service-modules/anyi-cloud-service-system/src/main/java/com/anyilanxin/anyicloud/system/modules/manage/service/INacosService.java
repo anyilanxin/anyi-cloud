@@ -35,12 +35,13 @@ import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.NacosSubscri
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.NacosUpdateInstanceVo;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ServiceInstanceDto;
+
 import java.util.List;
 
 /**
  * nacos open api接口二次封装
  *
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @date 2020-10-11 10:50
  * @since 1.0.0
  */
@@ -51,7 +52,7 @@ public interface INacosService {
      *
      * @param vo ${@link NacosSubscribeVo} 查询条件
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 13:03
      */
     void subscribe(NacosSubscribeVo vo) throws RuntimeException;
@@ -62,7 +63,7 @@ public interface INacosService {
      *
      * @param vo ${@link NacosSubscribeVo} 查询条件
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 13:03
      */
     void unsubscribe(NacosSubscribeVo vo) throws RuntimeException;
@@ -73,7 +74,7 @@ public interface INacosService {
      *
      * @param vo ${@link NacosUpdateInstanceVo} 查询条件
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-11 13:43
      */
     void updateInstance(NacosUpdateInstanceVo vo) throws RuntimeException;
@@ -85,7 +86,7 @@ public interface INacosService {
      * @param vo ${@link NacosAllInstancesQueryVo} 查询条件
      * @return ServiceInstanceDto ${@link ServiceInstanceDto} 实例
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 13:03
      */
     ServiceInstanceDto getAllInstances(NacosAllInstancesQueryVo vo) throws RuntimeException;
@@ -97,7 +98,7 @@ public interface INacosService {
      * @param vo ${@link NacosGroupNameVo} 查询条件
      * @return List<String> ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2020-10-11 13:21
      */
     List<NacosServiceInfoDto> getServices(NacosGroupNameVo vo) throws RuntimeException;

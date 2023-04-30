@@ -31,15 +31,17 @@ package com.anyilanxin.anyicloud.messagerpc.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.MsgTemplateCommonChannelType;
+
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 公共模板消息(没有子类)
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 14:07
  * @since 1.0.0

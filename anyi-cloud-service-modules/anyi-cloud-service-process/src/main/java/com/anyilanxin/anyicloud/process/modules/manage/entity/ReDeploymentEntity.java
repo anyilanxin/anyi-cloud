@@ -31,8 +31,10 @@ package com.anyilanxin.anyicloud.process.modules.manage.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -41,7 +43,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * (ReDeployment)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-16 21:10:44
  * @since 1.0.0
  */

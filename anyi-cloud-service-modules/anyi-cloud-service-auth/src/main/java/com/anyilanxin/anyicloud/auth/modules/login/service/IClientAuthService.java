@@ -34,7 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthMod
 /**
  * 用户中心
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-02 09:17
  * @since 1.0.0
  */
@@ -45,7 +45,7 @@ public interface IClientAuthService {
      *
      * @param clientId 客户端id
      * @return SystemClientDetailsModel 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-12 22:15
      */
     ClientAndResourceAuthModel getByClientId(String clientId);

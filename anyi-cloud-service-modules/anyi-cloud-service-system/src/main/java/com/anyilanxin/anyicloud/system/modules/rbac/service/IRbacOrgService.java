@@ -38,12 +38,13 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgHasChildrenDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreeDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreePageDto;
+
 import java.util.List;
 
 /**
  * 组织表(RbacOrg)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:45
  * @since 1.0.0
@@ -54,7 +55,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      *
      * @param vo 组织表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     void save(RbacOrgVo vo) throws RuntimeException;
@@ -66,7 +67,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param orgId 组织id
      * @param vo    组织表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     void updateById(String orgId, RbacOrgVo vo) throws RuntimeException;
@@ -78,7 +79,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param vo 分页查询条件
      * @return PageDto<RbacOrgPageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     PageDto<RbacOrgTreePageDto> pageByModel(RbacOrgPageVo vo) throws RuntimeException;
@@ -90,7 +91,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param orgId 组织id
      * @return RbacOrgDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     RbacOrgDto getById(String orgId) throws RuntimeException;
@@ -101,7 +102,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      *
      * @param orgId 组织id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:39:45
      */
     void deleteById(String orgId) throws RuntimeException;
@@ -113,7 +114,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param parentId      上级组织id
      * @param activateOrgId 需要激活的组织id
      * @return List<RbacOrgTreeDto>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 17:11
      */
     List<RbacOrgTreeDto> selectOrgTreeAsync(String parentId, String activateOrgId);
@@ -125,7 +126,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param orgId ${@link String} 机构id
      * @param type  ${@link Integer} 类型:0-禁用,1-启用
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-31 00:55
      */
     void updateOrgState(String orgId, Integer type) throws RuntimeException;
@@ -138,7 +139,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param parentId ${@link String} 父级id,为空时查顶级
      * @return List<RbacOrgHasChildrenDto> ${@link List< RbacOrgHasChildrenDto >}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-30 23:34
      */
     List<RbacOrgHasChildrenDto> selectOrgList(Integer type, String parentId) throws RuntimeException;
@@ -150,7 +151,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @param type ${@link Integer} 类型:0-所有,1-有效,默认1
      * @return List<RbacOrgTreeDto> ${@link List< RbacOrgTreeDto >}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-02 16:02
      */
     List<RbacOrgTreeDto> selectOrgTreeList(Integer type) throws RuntimeException;

@@ -41,8 +41,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -55,7 +57,7 @@ import reactor.core.publisher.Mono;
 /**
  * 动态路由controller
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-10 21:14
  * @since 1.0.0
  */

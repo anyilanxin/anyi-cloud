@@ -34,7 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.constant.impl.SysBaseType;
 /**
  * 系统基础配置常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-20 17:19
  * @since 1.0.0
  */

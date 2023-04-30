@@ -40,13 +40,14 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleBasicDto
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuButtonDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRolePageDto;
+
 import java.util.List;
 import java.util.Set;
 
 /**
  * 角色表(RbacRole)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0
@@ -57,7 +58,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param vo 角色表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void save(RbacRoleVo vo) throws RuntimeException;
@@ -69,7 +70,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * @param roleId 角色id
      * @param vo     角色表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void updateById(String roleId, RbacRoleVo vo) throws RuntimeException;
@@ -81,7 +82,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * @param vo 分页查询条件
      * @return PageDto<RbacRolePageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     PageDto<RbacRolePageDto> pageByModel(RbacRolePageVo vo) throws RuntimeException;
@@ -93,7 +94,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * @param vo 角色表查询条件
      * @return List<RbacRoleDto> 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     List<RbacRoleDto> selectListByModel(RbacRoleQueryVo vo) throws RuntimeException;
@@ -105,7 +106,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * @param roleId 角色id
      * @return RbacRoleDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     RbacRoleDto getById(String roleId) throws RuntimeException;
@@ -116,7 +117,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleId 角色id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void deleteById(String roleId) throws RuntimeException;
@@ -127,7 +128,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleIds 角色id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void deleteBatch(List<String> roleIds) throws RuntimeException;
@@ -138,7 +139,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleId 角色id
      * @param vo     待插入数据
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-03 18:43
      */
     void updateAuth(String roleId, RbacRoleAuthVo vo);
@@ -150,7 +151,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * @param roleId 角色id
      * @param status 状态:0-禁用、1-启用
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-09 07:32
      */
     void updateStatus(String roleId, Integer status) throws RuntimeException;
@@ -161,7 +162,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @return List<RbacRoleBasicDto>
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-03-09 15:45
      */
     List<RbacRoleBasicDto> getEffectiveRoles() throws RuntimeException;
@@ -172,7 +173,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleCodes 角色编码
      * @return List<RbacRoleBasicDto> 角色信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-05-23 00:09
      */
     List<RbacRoleBasicDto> getListByCodes(List<String> roleCodes);
@@ -183,7 +184,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleId 角色信息
      * @return Set<RbacRoleNoRoleButtonActionDto>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-28 09:50
      */
     Set<RbacRoleMenuButtonDto> getMenuActions(String roleId) throws RuntimeException;
@@ -194,7 +195,7 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      *
      * @param roleIds 角色roleIds不能为空
      * @return List<RbacRoleBasicDto> 角色信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-05-23 00:09
      */
     List<RbacRoleBasicDto> getRoleListByIds(List<String> roleIds);

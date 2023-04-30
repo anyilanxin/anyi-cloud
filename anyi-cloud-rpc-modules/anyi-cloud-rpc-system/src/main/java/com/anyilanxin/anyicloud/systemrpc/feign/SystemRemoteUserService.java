@@ -34,14 +34,16 @@ import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.FeignFallback;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.systemrpc.model.SimpleUserModel;
+
 import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统服务feign接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-12 21:54
  * @since 1.0.0
  */
@@ -53,7 +55,7 @@ public interface SystemRemoteUserService {
      *
      * @param userIds ${@link List <String>} 用户id
      * @return Result<List < SystemSimpleUserModel>> ${@link Result<List<  SimpleUserModel  >>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-12 17:13
      */
     @PostMapping("/rbac-user/select/list")
@@ -65,7 +67,7 @@ public interface SystemRemoteUserService {
      *
      * @param userId ${@link String} 用户id
      * @return Result<SystemSimpleUserModel> ${@link Result< SimpleUserModel >}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-12 17:13
      */
     @GetMapping("/rbac-user/select/one/{userId}")
@@ -77,7 +79,7 @@ public interface SystemRemoteUserService {
      *
      * @param realName ${@link String} 用户真实姓名
      * @return Result<List < SystemSimpleUserModel>> ${@link Result<List< SimpleUserModel >>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-12 17:13
      */
     @GetMapping("/rbac-user/select/list/real-name")

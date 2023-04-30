@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.system.modules.common.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 数据字典表查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-11-02 09:25:17
  * @since 1.0.0
  */

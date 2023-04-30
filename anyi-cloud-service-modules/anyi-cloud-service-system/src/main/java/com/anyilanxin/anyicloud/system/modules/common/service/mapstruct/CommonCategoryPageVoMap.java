@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 分类字典表(CommonCategory)PageVo与Entity相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2021-01-07 23:40:35
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

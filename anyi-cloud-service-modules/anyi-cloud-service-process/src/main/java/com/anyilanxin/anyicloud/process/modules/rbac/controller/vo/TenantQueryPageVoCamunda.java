@@ -37,7 +37,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 租户信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:49
  * @since 1.0.0
  */

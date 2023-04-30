@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.corecommon.model.stream;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 日志信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-06 12:56
  * @since 1.0.0
  */

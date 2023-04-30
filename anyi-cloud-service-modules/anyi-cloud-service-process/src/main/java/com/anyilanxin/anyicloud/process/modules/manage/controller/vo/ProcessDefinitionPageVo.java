@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.process.core.base.controller.vo.CamundaDateBasePageVo;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 流程定义查询
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-14 20:51
  * @since 1.0.0
  */

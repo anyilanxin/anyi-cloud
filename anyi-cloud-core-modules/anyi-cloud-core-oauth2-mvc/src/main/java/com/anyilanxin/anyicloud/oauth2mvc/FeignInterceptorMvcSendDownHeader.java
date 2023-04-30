@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
 /**
  * Feign拦截器
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-04-24 14:19
  * @since 1.0.0
  */
@@ -55,7 +55,7 @@ public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
      * token设置
      *
      * @param template ${@link RequestTemplate}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-15 17:52
      */
     @Override

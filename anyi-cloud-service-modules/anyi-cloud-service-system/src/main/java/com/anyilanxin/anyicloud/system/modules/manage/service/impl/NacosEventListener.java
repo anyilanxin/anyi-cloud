@@ -36,7 +36,9 @@ import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageServiceEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageServiceMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -44,7 +46,7 @@ import org.springframework.stereotype.Component;
 /**
  * nacos服务变更订阅处理
  *
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @date 2020-10-11 15:21
  * @since 1.0.0
  */
@@ -65,7 +67,7 @@ public class NacosEventListener implements EventListener {
      * 监听消息通知处理
      *
      * @param event ${@link NamingEvent} 服务事件
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2021-01-28 17:06
      */
     private void sendMsg(NamingEvent event) {

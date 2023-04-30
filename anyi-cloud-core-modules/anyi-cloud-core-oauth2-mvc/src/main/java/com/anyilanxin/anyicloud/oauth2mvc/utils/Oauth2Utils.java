@@ -32,7 +32,9 @@ package com.anyilanxin.anyicloud.oauth2mvc.utils;
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.oauth2mvc.config.properties.CustomSecurityProperties;
+
 import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +52,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 /**
  * oauth2工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-01 23:57
  * @since 1.0.0
  */
@@ -59,7 +61,7 @@ public class Oauth2Utils {
      * 获取白名单访问的接口
      *
      * @return Set<String> ${@link Set <String>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-19 13:11
      */
     public static Set<WhiteListInfo> getWhiteList(ApplicationContext applicationContext, CustomSecurityProperties properties) {
@@ -136,7 +138,7 @@ public class Oauth2Utils {
     /**
      * 白名单信息
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-23 22:12
      * @since 1.0.0
      */
@@ -159,7 +161,7 @@ public class Oauth2Utils {
      *
      * @param mappingInfo ${@link RequestMappingInfo}
      * @return WhiteListInfo ${@link WhiteListInfo}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-23 22:23
      */
     private static WhiteListInfo requestMappingToWhite(RequestMappingInfo mappingInfo) {
@@ -193,7 +195,7 @@ public class Oauth2Utils {
      *
      * @param urlInfo ${@link String}
      * @return WhiteListInfo ${@link WhiteListInfo}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-23 22:26
      */
     private static WhiteListInfo urlInfoToWhite(String urlInfo) {

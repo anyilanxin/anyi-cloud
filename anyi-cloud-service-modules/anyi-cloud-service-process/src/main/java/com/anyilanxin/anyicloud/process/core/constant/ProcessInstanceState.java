@@ -32,16 +32,18 @@ package com.anyilanxin.anyicloud.process.core.constant;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.Getter;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 
 /**
  * 流程实例状态
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-22 23:03
  * @since 1.0.0
  */
@@ -101,7 +103,7 @@ public enum ProcessInstanceState implements ISuperType {
      *
      * @param state ${@link Integer} 状态
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(int state) {
@@ -120,7 +122,7 @@ public enum ProcessInstanceState implements ISuperType {
      *
      * @param state ${@link Integer} 状态
      * @return LbType
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static ProcessInstanceState getByState(int state) {
@@ -140,7 +142,7 @@ public enum ProcessInstanceState implements ISuperType {
      * @param strState     ${@link String} 字符串状态
      * @param deleteReason ${@link String} 删除状态
      * @return LbType
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static ProcessInstanceState getByStrState(String strState, String deleteReason) {
@@ -165,7 +167,7 @@ public enum ProcessInstanceState implements ISuperType {
      *
      * @param deleteReason ${@link String} 删除状态
      * @return LbType
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static ProcessInstanceState getByDeleteReason(String deleteReason) {
@@ -183,7 +185,7 @@ public enum ProcessInstanceState implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

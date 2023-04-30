@@ -46,9 +46,11 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAg
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAgentPageCopyMap;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAgentQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,7 +59,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 用户-代理人表(RbacUserAgent)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0

@@ -45,7 +45,7 @@ import reactor.core.publisher.Mono;
 /**
  * 跨域处理工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-08-19 09:15
  * @since 1.0.0
  */
@@ -57,7 +57,7 @@ public class CorsWebUtils {
      *
      * @param exchange ${@link ServerWebExchange}
      * @return Mono<Void> ${@link Mono<Void>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-14 22:22
      */
     public static Mono<Void> corsHandle(WebFilterChain chain, ServerWebExchange exchange) {
@@ -79,7 +79,7 @@ public class CorsWebUtils {
      *
      * @param exchange ${@link ServerWebExchange}
      * @return Mono<Void> ${@link Mono<Void>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-14 22:22
      */
     public static Mono<Void> corsHandle(GatewayFilterChain chain, ServerWebExchange exchange) {

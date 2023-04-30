@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.corecommon.model.stream.router;
 
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.*;
 
 /**
  * 后端路由特殊url
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-11 20:30
  * @since 1.0.0
  */

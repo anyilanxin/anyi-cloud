@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.corecommon.utils.tree.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 树形基础类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-07-10 11:48
  * @since 1.0.0
  */

@@ -34,7 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 /**
  * 常量信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-17 18:39
  * @since 1.0.0
  */

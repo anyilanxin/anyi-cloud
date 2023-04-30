@@ -33,9 +33,11 @@ import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.anyicloud.stream.component.BindingComponent;
 import com.anyilanxin.anyicloud.stream.constant.BindingStreamConstant;
+
 import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +47,7 @@ import org.springframework.stereotype.Component;
 /**
  * 鉴权工具
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-28 22:44
  * @since 1.0.0
  */
@@ -66,7 +68,7 @@ public class LogUtils {
      * 保存操作日志
      *
      * @param operateLogModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-29 14:50
      */
     public static void sendOperateLog(OperateLogModel operateLogModel) {
@@ -90,7 +92,7 @@ public class LogUtils {
      * 保存授权日志
      *
      * @param authLogModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-29 14:50
      */
     public static void sendAuthLog(AuthLogModel authLogModel) {

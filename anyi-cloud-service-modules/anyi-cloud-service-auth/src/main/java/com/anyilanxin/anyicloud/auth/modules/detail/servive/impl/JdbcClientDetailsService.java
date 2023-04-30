@@ -34,8 +34,10 @@ import com.anyilanxin.anyicloud.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.utils.Oauth2CommonUtils;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -48,7 +50,7 @@ import org.springframework.stereotype.Service;
 /**
  * 数据库获取客户端信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-11 09:45
  * @since 1.0.0
  */

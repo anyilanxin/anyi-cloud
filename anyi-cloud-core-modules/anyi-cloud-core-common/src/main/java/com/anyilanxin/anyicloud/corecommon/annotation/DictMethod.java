@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 /**
  * 需要字典翻译的方法
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:27
  * @since 1.0.0
  */

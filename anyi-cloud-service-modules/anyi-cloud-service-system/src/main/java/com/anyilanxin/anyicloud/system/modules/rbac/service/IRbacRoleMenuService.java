@@ -31,12 +31,13 @@ package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleMenuEntity;
+
 import java.util.List;
 
 /**
  * 角色-菜单表(RbacRoleMenu)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -49,7 +50,7 @@ public interface IRbacRoleMenuService extends BaseService<RbacRoleMenuEntity> {
      * @param roleId  角色id
      * @param menuIds 菜单列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void saveBatch(String roleId, List<String> menuIds) throws RuntimeException;
@@ -60,7 +61,7 @@ public interface IRbacRoleMenuService extends BaseService<RbacRoleMenuEntity> {
      *
      * @param roleIds 角色id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteBatch(List<String> roleIds) throws RuntimeException;

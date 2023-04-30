@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuPageDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuTreeDto;
+
 import java.util.List;
 
 /**
  * 菜单表(RbacMenu)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      *
      * @param vo 菜单表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void save(RbacMenuVo vo) throws RuntimeException;
@@ -65,7 +66,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @param menuId 权限id
      * @param vo     菜单表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void updateById(String menuId, RbacMenuVo vo) throws RuntimeException;
@@ -77,7 +78,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @param vo 分页查询条件
      * @return PageDto<RbacMenuPageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     PageDto<RbacMenuPageDto> pageByModel(RbacMenuPageVo vo) throws RuntimeException;
@@ -89,7 +90,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @param menuId 权限id
      * @return RbacMenuDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     RbacMenuDto getById(String menuId) throws RuntimeException;
@@ -100,7 +101,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      *
      * @param menuId 权限id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String menuId) throws RuntimeException;
@@ -111,7 +112,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      *
      * @param menuIds 权限id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteBatch(List<String> menuIds) throws RuntimeException;
@@ -124,7 +125,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @param systemId 系统id
      * @param status   状态:1-有效、2-所有,默认2
      * @return List<RbacMenuTreeDto>
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-07 20:23
      */
     List<RbacMenuTreeDto> getMenuTree(String type, String systemId, Integer status);

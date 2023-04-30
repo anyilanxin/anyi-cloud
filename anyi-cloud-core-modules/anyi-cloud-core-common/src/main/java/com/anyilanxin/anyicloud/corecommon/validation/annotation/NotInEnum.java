@@ -32,12 +32,13 @@ package com.anyilanxin.anyicloud.corecommon.validation.annotation;
 /**
  * 枚举校验
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-11 10:51
  * @since 1.0.0
  */
 
 import com.anyilanxin.anyicloud.corecommon.validation.validator.NotInEnumValidator;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

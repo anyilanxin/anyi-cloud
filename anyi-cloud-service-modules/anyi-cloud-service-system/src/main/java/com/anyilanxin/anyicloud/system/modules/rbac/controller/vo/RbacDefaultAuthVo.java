@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 组织表添加或修改Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:45
  * @since 1.0.0

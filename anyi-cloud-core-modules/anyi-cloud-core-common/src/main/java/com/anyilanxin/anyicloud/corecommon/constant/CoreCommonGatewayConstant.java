@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.corecommon.constant;
 /**
  * 公共网关常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-03 01:16
  * @since 1.0.0
  */

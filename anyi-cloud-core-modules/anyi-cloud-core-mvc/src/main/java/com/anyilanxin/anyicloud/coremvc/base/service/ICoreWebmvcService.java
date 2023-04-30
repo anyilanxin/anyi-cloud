@@ -37,16 +37,18 @@ import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 公共接口定义
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-27 10:09
  * @since 1.0.0
  */
@@ -57,7 +59,7 @@ public interface ICoreWebmvcService {
      * 加载常量字典
      *
      * @param force ${@link Boolean} 是否强制刷新:true-强制立马刷新,false-如果上次刷新距离本次5分钟,当前刷新无效
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-27 10:10
      */
     void loadConstantDict(boolean force);
@@ -69,7 +71,7 @@ public interface ICoreWebmvcService {
      * @param force         ${@link Boolean} 是否强制刷新:true-强制立马刷新,false-如果上次刷新距离本次5分钟,当前刷新无效
      * @param redisTemplate ${@link RedisTemplate} RedisTemplate实例
      * @param serviceName   ${@link String} 服务名
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-09-15 22:02
      */
     static void loadConstantDict(boolean force, RedisTemplate<String, Object> redisTemplate, String serviceName) {

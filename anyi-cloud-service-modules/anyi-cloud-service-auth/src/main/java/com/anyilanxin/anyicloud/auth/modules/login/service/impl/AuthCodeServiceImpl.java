@@ -37,7 +37,9 @@ import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
 import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,7 @@ import org.springframework.stereotype.Service;
 /**
  * 授权相关
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-19 10:12
  * @since 1.0.0
  */

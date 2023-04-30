@@ -31,7 +31,9 @@ package com.anyilanxin.anyicloud.system.modules.common.service.dto;
 
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +42,7 @@ import lombok.ToString;
 /**
  * 分类字典表查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-07 23:39:55
  * @since 1.0.0
  */

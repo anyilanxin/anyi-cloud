@@ -31,11 +31,13 @@ package com.anyilanxin.anyicloud.oauth2mvc;
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.ResponseUtils;
+
 import java.io.IOException;
 import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -44,7 +46,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-04-09 22:40
  * @since 1.0.0
  */

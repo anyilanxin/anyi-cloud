@@ -34,14 +34,16 @@ import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotInEnum;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.MsgTemplateCommonChannelType;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 消息模板添加或修改Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:42
  * @since 1.0.0

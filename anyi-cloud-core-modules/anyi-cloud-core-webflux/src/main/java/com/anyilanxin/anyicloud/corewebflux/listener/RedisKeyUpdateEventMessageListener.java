@@ -43,7 +43,7 @@ import org.springframework.lang.Nullable;
 /**
  * redis数据被修改监听
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-09 21:45
  * @since 1.0.0
  */
@@ -87,7 +87,7 @@ public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageList
      * 获取服务锁(如果锁不存在则自动添加),过期时间10s
      *
      * @param key ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-08-19 16:38
      */
     public boolean serviceLock(String key) {

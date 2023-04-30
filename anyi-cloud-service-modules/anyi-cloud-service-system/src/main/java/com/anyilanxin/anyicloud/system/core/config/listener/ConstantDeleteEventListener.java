@@ -32,7 +32,9 @@ package com.anyilanxin.anyicloud.system.core.config.listener;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.coremvc.base.service.ICoreWebmvcService;
 import com.anyilanxin.anyicloud.coreredis.listener.RedisKeyDeleteEventMessageListener;
+
 import java.nio.charset.StandardCharsets;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
@@ -42,7 +44,7 @@ import org.springframework.lang.Nullable;
 /**
  * 权限信息被删除监听
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-09 22:02
  * @since 1.0.0
  */

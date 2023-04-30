@@ -34,7 +34,7 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 /**
  * feign fall back
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-04-09 12:05
  * @since 1.0.0
  */

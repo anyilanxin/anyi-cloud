@@ -37,14 +37,16 @@ import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
 import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFilePageVo;
 import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
 import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
+
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 本地文件服务(StorageInfoFile)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-04-05 09:57:59
  * @since 1.0.0
@@ -56,7 +58,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @param vo ${@link StorageInfoFilePageVo} 本地文件服务分页查询Vo
      * @return PageDto<StorageInfoFilePageDto> ${@link PageDto< StorageInfoFilePageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 09:57:59
      */
     PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo) throws RuntimeException;
@@ -68,7 +70,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @param fileId ${@link String} 文件id
      * @return StorageInfoModel ${@link StorageInfoModel} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 09:57:59
      */
     StorageInfoModel getById(String fileId) throws RuntimeException;
@@ -79,7 +81,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      *
      * @param fileId ${@link String} 文件id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 09:57:59
      */
     void deleteById(String fileId) throws RuntimeException;
@@ -90,7 +92,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      *
      * @param fileIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 09:57:59
      */
     void deleteBatch(List<String> fileIds) throws RuntimeException;
@@ -103,7 +105,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @param fileDirPrefix ${@link String}
      * @param request       ${@link HttpServletRequest}
      * @return StorageInfoModel ${@link StorageInfoModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request);
@@ -116,7 +118,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @param request       ${@link HttpServletRequest}
      * @param files         ${@link List<MultipartFile>}
      * @return List<StorageInfoModel> ${@link List<StorageInfoModel>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
@@ -127,7 +129,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      *
      * @param model ${@link StorageModel}
      * @return List<StorageInfoUrlModel> ${@link List< StorageInfoUrlModel >}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     List<StorageInfoUrlModel> storageBatchUrl(StorageModel model);

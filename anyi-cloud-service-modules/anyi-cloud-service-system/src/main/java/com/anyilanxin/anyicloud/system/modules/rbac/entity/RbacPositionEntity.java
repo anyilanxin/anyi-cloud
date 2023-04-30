@@ -38,7 +38,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 职位表(RbacPosition)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0

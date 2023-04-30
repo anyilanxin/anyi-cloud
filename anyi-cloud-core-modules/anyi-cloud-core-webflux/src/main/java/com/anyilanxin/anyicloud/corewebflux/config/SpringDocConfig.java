@@ -40,7 +40,9 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+
 import java.util.*;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -59,7 +61,7 @@ import org.springframework.web.reactive.result.method.RequestMappingInfoHandlerM
 /**
  * spring doc配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-12-12 14:58
  * @since 1.0.0
  */
@@ -82,7 +84,7 @@ public class SpringDocConfig {
      *
      * @param apiPrefix ${@link String}
      * @return OpenAPI ${@link OpenAPI}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-12 16:51
      */
     @Bean
@@ -111,7 +113,7 @@ public class SpringDocConfig {
      * 默认分组
      *
      * @return GroupedOpenApi ${@link GroupedOpenApi}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-12 16:51
      */
     @Bean
@@ -123,7 +125,7 @@ public class SpringDocConfig {
     /**
      * 其他分组
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-12 16:51
      */
     @Bean
@@ -191,7 +193,7 @@ public class SpringDocConfig {
     /**
      * doc信息
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-22 00:12
      * @since 1.0.0
      */

@@ -30,18 +30,20 @@
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 加入机构信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-02 16:53
  * @since 1.0.0
  */

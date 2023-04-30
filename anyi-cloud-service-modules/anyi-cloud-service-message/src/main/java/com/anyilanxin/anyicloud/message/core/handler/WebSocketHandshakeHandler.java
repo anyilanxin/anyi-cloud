@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.message.core.handler;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
+
 import java.security.Principal;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -44,7 +46,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-11 22:31
  * @since 1.0.0
  */

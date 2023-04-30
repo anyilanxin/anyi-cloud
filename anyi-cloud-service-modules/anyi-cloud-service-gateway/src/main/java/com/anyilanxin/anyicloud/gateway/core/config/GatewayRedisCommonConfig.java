@@ -36,7 +36,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import java.time.Duration;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
@@ -57,7 +59,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * redis配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-08-28 10:23
  * @since 1.0.0
  */
@@ -70,7 +72,7 @@ public class GatewayRedisCommonConfig {
      * redisTemplate配置
      *
      * @return RedisTemplate<String, Object> ${@link RedisTemplate<String,Object>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-30 17:47
      */
     @Bean
@@ -93,7 +95,7 @@ public class GatewayRedisCommonConfig {
      * redisTemplate配置
      *
      * @return StringRedisTemplate ${@link StringRedisTemplate}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-30 17:47
      */
     @Bean
@@ -110,7 +112,7 @@ public class GatewayRedisCommonConfig {
      * 缓存配置
      *
      * @return CacheManager ${@link CacheManager}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 14:39
      */
     @Bean

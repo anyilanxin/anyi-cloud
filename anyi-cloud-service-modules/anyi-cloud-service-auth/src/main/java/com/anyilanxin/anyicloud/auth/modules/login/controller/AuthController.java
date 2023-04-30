@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 授权相关
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-19 09:25
  * @since 1.0.0
  */

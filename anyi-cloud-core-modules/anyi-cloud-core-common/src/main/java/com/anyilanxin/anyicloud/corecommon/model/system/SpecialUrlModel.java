@@ -30,21 +30,23 @@
 package com.anyilanxin.anyicloud.corecommon.model.system;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-09 13:01
  * @since 1.0.0
  */
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 特殊url信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-06 12:56
  * @since 1.0.0
  */

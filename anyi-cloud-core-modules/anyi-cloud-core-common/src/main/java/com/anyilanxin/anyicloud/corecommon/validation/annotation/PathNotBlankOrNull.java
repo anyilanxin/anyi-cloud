@@ -33,6 +33,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.anyilanxin.anyicloud.corecommon.validation.validator.PathNotBlankOrNullValidator;
+
 import java.lang.annotation.*;
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -40,7 +41,7 @@ import javax.validation.Payload;
 /**
  * 针对PathVariable参数验证(此时如果不传会默认为undefined)
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-06-18 10:43
  * @since 1.0.0
  */

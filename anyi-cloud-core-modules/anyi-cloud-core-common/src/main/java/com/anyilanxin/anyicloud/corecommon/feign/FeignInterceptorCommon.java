@@ -34,7 +34,9 @@ import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ContextHeaderSt
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.safety.ContextSafetyStrategy;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+
 import java.util.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * Feign拦截器
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-04-24 14:19
  * @since 1.0.0
  */
@@ -58,7 +60,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
      * 本处不能使用构造器注入,因为会造成feign拦截器失效
      *
      * @param contextHeaderStrategy ${@link ContextHeaderStrategy} 请求头设置策略上下文
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-15 23:00
      */
     @Autowired
@@ -71,7 +73,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
      * 本处不能使用构造器注入,因为会造成feign拦截器失效
      *
      * @param contextSafetyStrategy ${@link ContextSafetyStrategy} 数据安全处理策略上下文
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-14 13:39
      */
     @Autowired
@@ -84,7 +86,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
      * token设置
      *
      * @param template ${@link RequestTemplate}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-15 17:52
      */
     @Override
@@ -110,7 +112,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
      *
      * @param template ${@link RequestTemplate}
      * @return Map ${@link Map}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-14 12:11
      */
     private Map<String, String> getParams(RequestTemplate template) {

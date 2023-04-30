@@ -38,13 +38,14 @@ import com.anyilanxin.anyicloud.process.modules.base.controller.vo.ProcessCatego
 import com.anyilanxin.anyicloud.process.modules.base.entity.ProcessCategoryEntity;
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategoryDto;
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategoryPageDto;
+
 import java.util.List;
 import java.util.Set;
 
 /**
  * 流程类别(ProcessCategory)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-19 10:47:01
  * @since 1.0.0
  */
@@ -54,7 +55,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      *
      * @param vo ${@link ProcessCategoryVo} 流程类别保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     void save(ProcessCategoryVo vo) throws RuntimeException;
@@ -67,7 +68,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @param categoryId ${@link String} 类别id
      * @param vo         ${@link ProcessCategoryVo} 流程类别更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     void updateById(String categoryId, ProcessCategoryVo vo) throws RuntimeException;
@@ -79,7 +80,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @param vo ${@link ProcessCategoryPageVo} 流程类别分页查询Vo
      * @return PageDto<ProcessCategoryPageDto> ${@link PageDto< ProcessCategoryPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo) throws RuntimeException;
@@ -91,7 +92,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @param vo ${@link ProcessCategoryQueryVo} 流程类别条件查询Vo
      * @return List<ProcessCategoryDto> ${@link List< ProcessCategoryDto >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo) throws RuntimeException;
@@ -102,7 +103,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      *
      * @param categoryCodes ${@link Set<String>}
      * @return ProcessCategoryDto> ${@link ProcessCategoryDto>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:58
      */
     List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes);
@@ -113,7 +114,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      *
      * @param categoryCode ${@link String}
      * @return ProcessCategoryDto> ${@link ProcessCategoryDto>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:58
      */
     ProcessCategoryDto selectByCode(String categoryCode);
@@ -125,7 +126,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @param categoryId ${@link String} 类别id
      * @return ProcessCategoryDto ${@link ProcessCategoryDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     ProcessCategoryDto getById(String categoryId) throws RuntimeException;
@@ -136,7 +137,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      *
      * @param categoryId ${@link String} 类别id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     void deleteById(String categoryId) throws RuntimeException;
@@ -146,7 +147,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * 获取建模流程类别下拉列表
      *
      * @return List<SelectModel>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-10-19 07:41
      */
     List<SelectModel> getModelDesignList();

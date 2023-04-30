@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 自定义过滤器查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:14
  * @since 1.0.0

@@ -47,7 +47,7 @@ public interface AuthConstant {
     /**
      * query 参数token key键
      */
-    String ACCESS_TOKEN_QUERY_NAME = "skillfull_access_token";
+    String ACCESS_TOKEN_QUERY_NAME = "anyi_access_token";
 
     /**
      * 超级管理员角色(系统最高权限)

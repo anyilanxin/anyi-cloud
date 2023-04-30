@@ -42,7 +42,9 @@ import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDto;
 import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
 import io.seata.spring.annotation.GlobalTransactional;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -62,7 +64,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
-    private static final String DEFAULT_PASSWORD = "skillfull_cloud_kkk13689";
+    private static final String DEFAULT_PASSWORD = "anyi_cloud_kkk13689";
     private static final String DEFAULT_USER_ID = "admin";
     private final IdentityService identityService;
 

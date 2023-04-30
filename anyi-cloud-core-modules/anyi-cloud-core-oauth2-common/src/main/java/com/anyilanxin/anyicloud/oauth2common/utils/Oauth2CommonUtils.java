@@ -39,10 +39,12 @@ import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.ClientDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.UserDetailsCopyMap;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,7 +58,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-03 14:19
  * @since 1.0.0
  */
@@ -79,7 +81,7 @@ public class Oauth2CommonUtils {
      *
      * @param model ${@link UserAndResourceAuthModel}
      * @return CustomUserDetails ${@link SkillFullUserDetails}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-04 01:51
      */
     public static SkillFullUserDetails toUserDetails(UserAndResourceAuthModel model) {
@@ -117,7 +119,7 @@ public class Oauth2CommonUtils {
      *
      * @param model ${@link ClientAndResourceAuthModel}
      * @return CustomClientDetails ${@link SkillFullClientDetails}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-04 01:51
      */
     public static SkillFullClientDetails toClientDetails(ClientAndResourceAuthModel model) {
@@ -162,7 +164,7 @@ public class Oauth2CommonUtils {
      * 刷新当前用户信息
      *
      * @param model ${@link UserAndResourceAuthModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-11 01:15
      */
     public static void refreshUserOauth(UserAndResourceAuthModel model) {
@@ -176,7 +178,7 @@ public class Oauth2CommonUtils {
      *
      * @param authentication ${@link Authentication}权限信息
      * @param model          ${@link UserAndResourceAuthModel} 新的用户信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 23:23
      */
     private static void refreshUserOauth(Authentication authentication, UserAndResourceAuthModel model) {
@@ -200,7 +202,7 @@ public class Oauth2CommonUtils {
      * 根据token刷新用户信息
      *
      * @param model ${@link UserAndResourceAuthModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-11 01:15
      */
     public static void refreshUserOauth(UserAndResourceAuthModel model, String token) {
@@ -211,7 +213,7 @@ public class Oauth2CommonUtils {
      * 根据userId刷新用户信息
      *
      * @param model ${@link UserAndResourceAuthModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-11 01:15
      */
     public static void refreshUserOauth(String userId, UserAndResourceAuthModel model) {

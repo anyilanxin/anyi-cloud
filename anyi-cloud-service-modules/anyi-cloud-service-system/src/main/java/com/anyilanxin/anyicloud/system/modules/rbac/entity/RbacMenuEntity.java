@@ -38,7 +38,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 菜单表(RbacMenu)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-03 00:29:05
  * @since 1.0.0

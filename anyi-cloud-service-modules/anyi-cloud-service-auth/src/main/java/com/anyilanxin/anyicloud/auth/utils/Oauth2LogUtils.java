@@ -39,9 +39,11 @@ import com.anyilanxin.anyicloud.loggingcommon.utils.LogUtils;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.TokenRequest;
@@ -49,7 +51,7 @@ import org.springframework.security.oauth2.provider.TokenRequest;
 /**
  * oauth2 授权日志处理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-13 19:27
  * @since 1.0.0
  */
@@ -61,7 +63,7 @@ public class Oauth2LogUtils {
      *
      * @param client
      * @param tokenRequest
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 19:55
      */
     public static void setPreAuthLog(ClientDetails client, TokenRequest tokenRequest) {
@@ -91,7 +93,7 @@ public class Oauth2LogUtils {
      * 获取authLog
      *
      * @return AuthLogModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 20:45
      */
     public static AuthLogModel getAuthLogModel() {
@@ -115,7 +117,7 @@ public class Oauth2LogUtils {
      * 设置用户信息
      *
      * @param userDetails
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 20:59
      */
     public static void setUserDetailInfo(SkillFullUserDetails userDetails) {
@@ -131,7 +133,7 @@ public class Oauth2LogUtils {
      * 设置客户端信息
      *
      * @param clientDetailInfo
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 21:00
      */
     public static void setClientDetailInfo(SkillFullClientDetails clientDetailInfo) {
@@ -149,7 +151,7 @@ public class Oauth2LogUtils {
      * @param success
      * @param msg
      * @param errMsg
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 19:56
      */
     public static void setPostAuthLog(boolean success, String msg, String errMsg, SkillFullAccessToken token) {

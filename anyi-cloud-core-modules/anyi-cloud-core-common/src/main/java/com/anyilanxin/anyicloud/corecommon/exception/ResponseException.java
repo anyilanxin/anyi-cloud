@@ -31,13 +31,14 @@ package com.anyilanxin.anyicloud.corecommon.exception;
 
 import com.anyilanxin.anyicloud.corecommon.base.Result;
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
  * 响应异常
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 16:24
  * @since 1.0.0
  */

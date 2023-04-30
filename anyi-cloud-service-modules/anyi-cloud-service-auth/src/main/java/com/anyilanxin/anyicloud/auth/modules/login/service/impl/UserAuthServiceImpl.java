@@ -40,10 +40,12 @@ import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
 import com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.system.UserAndResourceAuthModel;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +54,7 @@ import org.springframework.stereotype.Service;
 /**
  * 用户中心
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-02 09:18
  * @since 1.0.0
  */
@@ -90,7 +92,7 @@ public class UserAuthServiceImpl implements IUserAuthService {
      * @param userAndResourceAuthModel
      * @param orgId
      * @param roleInfos
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-12 18:39
      */
     void handleOrgInfo(UserAndResourceAuthModel userAndResourceAuthModel, String orgId, Set<RoleInfo> roleInfos) {

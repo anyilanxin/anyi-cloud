@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 解析bpmn task
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-24 14:21
  * @since 1.0.0
  */

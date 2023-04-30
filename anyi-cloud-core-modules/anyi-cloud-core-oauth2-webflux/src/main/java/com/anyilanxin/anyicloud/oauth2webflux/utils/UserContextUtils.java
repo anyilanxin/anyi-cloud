@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.oauth2webflux.utils;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2webflux.user.IGetLoginUserInfo;
+
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -41,7 +43,7 @@ import reactor.core.publisher.Mono;
 /**
  * 上下文持有者
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-07 09:07
  * @since 1.0.0
  */

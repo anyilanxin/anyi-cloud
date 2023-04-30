@@ -30,9 +30,11 @@
 package com.anyilanxin.anyicloud.process.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,7 +46,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.TenantEntity;
 /**
  * 租户信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:49
  * @since 1.0.0
  */

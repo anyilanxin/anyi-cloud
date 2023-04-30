@@ -32,16 +32,18 @@ package com.anyilanxin.anyicloud.corecommon.model.auth;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 自定义用户信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 17:16
  * @since 1.0.0
  */

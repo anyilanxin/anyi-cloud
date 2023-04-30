@@ -35,6 +35,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -47,7 +48,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  * core mvc servlet util
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-07 09:24
  * @since 1.0.0
  */
@@ -64,7 +65,7 @@ public class ServletUtils {
      *
      * @param request ${@link HttpServletRequest}
      * @return BodyReaderRequestWrapper ${@link BodyReaderRequestWrapper}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-13 02:06
      */
     public static BodyReaderRequestWrapper cloneRequest(HttpServletRequest request) {
@@ -117,7 +118,7 @@ public class ServletUtils {
      * 是否是Ajax异步请求
      *
      * @param request ${@link HttpServletRequest}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-13 01:53
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
@@ -164,7 +165,7 @@ public class ServletUtils {
      * 获取ip信息
      *
      * @return String ${@link String} ip信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-22 15:08
      */
     public static String getIpAddr() {
@@ -176,7 +177,7 @@ public class ServletUtils {
      * 获取浏览器user agent信息
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 12:10
      */
     public static String getUserAgent() {
@@ -189,7 +190,7 @@ public class ServletUtils {
      *
      * @param request ${@link HttpServletRequest}
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 12:10
      */
     public static String getUserAgent(HttpServletRequest request) {

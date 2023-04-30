@@ -34,7 +34,7 @@ import java.util.Collection;
 /**
  * mapper基类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 15:24
  * @since 1.0.0
  */
@@ -47,7 +47,7 @@ public interface MysqlBaseMapper<T> extends com.baomidou.mybatisplus.core.mapper
      *
      * @param entityList 实体列表
      * @return {@link Integer }
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-10-07 19:00:46
      */
     Integer insertBatchSomeColumn(Collection<T> entityList);

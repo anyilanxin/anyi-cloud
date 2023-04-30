@@ -37,7 +37,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 消息模板分页查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:43
  * @since 1.0.0

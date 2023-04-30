@@ -34,9 +34,11 @@ import com.anyilanxin.anyicloud.auth.modules.login.service.IClientAuthService;
 import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthModel;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,7 @@ import org.springframework.stereotype.Service;
 /**
  * 用户中心
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-02 09:18
  * @since 1.0.0
  */

@@ -33,8 +33,10 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayCons
 import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 import com.anyilanxin.anyicloud.gateway.utils.CorsWebUtils;
+
 import java.util.Collections;
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -47,7 +49,7 @@ import reactor.core.publisher.Mono;
 /**
  * 跨域处理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-08-19 09:12
  * @since 1.0.0
  */

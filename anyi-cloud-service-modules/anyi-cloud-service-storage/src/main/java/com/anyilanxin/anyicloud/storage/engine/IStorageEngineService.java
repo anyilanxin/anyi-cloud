@@ -32,14 +32,16 @@ package com.anyilanxin.skillfull.storage.engine;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
+
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 解析api doc
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-30 19:39
  * @since 1.0.0
  */
@@ -50,7 +52,7 @@ public interface IStorageEngineService {
      * @param fileDirPrefix ${@link String}
      * @param file          ${@link MultipartFile}
      * @return StorageInfoModel ${@link StorageInfoModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request);
@@ -62,7 +64,7 @@ public interface IStorageEngineService {
      * @param fileDirPrefix ${@link String}
      * @param files         ${@link List<MultipartFile>}
      * @return List<StorageInfoModel> ${@link List<StorageInfoModel>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
@@ -73,7 +75,7 @@ public interface IStorageEngineService {
      *
      * @param model ${@link StorageModel}
      * @return List<StorageInfoUrlModel> ${@link List<StorageInfoUrlModel>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 10:19
      */
     List<StorageInfoUrlModel> storageBatchUrl(StorageModel model);

@@ -35,6 +35,7 @@ import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageCustomFilterE
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterDetailDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterListDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +43,7 @@ import java.util.Set;
 /**
  * 自定义过滤器(ManageCustomFilter)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:15
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param vo ${@link ManageCustomFilterVo} 自定义过滤器保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:15
      */
     void save(ManageCustomFilterVo vo) throws RuntimeException;
@@ -66,7 +67,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @param customFilterId ${@link String} 自定义过滤器id
      * @param vo             ${@link ManageCustomFilterVo} 自定义过滤器更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:15
      */
     void updateById(String customFilterId, ManageCustomFilterVo vo) throws RuntimeException;
@@ -78,7 +79,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @param customFilterId ${@link String} 自定义过滤器id
      * @return ManageCustomFilterDetailDto ${@link ManageCustomFilterDetailDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:15
      */
     ManageCustomFilterDetailDto getById(String customFilterId) throws RuntimeException;
@@ -89,7 +90,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param customFilterId ${@link String} 自定义过滤器id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:15
      */
     void deleteById(String customFilterId) throws RuntimeException;
@@ -100,7 +101,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param serviceId ${@link String} 服务id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:15
      */
     void deleteByServiceId(String serviceId) throws RuntimeException;
@@ -111,7 +112,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param serviceId ${@link String} 服务id
      * @return List<ManageCustomFilterDto> ${@link List< ManageCustomFilterListDto >}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2021-12-19 09:21
      */
     List<ManageCustomFilterListDto> selectList(String serviceId);
@@ -123,7 +124,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @param serviceId ${@link String} 服务id
      * @param routerIds ${@link Set<String>} 路由id
      * @return List<ManageCustomFilterDto> ${@link List< ManageCustomFilterListDto >}
-     * @author 安一老厨 zxiaozhou
+     * @author zxh zxiaozhou
      * @date 2021-12-19 09:21
      */
     Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(Set<String> routerIds, String serviceId);
@@ -134,7 +135,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param customFilterId ${@link String} 过滤器id
      * @param state          ${@link Integer} 操作类型:0-禁止,1-启用
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 15:23
      */
     void updateStatus(String customFilterId, Integer state);
@@ -145,7 +146,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      *
      * @param serviceId ${@link String} 服务id
      * @return List<ManageCustomFilterSimpleDto> ${@link List<ManageCustomFilterSimpleDto>} 返回结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 17:28
      */
     List<ManageCustomFilterSimpleDto> selectSimpleList(String serviceId);

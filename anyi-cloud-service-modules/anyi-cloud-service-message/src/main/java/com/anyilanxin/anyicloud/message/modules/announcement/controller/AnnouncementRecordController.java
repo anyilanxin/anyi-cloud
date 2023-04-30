@@ -46,8 +46,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -57,7 +59,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 系统通知公告阅读记录(AnnouncementRecord)控制层
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 08:35:33
  * @since 1.0.0

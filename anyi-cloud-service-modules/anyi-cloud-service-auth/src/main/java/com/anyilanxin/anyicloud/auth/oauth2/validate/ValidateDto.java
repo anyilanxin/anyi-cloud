@@ -32,14 +32,16 @@ package com.anyilanxin.anyicloud.auth.oauth2.validate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 验证码dto
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-30 15:20
  * @since 1.0.0
  */

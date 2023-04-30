@@ -40,14 +40,16 @@ import com.anyilanxin.anyicloud.gateway.filter.partial.post.CorsWebGatewayFilter
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 /**
  * 自定义过滤器类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 10:52
  * @since 1.0.0
  */
@@ -108,7 +110,7 @@ public enum FilterCustomType implements ISuperType {
      *
      * @param filterType ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(String filterType) {
@@ -126,7 +128,7 @@ public enum FilterCustomType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String} 拼接为字符串返回,多个顿号隔开
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {
@@ -144,7 +146,7 @@ public enum FilterCustomType implements ISuperType {
      *
      * @param className ${@link String} class名称
      * @return FilterCustomPreType ${@link FilterCustomType}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-09-15 22:56
      */
     public static FilterCustomType getTypeByClassName(String className) {

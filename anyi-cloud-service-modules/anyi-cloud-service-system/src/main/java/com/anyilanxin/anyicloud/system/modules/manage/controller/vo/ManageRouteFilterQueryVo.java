@@ -30,9 +30,11 @@
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +44,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 路由过滤器条件查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 10:37:42
  * @since 1.0.0

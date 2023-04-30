@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.coremvc.config;
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -51,7 +53,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 /**
  * open feign配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-04-02 19:19
  * @since 1.0.0
  */
@@ -64,7 +66,7 @@ public class FeignMvcConfig {
      * 调整feign日志全部打印
      *
      * @return Level ${@link Logger.Level}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 18:05
      */
     @Bean

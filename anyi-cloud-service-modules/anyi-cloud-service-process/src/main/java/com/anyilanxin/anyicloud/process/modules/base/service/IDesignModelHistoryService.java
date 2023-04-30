@@ -41,7 +41,7 @@ import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelHist
 /**
  * 流程模型历史(DesignModelHistory)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-25 09:52:37
  * @since 1.0.0
  */
@@ -51,7 +51,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      *
      * @param vo ${@link DesignModelHistoryVo} 流程模型历史保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:37
      */
     void save(DesignModelHistoryVo vo) throws RuntimeException;
@@ -64,7 +64,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * @return PageDto<DesignModelHistoryPageDto> ${@link PageDto<  DesignModelHistoryPageDto  >}
      * 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:37
      */
     PageDto<DesignModelHistoryPageDto> pageByModel(DesignModelHistoryPageVo vo) throws RuntimeException;
@@ -76,7 +76,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * @param historyModelId ${@link String} 历史模型id
      * @return DesignModelHistoryDto ${@link DesignModelHistoryDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:37
      */
     DesignModelHistoryDto getById(String historyModelId) throws RuntimeException;
@@ -86,7 +86,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * 流程模型历史逻辑删除
      *
      * @param vo ${@link DeleteHistoryDesignModelVo}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 19:34
      */
     void deleteByModel(DeleteHistoryDesignModelVo vo);

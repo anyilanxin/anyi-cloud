@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentV
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserAgentEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentPageDto;
+
 import java.util.List;
 
 /**
  * 用户-代理人表(RbacUserAgent)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:20
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      *
      * @param vo 用户-代理人表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void save(RbacUserAgentVo vo) throws RuntimeException;
@@ -65,7 +66,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @param agentId 代理id
      * @param vo      用户-代理人表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void updateById(String agentId, RbacUserAgentVo vo) throws RuntimeException;
@@ -77,7 +78,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @param vo 分页查询条件
      * @return PageDto<RbacUserAgentPageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException;
@@ -89,7 +90,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @param vo 用户-代理人表查询条件
      * @return List<RbacUserAgentDto> 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo) throws RuntimeException;
@@ -101,7 +102,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @param agentId 代理id
      * @return RbacUserAgentDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     RbacUserAgentDto getById(String agentId) throws RuntimeException;
@@ -112,7 +113,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      *
      * @param agentId 代理id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void deleteById(String agentId) throws RuntimeException;
@@ -123,7 +124,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      *
      * @param agentIds 代理id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void deleteBatch(List<String> agentIds) throws RuntimeException;

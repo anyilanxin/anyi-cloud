@@ -52,8 +52,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -63,7 +65,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 区域表(CommonArea)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-11-02 09:25:04
  * @since 1.0.0
  */
@@ -94,7 +96,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      * 数据校验
      *
      * @param entity ${@link CommonAreaEntity} 待校验数据
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-07 20:54
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
@@ -217,7 +219,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      *
      * @param activateAreaId
      * @return String
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-29 00:36
      */
     private String getLike(String activateAreaId, CommonAreaEntity byId) {
@@ -239,7 +241,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      *
      * @param areaIdsList 父级区域id列表
      * @return Map<String, Boolean> 结果，键为parentId
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 18:38
      */
     private Map<String, Boolean> checkHaveChildren(List<String> areaIdsList) {
@@ -391,7 +393,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      *
      * @param parentId ${@link String} 上级区域编码
      * @return String[] ${@link String[]} 0-上级有效区域编码,1-上级区域编码等级
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-07 23:18
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
@@ -415,7 +417,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
      * @param areaId    ${@link String}
      * @param areaLevel ${@link Integer} 区域级别
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-08-22 20:21
      */
     String getEffectiveAreaId(String areaId, int areaLevel) {

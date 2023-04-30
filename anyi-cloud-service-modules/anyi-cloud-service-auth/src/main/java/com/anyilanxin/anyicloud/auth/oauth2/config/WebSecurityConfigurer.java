@@ -42,7 +42,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * security配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 16:04
  * @since 1.0.0
  */

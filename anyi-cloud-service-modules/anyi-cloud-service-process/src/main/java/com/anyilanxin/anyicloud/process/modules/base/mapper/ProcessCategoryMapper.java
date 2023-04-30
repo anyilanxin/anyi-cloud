@@ -38,15 +38,17 @@ import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategory
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategoryPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 流程类别(ProcessCategory)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-19 10:47:01
  * @since 1.0.0
  */
@@ -58,7 +60,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      * @param vo   ${@link ProcessCategoryPageVo} 查询条件
      * @param page ${@link Page< ProcessCategoryPageDto >} 分页信息
      * @return IPage<ProcessCategoryPageDto> ${@link IPage<ProcessCategoryPageDto>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     IPage<ProcessCategoryPageDto> pageByModel(Page<ProcessCategoryPageDto> page, @Param("query") ProcessCategoryPageVo vo);
@@ -69,7 +71,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      *
      * @param vo ${@link ProcessCategoryQueryVo} 查询条件
      * @return List<ProcessCategoryDto> ${@link List< ProcessCategoryDto >} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo);
@@ -80,7 +82,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      *
      * @param categoryId ${@link String} 类别id
      * @return int ${@link Integer} 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     int physicalDeleteById(@Param("id") String categoryId);
@@ -91,7 +93,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      *
      * @param idList ${@link Collection} 待删除id
      * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-19 10:47:01
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
@@ -101,7 +103,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      * 获取建模流程类别下拉列表
      *
      * @return List<SelectModel>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-10-19 07:41
      */
     List<SelectModel> getModelDesignList();

@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * ProcessDefinitionEntity转ProcessDefinitionPageDto
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2020-10-15 22:17:55
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

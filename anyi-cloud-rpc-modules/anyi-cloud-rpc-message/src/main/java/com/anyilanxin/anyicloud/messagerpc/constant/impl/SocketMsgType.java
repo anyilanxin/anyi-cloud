@@ -32,14 +32,16 @@ package com.anyilanxin.anyicloud.messagerpc.constant.impl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 /**
  * socket消息事件
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 10:52
  * @since 1.0.0
  */
@@ -87,7 +89,7 @@ public enum SocketMsgType implements ISuperType {
      *
      * @param type ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(int type) {
@@ -106,7 +108,7 @@ public enum SocketMsgType implements ISuperType {
      *
      * @param type ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static SocketMsgType getByType(int type) {
@@ -124,7 +126,7 @@ public enum SocketMsgType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String} 拼接为字符串返回,多个顿号隔开
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

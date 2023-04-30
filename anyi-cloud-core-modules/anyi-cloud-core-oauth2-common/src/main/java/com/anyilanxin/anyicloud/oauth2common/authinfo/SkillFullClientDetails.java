@@ -33,7 +33,9 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -44,7 +46,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 /**
  * 客户端信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 17:08
  * @since 1.0.0
  */

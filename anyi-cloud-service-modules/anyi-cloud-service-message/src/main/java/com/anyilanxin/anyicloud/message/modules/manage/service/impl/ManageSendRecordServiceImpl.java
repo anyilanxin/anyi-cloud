@@ -44,9 +44,11 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRec
 import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageSendRecordCopyMap;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,7 +57,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 消息发送记录表(ManageSendRecord)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:42
  * @since 1.0.0

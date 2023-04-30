@@ -33,15 +33,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
 /**
  * 自定义填充公共字段处理类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-04-03 18:12
  * @since 1.0.0
  */
@@ -98,7 +100,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      * 获取用户信息
      *
      * @return JSONObject ${@link JSONObject}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:43
      */
     private UserInfo getUser() {

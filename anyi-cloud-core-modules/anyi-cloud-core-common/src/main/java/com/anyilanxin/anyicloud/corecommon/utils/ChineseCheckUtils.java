@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 /**
  * 中文处理工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 23:20
  * @since 1.0.0
  */

@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 验证结果
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-30 16:35
  * @since 1.0.0
  */

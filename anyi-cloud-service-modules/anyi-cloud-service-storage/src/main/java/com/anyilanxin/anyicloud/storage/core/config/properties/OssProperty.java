@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 /**
  * 文件上传oss配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-23 13:09
  * @since 1.0.0
  */

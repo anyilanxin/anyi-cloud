@@ -31,7 +31,9 @@ package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +43,7 @@ import lombok.experimental.Accessors;
 /**
  * 权限表查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-06 23:14:39
  * @since 1.0.0
  */

@@ -35,14 +35,16 @@ import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.anyicloud.corecommon.utils.ClientTokenUtils;
 import feign.RequestTemplate;
+
 import java.util.Collection;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**
  * 系统内部实现从auth-service获取一个token
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-10 09:34
  * @since 1.0.0
  */

@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 数据字典配置项表(CommonDictItem)Dto与Entity相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2020-11-02 09:25:29
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

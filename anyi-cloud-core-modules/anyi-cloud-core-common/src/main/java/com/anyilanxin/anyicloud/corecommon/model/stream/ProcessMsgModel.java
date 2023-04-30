@@ -35,17 +35,19 @@ import com.anyilanxin.anyicloud.corecommon.constant.impl.BusinessType;
 import com.anyilanxin.anyicloud.corecommon.constant.impl.SocketMsgType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * web socket消息model
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-08 15:57
  * @since 1.0.0
  */

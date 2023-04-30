@@ -31,7 +31,9 @@ package com.anyilanxin.anyicloud.auth.modules.login.mapper;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthModel;
+
 import java.util.Set;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -48,7 +50,7 @@ public interface ClientAuthMapper {
      *
      * @param clientDetailId 客户端明细id
      * @return Set<ClientRoleModel> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-06 00:08
      */
     Set<RoleInfo> getClientAuthRole(@Param("clientDetailId") String clientDetailId);
@@ -59,7 +61,7 @@ public interface ClientAuthMapper {
      *
      * @param clientId
      * @return ClientAndResourceAuthModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-12 12:18
      */
     ClientAndResourceAuthModel selectClientIdByClientId(@Param("clientId") String clientId);

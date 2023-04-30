@@ -37,7 +37,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 /**
  * token redis存储
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 17:05
  * @since 1.0.0
  */

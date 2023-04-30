@@ -33,9 +33,11 @@ import static com.anyilanxin.anyicloud.corecommon.utils.I18nUtil.getLocalMessage
 
 import com.anyilanxin.anyicloud.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.anyicloud.coremvc.utils.ServletUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +51,7 @@ import org.springframework.security.web.util.ThrowableAnalyzer;
 /**
  * 授权异常处理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 20:54
  * @since 1.0.0
  */

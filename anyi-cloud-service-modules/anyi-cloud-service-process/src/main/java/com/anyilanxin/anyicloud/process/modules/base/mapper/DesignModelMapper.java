@@ -36,14 +36,16 @@ import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelDepl
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 流程模型管理(DesignModel)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-25 05:22:56
  * @since 1.0.0
  */
@@ -55,7 +57,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      * @param vo   ${@link DesignModelPageVo} 查询条件
      * @param page ${@link Page< DesignModelPageDto >} 分页信息
      * @return IPage<DesignModelPageDto> ${@link IPage<DesignModelPageDto>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     IPage<DesignModelPageDto> pageByModel(Page<DesignModelPageDto> page, @Param("query") DesignModelPageVo vo);
@@ -65,7 +67,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      * 模型状态统计
      *
      * @return DesignModelDeploymentStatiDto ${@link DesignModelDeploymentStatiDto}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-03-02 18:01
      */
     DesignModelDeploymentStatiDto statistics();
@@ -76,7 +78,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      *
      * @param modelId ${@link String} 模型id
      * @return int ${@link Integer} 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     int physicalDeleteById(@Param("id") String modelId);
@@ -87,7 +89,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      *
      * @param modelId              需要排除的模型id
      * @param processDefinitionKey 流程定义key
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-06-05 14:49
      */
     int getModelNum(@Param("id") String modelId, @Param("key") String processDefinitionKey);
@@ -98,7 +100,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      *
      * @param idList ${@link Collection} 待删除id
      * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

@@ -42,7 +42,7 @@ import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelPage
 /**
  * 流程模型管理(DesignModel)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-25 05:22:56
  * @since 1.0.0
  */
@@ -52,7 +52,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      *
      * @param vo ${@link DesignModelVo} 流程模型管理保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     void save(DesignModelVo vo) throws RuntimeException;
@@ -65,7 +65,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @param modelId ${@link String} 模型id
      * @param vo      ${@link DesignModelVo} 流程模型管理更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     void updateById(String modelId, DesignModelVo vo) throws RuntimeException;
@@ -77,7 +77,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @param vo ${@link DesignModelPageVo} 流程模型管理分页查询Vo
      * @return PageDto<DesignModelPageDto> ${@link PageDto< DesignModelPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     PageDto<DesignModelPageDto> pageByModel(DesignModelPageVo vo) throws RuntimeException;
@@ -89,7 +89,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @param modelId ${@link String} 模型id
      * @return DesignModelDto ${@link DesignModelDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 05:22:56
      */
     DesignModelDto getById(String modelId) throws RuntimeException;
@@ -100,7 +100,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      *
      * @param vo ${@link DeleteDesignModelVo} 模型删除
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 12:20
      */
     void deleteByModel(DeleteDesignModelVo vo) throws RuntimeException;
@@ -111,7 +111,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      *
      * @return DesignModelDeploymentStatiDto ${@link DesignModelDeploymentStatiDto}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-03-02 18:00
      */
     DesignModelDeploymentStatiDto statistics() throws RuntimeException;

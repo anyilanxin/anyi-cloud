@@ -39,6 +39,7 @@ import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
 import feign.FeignException;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
@@ -68,7 +70,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 /**
  * 异常处理器
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:34
  * @since 1.0.0
  */
@@ -80,7 +82,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link Exception}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:21
      */
     @ExceptionHandler(Exception.class)
@@ -112,7 +114,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link ResponseException} 处理异常
      * @return Result ${@link Result} 响应前端
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:17
      */
     @ExceptionHandler(ResponseException.class)
@@ -129,7 +131,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link UnauthorizedUserException} 处理异常
      * @return Result ${@link Result} 响应前端
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:17
      */
     @ExceptionHandler(UnauthorizedUserException.class)
@@ -146,7 +148,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link BindException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-18 09:35
      */
     @ExceptionHandler(BindException.class)
@@ -178,7 +180,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link ConstraintViolationException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-18 09:35
      */
     @ExceptionHandler(ConstraintViolationException.class)
@@ -212,7 +214,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link MethodArgumentNotValidException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:27
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -243,7 +245,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link DuplicateKeyException}
      * @return Result${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:27
      */
     @ExceptionHandler(DuplicateKeyException.class)
@@ -268,7 +270,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link HttpRequestMethodNotSupportedException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -284,7 +286,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link BadSqlGrammarException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(BadSqlGrammarException.class)
@@ -301,7 +303,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link HttpMessageNotReadableException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -317,7 +319,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link NoHandlerFoundException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(NoHandlerFoundException.class)
@@ -333,7 +335,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link SQLIntegrityConstraintViolationException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
@@ -358,7 +360,7 @@ public class GlobalExceptionHandler extends BaseController {
      *
      * @param e ${@link FeignException}
      * @return Result ${@link Result}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:28
      */
     @ExceptionHandler(FeignException.class)

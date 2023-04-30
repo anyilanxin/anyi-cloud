@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
+
 import java.util.List;
 
 /**
  * 消息发送记录表(ManageSendRecord)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 05:23:42
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      *
      * @param vo ${@link ManageSendRecordVo} 消息发送记录表保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:42
      */
     void save(ManageSendRecordVo vo) throws RuntimeException;
@@ -64,7 +65,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      *
      * @param recordEntities
      * @return TemplateResultModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-30 10:27
      */
     TemplateResultModel saveBatchRecord(List<ManageSendRecordEntity> recordEntities);
@@ -76,7 +77,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @param vo ${@link ManageSendRecordPageVo} 消息发送记录表分页查询Vo
      * @return PageDto<ManageSendRecordPageDto> ${@link PageDto<  ManageSendRecordPageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:42
      */
     PageDto<ManageSendRecordPageDto> pageByModel(ManageSendRecordPageVo vo) throws RuntimeException;
@@ -88,7 +89,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @param sendRecordId ${@link String} 消息id
      * @return ManageSendRecordDto ${@link ManageSendRecordDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:42
      */
     ManageSendRecordDto getById(String sendRecordId) throws RuntimeException;
@@ -99,7 +100,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      *
      * @param sendRecordId ${@link String} 消息id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:42
      */
     void deleteById(String sendRecordId) throws RuntimeException;
@@ -110,7 +111,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      *
      * @param sendRecordIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 05:23:42
      */
     void deleteBatch(List<String> sendRecordIds) throws RuntimeException;

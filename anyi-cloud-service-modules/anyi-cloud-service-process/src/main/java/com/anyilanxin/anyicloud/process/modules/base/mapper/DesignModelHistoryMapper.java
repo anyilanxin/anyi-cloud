@@ -35,14 +35,16 @@ import com.anyilanxin.anyicloud.process.modules.base.entity.DesignModelHistoryEn
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelHistoryPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.Collection;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * 流程模型历史(DesignModelHistory)持久层
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-25 09:52:36
  * @since 1.0.0
  */
@@ -54,7 +56,7 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
      * @param vo   ${@link DesignModelHistoryPageVo} 查询条件
      * @param page ${@link Page<  DesignModelHistoryPageDto  >} 分页信息
      * @return IPage<DesignModelHistoryPageDto> ${@link IPage<DesignModelHistoryPageDto>} 结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:36
      */
     IPage<DesignModelHistoryPageDto> pageByModel(Page<DesignModelHistoryPageDto> page, @Param("query") DesignModelHistoryPageVo vo);
@@ -65,7 +67,7 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
      *
      * @param historyModelId ${@link String} 历史模型id
      * @return int ${@link Integer} 成功状态:0-失败,1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:36
      */
     int physicalDeleteById(@Param("id") String historyModelId);
@@ -76,7 +78,7 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
      *
      * @param idList ${@link Collection} 待删除id
      * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-25 09:52:36
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);

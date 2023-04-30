@@ -38,7 +38,7 @@ import org.springframework.stereotype.Component;
 /**
  * 授权相关配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-30 00:58
  * @since 1.0.0
  */

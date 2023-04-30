@@ -34,7 +34,9 @@ import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.FeignFallback;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.systemrpc.model.SimpleUserModel;
+
 import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 系统服务feign接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-12 21:54
  * @since 1.0.0
  */
@@ -53,7 +55,7 @@ public interface SystemRemoteRoleService {
      *
      * @param roleIds ${@link List<String>} 角色id
      * @return Result<List < ProcessRoleModel>> ${@link Result<List< SimpleUserModel >>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-12 17:13
      */
     @PostMapping("/rbac-role/select/list/role-id")

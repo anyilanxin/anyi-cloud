@@ -32,9 +32,11 @@ package com.anyilanxin.anyicloud.database.datasource.base.service.dto;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,7 +46,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 分页结果
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-23 15:36
  * @since 1.0.0
  */

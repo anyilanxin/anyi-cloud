@@ -30,6 +30,7 @@
 package com.anyilanxin.anyicloud.auth.oauth2;
 
 import java.util.Collection;
+
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.approval.Approval;
@@ -39,7 +40,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * 自定义ApprovalStore
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-17 19:33
  * @since 1.0.0
  */

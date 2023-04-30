@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 /**
- * @author 安一老厨
+ * @author zxh
  */
 @Configuration
 public class MybatisPlusCoreDatabaseConfig {
@@ -46,7 +46,7 @@ public class MybatisPlusCoreDatabaseConfig {
      * sql日志打印(只用于开发和测试环境)
      *
      * @return MybatisConfiguration ${@link MybatisConfiguration}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-04-03 17:58
      */
     @Bean

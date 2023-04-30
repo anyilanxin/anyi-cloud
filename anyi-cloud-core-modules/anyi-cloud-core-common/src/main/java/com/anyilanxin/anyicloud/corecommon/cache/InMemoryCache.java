@@ -37,7 +37,7 @@ import java.util.concurrent.DelayQueue;
 /**
  * 本地缓存方法
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-06-16 14:06
  * @since 1.0.0
  */
@@ -48,7 +48,7 @@ public class InMemoryCache {
     /**
      * 刷新缓存
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     private static void flush() {
@@ -66,7 +66,7 @@ public class InMemoryCache {
     /**
      * 清空缓存
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     public static void clearAll() {
@@ -78,11 +78,11 @@ public class InMemoryCache {
     /**
      * 清空键包含某个字符串的全部缓存
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     public static void clearAllLikeStr(String str) {
-        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext();) {
+        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext(); ) {
             Map.Entry<String, CacheData> item = it.next();
             String key = item.getKey();
             if (key.contains(str)) {
@@ -96,7 +96,7 @@ public class InMemoryCache {
      * 获取缓存数据值
      *
      * @param key ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     public static <T> T getCache(String key) {
@@ -111,7 +111,7 @@ public class InMemoryCache {
      *
      * @param key ${@link String}
      * @return CacheData<T> ${@link CacheData<T>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     public static <T> CacheData<T> getCacheData(String key) {
@@ -132,7 +132,7 @@ public class InMemoryCache {
      * @param key    ${@link String}
      * @param t      ${@link Object}
      * @param expiry ${@link Integer} 缓存过期时间,-1表示永不过期（单位s）
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:47
      */
     public static <T> void addCache(String key, T t, int expiry) {
@@ -152,7 +152,7 @@ public class InMemoryCache {
      * 移除缓存并返回当前缓存
      *
      * @param key ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 15:48
      */
     public static <T> T removeCache(String key) {

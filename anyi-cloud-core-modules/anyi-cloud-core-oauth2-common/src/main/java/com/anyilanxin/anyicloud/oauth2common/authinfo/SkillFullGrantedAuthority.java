@@ -32,13 +32,14 @@ package com.anyilanxin.anyicloud.oauth2common.authinfo;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
 /**
  * 权限信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-05-13 15:44
  * @since 1.0.0
  */

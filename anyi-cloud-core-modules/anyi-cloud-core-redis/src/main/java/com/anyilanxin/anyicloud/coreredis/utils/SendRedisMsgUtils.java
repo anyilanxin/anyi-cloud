@@ -30,6 +30,7 @@
 package com.anyilanxin.anyicloud.coreredis.utils;
 
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -59,7 +60,7 @@ public class SendRedisMsgUtils {
      *
      * @param channel
      * @param msg
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-21 20:03
      */
     public static void sendMsg(String channel, String msg) {

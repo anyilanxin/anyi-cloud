@@ -30,7 +30,9 @@
 package com.anyilanxin.anyicloud.corecommon.annotation;
 
 import com.anyilanxin.anyicloud.corecommon.constant.SysBaseConstant;
+
 import java.lang.annotation.*;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -41,7 +43,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 /**
  * 自定义启动注解
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-12 17:16
  * @since 1.0.0
  */

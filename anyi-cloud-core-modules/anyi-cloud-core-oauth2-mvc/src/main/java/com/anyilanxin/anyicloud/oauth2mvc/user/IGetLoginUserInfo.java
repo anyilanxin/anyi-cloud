@@ -32,12 +32,13 @@ package com.anyilanxin.anyicloud.oauth2mvc.user;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
+
 import java.util.Set;
 
 /**
  * 获取登录用户信息接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-04-09 09:33
  * @since 1.0.0
  */

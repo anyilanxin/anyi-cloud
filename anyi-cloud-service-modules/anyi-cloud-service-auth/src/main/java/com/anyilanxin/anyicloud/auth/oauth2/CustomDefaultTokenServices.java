@@ -37,9 +37,11 @@ import com.anyilanxin.anyicloud.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.constant.OAuth2RequestExtendConstant;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,7 +56,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 06:07
  * @since 1.0.0
  */
@@ -121,7 +123,7 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
      * @param authentication ${@link OAuth2Authentication}
      * @param clientDetails  ${@link ClientDetails}
      * @return OAuth2Authentication ${@link OAuth2Authentication}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-06 23:51
      */
     private OAuth2Authentication addStoredRequestExtension(OAuth2Authentication authentication, ClientDetails clientDetails) {

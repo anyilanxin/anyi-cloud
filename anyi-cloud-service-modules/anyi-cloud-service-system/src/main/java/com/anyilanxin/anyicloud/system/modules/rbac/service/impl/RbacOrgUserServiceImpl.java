@@ -39,9 +39,11 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleUserServ
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,7 +51,7 @@ import org.springframework.stereotype.Service;
 /**
  * 机构-用户(RbacOrgUser)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-07-02 23:01:20
  * @since 1.0.0

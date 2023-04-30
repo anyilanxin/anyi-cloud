@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.message.modules.websocket.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * 发送socket消息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-08 15:57
  * @since 1.0.0
  */

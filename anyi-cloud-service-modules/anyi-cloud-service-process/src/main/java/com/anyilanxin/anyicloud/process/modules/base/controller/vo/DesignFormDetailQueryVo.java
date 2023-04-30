@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.process.modules.base.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,7 +43,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 流程表单详细条件查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-02-12 20:17:22
  * @since 1.0.0
  */

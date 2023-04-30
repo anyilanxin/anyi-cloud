@@ -31,12 +31,13 @@ package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleUserEntity;
+
 import java.util.Set;
 
 /**
  * 机构角色-用户(RbacOrgRoleUser)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-07-05 00:22:57
  * @since 1.0.0
@@ -49,7 +50,7 @@ public interface IRbacOrgRoleUserService extends BaseService<RbacOrgRoleUserEnti
      * @param orgId      机构id
      * @param orgRoleIds 机构角色 id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-02 23:01:20
      */
     void saveBatch(String userId, String orgId, Set<String> orgRoleIds) throws RuntimeException;
@@ -61,7 +62,7 @@ public interface IRbacOrgRoleUserService extends BaseService<RbacOrgRoleUserEnti
      * @param userId 用户id
      * @param orgId  机构id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:20
      */
     void deleteByUserId(String userId, String orgId) throws RuntimeException;

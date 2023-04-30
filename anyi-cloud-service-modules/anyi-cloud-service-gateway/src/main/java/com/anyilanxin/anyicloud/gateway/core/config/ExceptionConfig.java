@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.gateway.core.config;
 
 import com.anyilanxin.anyicloud.gateway.core.handler.WebExceptionHandler;
+
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -49,7 +51,7 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 /**
  * 异常处理器配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 18:10
  * @since 1.0.0
  */

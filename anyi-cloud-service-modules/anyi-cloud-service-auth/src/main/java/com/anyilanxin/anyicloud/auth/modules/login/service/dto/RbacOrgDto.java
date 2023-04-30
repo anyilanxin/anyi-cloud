@@ -31,15 +31,17 @@ package com.anyilanxin.anyicloud.auth.modules.login.service.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+
 import java.io.Serializable;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 组织表(RbacOrg)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:44
  * @since 1.0.0

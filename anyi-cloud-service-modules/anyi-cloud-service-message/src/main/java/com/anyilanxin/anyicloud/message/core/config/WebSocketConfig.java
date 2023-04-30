@@ -43,7 +43,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 /**
  * websocket配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-08 12:14
  * @since 1.0.0
  */

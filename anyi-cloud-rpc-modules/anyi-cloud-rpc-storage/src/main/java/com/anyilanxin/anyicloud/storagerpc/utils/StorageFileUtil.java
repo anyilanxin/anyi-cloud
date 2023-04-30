@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.activation.MimetypesFileTypeMap;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -56,7 +57,7 @@ public class StorageFileUtil {
      * @param file            文件
      * @param requestFileName 上传接收时MultipartFile的@RequestParam参数名
      * @return MultipartFile
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-15 22:13
      */
     public static MultipartFile fileToMultipartFile(File file, String requestFileName) {

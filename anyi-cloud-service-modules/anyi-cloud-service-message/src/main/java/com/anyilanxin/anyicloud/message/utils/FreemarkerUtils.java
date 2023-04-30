@@ -35,16 +35,18 @@ import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * freemarker模板工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-04-25 20:25
  * @since 1.0.0
  */
@@ -56,7 +58,7 @@ public class FreemarkerUtils {
      * @param templateStr ${@link String} 待解析字符串
      * @param jsonObject  ${@link JSONObject} 填充内容
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-04-25 20:27
      */
     public static String processStr(String templateStr, JSONObject jsonObject) {

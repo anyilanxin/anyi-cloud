@@ -30,7 +30,9 @@
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +42,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 机构-资源表条件查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-07-02 23:01:20
  * @since 1.0.0

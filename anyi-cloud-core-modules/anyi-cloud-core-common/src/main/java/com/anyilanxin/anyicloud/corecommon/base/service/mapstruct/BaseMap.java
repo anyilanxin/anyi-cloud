@@ -31,12 +31,13 @@ package com.anyilanxin.anyicloud.corecommon.base.service.mapstruct;
 
 import java.util.List;
 import java.util.Set;
+
 import org.mapstruct.MappingTarget;
 
 /**
  * Dto与Entity相互转换基类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:19
  * @since 1.0.0
  */

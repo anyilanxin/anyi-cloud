@@ -48,8 +48,10 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -59,7 +61,7 @@ import org.springframework.stereotype.Service;
 /**
  * 同步接口实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:16
  * @since 1.0.0
@@ -147,7 +149,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * 获取系统有效的路由信息
      *
      * @return SystemRouterListModel ${@link SystemRouterListModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-22 23:42
      */
     private void routerToRedis(Set<String> serviceIds, boolean update) {
@@ -200,7 +202,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * @param routeIds ${@link Set<String>}
      * @return Map<String, List < RoutePredicateModel>> ${@link Map<String,
      * List<RoutePredicateModel>>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RoutePredicateModel>> getPredicates(Set<String> routeIds) {
@@ -228,7 +230,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      *
      * @param routeIds ${@link Set<String>}
      * @return Map<String, List < RouteFilterModel>> ${@link Map<String, List<RouteFilterModel>>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RouteFilterModel>> getFilters(Set<String> routeIds) {
@@ -256,7 +258,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      *
      * @param routeIds ${@link Set<String>}
      * @return Map<String, List < RouteFilterModel>> ${@link Map<String, List<RouteFilterModel>>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RouteFilterModel>> getCustomFilters(Set<String> routeIds) {
@@ -306,7 +308,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      *
      * @return Map<String, RouteMetaSpecialUrlModel> ${@link Map<String,
      * RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-05 14:42
      */
     public Map<String, RouteMetaSpecialUrlModel> getSpecialUrls(Set<String> filterIds) {

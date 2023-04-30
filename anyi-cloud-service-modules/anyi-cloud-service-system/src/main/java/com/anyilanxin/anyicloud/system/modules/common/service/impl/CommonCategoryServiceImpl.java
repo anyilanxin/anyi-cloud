@@ -51,7 +51,9 @@ import com.anyilanxin.anyicloud.system.modules.common.service.mapstruct.CommonCa
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -61,7 +63,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 分类字典表(CommonCategory)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-07 23:40:21
  * @since 1.0.0
  */
@@ -91,7 +93,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
      * 数据检查并返回统一编码
      *
      * @param entity ${@link CommonCategoryEntity} 待检测数据
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-07 23:43
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)

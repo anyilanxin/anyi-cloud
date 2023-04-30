@@ -32,14 +32,16 @@ package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 /**
  * 负载均衡器类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 12:12
  * @since 1.0.0
  */
@@ -88,7 +90,7 @@ public enum LbType implements ISuperType {
      *
      * @param typeName ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(String typeName) {
@@ -107,7 +109,7 @@ public enum LbType implements ISuperType {
      *
      * @param typeName ${@link String} 类型
      * @return LbType
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static LbType getByType(String typeName) {
@@ -126,7 +128,7 @@ public enum LbType implements ISuperType {
      *
      * @param str ${@link String} 待匹配的字符串
      * @return LbType ${@link LbType} 匹配的类型
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-28 09:32
      */
     public static LbType getStartMatch(String str) {
@@ -144,7 +146,7 @@ public enum LbType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

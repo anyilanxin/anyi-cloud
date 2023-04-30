@@ -46,9 +46,11 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageA
 import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementPageCopyMap;
 import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,7 +60,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * 系统通告公告管理(ManageAnnouncement)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 08:34:22
  * @since 1.0.0

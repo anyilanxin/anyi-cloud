@@ -34,9 +34,11 @@ import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.*;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -44,7 +46,7 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.TokenRequest;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 16:28
  * @since 1.0.0
  */

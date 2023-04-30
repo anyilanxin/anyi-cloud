@@ -37,7 +37,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 分类字典表分页查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-07 23:40:08
  * @since 1.0.0
  */

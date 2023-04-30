@@ -39,7 +39,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -52,7 +54,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 日志接收处理
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-01-27 19:45
  * @since 1.0.0
  */

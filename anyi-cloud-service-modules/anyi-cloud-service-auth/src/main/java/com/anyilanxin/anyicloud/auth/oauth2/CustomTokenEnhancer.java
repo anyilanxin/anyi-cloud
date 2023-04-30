@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.auth.oauth2;
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.anyicloud.auth.core.constant.AuthCommonConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.AuthConstant;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -44,7 +46,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 /**
  * token增强
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 03:05
  * @since 1.0.0
  */

@@ -32,16 +32,18 @@ package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteFilterModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 自定义过滤器查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:14
  * @since 1.0.0

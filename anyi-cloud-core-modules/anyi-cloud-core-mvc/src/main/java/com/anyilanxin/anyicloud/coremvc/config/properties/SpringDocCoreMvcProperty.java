@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.coremvc.config.properties;
 import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.GRAY_HEADER_KEY;
 
 import cn.hutool.core.collection.CollectionUtil;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,7 +45,7 @@ import org.springframework.stereotype.Component;
 /**
  * spring doc配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-08-30 15:33
  * @since 1.0.0
  */

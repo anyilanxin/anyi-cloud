@@ -38,6 +38,7 @@ import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.google.common.base.CaseFormat;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -50,6 +51,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -65,7 +67,7 @@ import org.springframework.stereotype.Component;
 /**
  * 系统工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-25 09:34
  * @since 1.0.0
  */
@@ -87,7 +89,7 @@ public class CoreCommonUtils {
      * 获取有序唯一id
      *
      * @return String ${@link String} id
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 16:23
      */
     public static String getSnowflakeId() {
@@ -100,7 +102,7 @@ public class CoreCommonUtils {
      *
      * @param size ${@link Long} 文件大小
      * @return String ${@link String} 返回格式化的文件大小
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-23 14:47
      */
     public static String getFormatFileSize(long size) {
@@ -129,7 +131,7 @@ public class CoreCommonUtils {
      *
      * @param inputStream ${@link InputStream}
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-23 14:50
      */
     public static String getFileMd5Hex(InputStream inputStream) {
@@ -148,7 +150,7 @@ public class CoreCommonUtils {
      *
      * @param object ${@link Object} 待处理对象
      * @return String ${@link String} 处理结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-12-31 15:12
      */
     public static String objectToJsonStr(Object object) {
@@ -166,7 +168,7 @@ public class CoreCommonUtils {
      * @param jsonStr ${@link String} 待转换数据
      * @param cla     ${@link Class<T>} 目标对象类型类
      * @return T 处理结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-08 13:21
      */
     public static <T> T jsonStrToObject(String jsonStr, Class<T> cla) {
@@ -182,7 +184,7 @@ public class CoreCommonUtils {
      *
      * @param throwable ${@link Throwable} 异常信息
      * @return String ${@link String} 处理结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-27 15:22
      */
     public static String getStackTrace(Throwable throwable) {
@@ -199,7 +201,7 @@ public class CoreCommonUtils {
      *
      * @param str ${@link String} 驼峰
      * @return String ${@link String} 下划线
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-08-01 13:54
      */
     public static String humpToUnderline(String str) {
@@ -215,7 +217,7 @@ public class CoreCommonUtils {
      *
      * @param str ${@link String}
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-08-01 13:58
      */
     public static String underlineToHump(String str) {
@@ -231,7 +233,7 @@ public class CoreCommonUtils {
      *
      * @param queryStr ${@link String} 待解析内容
      * @return Map<String, String> ${@link Map<String, String> } 解析结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-08 14:36
      */
     public static Map<String, String> getQueryMap(String queryStr) {
@@ -253,7 +255,7 @@ public class CoreCommonUtils {
      *
      * @param queryMap ${@link Map<String, String>} 待组装参数
      * @return String ${@linkString } 解析结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-08 14:36
      */
     public static String queryToString(Map<String, String> queryMap) {
@@ -270,7 +272,7 @@ public class CoreCommonUtils {
      *
      * @param packages ${@link String} 扫描包路径
      * @return Map<String, List < ConstantDictModel>> ${@link Map<String, List<ConstantDictModel>>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-04-02 10:51
      */
     public static Map<String, List<ConstantDictModel>> createOrGetConstantDict(String serviceName, String... packages) {
@@ -305,7 +307,7 @@ public class CoreCommonUtils {
      *
      * @param clas ${@link Class}
      * @return String[] ${@link String[]}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-04-12 15:29
      */
     public static <T> String[] getPackages(Class<T> clas) {
@@ -326,7 +328,7 @@ public class CoreCommonUtils {
      *
      * @param url ${@link String} url信息
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-11 23:28
      */
     public static String getUri(String url) {
@@ -342,7 +344,7 @@ public class CoreCommonUtils {
      * 获取32位uuid(使用ThreadLocalRandom提高性能)
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-04-01 17:02
      */
     public static String get32UUId() {

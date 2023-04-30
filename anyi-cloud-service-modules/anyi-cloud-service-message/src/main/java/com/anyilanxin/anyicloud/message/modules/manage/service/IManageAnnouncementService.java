@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnou
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageAnnouncementEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementPageDto;
+
 import java.util.List;
 
 /**
  * 系统通告公告管理(ManageAnnouncement)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-03-29 08:34:22
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      *
      * @param vo ${@link ManageAnnouncementVo} 系统通告公告管理保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     void save(ManageAnnouncementVo vo) throws RuntimeException;
@@ -66,7 +67,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @param anntId ${@link String} 通知公告id
      * @param vo     ${@link ManageAnnouncementVo} 系统通告公告管理更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     void updateById(String anntId, ManageAnnouncementVo vo) throws RuntimeException;
@@ -79,7 +80,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @return PageDto<ManageAnnouncementPageDto> ${@link PageDto<  ManageAnnouncementPageDto  >}
      * 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     PageDto<ManageAnnouncementPageDto> pageByModel(ManageAnnouncementPageVo vo) throws RuntimeException;
@@ -91,7 +92,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @param vo ${@link ManageAnnouncementQueryVo} 系统通告公告管理条件查询Vo
      * @return List<ManageAnnouncementDto> ${@link List<  ManageAnnouncementDto  >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     List<ManageAnnouncementDto> selectListByModel(ManageAnnouncementQueryVo vo) throws RuntimeException;
@@ -103,7 +104,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @param anntId ${@link String} 通知公告id
      * @return ManageAnnouncementDto ${@link ManageAnnouncementDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     ManageAnnouncementDto getById(String anntId) throws RuntimeException;
@@ -114,7 +115,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      *
      * @param anntId ${@link String} 通知公告id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     void deleteById(String anntId) throws RuntimeException;
@@ -125,7 +126,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      *
      * @param anntIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-03-29 08:34:22
      */
     void deleteBatch(List<String> anntIds) throws RuntimeException;

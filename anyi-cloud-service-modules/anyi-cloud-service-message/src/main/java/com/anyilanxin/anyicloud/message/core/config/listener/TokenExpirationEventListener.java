@@ -39,7 +39,9 @@ import com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
 import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
+
 import java.nio.charset.StandardCharsets;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
@@ -49,7 +51,7 @@ import org.springframework.lang.Nullable;
 /**
  * 权限信息被删除监听
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-07-09 22:02
  * @since 1.0.0
  */

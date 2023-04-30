@@ -30,13 +30,14 @@
 package com.anyilanxin.anyicloud.corecommon.cache;
 
 import java.util.Date;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 缓存数据
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2019-06-16 14:06
  * @since 1.0.0
  */
@@ -48,7 +49,7 @@ public class CacheData<T> {
     /**
      * 获取过期剩余时间,永不过期为-1(单位:秒)
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 16:12
      */
     public int getExpiresIn() {
@@ -59,7 +60,7 @@ public class CacheData<T> {
     /**
      * 设置过期时间,永不过期为-1(单位:秒)
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 16:12
      */
     void setExpiresIn(int expiresIn) {
@@ -74,7 +75,7 @@ public class CacheData<T> {
      * 获取如果过期时间,如果永不过期此时返回null;
      *
      * @return Date ${@link Date}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 16:11
      */
     public Date getExpiration() {
@@ -85,7 +86,7 @@ public class CacheData<T> {
     /**
      * 设置过期时间,永不过期为null
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 16:12
      */
     private void setExpiration(Date expiration) {
@@ -99,7 +100,7 @@ public class CacheData<T> {
     /**
      * 判断当前缓存是否过期
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-06-16 16:13
      */
     public boolean isExpired() {

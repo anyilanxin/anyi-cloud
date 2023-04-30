@@ -32,6 +32,7 @@ package com.anyilanxin.anyicloud.coremvc.config.properties;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -44,7 +45,7 @@ import org.springframework.stereotype.Component;
 /**
  * app节点配置信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-29 00:25
  * @since 1.0.0
  */

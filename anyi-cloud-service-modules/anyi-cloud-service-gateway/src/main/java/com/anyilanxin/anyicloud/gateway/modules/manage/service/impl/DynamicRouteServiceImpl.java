@@ -42,8 +42,10 @@ import com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo.GatewayRout
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IDynamicRouteService;
 import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
 import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
+
 import java.net.URI;
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -66,7 +68,7 @@ import reactor.core.scheduler.Schedulers;
 /**
  * 动态路由服务
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-10 21:10
  * @since 1.0.0
  */
@@ -199,7 +201,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
      *
      * @param vo ${@link GatewayRouteVo}
      * @return RouteDefinition ${@link RouteDefinition}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-10 21:15
      */
     private RouteDefinition getRouteDefinition(SystemRouterModel vo) {
@@ -278,7 +280,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
     /**
      * 刷新路由
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 12:05
      */
     private void notifyChanged() {

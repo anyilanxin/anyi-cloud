@@ -30,14 +30,16 @@
 package com.anyilanxin.anyicloud.message.modules.websocket.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * socket信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-21 01:36
  * @since 1.0.0
  */

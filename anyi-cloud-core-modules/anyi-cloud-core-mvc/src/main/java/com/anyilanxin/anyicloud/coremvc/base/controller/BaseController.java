@@ -39,7 +39,7 @@ import org.apache.poi.ss.formula.functions.T;
 /**
  * Controller基类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:19
  * @since 1.0.0
  */
@@ -51,7 +51,7 @@ public class BaseController {
      * 成功响应
      *
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:16
      */
     public static <T> Result<T> ok() {
@@ -63,7 +63,7 @@ public class BaseController {
      * 成功响应
      *
      * @return Result<String> ${@link Result<String>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:16
      */
     public static Result<String> ok(String message) {
@@ -76,7 +76,7 @@ public class BaseController {
      *
      * @param data ${@link Object} 成功响应数据
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:16
      */
     public static <T> Result<T> ok(T data) {
@@ -89,7 +89,7 @@ public class BaseController {
      *
      * @param status ${@link Object} 成功响应数据
      * @return Result<T> ${@link Result< T >} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:16
      */
     public static Result<Object> ok(Status status) {
@@ -103,7 +103,7 @@ public class BaseController {
      * @param data    ${@link Object} 成功响应数据
      * @param message ${@link String} 成功响应消息
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:16
      */
     public static <T> Result<T> ok(T data, String message) {
@@ -117,7 +117,7 @@ public class BaseController {
      * 响应失败
      *
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:17
      */
     public static <T> Result<T> fail() {
@@ -130,7 +130,7 @@ public class BaseController {
      *
      * @param status ${@link Status} 失败状态
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:17
      */
     public static <T> Result<T> fail(Status status) {
@@ -143,7 +143,7 @@ public class BaseController {
      *
      * @param message ${@link String} 失败消息
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:17
      */
     public static <T> Result<T> fail(String message) {
@@ -157,7 +157,7 @@ public class BaseController {
      * @param status  ${@link Status} 失败状态
      * @param message ${@link String} 失败消息
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:17
      */
     public static <T> Result<T> fail(Status status, String message) {
@@ -173,7 +173,7 @@ public class BaseController {
      * @param code    ${@link Integer} 失败状态码
      * @param message ${@link String} 失败消息
      * @return Result<T> ${@link Result<T>} 响应信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:17
      */
     public static <T> Result<T> fail(Integer code, String message) {

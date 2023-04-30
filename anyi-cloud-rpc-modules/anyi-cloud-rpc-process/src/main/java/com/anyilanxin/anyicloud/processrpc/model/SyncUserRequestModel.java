@@ -30,10 +30,12 @@
 package com.anyilanxin.anyicloud.processrpc.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,7 +45,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 用户信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:49
  * @since 1.0.0
  */

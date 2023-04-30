@@ -32,7 +32,9 @@ package com.anyilanxin.anyicloud.oauth2webflux.oauth2;
 import cn.hutool.json.JSONUtil;
 import com.anyilanxin.anyicloud.corecommon.base.Result;
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
+
 import java.nio.charset.StandardCharsets;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -48,7 +50,7 @@ import reactor.core.publisher.Mono;
 /**
  * 非匿名用户限校验不通过
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-03 21:17
  * @since 1.0.0
  */

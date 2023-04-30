@@ -32,15 +32,17 @@ package com.anyilanxin.anyicloud.system.core.constant.impl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import lombok.Getter;
 
 /**
  * 特殊url类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 12:12
  * @since 1.0.0
  */
@@ -79,7 +81,7 @@ public enum SpecialUrlType implements ISuperType {
      *
      * @param type ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(Integer type) {
@@ -101,7 +103,7 @@ public enum SpecialUrlType implements ISuperType {
      *
      * @param type ${@link Integer} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static SpecialUrlType getComplainByType(int type) {
@@ -119,7 +121,7 @@ public enum SpecialUrlType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

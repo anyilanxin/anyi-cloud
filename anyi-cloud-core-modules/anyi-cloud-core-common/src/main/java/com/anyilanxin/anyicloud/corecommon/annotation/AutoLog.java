@@ -34,7 +34,7 @@ import java.lang.annotation.*;
 /**
  * 系统日志注解
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:39
  * @since 1.0.0
  */

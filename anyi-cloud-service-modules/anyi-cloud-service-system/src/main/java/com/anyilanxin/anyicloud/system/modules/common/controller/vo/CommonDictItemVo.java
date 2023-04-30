@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.system.modules.common.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 数据字典配置项表添加或修改Request
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-11-02 09:25:24
  * @since 1.0.0
  */

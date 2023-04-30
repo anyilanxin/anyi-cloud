@@ -36,7 +36,9 @@ import com.anyilanxin.anyicloud.messagerpc.model.TemplateCommonMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateSmsMsgModel;
+
 import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +46,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 消息服务feign
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 16:54
  * @since 1.0.0
  */

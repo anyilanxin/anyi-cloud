@@ -39,7 +39,9 @@ import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.google.common.base.Preconditions;
+
 import java.nio.charset.StandardCharsets;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,7 +55,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 16:25
  * @since 1.0.0
  */

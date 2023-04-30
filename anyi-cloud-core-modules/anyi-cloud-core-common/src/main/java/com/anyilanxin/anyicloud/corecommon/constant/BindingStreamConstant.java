@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.corecommon.constant;
 /**
  * stream常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-29 17:04
  * @since 1.0.0
  */

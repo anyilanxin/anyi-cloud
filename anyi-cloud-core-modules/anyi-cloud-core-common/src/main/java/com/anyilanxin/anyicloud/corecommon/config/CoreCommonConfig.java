@@ -32,7 +32,9 @@ package com.anyilanxin.anyicloud.corecommon.config;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
+
 import java.util.Locale;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +43,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 /**
  * key配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-08-28 10:23
  * @since 1.0.0
  */

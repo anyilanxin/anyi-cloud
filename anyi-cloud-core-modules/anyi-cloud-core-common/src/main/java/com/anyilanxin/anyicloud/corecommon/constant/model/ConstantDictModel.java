@@ -31,14 +31,16 @@ package com.anyilanxin.anyicloud.corecommon.constant.model;
 
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 常量字典Model
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-12 16:56
  * @since 1.0.0
  */

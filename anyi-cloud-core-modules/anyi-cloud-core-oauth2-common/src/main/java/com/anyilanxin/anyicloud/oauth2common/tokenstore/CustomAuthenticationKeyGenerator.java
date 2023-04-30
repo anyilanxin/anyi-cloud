@@ -31,6 +31,7 @@ package com.anyilanxin.anyicloud.oauth2common.tokenstore;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.anyilanxin.anyicloud.oauth2common.constant.OAuth2RequestExtendConstant;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -40,6 +41,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
+
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
@@ -48,7 +50,7 @@ import org.springframework.security.oauth2.provider.token.AuthenticationKeyGener
 /**
  * 自定义token key生成
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-09-07 15:58
  * @since 1.0.0

@@ -34,14 +34,16 @@ import com.anyilanxin.anyicloud.corecommon.constant.SysBaseConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.anyicloud.corewebflux.utils.ServletUtils;
 import feign.RequestTemplate;
+
 import java.util.*;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2021-05-23 01:18
  * @since 1.0.0
  */
@@ -72,7 +74,7 @@ public class InnerAllHeaderImpl implements ISetHeaderStrategy {
      *
      * @param request ${@link ServerHttpRequest}
      * @return Map<String, Set < String>> ${@link Map<String, Set<String>>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-05-23 20:54
      */
     private Map<String, Set<String>> getHeaders(ServerHttpRequest request) {

@@ -52,7 +52,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * oauth2 webflux公共配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-03-01 22:30
  * @since 1.0.0
  */
@@ -84,7 +84,7 @@ public class Oauth2MvcCommonConfig {
      * rest template
      *
      * @return RestTemplate ${@link RestTemplate}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-03 21:34
      */
     @Bean

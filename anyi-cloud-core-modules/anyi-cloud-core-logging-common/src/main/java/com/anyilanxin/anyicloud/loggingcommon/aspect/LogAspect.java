@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 /**
  * 日志切面
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-04-04 18:15
  * @since 1.0.0
  */
@@ -51,7 +51,7 @@ public class LogAspect {
     /**
      * 切点使用注解形式
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-04 18:00
      */
     @Pointcut("@annotation(com.anyilanxin.anyicloud.loggingcommon.annotation.Log)")
@@ -64,7 +64,7 @@ public class LogAspect {
      *
      * @param point ${@link ProceedingJoinPoint}
      * @return Object ${@link Object}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-04 18:00
      */
     @Around("logPointCut()")

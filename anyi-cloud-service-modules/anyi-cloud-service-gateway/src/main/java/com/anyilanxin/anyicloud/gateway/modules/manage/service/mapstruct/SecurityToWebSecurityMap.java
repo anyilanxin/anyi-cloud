@@ -40,7 +40,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 系统加解密信息与web端互转
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2020-09-12 16:33:37
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

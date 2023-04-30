@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserPageDto;
+
 import java.util.List;
 
 /**
  * 用户表(RbacUser)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -53,7 +54,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param vo 用户表保存数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void save(RbacUserVo vo) throws RuntimeException;
@@ -65,7 +66,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @param userId 用户id
      * @param vo     用户表更新数据
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void updateById(String userId, RbacUserVo vo) throws RuntimeException;
@@ -77,7 +78,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @param vo 分页查询条件
      * @return PageDto<RbacUserPageDto> 分页查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException;
@@ -90,7 +91,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @param orgId  机构id
      * @return RbacUserDto 查询结果
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     RbacUserDto getById(String userId, String orgId) throws RuntimeException;
@@ -101,7 +102,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param userId 用户id
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String userId) throws RuntimeException;
@@ -112,7 +113,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param userIds 用户id列表
      * @throws RuntimeException
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-05-02 16:12:21
      */
     void deleteBatch(List<String> userIds) throws RuntimeException;
@@ -123,7 +124,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param userId 用户id
      * @param type   类型:1-激活,2-冻结
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-06-03 02:35
      */
     void updateState(String userId, Integer type);
@@ -134,7 +135,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param userId 用户id
      * @return String 新密码
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-06-03 02:38
      */
     String resetPassword(String userId);
@@ -145,7 +146,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      *
      * @param vo
      * @return PageDto<RbacUserPageDto>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-02 15:44
      */
     PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo);

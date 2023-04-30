@@ -46,7 +46,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * token store配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-19 18:10
  * @since 1.0.0
  */

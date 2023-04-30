@@ -37,12 +37,13 @@ import com.anyilanxin.anyicloud.system.modules.common.entity.CommonAreaEntity;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaPageDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaTreeDto;
+
 import java.util.List;
 
 /**
  * 区域表(CommonArea)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-11-02 09:25:04
  * @since 1.0.0
  */
@@ -52,7 +53,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      *
      * @param vo ${@link CommonAreaVo} 区域表保存
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 09:25:04
      */
     void save(CommonAreaVo vo) throws RuntimeException;
@@ -65,7 +66,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @param areaId ${@link String} 区域id
      * @param vo     ${@link CommonAreaVo} 区域表更新
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 09:25:04
      */
     void updateById(String areaId, CommonAreaVo vo) throws RuntimeException;
@@ -77,7 +78,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @param vo ${@link CommonAreaPageVo} 区域表分页查询Vo
      * @return PageDto<CommonAreaPageDto> ${@link PageDto< CommonAreaPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 09:25:04
      */
     PageDto<CommonAreaPageDto> pageByModel(CommonAreaPageVo vo) throws RuntimeException;
@@ -89,7 +90,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @param parentId ${@link String} 上级区域id
      * @return List<CommonAreaPageDto> ${@link List<CommonAreaPageDto>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-07 20:13
      */
     List<CommonAreaPageDto> selectPageChildren(String parentId) throws RuntimeException;
@@ -101,7 +102,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @param parentId ${@link String} 上级区域id
      * @return List<CommonAreaTreeDto> ${@link List< CommonAreaTreeDto >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 09:25:04
      */
     List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId) throws RuntimeException;
@@ -113,7 +114,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @param areaId ${@link String} 区域id
      * @return CommonAreaDto ${@link CommonAreaDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-02 09:25:04
      */
     CommonAreaDto getById(String areaId) throws RuntimeException;
@@ -124,7 +125,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      *
      * @param areaId ${@link String} 区域id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-28 12:20
      */
     void deleteById(String areaId) throws RuntimeException;
@@ -135,7 +136,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      *
      * @param areaIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-10-24 22:59
      */
     void deleteBatch(List<String> areaIds) throws RuntimeException;

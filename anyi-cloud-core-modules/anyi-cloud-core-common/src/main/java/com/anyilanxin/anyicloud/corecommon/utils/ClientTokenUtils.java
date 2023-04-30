@@ -32,9 +32,11 @@ package com.anyilanxin.anyicloud.corecommon.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.cache.InMemoryCache;
 import com.anyilanxin.anyicloud.corecommon.config.properties.SkillfullOauthProperty;
+
 import java.net.URI;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;
@@ -47,7 +49,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * 通过一个客户端授权模式的token
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-10 09:24
  * @since 1.0.0
  */
@@ -70,7 +72,7 @@ public class ClientTokenUtils {
      * 客户端模式获取token
      *
      * @return String
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-10 09:25
      */
     public static String getTokenToAuthService() {

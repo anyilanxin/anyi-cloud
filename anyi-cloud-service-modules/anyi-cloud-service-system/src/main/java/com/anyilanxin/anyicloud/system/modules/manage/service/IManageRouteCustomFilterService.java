@@ -35,6 +35,7 @@ import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteCustomFi
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.RouterCustomFilterDto;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +43,7 @@ import java.util.Set;
 /**
  * 路由-自定义过滤器表(ManageRouteCustomFilter)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:17
  * @since 1.0.0
@@ -55,7 +56,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * @param routerId      ${@link String} 路由id
      * @param override      ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:17
      */
     void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override) throws RuntimeException;
@@ -67,7 +68,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * @param routeCustomFilterId ${@link String} 路由自定义过滤器id
      * @return ManageRouteCustomFilterDto ${@link ManageRouteCustomFilterDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:17
      */
     ManageRouteCustomFilterDto getById(String routeCustomFilterId) throws RuntimeException;
@@ -79,7 +80,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<
      * ManageCustomFilterSimpleDto >>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-22 04:36
      */
     Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds) throws RuntimeException;
@@ -91,7 +92,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link
      * Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-22 04:36
      */
     Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds) throws RuntimeException;
@@ -102,7 +103,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      *
      * @param routerId ${@link String} 路由id
      * @return List<ManageCustomFilterSimpleDto> ${@link List<ManageCustomFilterSimpleDto>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-22 04:37
      */
     List<ManageCustomFilterSimpleDto> getByRouterId(String routerId) throws RuntimeException;
@@ -113,7 +114,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      *
      * @param routerId ${@link String} 路由id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:17
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
@@ -124,7 +125,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      *
      * @param routerIds ${@link Set <String>} 路由ids
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-12-19 00:22:17
      */
     void deleteByRouterIds(Set<String> routerIds) throws RuntimeException;

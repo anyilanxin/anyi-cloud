@@ -30,13 +30,14 @@
 package com.anyilanxin.anyicloud.auth.oauth2.store.code;
 
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 
 /**
  * 内存存储code
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-13 01:11
  * @since 1.0.0
  */

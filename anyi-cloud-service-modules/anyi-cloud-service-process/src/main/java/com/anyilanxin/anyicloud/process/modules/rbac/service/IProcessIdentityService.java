@@ -31,13 +31,14 @@ package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
 import com.anyilanxin.anyicloud.processrpc.model.ProcessRoleModel;
 import com.anyilanxin.anyicloud.processrpc.model.ProcessUserModel;
+
 import java.util.Map;
 import java.util.Set;
 
 /**
  * 用户组相关
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:30
  * @since 1.0.0
  */
@@ -48,7 +49,7 @@ public interface IProcessIdentityService {
      *
      * @param userIds
      * @return Map<String, ProcessUserModel>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-15 01:01
      */
     Map<String, ProcessUserModel> getUserByIds(Set<String> userIds);
@@ -59,7 +60,7 @@ public interface IProcessIdentityService {
      *
      * @param userId
      * @return ProcessUserModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-15 01:01
      */
     ProcessUserModel getUserById(String userId);
@@ -70,7 +71,7 @@ public interface IProcessIdentityService {
      *
      * @param roleIds
      * @return Map<String, ProcessRoleModel>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-15 01:02
      */
     Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds);
@@ -81,7 +82,7 @@ public interface IProcessIdentityService {
      *
      * @param roleId
      * @return ProcessRoleModel
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-15 01:02
      */
     ProcessRoleModel getRoleById(String roleId);

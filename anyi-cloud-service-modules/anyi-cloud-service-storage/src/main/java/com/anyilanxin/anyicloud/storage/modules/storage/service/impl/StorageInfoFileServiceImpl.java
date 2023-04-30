@@ -46,10 +46,12 @@ import com.anyilanxin.skillfull.storage.modules.storage.service.IStorageInfoFile
 import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
 import com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct.StorageInfoFileCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -59,7 +61,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 本地文件服务(StorageInfoFile)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-04-05 09:57:59
  * @since 1.0.0
@@ -156,7 +158,7 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
      * 数据存入数据库
      *
      * @param models ${@link List<StorageInfoModel>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-04-05 11:18
      */
     void saveBatch(List<StorageInfoModel> models) {

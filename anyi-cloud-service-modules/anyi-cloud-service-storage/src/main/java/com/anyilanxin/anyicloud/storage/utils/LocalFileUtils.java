@@ -30,14 +30,16 @@
 package com.anyilanxin.skillfull.storage.utils;
 
 import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
+
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
  * 文件处理工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-02-23 09:48
  * @since 1.0.0
  */
@@ -58,7 +60,7 @@ public class LocalFileUtils {
      *
      * @param mapPath ${@link String} 映射路径
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-23 09:51
      */
     public static String mapPathToDiskPath(String mapPath) {
@@ -72,7 +74,7 @@ public class LocalFileUtils {
      *
      * @param diskPath ${@link String} 磁盘路径
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-02-23 09:51
      */
     public static String diskPathToMapPath(String diskPath) {

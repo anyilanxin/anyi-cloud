@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 职位表(RbacPosition)Dto与Entity相互转换
  *
- * @author 安一老厨
+ * @author zxh
  * @since 2021-01-19 18:17:59
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

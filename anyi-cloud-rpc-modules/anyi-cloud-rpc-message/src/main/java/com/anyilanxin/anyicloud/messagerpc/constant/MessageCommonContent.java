@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.messagerpc.constant;
 /**
  * message公共常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-10 21:06
  * @since 1.0.0
  */

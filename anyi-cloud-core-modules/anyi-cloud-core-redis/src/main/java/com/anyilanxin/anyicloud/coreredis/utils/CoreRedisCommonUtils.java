@@ -32,6 +32,7 @@ package com.anyilanxin.anyicloud.coreredis.utils;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -41,7 +42,7 @@ import org.springframework.stereotype.Component;
 /**
  * core mvc公共工具类
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-08-19 16:34
  * @since 1.0.0
  */
@@ -63,7 +64,7 @@ public class CoreRedisCommonUtils {
      *
      * @param key     ${@link String}
      * @param timeout ${@link Long} 过期时间(单位:s),默认10s,只能大于0，当小于等于0时为10s
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-08-19 18:06
      */
     public static boolean createRedisServiceLock(String key, long timeout) {

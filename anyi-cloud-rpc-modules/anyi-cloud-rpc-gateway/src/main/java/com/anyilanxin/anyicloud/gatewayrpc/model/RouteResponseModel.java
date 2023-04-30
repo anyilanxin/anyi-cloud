@@ -31,16 +31,18 @@ package com.anyilanxin.anyicloud.gatewayrpc.model;
 
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 路由查询响应
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-10 22:48
  * @since 1.0.0
  */

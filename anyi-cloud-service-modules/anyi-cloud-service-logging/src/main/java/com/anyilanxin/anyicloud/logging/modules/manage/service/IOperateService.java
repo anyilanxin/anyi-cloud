@@ -35,12 +35,13 @@ import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.OperatePage
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperatePageDto;
+
 import java.util.List;
 
 /**
  * 操作日志(Operate)业务层接口
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-01-26 19:51:07
  * @since 1.0.0
@@ -49,7 +50,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
     /**
      * 日志入库
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 11:11
      */
     void storage();
@@ -61,7 +62,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @param vo ${@link OperatePageVo} 操作日志分页查询Vo
      * @return PageDto<OperatePageDto> ${@link PageDto< OperatePageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-26 19:51:07
      */
     PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException;
@@ -73,7 +74,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @param operateId ${@link String} 操作日志id
      * @return OperateDto ${@link OperateDto} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-26 19:51:07
      */
     OperateDto getById(String operateId) throws RuntimeException;
@@ -84,7 +85,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      *
      * @param operateId ${@link String} 操作日志id
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-26 19:51:07
      */
     void deleteById(String operateId) throws RuntimeException;
@@ -95,7 +96,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      *
      * @param operateIds ${@link List<String>}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-26 19:51:07
      */
     void deleteBatch(List<String> operateIds) throws RuntimeException;

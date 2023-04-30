@@ -38,7 +38,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 本地文件服务(StorageInfoFile)Entity
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-04-09 11:53:36
  * @since 1.0.0

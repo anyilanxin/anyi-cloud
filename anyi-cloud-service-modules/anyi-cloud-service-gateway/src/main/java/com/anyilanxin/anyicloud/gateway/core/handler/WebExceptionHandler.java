@@ -32,7 +32,9 @@ package com.anyilanxin.anyicloud.gateway.core.handler;
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
 import com.anyilanxin.anyicloud.gateway.utils.CorsWebUtils;
+
 import java.util.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -55,7 +57,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 /**
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 18:10
  * @since 1.0.0
  */
@@ -75,7 +77,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @param request ${@link ServerRequest}
      * @param options ${@link ErrorAttributeOptions}
      * @return Map<String, Object> ${@link Map<String, Object>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 19:26
      */
     @Override
@@ -110,7 +112,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      *
      * @param errorAttributes ${@link ErrorAttributes}
      * @return RouterFunction<ServerResponse> ${@link RouterFunction<ServerResponse>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 19:25
      */
     @Override
@@ -124,7 +126,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      *
      * @param request ${@link ServerRequest}
      * @return ServerResponse> ${@link ServerResponse>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 19:25
      */
     @Override
@@ -184,7 +186,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @param code         ${@link Integer} 自定义状态码
      * @param errorMessage ${@link String} 异常消息
      * @return Map<String, Object> ${@link Map<String, Object>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 19:23
      */
     public static Map<String, Object> response(int status, int code, String errorMessage) {

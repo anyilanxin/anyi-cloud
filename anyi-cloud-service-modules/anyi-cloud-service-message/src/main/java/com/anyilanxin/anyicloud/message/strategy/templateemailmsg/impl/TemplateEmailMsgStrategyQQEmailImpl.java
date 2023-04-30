@@ -34,13 +34,15 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.anyicloud.message.strategy.templateemailmsg.ITemplateEmailMsgStrategy;
 import com.anyilanxin.anyicloud.messagerpc.constant.MsgTemplateEmailChannelConstant;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
+
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 /**
  * 邮件qq邮箱实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-08-30 09:32
  * @since 1.0.0

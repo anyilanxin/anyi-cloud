@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.system.utils;
 
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
+
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
+
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +42,7 @@ import org.springframework.stereotype.Component;
 /**
  * 加密工具
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-29 15:58
  * @since 1.0.0
  */
@@ -56,7 +58,7 @@ public class CryptAuthUtils {
      * @param password  ${@link String} 明文密码
      * @param secretKey ${@link String} 盐
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-19 00:05
      */
     public static String getEncoderPassword(@NotNull String password, String secretKey) {
@@ -79,7 +81,7 @@ public class CryptAuthUtils {
      *
      * @param rawPassword     ${@link CharSequence} 原密码
      * @param encodedPassword ${@link String} 加密后的密码
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-19 00:41
      */
     public static boolean matches(CharSequence rawPassword, String encodedPassword) {
@@ -93,7 +95,7 @@ public class CryptAuthUtils {
      * @param password        ${@link String} 明文密码
      * @param salt            ${@link String} 密码盐
      * @param encodedPassword ${@link String} 加密后的密码
-     * @author 安一老厨
+     * @author zxh
      * @date 2019-05-19 00:41
      */
     public static boolean matches(String password, String salt, String encodedPassword) {
@@ -107,7 +109,7 @@ public class CryptAuthUtils {
      *
      * @param password ${@link String} 明文密码
      * @return PasswordInfo ${@link PasswordInfo} 密码信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-11-12 17:35
      */
     public static PasswordInfo getPasswordInfo(String password) {

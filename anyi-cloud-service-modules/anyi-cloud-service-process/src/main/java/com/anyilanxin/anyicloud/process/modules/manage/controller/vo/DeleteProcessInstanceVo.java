@@ -30,15 +30,17 @@
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 流程实例删除
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-10-20 10:01
  * @since 1.0.0
  */

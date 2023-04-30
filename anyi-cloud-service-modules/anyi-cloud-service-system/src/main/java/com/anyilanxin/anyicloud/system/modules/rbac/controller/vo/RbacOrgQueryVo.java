@@ -33,9 +33,11 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,7 +47,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 组织表条件查询Request
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:39:45
  * @since 1.0.0

@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
 /**
  * nacos配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-01-28 17:51
  * @since 1.0.0
  */
@@ -56,7 +56,7 @@ public class NacosConfig {
      * 初始化NamingService
      *
      * @return NamingService ${@link NamingService}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-28 18:16
      */
     @Bean
@@ -69,7 +69,7 @@ public class NacosConfig {
      * 初始化NamingMaintainService
      *
      * @return NamingMaintainService ${@link NamingMaintainService}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-28 18:16
      */
     @Bean

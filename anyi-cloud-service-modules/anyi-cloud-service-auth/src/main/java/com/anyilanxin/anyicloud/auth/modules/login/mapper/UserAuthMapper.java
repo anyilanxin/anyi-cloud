@@ -33,8 +33,10 @@ import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacOrgUserDto;
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
+
 import java.util.List;
 import java.util.Set;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -51,7 +53,7 @@ public interface UserAuthMapper {
      *
      * @param openId
      * @return RbacUserDto
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 18:33
      */
     RbacUserDto selectByOpenId(@Param("openId") String openId);
@@ -62,7 +64,7 @@ public interface UserAuthMapper {
      *
      * @param userName
      * @return RbacUserDto
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 18:33
      */
     RbacUserDto selectByPhoneOrAccount(@Param("userName") String userName);
@@ -73,7 +75,7 @@ public interface UserAuthMapper {
      *
      * @param phone
      * @return RbacUserDto
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 18:33
      */
     RbacUserDto selectByPhone(@Param("phone") String phone);
@@ -84,7 +86,7 @@ public interface UserAuthMapper {
      *
      * @param userId
      * @return RbacUserDto
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 20:10
      */
     RbacUserDto selectUserInfoByUserId(@Param("userId") String userId);
@@ -95,7 +97,7 @@ public interface UserAuthMapper {
      *
      * @param userId
      * @param orgId
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 18:36
      */
     int updateLoginOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
@@ -106,7 +108,7 @@ public interface UserAuthMapper {
      *
      * @param userId 用户id
      * @return List<RbacOrgUserDto> 查询结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-02 23:01:20
      */
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
@@ -118,7 +120,7 @@ public interface UserAuthMapper {
      * @param userId 用户id
      * @param orgId  机构id
      * @return RoleInfo>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-05 00:36
      */
     Set<RoleInfo> selectByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
@@ -129,7 +131,7 @@ public interface UserAuthMapper {
      *
      * @param userId
      * @return RoleInfo>
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-05 00:42
      */
     Set<RoleInfo> selectByUserId(@Param("userId") String userId, @Param("superRoleCode") String superRoleCode);
@@ -140,7 +142,7 @@ public interface UserAuthMapper {
      *
      * @param orgId
      * @return OrgSimpleInfo
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-07-23 19:46
      */
     OrgSimpleInfo selectOrgInfoById(@Param("orgId") String orgId);

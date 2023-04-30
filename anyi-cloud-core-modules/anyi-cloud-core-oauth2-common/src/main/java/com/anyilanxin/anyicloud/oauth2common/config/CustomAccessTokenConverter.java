@@ -30,6 +30,7 @@
 package com.anyilanxin.anyicloud.oauth2common.config;
 
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -38,7 +39,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 /**
  * token转换器（用于控制jwt内容）
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-02-14 04:55
  * @since 1.0.0
  */

@@ -35,8 +35,10 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.anyilanxin.anyicloud.corecommon.model.stream.ConfigTokenModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.ConfigDataSecurityModel;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.AbstractSwaggerUiConfigProperties;
@@ -63,7 +65,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 /**
  * 网关通用配置
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-06-17 11:58
  * @since 1.0.0
  */
@@ -80,7 +82,7 @@ public class GatewayCommonConfig {
      * @param disClient       ${@link DiscoveryClient}
      * @param webClient       ${@link WebClient.Builder}
      * @return SwaggerUiConfigParameters ${@link SwaggerUiConfigParameters}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-05 03:32
      */
     @Bean
@@ -94,7 +96,7 @@ public class GatewayCommonConfig {
      *
      * @return Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> ${@link Map<String,
      * AbstractSwaggerUiConfigProperties.SwaggerUrl>}
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-01-01 21:31
      */
     @Bean
@@ -107,7 +109,7 @@ public class GatewayCommonConfig {
      * 初始化NamingService
      *
      * @return NamingService ${@link NamingService}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-01-28 18:16
      */
     @Bean
@@ -120,7 +122,7 @@ public class GatewayCommonConfig {
      * token相关配置
      *
      * @return BaseSystemModel ${@link ConfigTokenModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-06-17 12:01
      */
     @Bean
@@ -133,7 +135,7 @@ public class GatewayCommonConfig {
      * 数据加解密配置
      *
      * @return ConfigDataSecurityModel ${@link ConfigDataSecurityModel}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-14 17:23
      */
     @Bean
@@ -146,7 +148,7 @@ public class GatewayCommonConfig {
      * url比较配置
      *
      * @return AntPathMatcher ${@link AntPathMatcher}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-07-14 21:44
      */
     @Bean

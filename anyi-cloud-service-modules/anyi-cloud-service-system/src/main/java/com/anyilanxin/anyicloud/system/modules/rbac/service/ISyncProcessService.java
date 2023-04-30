@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.system.modules.rbac.service;
 /**
  * 同步流程引擎
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-08 16:29
  * @since 1.0.0
  */
@@ -41,7 +41,7 @@ public interface ISyncProcessService {
      * 添加或更新用户
      *
      * @param userId ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void addOrUpdateUser(String userId);
@@ -51,7 +51,7 @@ public interface ISyncProcessService {
      * 删除用户
      *
      * @param userId ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void deleteUser(String userId);
@@ -60,7 +60,7 @@ public interface ISyncProcessService {
     /**
      * 全量同步用户
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void syncUserAll();
@@ -70,7 +70,7 @@ public interface ISyncProcessService {
      * 添加或更新角色
      *
      * @param roleId ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void addOrUpdateRole(String roleId);
@@ -80,7 +80,7 @@ public interface ISyncProcessService {
      * 删除角色
      *
      * @param roleId ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void deleteRole(String roleId);
@@ -89,7 +89,7 @@ public interface ISyncProcessService {
     /**
      * 全量同步角色
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-08 16:32
      */
     void syncRoleAll();

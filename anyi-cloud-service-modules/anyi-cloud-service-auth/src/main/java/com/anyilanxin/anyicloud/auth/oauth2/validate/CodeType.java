@@ -32,7 +32,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.validate;
 /**
  * 验证码类型
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-30 16:22
  * @since 1.0.0
  */

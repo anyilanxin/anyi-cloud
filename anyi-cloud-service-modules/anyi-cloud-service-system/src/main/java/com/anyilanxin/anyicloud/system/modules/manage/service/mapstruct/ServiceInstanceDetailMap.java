@@ -39,7 +39,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 路由(ManageRoute)Dto与Entity相互转换
  *
- * @author 安一老厨 zxiaozhou
+ * @author zxh zxiaozhou
  * @since 2020-09-12 16:33:37
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))

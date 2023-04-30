@@ -35,12 +35,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import com.google.common.collect.Lists;
+
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
- * @author 安一老厨
+ * @author zxh
  */
 public class TreeToolUtils<T extends BaseTree<T>> {
     /**
@@ -74,7 +75,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * @param rootList  ${@link List<T>} 根节点数据
      * @param bodyList  ${@link List<T>} 其余数据(可包含主节点)
      * @param getTreeId ${@link TreeId<T>} 子父级判断
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:07
      */
     public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList, @Nonnull TreeId<T> getTreeId) {
@@ -89,7 +90,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      *
      * @param rootList ${@link List<T>} 根节点数据
      * @param bodyList ${@link List<T>} 其余数据(可包含主节点)
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:08
      */
     public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList) {
@@ -104,7 +105,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * @param bodyList    ${@link List<T>} 其余数据(可包含主节点数据)
      * @param idKey       ${@link String} 子级键
      * @param parentIdKey ${@link String} 父级键
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:08
      */
     public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList, @Nonnull String idKey, @Nonnull String parentIdKey) {
@@ -139,7 +140,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * 创建树形数据
      *
      * @return List<T> ${@link List<T>} 树形数据结果
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:10
      */
     public List<T> getTree() {
@@ -162,7 +163,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * 获取子节点
      *
      * @param beanTree ${@link T} 数据对象
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-08-26 18:10
      */
     private void getChild(T beanTree) {
@@ -182,7 +183,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
     /**
      * 获取id、父级id
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-07-21 13:12
      * @since 1.0.0
      */
@@ -192,7 +193,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
          *
          * @param t ${@link T} 当前对象
          * @return String ${@link String} 返回获取id
-         * @author 安一老厨
+         * @author zxh
          * @date 2020-07-21 13:21
          */
         String getId(T t);
@@ -203,7 +204,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
          *
          * @param t ${@link T} 当前对象
          * @return String ${@link String} 返回获取id
-         * @author 安一老厨
+         * @author zxh
          * @date 2020-07-21 13:21
          */
         String getParentId(T t);

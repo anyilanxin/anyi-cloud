@@ -36,9 +36,11 @@ import com.anyilanxin.anyicloud.messagerpc.constant.SocketMessageEventContent;
 import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -48,7 +50,7 @@ import org.springframework.web.socket.WebSocketSession;
 /**
  * 鉴权消息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-27 15:15
  * @since 1.0.0
  */

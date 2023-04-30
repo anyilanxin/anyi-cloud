@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 /**
  * 字典翻译具体属性
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-06-22 17:27
  * @since 1.0.0
  */
@@ -50,7 +50,7 @@ public @interface DictField {
      * 字典编码
      *
      * @return String ${@link String} 字典编码
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:26
      */
     String dicCode();
@@ -60,7 +60,7 @@ public @interface DictField {
      * 拼接后缀,默认字段后边添加"_text",自定义后缀请避免属性重复
      *
      * @return String ${@link String} 拼接后缀
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-06-22 17:26
      */
     String dicText() default SUFFIX;

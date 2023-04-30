@@ -32,15 +32,17 @@ package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 import org.springframework.cloud.gateway.handler.predicate.*;
 
 /**
  * 断言常量
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2020-09-11 12:12
  * @since 1.0.0
  */
@@ -139,7 +141,7 @@ public enum PredicateSysType implements ISuperType {
      *
      * @param predicateType ${@link String} 类型
      * @return boolean true-存在,false-不存在
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:02
      */
     public static boolean isHaveByType(String predicateType) {
@@ -157,7 +159,7 @@ public enum PredicateSysType implements ISuperType {
      * 获取所有的类型
      *
      * @return String ${@link String}
-     * @author 安一老厨
+     * @author zxh
      * @date 2020-09-11 16:45
      */
     public static String getAllType() {

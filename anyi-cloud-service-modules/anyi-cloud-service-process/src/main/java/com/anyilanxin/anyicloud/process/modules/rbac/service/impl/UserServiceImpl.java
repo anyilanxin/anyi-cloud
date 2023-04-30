@@ -41,7 +41,9 @@ import com.anyilanxin.anyicloud.process.modules.rbac.service.IUserService;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDto;
 import io.seata.spring.annotation.GlobalTransactional;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -54,7 +56,7 @@ import org.springframework.stereotype.Service;
 /**
  * 用户相关
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:30
  * @since 1.0.0
  */
@@ -251,7 +253,7 @@ public class UserServiceImpl implements IUserService {
      *
      * @param userId ${@link String} 用户id
      * @return UserDetailDto ${@link UserDetailDto}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-07 00:03
      */
     private UserDetailDto getDetailInfo(String userId) {
@@ -271,7 +273,7 @@ public class UserServiceImpl implements IUserService {
      *
      * @param userId     ${@link String} 用户id
      * @param detailInfo ${@link UserDetailVo} 详细信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-07 00:03
      */
     private void setDetailInfo(String userId, UserDetailVo detailInfo) {
@@ -293,7 +295,7 @@ public class UserServiceImpl implements IUserService {
      * 删除用户详细信息
      *
      * @param userId ${@link String} 用户id
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-07 00:06
      */
     private void deleteDetailInfo(String userId) {
@@ -309,7 +311,7 @@ public class UserServiceImpl implements IUserService {
      *
      * @param userId ${@link String} 用户id
      * @return User ${@link User}
-     * @author 安一老厨
+     * @author zxh
      * @date 2021-11-07 00:42
      */
     private User getCamundaUser(String userId) {

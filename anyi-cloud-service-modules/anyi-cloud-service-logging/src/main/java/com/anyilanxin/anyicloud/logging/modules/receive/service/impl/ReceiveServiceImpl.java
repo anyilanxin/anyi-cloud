@@ -44,9 +44,11 @@ import com.anyilanxin.anyicloud.logging.modules.receive.service.mapstruct.Operat
 import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -55,7 +57,7 @@ import org.springframework.stereotype.Service;
 /**
  * 日志接收service
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2022-08-13 10:58
  * @since 1.0.0
  */
@@ -120,7 +122,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     /**
      * 触发授权日志入库
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 11:10
      */
     private void triggerAuthLog() {
@@ -131,7 +133,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     /**
      * 触发操作日志入库
      *
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-13 11:10
      */
     private void triggerOperateLog() {

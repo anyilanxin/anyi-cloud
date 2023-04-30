@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.Objects;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.User;
@@ -40,7 +42,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
 /**
  * 用户信息
  *
- * @author 安一老厨
+ * @author zxh
  * @date 2021-11-05 17:49
  * @since 1.0.0
  */

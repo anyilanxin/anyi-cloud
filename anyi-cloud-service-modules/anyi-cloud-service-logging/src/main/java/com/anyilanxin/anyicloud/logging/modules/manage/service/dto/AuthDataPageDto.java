@@ -33,15 +33,17 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
  * 授权日志分页查询Response
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-08-13 10:24:40
  * @since 1.0.0

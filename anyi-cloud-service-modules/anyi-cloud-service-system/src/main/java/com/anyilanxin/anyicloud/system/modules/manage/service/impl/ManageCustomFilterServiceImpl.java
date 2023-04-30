@@ -48,7 +48,9 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageCustomFilterSimpleCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,7 +59,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 自定义过滤器(ManageCustomFilter)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 00:22:15
  * @since 1.0.0

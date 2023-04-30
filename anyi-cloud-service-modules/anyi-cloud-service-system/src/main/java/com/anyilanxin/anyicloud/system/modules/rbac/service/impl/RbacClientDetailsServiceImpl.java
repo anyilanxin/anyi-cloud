@@ -51,7 +51,9 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDt
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacClientDetailsCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -62,7 +64,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 授权客户端信息(RbacClientDetails)业务层实现
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-05-02 16:12:21
  * @since 1.0.0
@@ -98,7 +100,7 @@ public class RbacClientDetailsServiceImpl extends ServiceImpl<RbacClientDetailsM
      * 数据校验
      *
      * @param vo 客户端信息
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-02-10 16:19
      */
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)

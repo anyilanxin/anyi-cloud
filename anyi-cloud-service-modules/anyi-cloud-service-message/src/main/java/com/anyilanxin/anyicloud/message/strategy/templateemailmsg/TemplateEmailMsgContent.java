@@ -37,17 +37,19 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.IManageTemplateSe
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * 邮件消息处理
  *
- * @author 安一老厨
+ * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2022-08-27 11:58
  * @since 1.0.0
@@ -70,7 +72,7 @@ public class TemplateEmailMsgContent {
      * 发送邮件
      *
      * @param model
-     * @author 安一老厨
+     * @author zxh
      * @date 2022-08-30 09:47
      */
     public TemplateResultModel sendEmail(TemplateEmailMsgModel model) {

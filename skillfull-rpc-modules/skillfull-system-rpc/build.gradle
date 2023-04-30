@@ -1,6 +1,0 @@
-version = rootProject.ext.version["skillfull-rpc-modules:skillfull-system-rpc"]['version']
-
-
-dependencies {
-    api project(':skillfull-core-modules:skillfull-common')
-}

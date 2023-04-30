@@ -1,0 +1,3 @@
+dependencies {
+    api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
+}

@@ -1,7 +1,0 @@
-version = rootProject.ext.version["skillfull-core-modules:skillfull-common"]['version']
-
-
-dependencies {
-    api rootProject.ext.dependencies["easyexcel"]
-    api rootProject.ext.dependencies["reflections"]
-}

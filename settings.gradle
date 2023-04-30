@@ -2,7 +2,7 @@
 pluginManagement {
     repositories {
         mavenLocal()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/central/' }
         gradlePluginPortal()
     }
 }
@@ -12,33 +12,33 @@ pluginManagement {
 rootProject.name = 'anyi-cloud'
 
 // 服务模块
-include 'skillfull-service-modules:skillfull-auth-service'
-include 'skillfull-service-modules:skillfull-gateway-service'
-include 'skillfull-service-modules:skillfull-logging-service'
-include 'skillfull-service-modules:skillfull-message-service'
-include 'skillfull-service-modules:skillfull-monitor-service'
-include 'skillfull-service-modules:skillfull-process-service'
-include 'skillfull-service-modules:skillfull-storage-service'
-include 'skillfull-service-modules:skillfull-system-service'
+include 'anyi-cloud-service-modules-ee:skillfull-auth-service'
+include 'anyi-cloud-service-modules-ee:skillfull-gateway-service'
+include 'anyi-cloud-service-modules-ee:skillfull-logging-service'
+include 'anyi-cloud-service-modules-ee:skillfull-message-service'
+include 'anyi-cloud-service-modules-ee:skillfull-monitor-service'
+include 'anyi-cloud-service-modules-ee:skillfull-process-service'
+include 'anyi-cloud-service-modules-ee:skillfull-storage-service'
+include 'anyi-cloud-service-modules-ee:skillfull-system-service'
 
 
 // 核心模块
-include 'skillfull-core-modules:skillfull-common'
-include 'skillfull-core-modules:skillfull-database'
-include 'skillfull-core-modules:skillfull-mvc'
-include 'skillfull-core-modules:skillfull-redis'
-include 'skillfull-core-modules:skillfull-webflux'
-include 'skillfull-core-modules:skillfull-stream'
-include 'skillfull-core-modules:skillfull-oauth2-common'
-include 'skillfull-core-modules:skillfull-oauth2-mvc'
-include 'skillfull-core-modules:skillfull-oauth2-webflux'
-include 'skillfull-core-modules:skillfull-logging-common'
-include 'skillfull-core-modules:skillfull-logging-mvc'
-include 'skillfull-core-modules:skillfull-logging-webflux'
+include 'anyi-cloud-core-modules:anyi-cloud-core-common'
+include 'anyi-cloud-core-modules:anyi-cloud-core-database'
+include 'anyi-cloud-core-modules:anyi-cloud-core-mvc'
+include 'anyi-cloud-core-modules:anyi-cloud-core-redis'
+include 'anyi-cloud-core-modules:anyi-cloud-core-webflux'
+include 'anyi-cloud-core-modules:anyi-cloud-core-stream'
+include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-common'
+include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc'
+include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-webflux'
+include 'anyi-cloud-core-modules:anyi-cloud-core-logging-common'
+include 'anyi-cloud-core-modules:anyi-cloud-core-logging-mvc'
+include 'anyi-cloud-core-modules:anyi-cloud-core-logging-webflux'
 
 // 远程api模块
-include 'skillfull-rpc-modules:skillfull-process-rpc'
-include 'skillfull-rpc-modules:skillfull-system-rpc'
-include 'skillfull-rpc-modules:skillfull-gateway-rpc'
-include 'skillfull-rpc-modules:skillfull-message-rpc'
-include 'skillfull-rpc-modules:skillfull-storage-rpc'
+include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-process'
+include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-system'
+include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-gateway'
+include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-message'
+include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-storage'

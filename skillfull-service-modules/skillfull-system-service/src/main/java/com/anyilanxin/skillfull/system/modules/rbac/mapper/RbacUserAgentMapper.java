@@ -61,8 +61,8 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20
      */
-    IPage<RbacUserAgentPageDto> pageByModel(
-            Page<RbacUserAgentPageDto> page, @Param("query") RbacUserAgentPageVo vo);
+    IPage<RbacUserAgentPageDto> pageByModel(Page<RbacUserAgentPageDto> page, @Param("query") RbacUserAgentPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -74,6 +74,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      */
     List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo);
 
+
     /**
      * 通过代理id物理删除
      *
@@ -83,6 +84,7 @@ public interface RbacUserAgentMapper extends BaseMapper<RbacUserAgentEntity> {
      * @date 2022-05-02 16:12:20
      */
     int physicalDeleteById(@Param("id") String agentId);
+
 
     /**
      * 通过代理id物理批量删除

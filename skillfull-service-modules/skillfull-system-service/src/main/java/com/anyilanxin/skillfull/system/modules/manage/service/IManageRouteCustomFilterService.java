@@ -47,8 +47,7 @@ import java.util.Set;
  * @date 2021-12-19 00:22:17
  * @since JDK1.8
  */
-public interface IManageRouteCustomFilterService
-        extends BaseService<ManageRouteCustomFilterEntity> {
+public interface IManageRouteCustomFilterService extends BaseService<ManageRouteCustomFilterEntity> {
     /**
      * 保存
      *
@@ -59,8 +58,8 @@ public interface IManageRouteCustomFilterService
      * @author zxiaozhou
      * @date 2021-12-19 00:22:17
      */
-    void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override)
-            throws RuntimeException;
+    void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -73,6 +72,7 @@ public interface IManageRouteCustomFilterService
      */
     ManageRouteCustomFilterDto getById(String routeCustomFilterId) throws RuntimeException;
 
+
     /**
      * 通过routerIds获取过滤器
      *
@@ -82,8 +82,8 @@ public interface IManageRouteCustomFilterService
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */
-    Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds)
-            throws RuntimeException;
+    Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds) throws RuntimeException;
+
 
     /**
      * 通过routerIds获取网关过滤器
@@ -94,8 +94,8 @@ public interface IManageRouteCustomFilterService
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */
-    Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds)
-            throws RuntimeException;
+    Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds) throws RuntimeException;
+
 
     /**
      * 通过过routerId获取
@@ -107,6 +107,7 @@ public interface IManageRouteCustomFilterService
      */
     List<ManageCustomFilterSimpleDto> getByRouterId(String routerId) throws RuntimeException;
 
+
     /**
      * 通过routerId删除
      *
@@ -116,6 +117,7 @@ public interface IManageRouteCustomFilterService
      * @date 2021-12-19 00:22:17
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
+
 
     /**
      * 通过routerIds删除

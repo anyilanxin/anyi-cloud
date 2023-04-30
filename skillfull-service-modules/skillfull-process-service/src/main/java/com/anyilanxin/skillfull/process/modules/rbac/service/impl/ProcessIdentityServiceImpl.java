@@ -54,15 +54,18 @@ public class ProcessIdentityServiceImpl implements IProcessIdentityService {
         return Collections.emptyMap();
     }
 
+
     @Override
     public ProcessUserModel getUserById(String userId) {
         return null;
     }
 
+
     @Override
     public Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds) {
         return Collections.emptyMap();
     }
+
 
     @Override
     public ProcessRoleModel getRoleById(String roleId) {

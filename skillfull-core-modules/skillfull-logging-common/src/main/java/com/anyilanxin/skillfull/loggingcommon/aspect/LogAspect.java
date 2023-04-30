@@ -55,7 +55,9 @@ public class LogAspect {
      * @date 2022-04-04 18:00
      */
     @Pointcut("@annotation(com.anyilanxin.skillfull.loggingcommon.annotation.Log)")
-    public void logPointCut() {}
+    public void logPointCut() {
+    }
+
 
     /**
      * 环绕

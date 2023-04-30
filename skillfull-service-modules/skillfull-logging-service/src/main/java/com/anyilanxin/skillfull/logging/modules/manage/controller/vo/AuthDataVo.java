@@ -68,10 +68,7 @@ public class AuthDataVo implements Serializable {
     @NotBlankOrNull(message = "授权类型，具体参考常量字典AuthorizedGrantTypes不能为空")
     private String authType;
 
-    @Schema(
-            name = "authTypeDescribe",
-            title = "授权类型描述，具体参考常量字典AuthorizedGrantTypes",
-            required = true)
+    @Schema(name = "authTypeDescribe", title = "授权类型描述，具体参考常量字典AuthorizedGrantTypes", required = true)
     @NotBlankOrNull(message = "授权类型描述，具体参考常量字典AuthorizedGrantTypes不能为空")
     private String authTypeDescribe;
 
@@ -99,22 +96,14 @@ public class AuthDataVo implements Serializable {
     @Schema(name = "exceptionMessage", title = "异常消息")
     private String exceptionMessage;
 
-    @Schema(
-            name = "requestStartTime",
-            title = "请求开始时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
     @Schema(name = "costTime", title = "耗时")
     private Long costTime;
 
-    @Schema(
-            name = "requestEndTime",
-            title = "请求结束时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
 

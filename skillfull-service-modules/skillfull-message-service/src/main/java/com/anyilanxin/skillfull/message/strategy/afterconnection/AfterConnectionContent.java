@@ -54,6 +54,7 @@ public class AfterConnectionContent {
         STRATEGY.putAll(strategyMap);
     }
 
+
     /**
      * 链接后处理
      *
@@ -62,16 +63,12 @@ public class AfterConnectionContent {
      */
     @Async
     public void afterConnectionHandle(WebSocketSession session) {
-        STRATEGY.forEach(
-                (k, v) -> {
-                    try {
-                        v.handleAfterMsg(session);
-                    } catch (Exception e) {
-                        log.error(
-                                "------------------------afterConnectionHandle--->\n参数:\n{}\n异常消息:\n{}",
-                                session.getAttributes(),
-                                e.getMessage());
-                    }
-                });
+        STRATEGY.forEach((k, v) -> {
+            try {
+                v.handleAfterMsg(session);
+            } catch (Exception e) {
+                log.error("------------------------afterConnectionHandle--->\n参数:\n{}\n异常消息:\n{}", session.getAttributes(), e.getMessage());
+            }
+        });
     }
 }

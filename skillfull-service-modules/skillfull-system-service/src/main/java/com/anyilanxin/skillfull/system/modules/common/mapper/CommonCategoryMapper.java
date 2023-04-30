@@ -57,8 +57,8 @@ public interface CommonCategoryMapper extends BaseMapper<CommonCategoryEntity> {
      * @author zxiaozhou
      * @date 2021-01-07 23:40:04
      */
-    IPage<CommonCategoryPageDto> pageByModel(
-            Page<CommonCategoryPageDto> page, @Param("query") CommonCategoryPageVo vo);
+    IPage<CommonCategoryPageDto> pageByModel(Page<CommonCategoryPageDto> page, @Param("query") CommonCategoryPageVo vo);
+
 
     /**
      * 通过分类id物理删除
@@ -69,6 +69,7 @@ public interface CommonCategoryMapper extends BaseMapper<CommonCategoryEntity> {
      * @date 2020-08-28 11:36
      */
     int physicalDeleteById(@Param("id") String categoryId);
+
 
     /**
      * 通过分类id物理批量删除

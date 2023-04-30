@@ -58,8 +58,8 @@ public interface ManageSendRecordMapper extends BaseMapper<ManageSendRecordEntit
      * @author zxiaozhou
      * @date 2022-03-29 05:23:41
      */
-    IPage<ManageSendRecordPageDto> pageByModel(
-            Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageVo vo);
+    IPage<ManageSendRecordPageDto> pageByModel(Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageVo vo);
+
 
     /**
      * 通过消息id物理删除
@@ -70,6 +70,7 @@ public interface ManageSendRecordMapper extends BaseMapper<ManageSendRecordEntit
      * @date 2022-03-29 05:23:41
      */
     int physicalDeleteById(@Param("id") String sendRecordId);
+
 
     /**
      * 通过消息id物理批量删除

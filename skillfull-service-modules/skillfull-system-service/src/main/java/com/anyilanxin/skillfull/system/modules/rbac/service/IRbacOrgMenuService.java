@@ -55,6 +55,7 @@ public interface IRbacOrgMenuService extends BaseService<RbacOrgMenuEntity> {
      */
     void save(String orgId, Set<String> menuIds) throws RuntimeException;
 
+
     /**
      * 通过orgId删除
      *
@@ -64,6 +65,7 @@ public interface IRbacOrgMenuService extends BaseService<RbacOrgMenuEntity> {
      * @date 2022-07-02 23:01:20
      */
     void deleteById(String orgId) throws RuntimeException;
+
 
     /**
      * 获取机构菜单权限树

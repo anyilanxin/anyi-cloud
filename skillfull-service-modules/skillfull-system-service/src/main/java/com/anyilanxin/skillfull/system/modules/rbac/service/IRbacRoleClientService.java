@@ -54,6 +54,7 @@ public interface IRbacRoleClientService extends BaseService<RbacRoleClientEntity
      */
     void saveBatch(String clientDetailId, Set<String> roleIds) throws RuntimeException;
 
+
     /**
      * 通过clientDetailIds删除
      *

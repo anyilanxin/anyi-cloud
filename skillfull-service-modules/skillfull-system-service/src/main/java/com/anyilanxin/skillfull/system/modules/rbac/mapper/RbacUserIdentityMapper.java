@@ -58,8 +58,8 @@ public interface RbacUserIdentityMapper extends BaseMapper<RbacUserIdentityEntit
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacUserIdentityPageDto> pageByModel(
-            Page<RbacUserIdentityPageDto> page, @Param("query") RbacUserIdentityPageVo vo);
+    IPage<RbacUserIdentityPageDto> pageByModel(Page<RbacUserIdentityPageDto> page, @Param("query") RbacUserIdentityPageVo vo);
+
 
     /**
      * 通过实名信息id物理删除
@@ -70,6 +70,7 @@ public interface RbacUserIdentityMapper extends BaseMapper<RbacUserIdentityEntit
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String identityId);
+
 
     /**
      * 通过实名信息id物理批量删除

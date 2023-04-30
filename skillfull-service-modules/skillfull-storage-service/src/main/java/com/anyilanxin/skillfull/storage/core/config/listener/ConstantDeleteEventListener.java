@@ -50,20 +50,17 @@ import org.springframework.lang.Nullable;
 public class ConstantDeleteEventListener extends RedisKeyDeleteEventMessageListener {
     private final ICoreWebmvcService coreCommonService;
 
-    public ConstantDeleteEventListener(
-            RedisMessageListenerContainer listenerContainer, ICoreWebmvcService coreCommonService) {
+    public ConstantDeleteEventListener(RedisMessageListenerContainer listenerContainer, ICoreWebmvcService coreCommonService) {
         super(listenerContainer);
         this.coreCommonService = coreCommonService;
     }
 
+
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
-        log.debug(
-                "------------ConstantDeleteEventListener------监听到变化------>onMessage:\n{}", message);
+        log.debug("------------ConstantDeleteEventListener------监听到变化------>onMessage:\n{}", message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
-        if (StringUtils.isNotBlank(key)
-                && key.startsWith(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE)
-                && !super.serviceLock(key)) {
+        if (StringUtils.isNotBlank(key) && key.startsWith(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE) && !super.serviceLock(key)) {
             coreCommonService.loadConstantDict(true);
         }
     }

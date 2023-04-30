@@ -54,8 +54,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @RequiredArgsConstructor
 public class ClientTokenUtils {
-    private static final String URL =
-            "http://auth-service/auth/oauth/token?grant_type=%s&client_id=%s&client_secret=%s";
+    private static final String URL = "http://auth-service/auth/oauth/token?grant_type=%s&client_id=%s&client_secret=%s";
     private static ClientTokenUtils utils;
     private static final String CACHE_ACCESS_TOKEN_KEY = "SKILLFULL_CLIENT_ACCESS_TOKEN";
     private final SkillfullOauthProperty skillfullOauthProperty;
@@ -66,6 +65,7 @@ public class ClientTokenUtils {
         utils = this;
     }
 
+
     /**
      * 客户端模式获取token
      *
@@ -74,30 +74,20 @@ public class ClientTokenUtils {
      * @date 2022-08-10 09:25
      */
     public static String getTokenToAuthService() {
-        if (Objects.nonNull(utils.skillfullOauthProperty)
-                && StringUtils.isNotBlank(utils.skillfullOauthProperty.getClientId())
-                && StringUtils.isNotBlank(utils.skillfullOauthProperty.getClientSecret())) {
+        if (Objects.nonNull(utils.skillfullOauthProperty) && StringUtils.isNotBlank(utils.skillfullOauthProperty.getClientId()) && StringUtils.isNotBlank(utils.skillfullOauthProperty.getClientSecret())) {
             String accessToken = InMemoryCache.getCache(CACHE_ACCESS_TOKEN_KEY);
             if (StringUtils.isNotBlank(accessToken)) {
                 return accessToken;
             }
-            String formatUrl =
-                    String.format(
-                            URL,
-                            utils.skillfullOauthProperty.getGrantType().getType(),
-                            utils.skillfullOauthProperty.getClientId(),
-                            utils.skillfullOauthProperty.getClientSecret());
+            String formatUrl = String.format(URL, utils.skillfullOauthProperty.getGrantType().getType(), utils.skillfullOauthProperty.getClientId(), utils.skillfullOauthProperty.getClientSecret());
             URI uri = URI.create(formatUrl);
             ServiceInstance instance = utils.loadBalancer.choose(uri.getHost());
             if (Objects.isNull(instance)) {
                 return "";
             }
-            formatUrl =
-                    formatUrl.replaceFirst(
-                            uri.getHost(), instance.getHost() + ":" + instance.getPort());
+            formatUrl = formatUrl.replaceFirst(uri.getHost(), instance.getHost() + ":" + instance.getPort());
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<JSONObject> objectResponseEntity =
-                    restTemplate.postForEntity(formatUrl, null, JSONObject.class);
+            ResponseEntity<JSONObject> objectResponseEntity = restTemplate.postForEntity(formatUrl, null, JSONObject.class);
             if (objectResponseEntity.getStatusCode() == HttpStatus.OK) {
                 JSONObject body = objectResponseEntity.getBody();
                 if (Objects.nonNull(body) && !body.isEmpty()) {
@@ -106,8 +96,7 @@ public class ClientTokenUtils {
                         accessToken = data.getString("access_token");
                         int expiresIn = data.getIntValue("expires_in");
                         if (expiresIn > 240) {
-                            InMemoryCache.addCache(
-                                    CACHE_ACCESS_TOKEN_KEY, accessToken, expiresIn - 240);
+                            InMemoryCache.addCache(CACHE_ACCESS_TOKEN_KEY, accessToken, expiresIn - 240);
                         }
                         return accessToken;
                     }

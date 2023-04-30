@@ -51,6 +51,7 @@ public class NotNullScopeValidator implements ConstraintValidator<NotNullScope, 
         this.max = constraintAnnotation.max();
     }
 
+
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
         if (Objects.isNull(value)) {

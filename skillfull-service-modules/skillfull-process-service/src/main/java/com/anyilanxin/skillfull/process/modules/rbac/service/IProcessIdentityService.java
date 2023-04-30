@@ -53,6 +53,7 @@ public interface IProcessIdentityService {
      */
     Map<String, ProcessUserModel> getUserByIds(Set<String> userIds);
 
+
     /**
      * 通过用户id获取用户信息
      *
@@ -63,6 +64,7 @@ public interface IProcessIdentityService {
      */
     ProcessUserModel getUserById(String userId);
 
+
     /**
      * 通过角色ids获取角色信息
      *
@@ -72,6 +74,7 @@ public interface IProcessIdentityService {
      * @date 2022-07-15 01:02
      */
     Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds);
+
 
     /**
      * 通过角色id获取角色信息

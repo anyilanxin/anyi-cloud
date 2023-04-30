@@ -57,10 +57,7 @@ public class ManageRouteCustomFilterVo implements Serializable {
     @NotBlankOrNull(message = "自定义过滤器id不能为空")
     private String customFilterId;
 
-    @Schema(
-            name = "filterType",
-            title = "过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType",
-            required = true)
+    @Schema(name = "filterType", title = "过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType", required = true)
     @NotBlankOrNull(message = "过滤器类型不能为空")
     private String filterType;
 }

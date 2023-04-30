@@ -63,10 +63,7 @@ public class DeploymentVo implements Serializable {
     @NotBlank(message = "模型id不能为空")
     private String modelId;
 
-    @Schema(
-            name = "activateProcessDate",
-            title = "流程定义激活时间(不指定则立马激活)",
-            example = "2020-12-21 12:23")
+    @Schema(name = "activateProcessDate", title = "流程定义激活时间(不指定则立马激活)", example = "2020-12-21 12:23")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = TIME_ZONE_GMT8)
     private LocalDateTime activateProcessDate;
 }

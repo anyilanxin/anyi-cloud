@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class StorageInfoFileEntity extends BaseEntity {
     private static final long serialVersionUID = 614383241708803778L;
 
-    @TableId private String fileId;
+    @TableId
+    private String fileId;
 
     /** 原始文件名(不包括扩展名) */
     private String fileOriginalName;

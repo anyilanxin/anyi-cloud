@@ -59,6 +59,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     Set<String> selectUserRoleListById(@Param("userId") String userId);
 
+
     /**
      * 获取用户角色(完整数据)
      *
@@ -68,6 +69,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @date 2022-07-04 01:18
      */
     Set<RbacRoleSimpleDto> selectUserRoleAllInfoListById(@Param("userId") String userId);
+
 
     /**
      * 查询用户角色
@@ -79,6 +81,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     Set<RoleInfo> selectByUserId(@Param("userId") String userId);
 
+
     /**
      * 查询用户角色授权菜单信息
      *
@@ -88,8 +91,8 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @author zxiaozhou
      * @date 2022-07-05 00:42
      */
-    Set<RbacMenuDto> selectMenuByUserId(
-            @Param("userId") String userId, @Param("systemCodes") Set<String> systemCodeSet);
+    Set<RbacMenuDto> selectMenuByUserId(@Param("userId") String userId, @Param("systemCodes") Set<String> systemCodeSet);
+
 
     /**
      * 通过用户id物理删除
@@ -101,6 +104,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     int physicalDeleteByUserId(@Param("id") String userId);
 
+
     /**
      * 通过角色用户id物理删除
      *
@@ -111,6 +115,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     int physicalDeleteById(@Param("id") String roleUserId);
 
+
     /**
      * 通过角色id物理批量删除
      *
@@ -120,6 +125,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @date 2022-07-02 23:01:21
      */
     int physicalDeleteBatchRoleIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 通过角色关联id物理批量删除

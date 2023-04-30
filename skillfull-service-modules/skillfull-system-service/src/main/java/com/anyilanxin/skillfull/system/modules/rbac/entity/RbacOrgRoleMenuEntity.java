@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacOrgRoleMenuEntity implements Serializable {
     private static final long serialVersionUID = 919375711368394963L;
 
-    @TableId private String orgRoleMenuId;
+    @TableId
+    private String orgRoleMenuId;
 
     /** 权限id */
     private String menuId;

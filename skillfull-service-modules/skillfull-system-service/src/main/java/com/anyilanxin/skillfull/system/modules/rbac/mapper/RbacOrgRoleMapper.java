@@ -58,8 +58,8 @@ public interface RbacOrgRoleMapper extends BaseMapper<RbacOrgRoleEntity> {
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57
      */
-    IPage<RbacOrgRolePageDto> pageByModel(
-            Page<RbacOrgRolePageDto> page, @Param("query") RbacOrgRolePageVo vo);
+    IPage<RbacOrgRolePageDto> pageByModel(Page<RbacOrgRolePageDto> page, @Param("query") RbacOrgRolePageVo vo);
+
 
     /**
      * 通过机构角色id物理删除
@@ -70,6 +70,7 @@ public interface RbacOrgRoleMapper extends BaseMapper<RbacOrgRoleEntity> {
      * @date 2022-07-05 00:22:57
      */
     int physicalDeleteById(@Param("id") String orgRoleId);
+
 
     /**
      * 通过机构角色id物理批量删除

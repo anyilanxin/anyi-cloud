@@ -60,25 +60,20 @@ public class TokenExpirationEventListener extends RedisKeyExpirationEventMessage
         super(listenerContainer);
     }
 
+
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         log.debug("------------------------>onMessage:\n{}", key);
-        if (StringUtils.isNotBlank(key)
-                && key.startsWith(CoreCommonCacheConstant.AUTH_PREFIX + "auth:")
-                && !super.serviceLock(key)) {
+        if (StringUtils.isNotBlank(key) && key.startsWith(CoreCommonCacheConstant.AUTH_PREFIX + "auth:") && !super.serviceLock(key)) {
             // 广播集群再转给socket处理
-            SubscribeMsgModel subscribeMsgModel =
-                    new SubscribeMsgModel(SocketMessageEventType.AUTH_EVENT);
+            SubscribeMsgModel subscribeMsgModel = new SubscribeMsgModel(SocketMessageEventType.AUTH_EVENT);
             AuthMsgModel model = new AuthMsgModel();
             model.setToken(key.replaceFirst(CoreCommonCacheConstant.AUTH_PREFIX + "auth:", ""));
             model.setType(Status.TOKEN_EXPIRED);
             model.setMessage(Status.ERROR.getMessage());
             subscribeMsgModel.setData(model);
-            SendRedisMsgUtils.sendMsg(
-                    RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE,
-                    JSONObject.toJSONString(
-                            subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+            SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE, JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
         }
     }
 }

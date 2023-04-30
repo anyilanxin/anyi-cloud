@@ -57,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageAnnouncementEntity extends BaseEntity {
     private static final long serialVersionUID = 989377393842305039L;
 
-    @TableId private String anntId;
+    @TableId
+    private String anntId;
 
     /** 标题 */
     private String title;

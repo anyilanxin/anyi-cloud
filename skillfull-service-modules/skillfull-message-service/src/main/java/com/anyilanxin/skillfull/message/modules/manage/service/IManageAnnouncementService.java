@@ -58,6 +58,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      */
     void save(ManageAnnouncementVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -70,6 +71,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      */
     void updateById(String anntId, ManageAnnouncementVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -80,8 +82,8 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @author zxiaozhou
      * @date 2022-03-29 08:34:22
      */
-    PageDto<ManageAnnouncementPageDto> pageByModel(ManageAnnouncementPageVo vo)
-            throws RuntimeException;
+    PageDto<ManageAnnouncementPageDto> pageByModel(ManageAnnouncementPageVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -92,8 +94,8 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @author zxiaozhou
      * @date 2022-03-29 08:34:22
      */
-    List<ManageAnnouncementDto> selectListByModel(ManageAnnouncementQueryVo vo)
-            throws RuntimeException;
+    List<ManageAnnouncementDto> selectListByModel(ManageAnnouncementQueryVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -106,6 +108,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      */
     ManageAnnouncementDto getById(String anntId) throws RuntimeException;
 
+
     /**
      * 通过anntId删除
      *
@@ -115,6 +118,7 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
      * @date 2022-03-29 08:34:22
      */
     void deleteById(String anntId) throws RuntimeException;
+
 
     /**
      * 系统通告公告管理批量删除

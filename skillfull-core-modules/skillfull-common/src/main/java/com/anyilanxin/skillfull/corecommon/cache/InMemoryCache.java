@@ -62,6 +62,7 @@ public class InMemoryCache {
         }
     }
 
+
     /**
      * 清空缓存
      *
@@ -73,6 +74,7 @@ public class InMemoryCache {
         QUEUE.clear();
     }
 
+
     /**
      * 清空键包含某个字符串的全部缓存
      *
@@ -80,8 +82,7 @@ public class InMemoryCache {
      * @date 2019-06-16 15:47
      */
     public static void clearAllLikeStr(String str) {
-        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator();
-                it.hasNext(); ) {
+        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext();) {
             Map.Entry<String, CacheData> item = it.next();
             String key = item.getKey();
             if (key.contains(str)) {
@@ -89,6 +90,7 @@ public class InMemoryCache {
             }
         }
     }
+
 
     /**
      * 获取缓存数据值
@@ -102,6 +104,7 @@ public class InMemoryCache {
         CacheData<T> cacheData = getCacheData(key);
         return cacheData != null ? cacheData.getT() : null;
     }
+
 
     /**
      * 获取缓存数据
@@ -121,6 +124,7 @@ public class InMemoryCache {
         }
         return cacheData;
     }
+
 
     /**
      * 添加缓存
@@ -142,6 +146,7 @@ public class InMemoryCache {
         }
         CACHE.put(key, cacheData);
     }
+
 
     /**
      * 移除缓存并返回当前缓存

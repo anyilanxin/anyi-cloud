@@ -56,18 +56,15 @@ import org.springframework.stereotype.Component;
 public class TemplateEmailMsgContent {
     private final IManageTemplateService templateService;
     private final IManageSendRecordService recordService;
-    private static final Map<String, ITemplateEmailMsgStrategy> STRATEGY =
-            new ConcurrentHashMap<>();
+    private static final Map<String, ITemplateEmailMsgStrategy> STRATEGY = new ConcurrentHashMap<>();
 
     @Autowired
-    public TemplateEmailMsgContent(
-            final Map<String, ITemplateEmailMsgStrategy> strategyMap,
-            final IManageTemplateService templateService,
-            final IManageSendRecordService recordService) {
+    public TemplateEmailMsgContent(final Map<String, ITemplateEmailMsgStrategy> strategyMap, final IManageTemplateService templateService, final IManageSendRecordService recordService) {
         STRATEGY.putAll(strategyMap);
         this.templateService = templateService;
         this.recordService = recordService;
     }
+
 
     /**
      * 发送邮件
@@ -84,11 +81,9 @@ public class TemplateEmailMsgContent {
         }
         ManageTemplateSendInfoDto sendInfo = templateService.getSendInfo(model.getTemplateCode());
         if (Objects.isNull(sendInfo)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
         }
-        List<ManageSendRecordEntity> manageSendRecordEntities =
-                emailMsgStrategy.sendMsg(model, sendInfo);
+        List<ManageSendRecordEntity> manageSendRecordEntities = emailMsgStrategy.sendMsg(model, sendInfo);
         return recordService.saveBatchRecord(manageSendRecordEntities);
     }
 }

@@ -51,7 +51,6 @@ public class UploadLocalFileConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(property.getVirtualMapping() + "/**")
-                .addResourceLocations("file:" + property.getUploadFolder() + "/");
+        registry.addResourceHandler(property.getVirtualMapping() + "/**").addResourceLocations("file:" + property.getUploadFolder() + "/");
     }
 }

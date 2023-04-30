@@ -70,10 +70,7 @@ public class RbacResourceQueryVo implements Serializable {
     @Schema(name = "resourceIcon", title = "资源图标")
     private String resourceIcon;
 
-    @Schema(
-            name = "requestPrefix",
-            title =
-                    "资源请求前缀，即server.servlet.context-path值或spring.webflux.base-path值，前缀mvc,后缀webflux")
+    @Schema(name = "requestPrefix", title = "资源请求前缀，即server.servlet.context-path值或spring.webflux.base-path值，前缀mvc,后缀webflux")
     private String requestPrefix;
 
     @Schema(name = "resourceStatus", title = "状态：0-未启用,1-启用，默认0")

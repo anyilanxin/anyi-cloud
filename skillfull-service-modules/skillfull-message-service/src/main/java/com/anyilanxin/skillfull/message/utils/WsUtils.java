@@ -65,13 +65,13 @@ public class WsUtils {
     private static WsUtils utils;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
     /** 保存连接 session 的地方 */
-    public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL =
-            new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
 
     @PostConstruct
     private void init() {
         utils = this;
     }
+
 
     /**
      * 添加 session
@@ -83,6 +83,7 @@ public class WsUtils {
         SESSION_POOL.put(getSessionId(session), session);
     }
 
+
     /**
      * 删除 session,会返回删除的 session
      *
@@ -93,6 +94,7 @@ public class WsUtils {
         // 删除 session
         return SESSION_POOL.remove(getSessionId(session));
     }
+
 
     /**
      * 删除并同步关闭连接
@@ -112,6 +114,7 @@ public class WsUtils {
         }
     }
 
+
     /**
      * 获取自定义session id
      *
@@ -121,10 +124,9 @@ public class WsUtils {
      * @date 2022-08-27 15:28
      */
     private static String getSessionId(WebSocketSession session) {
-        return session.getAttributes()
-                .get(WebSocketSessionType.CUSTOM_SESSION_ID.getType())
-                .toString();
+        return session.getAttributes().get(WebSocketSessionType.CUSTOM_SESSION_ID.getType()).toString();
     }
+
 
     /**
      * 获得 session
@@ -137,6 +139,7 @@ public class WsUtils {
         return SESSION_POOL.get(getSessionId(session));
     }
 
+
     /**
      * 获得 session
      *
@@ -147,28 +150,27 @@ public class WsUtils {
         return SESSION_POOL;
     }
 
+
     /** 创建redis订阅信息 */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMessageEventType eventType) {
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMessageEventType eventType) {
         return createSubscribeMsgModel(session, null, eventType);
     }
 
+
     /** 创建redis订阅信息 */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMsgModel socketMsgModel) {
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel) {
         return createSubscribeMsgModel(session, socketMsgModel, null);
     }
+
 
     /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session) {
         return createSubscribeMsgModel(session, null, null);
     }
 
+
     /** 创建redis订阅信息 */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session,
-            SocketMsgModel socketMsgModel,
-            SocketMessageEventType eventType) {
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel, SocketMessageEventType eventType) {
         SubscribeMsgModel subscribeMsgModel;
         if (Objects.nonNull(socketMsgModel)) {
             subscribeMsgModel = (SubscribeMsgModel) socketMsgModel;
@@ -185,8 +187,7 @@ public class WsUtils {
                 Principal principal = session.getPrincipal();
                 if (principal instanceof Authentication) {
                     Authentication userPrincipal = (Authentication) principal;
-                    SkillFullUserDetails userDetails =
-                            (SkillFullUserDetails) (userPrincipal.getPrincipal());
+                    SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
                     subscribeMsgModel.setSendUserInfo(utils.detailsCopyMap.aToB(userDetails));
                 }
             }
@@ -194,8 +195,7 @@ public class WsUtils {
             if (Objects.nonNull(objectToken)) {
                 subscribeMsgModel.setSendToken(objectToken.toString());
             }
-            Object objectCustomSessionId =
-                    attributes.get(WebSocketSessionType.CUSTOM_SESSION_ID.getType());
+            Object objectCustomSessionId = attributes.get(WebSocketSessionType.CUSTOM_SESSION_ID.getType());
             if (Objects.nonNull(objectCustomSessionId)) {
                 subscribeMsgModel.setSendCustomSessionId(objectCustomSessionId.toString());
             }
@@ -205,6 +205,7 @@ public class WsUtils {
         }
         return subscribeMsgModel;
     }
+
 
     /**
      * 发送消息
@@ -217,18 +218,13 @@ public class WsUtils {
     public static void sendMsg(WebSocketSession session, SocketMsgModel msgModel) {
         try {
             if (Objects.nonNull(session) && Objects.nonNull(msgModel)) {
-                session.sendMessage(
-                        new TextMessage(
-                                JSONObject.toJSONString(
-                                        msgModel, JSONWriter.Feature.WriteMapNullValue)));
+                session.sendMessage(new TextMessage(JSONObject.toJSONString(msgModel, JSONWriter.Feature.WriteMapNullValue)));
             }
         } catch (IOException exception) {
-            log.error(
-                    "------------------发送消息失败------sendMsg--->\n参数:\n{}\n异常消息:\n{}",
-                    msgModel,
-                    exception.getMessage());
+            log.error("------------------发送消息失败------sendMsg--->\n参数:\n{}\n异常消息:\n{}", msgModel, exception.getMessage());
         }
     }
+
 
     /**
      * 获取用户信息
@@ -242,8 +238,7 @@ public class WsUtils {
         Principal principal = session.getPrincipal();
         if (principal instanceof Authentication) {
             Authentication userPrincipal = (Authentication) principal;
-            SkillFullUserDetails userDetails =
-                    (SkillFullUserDetails) (userPrincipal.getPrincipal());
+            SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
             return utils.detailsCopyMap.aToB(userDetails);
         }
         return null;

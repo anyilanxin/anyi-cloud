@@ -57,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 public class AuthDataEntity extends BaseEntity {
     private static final long serialVersionUID = 515180726702392212L;
 
-    @TableId private String authLogId;
+    @TableId
+    private String authLogId;
 
     /** 日志编号 */
     private String logCode;

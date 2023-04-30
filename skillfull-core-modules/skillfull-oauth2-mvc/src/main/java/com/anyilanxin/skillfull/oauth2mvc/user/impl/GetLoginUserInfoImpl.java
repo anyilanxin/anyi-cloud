@@ -58,11 +58,11 @@ public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
     private final TokenStore tokenStore;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
 
-    public GetLoginUserInfoImpl(
-            final TokenStore tokenStore, final OauthUserAndUserDetailsCopyMap detailsCopyMap) {
+    public GetLoginUserInfoImpl(final TokenStore tokenStore, final OauthUserAndUserDetailsCopyMap detailsCopyMap) {
         this.tokenStore = tokenStore;
         this.detailsCopyMap = detailsCopyMap;
     }
+
 
     @Override
     public UserInfo getUserInfo(String token) {
@@ -78,6 +78,7 @@ public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
         throw new UnauthorizedUserException("当前用户未授权");
     }
 
+
     @Override
     public UserInfo getUserInfo() {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -91,10 +92,12 @@ public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
         throw new UnauthorizedUserException("当前用户未授权");
     }
 
+
     @Override
     public boolean superRole() {
         return getUserInfo().isSuperAdmin();
     }
+
 
     @Override
     public Set<RoleInfo> getRoleInfos() {
@@ -102,11 +105,13 @@ public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
         return CollUtil.isNotEmpty(roleInfos) ? roleInfos : Collections.emptySet();
     }
 
+
     @Override
     public Set<String> getRoleIds() {
         Set<String> roleIds = getUserInfo().getRoleIds();
         return CollUtil.isNotEmpty(roleIds) ? roleIds : Collections.emptySet();
     }
+
 
     @Override
     public Set<String> getRoleCodes() {
@@ -114,55 +119,66 @@ public class GetLoginUserInfoImpl implements IGetLoginUserInfo {
         return CollUtil.isNotEmpty(roleCodes) ? roleCodes : Collections.emptySet();
     }
 
+
     @Override
     public String getUserId() {
         return getUserInfo().getUserId();
     }
+
 
     @Override
     public String getUserName() {
         return getUserInfo().getUserName();
     }
 
+
     @Override
     public String getNickName() {
         return getUserInfo().getNickName();
     }
+
 
     @Override
     public String getRealName() {
         return getUserInfo().getRealName();
     }
 
+
     @Override
     public String getCurrentOrgId() {
         return getUserInfo().getCurrentOrgId();
     }
+
 
     @Override
     public String getCurrentOrgCode() {
         return getUserInfo().getCurrentOrgCode();
     }
 
+
     @Override
     public String getCurrentAreaCode() {
         return getUserInfo().getCurrentAreaCode();
     }
+
 
     @Override
     public String getCurrentTenantId() {
         return getUserInfo().getCurrentTenantId();
     }
 
+
     @Override
     public String getPhone() {
         return getUserInfo().getPhone();
     }
 
+
     @Override
     public int getIdentityStatus() {
         return getUserInfo().getIdentityStatus();
     }
+
 
     @Override
     public UserIdentity getIdentity() {

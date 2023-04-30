@@ -55,6 +55,7 @@ public @interface DictField {
      */
     String dicCode();
 
+
     /**
      * 拼接后缀,默认字段后边添加"_text",自定义后缀请避免属性重复
      *

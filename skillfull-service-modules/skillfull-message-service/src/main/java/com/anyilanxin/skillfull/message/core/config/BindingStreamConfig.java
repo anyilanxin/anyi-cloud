@@ -48,7 +48,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class BindingStreamConfig {
-    //    private final StreamMessageHandleContent handleContent;
+    // private final StreamMessageHandleContent handleContent;
 
     /**
      * 处理socket广播
@@ -59,9 +59,8 @@ public class BindingStreamConfig {
     @Bean(value = BindingStreamConstant.SOCKET_PROCESS)
     public Consumer<SocketMsgModel> socketProcess() {
         return payload -> {
-            log.debug(
-                    "------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
-            //            handleContent.processStream(payload);
+            log.debug("------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
+            // handleContent.processStream(payload);
         };
     }
 }

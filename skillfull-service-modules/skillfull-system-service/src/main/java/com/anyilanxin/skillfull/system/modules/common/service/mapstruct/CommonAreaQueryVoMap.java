@@ -42,8 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-11-02 09:25:08
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonAreaQueryVoMap extends BaseMap<CommonAreaQueryVo, CommonAreaEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonAreaQueryVoMap extends BaseMap<CommonAreaQueryVo, CommonAreaEntity> {
+}

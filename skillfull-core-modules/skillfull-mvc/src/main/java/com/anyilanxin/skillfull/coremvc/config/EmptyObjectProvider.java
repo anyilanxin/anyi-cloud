@@ -43,20 +43,24 @@ class EmptyObjectProvider<T> implements ObjectProvider<T> {
         return null;
     }
 
+
     @Override
     public T getIfAvailable() throws BeansException {
         return null;
     }
+
 
     @Override
     public T getIfUnique() throws BeansException {
         return null;
     }
 
+
     @Override
     public T getObject() throws BeansException {
         return null;
     }
+
 
     @Override
     public void forEach(Consumer action) {

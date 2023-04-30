@@ -63,10 +63,8 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 19:29:58
      */
-    IPage<RbacRolePageDto> pageByModel(
-            Page<RbacRolePageDto> page,
-            @Param("query") RbacRolePageVo vo,
-            @Param("superRoleCode") String superRoleCode);
+    IPage<RbacRolePageDto> pageByModel(Page<RbacRolePageDto> page, @Param("query") RbacRolePageVo vo, @Param("superRoleCode") String superRoleCode);
+
 
     /**
      * 条件查询多条
@@ -76,8 +74,8 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 19:29:58
      */
-    List<RbacRoleDto> selectListByModel(
-            RbacRoleQueryVo vo, @Param("superRoleCode") String superRoleCode);
+    List<RbacRoleDto> selectListByModel(RbacRoleQueryVo vo, @Param("superRoleCode") String superRoleCode);
+
 
     /**
      * 获取用户授权的角色
@@ -88,8 +86,8 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxiaozhou
      * @date 2022-04-06 00:08
      */
-    Set<UserRoleModel> getUserAuthRole(
-            String userId, String orgId, @Param("superRoleCode") String superRoleCode);
+    Set<UserRoleModel> getUserAuthRole(String userId, String orgId, @Param("superRoleCode") String superRoleCode);
+
 
     /**
      * 通过角色id物理删除
@@ -100,6 +98,7 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @date 2022-05-02 19:29:58
      */
     int physicalDeleteById(@Param("id") String roleId);
+
 
     /**
      * 通过角色id物理批量删除

@@ -65,6 +65,7 @@ public enum SpecialUrlType implements ISuperType {
         this.typeDescribe = typeDescribe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -86,6 +87,7 @@ public enum SpecialUrlType implements ISuperType {
         return false;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -104,6 +106,7 @@ public enum SpecialUrlType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -119,6 +122,7 @@ public enum SpecialUrlType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

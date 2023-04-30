@@ -67,12 +67,7 @@ public class GroupDto implements Serializable {
         GroupDto groupModel = null;
         if (Objects.nonNull(group)) {
             GroupEntity groupEntity = (GroupEntity) group;
-            groupModel =
-                    GroupDto.builder()
-                            .groupId(groupEntity.getId())
-                            .name(groupEntity.getName())
-                            .code(groupEntity.getType())
-                            .build();
+            groupModel = GroupDto.builder().groupId(groupEntity.getId()).name(groupEntity.getName()).code(groupEntity.getType()).build();
         }
         return groupModel;
     }

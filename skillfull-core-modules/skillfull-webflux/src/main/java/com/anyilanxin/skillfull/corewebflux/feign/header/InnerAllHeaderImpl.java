@@ -57,17 +57,15 @@ public class InnerAllHeaderImpl implements ISetHeaderStrategy {
         }
         Map<String, Set<String>> headers = getHeaders(serverHttpRequest);
         if (CollUtil.isNotEmpty(headers)) {
-            headers.forEach(
-                    (key, value) -> {
-                        // 需要排除Content-Length，否则造成数据传输长度异常
-                        if (StringUtils.isNotBlank(key)
-                                && CollUtil.isNotEmpty(value)
-                                && !key.equalsIgnoreCase(CONTENT_LENGTH)) {
-                            template.header(key, value);
-                        }
-                    });
+            headers.forEach((key, value) -> {
+                // 需要排除Content-Length，否则造成数据传输长度异常
+                if (StringUtils.isNotBlank(key) && CollUtil.isNotEmpty(value) && !key.equalsIgnoreCase(CONTENT_LENGTH)) {
+                    template.header(key, value);
+                }
+            });
         }
     }
+
 
     /**
      * 获取请求头信息

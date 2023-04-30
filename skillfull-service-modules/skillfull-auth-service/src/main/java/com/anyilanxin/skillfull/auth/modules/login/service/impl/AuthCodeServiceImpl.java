@@ -62,10 +62,12 @@ public class AuthCodeServiceImpl implements IAuthCodeService {
         this.pictureValidate = validate;
     }
 
+
     @Autowired
     public void setSmsPictureValidate(SmsValidate validate) {
         this.smsValidate = validate;
     }
+
 
     @Override
     public ValidateDto getPictureCode(HttpServletRequest request) throws RuntimeException {
@@ -75,6 +77,7 @@ public class AuthCodeServiceImpl implements IAuthCodeService {
         }
         return verification;
     }
+
 
     @Override
     public void getPhoneSmsCode(String phone, HttpServletRequest request) throws RuntimeException {

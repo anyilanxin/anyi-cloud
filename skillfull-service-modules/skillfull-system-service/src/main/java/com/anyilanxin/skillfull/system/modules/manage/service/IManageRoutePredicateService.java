@@ -57,8 +57,8 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    void save(List<ManageRoutePredicateVo> vos, String routerId, String serviceId, boolean override)
-            throws RuntimeException;
+    void save(List<ManageRoutePredicateVo> vos, String routerId, String serviceId, boolean override) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -71,6 +71,7 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      */
     ManageRoutePredicateDto getById(String predicateId) throws RuntimeException;
 
+
     /**
      * 通过routeId查询详情
      *
@@ -82,6 +83,7 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      */
     List<ManageRoutePredicateDto> getByRouteId(String routeId) throws RuntimeException;
 
+
     /**
      * 通过routeIds查询详情
      *
@@ -92,8 +94,8 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    Map<String, List<ManageRoutePredicateDto>> getByRouteId(Set<String> routeIds)
-            throws RuntimeException;
+    Map<String, List<ManageRoutePredicateDto>> getByRouteId(Set<String> routeIds) throws RuntimeException;
+
 
     /**
      * 通过routerId删除
@@ -104,6 +106,7 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      * @date 2021-12-19 10:37:42
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
+
 
     /**
      * 通过routerIds删除

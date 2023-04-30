@@ -48,8 +48,7 @@ import org.springframework.stereotype.Component;
 @Component(value = MsgTemplateEmailChannelConstant.MAIL_163)
 public class TemplateEmailMsgStrategy163EmailImpl implements ITemplateEmailMsgStrategy {
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateEmailMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateEmailMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

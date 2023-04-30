@@ -57,6 +57,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      */
     void save(RbacSystemVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -67,6 +68,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      * @date 2022-05-02 11:46:37
      */
     void updateById(String systemId, RbacSystemVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -79,6 +81,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      */
     PageDto<RbacSystemPageDto> pageByModel(RbacSystemPageVo vo) throws RuntimeException;
 
+
     /**
      * 查询有效的系统信息
      *
@@ -88,6 +91,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      * @date 2021-07-28 09:35:45
      */
     List<RbacSystemDto> selectList() throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -100,6 +104,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      */
     RbacSystemDto getById(String systemId) throws RuntimeException;
 
+
     /**
      * 通过systemId删除
      *
@@ -109,6 +114,7 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      * @date 2022-05-02 11:46:37
      */
     void deleteById(String systemId) throws RuntimeException;
+
 
     /**
      * 系统批量删除

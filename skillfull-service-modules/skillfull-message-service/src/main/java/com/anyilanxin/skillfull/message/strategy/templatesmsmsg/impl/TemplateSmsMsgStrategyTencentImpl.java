@@ -48,8 +48,7 @@ import org.springframework.stereotype.Component;
 @Component(value = MsgTemplateSmsChannelConstant.TENCENT_SMS)
 public class TemplateSmsMsgStrategyTencentImpl implements ITemplateSmsMsgStrategy {
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

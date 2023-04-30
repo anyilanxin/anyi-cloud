@@ -52,6 +52,7 @@ public interface IAuthCodeService {
      */
     ValidateDto getPictureCode(HttpServletRequest request) throws RuntimeException;
 
+
     /**
      * 获取手机验证码(会验证手机是否存在)
      *

@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageRouteEntity extends BaseEntity {
     private static final long serialVersionUID = -50439627452634148L;
 
-    @TableId private String routeId;
+    @TableId
+    private String routeId;
 
     /** 路由编码(唯一) */
     private String routeCode;

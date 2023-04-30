@@ -55,6 +55,7 @@ public interface ManageRoutePredicateMapper extends BaseMapper<ManageRoutePredic
      */
     int physicalDeleteById(@Param("id") String predicateId);
 
+
     /**
      * 通过断言id物理批量删除
      *

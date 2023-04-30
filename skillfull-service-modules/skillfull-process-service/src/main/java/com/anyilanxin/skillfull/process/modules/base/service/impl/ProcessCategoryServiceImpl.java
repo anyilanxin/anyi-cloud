@@ -69,9 +69,7 @@ import org.springframework.util.CollectionUtils;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProcessCategoryServiceImpl
-        extends ServiceImpl<ProcessCategoryMapper, ProcessCategoryEntity>
-        implements IProcessCategoryService {
+public class ProcessCategoryServiceImpl extends ServiceImpl<ProcessCategoryMapper, ProcessCategoryEntity> implements IProcessCategoryService {
     private final ProcessCategoryCopyMap map;
     private final ProcessCategoryPageCopyMap pageMap;
     private final ProcessCategoryQueryCopyMap queryMap;
@@ -85,10 +83,10 @@ public class ProcessCategoryServiceImpl
         checkData(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
+
 
     /**
      * 数据校验
@@ -97,9 +95,7 @@ public class ProcessCategoryServiceImpl
      * @author zxiaozhou
      * @date 2021-11-19 14:25
      */
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     void checkData(ProcessCategoryEntity entity) {
         LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ProcessCategoryEntity::getCategoryCode, entity.getCategoryCode());
@@ -108,10 +104,10 @@ public class ProcessCategoryServiceImpl
         }
         ProcessCategoryEntity one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(
-                    Status.VERIFICATION_FAILED, "当前类别编码已经存在:" + entity.getCategoryCode());
+            throw new ResponseException(Status.VERIFICATION_FAILED, "当前类别编码已经存在:" + entity.getCategoryCode());
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -125,23 +121,21 @@ public class ProcessCategoryServiceImpl
         checkData(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo) throws RuntimeException {
         List<ProcessCategoryDto> list = mapper.selectListByModel(vo);
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
         return list;
     }
+
 
     @Override
     public ProcessCategoryDto selectByCode(String categoryCode) {
@@ -150,39 +144,36 @@ public class ProcessCategoryServiceImpl
         return map.eToD(this.getOne(lambdaQueryWrapper));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ProcessCategoryDto getById(String categoryId) throws RuntimeException {
         ProcessCategoryEntity byId = super.getById(categoryId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
 
+
     @Override
     public List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes) {
         if (CollUtil.isNotEmpty(categoryCodes)) {
-            LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper =
-                    new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<ProcessCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.in(ProcessCategoryEntity::getCategoryCode, categoryCodes);
             List<ProcessCategoryEntity> list = this.list(lambdaQueryWrapper);
             return map.eToD(list);
         }
         return Collections.emptyList();
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -192,10 +183,10 @@ public class ProcessCategoryServiceImpl
         // 删除数据
         boolean b = this.removeById(categoryId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
+
 
     @Override
     public List<SelectModel> getModelDesignList() {

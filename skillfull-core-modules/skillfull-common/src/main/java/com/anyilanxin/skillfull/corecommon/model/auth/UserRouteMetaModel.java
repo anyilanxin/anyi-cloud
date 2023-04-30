@@ -96,9 +96,7 @@ public class UserRouteMetaModel implements Serializable {
     @Schema(name = "orderNo", title = "菜单排序")
     private Integer orderNo;
 
-    @Schema(
-            name = "ignoreRoute",
-            title = "忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean")
+    @Schema(name = "ignoreRoute", title = "忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean")
     private boolean ignoreRoute;
 
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")

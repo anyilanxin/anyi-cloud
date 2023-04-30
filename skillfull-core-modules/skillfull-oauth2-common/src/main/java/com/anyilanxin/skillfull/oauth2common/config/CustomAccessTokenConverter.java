@@ -45,8 +45,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 @Slf4j
 public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
     @Override
-    public Map<String, ?> convertAccessToken(
-            OAuth2AccessToken token, OAuth2Authentication authentication) {
+    public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         // 精简jwt内容防止过大
         Map<String, ?> stringMap = super.convertAccessToken(token, authentication);
         stringMap.remove("scope");

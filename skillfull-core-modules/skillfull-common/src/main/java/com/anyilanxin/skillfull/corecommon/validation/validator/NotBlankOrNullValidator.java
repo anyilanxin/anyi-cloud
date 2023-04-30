@@ -44,7 +44,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class NotBlankOrNullValidator implements ConstraintValidator<NotBlankOrNull, Object> {
     @Override
-    public void initialize(NotBlankOrNull constraintAnnotation) {}
+    public void initialize(NotBlankOrNull constraintAnnotation) {
+    }
+
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {

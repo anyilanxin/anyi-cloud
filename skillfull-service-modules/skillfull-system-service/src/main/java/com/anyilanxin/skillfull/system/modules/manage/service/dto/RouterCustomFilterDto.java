@@ -59,8 +59,6 @@ public class RouterCustomFilterDto implements Serializable {
     @Schema(name = "filterModels", title = "过滤器")
     private List<RouteFilterModel> filterModels;
 
-    @Schema(
-            name = "specialUrls",
-            title = "特殊url:map<过滤器filterType(FilterCustomPreType、FilterCustomPostType),特殊url>")
+    @Schema(name = "specialUrls", title = "特殊url:map<过滤器filterType(FilterCustomPreType、FilterCustomPostType),特殊url>")
     private Map<String, RouteMetaSpecialUrlModel> specialUrls;
 }

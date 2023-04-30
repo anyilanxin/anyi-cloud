@@ -76,6 +76,7 @@ public class GroupServiceImpl implements IGroupService {
         identityService.saveGroup(group);
     }
 
+
     @Override
     @GlobalTransactional
     public void deleteOrAddTenant(GroupTenantVo vo) throws RuntimeException {
@@ -83,31 +84,26 @@ public class GroupServiceImpl implements IGroupService {
         List<Tenant> list = identityService.createTenantQuery().list();
         if (CollUtil.isNotEmpty(list)) {
             // 删除历史信息
-            list.forEach(
-                    v -> {
-                        Group group =
-                                identityService
-                                        .createGroupQuery()
-                                        .groupId(groupId)
-                                        .memberOfTenant(v.getId())
-                                        .singleResult();
-                        if (Objects.nonNull(group)) {
-                            identityService.deleteTenantGroupMembership(v.getId(), groupId);
-                        }
-                    });
+            list.forEach(v -> {
+                Group group = identityService.createGroupQuery().groupId(groupId).memberOfTenant(v.getId()).singleResult();
+                if (Objects.nonNull(group)) {
+                    identityService.deleteTenantGroupMembership(v.getId(), groupId);
+                }
+            });
             // 添加新信息
             if (CollUtil.isNotEmpty(vo.getTenantIds())) {
-                vo.getTenantIds()
-                        .forEach(v -> identityService.createTenantGroupMembership(v, groupId));
+                vo.getTenantIds().forEach(v -> identityService.createTenantGroupMembership(v, groupId));
             }
         }
     }
+
 
     @Override
     public GroupDto getGroup(String groupId) throws RuntimeException {
         Group group = getCamundaGroup(groupId);
         return new GroupDto().getGroup(group);
     }
+
 
     @Override
     @GlobalTransactional
@@ -120,6 +116,7 @@ public class GroupServiceImpl implements IGroupService {
             list.forEach(v -> identityService.deleteMembership(v.getId(), groupId));
         }
     }
+
 
     @Override
     public List<GroupDto> getGroupList(GroupQueryVo vo) throws RuntimeException {
@@ -139,6 +136,7 @@ public class GroupServiceImpl implements IGroupService {
         return groupList;
     }
 
+
     @Override
     public PageDto<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException {
         GroupQuery groupQuery = identityService.createGroupQuery();
@@ -149,22 +147,18 @@ public class GroupServiceImpl implements IGroupService {
             groupQuery.memberOfTenant(vo.getTenantId());
         }
         if (CollUtil.isNotEmpty(vo.getAscs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("name")) {
-                                    groupQuery.orderByGroupName().asc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("name")) {
+                    groupQuery.orderByGroupName().asc();
+                }
+            });
         }
         if (CollUtil.isNotEmpty(vo.getDescs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("name")) {
-                                    groupQuery.orderByGroupName().desc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("name")) {
+                    groupQuery.orderByGroupName().desc();
+                }
+            });
         }
         long count = groupQuery.count();
         if (count == 0L) {
@@ -172,13 +166,13 @@ public class GroupServiceImpl implements IGroupService {
         }
         List<Group> list = groupQuery.listPage(vo.getCurrent(), vo.getSize());
         List<GroupDto> groupList = new ArrayList<>(list.size());
-        list.forEach(
-                v -> {
-                    GroupDto groupModel = new GroupDto().getGroup(v);
-                    groupList.add(groupModel);
-                });
+        list.forEach(v -> {
+            GroupDto groupModel = new GroupDto().getGroup(v);
+            groupList.add(groupModel);
+        });
         return new PageDto<>(count, groupList);
     }
+
 
     /**
      * 获取用户组信息
@@ -197,6 +191,7 @@ public class GroupServiceImpl implements IGroupService {
         return group;
     }
 
+
     @Override
     @GlobalTransactional
     public void syncGroup(Set<SyncGroupVo> voSet) throws RuntimeException {
@@ -205,44 +200,31 @@ public class GroupServiceImpl implements IGroupService {
         List<Tenant> tenants = identityService.createTenantQuery().list();
         if (CollUtil.isNotEmpty(list)) {
             // 删除历史数据
-            list.forEach(
-                    v -> {
-                        if (!DEFAULT_GROUP_ID.equals(v.getId())
-                                && !DEFAULT_GROUP_TYPE.equals(v.getType())) {
-                            // 删除关联关系
-                            if (CollUtil.isNotEmpty(tenants)) {
-                                tenants.forEach(
-                                        sv -> {
-                                            Group group =
-                                                    identityService
-                                                            .createGroupQuery()
-                                                            .groupId(v.getId())
-                                                            .memberOfTenant(sv.getId())
-                                                            .singleResult();
-                                            if (Objects.nonNull(group)) {
-                                                identityService.deleteTenantUserMembership(
-                                                        sv.getId(), v.getId());
-                                            }
-                                        });
+            list.forEach(v -> {
+                if (!DEFAULT_GROUP_ID.equals(v.getId()) && !DEFAULT_GROUP_TYPE.equals(v.getType())) {
+                    // 删除关联关系
+                    if (CollUtil.isNotEmpty(tenants)) {
+                        tenants.forEach(sv -> {
+                            Group group = identityService.createGroupQuery().groupId(v.getId()).memberOfTenant(sv.getId()).singleResult();
+                            if (Objects.nonNull(group)) {
+                                identityService.deleteTenantUserMembership(sv.getId(), v.getId());
                             }
-                            // 删除角色
-                            identityService.deleteGroup(v.getId());
-                        }
-                    });
+                        });
+                    }
+                    // 删除角色
+                    identityService.deleteGroup(v.getId());
+                }
+            });
         }
         // 添加新的
         if (CollUtil.isNotEmpty(voSet)) {
-            voSet.forEach(
-                    v -> {
-                        identityService.saveGroup(v.getCamundaGroup());
-                        Set<String> tenantIds = v.getTenantIds();
-                        if (CollUtil.isNotEmpty(tenantIds)) {
-                            tenantIds.forEach(
-                                    sv ->
-                                            identityService.createTenantGroupMembership(
-                                                    sv, v.getGroupId()));
-                        }
-                    });
+            voSet.forEach(v -> {
+                identityService.saveGroup(v.getCamundaGroup());
+                Set<String> tenantIds = v.getTenantIds();
+                if (CollUtil.isNotEmpty(tenantIds)) {
+                    tenantIds.forEach(sv -> identityService.createTenantGroupMembership(sv, v.getGroupId()));
+                }
+            });
         }
     }
 }

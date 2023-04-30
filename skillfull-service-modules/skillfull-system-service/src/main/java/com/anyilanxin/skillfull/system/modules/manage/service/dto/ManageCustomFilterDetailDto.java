@@ -50,8 +50,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @Schema
-public class ManageCustomFilterDetailDto extends ManageCustomFilterSimpleDto
-        implements Serializable {
+public class ManageCustomFilterDetailDto extends ManageCustomFilterSimpleDto implements Serializable {
     private static final long serialVersionUID = -90187804208911654L;
 
     @Schema(name = "specialUrls", title = "特殊url")

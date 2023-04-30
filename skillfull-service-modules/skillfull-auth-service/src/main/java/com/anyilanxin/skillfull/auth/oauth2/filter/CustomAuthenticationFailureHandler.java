@@ -53,21 +53,12 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     private static final Map<String, String> LOCAL = new HashMap<>(64);
 
     static {
-        LOCAL.put(
-                "Full authentication is required to access this resource",
-                "CustomOAuthEntryPoint.FullAuthentication");
+        LOCAL.put("Full authentication is required to access this resource", "CustomOAuthEntryPoint.FullAuthentication");
     }
 
     @Override
-    public void onAuthenticationFailure(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException exception)
-            throws IOException, ServletException {
-        log.error(
-                "------------CustomOAuthEntryPoint------------>commence--->异常消息:\n{}",
-                exception.getMessage());
-        ResponseUtils.writeResult(
-                response, getLocalMessage(LOCAL, exception.getMessage()), Status.ACCESS_INFO_ERROR);
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        log.error("------------CustomOAuthEntryPoint------------>commence--->异常消息:\n{}", exception.getMessage());
+        ResponseUtils.writeResult(response, getLocalMessage(LOCAL, exception.getMessage()), Status.ACCESS_INFO_ERROR);
     }
 }

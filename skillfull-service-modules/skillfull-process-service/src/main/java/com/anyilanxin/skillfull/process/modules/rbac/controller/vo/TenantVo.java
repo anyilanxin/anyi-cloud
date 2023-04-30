@@ -72,6 +72,7 @@ public class TenantVo implements Serializable {
         return tenantEntity;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,6 +84,7 @@ public class TenantVo implements Serializable {
         TenantVo tenantVo = (TenantVo) o;
         return Objects.equals(getTenantId(), tenantVo.getTenantId());
     }
+
 
     @Override
     public int hashCode() {

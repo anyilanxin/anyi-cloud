@@ -64,6 +64,7 @@ public class CodeUtil {
         return parentCode;
     }
 
+
     /**
      * 根据前一个code，获取同级下一个code 例如:当前最大code为D01A04，下一个code为：D01A05
      *
@@ -106,6 +107,7 @@ public class CodeUtil {
         return newcode;
     }
 
+
     /**
      * 将数字前面位数补零
      *
@@ -116,6 +118,7 @@ public class CodeUtil {
         return getStrNum(getNextNum(num));
     }
 
+
     /**
      * 将数字前面位数补零
      *
@@ -125,6 +128,7 @@ public class CodeUtil {
     private static String getStrNum(int num) {
         return String.format("%0" + numLength + "d", num);
     }
+
 
     /**
      * 根据数字位数获取最大值
@@ -143,6 +147,7 @@ public class CodeUtil {
         return Integer.parseInt(max_num);
     }
 
+
     /**
      * 递增获取下个数字
      *
@@ -153,6 +158,7 @@ public class CodeUtil {
         num++;
         return num;
     }
+
 
     /**
      * 递增获取下个字母

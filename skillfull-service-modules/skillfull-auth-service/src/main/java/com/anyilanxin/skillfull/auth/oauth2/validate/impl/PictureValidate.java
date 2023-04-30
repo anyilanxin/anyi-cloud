@@ -67,13 +67,7 @@ public class PictureValidate implements IValidate {
         String code = captcha.getCode();
         String codeId = CoreCommonUtils.get32UUId();
         // 存储
-        redisTemplate
-                .opsForValue()
-                .set(
-                        PICTURE_CODE_KEY_PREFIX + codeId,
-                        code,
-                        authProperty.getCodePictureSeconds(),
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(PICTURE_CODE_KEY_PREFIX + codeId, code, authProperty.getCodePictureSeconds(), TimeUnit.SECONDS);
         // 构造验证码web端信息
         ValidateDto validateDto = new ValidateDto();
         validateDto.setCodeType(CodeType.PICTURE_CODE);
@@ -84,11 +78,11 @@ public class PictureValidate implements IValidate {
         return validateDto;
     }
 
+
     @Override
     public CheckDto checkVerification(CheckModel parameter) {
         CheckDto checkDto = new CheckDto();
-        Object data =
-                redisTemplate.opsForValue().get(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
+        Object data = redisTemplate.opsForValue().get(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
         redisTemplate.delete(PICTURE_CODE_KEY_PREFIX + parameter.getCodeId());
         if (Objects.nonNull(data)) {
             String code = data.toString();

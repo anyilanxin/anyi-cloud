@@ -66,9 +66,7 @@ public class RbacRoleSimpleDto implements Serializable {
     @Schema(name = "roleSysCode", title = "角色系统编码(系统自动创建)")
     private String roleSysCode;
 
-    @Schema(
-            name = "dataAuthType",
-            title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,8-仅自己")
+    @Schema(name = "dataAuthType", title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,8-仅自己")
     private Integer dataAuthType;
 
     @Schema(name = "customDataAuthData", title = "自定义类数据权限数据")

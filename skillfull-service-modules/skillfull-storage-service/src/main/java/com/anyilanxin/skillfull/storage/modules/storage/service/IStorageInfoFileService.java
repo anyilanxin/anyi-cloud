@@ -61,6 +61,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      */
     PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -72,6 +73,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      */
     StorageInfoModel getById(String fileId) throws RuntimeException;
 
+
     /**
      * 通过fileId删除
      *
@@ -82,6 +84,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      */
     void deleteById(String fileId) throws RuntimeException;
 
+
     /**
      * 本地文件服务批量删除
      *
@@ -91,6 +94,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @date 2022-04-05 09:57:59
      */
     void deleteBatch(List<String> fileIds) throws RuntimeException;
+
 
     /**
      * 单个存储
@@ -104,6 +108,7 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      */
     StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request);
 
+
     /**
      * 批量存储
      *
@@ -114,8 +119,8 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
      * @author zxiaozhou
      * @date 2022-04-05 10:19
      */
-    List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+    List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+
 
     /**
      * 批量url地址存储

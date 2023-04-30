@@ -64,6 +64,7 @@ public class BindingStreamConfig {
         return receiveService::saveOperate;
     }
 
+
     /**
      * 授权日志
      *

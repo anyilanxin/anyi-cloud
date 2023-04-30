@@ -54,6 +54,7 @@ public interface ITenantService {
      */
     void saveOrUpdate(TenantVo vo) throws RuntimeException;
 
+
     /**
      * 获取租户
      *
@@ -63,6 +64,7 @@ public interface ITenantService {
      * @date 2021-11-05 17:51
      */
     TenantDto getTenant(String tenantId) throws RuntimeException;
+
 
     /**
      * 获取租户信息
@@ -74,6 +76,7 @@ public interface ITenantService {
      */
     List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException;
 
+
     /**
      * 分页获取租户信息
      *
@@ -84,6 +87,7 @@ public interface ITenantService {
      */
     PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException;
 
+
     /**
      * 删除租户
      *
@@ -92,6 +96,7 @@ public interface ITenantService {
      * @date 2021-11-05 17:51
      */
     void deleteTenant(String tenantId) throws RuntimeException;
+
 
     /**
      * 全量同步租户信息

@@ -64,6 +64,7 @@ public class RSAUtils {
         return rsaKey;
     }
 
+
     /**
      * 公钥加密
      *
@@ -75,9 +76,9 @@ public class RSAUtils {
      */
     public static String encryptPublicKey(String publicKey, String plaintext) {
         RSA rsa = new RSA(null, publicKey);
-        return rsa.encryptBase64(
-                StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PublicKey);
+        return rsa.encryptBase64(StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PublicKey);
     }
+
 
     /**
      * 公钥解密
@@ -93,6 +94,7 @@ public class RSAUtils {
         return StrUtil.str(rsa.decrypt(ciphertext, KeyType.PublicKey), CharsetUtil.CHARSET_UTF_8);
     }
 
+
     /**
      * 私钥加密
      *
@@ -104,9 +106,9 @@ public class RSAUtils {
      */
     public static String encryptPrivateKey(String privateKey, String plaintext) {
         RSA rsa = new RSA(privateKey, null);
-        return rsa.encryptBase64(
-                StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PrivateKey);
+        return rsa.encryptBase64(StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PrivateKey);
     }
+
 
     /**
      * 私钥解密

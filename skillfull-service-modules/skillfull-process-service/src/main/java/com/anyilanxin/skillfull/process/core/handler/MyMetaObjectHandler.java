@@ -70,6 +70,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
     }
 
+
     @Override
     public void updateFill(MetaObject metaObject) {
         // 不需要获取登录信息
@@ -92,6 +93,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
     }
 
+
     /**
      * 获取用户信息
      *
@@ -103,9 +105,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         try {
             return UserContextUtils.getUserInfo();
         } catch (Exception e) {
-            log.error(
-                    "------------MyMetaObjectHandler------获取用户信息失败------>getUser:{}",
-                    e.getMessage());
+            log.error("------------MyMetaObjectHandler------获取用户信息失败------>getUser:{}", e.getMessage());
         }
         return null;
     }

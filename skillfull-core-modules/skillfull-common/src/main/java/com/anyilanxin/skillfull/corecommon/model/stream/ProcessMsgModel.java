@@ -55,10 +55,7 @@ import lombok.Getter;
 public class ProcessMsgModel implements Serializable {
     private static final long serialVersionUID = -7991672291592110700L;
 
-    @Schema(
-            name = "msgType",
-            title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)",
-            required = true)
+    @Schema(name = "msgType", title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)", required = true)
     private Integer msgType;
 
     @Schema(name = "data", title = "业务数据")
@@ -89,30 +86,36 @@ public class ProcessMsgModel implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public ProcessMsgModel(BusinessType businessType, Object data) {
         this(businessType);
         this.data = data;
     }
+
 
     public ProcessMsgModel setMsgType(SocketMsgType msgType) {
         this.msgType = msgType.getType();
         return this;
     }
 
+
     public ProcessMsgModel setData(Object data) {
         this.data = data;
         return this;
     }
+
 
     public ProcessMsgModel setMessage(String message) {
         this.message = message;
         return this;
     }
 
+
     public ProcessMsgModel setRequestMarker(String requestMarker) {
         this.requestMarker = requestMarker;
         return this;
     }
+
 
     public ProcessMsgModel setUserId(String userId) {
         if (CollectionUtil.isEmpty(this.userIds)) {
@@ -122,10 +125,12 @@ public class ProcessMsgModel implements Serializable {
         return this;
     }
 
+
     public ProcessMsgModel setUserIds(List<String> userIds) {
         this.userIds = userIds;
         return this;
     }
+
 
     public ProcessMsgModel setSystemId(String loginCode) {
         if (CollectionUtil.isEmpty(this.loginCodes)) {
@@ -135,10 +140,12 @@ public class ProcessMsgModel implements Serializable {
         return this;
     }
 
+
     public ProcessMsgModel setSystemIds(List<String> loginCodes) {
         this.loginCodes = loginCodes;
         return this;
     }
+
 
     @Override
     public String toString() {

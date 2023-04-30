@@ -62,6 +62,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      */
     List<RbacRoleMenuDto> selectMenuAntButton(@Param("roleId") String roleId);
 
+
     /**
      * 分页查询
      *
@@ -71,8 +72,8 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacRoleMenuPageDto> pageByModel(
-            Page<RbacRoleMenuPageDto> page, @Param("query") RbacRoleMenuPageVo vo);
+    IPage<RbacRoleMenuPageDto> pageByModel(Page<RbacRoleMenuPageDto> page, @Param("query") RbacRoleMenuPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -84,6 +85,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      */
     List<RbacRoleMenuDto> selectListByModel(RbacRoleMenuQueryVo vo);
 
+
     /**
      * 获取角色功能权限
      *
@@ -94,6 +96,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      */
     List<String> selectMenuListById(@Param("id") String roleId);
 
+
     /**
      * 获取所有功能权限
      *
@@ -102,6 +105,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * @date 2022-07-04 01:18
      */
     List<String> selectAllMenu();
+
 
     /**
      * 通过权限角色id物理删除
@@ -112,6 +116,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String roleMenuId);
+
 
     /**
      * 通过权限角色id物理批量删除

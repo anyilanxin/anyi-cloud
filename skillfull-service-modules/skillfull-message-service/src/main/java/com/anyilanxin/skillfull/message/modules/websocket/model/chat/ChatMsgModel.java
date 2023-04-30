@@ -72,11 +72,7 @@ public class ChatMsgModel implements Serializable {
     @Schema(name = "sendUserId", title = "消息发送人id")
     private String sendUserId;
 
-    @Schema(
-            name = "msgSendTime",
-            title = "消息发送时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "msgSendTime", title = "消息发送时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime msgSendTime;
 

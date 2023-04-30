@@ -66,10 +66,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CodeController extends BaseController {
     private final IAuthCodeService service;
 
-    @Operation(
-            summary = "获取图片验证码",
-            tags = {"v1.0.0"},
-            description = "获取图片验证码")
+    @Operation(summary = "获取图片验证码", tags = {"v1.0.0"}, description = "获取图片验证码")
     @GetMapping(value = "/picture")
     @PreAuthorize("permitAll()")
     @AutoLog(note = "获取图片验证码", type = AutoLog.QUERY)
@@ -77,17 +74,13 @@ public class CodeController extends BaseController {
         return ok(service.getPictureCode(request));
     }
 
-    @Operation(
-            summary = "获取登录手机验证码",
-            tags = {"v1.0.0"},
-            description = "获取登录手机验证码(会验证手机是否存在)")
+
+    @Operation(summary = "获取登录手机验证码", tags = {"v1.0.0"}, description = "获取登录手机验证码(会验证手机是否存在)")
     @GetMapping(value = "/sms/{phone}")
     @PreAuthorize("permitAll()")
     @Parameter(in = ParameterIn.PATH, description = "电话号码", name = "phone", required = true)
     @AutoLog(note = "获取登录手机验证码(会验证手机是否存在)", type = AutoLog.QUERY)
-    public Result<String> getPhoneSmsCode(
-            @PathVariable @NotBlank(message = "手机号码不能为空") String phone,
-            HttpServletRequest request) {
+    public Result<String> getPhoneSmsCode(@PathVariable @NotBlank(message = "手机号码不能为空") String phone, HttpServletRequest request) {
         service.getPhoneSmsCode(phone, request);
         return ok("发送短信验证码成功");
     }

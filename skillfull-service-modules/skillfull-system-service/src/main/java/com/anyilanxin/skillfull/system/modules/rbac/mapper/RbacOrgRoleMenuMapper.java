@@ -61,8 +61,8 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57
      */
-    IPage<RbacOrgRoleMenuPageDto> pageByModel(
-            Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageVo vo);
+    IPage<RbacOrgRoleMenuPageDto> pageByModel(Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -74,6 +74,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      */
     List<RbacOrgRoleMenuDto> selectListByModel(RbacOrgRoleMenuQueryVo vo);
 
+
     /**
      * 通过机构权限角色id物理删除
      *
@@ -84,6 +85,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      */
     int physicalDeleteById(@Param("id") String orgRoleMenuId);
 
+
     /**
      * 通过机构权限角色id物理批量删除
      *
@@ -93,6 +95,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      * @date 2022-07-05 00:22:57
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 获取有效的菜单按钮权限

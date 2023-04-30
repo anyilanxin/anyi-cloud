@@ -61,11 +61,7 @@ public class ConfigDataSecurityModel extends RSAUtils.RsaKey {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime expiresAt;
 
-    @Schema(
-            name = "currentRefreshTime",
-            title = "最近一次刷新时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "currentRefreshTime", title = "最近一次刷新时间", type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime currentRefreshTime;
 

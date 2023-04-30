@@ -50,34 +50,36 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class SmsValidate implements IValidate {
-    //    private final SecurityProperties properties;
+    // private final SecurityProperties properties;
     private final RedisTemplate<String, Object> redisTemplate;
     public static final String PHONE = "phone";
 
     @Override
     public ValidateDto getVerification(JSONObject parameter, HttpServletRequest request) {
         String code = CoreCommonUtils.get32UUId();
-        //        redisTemplate.opsForValue().set(SMS_CODE_KEY_PREFIX + parameter.getString(PHONE),
+        // redisTemplate.opsForValue().set(SMS_CODE_KEY_PREFIX +
+        // parameter.getString(PHONE),
         // code, properties.getCodeValidityInSeconds());
         // 发送短信验证码
         return null;
     }
 
+
     @Override
     public CheckDto checkVerification(CheckModel parameter) {
-        //        String codeKey = SMS_CODE_KEY_PREFIX + parameter.getCodeId();
-        //        Object data = redisTemplate.opsForValue().get(codeKey);
+        // String codeKey = SMS_CODE_KEY_PREFIX + parameter.getCodeId();
+        // Object data = redisTemplate.opsForValue().get(codeKey);
         CheckDto checkDto = new CheckDto();
-        //        if (Objects.nonNull(data)) {
-        //            String code = data.toString();
-        //            if (code.equals(parameter.getCodeValue())) {
-        //                checkDto.setResult(true);
-        //            } else {
-        //                checkDto.setMsg("验证码不正确");
-        //            }
-        //        } else {
-        //            checkDto.setMsg("验证码过期");
-        //        }
+        // if (Objects.nonNull(data)) {
+        // String code = data.toString();
+        // if (code.equals(parameter.getCodeValue())) {
+        // checkDto.setResult(true);
+        // } else {
+        // checkDto.setMsg("验证码不正确");
+        // }
+        // } else {
+        // checkDto.setMsg("验证码过期");
+        // }
         return checkDto;
     }
 }

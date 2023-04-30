@@ -50,21 +50,18 @@ import org.springframework.lang.Nullable;
 public class RouterDeleteEventListener extends RedisKeyDeleteEventMessageListener {
     private final IManageSyncService syncService;
 
-    public RouterDeleteEventListener(
-            RedisMessageListenerContainer listenerContainer, IManageSyncService syncService) {
+    public RouterDeleteEventListener(RedisMessageListenerContainer listenerContainer, IManageSyncService syncService) {
         super(listenerContainer);
         this.syncService = syncService;
     }
 
+
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
-        log.debug(
-                "------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}",
-                message);
+        log.debug("------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}", message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         if (StringUtils.isNotBlank(key)) {
-            if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX)
-                    && !super.serviceLock(key)) {
+            if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX) && !super.serviceLock(key)) {
                 syncService.reloadRoute(true);
             }
         }

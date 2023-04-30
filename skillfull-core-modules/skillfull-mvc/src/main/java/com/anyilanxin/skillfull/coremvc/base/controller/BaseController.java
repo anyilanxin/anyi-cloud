@@ -44,13 +44,7 @@ import org.apache.poi.ss.formula.functions.T;
  * @since JDK11
  */
 @Slf4j
-@ApiResponses({
-    @ApiResponse(responseCode = "401", description = "未授权"),
-    @ApiResponse(responseCode = "200", description = "成功"),
-    @ApiResponse(responseCode = "403", description = "拒绝访问"),
-    @ApiResponse(responseCode = "404", description = "请求路径不存在"),
-    @ApiResponse(responseCode = "500", description = "服务器内部错误")
-})
+@ApiResponses({@ApiResponse(responseCode = "401", description = "未授权"), @ApiResponse(responseCode = "200", description = "成功"), @ApiResponse(responseCode = "403", description = "拒绝访问"), @ApiResponse(responseCode = "404", description = "请求路径不存在"), @ApiResponse(responseCode = "500", description = "服务器内部错误")})
 public class BaseController {
 
     /**
@@ -64,6 +58,7 @@ public class BaseController {
         return new Result<>(Status.SUCCESS);
     }
 
+
     /**
      * 成功响应
      *
@@ -74,6 +69,7 @@ public class BaseController {
     public static Result<String> ok(String message) {
         return new Result<>(Status.SUCCESS, message);
     }
+
 
     /**
      * 成功响应
@@ -87,6 +83,7 @@ public class BaseController {
         return new Result<>(Status.SUCCESS, data);
     }
 
+
     /**
      * 成功响应
      *
@@ -98,6 +95,7 @@ public class BaseController {
     public static Result<Object> ok(Status status) {
         return new Result<>(status);
     }
+
 
     /**
      * 成功响应
@@ -114,6 +112,7 @@ public class BaseController {
         return result;
     }
 
+
     /**
      * 响应失败
      *
@@ -124,6 +123,7 @@ public class BaseController {
     public static <T> Result<T> fail() {
         return new Result<>(Status.ERROR);
     }
+
 
     /**
      * 响应失败
@@ -137,6 +137,7 @@ public class BaseController {
         return new Result<>(status);
     }
 
+
     /**
      * 响应失败
      *
@@ -148,6 +149,7 @@ public class BaseController {
     public static <T> Result<T> fail(String message) {
         return new Result<>(Status.ERROR, message);
     }
+
 
     /**
      * 响应失败
@@ -163,6 +165,7 @@ public class BaseController {
         result.setMessage(message);
         return result;
     }
+
 
     /**
      * 响应失败

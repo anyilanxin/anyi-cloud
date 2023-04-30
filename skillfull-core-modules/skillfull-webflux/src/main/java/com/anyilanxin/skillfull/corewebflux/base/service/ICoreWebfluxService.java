@@ -62,6 +62,7 @@ public interface ICoreWebfluxService {
      */
     void loadConstantDict(boolean force);
 
+
     /**
      * 加载常量字典默认实现
      *
@@ -71,34 +72,17 @@ public interface ICoreWebfluxService {
      * @author zxiaozhou
      * @date 2021-09-15 22:02
      */
-    static void loadConstantDict(
-            boolean force, RedisTemplate<String, Object> redisTemplate, String serviceName) {
+    static void loadConstantDict(boolean force, RedisTemplate<String, Object> redisTemplate, String serviceName) {
         if (!force) {
-            Object redisLockValue =
-                    redisTemplate
-                            .opsForValue()
-                            .get(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName);
+            Object redisLockValue = redisTemplate.opsForValue().get(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName);
             if (Objects.nonNull(redisLockValue)) {
                 return;
             }
         }
-        Map<String, List<ConstantDictModel>> constantDict =
-                CoreCommonUtils.createOrGetConstantDict(serviceName, BOOT_BASE_SCAN_PACKAGE);
+        Map<String, List<ConstantDictModel>> constantDict = CoreCommonUtils.createOrGetConstantDict(serviceName, BOOT_BASE_SCAN_PACKAGE);
         if (CollUtil.isNotEmpty(constantDict)) {
-            constantDict.forEach(
-                    (k, v) ->
-                            redisTemplate
-                                    .opsForValue()
-                                    .set(
-                                            CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + k,
-                                            v));
+            constantDict.forEach((k, v) -> redisTemplate.opsForValue().set(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + k, v));
         }
-        redisTemplate
-                .opsForValue()
-                .set(
-                        ICoreWebfluxService.REDIS_LOCK_KEY + serviceName,
-                        true,
-                        LOCK_EXPIRES,
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName, true, LOCK_EXPIRES, TimeUnit.SECONDS);
     }
 }

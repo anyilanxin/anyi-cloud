@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class CommonDictItemEntity extends BaseEntity {
     private static final long serialVersionUID = -75577601007558139L;
 
-    @TableId private String itemId;
+    @TableId
+    private String itemId;
 
     /** 字典id */
     private String dictId;

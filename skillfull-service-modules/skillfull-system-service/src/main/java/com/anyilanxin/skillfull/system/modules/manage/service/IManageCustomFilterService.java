@@ -58,6 +58,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     void save(ManageCustomFilterVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -70,6 +71,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     void updateById(String customFilterId, ManageCustomFilterVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -81,6 +83,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     ManageCustomFilterDetailDto getById(String customFilterId) throws RuntimeException;
 
+
     /**
      * 通过customFilterId删除
      *
@@ -90,6 +93,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @date 2021-12-19 00:22:15
      */
     void deleteById(String customFilterId) throws RuntimeException;
+
 
     /**
      * 通过serviceId删除
@@ -101,6 +105,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     void deleteByServiceId(String serviceId) throws RuntimeException;
 
+
     /**
      * 查询所有服务自定义过滤器
      *
@@ -111,6 +116,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     List<ManageCustomFilterListDto> selectList(String serviceId);
 
+
     /**
      * 查询所有服务自定义过滤器(有效的)，并组装为routerId为键的map
      *
@@ -120,8 +126,8 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @author zxiaozhou zxiaozhou
      * @date 2021-12-19 09:21
      */
-    Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(
-            Set<String> routerIds, String serviceId);
+    Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(Set<String> routerIds, String serviceId);
+
 
     /**
      * 修改过滤器状态
@@ -132,6 +138,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @date 2021-12-19 15:23
      */
     void updateStatus(String customFilterId, Integer state);
+
 
     /**
      * 查询服务自定义过滤器(无特殊url信息)

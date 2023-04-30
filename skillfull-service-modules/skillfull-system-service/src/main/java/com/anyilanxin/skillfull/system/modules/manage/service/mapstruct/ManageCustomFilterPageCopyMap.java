@@ -44,10 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2021-12-19 00:22:15
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ManageCustomFilterPageCopyMap
-        extends BaseThreeMap<
-                ManageCustomFilterEntity, ManageCustomFilterPageDto, ManageCustomFilterPageVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ManageCustomFilterPageCopyMap extends BaseThreeMap<ManageCustomFilterEntity, ManageCustomFilterPageDto, ManageCustomFilterPageVo> {
+}

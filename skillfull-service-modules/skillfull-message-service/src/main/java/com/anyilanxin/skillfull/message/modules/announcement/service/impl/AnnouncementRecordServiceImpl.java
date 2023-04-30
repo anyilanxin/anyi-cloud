@@ -66,9 +66,7 @@ import org.springframework.util.CollectionUtils;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AnnouncementRecordServiceImpl
-        extends ServiceImpl<AnnouncementRecordMapper, AnnouncementRecordEntity>
-        implements IAnnouncementRecordService {
+public class AnnouncementRecordServiceImpl extends ServiceImpl<AnnouncementRecordMapper, AnnouncementRecordEntity> implements IAnnouncementRecordService {
     private final AnnouncementRecordCopyMap map;
     private final AnnouncementRecordPageCopyMap pageMap;
     private final AnnouncementRecordQueryCopyMap queryMap;
@@ -80,10 +78,10 @@ public class AnnouncementRecordServiceImpl
         AnnouncementRecordEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -95,46 +93,39 @@ public class AnnouncementRecordServiceImpl
         entity.setAnntReadId(anntReadId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo) throws RuntimeException {
         List<AnnouncementRecordDto> list = mapper.selectListByModel(vo);
         if (CollectionUtils.isEmpty(list)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return list;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public AnnouncementRecordDto getById(String anntReadId) throws RuntimeException {
         AnnouncementRecordEntity byId = super.getById(anntReadId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -144,25 +135,23 @@ public class AnnouncementRecordServiceImpl
         // 删除数据
         boolean b = this.removeById(anntReadId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> anntReadIds) throws RuntimeException {
         List<AnnouncementRecordEntity> entities = this.listByIds(anntReadIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getAnntReadId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 }

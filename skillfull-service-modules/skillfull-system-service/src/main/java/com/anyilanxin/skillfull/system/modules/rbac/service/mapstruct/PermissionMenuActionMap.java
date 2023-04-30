@@ -42,10 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-09-26 17:16:16
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface PermissionMenuActionMap
-        extends BaseThreeMap<
-                RbacRoleMenuButtonDto.Action, RbacRoleMenuButtonDto, RbacRoleMenuDto> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface PermissionMenuActionMap extends BaseThreeMap<RbacRoleMenuButtonDto.Action, RbacRoleMenuButtonDto, RbacRoleMenuDto> {
+}

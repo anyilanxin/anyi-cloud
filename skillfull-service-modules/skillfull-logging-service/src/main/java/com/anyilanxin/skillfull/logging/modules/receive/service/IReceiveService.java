@@ -50,6 +50,7 @@ public interface IReceiveService {
      */
     void saveAuth(AuthLogModel model) throws RuntimeException;
 
+
     /**
      * 日志批量存储
      *
@@ -59,6 +60,7 @@ public interface IReceiveService {
      */
     void saveAuthBatch(List<AuthLogModel> models) throws RuntimeException;
 
+
     /**
      * 日志存储
      *
@@ -67,6 +69,7 @@ public interface IReceiveService {
      * @date 2022-01-27 19:48
      */
     void saveOperate(OperateLogModel model) throws RuntimeException;
+
 
     /**
      * 日志批量存储

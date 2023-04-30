@@ -58,6 +58,7 @@ public interface ManageRouteCustomFilterMapper extends BaseMapper<ManageRouteCus
      */
     List<ManageRouteCustomFilterDto> selectListByRouterIds(Set<String> routerIds);
 
+
     /**
      * 通过路由自定义过滤器id物理删除
      *
@@ -67,6 +68,7 @@ public interface ManageRouteCustomFilterMapper extends BaseMapper<ManageRouteCus
      * @date 2021-12-19 00:22:17
      */
     int physicalDeleteById(@Param("id") String routeCustomFilterId);
+
 
     /**
      * 通过路由自定义过滤器id物理批量删除

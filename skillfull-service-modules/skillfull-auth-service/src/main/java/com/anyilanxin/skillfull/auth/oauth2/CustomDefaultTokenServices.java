@@ -66,8 +66,7 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
 
     @Override
     @Transactional
-    public OAuth2AccessToken createAccessToken(OAuth2Authentication authentication)
-            throws AuthenticationException {
+    public OAuth2AccessToken createAccessToken(OAuth2Authentication authentication) throws AuthenticationException {
         String clientId = authentication.getOAuth2Request().getClientId();
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
         authentication = addStoredRequestExtension(authentication, clientDetails);
@@ -79,20 +78,12 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
                 Object principal = userAuthentication.getPrincipal();
                 if (principal instanceof UserDetails) {
                     UserDetails userDetails = (UserDetails) principal;
-                    SkillFullClientDetails customClientDetails =
-                            (SkillFullClientDetails) clientDetails;
+                    SkillFullClientDetails customClientDetails = (SkillFullClientDetails) clientDetails;
                     if (customClientDetails.getSingleLogin() == CommonNotHaveType.HAVE.getType()) {
-                        Collection<Approval> approvals =
-                                this.approvalStore.getApprovals(
-                                        userDetails.getUsername(), clientId);
+                        Collection<Approval> approvals = this.approvalStore.getApprovals(userDetails.getUsername(), clientId);
                         // 相同scope不能同时登录
-                        if (customClientDetails.getSingleLoginType() == 2
-                                && CollUtil.isNotEmpty(scope)
-                                && CollUtil.isNotEmpty(approvals)) {
-                            approvals =
-                                    approvals.stream()
-                                            .filter(v -> scope.contains(v.getScope()))
-                                            .collect(Collectors.toList());
+                        if (customClientDetails.getSingleLoginType() == 2 && CollUtil.isNotEmpty(scope) && CollUtil.isNotEmpty(approvals)) {
+                            approvals = approvals.stream().filter(v -> scope.contains(v.getScope())).collect(Collectors.toList());
                         }
                         if (CollUtil.isNotEmpty(approvals)) {
                             approvalStore.revokeApprovals(approvals);
@@ -101,19 +92,18 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
                 }
             }
         }
-        OAuth2AccessToken oAuth2AccessToken =
-                oAuth2AccessTokenToCustomToken(super.createAccessToken(authentication));
+        OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenToCustomToken(super.createAccessToken(authentication));
         Oauth2LogUtils.setPostAuthLog(true, "授权成功", "", (SkillFullAccessToken) oAuth2AccessToken);
         return oAuth2AccessToken;
     }
 
+
     @Override
     @Transactional(noRollbackFor = {InvalidTokenException.class, InvalidGrantException.class})
-    public OAuth2AccessToken refreshAccessToken(String refreshTokenValue, TokenRequest tokenRequest)
-            throws AuthenticationException {
-        return oAuth2AccessTokenToCustomToken(
-                super.refreshAccessToken(refreshTokenValue, tokenRequest));
+    public OAuth2AccessToken refreshAccessToken(String refreshTokenValue, TokenRequest tokenRequest) throws AuthenticationException {
+        return oAuth2AccessTokenToCustomToken(super.refreshAccessToken(refreshTokenValue, tokenRequest));
     }
+
 
     private OAuth2AccessToken oAuth2AccessTokenToCustomToken(OAuth2AccessToken oAuth2AccessToken) {
         SkillFullAccessToken token = new SkillFullAccessToken(oAuth2AccessToken.getValue());
@@ -124,6 +114,7 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
         return token;
     }
 
+
     /**
      * 添加StoredRequestExtension扩展信息
      *
@@ -133,8 +124,7 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
      * @author zxiaozhou
      * @date 2022-03-06 23:51
      */
-    private OAuth2Authentication addStoredRequestExtension(
-            OAuth2Authentication authentication, ClientDetails clientDetails) {
+    private OAuth2Authentication addStoredRequestExtension(OAuth2Authentication authentication, ClientDetails clientDetails) {
         if (Objects.nonNull(clientDetails) && clientDetails instanceof SkillFullClientDetails) {
             SkillFullClientDetails customClientDetails = (SkillFullClientDetails) clientDetails;
             OAuth2Request oAuth2Request = authentication.getOAuth2Request();
@@ -150,38 +140,30 @@ public class CustomDefaultTokenServices extends DefaultTokenServices {
             extensions.put(OAuth2RequestExtendConstant.LOGIN_ENDPOINT, "default");
             extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, "default");
             if (authProperty.getTokenGeneratorType() == 1) {
-                extensions.put(
-                        OAuth2RequestExtendConstant.LOGIN_UNIQUE, UUID.randomUUID().toString());
+                extensions.put(OAuth2RequestExtendConstant.LOGIN_UNIQUE, UUID.randomUUID().toString());
             }
-            OAuth2Request newOAuth2Request =
-                    new OAuth2Request(
-                            oAuth2Request.getRequestParameters(),
-                            oAuth2Request.getClientId(),
-                            oAuth2Request.getAuthorities(),
-                            oAuth2Request.isApproved(),
-                            oAuth2Request.getScope(),
-                            oAuth2Request.getResourceIds(),
-                            oAuth2Request.getRedirectUri(),
-                            oAuth2Request.getResponseTypes(),
-                            extensions);
-            return new OAuth2Authentication(
-                    newOAuth2Request, authentication.getUserAuthentication());
+            OAuth2Request newOAuth2Request = new OAuth2Request(oAuth2Request.getRequestParameters(), oAuth2Request.getClientId(), oAuth2Request.getAuthorities(), oAuth2Request.isApproved(), oAuth2Request.getScope(), oAuth2Request.getResourceIds(), oAuth2Request.getRedirectUri(), oAuth2Request.getResponseTypes(), extensions);
+            return new OAuth2Authentication(newOAuth2Request, authentication.getUserAuthentication());
         }
         return authentication;
     }
+
 
     @Override
     public void setTokenStore(TokenStore tokenStore) {
         super.setTokenStore(tokenStore);
     }
 
+
     public void setApprovalStore(ApprovalStore approvalStore) {
         this.approvalStore = approvalStore;
     }
 
+
     public void setAuthProperty(AuthProperty authProperty) {
         this.authProperty = authProperty;
     }
+
 
     @Override
     public void setClientDetailsService(ClientDetailsService clientDetailsService) {

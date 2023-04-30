@@ -56,6 +56,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      */
     void save(CommonDictVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -68,6 +69,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      */
     void updateById(String dictId, CommonDictVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -78,6 +80,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      * @date 2020-11-02 09:25:18
      */
     PageDto<CommonDictPageDto> pageByModel(CommonDictPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -90,6 +93,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      */
     CommonDictDto getById(String dictId) throws RuntimeException;
 
+
     /**
      * 通过dictId删除
      *
@@ -100,6 +104,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      */
     void deleteById(String dictId) throws RuntimeException;
 
+
     /**
      * 文件批量删除
      *
@@ -109,6 +114,7 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
      * @date 2020-10-24 22:59
      */
     void deleteBatch(List<String> dictIds) throws RuntimeException;
+
 
     /**
      * 修改字典状态

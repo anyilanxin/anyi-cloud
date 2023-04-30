@@ -60,9 +60,8 @@ public class BindingStreamConfig {
     @Bean(value = BindingStreamConstant.AUTH_URL_PROCESS)
     public Consumer<String> authUrlProcess() {
         return payload -> {
-            log.debug(
-                    "------------BindingStreamConfig------收到消息------>authUrlProcess:\n{}", payload);
-            //            routeService.refreshRoute(true);
+            log.debug("------------BindingStreamConfig------收到消息------>authUrlProcess:\n{}", payload);
+            // routeService.refreshRoute(true);
         };
     }
 }

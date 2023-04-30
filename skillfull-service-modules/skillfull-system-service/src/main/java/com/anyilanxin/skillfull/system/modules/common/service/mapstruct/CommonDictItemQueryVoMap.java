@@ -42,9 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-11-02 09:25:29
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonDictItemQueryVoMap
-        extends BaseMap<CommonDictItemQueryVo, CommonDictItemEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonDictItemQueryVoMap extends BaseMap<CommonDictItemQueryVo, CommonDictItemEntity> {
+}

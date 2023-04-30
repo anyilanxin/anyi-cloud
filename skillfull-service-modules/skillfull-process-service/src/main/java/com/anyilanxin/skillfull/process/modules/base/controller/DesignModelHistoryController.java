@@ -66,39 +66,25 @@ import org.springframework.web.bind.annotation.*;
 public class DesignModelHistoryController extends BaseController {
     private final IDesignModelHistoryService service;
 
-    @Operation(
-            summary = "流程模型历史逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除流程模型历史")
+    @Operation(summary = "流程模型历史逻辑删除", tags = {"v1.0.0"}, description = "删除流程模型历史")
     @PostMapping(value = "/delete/by-model")
     public Result<String> deleteByModel(@RequestBody @Valid DeleteHistoryDesignModelVo vo) {
         service.deleteByModel(vo);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过历史模型id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询流程模型历史详情")
-    @Parameter(
-            in = ParameterIn.PATH,
-            description = "历史模型id",
-            name = "historyModelId",
-            required = true)
+
+    @Operation(summary = "通过历史模型id查询详情", tags = {"v1.0.0"}, description = "查询流程模型历史详情")
+    @Parameter(in = ParameterIn.PATH, description = "历史模型id", name = "historyModelId", required = true)
     @GetMapping(value = "/select/one/{historyModelId}")
-    public Result<DesignModelHistoryDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "历史模型id不能为空")
-                    String historyModelId) {
+    public Result<DesignModelHistoryDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "历史模型id不能为空") String historyModelId) {
         return ok(service.getById(historyModelId));
     }
 
-    @Operation(
-            summary = "流程模型历史分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询流程模型历史")
+
+    @Operation(summary = "流程模型历史分页查询", tags = {"v1.0.0"}, description = "分页查询流程模型历史")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<DesignModelHistoryPageDto>> selectPage(
-            @RequestBody DesignModelHistoryPageVo vo) {
+    public Result<PageDto<DesignModelHistoryPageDto>> selectPage(@RequestBody DesignModelHistoryPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

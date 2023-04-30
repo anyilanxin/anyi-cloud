@@ -48,10 +48,9 @@ public class CustomExceptionJacksonSerializer extends StdSerializer<CustomOauth2
         super(CustomOauth2Exception.class);
     }
 
+
     @Override
-    public void serialize(
-            CustomOauth2Exception value, JsonGenerator gen, SerializerProvider provider)
-            throws IOException {
+    public void serialize(CustomOauth2Exception value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeObject(value.getResult());
     }
 }

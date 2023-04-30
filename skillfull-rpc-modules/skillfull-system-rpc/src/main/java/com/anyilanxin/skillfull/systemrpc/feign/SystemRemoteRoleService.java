@@ -46,10 +46,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2022-02-12 21:54
  * @since JDK1.8
  */
-@FeignClient(
-        value = ServiceConstant.SYSTEM_SERVICE,
-        path = ServiceConstant.SYSTEM_SERVICE_PATH,
-        fallbackFactory = FeignFallback.class)
+@FeignClient(value = ServiceConstant.SYSTEM_SERVICE, path = ServiceConstant.SYSTEM_SERVICE_PATH, fallbackFactory = FeignFallback.class)
 public interface SystemRemoteRoleService {
     /**
      * 根据多个用户组id查询用户组信息

@@ -61,29 +61,20 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacOrgRoleUserServiceImpl
-        extends ServiceImpl<RbacOrgRoleUserMapper, RbacOrgRoleUserEntity>
-        implements IRbacOrgRoleUserService {
+public class RbacOrgRoleUserServiceImpl extends ServiceImpl<RbacOrgRoleUserMapper, RbacOrgRoleUserEntity> implements IRbacOrgRoleUserService {
     private final RbacOrgRoleUserCopyMap map;
     private final RbacOrgRoleUserPageCopyMap pageMap;
     private final RbacOrgRoleUserQueryCopyMap queryMap;
     private final RbacOrgRoleUserMapper mapper;
 
     @Override
-    public void saveBatch(String userId, String orgId, Set<String> orgRoleIds)
-            throws RuntimeException {
+    public void saveBatch(String userId, String orgId, Set<String> orgRoleIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(orgRoleIds)) {
             List<RbacOrgRoleUserEntity> orgRoleUserEntities = new ArrayList<>(orgRoleIds.size());
-            orgRoleIds.forEach(
-                    v -> {
-                        RbacOrgRoleUserEntity entity =
-                                RbacOrgRoleUserEntity.builder()
-                                        .userId(userId)
-                                        .orgId(orgId)
-                                        .orgRoleId(v)
-                                        .build();
-                        orgRoleUserEntities.add(entity);
-                    });
+            orgRoleIds.forEach(v -> {
+                RbacOrgRoleUserEntity entity = RbacOrgRoleUserEntity.builder().userId(userId).orgId(orgId).orgRoleId(v).build();
+                orgRoleUserEntities.add(entity);
+            });
             boolean b = this.saveBatch(orgRoleUserEntities);
             if (!b) {
                 throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存机构角色关联失败");
@@ -91,21 +82,17 @@ public class RbacOrgRoleUserServiceImpl
         }
     }
 
+
     @Override
     public void deleteByUserId(String userId, String orgId) throws RuntimeException {
-        LambdaQueryWrapper<RbacOrgRoleUserEntity> lambdaQueryWrapper =
-                Wrappers.<RbacOrgRoleUserEntity>lambdaQuery()
-                        .eq(RbacOrgRoleUserEntity::getUserId, userId)
-                        .eq(RbacOrgRoleUserEntity::getOrgId, orgId);
+        LambdaQueryWrapper<RbacOrgRoleUserEntity> lambdaQueryWrapper = Wrappers.<RbacOrgRoleUserEntity>lambdaQuery().eq(RbacOrgRoleUserEntity::getUserId, userId).eq(RbacOrgRoleUserEntity::getOrgId, orgId);
         List<RbacOrgRoleUserEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
             Set<String> roleUserIds = new HashSet<>(list.size());
             list.forEach(v -> roleUserIds.add(v.getRoleUserId()));
             int i = mapper.physicalDeleteBatchIds(roleUserIds);
             if (i <= 0) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR,
-                        I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
             }
         }
     }

@@ -42,8 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-11-02 09:25:21
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonDictDtoMap extends BaseMap<CommonDictDto, CommonDictEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonDictDtoMap extends BaseMap<CommonDictDto, CommonDictEntity> {
+}

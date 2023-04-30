@@ -56,6 +56,7 @@ public class MsgSubscribeContent {
         STRATEGY.putAll(strategyMap);
     }
 
+
     /**
      * socket redis消息订阅处理
      *
@@ -65,10 +66,8 @@ public class MsgSubscribeContent {
      */
     public void socketMsgHandle(String msg) {
         if (StringUtils.isNotBlank(msg) && CollectionUtil.isNotEmpty(STRATEGY)) {
-            SubscribeMsgModel subscribeMsgModel =
-                    JSONObject.parseObject(msg, SubscribeMsgModel.class);
-            IMsgSubscribeStrategy iMsgSubscribeStrategy =
-                    STRATEGY.get(subscribeMsgModel.getMessageEvent());
+            SubscribeMsgModel subscribeMsgModel = JSONObject.parseObject(msg, SubscribeMsgModel.class);
+            IMsgSubscribeStrategy iMsgSubscribeStrategy = STRATEGY.get(subscribeMsgModel.getMessageEvent());
             if (Objects.nonNull(iMsgSubscribeStrategy)) {
                 iMsgSubscribeStrategy.handleMsg(subscribeMsgModel, WsUtils.SESSION_POOL);
             }

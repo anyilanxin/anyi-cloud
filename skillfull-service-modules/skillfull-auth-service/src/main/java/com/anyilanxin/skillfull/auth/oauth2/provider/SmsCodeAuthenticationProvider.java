@@ -55,18 +55,15 @@ public class SmsCodeAuthenticationProvider extends AbstractUserDetailsAuthentica
     private final UserDetailsService userDetailsService;
     private final IValidate validate;
 
-    public SmsCodeAuthenticationProvider(
-            final UserDetailsService userDetailsService, final IValidate validate) {
+    public SmsCodeAuthenticationProvider(final UserDetailsService userDetailsService, final IValidate validate) {
         this.userDetailsService = userDetailsService;
         this.validate = validate;
     }
 
+
     @Override
-    protected void additionalAuthenticationChecks(
-            UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
-        SmsCodeAuthenticationToken smsCodeAuthenticationToken =
-                (SmsCodeAuthenticationToken) authentication;
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        SmsCodeAuthenticationToken smsCodeAuthenticationToken = (SmsCodeAuthenticationToken) authentication;
         String smsCode = smsCodeAuthenticationToken.getCredentials().toString();
         String phone = smsCodeAuthenticationToken.getPrincipal().toString();
         CheckDto checkDto = validate.checkVerification(new CheckModel(phone, smsCode));
@@ -75,22 +72,22 @@ public class SmsCodeAuthenticationProvider extends AbstractUserDetailsAuthentica
         }
     }
 
+
     @Override
-    protected UserDetails retrieveUser(
-            String username, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
+    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new InternalAuthenticationServiceException(
-                    I18nUtil.get("SmsCodeAuthenticationProvider.userNotFound"));
+            throw new InternalAuthenticationServiceException(I18nUtil.get("SmsCodeAuthenticationProvider.userNotFound"));
         }
         return userDetails;
     }
+
 
     @Override
     public boolean supports(Class<?> authentication) {
         return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
     }
+
 
     @Override
     public void setHideUserNotFoundExceptions(boolean hideUserNotFoundExceptions) {

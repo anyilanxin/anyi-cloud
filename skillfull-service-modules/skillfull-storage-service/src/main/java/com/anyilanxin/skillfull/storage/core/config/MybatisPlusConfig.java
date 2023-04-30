@@ -56,6 +56,7 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
+
     /**
      * sql公共字段自定义注入
      *

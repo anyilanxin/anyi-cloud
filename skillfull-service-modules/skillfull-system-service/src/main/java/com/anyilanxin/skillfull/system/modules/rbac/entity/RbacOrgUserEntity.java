@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacOrgUserEntity implements Serializable {
     private static final long serialVersionUID = -77623248473339478L;
 
-    @TableId private String orgUserId;
+    @TableId
+    private String orgUserId;
 
     /** 机构id */
     private String orgId;

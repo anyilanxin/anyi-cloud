@@ -36,5 +36,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class GatewayApplicationTests {
 
     @Test
-    void contextLoads() {}
+    void contextLoads() {
+    }
 }

@@ -83,10 +83,7 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
     private String signatureKey;
 
-    @Schema(
-            name = "authorizedGrantTypes",
-            title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array",
-            required = true)
+    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array", required = true)
     @NotBlankOrNull(message = "允许授权类型不能为空")
     private List<String> authorizedGrantTypes;
 

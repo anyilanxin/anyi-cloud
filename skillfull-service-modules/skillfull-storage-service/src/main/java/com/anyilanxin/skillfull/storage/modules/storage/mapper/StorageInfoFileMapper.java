@@ -58,8 +58,8 @@ public interface StorageInfoFileMapper extends BaseMapper<StorageInfoFileEntity>
      * @author zxiaozhou
      * @date 2022-04-05 09:57:59
      */
-    IPage<StorageInfoFilePageDto> pageByModel(
-            Page<StorageInfoFilePageDto> page, @Param("query") StorageInfoFilePageVo vo);
+    IPage<StorageInfoFilePageDto> pageByModel(Page<StorageInfoFilePageDto> page, @Param("query") StorageInfoFilePageVo vo);
+
 
     /**
      * 通过文件id物理删除
@@ -70,6 +70,7 @@ public interface StorageInfoFileMapper extends BaseMapper<StorageInfoFileEntity>
      * @date 2022-04-05 09:57:59
      */
     int physicalDeleteById(@Param("id") String fileId);
+
 
     /**
      * 通过文件id物理批量删除

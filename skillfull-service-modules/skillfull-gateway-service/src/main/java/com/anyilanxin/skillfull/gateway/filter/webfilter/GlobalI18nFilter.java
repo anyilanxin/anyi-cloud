@@ -55,8 +55,7 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String acceptLanguage =
-                exchange.getRequest().getHeaders().getFirst(HttpHeaders.ACCEPT_LANGUAGE);
+        String acceptLanguage = exchange.getRequest().getHeaders().getFirst(HttpHeaders.ACCEPT_LANGUAGE);
         if (StringUtils.isNotBlank(acceptLanguage)) {
             String[] split = acceptLanguage.split("_");
             Locale locale;
@@ -69,6 +68,7 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
         }
         return chain.filter(exchange);
     }
+
 
     @Override
     public int getOrder() {

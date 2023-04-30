@@ -71,33 +71,23 @@ public class ManageSendController extends BaseController {
     private final TemplateSmsMsgContent smsMsgContent;
     private final TemplateEmailMsgContent emailMsgContent;
 
-    @Operation(
-            summary = "发送通用模板消息",
-            tags = {"v1.0.0"},
-            description = "发送通用模板消息")
+    @Operation(summary = "发送通用模板消息", tags = {"v1.0.0"}, description = "发送通用模板消息")
     @PostMapping(value = "/common")
-    public Result<TemplateResultModel> sendTemplateCommon(
-            @RequestBody @Valid TemplateCommonMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateCommon(@RequestBody @Valid TemplateCommonMsgModel model) {
         return ok(commonMsgContent.sendCommon(model));
     }
 
-    @Operation(
-            summary = "发送短信模板消息",
-            tags = {"v1.0.0"},
-            description = "发送短信模板消息")
+
+    @Operation(summary = "发送短信模板消息", tags = {"v1.0.0"}, description = "发送短信模板消息")
     @PostMapping(value = "/sms")
-    public Result<TemplateResultModel> sendTemplateSms(
-            @RequestBody @Valid TemplateSmsMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateSms(@RequestBody @Valid TemplateSmsMsgModel model) {
         return ok(smsMsgContent.sendSms(model));
     }
 
-    @Operation(
-            summary = "发送邮件模板消息",
-            tags = {"v1.0.0"},
-            description = "发送邮件模板消息")
+
+    @Operation(summary = "发送邮件模板消息", tags = {"v1.0.0"}, description = "发送邮件模板消息")
     @PostMapping(value = "/email")
-    public Result<TemplateResultModel> sendTemplateEmail(
-            @RequestBody @Valid TemplateEmailMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateEmail(@RequestBody @Valid TemplateEmailMsgModel model) {
         return ok(emailMsgContent.sendEmail(model));
     }
 }

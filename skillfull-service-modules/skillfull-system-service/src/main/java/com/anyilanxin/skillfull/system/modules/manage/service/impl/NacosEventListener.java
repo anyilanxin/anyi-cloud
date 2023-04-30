@@ -60,6 +60,7 @@ public class NacosEventListener implements EventListener {
         this.sendMsg(namingEvent);
     }
 
+
     /**
      * 监听消息通知处理
      *
@@ -68,9 +69,7 @@ public class NacosEventListener implements EventListener {
      * @date 2021-01-28 17:06
      */
     private void sendMsg(NamingEvent event) {
-        log.info(
-                "------------NacosEventListener------服务发生了变化------>sendMsg:{}",
-                event.getServiceName());
+        log.info("------------NacosEventListener------服务发生了变化------>sendMsg:{}", event.getServiceName());
         LambdaQueryWrapper<ManageServiceEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageServiceEntity::getServiceCode, event.getServiceName());
         List<ManageServiceEntity> serviceEntities = systemMapper.selectList(lambdaQueryWrapper);

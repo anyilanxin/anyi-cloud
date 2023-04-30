@@ -59,6 +59,7 @@ public class Base64FileUtils {
         return new ByteArrayInputStream(bytes);
     }
 
+
     /**
      * 字符串转Base64字符串
      *
@@ -70,6 +71,7 @@ public class Base64FileUtils {
     public static String strToBase64Str(String str) {
         return Base64.encodeBase64String(str.getBytes(StandardCharsets.UTF_8));
     }
+
 
     /**
      * InputStream转base64
@@ -85,9 +87,7 @@ public class Base64FileUtils {
             bytes = IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error(
-                    "------------Base64FileUtils------InputStream转byte[]异常------>inputStreamToBase64:{}",
-                    e.getMessage());
+            log.error("------------Base64FileUtils------InputStream转byte[]异常------>inputStreamToBase64:{}", e.getMessage());
         }
         return Base64.encodeBase64String(bytes);
     }

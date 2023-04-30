@@ -43,4 +43,5 @@ import org.springframework.stereotype.Indexed;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface ConstantType {}
+public @interface ConstantType {
+}

@@ -56,6 +56,7 @@ public interface UserAuthMapper {
      */
     RbacUserDto selectByOpenId(@Param("openId") String openId);
 
+
     /**
      * 通过账号或者电话号码查询用户
      *
@@ -65,6 +66,7 @@ public interface UserAuthMapper {
      * @date 2022-07-23 18:33
      */
     RbacUserDto selectByPhoneOrAccount(@Param("userName") String userName);
+
 
     /**
      * 通过电话号码查询用户信息
@@ -76,6 +78,7 @@ public interface UserAuthMapper {
      */
     RbacUserDto selectByPhone(@Param("phone") String phone);
 
+
     /**
      * 通过用户id查询用户信息
      *
@@ -85,6 +88,7 @@ public interface UserAuthMapper {
      * @date 2022-07-23 20:10
      */
     RbacUserDto selectUserInfoByUserId(@Param("userId") String userId);
+
 
     /**
      * 更新用户登录机构
@@ -96,6 +100,7 @@ public interface UserAuthMapper {
      */
     int updateLoginOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
 
+
     /**
      * 查询用户关联的机构id
      *
@@ -106,6 +111,7 @@ public interface UserAuthMapper {
      */
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
 
+
     /**
      * 查询用户在某个机构下的角色信息
      *
@@ -115,8 +121,8 @@ public interface UserAuthMapper {
      * @author zxiaozhou
      * @date 2022-07-05 00:36
      */
-    Set<RoleInfo> selectByUserIdAndOrgId(
-            @Param("userId") String userId, @Param("orgId") String orgId);
+    Set<RoleInfo> selectByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
+
 
     /**
      * 查询用户角色
@@ -126,8 +132,8 @@ public interface UserAuthMapper {
      * @author zxiaozhou
      * @date 2022-07-05 00:42
      */
-    Set<RoleInfo> selectByUserId(
-            @Param("userId") String userId, @Param("superRoleCode") String superRoleCode);
+    Set<RoleInfo> selectByUserId(@Param("userId") String userId, @Param("superRoleCode") String superRoleCode);
+
 
     /**
      * 通过机构id查询机构信息

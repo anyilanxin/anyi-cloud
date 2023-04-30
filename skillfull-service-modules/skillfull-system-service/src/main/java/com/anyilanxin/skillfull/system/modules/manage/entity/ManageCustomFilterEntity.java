@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageCustomFilterEntity extends BaseEntity {
     private static final long serialVersionUID = 527999192551027560L;
 
-    @TableId private String customFilterId;
+    @TableId
+    private String customFilterId;
 
     /** 服务id */
     private String serviceId;

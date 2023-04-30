@@ -58,6 +58,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void save(RbacUserVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void updateById(String userId, RbacUserVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -79,6 +81,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @date 2022-05-02 16:12:21
      */
     PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -92,6 +95,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     RbacUserDto getById(String userId, String orgId) throws RuntimeException;
 
+
     /**
      * 通过userId删除
      *
@@ -101,6 +105,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String userId) throws RuntimeException;
+
 
     /**
      * 用户表批量删除
@@ -112,6 +117,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void deleteBatch(List<String> userIds) throws RuntimeException;
 
+
     /**
      * 通过用户d修改状态
      *
@@ -122,6 +128,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void updateState(String userId, Integer type);
 
+
     /**
      * 重置密码
      *
@@ -131,6 +138,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @date 2022-06-03 02:38
      */
     String resetPassword(String userId);
+
 
     /**
      * 分页查询可关联的用户信息

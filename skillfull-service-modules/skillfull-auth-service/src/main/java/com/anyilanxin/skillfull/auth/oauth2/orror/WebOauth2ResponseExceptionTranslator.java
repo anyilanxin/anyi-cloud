@@ -54,23 +54,17 @@ import org.springframework.security.web.util.ThrowableAnalyzer;
  * @since JDK1.8
  */
 @Slf4j
-public class WebOauth2ResponseExceptionTranslator
-        implements WebResponseExceptionTranslator<OAuth2Exception> {
+public class WebOauth2ResponseExceptionTranslator implements WebResponseExceptionTranslator<OAuth2Exception> {
     private static final Map<String, String> LOCAL = new HashMap<>(64);
 
     static {
-        LOCAL.put(
-                "Given client ID does not match authenticated client",
-                "WebOauth2ResponseExceptionTranslator.clientIdNotMatch");
+        LOCAL.put("Given client ID does not match authenticated client", "WebOauth2ResponseExceptionTranslator.clientIdNotMatch");
         LOCAL.put("Unauthorized grant type", "WebOauth2ResponseExceptionTranslator.unauthorized");
         LOCAL.put("Unsupported grant type", "WebOauth2ResponseExceptionTranslator.unsupported");
         LOCAL.put("User account is locked", "WebOauth2ResponseExceptionTranslator.accountLocked");
         LOCAL.put("User is disabled", "WebOauth2ResponseExceptionTranslator.accountDisabled");
-        LOCAL.put(
-                "User account has expired", "WebOauth2ResponseExceptionTranslator.accountExpired");
-        LOCAL.put(
-                "User credentials have expired",
-                "WebOauth2ResponseExceptionTranslator.accountCredentialsExpired");
+        LOCAL.put("User account has expired", "WebOauth2ResponseExceptionTranslator.accountExpired");
+        LOCAL.put("User credentials have expired", "WebOauth2ResponseExceptionTranslator.accountCredentialsExpired");
         LOCAL.put("Invalid scope", "WebOauth2ResponseExceptionTranslator.invalidScope");
     }
 
@@ -83,10 +77,7 @@ public class WebOauth2ResponseExceptionTranslator
         int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
         String message = e.getMessage();
         if (e instanceof OAuth2Exception) {
-            OAuth2Exception ase =
-                    (OAuth2Exception)
-                            THROWABLEANALYZER.getFirstThrowableOfType(
-                                    OAuth2Exception.class, causeChain);
+            OAuth2Exception ase = (OAuth2Exception) THROWABLEANALYZER.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
             status = ase.getHttpErrorCode();
         }
         if (e instanceof UnsupportedGrantTypeException) {
@@ -97,13 +88,10 @@ public class WebOauth2ResponseExceptionTranslator
             InvalidClientException invalidClientException = (InvalidClientException) e;
             status = invalidClientException.getHttpErrorCode();
         }
-        log.error(
-                "------------WebOauth2ResponseExceptionTranslator------------>translate--->异常消息:{}",
-                e.getMessage());
+        log.error("------------WebOauth2ResponseExceptionTranslator------------>translate--->异常消息:{}", e.getMessage());
         e.printStackTrace();
         String localMessage = getLocalMessage(LOCAL, message);
         Oauth2LogUtils.setPostAuthLog(false, "", localMessage, null);
-        return new ResponseEntity<>(
-                new CustomOauth2Exception(localMessage), HttpStatus.valueOf(status));
+        return new ResponseEntity<>(new CustomOauth2Exception(localMessage), HttpStatus.valueOf(status));
     }
 }

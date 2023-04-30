@@ -60,7 +60,9 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
     private ClientDetailsService clientDetailsService;
     private String resourceId;
 
-    public CustomOAuth2AuthenticationManager() {}
+    public CustomOAuth2AuthenticationManager() {
+    }
+
 
     @Override
     public void setResourceId(String resourceId) {
@@ -68,11 +70,13 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
         this.resourceId = resourceId;
     }
 
+
     @Override
     public void setClientDetailsService(ClientDetailsService clientDetailsService) {
         super.setClientDetailsService(clientDetailsService);
         this.clientDetailsService = clientDetailsService;
     }
+
 
     @Override
     public void setTokenServices(ResourceServerTokenServices tokenServices) {
@@ -80,14 +84,15 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
         this.tokenServices = tokenServices;
     }
 
+
     @Override
     public void afterPropertiesSet() {
         Assert.state(this.tokenServices != null, "TokenServices are required");
     }
 
+
     @Override
-    public Authentication authenticate(Authentication authentication)
-            throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         if (authentication == null) {
             throw new InvalidTokenException("Invalid token (token not found)");
         } else {
@@ -100,21 +105,14 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
                 Collection<String> resourceIds = auth.getOAuth2Request().getResourceIds();
                 Integer limitResource = 1;
                 if (Objects.nonNull(extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
-                    limitResource =
-                            (Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE);
+                    limitResource = (Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE);
                 }
-                if (limitResource != 0
-                        && this.resourceId != null
-                        && resourceIds != null
-                        && !resourceIds.isEmpty()
-                        && !resourceIds.contains(this.resourceId)) {
-                    throw new OAuth2AccessDeniedException(
-                            "Invalid token does not contain resource id (" + this.resourceId + ")");
+                if (limitResource != 0 && this.resourceId != null && resourceIds != null && !resourceIds.isEmpty() && !resourceIds.contains(this.resourceId)) {
+                    throw new OAuth2AccessDeniedException("Invalid token does not contain resource id (" + this.resourceId + ")");
                 } else {
                     this.checkClientDetails(auth);
                     if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-                        OAuth2AuthenticationDetails details =
-                                (OAuth2AuthenticationDetails) authentication.getDetails();
+                        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
                         if (!details.equals(auth.getDetails())) {
                             details.setDecodedDetails(auth.getDetails());
                         }
@@ -128,13 +126,12 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
         }
     }
 
+
     private void checkClientDetails(OAuth2Authentication auth) {
         if (this.clientDetailsService != null) {
             ClientDetails client;
             try {
-                client =
-                        this.clientDetailsService.loadClientByClientId(
-                                auth.getOAuth2Request().getClientId());
+                client = this.clientDetailsService.loadClientByClientId(auth.getOAuth2Request().getClientId());
             } catch (ClientRegistrationException var6) {
                 throw new OAuth2AccessDeniedException("Invalid token contains invalid client id");
             }
@@ -142,10 +139,7 @@ public class CustomOAuth2AuthenticationManager extends OAuth2AuthenticationManag
             Set<String> allowed = client.getScope();
             for (String scope : auth.getOAuth2Request().getScope()) {
                 if (!allowed.contains(scope)) {
-                    throw new OAuth2AccessDeniedException(
-                            "Invalid token contains disallowed scope ("
-                                    + scope
-                                    + ") for this client");
+                    throw new OAuth2AccessDeniedException("Invalid token contains disallowed scope (" + scope + ") for this client");
                 }
             }
         }

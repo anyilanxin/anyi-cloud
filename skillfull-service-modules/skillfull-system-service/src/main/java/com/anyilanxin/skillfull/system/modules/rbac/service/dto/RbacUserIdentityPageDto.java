@@ -77,19 +77,11 @@ public class RbacUserIdentityPageDto implements Serializable {
     @Schema(name = "idCardIssue", title = "身份证件发证机关")
     private String idCardIssue;
 
-    @Schema(
-            name = "idCardEffective",
-            title = "身份证书有效期开始",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffective", title = "身份证书有效期开始", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffective;
 
-    @Schema(
-            name = "idCardEffectiveEnd",
-            title = "身份证有效期结束",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffectiveEnd", title = "身份证有效期结束", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffectiveEnd;
 
@@ -105,19 +97,11 @@ public class RbacUserIdentityPageDto implements Serializable {
     @Schema(name = "identityStatus", title = "实名状态:0-待提交,1-审核中，2-未通过(审核失败)，3-通过(审核成功),默认0")
     private Integer identityStatus;
 
-    @Schema(
-            name = "auditStartTime",
-            title = "审核开始时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "auditStartTime", title = "审核开始时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime auditStartTime;
 
-    @Schema(
-            name = "auditEndTime",
-            title = "审核结束时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "auditEndTime", title = "审核结束时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime auditEndTime;
 

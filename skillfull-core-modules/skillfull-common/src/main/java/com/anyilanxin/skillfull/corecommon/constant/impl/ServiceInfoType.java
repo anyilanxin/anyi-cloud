@@ -62,8 +62,7 @@ public enum ServiceInfoType implements ISuperType {
     /** 监控服务 */
     MONITOR_SERVICE(ServiceConstant.MONITOR_SERVICE, "监控服务", ServiceConstant.MONITOR_SERVICE_PATH),
     /** 在线开发服务 */
-    ONLINE_DES_SERVICE(
-            ServiceConstant.ONLINE_DES_SERVICE, "在线开发服务", ServiceConstant.ONLINE_DES_SERVICE_PATH),
+    ONLINE_DES_SERVICE(ServiceConstant.ONLINE_DES_SERVICE, "在线开发服务", ServiceConstant.ONLINE_DES_SERVICE_PATH),
     /** 流程服务 */
     PROCESS_SERVICE(ServiceConstant.PROCESS_SERVICE, "流程服务", ServiceConstant.PROCESS_SERVICE_PATH),
     /** 存储服务 */
@@ -86,6 +85,7 @@ public enum ServiceInfoType implements ISuperType {
         this.serviceUrlPrefix = serviceUrlPrefix;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -104,6 +104,7 @@ public enum ServiceInfoType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -119,6 +120,7 @@ public enum ServiceInfoType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

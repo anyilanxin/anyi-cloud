@@ -92,6 +92,7 @@ public class SyncUserVo implements Serializable {
         return Objects.equals(getUserId(), that.getUserId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getUserId());

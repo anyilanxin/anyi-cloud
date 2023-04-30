@@ -88,6 +88,7 @@ public class GatewayRedisCommonConfig {
         return redisTemplate;
     }
 
+
     /**
      * redisTemplate配置
      *
@@ -104,6 +105,7 @@ public class GatewayRedisCommonConfig {
         return stringRedisTemplate;
     }
 
+
     /**
      * 缓存配置
      *
@@ -115,45 +117,27 @@ public class GatewayRedisCommonConfig {
     @ConditionalOnMissingBean
     public CacheManager cacheManager() {
         // 配置序列化
-        RedisCacheConfiguration config =
-                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
-        RedisCacheConfiguration redisCacheConfiguration =
-                config.serializeKeysWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(
-                                        new StringRedisSerializer()))
-                        .serializeValuesWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(
-                                        getSerializer()));
-        return RedisCacheManager.builder(
-                        RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(redisCacheConfiguration)
-                .withInitialCacheConfigurations(
-                        singletonMap(
-                                CommonCoreConstant.TEST_DEMO_CACHE,
-                                RedisCacheConfiguration.defaultCacheConfig()
-                                        .entryTtl(Duration.ofMinutes(5))
-                                        .disableCachingNullValues()))
-                .transactionAware()
-                .build();
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
+        RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(getSerializer()));
+        return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory)).cacheDefaults(redisCacheConfiguration).withInitialCacheConfigurations(singletonMap(CommonCoreConstant.TEST_DEMO_CACHE, RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)).disableCachingNullValues())).transactionAware().build();
     }
+
 
     @Bean
     @ConditionalOnMissingBean
     public RedisMessageListenerContainer redisMessageListenerContainer() {
-        RedisMessageListenerContainer redisMessageListenerContainer =
-                new RedisMessageListenerContainer();
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
         return redisMessageListenerContainer;
     }
 
+
     private Jackson2JsonRedisSerializer<Object> getSerializer() {
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer =
-                new Jackson2JsonRedisSerializer<>(Object.class);
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.activateDefaultTyping(
-                LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         return jackson2JsonRedisSerializer;
     }

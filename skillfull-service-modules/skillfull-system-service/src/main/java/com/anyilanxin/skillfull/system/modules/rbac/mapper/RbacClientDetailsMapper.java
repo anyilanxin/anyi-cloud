@@ -58,8 +58,8 @@ public interface RbacClientDetailsMapper extends BaseMapper<RbacClientDetailsEnt
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacClientDetailsPageDto> pageByModel(
-            Page<RbacClientDetailsPageDto> page, @Param("query") RbacClientDetailsPageVo vo);
+    IPage<RbacClientDetailsPageDto> pageByModel(Page<RbacClientDetailsPageDto> page, @Param("query") RbacClientDetailsPageVo vo);
+
 
     /**
      * 通过客户端信息id物理删除
@@ -70,6 +70,7 @@ public interface RbacClientDetailsMapper extends BaseMapper<RbacClientDetailsEnt
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String clientDetailId);
+
 
     /**
      * 通过客户端信息id物理批量删除

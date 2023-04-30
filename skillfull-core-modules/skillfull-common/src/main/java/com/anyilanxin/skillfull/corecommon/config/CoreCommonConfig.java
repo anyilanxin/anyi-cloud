@@ -54,12 +54,12 @@ public class CoreCommonConfig {
         return IdUtil.getSnowflake(CommonCoreConstant.WORKER_ID, CommonCoreConstant.DATACENTER_ID);
     }
 
+
     /** i18n支持 */
     @Bean
     @ConditionalOnMissingBean
     public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageBundle =
-                new ReloadableResourceBundleMessageSource();
+        ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
         messageBundle.setBasename("classpath:i18n/messages");
         messageBundle.setDefaultEncoding("UTF-8");
         messageBundle.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);

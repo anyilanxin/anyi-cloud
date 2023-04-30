@@ -49,8 +49,7 @@ import org.springframework.stereotype.Component;
 public class TemplateSmsMsgStrategyAliYunImpl implements ITemplateSmsMsgStrategy {
 
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

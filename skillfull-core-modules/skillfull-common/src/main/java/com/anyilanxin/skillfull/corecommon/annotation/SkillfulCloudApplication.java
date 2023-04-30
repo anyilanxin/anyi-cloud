@@ -59,8 +59,10 @@ public @interface SkillfulCloudApplication {
     @AliasFor(annotation = SpringBootApplication.class, attribute = "scanBasePackages")
     String[] scanBasePackages() default BOOT_BASE_SCAN_PACKAGE;
 
+
     @AliasFor(annotation = SpringBootApplication.class, attribute = "scanBasePackageClasses")
     Class<?>[] scanBasePackageClasses() default {};
+
 
     @AliasFor(annotation = SpringBootApplication.class)
     boolean proxyBeanMethods() default true;

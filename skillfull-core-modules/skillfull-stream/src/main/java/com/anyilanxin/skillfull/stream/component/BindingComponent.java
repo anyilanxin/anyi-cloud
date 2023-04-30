@@ -72,6 +72,7 @@ public class BindingComponent {
         streamBridge.send(bindingName + BindingStreamConstant.OUT_SUFFIX, stringMessage);
     }
 
+
     /**
      * 发送消息
      *

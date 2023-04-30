@@ -69,19 +69,11 @@ public class RbacUserAgentVo implements Serializable {
     @NotBlankOrNull(message = "是否限制时间:0-不限制,1-限制，默认0不能为空")
     private Integer isLimit;
 
-    @Schema(
-            name = "agentStartTime",
-            title = "代理开始时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "agentStartTime", title = "代理开始时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime agentStartTime;
 
-    @Schema(
-            name = "agentEndTime",
-            title = "代理结束时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "agentEndTime", title = "代理结束时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime agentEndTime;
 
@@ -117,12 +109,7 @@ public class RbacUserAgentVo implements Serializable {
     @Schema(name = "createTenantId", title = "创建租户id")
     private String createTenantId;
 
-    @Schema(
-            name = "createTime",
-            title = "创建时间",
-            type = "string",
-            example = "2020-11-12 11:23:59",
-            required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
     @NotBlankOrNull(message = "创建时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime createTime;

@@ -58,6 +58,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     /**
      * 基本配置
      *
@@ -67,12 +68,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint())
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic()
-                .disable();
+        http.requestMatcher(EndpointRequest.toAnyEndpoint()).authorizeRequests().anyRequest().authenticated().and().httpBasic().disable();
     }
 }

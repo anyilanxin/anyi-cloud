@@ -54,21 +54,12 @@ public class CustomOAuthEntryPoint implements AuthenticationEntryPoint {
     private static final Map<String, String> LOCAL = new HashMap<>(64);
 
     static {
-        LOCAL.put(
-                "Full authentication is required to access this resource",
-                "CustomOAuthEntryPoint.FullAuthentication");
+        LOCAL.put("Full authentication is required to access this resource", "CustomOAuthEntryPoint.FullAuthentication");
     }
 
     @Override
-    public void commence(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException authException)
-            throws IOException {
-        log.error(
-                "------------CustomOAuthEntryPoint------------>commence--->异常消息:\n{}",
-                authException.getMessage());
-        ResponseUtils.writeResult(
-                response, getLocalMessage(LOCAL, authException.getMessage()), Status.ACCESS_ERROR);
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        log.error("------------CustomOAuthEntryPoint------------>commence--->异常消息:\n{}", authException.getMessage());
+        ResponseUtils.writeResult(response, getLocalMessage(LOCAL, authException.getMessage()), Status.ACCESS_ERROR);
     }
 }

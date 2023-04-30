@@ -59,14 +59,12 @@ public class TemplateSmsMsgContent {
     private static final Map<String, ITemplateSmsMsgStrategy> STRATEGY = new ConcurrentHashMap<>();
 
     @Autowired
-    public TemplateSmsMsgContent(
-            final Map<String, ITemplateSmsMsgStrategy> strategyMap,
-            final IManageTemplateService templateService,
-            final IManageSendRecordService recordService) {
+    public TemplateSmsMsgContent(final Map<String, ITemplateSmsMsgStrategy> strategyMap, final IManageTemplateService templateService, final IManageSendRecordService recordService) {
         STRATEGY.putAll(strategyMap);
         this.templateService = templateService;
         this.recordService = recordService;
     }
+
 
     /**
      * 发送短信消息
@@ -83,11 +81,9 @@ public class TemplateSmsMsgContent {
         }
         ManageTemplateSendInfoDto sendInfo = templateService.getSendInfo(model.getTemplateCode());
         if (Objects.isNull(sendInfo)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
         }
-        List<ManageSendRecordEntity> manageSendRecordEntities =
-                smsMsgStrategy.sendMsg(model, sendInfo);
+        List<ManageSendRecordEntity> manageSendRecordEntities = smsMsgStrategy.sendMsg(model, sendInfo);
         return recordService.saveBatchRecord(manageSendRecordEntities);
     }
 }

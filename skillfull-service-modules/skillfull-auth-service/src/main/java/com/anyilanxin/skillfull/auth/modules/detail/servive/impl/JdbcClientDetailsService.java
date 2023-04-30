@@ -60,22 +60,15 @@ public class JdbcClientDetailsService implements ClientDetailsService {
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        SkillFullClientDetails customClientDetails =
-                Oauth2CommonUtils.toClientDetails(service.getByClientId(clientId));
+        SkillFullClientDetails customClientDetails = Oauth2CommonUtils.toClientDetails(service.getByClientId(clientId));
         Map<String, Object> map = new HashMap<>();
         map.put("sdfsdf", "sdfsdfsdfsdf000000");
         customClientDetails.setAdditionalInformation(map);
         Oauth2LogUtils.setClientDetailInfo(customClientDetails);
         if (customClientDetails.getClientStatus() == 0) {
-            throw new InvalidClientException(
-                    I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdNotEnabled",
-                            customClientDetails.getClientId()));
+            throw new InvalidClientException(I18nUtil.get("JdbcClientDetailsService.clientIdNotEnabled", customClientDetails.getClientId()));
         } else if (customClientDetails.getClientStatus() == 2) {
-            throw new InternalAuthenticationServiceException(
-                    I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdIsDisabled",
-                            customClientDetails.getClientId()));
+            throw new InternalAuthenticationServiceException(I18nUtil.get("JdbcClientDetailsService.clientIdIsDisabled", customClientDetails.getClientId()));
         }
         return customClientDetails;
     }

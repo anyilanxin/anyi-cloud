@@ -57,6 +57,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      */
     void save(RbacPositionVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -67,6 +68,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * @date 2022-05-02 16:12:20
      */
     void updateById(String positionId, RbacPositionVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -79,6 +81,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      */
     PageDto<RbacPositionPageDto> pageByModel(RbacPositionPageVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -88,6 +91,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * @date 2021-01-19 18:17:57
      */
     List<RbacPositionDto> getAllList() throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -100,6 +104,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      */
     RbacPositionDto getById(String positionId) throws RuntimeException;
 
+
     /**
      * 通过positionId删除
      *
@@ -110,6 +115,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      */
     void deleteById(String positionId) throws RuntimeException;
 
+
     /**
      * 职位表批量删除
      *
@@ -119,6 +125,7 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * @date 2022-05-02 16:12:20
      */
     void deleteBatch(List<String> positionIds) throws RuntimeException;
+
 
     /**
      * 修改职位状态

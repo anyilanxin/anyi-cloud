@@ -55,12 +55,13 @@ public class SkillFullGrantedAuthority implements GrantedAuthority {
         this("ROLE_USER", attributes, resourceId);
     }
 
-    public SkillFullGrantedAuthority(
-            String authority, Map<String, Object> attributes, String resourceId) {
+
+    public SkillFullGrantedAuthority(String authority, Map<String, Object> attributes, String resourceId) {
         this.authority = authority;
         this.attributes = Collections.unmodifiableMap(new LinkedHashMap<>(attributes));
         this.resourceId = resourceId;
     }
+
 
     public SkillFullGrantedAuthority(String authority, String resourceId) {
         this.authority = authority;
@@ -68,18 +69,22 @@ public class SkillFullGrantedAuthority implements GrantedAuthority {
         this.resourceId = resourceId;
     }
 
+
     @Override
     public String getAuthority() {
         return this.authority;
     }
 
+
     public Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
+
     public String getResourceId() {
         return resourceId;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -96,12 +101,14 @@ public class SkillFullGrantedAuthority implements GrantedAuthority {
         return this.getAttributes().equals(that.getAttributes());
     }
 
+
     @Override
     public int hashCode() {
         int result = this.getAuthority().hashCode();
         result = 31 * result + this.getAttributes().hashCode();
         return result;
     }
+
 
     @Override
     public String toString() {

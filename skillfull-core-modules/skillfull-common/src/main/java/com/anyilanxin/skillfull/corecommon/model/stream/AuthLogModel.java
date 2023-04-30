@@ -102,18 +102,10 @@ public class AuthLogModel implements Serializable {
     @Schema(name = "costTime", title = "耗时")
     private Long costTime;
 
-    @Schema(
-            name = "requestStartTime",
-            title = "请求开始时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-12-21 12:22:21")
     private LocalDateTime requestStartTime;
 
-    @Schema(
-            name = "requestEndTime",
-            title = "请求结束时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-12-21 12:22:21")
     private LocalDateTime requestEndTime;
 
     @Schema(name = "exceptionMessage", title = "异常消息")

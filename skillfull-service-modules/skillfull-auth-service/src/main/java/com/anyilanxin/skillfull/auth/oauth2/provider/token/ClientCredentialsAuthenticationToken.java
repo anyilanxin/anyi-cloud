@@ -51,20 +51,20 @@ public class ClientCredentialsAuthenticationToken extends UsernamePasswordAuthen
         setAuthenticated(false);
     }
 
-    public ClientCredentialsAuthenticationToken(
-            String clientId,
-            String credentials,
-            Collection<? extends GrantedAuthority> authorities) {
+
+    public ClientCredentialsAuthenticationToken(String clientId, String credentials, Collection<? extends GrantedAuthority> authorities) {
         super(clientId, credentials);
         this.clientId = clientId;
         this.credentials = credentials;
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return this.credentials;
     }
+
 
     @Override
     public Object getPrincipal() {

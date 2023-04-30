@@ -43,4 +43,5 @@ import org.springframework.context.annotation.ComponentScan;
 @AutoConfiguration
 @ComponentScan
 @EnableFeignClients(basePackages = "com.anyilanxin.skillfull.storagerpc.feign")
-public class StorageRpcAutoConfiguration {}
+public class StorageRpcAutoConfiguration {
+}

@@ -72,102 +72,58 @@ import org.springframework.web.bind.annotation.*;
 public class AnnouncementRecordController extends BaseController {
     private final IAnnouncementRecordService service;
 
-    @Operation(
-            summary = "系统通知公告阅读记录添加",
-            tags = {"v1.0.0"},
-            description = "添加系统通知公告阅读记录",
-            hidden = true)
+    @Operation(summary = "系统通知公告阅读记录添加", tags = {"v1.0.0"}, description = "添加系统通知公告阅读记录", hidden = true)
     @PostMapping(value = "/insert")
     public Result<String> insert(@RequestBody @Valid AnnouncementRecordVo vo) {
         service.save(vo);
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    @Operation(
-            summary = "通过通知公告阅读记录id修改",
-            tags = {"v1.0.0"},
-            description = "修改系统通知公告阅读记录",
-            hidden = true)
-    @Parameter(
-            in = ParameterIn.PATH,
-            description = "通知公告阅读记录id",
-            name = "anntReadId",
-            required = true)
+
+    @Operation(summary = "通过通知公告阅读记录id修改", tags = {"v1.0.0"}, description = "修改系统通知公告阅读记录", hidden = true)
+    @Parameter(in = ParameterIn.PATH, description = "通知公告阅读记录id", name = "anntReadId", required = true)
     @PutMapping(value = "/update/{anntReadId}")
-    public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-                    String anntReadId,
-            @RequestBody @Valid AnnouncementRecordVo vo) {
+    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空") String anntReadId, @RequestBody @Valid AnnouncementRecordVo vo) {
         service.updateById(anntReadId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "系统通知公告阅读记录逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除系统通知公告阅读记录",
-            hidden = true)
-    @Parameter(
-            in = ParameterIn.PATH,
-            description = "通知公告阅读记录id",
-            name = "anntReadId",
-            required = true)
+
+    @Operation(summary = "系统通知公告阅读记录逻辑删除", tags = {"v1.0.0"}, description = "删除系统通知公告阅读记录", hidden = true)
+    @Parameter(in = ParameterIn.PATH, description = "通知公告阅读记录id", name = "anntReadId", required = true)
     @DeleteMapping(value = "/delete-one/{anntReadId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-                    String anntReadId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空") String anntReadId) {
         service.deleteById(anntReadId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "系统通知公告阅读记录逻辑批量删除",
-            tags = {"v1.0.0"},
-            description = "批量删除系统通知公告阅读记录",
-            hidden = true)
+
+    @Operation(summary = "系统通知公告阅读记录逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除系统通知公告阅读记录", hidden = true)
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(
-            @RequestBody @NotNullSize(message = "待删除通知公告阅读记录id不能为空") List<String> anntReadIds) {
+    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除通知公告阅读记录id不能为空") List<String> anntReadIds) {
         service.deleteBatch(anntReadIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过通知公告阅读记录id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询系统通知公告阅读记录详情",
-            hidden = true)
-    @Parameter(
-            in = ParameterIn.PATH,
-            description = "通知公告阅读记录id",
-            name = "anntReadId",
-            required = true)
+
+    @Operation(summary = "通过通知公告阅读记录id查询详情", tags = {"v1.0.0"}, description = "查询系统通知公告阅读记录详情", hidden = true)
+    @Parameter(in = ParameterIn.PATH, description = "通知公告阅读记录id", name = "anntReadId", required = true)
     @GetMapping(value = "/select/one/{anntReadId}")
-    public Result<AnnouncementRecordDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空")
-                    String anntReadId) {
+    public Result<AnnouncementRecordDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告阅读记录id不能为空") String anntReadId) {
         return ok(service.getById(anntReadId));
     }
 
-    @Operation(
-            summary = "通过条件查询系统通知公告阅读记录多条数据",
-            tags = {"v1.0.0"},
-            description = "通过条件查询系统通知公告阅读记录",
-            hidden = true)
+
+    @Operation(summary = "通过条件查询系统通知公告阅读记录多条数据", tags = {"v1.0.0"}, description = "通过条件查询系统通知公告阅读记录", hidden = true)
     @PostMapping(value = "/select/list/by-model")
-    public Result<List<AnnouncementRecordDto>> selectListByModel(
-            @RequestBody AnnouncementRecordQueryVo vo) {
+    public Result<List<AnnouncementRecordDto>> selectListByModel(@RequestBody AnnouncementRecordQueryVo vo) {
         return ok(service.selectListByModel(vo));
     }
 
-    @Operation(
-            summary = "系统通知公告阅读记录分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询系统通知公告阅读记录",
-            hidden = true)
+
+    @Operation(summary = "系统通知公告阅读记录分页查询", tags = {"v1.0.0"}, description = "分页查询系统通知公告阅读记录", hidden = true)
     @PostMapping(value = "/select/page")
-    public Result<PageDto<AnnouncementRecordPageDto>> selectPage(
-            @RequestBody AnnouncementRecordPageVo vo) {
+    public Result<PageDto<AnnouncementRecordPageDto>> selectPage(@RequestBody AnnouncementRecordPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

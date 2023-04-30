@@ -73,6 +73,7 @@ public class UserRoleModel implements Serializable {
         return Objects.equals(getRoleCode(), role.getRoleCode());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getRoleCode());

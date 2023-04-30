@@ -73,14 +73,7 @@ public class UserDto implements Serializable {
         UserDto userModel = null;
         if (Objects.nonNull(user)) {
             UserEntity userEntity = (UserEntity) user;
-            userModel =
-                    UserDto.builder()
-                            .userId(userEntity.getId())
-                            .realName(userEntity.getFirstName())
-                            .userName(userEntity.getLastName())
-                            .email(userEntity.getEmail())
-                            .detailInfo(detailInfo)
-                            .build();
+            userModel = UserDto.builder().userId(userEntity.getId()).realName(userEntity.getFirstName()).userName(userEntity.getLastName()).email(userEntity.getEmail()).detailInfo(detailInfo).build();
         }
         return userModel;
     }

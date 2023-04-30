@@ -55,9 +55,9 @@ public class AESUtils {
      * @date 2019-10-23 14:07
      */
     public static String getKey() {
-        return Base64.encode(
-                SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded());
+        return Base64.encode(SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded());
     }
+
 
     /**
      * 明文加密
@@ -76,6 +76,7 @@ public class AESUtils {
         return "";
     }
 
+
     /**
      * 密文解密
      *
@@ -92,6 +93,7 @@ public class AESUtils {
         }
         return "";
     }
+
 
     public static void main(String[] args) {
         // wpOHS3T1/KVz/HnUXCrlPx8fYYY+kyrl6TsT8nH/qTU=

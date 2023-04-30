@@ -53,6 +53,7 @@ public class ContextSafetyStrategy {
         safetyStrategy.forEach((k, v) -> this.safetyStrategy.put(k, v));
     }
 
+
     public void handleSafety(String strategy, RequestTemplate template) {
         ISafetyStrategy handle = safetyStrategy.get(strategy);
         if (handle != null) {

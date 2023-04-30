@@ -79,8 +79,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity>
-        implements IRbacUserService {
+public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity> implements IRbacUserService {
     private final RbacUserCopyMap map;
     private final RbacOrgUserMapper orgUserMapper;
     private final IRbacRoleUserService roleUserService;
@@ -97,13 +96,13 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 处理权限
         String userId = entity.getUserId();
         handleAuth(userId, vo);
     }
+
 
     /**
      * 数据检查
@@ -120,8 +119,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             }
             // 设置密码信息
             PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-            PasswordCheck.PasswordInfo passwordInfo =
-                    passwordCheck.getPasswordInfo(entity.getPassword());
+            PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(entity.getPassword());
             entity.setPassword(passwordInfo.getEncodedPassword());
             entity.setSalt(passwordInfo.getSalt());
             entity.setIsInitialPassword(1);
@@ -131,13 +129,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             entity.setPassword(null);
         }
         // 检查数据唯一性
-        LambdaQueryWrapper<RbacUserEntity> lambdaQueryWrapper =
-                Wrappers.<RbacUserEntity>lambdaQuery()
-                        .and(
-                                v ->
-                                        v.eq(RbacUserEntity::getUserName, entity.getUserName())
-                                                .or()
-                                                .eq(RbacUserEntity::getPhone, entity.getPhone()));
+        LambdaQueryWrapper<RbacUserEntity> lambdaQueryWrapper = Wrappers.<RbacUserEntity>lambdaQuery().and(v -> v.eq(RbacUserEntity::getUserName, entity.getUserName()).or().eq(RbacUserEntity::getPhone, entity.getPhone()));
         if (StringUtils.isNotBlank(entity.getUserId())) {
             lambdaQueryWrapper.ne(RbacUserEntity::getUserId, entity.getUserId());
         }
@@ -146,6 +138,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             throw new ResponseException(Status.VERIFICATION_FAILED, "当前手机号或用户名已经存在");
         }
     }
+
 
     /**
      * 处理用户权限
@@ -170,6 +163,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         roleUserService.saveBatch(userId, vo.getRoleIds());
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateById(String userId, RbacUserVo vo) throws RuntimeException {
@@ -181,35 +175,32 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 处理权限
         handleAuth(userId, vo);
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
+
 
     @Override
     public PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo) {
         return new PageDto<>(mapper.selectEnableUserPage(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public RbacUserDto getById(String userId, String orgId) throws RuntimeException {
         RbacUserEntity byId = super.getById(userId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacUserDto rbacUserDto = map.eToD(byId);
         rbacUserDto.setOrgId(orgId);
@@ -231,8 +222,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
                 orgRoleIds = Collections.emptySet();
             }
             rbacUserDto.setOrgRoleIds(orgRoleIds);
-            Set<RbacRoleSimpleDto> orgRoleInfos =
-                    orgRoleUserMapper.selectUserOrgRoleAllInfoListById(userId, orgId);
+            Set<RbacRoleSimpleDto> orgRoleInfos = orgRoleUserMapper.selectUserOrgRoleAllInfoListById(userId, orgId);
             if (CollUtil.isEmpty(orgRoleInfos)) {
                 orgRoleInfos = Collections.emptySet();
             }
@@ -240,6 +230,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         }
         return rbacUserDto;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -249,8 +240,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         // 删除数据
         boolean b = this.removeById(userId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除机构挂接
         orgUserMapper.physicalDeleteByUserId(userId);
@@ -260,11 +250,13 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         rbacRoleUserMapper.physicalDeleteByUserId(userId);
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> userIds) throws RuntimeException {
         userIds.forEach(this::deleteById);
     }
+
 
     @Override
     public void updateState(String userId, Integer type) {
@@ -277,6 +269,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         }
     }
 
+
     @Override
     public String resetPassword(String userId) {
         // 查询数据是否存在
@@ -286,12 +279,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         String password = randomGenerator.generate();
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
         PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(password);
-        RbacUserEntity entity =
-                RbacUserEntity.builder()
-                        .userId(userId)
-                        .password(passwordInfo.getEncodedPassword())
-                        .salt(passwordInfo.getSalt())
-                        .build();
+        RbacUserEntity entity = RbacUserEntity.builder().userId(userId).password(passwordInfo.getEncodedPassword()).salt(passwordInfo.getSalt()).build();
         boolean b = this.updateById(entity);
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "重置密码失败");

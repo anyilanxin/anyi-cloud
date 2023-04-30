@@ -57,6 +57,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     void save(RbacUserIdentityVo vo) throws RuntimeException;
 
+
     /**
      * 实名审核
      *
@@ -67,6 +68,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @date 2022-05-02 16:12:21
      */
     void audit(String identityId, RbacUserIdentityVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -79,6 +81,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     PageDto<RbacUserIdentityPageDto> pageByModel(RbacUserIdentityPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -90,6 +93,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     RbacUserIdentityDto getById(String identityId) throws RuntimeException;
 
+
     /**
      * 通过identityId删除
      *
@@ -99,6 +103,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String identityId) throws RuntimeException;
+
 
     /**
      * 实名信息表批量删除

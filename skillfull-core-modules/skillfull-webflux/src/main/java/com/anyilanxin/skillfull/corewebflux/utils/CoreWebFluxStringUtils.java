@@ -57,6 +57,7 @@ public class CoreWebFluxStringUtils {
         util = this;
     }
 
+
     /**
      * 获取32位uuid(使用ThreadLocalRandom提高性能)
      *
@@ -66,10 +67,9 @@ public class CoreWebFluxStringUtils {
      */
     public static String get32UUId() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new UUID(random.nextLong(), random.nextLong())
-                .toString()
-                .replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
+        return new UUID(random.nextLong(), random.nextLong()).toString().replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
     }
+
 
     /**
      * 获取有序唯一id

@@ -61,9 +61,7 @@ public class RoleInfo implements Serializable {
     @Schema(name = "roleId", title = "角色id")
     private String roleId;
 
-    @Schema(
-            name = "dataAuthType",
-            title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
+    @Schema(name = "dataAuthType", title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,6-仅自己")
     private Integer dataAuthType;
 
     @Schema(name = "roleType", title = "角色类型:0-普通角色，1-机构角色")
@@ -79,10 +77,9 @@ public class RoleInfo implements Serializable {
 
         RoleInfo roleInfo = (RoleInfo) o;
 
-        return getRoleCode() != null
-                ? getRoleCode().equals(roleInfo.getRoleCode())
-                : roleInfo.getRoleCode() == null;
+        return getRoleCode() != null ? getRoleCode().equals(roleInfo.getRoleCode()) : roleInfo.getRoleCode() == null;
     }
+
 
     @Override
     public int hashCode() {

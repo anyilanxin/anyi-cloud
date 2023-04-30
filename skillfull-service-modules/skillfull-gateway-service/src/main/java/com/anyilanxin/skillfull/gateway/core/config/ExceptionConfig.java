@@ -59,21 +59,9 @@ public class ExceptionConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public ErrorWebExceptionHandler errorWebExceptionHandler(
-            ErrorAttributes errorAttributes,
-            ObjectProvider<List<ViewResolver>> viewResolversProvider,
-            ServerCodecConfigurer serverCodecConfigurer,
-            ServerProperties serverProperties,
-            ApplicationContext applicationContext,
-            WebProperties webProperties) {
-        WebExceptionHandler exceptionHandler =
-                new WebExceptionHandler(
-                        errorAttributes,
-                        webProperties,
-                        serverProperties.getError(),
-                        applicationContext);
-        exceptionHandler.setViewResolvers(
-                viewResolversProvider.getIfAvailable(Collections::emptyList));
+    public ErrorWebExceptionHandler errorWebExceptionHandler(ErrorAttributes errorAttributes, ObjectProvider<List<ViewResolver>> viewResolversProvider, ServerCodecConfigurer serverCodecConfigurer, ServerProperties serverProperties, ApplicationContext applicationContext, WebProperties webProperties) {
+        WebExceptionHandler exceptionHandler = new WebExceptionHandler(errorAttributes, webProperties, serverProperties.getError(), applicationContext);
+        exceptionHandler.setViewResolvers(viewResolversProvider.getIfAvailable(Collections::emptyList));
         exceptionHandler.setMessageWriters(serverCodecConfigurer.getWriters());
         exceptionHandler.setMessageReaders(serverCodecConfigurer.getReaders());
         return exceptionHandler;

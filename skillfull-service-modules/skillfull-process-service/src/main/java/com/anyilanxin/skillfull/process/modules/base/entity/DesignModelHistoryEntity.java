@@ -57,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 public class DesignModelHistoryEntity extends BaseEntity {
     private static final long serialVersionUID = -68433941014688158L;
 
-    @TableId private String historyModelId;
+    @TableId
+    private String historyModelId;
 
     /** 模型id */
     private String modelId;

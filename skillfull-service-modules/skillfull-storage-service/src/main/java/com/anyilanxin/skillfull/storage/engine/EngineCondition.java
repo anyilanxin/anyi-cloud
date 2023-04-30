@@ -51,12 +51,10 @@ public class EngineCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        MergedAnnotation<Component> componentMergedAnnotation =
-                metadata.getAnnotations().get(Component.class);
+        MergedAnnotation<Component> componentMergedAnnotation = metadata.getAnnotations().get(Component.class);
         Component component = componentMergedAnnotation.synthesize();
         Environment environment = context.getEnvironment();
-        StorageType storageType =
-                environment.getProperty("storage.type", StorageType.class, StorageType.LOCAL);
+        StorageType storageType = environment.getProperty("storage.type", StorageType.class, StorageType.LOCAL);
         return Objects.equals(component.value(), storageType.getStrategy());
     }
 }

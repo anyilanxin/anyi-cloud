@@ -80,19 +80,11 @@ public class RbacUserIdentityVo implements Serializable {
     @Schema(name = "idCardIssue", title = "身份证件发证机关")
     private String idCardIssue;
 
-    @Schema(
-            name = "idCardEffective",
-            title = "身份证书有效期开始",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffective", title = "身份证书有效期开始", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffective;
 
-    @Schema(
-            name = "idCardEffectiveEnd",
-            title = "身份证有效期结束",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffectiveEnd", title = "身份证有效期结束", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffectiveEnd;
 

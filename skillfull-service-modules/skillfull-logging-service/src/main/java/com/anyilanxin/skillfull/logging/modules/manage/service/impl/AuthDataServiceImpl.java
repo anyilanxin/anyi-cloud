@@ -69,8 +69,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEntity>
-        implements IAuthDataService {
+public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEntity> implements IAuthDataService {
     private final AuthDataCopyMap map;
     private final StringRedisTemplate stringRedisTemplate;
     private final AuthDataMapper mapper;
@@ -85,8 +84,7 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
     @Override
     @Async
     public void storage() {
-        Long size =
-                stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
         int saveMax = 200;
         if (Objects.nonNull(size)) {
             // 循环读取100条
@@ -96,13 +94,9 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
             if (size >= authSaveMin) {
                 List<AuthDataEntity> logEntityList = new ArrayList<>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
-                    String logStr =
-                            stringRedisTemplate
-                                    .opsForList()
-                                    .rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
-                        AuthDataEntity logModel =
-                                JSONObject.parseObject(logStr, AuthDataEntity.class);
+                        AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
                         logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
@@ -114,26 +108,24 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<AuthDataPageDto> pageByModel(AuthDataPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public AuthDataDto getById(String authLogId) throws RuntimeException {
         AuthDataEntity byId = super.getById(authLogId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -149,19 +141,18 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         } else {
             boolean b = this.removeById(authLogId);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> authLogIds) throws RuntimeException {
         List<AuthDataEntity> entities = this.listByIds(authLogIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getAuthLogId()));
@@ -173,9 +164,7 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         } else {
             boolean b = this.removeByIds(waitDeleteList);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR,
-                        I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

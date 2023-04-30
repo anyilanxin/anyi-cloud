@@ -58,6 +58,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      */
     void save(RbacMenuVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -68,6 +69,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @date 2022-05-02 16:12:21
      */
     void updateById(String menuId, RbacMenuVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -80,6 +82,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      */
     PageDto<RbacMenuPageDto> pageByModel(RbacMenuPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -91,6 +94,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      */
     RbacMenuDto getById(String menuId) throws RuntimeException;
 
+
     /**
      * 通过menuId删除
      *
@@ -101,6 +105,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      */
     void deleteById(String menuId) throws RuntimeException;
 
+
     /**
      * 菜单表批量删除
      *
@@ -110,6 +115,7 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * @date 2022-05-02 16:12:21
      */
     void deleteBatch(List<String> menuIds) throws RuntimeException;
+
 
     /**
      * 获取权限树

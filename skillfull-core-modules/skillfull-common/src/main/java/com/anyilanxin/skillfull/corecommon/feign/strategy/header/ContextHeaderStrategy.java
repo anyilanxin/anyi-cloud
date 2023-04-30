@@ -48,13 +48,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ContextHeaderStrategy {
-    private static final Map<String, ISetHeaderStrategy> HEADER_STRATEGY =
-            new ConcurrentHashMap<>();
+    private static final Map<String, ISetHeaderStrategy> HEADER_STRATEGY = new ConcurrentHashMap<>();
 
     @Autowired
     public ContextHeaderStrategy(Map<String, ISetHeaderStrategy> headerStrategy) {
         HEADER_STRATEGY.putAll(headerStrategy);
     }
+
 
     public void setHeader(String strategy, RequestTemplate template) {
         // 先调用默认的
@@ -63,9 +63,7 @@ public class ContextHeaderStrategy {
             try {
                 iSetHeaderStrategy.setHeader(template);
             } catch (Exception e) {
-                log.error(
-                        "------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}",
-                        e.getMessage());
+                log.error("------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}", e.getMessage());
             }
         }
         // 在调用其他的
@@ -74,9 +72,7 @@ public class ContextHeaderStrategy {
             try {
                 setTokenStrategy.setHeader(template);
             } catch (Exception e) {
-                log.error(
-                        "------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}",
-                        e.getMessage());
+                log.error("------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}", e.getMessage());
             }
         } else {
             log.error("----------ContextStrategy---------->doStrategy:{}", "Api调用未找到设置请求头的方法");

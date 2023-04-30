@@ -58,13 +58,16 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         body = stringBody.getBytes(StandardCharsets.UTF_8);
     }
 
+
     public String getStringBody() {
         return this.stringBody;
     }
 
+
     public JSONObject getJsonObjectBody() {
         return this.jsonObjectBody;
     }
+
 
     /**
      * 获取请求Body
@@ -83,6 +86,7 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         }
         return bodyString;
     }
+
 
     /**
      * 复制输入流
@@ -107,10 +111,12 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
     }
 
+
     @Override
     public BufferedReader getReader() throws IOException {
         return new BufferedReader(new InputStreamReader(getInputStream(), StandardCharsets.UTF_8));
     }
+
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
@@ -121,18 +127,22 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
                 return bais.read();
             }
 
+
             @Override
             public boolean isFinished() {
                 return false;
             }
+
 
             @Override
             public boolean isReady() {
                 return false;
             }
 
+
             @Override
-            public void setReadListener(ReadListener readListener) {}
+            public void setReadListener(ReadListener readListener) {
+            }
         };
     }
 }

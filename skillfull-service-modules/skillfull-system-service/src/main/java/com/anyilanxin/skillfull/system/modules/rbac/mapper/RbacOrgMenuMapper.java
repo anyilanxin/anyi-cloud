@@ -58,6 +58,7 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      */
     int physicalDeleteById(@Param("orgId") String orgId);
 
+
     /**
      * 删除不在不存在当前列表的资源
      *
@@ -67,8 +68,8 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      * @author zxiaozhou
      * @date 2022-07-02 23:01:20
      */
-    int physicalDeleteNotInIds(
-            @Param("orgId") String orgId, @Param("coll") Collection<String> idList);
+    int physicalDeleteNotInIds(@Param("orgId") String orgId, @Param("coll") Collection<String> idList);
+
 
     /**
      * 查询机构功能权限
@@ -80,6 +81,7 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      */
     Set<String> selectMenuListById(@Param("orgId") String orgId);
 
+
     /**
      * 查询机构菜单树
      *
@@ -90,8 +92,5 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      * @author zxiaozhou
      * @date 2022-07-08 08:16
      */
-    List<RbacMenuEntity> selectByParams(
-            @Param("orgId") String orgId,
-            @Param("systemId") String systemId,
-            @Param("status") Integer status);
+    List<RbacMenuEntity> selectByParams(@Param("orgId") String orgId, @Param("systemId") String systemId, @Param("status") Integer status);
 }

@@ -60,16 +60,17 @@ public class Oauth2CommonConfig {
         return new BCryptPasswordEncoder();
     }
 
+
     /** token存储配置 */
     @Bean
     public TokenStore tokenStore() {
         CustomRedisTokenStore redisTokenStore = new CustomRedisTokenStore(redisConnectionFactory);
         redisTokenStore.setAuthenticationKeyGenerator(new CustomAuthenticationKeyGenerator());
-        redisTokenStore.setSerializationStrategy(
-                new FastjsonRedisTokenStoreSerializationStrategy());
+        redisTokenStore.setSerializationStrategy(new FastjsonRedisTokenStoreSerializationStrategy());
         redisTokenStore.setPrefix(AUTH_PREFIX);
         return redisTokenStore;
     }
+
 
     @Bean
     public AccessTokenConverter tokenConverter() {

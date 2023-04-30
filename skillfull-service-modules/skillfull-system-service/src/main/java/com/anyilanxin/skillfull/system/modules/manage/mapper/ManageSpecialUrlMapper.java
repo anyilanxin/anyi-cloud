@@ -55,6 +55,7 @@ public interface ManageSpecialUrlMapper extends BaseMapper<ManageSpecialUrlEntit
      */
     int physicalDeleteById(@Param("id") String specialUrlId);
 
+
     /**
      * 通过特殊过滤器id物理批量删除
      *

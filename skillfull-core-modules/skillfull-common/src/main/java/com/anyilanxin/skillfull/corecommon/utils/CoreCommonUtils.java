@@ -75,8 +75,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class CoreCommonUtils {
-    private static final Map<String, List<ConstantDictModel>> CONSTANT_DICT_CACHE =
-            new ConcurrentHashMap<>(8);
+    private static final Map<String, List<ConstantDictModel>> CONSTANT_DICT_CACHE = new ConcurrentHashMap<>(8);
     private static CoreCommonUtils utils;
     private final Snowflake snowflake;
 
@@ -84,6 +83,7 @@ public class CoreCommonUtils {
     private void init() {
         utils = this;
     }
+
 
     /**
      * 获取有序唯一id
@@ -95,6 +95,7 @@ public class CoreCommonUtils {
     public static String getSnowflakeId() {
         return utils.snowflake.nextIdStr();
     }
+
 
     /**
      * 文件大小格式化
@@ -124,6 +125,7 @@ public class CoreCommonUtils {
         return fileSize + unit;
     }
 
+
     /**
      * 获取文件md5值
      *
@@ -142,6 +144,7 @@ public class CoreCommonUtils {
         return md5;
     }
 
+
     /**
      * 对象转json string(保留空键)
      *
@@ -157,6 +160,7 @@ public class CoreCommonUtils {
         }
         return result;
     }
+
 
     /**
      * json字符串转实体
@@ -174,6 +178,7 @@ public class CoreCommonUtils {
         return null;
     }
 
+
     /**
      * 获取堆栈信息
      *
@@ -190,6 +195,7 @@ public class CoreCommonUtils {
         }
     }
 
+
     /**
      * 驼峰命名转下划线
      *
@@ -204,6 +210,7 @@ public class CoreCommonUtils {
         }
         return null;
     }
+
 
     /**
      * 下划线转驼峰
@@ -220,6 +227,7 @@ public class CoreCommonUtils {
         return null;
     }
 
+
     /**
      * 获取get中参数
      *
@@ -232,16 +240,15 @@ public class CoreCommonUtils {
         Map<String, String> queryMap = new HashMap<>(8);
         if (StringUtils.isNotBlank(queryStr)) {
             String[] queryParam = queryStr.split("&");
-            Arrays.stream(queryParam)
-                    .forEach(
-                            s -> {
-                                String[] kv = s.split("=", 2);
-                                String value = kv.length == 2 ? kv[1] : "";
-                                queryMap.put(kv[0], value);
-                            });
+            Arrays.stream(queryParam).forEach(s -> {
+                String[] kv = s.split("=", 2);
+                String value = kv.length == 2 ? kv[1] : "";
+                queryMap.put(kv[0], value);
+            });
         }
         return queryMap;
     }
+
 
     /**
      * get参数转String
@@ -259,6 +266,7 @@ public class CoreCommonUtils {
         return stringBuilder.toString().replaceFirst("&", "");
     }
 
+
     /**
      * 获取常量字典
      *
@@ -267,17 +275,11 @@ public class CoreCommonUtils {
      * @author zxiaozhou
      * @date 2021-04-02 10:51
      */
-    public static Map<String, List<ConstantDictModel>> createOrGetConstantDict(
-            String serviceName, String... packages) {
+    public static Map<String, List<ConstantDictModel>> createOrGetConstantDict(String serviceName, String... packages) {
         if (CollUtil.isNotEmpty(CONSTANT_DICT_CACHE)) {
             return CONSTANT_DICT_CACHE;
         }
-        Reflections reflections =
-                new Reflections(
-                        new ConfigurationBuilder()
-                                .forPackages(packages)
-                                .addScanners(new SubTypesScanner())
-                                .addScanners(new FieldAnnotationsScanner()));
+        Reflections reflections = new Reflections(new ConfigurationBuilder().forPackages(packages).addScanners(new SubTypesScanner()).addScanners(new FieldAnnotationsScanner()));
         Set<Class<? extends ISuperType>> types = reflections.getSubTypesOf(ISuperType.class);
         if (CollUtil.isNotEmpty(types)) {
             for (Class<?> typeClass : types) {
@@ -287,24 +289,18 @@ public class CoreCommonUtils {
                     try {
                         Method getCode = typeClass.getMethod("getConstantDict");
                         @SuppressWarnings("unchecked")
-                        List<ConstantDictModel> gatewayConstantDictDtoList =
-                                (List<ConstantDictModel>) getCode.invoke(enumConstants[0]);
-                        CONSTANT_DICT_CACHE.put(
-                                serviceName + COLON + typeClass.getSimpleName(),
-                                gatewayConstantDictDtoList);
-                    } catch (NoSuchMethodException
-                            | IllegalAccessException
-                            | InvocationTargetException e) {
+                        List<ConstantDictModel> gatewayConstantDictDtoList = (List<ConstantDictModel>) getCode.invoke(enumConstants[0]);
+                        CONSTANT_DICT_CACHE.put(serviceName + COLON + typeClass.getSimpleName(), gatewayConstantDictDtoList);
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
-                        log.error(
-                                "------------CoreCommonUtils------获取枚举下拉字典失败------>createOrGetConstantDict:{}",
-                                e.getMessage());
+                        log.error("------------CoreCommonUtils------获取枚举下拉字典失败------>createOrGetConstantDict:{}", e.getMessage());
                     }
                 }
             }
         }
         return CONSTANT_DICT_CACHE;
     }
+
 
     /**
      * 获取SpringBootApplication扫描路径或某个类包路径
@@ -321,10 +317,11 @@ public class CoreCommonUtils {
             packages = bootApplication.scanBasePackages();
         }
         if (ArrayUtils.getLength(packages) <= 0 && Objects.nonNull(clas)) {
-            packages = new String[] {clas.getPackage().getName()};
+            packages = new String[]{clas.getPackage().getName()};
         }
         return packages;
     }
+
 
     /**
      * url中获取uri
@@ -342,6 +339,7 @@ public class CoreCommonUtils {
         }
     }
 
+
     /**
      * 获取32位uuid(使用ThreadLocalRandom提高性能)
      *
@@ -351,18 +349,14 @@ public class CoreCommonUtils {
      */
     public static String get32UUId() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new UUID(random.nextLong(), random.nextLong())
-                .toString()
-                .replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
+        return new UUID(random.nextLong(), random.nextLong()).toString().replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
     }
 
     /** 中文数字 */
     private static final String[] CN_NUM = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
 
     /** 中文数字单位 */
-    private static final String[] CN_UNIT = {
-        "", "十", "百", "千", "万", "十", "百", "千", "亿", "十", "百", "千"
-    };
+    private static final String[] CN_UNIT = {"", "十", "百", "千", "万", "十", "百", "千", "亿", "十", "百", "千"};
 
     /** 特殊字符：负 */
     private static final String CN_NEGATIVE = "负";
@@ -392,14 +386,9 @@ public class CoreCommonUtils {
 
         if (isNegative) sb.insert(0, CN_NEGATIVE);
 
-        return sb.toString()
-                .replaceAll("零[千百十]", "零")
-                .replaceAll("零+万", "万")
-                .replaceAll("零+亿", "亿")
-                .replaceAll("亿万", "亿零")
-                .replaceAll("零+", "零")
-                .replaceAll("零$", "");
+        return sb.toString().replaceAll("零[千百十]", "零").replaceAll("零+万", "万").replaceAll("零+亿", "亿").replaceAll("亿万", "亿零").replaceAll("零+", "零").replaceAll("零$", "");
     }
+
 
     /**
      * bigDecimal 转 中文数字 整数部分只支持到int的最大值

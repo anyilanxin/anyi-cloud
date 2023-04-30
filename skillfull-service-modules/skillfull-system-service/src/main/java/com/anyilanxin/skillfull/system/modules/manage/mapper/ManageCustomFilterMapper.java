@@ -56,6 +56,7 @@ public interface ManageCustomFilterMapper extends BaseMapper<ManageCustomFilterE
      */
     int physicalDeleteById(@Param("id") String customFilterId);
 
+
     /**
      * 通过自定义过滤器id物理批量删除
      *

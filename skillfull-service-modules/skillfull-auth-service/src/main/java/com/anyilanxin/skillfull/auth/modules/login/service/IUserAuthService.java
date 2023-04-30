@@ -51,6 +51,7 @@ public interface IUserAuthService {
      */
     UserAndResourceAuthModel getUserByOpenId(String openId);
 
+
     /**
      * 通过用户名获取用户信息
      *
@@ -61,6 +62,7 @@ public interface IUserAuthService {
      */
     UserAndResourceAuthModel getUserByAccountPhone(String userName);
 
+
     /**
      * 通过电话号码获取用户信息
      *
@@ -70,6 +72,7 @@ public interface IUserAuthService {
      * @date 2022-07-12 13:40
      */
     UserAndResourceAuthModel getUserByPhone(String phone);
+
 
     /**
      * 组装用户授权信息

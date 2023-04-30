@@ -66,14 +66,10 @@ public class FreemarkerUtils {
         Configuration configuration = new Configuration(DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         StringWriter out = new StringWriter();
         try {
-            new Template("template", new StringReader(templateStr), configuration)
-                    .process(jsonObject, out);
+            new Template("template", new StringReader(templateStr), configuration).process(jsonObject, out);
         } catch (TemplateException | IOException e) {
             e.printStackTrace();
-            log.error(
-                    "------------FreemarkerUtils------模板解析异常------>processStr--->\n参数:{},异常消息:{}",
-                    templateStr,
-                    e.getMessage());
+            log.error("------------FreemarkerUtils------模板解析异常------>processStr--->\n参数:{},异常消息:{}", templateStr, e.getMessage());
         }
         return out.toString();
     }

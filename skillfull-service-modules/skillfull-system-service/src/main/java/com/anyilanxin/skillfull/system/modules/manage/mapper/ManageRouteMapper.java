@@ -55,6 +55,7 @@ public interface ManageRouteMapper extends BaseMapper<ManageRouteEntity> {
      */
     int physicalDeleteById(@Param("id") String routeId);
 
+
     /**
      * 通过路由id物理批量删除
      *

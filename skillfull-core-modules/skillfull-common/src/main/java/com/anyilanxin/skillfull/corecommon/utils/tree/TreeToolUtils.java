@@ -67,12 +67,12 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * @author zxiaozhou
      * @date 2020-08-26 18:07
      */
-    public TreeToolUtils(
-            @Nonnull List<T> rootList, List<T> bodyList, @Nonnull TreeId<T> getTreeId) {
+    public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList, @Nonnull TreeId<T> getTreeId) {
         this.rootList = rootList;
         this.bodyList = bodyList;
         this.getTreeId = getTreeId;
     }
+
 
     /**
      * 获取树形对象(子方法父级id必须为parentId,子级id必须为id)
@@ -86,6 +86,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
         this(rootList, bodyList, DEFAULT_ID_KEY, DEFAULT_PARENT_ID_KEY);
     }
 
+
     /**
      * 获取树形对象(自定义子父级id)
      *
@@ -96,38 +97,33 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      * @author zxiaozhou
      * @date 2020-08-26 18:08
      */
-    public TreeToolUtils(
-            @Nonnull List<T> rootList,
-            List<T> bodyList,
-            @Nonnull String idKey,
-            @Nonnull String parentIdKey) {
+    public TreeToolUtils(@Nonnull List<T> rootList, List<T> bodyList, @Nonnull String idKey, @Nonnull String parentIdKey) {
         this.rootList = rootList;
         this.bodyList = bodyList;
-        this.getTreeId =
-                new TreeId<T>() {
-                    @Override
-                    public String getId(T t) {
-                        String jsonString =
-                                JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
-                        JSONObject jsonObject = JSONObject.parseObject(jsonString);
-                        if (jsonObject.containsKey(idKey)) {
-                            return jsonObject.getString(idKey);
-                        }
-                        return "";
-                    }
+        this.getTreeId = new TreeId<T>() {
+            @Override
+            public String getId(T t) {
+                String jsonString = JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
+                JSONObject jsonObject = JSONObject.parseObject(jsonString);
+                if (jsonObject.containsKey(idKey)) {
+                    return jsonObject.getString(idKey);
+                }
+                return "";
+            }
 
-                    @Override
-                    public String getParentId(T t) {
-                        String jsonString =
-                                JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
-                        JSONObject jsonObject = JSONObject.parseObject(jsonString);
-                        if (jsonObject.containsKey(parentIdKey)) {
-                            return jsonObject.getString(parentIdKey);
-                        }
-                        return "";
-                    }
-                };
+
+            @Override
+            public String getParentId(T t) {
+                String jsonString = JSONObject.toJSONString(t, SerializerFeature.WriteMapNullValue);
+                JSONObject jsonObject = JSONObject.parseObject(jsonString);
+                if (jsonObject.containsKey(parentIdKey)) {
+                    return jsonObject.getString(parentIdKey);
+                }
+                return "";
+            }
+        };
     }
+
 
     /**
      * 创建树形数据
@@ -151,6 +147,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
         }
     }
 
+
     /**
      * 获取子节点
      *
@@ -160,13 +157,10 @@ public class TreeToolUtils<T extends BaseTree<T>> {
      */
     private void getChild(T beanTree) {
         List<T> childList = Lists.newArrayList();
-        bodyList.stream()
-                .filter(c -> getTreeId.getId(beanTree).equals(getTreeId.getParentId(c)))
-                .forEach(
-                        c -> {
-                            getChild(c);
-                            childList.add(c);
-                        });
+        bodyList.stream().filter(c -> getTreeId.getId(beanTree).equals(getTreeId.getParentId(c))).forEach(c -> {
+            getChild(c);
+            childList.add(c);
+        });
         if (CollUtil.isNotEmpty(childList)) {
             beanTree.setHasChildren(true);
             beanTree.setChildren(childList);
@@ -192,6 +186,7 @@ public class TreeToolUtils<T extends BaseTree<T>> {
          * @date 2020-07-21 13:21
          */
         String getId(T t);
+
 
         /**
          * 获取父级id

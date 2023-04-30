@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class CommonCategoryEntity extends BaseEntity {
     private static final long serialVersionUID = -29101329593126397L;
 
-    @TableId private String categoryId;
+    @TableId
+    private String categoryId;
 
     /** 父级id */
     private String parentId;

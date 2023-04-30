@@ -57,6 +57,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     void save(CommonAreaVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     void updateById(String areaId, CommonAreaVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -79,6 +81,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @date 2020-11-02 09:25:04
      */
     PageDto<CommonAreaPageDto> pageByModel(CommonAreaPageVo vo) throws RuntimeException;
+
 
     /**
      * 区域查询下级
@@ -91,6 +94,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     List<CommonAreaPageDto> selectPageChildren(String parentId) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -100,8 +104,8 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @author zxiaozhou
      * @date 2020-11-02 09:25:04
      */
-    List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId)
-            throws RuntimeException;
+    List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -114,6 +118,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     CommonAreaDto getById(String areaId) throws RuntimeException;
 
+
     /**
      * 通过areaId删除
      *
@@ -123,6 +128,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @date 2020-08-28 12:20
      */
     void deleteById(String areaId) throws RuntimeException;
+
 
     /**
      * 文件批量删除

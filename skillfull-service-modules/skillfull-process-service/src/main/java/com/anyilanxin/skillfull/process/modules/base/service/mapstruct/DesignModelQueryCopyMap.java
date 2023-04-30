@@ -42,8 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-11-25 05:22:56
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface DesignModelQueryCopyMap extends BaseMap<DesignModelQueryVo, DesignModelEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface DesignModelQueryCopyMap extends BaseMap<DesignModelQueryVo, DesignModelEntity> {
+}

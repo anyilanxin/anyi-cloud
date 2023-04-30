@@ -54,6 +54,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     void save(ManageRouteVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -66,6 +67,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     void updateById(String routeId, ManageRouteVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -76,6 +78,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      * @date 2021-12-19 00:22:16
      */
     List<ManageRouteDto> selectList(String serviceId) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -88,6 +91,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     ManageRouteDto getById(String routeId) throws RuntimeException;
 
+
     /**
      * 通过routeId删除
      *
@@ -98,6 +102,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     void deleteById(String routeId) throws RuntimeException;
 
+
     /**
      * 通过serviceId删除
      *
@@ -107,6 +112,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      * @date 2021-12-19 00:22:16
      */
     void deleteByServiceId(String serviceId) throws RuntimeException;
+
 
     /**
      * 修改路由状态

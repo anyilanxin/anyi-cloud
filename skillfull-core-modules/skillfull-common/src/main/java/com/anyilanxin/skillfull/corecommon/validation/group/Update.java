@@ -36,4 +36,5 @@ package com.anyilanxin.skillfull.corecommon.validation.group;
  * @date 2019-06-18 09:57
  * @since JDK11
  */
-public interface Update {}
+public interface Update {
+}

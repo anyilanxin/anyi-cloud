@@ -76,23 +76,18 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         if (Objects.isNull(principal)) {
             return;
         }
-        log.debug(
-                "------------afterConnectionEstablished---建立ws连接-----userId---->\n{}",
-                session.getAttributes().get(WebSocketSessionType.USER_ID.getType()));
-        log.debug(
-                "------------afterConnectionEstablished---建立ws连接-----token----->\n{}",
-                session.getAttributes().get(WebSocketSessionType.TOKEN.getType()));
-        log.debug(
-                "------------afterConnectionEstablished---建立ws连接-----userInfo-->\n:{}", principal);
+        log.debug("------------afterConnectionEstablished---建立ws连接-----userId---->\n{}", session.getAttributes().get(WebSocketSessionType.USER_ID.getType()));
+        log.debug("------------afterConnectionEstablished---建立ws连接-----token----->\n{}", session.getAttributes().get(WebSocketSessionType.TOKEN.getType()));
+        log.debug("------------afterConnectionEstablished---建立ws连接-----userInfo-->\n:{}", principal);
         WsUtils.add(session);
         afterConnectionContent.afterConnectionHandle(session);
         // 发送消息广播集群
         upOrDownNotice(session, 1);
     }
 
+
     @Override
-    protected void handlePongMessage(WebSocketSession session, PongMessage message)
-            throws Exception {
+    protected void handlePongMessage(WebSocketSession session, PongMessage message) throws Exception {
         boolean result = checkLogin(session);
         if (!result) {
             return;
@@ -100,9 +95,9 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         session.sendMessage(new PongMessage());
     }
 
+
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message)
-            throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         boolean result = checkLogin(session);
         if (!result) {
             return;
@@ -115,12 +110,8 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         }
         try {
             SocketMsgModel socketMsgModel = JSONObject.parseObject(payload, SocketMsgModel.class);
-            SubscribeMsgModel subscribeMsgModel =
-                    WsUtils.createSubscribeMsgModel(session, socketMsgModel);
-            SendRedisMsgUtils.sendMsg(
-                    RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE,
-                    JSONObject.toJSONString(
-                            subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+            SubscribeMsgModel subscribeMsgModel = WsUtils.createSubscribeMsgModel(session, socketMsgModel);
+            SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE, JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
         } catch (Exception exception) {
             SocketMsgModel socketMsgModel = new SocketMsgModel(SocketMessageEventType.ERROR_EVENT);
             ErrorMsgModel model = new ErrorMsgModel();
@@ -131,15 +122,16 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         log.info("------------handleTextMessage-----server 接收到消息------->{}", payload);
     }
 
+
     @Override
-    protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message)
-            throws Exception {
+    protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) throws Exception {
         boolean result = checkLogin(session);
         if (!result) {
             return;
         }
         log.info("------------handleBinaryMessage------------>发送二进制消息");
     }
+
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
@@ -151,6 +143,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         WsUtils.sendMsg(session, subscribeMsgModel);
     }
 
+
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         log.info("------------afterConnectionClosed------关闭ws连接------>{}", status);
@@ -158,6 +151,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         // 发送消息广播集群
         upOrDownNotice(session, 0);
     }
+
 
     /**
      * 上下线处理
@@ -168,8 +162,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
      * @date 2022-08-27 15:01
      */
     private void upOrDownNotice(WebSocketSession session, int type) {
-        SubscribeMsgModel subscribeMsgModel =
-                WsUtils.createSubscribeMsgModel(session, SocketMessageEventType.UP_DOWN);
+        SubscribeMsgModel subscribeMsgModel = WsUtils.createSubscribeMsgModel(session, SocketMessageEventType.UP_DOWN);
         UpOrDownModel upOrDownModel = new UpOrDownModel();
         upOrDownModel.setType(type);
         UserInfo userInfo = WsUtils.getUserInfo(session);
@@ -177,13 +170,11 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
             upOrDownModel.setRealName(userInfo.getRealName());
             upOrDownModel.setAvatar(userInfo.getAvatar());
         }
-        upOrDownModel.setUserId(
-                session.getAttributes().get(WebSocketSessionType.USER_ID.getType()).toString());
+        upOrDownModel.setUserId(session.getAttributes().get(WebSocketSessionType.USER_ID.getType()).toString());
         subscribeMsgModel.setData(upOrDownModel);
-        SendRedisMsgUtils.sendMsg(
-                RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE,
-                JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE, JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
     }
+
 
     /**
      * 检测登录状态
@@ -198,9 +189,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
             if (Objects.nonNull(objectToken)) {
                 loginUserInfo.getUserInfo(objectToken.toString());
             } else {
-                CloseStatus status =
-                        new CloseStatus(
-                                Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
+                CloseStatus status = new CloseStatus(Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
                 session.close(status);
                 return false;
             }
@@ -211,6 +200,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
         }
         return true;
     }
+
 
     /**
      * 检测登录权限并返回用户信息
@@ -223,9 +213,7 @@ public class WebSocketMainHandler extends AbstractWebSocketHandler {
     private Principal checkLoginReturnUser(WebSocketSession session) throws IOException {
         Principal principal = session.getPrincipal();
         if (principal instanceof AnonymousAuthenticationToken) {
-            CloseStatus status =
-                    new CloseStatus(
-                            Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
+            CloseStatus status = new CloseStatus(Status.TOKEN_EXPIRED.getCode(), Status.TOKEN_EXPIRED.getMessage());
             session.close(status);
             return null;
         }

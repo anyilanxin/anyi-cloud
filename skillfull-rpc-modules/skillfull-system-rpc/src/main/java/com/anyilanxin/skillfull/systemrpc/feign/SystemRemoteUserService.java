@@ -45,10 +45,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2022-02-12 21:54
  * @since JDK1.8
  */
-@FeignClient(
-        value = ServiceConstant.SYSTEM_SERVICE,
-        path = ServiceConstant.SYSTEM_SERVICE_PATH,
-        fallbackFactory = FeignFallback.class)
+@FeignClient(value = ServiceConstant.SYSTEM_SERVICE, path = ServiceConstant.SYSTEM_SERVICE_PATH, fallbackFactory = FeignFallback.class)
 public interface SystemRemoteUserService {
 
     /**
@@ -62,6 +59,7 @@ public interface SystemRemoteUserService {
     @PostMapping("/rbac-user/select/list")
     Result<List<SimpleUserModel>> getUserListByIds(@RequestBody List<String> userIds);
 
+
     /**
      * 根据用户id查询用户信息
      *
@@ -71,9 +69,8 @@ public interface SystemRemoteUserService {
      * @date 2020-09-12 17:13
      */
     @GetMapping("/rbac-user/select/one/{userId}")
-    Result<SimpleUserModel> getUserById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空")
-                    String userId);
+    Result<SimpleUserModel> getUserById(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId);
+
 
     /**
      * 更具真实姓名模糊查询用户信息

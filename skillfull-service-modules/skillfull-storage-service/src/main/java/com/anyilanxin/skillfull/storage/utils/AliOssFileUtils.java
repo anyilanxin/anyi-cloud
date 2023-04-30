@@ -56,6 +56,7 @@ public class AliOssFileUtils {
         utils = this;
     }
 
+
     /**
      * 创建OSSClient
      *
@@ -66,6 +67,7 @@ public class AliOssFileUtils {
     public static OSSClient createOssClient() {
         return createOssClient("");
     }
+
 
     /**
      * 创建OSSClient
@@ -80,9 +82,7 @@ public class AliOssFileUtils {
         if (StringUtils.isBlank(endpoint)) {
             endpoint = ossProperty.getEndpoint();
         }
-        OSS build =
-                new OSSClientBuilder()
-                        .build(endpoint, ossProperty.getAccessKey(), ossProperty.getSecretKey());
+        OSS build = new OSSClientBuilder().build(endpoint, ossProperty.getAccessKey(), ossProperty.getSecretKey());
         return (OSSClient) build;
     }
 }

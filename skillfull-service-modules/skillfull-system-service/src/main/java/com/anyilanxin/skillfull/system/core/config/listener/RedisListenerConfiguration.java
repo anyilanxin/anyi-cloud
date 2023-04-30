@@ -56,6 +56,7 @@ public class RedisListenerConfiguration {
         return new RouterDeleteEventListener(redisMessageListenerContainer, syncService);
     }
 
+
     @Bean
     public ConstantDeleteEventListener keyExpiredListener() {
         return new ConstantDeleteEventListener(redisMessageListenerContainer, coreCommonService);

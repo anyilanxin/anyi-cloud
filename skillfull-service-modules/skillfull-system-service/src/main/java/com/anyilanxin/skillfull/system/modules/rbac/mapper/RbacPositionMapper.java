@@ -58,8 +58,8 @@ public interface RbacPositionMapper extends BaseMapper<RbacPositionEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20
      */
-    IPage<RbacPositionPageDto> pageByModel(
-            Page<RbacPositionPageDto> page, @Param("query") RbacPositionPageVo vo);
+    IPage<RbacPositionPageDto> pageByModel(Page<RbacPositionPageDto> page, @Param("query") RbacPositionPageVo vo);
+
 
     /**
      * 通过职位id物理删除
@@ -70,6 +70,7 @@ public interface RbacPositionMapper extends BaseMapper<RbacPositionEntity> {
      * @date 2022-05-02 16:12:20
      */
     int physicalDeleteById(@Param("id") String positionId);
+
 
     /**
      * 通过职位id物理批量删除

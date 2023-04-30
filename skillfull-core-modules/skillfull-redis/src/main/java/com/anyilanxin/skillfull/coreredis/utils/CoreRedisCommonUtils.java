@@ -57,6 +57,7 @@ public class CoreRedisCommonUtils {
         utils = this;
     }
 
+
     /**
      * 创建redis锁
      *
@@ -70,16 +71,12 @@ public class CoreRedisCommonUtils {
             timeout = 10L;
         }
         if (StringUtils.isNotBlank(key)) {
-            String timeoutKey =
-                    utils.environment.getProperty("spring.application.name", "") + "_" + key;
-            Boolean ifAbsent =
-                    utils.stringRedisTemplate.opsForValue().setIfAbsent(timeoutKey, "阻拦其他客户端消费该消息");
+            String timeoutKey = utils.environment.getProperty("spring.application.name", "") + "_" + key;
+            Boolean ifAbsent = utils.stringRedisTemplate.opsForValue().setIfAbsent(timeoutKey, "阻拦其他客户端消费该消息");
             if (Objects.nonNull(ifAbsent) && Boolean.FALSE.equals(ifAbsent)) {
                 return true;
             }
-            utils.stringRedisTemplate
-                    .opsForValue()
-                    .set(timeoutKey, timeoutKey + "超时key", timeout, TimeUnit.SECONDS);
+            utils.stringRedisTemplate.opsForValue().set(timeoutKey, timeoutKey + "超时key", timeout, TimeUnit.SECONDS);
             return false;
         }
         return true;

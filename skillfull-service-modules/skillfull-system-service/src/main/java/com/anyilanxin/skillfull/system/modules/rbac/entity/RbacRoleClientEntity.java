@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacRoleClientEntity implements Serializable {
     private static final long serialVersionUID = 761816377397439151L;
 
-    @TableId private String roleClient;
+    @TableId
+    private String roleClient;
 
     /** 角色id */
     private String roleId;

@@ -44,10 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2021-12-19 10:37:43
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ManageRoutePredicateCopyMap
-        extends BaseThreeMap<
-                ManageRoutePredicateEntity, ManageRoutePredicateDto, ManageRoutePredicateVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ManageRoutePredicateCopyMap extends BaseThreeMap<ManageRoutePredicateEntity, ManageRoutePredicateDto, ManageRoutePredicateVo> {
+}

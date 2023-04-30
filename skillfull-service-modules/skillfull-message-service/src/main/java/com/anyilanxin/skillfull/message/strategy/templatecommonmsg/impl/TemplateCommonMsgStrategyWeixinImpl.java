@@ -48,8 +48,7 @@ import org.springframework.stereotype.Component;
 @Component(value = MsgTemplateCommonChannelConstant.WX_TEMPLATE_MSG)
 public class TemplateCommonMsgStrategyWeixinImpl implements ITemplateCommonMsgStrategy {
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateCommonMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateCommonMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

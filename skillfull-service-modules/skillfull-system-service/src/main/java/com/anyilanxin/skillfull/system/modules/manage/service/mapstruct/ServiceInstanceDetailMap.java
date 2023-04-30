@@ -42,9 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou zxiaozhou
  * @since 2020-09-12 16:33:37
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ServiceInstanceDetailMap
-        extends BaseMap<ServiceInstanceDto.ServiceInstanceDetail, Instance> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ServiceInstanceDetailMap extends BaseMap<ServiceInstanceDto.ServiceInstanceDetail, Instance> {
+}

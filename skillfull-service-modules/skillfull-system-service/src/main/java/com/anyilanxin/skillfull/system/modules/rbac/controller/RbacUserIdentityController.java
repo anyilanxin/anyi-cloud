@@ -66,37 +66,26 @@ import org.springframework.web.bind.annotation.*;
 public class RbacUserIdentityController extends BaseController {
     private final IRbacUserIdentityService service;
 
-    @Operation(
-            summary = "实名信息表添加",
-            tags = {"v1.0.0"},
-            description = "添加实名信息表")
+    @Operation(summary = "实名信息表添加", tags = {"v1.0.0"}, description = "添加实名信息表")
     @PostMapping(value = "/insert")
     public Result<String> insert(@RequestBody @Valid RbacUserIdentityVo vo) {
         service.save(vo);
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    @Operation(
-            summary = "实名信息审核",
-            tags = {"v1.0.0"},
-            description = "实名信息审核")
+
+    @Operation(summary = "实名信息审核", tags = {"v1.0.0"}, description = "实名信息审核")
     @Parameter(in = ParameterIn.PATH, description = "实名信息id", name = "identityId", required = true)
     @PutMapping(value = "/audit/{identityId}")
-    public Result<String> audit(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "实名信息id不能为空")
-                    String identityId,
-            @RequestBody @Valid RbacUserIdentityVo vo) {
+    public Result<String> audit(@PathVariable(required = false) @PathNotBlankOrNull(message = "实名信息id不能为空") String identityId, @RequestBody @Valid RbacUserIdentityVo vo) {
         service.audit(identityId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "实名信息表分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询实名信息表")
+
+    @Operation(summary = "实名信息表分页查询", tags = {"v1.0.0"}, description = "分页查询实名信息表")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<RbacUserIdentityPageDto>> selectPage(
-            @RequestBody RbacUserIdentityPageVo vo) {
+    public Result<PageDto<RbacUserIdentityPageDto>> selectPage(@RequestBody RbacUserIdentityPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

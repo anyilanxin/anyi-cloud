@@ -41,4 +41,5 @@ import org.springframework.stereotype.Repository;
  * @since JDK1.8
  */
 @Repository
-public interface ReDeploymentMapper extends BaseMapper<ReDeploymentEntity> {}
+public interface ReDeploymentMapper extends BaseMapper<ReDeploymentEntity> {
+}

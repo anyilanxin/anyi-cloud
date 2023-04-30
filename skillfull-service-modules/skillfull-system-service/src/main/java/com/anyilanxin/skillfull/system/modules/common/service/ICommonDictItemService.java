@@ -56,6 +56,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     void save(CommonDictItemVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -68,6 +69,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     void updateById(String itemId, CommonDictItemVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -78,6 +80,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      * @date 2020-11-02 09:25:26
      */
     PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -90,6 +93,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     List<CommonDictItemDto> selectListByCode(String dictCode) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -101,6 +105,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     CommonDictItemDto getById(String itemId) throws RuntimeException;
 
+
     /**
      * 通过itemId删除
      *
@@ -111,6 +116,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     void deleteById(String itemId) throws RuntimeException;
 
+
     /**
      * 文件批量删除
      *
@@ -120,6 +126,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      * @date 2020-10-24 22:59
      */
     void deleteBatch(List<String> itemIds) throws RuntimeException;
+
 
     /**
      * 修改字典项状态

@@ -86,8 +86,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
             throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
         }
         // 同步角色信息
-        Set<UserRoleModel> userRoleById =
-                rbacRoleMapper.getUserAuthRole(userId, "", AuthConstant.SUPER_ROLE);
+        Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole(userId, "", AuthConstant.SUPER_ROLE);
         if (CollUtil.isNotEmpty(userRoleById)) {
             UserGroupRequestModel userGroupVo = new UserGroupRequestModel();
             userGroupVo.setUserId(userId);
@@ -101,6 +100,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         }
     }
 
+
     @Override
     @GlobalTransactional
     public void deleteUser(String userId) {
@@ -111,41 +111,39 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         }
     }
 
+
     @Override
     @GlobalTransactional
     public void syncUserAll() {
         // 数据组装
         List<RbacUserEntity> rbacUserEntities = userMapper.selectList(Wrappers.emptyWrapper());
         if (CollUtil.isNotEmpty(rbacUserEntities)) {
-            Set<UserRoleModel> userRoleById =
-                    rbacRoleMapper.getUserAuthRole("", "", AuthConstant.SUPER_ROLE);
+            Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole("", "", AuthConstant.SUPER_ROLE);
             Map<String, Set<String>> userAndRoles = new HashMap<>(rbacUserEntities.size());
             if (CollUtil.isNotEmpty(userRoleById)) {
-                userRoleById.forEach(
-                        v -> {
-                            Set<String> roles = userAndRoles.get(v.getUserId());
-                            if (CollectionUtil.isEmpty(roles)) {
-                                roles = new HashSet<>();
-                            }
-                            roles.add(v.getRoleId());
-                            if (CollUtil.isNotEmpty(roles)) {
-                                userAndRoles.put(v.getUserId(), roles);
-                            }
-                        });
+                userRoleById.forEach(v -> {
+                    Set<String> roles = userAndRoles.get(v.getUserId());
+                    if (CollectionUtil.isEmpty(roles)) {
+                        roles = new HashSet<>();
+                    }
+                    roles.add(v.getRoleId());
+                    if (CollUtil.isNotEmpty(roles)) {
+                        userAndRoles.put(v.getUserId(), roles);
+                    }
+                });
             }
             Set<SyncUserRequestModel> voSet = new HashSet<>(rbacUserEntities.size());
-            rbacUserEntities.forEach(
-                    v -> {
-                        SyncUserRequestModel vo = new SyncUserRequestModel();
-                        vo.setUserId(v.getUserId());
-                        vo.setEmail(v.getEmail());
-                        vo.setUserName(v.getUserName());
-                        vo.setRealName(v.getRealName());
-                        UserDetailRequestModel userDetailVo = userProcessDtoMap.bToA(v);
-                        vo.setDetailInfo(userDetailVo);
-                        vo.setGroupIds(userAndRoles.get(v.getUserId()));
-                        voSet.add(vo);
-                    });
+            rbacUserEntities.forEach(v -> {
+                SyncUserRequestModel vo = new SyncUserRequestModel();
+                vo.setUserId(v.getUserId());
+                vo.setEmail(v.getEmail());
+                vo.setUserName(v.getUserName());
+                vo.setRealName(v.getRealName());
+                UserDetailRequestModel userDetailVo = userProcessDtoMap.bToA(v);
+                vo.setDetailInfo(userDetailVo);
+                vo.setGroupIds(userAndRoles.get(v.getUserId()));
+                voSet.add(vo);
+            });
             // 同步用户信息
             Result<String> stringResult = remoteService.syncUser(voSet);
             if (!stringResult.isSuccess()) {
@@ -153,6 +151,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
             }
         }
     }
+
 
     @Override
     @GlobalTransactional
@@ -169,6 +168,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         }
     }
 
+
     @Override
     @GlobalTransactional
     public void deleteRole(String roleId) {
@@ -179,6 +179,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         }
     }
 
+
     @Override
     @GlobalTransactional
     public void syncRoleAll() {
@@ -186,14 +187,13 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         List<RbacRoleEntity> rbacRoleEntities = rbacRoleMapper.selectList(Wrappers.emptyWrapper());
         if (CollUtil.isNotEmpty(rbacRoleEntities)) {
             Set<SyncGroupRequestModel> voSet = new HashSet<>(rbacRoleEntities.size());
-            rbacRoleEntities.forEach(
-                    v -> {
-                        SyncGroupRequestModel vo = new SyncGroupRequestModel();
-                        vo.setGroupId(v.getRoleId());
-                        vo.setCode(v.getRoleCode());
-                        vo.setName(v.getRoleName());
-                        voSet.add(vo);
-                    });
+            rbacRoleEntities.forEach(v -> {
+                SyncGroupRequestModel vo = new SyncGroupRequestModel();
+                vo.setGroupId(v.getRoleId());
+                vo.setCode(v.getRoleCode());
+                vo.setName(v.getRoleName());
+                voSet.add(vo);
+            });
             Result<String> stringResult = remoteService.syncGroup(voSet);
             if (!stringResult.isSuccess()) {
                 throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");

@@ -52,6 +52,7 @@ public interface IDynamicRouteService {
      */
     void addRoute(SystemRouterModel vo) throws RuntimeException;
 
+
     /**
      * 更新路由
      *
@@ -61,6 +62,7 @@ public interface IDynamicRouteService {
      * @date 2020-09-10 22:45
      */
     void updateRoute(SystemRouterModel vo) throws RuntimeException;
+
 
     /**
      * 删除路由
@@ -72,6 +74,7 @@ public interface IDynamicRouteService {
      */
     void deleteRoute(String routeId) throws RuntimeException;
 
+
     /**
      * 查询路由
      *
@@ -81,6 +84,7 @@ public interface IDynamicRouteService {
      * @date 2020-09-10 22:49
      */
     Flux<RouteResponseModel> getRoutes() throws RuntimeException;
+
 
     /**
      * 加载或刷新路由

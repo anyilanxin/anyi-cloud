@@ -56,16 +56,17 @@ import reactor.core.publisher.Mono;
  * @since JDK11
  */
 @Slf4j
-public class LogResponseGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<LogResponseGatewayFilterFactory.Config> {
+public class LogResponseGatewayFilterFactory extends AbstractGatewayFilterFactory<LogResponseGatewayFilterFactory.Config> {
     public LogResponseGatewayFilterFactory() {
         super(Config.class);
     }
+
 
     @Override
     public List<String> shortcutFieldOrder() {
         return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
     }
+
 
     @Override
     public GatewayFilter apply(Config config) {
@@ -84,27 +85,26 @@ public class LogResponseGatewayFilterFactory
             this.config = config;
         }
 
+
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------LogGatewayFilter------------>filter:{}", "响应数据处理过滤器");
-            return chain.filter(
-                    exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
+            return chain.filter(exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
         }
+
 
         @Override
         public int getOrder() {
             return -2;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
+
 
         public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
@@ -120,10 +120,10 @@ public class LogResponseGatewayFilterFactory
             return specialUrl;
         }
 
+
         public Config setSpecialUrl(String specialUrl) {
             if (StringUtils.isNotBlank(specialUrl)) {
-                this.specialUrl =
-                        JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
+                this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
             }
             return this;
         }

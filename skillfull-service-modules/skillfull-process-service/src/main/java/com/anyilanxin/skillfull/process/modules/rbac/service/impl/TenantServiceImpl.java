@@ -65,8 +65,7 @@ public class TenantServiceImpl implements ITenantService {
     @Override
     @GlobalTransactional
     public void saveOrUpdate(TenantVo vo) throws RuntimeException {
-        Tenant tenant =
-                identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
+        Tenant tenant = identityService.createTenantQuery().tenantId(vo.getTenantId()).singleResult();
         if (Objects.isNull(tenant)) {
             tenant = vo.getCamundaTenant();
         } else {
@@ -76,11 +75,13 @@ public class TenantServiceImpl implements ITenantService {
         identityService.saveTenant(tenant);
     }
 
+
     @Override
     public TenantDto getTenant(String tenantId) throws RuntimeException {
         Tenant tenant = getCamundaTenant(tenantId);
         return new TenantDto().getTenant(tenant);
     }
+
 
     @Override
     @GlobalTransactional
@@ -98,6 +99,7 @@ public class TenantServiceImpl implements ITenantService {
         }
     }
 
+
     @Override
     public List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException {
         TenantQuery tenantQuery = identityService.createTenantQuery();
@@ -113,6 +115,7 @@ public class TenantServiceImpl implements ITenantService {
         return tenantList;
     }
 
+
     @Override
     public PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
         TenantQuery tenantQuery = identityService.createTenantQuery();
@@ -120,22 +123,18 @@ public class TenantServiceImpl implements ITenantService {
             tenantQuery.tenantNameLike("%" + vo.getName() + "%");
         }
         if (CollUtil.isNotEmpty(vo.getAscs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("name")) {
-                                    tenantQuery.orderByTenantName().asc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("name")) {
+                    tenantQuery.orderByTenantName().asc();
+                }
+            });
         }
         if (CollUtil.isNotEmpty(vo.getDescs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("name")) {
-                                    tenantQuery.orderByTenantName().desc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("name")) {
+                    tenantQuery.orderByTenantName().desc();
+                }
+            });
         }
         long count = tenantQuery.count();
         if (count == 0L) {
@@ -143,13 +142,13 @@ public class TenantServiceImpl implements ITenantService {
         }
         List<Tenant> list = tenantQuery.listPage(vo.getCurrent(), vo.getSize());
         List<TenantDto> tenantList = new ArrayList<>(list.size());
-        list.forEach(
-                v -> {
-                    TenantDto tenantDto = new TenantDto().getTenant(v);
-                    tenantList.add(tenantDto);
-                });
+        list.forEach(v -> {
+            TenantDto tenantDto = new TenantDto().getTenant(v);
+            tenantList.add(tenantDto);
+        });
         return new PageDto<>(count, tenantList);
     }
+
 
     /**
      * 获取租户信息
@@ -167,6 +166,7 @@ public class TenantServiceImpl implements ITenantService {
         }
         return tenant;
     }
+
 
     @Override
     @GlobalTransactional

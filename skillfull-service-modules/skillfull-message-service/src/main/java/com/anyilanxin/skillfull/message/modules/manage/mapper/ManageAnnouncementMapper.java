@@ -61,8 +61,8 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
      * @author zxiaozhou
      * @date 2022-03-29 08:34:21
      */
-    IPage<ManageAnnouncementPageDto> pageByModel(
-            Page<ManageAnnouncementPageDto> page, @Param("query") ManageAnnouncementPageVo vo);
+    IPage<ManageAnnouncementPageDto> pageByModel(Page<ManageAnnouncementPageDto> page, @Param("query") ManageAnnouncementPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -74,6 +74,7 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
      */
     List<ManageAnnouncementDto> selectListByModel(ManageAnnouncementQueryVo vo);
 
+
     /**
      * 通过通知公告id物理删除
      *
@@ -83,6 +84,7 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
      * @date 2022-03-29 08:34:21
      */
     int physicalDeleteById(@Param("id") String anntId);
+
 
     /**
      * 通过通知公告id物理批量删除

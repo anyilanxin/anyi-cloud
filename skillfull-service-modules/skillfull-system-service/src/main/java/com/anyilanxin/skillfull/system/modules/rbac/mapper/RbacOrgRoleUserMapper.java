@@ -58,8 +58,8 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxiaozhou
      * @date 2022-07-04 01:18
      */
-    Set<String> selectUserOrgRoleListById(
-            @Param("userId") String userId, @Param("orgId") String orgId);
+    Set<String> selectUserOrgRoleListById(@Param("userId") String userId, @Param("orgId") String orgId);
+
 
     /**
      * 获取用户机构角色(完整数据)
@@ -70,8 +70,8 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxiaozhou
      * @date 2022-07-04 01:18
      */
-    Set<RbacRoleSimpleDto> selectUserOrgRoleAllInfoListById(
-            @Param("userId") String userId, @Param("orgId") String orgId);
+    Set<RbacRoleSimpleDto> selectUserOrgRoleAllInfoListById(@Param("userId") String userId, @Param("orgId") String orgId);
+
 
     /**
      * 查询用户在某个机构下的角色信息
@@ -82,8 +82,8 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxiaozhou
      * @date 2022-07-05 00:36
      */
-    Set<RoleInfo> selectByUserIdAndOrgId(
-            @Param("userId") String userId, @Param("orgId") String orgId);
+    Set<RoleInfo> selectByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
+
 
     /**
      * 查询用户在某个机构下的角色关联菜单信息
@@ -95,10 +95,8 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxiaozhou
      * @date 2022-07-05 00:36
      */
-    Set<RbacMenuDto> selectMenuByUserIdAndOrgId(
-            @Param("userId") String userId,
-            @Param("orgId") String orgId,
-            @Param("systemCodes") Set<String> systemCodeSet);
+    Set<RbacMenuDto> selectMenuByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId, @Param("systemCodes") Set<String> systemCodeSet);
+
 
     /**
      * 通过角色用户id物理删除
@@ -110,6 +108,7 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      */
     int physicalDeleteById(@Param("id") String roleUserId);
 
+
     /**
      * 通过用户id物理删除
      *
@@ -119,6 +118,7 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @date 2022-07-02 23:01:20
      */
     int physicalDeleteByUserId(@Param("id") String userId);
+
 
     /**
      * 通过角色用户id物理批量删除

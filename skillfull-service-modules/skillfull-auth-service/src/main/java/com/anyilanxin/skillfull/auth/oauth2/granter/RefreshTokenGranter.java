@@ -46,20 +46,13 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 @Slf4j
 public class RefreshTokenGranter extends AbstractTokenGranter {
 
-    public RefreshTokenGranter(
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.REFRESH_TOKEN.getType());
+    public RefreshTokenGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.REFRESH_TOKEN.getType());
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         return super.getOAuth2Authentication(client, tokenRequest);
     }

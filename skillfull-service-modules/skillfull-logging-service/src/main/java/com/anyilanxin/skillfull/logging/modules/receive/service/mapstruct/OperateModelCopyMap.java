@@ -43,8 +43,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-08-13 10:24:41
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface OperateModelCopyMap extends BaseMap<OperateEntity, OperateLogModel> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface OperateModelCopyMap extends BaseMap<OperateEntity, OperateLogModel> {
+}

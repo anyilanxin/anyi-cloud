@@ -53,6 +53,7 @@ public class DefaultOauth2RefreshTokenSerializer implements ObjectDeserializer {
         return null;
     }
 
+
     @Override
     public int getFastMatchToken() {
         return 0;

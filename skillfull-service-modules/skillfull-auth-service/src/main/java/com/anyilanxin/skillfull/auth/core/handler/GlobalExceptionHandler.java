@@ -86,17 +86,14 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<String> handleException(Exception e) {
         e.printStackTrace();
-        log.error(
-                "------------GlobalExceptionHandler------处理所有不可知的异常------>handleException--->异常消息:\n{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------处理所有不可知的异常------>handleException--->异常消息:\n{}", e.getMessage());
         Throwable cause = e.getCause();
         if (Objects.nonNull(cause)) {
             if (cause instanceof ResponseException) {
                 ResponseException exception = (ResponseException) cause;
                 Result<Object> result = exception.getResult();
                 return fail(result.getCode(), result.getMessage());
-            } else if (Objects.nonNull(cause.getCause())
-                    && cause.getCause() instanceof ResponseException) {
+            } else if (Objects.nonNull(cause.getCause()) && cause.getCause() instanceof ResponseException) {
                 ResponseException exception = (ResponseException) cause.getCause();
                 Result<Object> result = exception.getResult();
                 return fail(result.getCode(), result.getMessage());
@@ -108,6 +105,7 @@ public class GlobalExceptionHandler extends BaseController {
         }
         return fail("服务器出问题了:" + e.getMessage());
     }
+
 
     /**
      * 处理自定义异常
@@ -122,11 +120,10 @@ public class GlobalExceptionHandler extends BaseController {
     public Result<String> handlerResponseException(ResponseException e) {
         e.printStackTrace();
         Result<Object> result = e.getResult();
-        log.error(
-                "------------GlobalExceptionHandler------处理自定义异常------>handlerResponseException:\n{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------处理自定义异常------>handlerResponseException:\n{}", e.getMessage());
         return fail(result.getCode(), result.getMessage());
     }
+
 
     /**
      * 处理鉴权异常
@@ -140,11 +137,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result<String> handlerUnauthorizedUserException(UnauthorizedUserException e) {
         e.printStackTrace();
-        log.error(
-                "-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}",
-                e.getMessage());
+        log.error("-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
         return fail(Status.TOKEN_EXPIRED, e.getMessage());
     }
+
 
     /**
      * 处理请求参数校验(普通传参)异常
@@ -165,8 +161,7 @@ public class GlobalExceptionHandler extends BaseController {
             String defaultMessage = error.getDefaultMessage();
             Map messageParameters = unwrap.getMessageParameters();
             if (CollectionUtil.isNotEmpty(messageParameters)) {
-                Object dynamicMessage =
-                        messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
+                Object dynamicMessage = messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
                 if (Objects.nonNull(dynamicMessage)) {
                     defaultMessage = dynamicMessage.toString();
                 }
@@ -174,11 +169,10 @@ public class GlobalExceptionHandler extends BaseController {
             sb.append(",").append(defaultMessage);
         }
         String errMeg = sb.toString().replaceFirst(",", "");
-        log.error(
-                "------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleBindException:\n{}",
-                errMeg);
+        log.error("------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleBindException:\n{}", errMeg);
         return fail(Status.VERIFICATION_FAILED, errMeg);
     }
+
 
     /**
      * 处理请求参数校验(普通传参)异常
@@ -200,8 +194,7 @@ public class GlobalExceptionHandler extends BaseController {
                 ConstraintViolationImpl constraintViolation = (ConstraintViolationImpl) violation;
                 Map messageParameters = constraintViolation.getMessageParameters();
                 if (CollectionUtil.isNotEmpty(messageParameters)) {
-                    Object dynamicMessage =
-                            messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
+                    Object dynamicMessage = messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
                     if (Objects.nonNull(dynamicMessage)) {
                         defaultMessage = dynamicMessage.toString();
                     }
@@ -210,11 +203,10 @@ public class GlobalExceptionHandler extends BaseController {
             sb.append(",").append(defaultMessage);
         }
         String errMeg = sb.toString().replaceFirst(",", "");
-        log.error(
-                "------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleConstraintViolationException:\n{}",
-                errMeg);
+        log.error("------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleConstraintViolationException:\n{}", errMeg);
         return fail(Status.VERIFICATION_FAILED, errMeg);
     }
+
 
     /**
      * 处理请求参数校验(实体对象传参)异常
@@ -234,8 +226,7 @@ public class GlobalExceptionHandler extends BaseController {
             String defaultMessage = error.getDefaultMessage();
             Map messageParameters = unwrap.getMessageParameters();
             if (CollectionUtil.isNotEmpty(messageParameters)) {
-                Object dynamicMessage =
-                        messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
+                Object dynamicMessage = messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
                 if (Objects.nonNull(dynamicMessage)) {
                     defaultMessage = dynamicMessage.toString();
                 }
@@ -243,11 +234,10 @@ public class GlobalExceptionHandler extends BaseController {
             sb.append(",").append(defaultMessage);
         }
         String errMeg = sb.toString().replaceFirst(",", "");
-        log.error(
-                "------------GlobalExceptionHandler------处理请求参数校验(实体对象传参)异常------>handleMethodArgumentNotValidException:\n{}",
-                errMeg);
+        log.error("------------GlobalExceptionHandler------处理请求参数校验(实体对象传参)异常------>handleMethodArgumentNotValidException:\n{}", errMeg);
         return fail(Status.VERIFICATION_FAILED, errMeg);
     }
+
 
     /**
      * 处理数据库数据重复异常
@@ -262,22 +252,18 @@ public class GlobalExceptionHandler extends BaseController {
     public Result<String> handleDuplicateKeyException(DuplicateKeyException e) {
         e.printStackTrace();
         String errMsg = e.getLocalizedMessage();
-        log.error(
-                "------------GlobalExceptionHandler------处理数据库数据重复异常------>handleDuplicateKeyException:\n{}",
-                errMsg);
+        log.error("------------GlobalExceptionHandler------处理数据库数据重复异常------>handleDuplicateKeyException:\n{}", errMsg);
         if (StringUtils.isNotBlank(errMsg)) {
             String[] errMsgs = errMsg.split("###");
             if (errMsgs.length >= 2) {
                 errMsg = errMsgs[1];
                 errMsgs = errMsg.split(":");
-                errMsg =
-                        errMsgs[errMsgs.length - 1]
-                                .replaceAll(" Duplicate entry ", "")
-                                .replaceAll("\n", "");
+                errMsg = errMsgs[errMsgs.length - 1].replaceAll(" Duplicate entry ", "").replaceAll("\n", "");
             }
         }
         return fail("数据库关键信息重复:" + errMsg);
     }
+
 
     /**
      * 处理不支持请求方式
@@ -289,14 +275,12 @@ public class GlobalExceptionHandler extends BaseController {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public Result<String> handleHttpRequestMethodNotSupportedException(
-            HttpRequestMethodNotSupportedException e) {
+    public Result<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         e.printStackTrace();
-        log.error(
-                "------------GlobalExceptionHandler-----处理不支持请求方式------->handleHttpRequestMethodNotSupportedException:\n{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler-----处理不支持请求方式------->handleHttpRequestMethodNotSupportedException:\n{}", e.getMessage());
         return fail("请求方式不支持:" + e.getMessage());
     }
+
 
     /**
      * post请求缺少body参数
@@ -310,11 +294,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         e.printStackTrace();
-        log.error(
-                "------------GlobalExceptionHandler------post请求缺少body参数------>handleHttpMessageNotReadableException:\n{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------post请求缺少body参数------>handleHttpMessageNotReadableException:\n{}", e.getMessage());
         return fail("post请求缺少body参数:" + e.getMessage());
     }
+
 
     /**
      * 请求地址不存在
@@ -326,14 +309,12 @@ public class GlobalExceptionHandler extends BaseController {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Result<String> handleNoSuchElementException(
-            NoHandlerFoundException e, ServletServerHttpRequest request) {
+    public Result<String> handleNoSuchElementException(NoHandlerFoundException e, ServletServerHttpRequest request) {
         e.printStackTrace();
-        log.info(
-                "------------GlobalExceptionHandler------请求地址不存在------>handleNoSuchElementException:\n{}",
-                request.getURI().getPath());
+        log.info("------------GlobalExceptionHandler------请求地址不存在------>handleNoSuchElementException:\n{}", request.getURI().getPath());
         return fail("请求地址不存在:" + e.getMessage());
     }
+
 
     /**
      * 处理数据库唯一性校验失败异常
@@ -345,12 +326,9 @@ public class GlobalExceptionHandler extends BaseController {
      */
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Result<String> handleSQLIntegrityConstraintViolationException(
-            SQLIntegrityConstraintViolationException e) {
+    public Result<String> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
         e.printStackTrace();
-        log.error(
-                "------------GlobalExceptionHandler------处理数据库唯一性校验失败异常------>handleSQLIntegrityConstraintViolationException:\n{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------处理数据库唯一性校验失败异常------>handleSQLIntegrityConstraintViolationException:\n{}", e.getMessage());
         String errMsg = e.getLocalizedMessage();
         if (StringUtils.isNotBlank(errMsg)) {
             String[] errMsgs = errMsg.split("###");
@@ -362,6 +340,7 @@ public class GlobalExceptionHandler extends BaseController {
         }
         return fail("数据库必填字段没有值:" + errMsg);
     }
+
 
     /**
      * feign请求异常
@@ -375,12 +354,11 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<String> handleFeignException(FeignException e) {
         e.printStackTrace();
-        log.error(
-                "------------GlobalExceptionHandler------feign请求异常------>handleFeignException--->异常消息:\n{}",
-                e.getLocalizedMessage());
+        log.error("------------GlobalExceptionHandler------feign请求异常------>handleFeignException--->异常消息:\n{}", e.getLocalizedMessage());
         String resultStringMsg = e.contentUTF8();
         if (StringUtils.isNotBlank(resultStringMsg)) {
-            return JSONObject.parseObject(resultStringMsg, new TypeReference<Result<String>>() {});
+            return JSONObject.parseObject(resultStringMsg, new TypeReference<Result<String>>() {
+            });
         } else {
             return fail(e.getLocalizedMessage());
         }

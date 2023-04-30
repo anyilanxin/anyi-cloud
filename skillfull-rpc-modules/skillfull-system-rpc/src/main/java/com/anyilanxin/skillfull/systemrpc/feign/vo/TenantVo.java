@@ -75,6 +75,7 @@ public class TenantVo implements Serializable {
         return Objects.equals(getTenantId(), tenantVo.getTenantId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getTenantId());

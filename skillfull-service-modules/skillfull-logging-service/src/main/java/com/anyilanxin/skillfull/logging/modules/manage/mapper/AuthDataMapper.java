@@ -58,8 +58,8 @@ public interface AuthDataMapper extends MysqlBaseMapper<AuthDataEntity> {
      * @author zxiaozhou
      * @date 2022-01-26 21:53:03
      */
-    IPage<AuthDataPageDto> pageByModel(
-            Page<AuthDataPageDto> page, @Param("query") AuthDataPageVo vo);
+    IPage<AuthDataPageDto> pageByModel(Page<AuthDataPageDto> page, @Param("query") AuthDataPageVo vo);
+
 
     /**
      * 通过授权日志id物理删除
@@ -70,6 +70,7 @@ public interface AuthDataMapper extends MysqlBaseMapper<AuthDataEntity> {
      * @date 2022-01-26 21:53:03
      */
     int physicalDeleteById(@Param("id") String authLogId);
+
 
     /**
      * 通过授权日志id物理批量删除

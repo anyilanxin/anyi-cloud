@@ -57,6 +57,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     void save(CommonCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     void updateById(String categoryId, CommonCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -80,6 +82,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     PageDto<CommonCategoryPageDto> pageByModel(CommonCategoryPageVo vo) throws RuntimeException;
 
+
     /**
      * 根据统一分类id查询分类
      *
@@ -89,8 +92,8 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
      */
-    List<CommonCategoryDto> selectListByCommonCode(String categoryCommonCode)
-            throws RuntimeException;
+    List<CommonCategoryDto> selectListByCommonCode(String categoryCommonCode) throws RuntimeException;
+
 
     /**
      * 根据统一分类id查询分类(树形)
@@ -101,8 +104,8 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
      */
-    List<CommonCategoryTreeDto> selectTreeListByCommonCode(String categoryCommonCode)
-            throws RuntimeException;
+    List<CommonCategoryTreeDto> selectTreeListByCommonCode(String categoryCommonCode) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -115,6 +118,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     CommonCategoryDto getById(String categoryId) throws RuntimeException;
 
+
     /**
      * 通过categoryId删除
      *
@@ -124,6 +128,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @date 2020-08-28 12:20
      */
     void deleteById(String categoryId) throws RuntimeException;
+
 
     /**
      * 分类字典表批量删除
@@ -135,6 +140,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     void deleteBatch(List<String> categoryIds) throws RuntimeException;
 
+
     /**
      * 分类查询下级
      *
@@ -145,6 +151,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @date 2021-01-08 00:01
      */
     List<CommonCategoryPageDto> selectPageChildren(String parentId) throws RuntimeException;
+
 
     /**
      * 查询所有分类编码

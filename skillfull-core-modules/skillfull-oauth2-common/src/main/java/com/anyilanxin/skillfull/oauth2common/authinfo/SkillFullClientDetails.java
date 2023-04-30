@@ -114,25 +114,30 @@ public class SkillFullClientDetails implements ClientDetails {
         return this.clientId;
     }
 
+
     @Override
     public Set<String> getResourceIds() {
         return this.resourceIds;
     }
+
 
     @Override
     public boolean isSecretRequired() {
         return StringUtils.isNotBlank(this.clientSecret);
     }
 
+
     @Override
     public String getClientSecret() {
         return this.clientSecret;
     }
 
+
     @Override
     public boolean isScoped() {
         return this.scoped;
     }
+
 
     @Override
     public Set<String> getScope() {
@@ -142,15 +147,18 @@ public class SkillFullClientDetails implements ClientDetails {
         return this.scope;
     }
 
+
     @Override
     public Set<String> getAuthorizedGrantTypes() {
         return this.authorizedGrantTypes;
     }
 
+
     @Override
     public Set<String> getRegisteredRedirectUri() {
         return this.registeredRedirectUri;
     }
+
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -160,20 +168,24 @@ public class SkillFullClientDetails implements ClientDetails {
         return new ArrayList<>(this.authorities);
     }
 
+
     @Override
     public Integer getAccessTokenValiditySeconds() {
         return this.accessTokenValiditySeconds;
     }
+
 
     @Override
     public Integer getRefreshTokenValiditySeconds() {
         return this.refreshTokenValiditySeconds;
     }
 
+
     @Override
     public boolean isAutoApprove(String scope) {
         return this.autoApprove;
     }
+
 
     @Override
     public Map<String, Object> getAdditionalInformation() {

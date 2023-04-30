@@ -79,6 +79,7 @@ public enum ProcessInstanceState implements ISuperType {
         this.describe = describe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -97,6 +98,7 @@ public enum ProcessInstanceState implements ISuperType {
         return false;
     }
 
+
     /**
      * 根据类型获取
      *
@@ -114,6 +116,7 @@ public enum ProcessInstanceState implements ISuperType {
         }
         return null;
     }
+
 
     /**
      * 根据类型获取
@@ -140,6 +143,7 @@ public enum ProcessInstanceState implements ISuperType {
         return null;
     }
 
+
     /**
      * 根据类型获取
      *
@@ -158,6 +162,7 @@ public enum ProcessInstanceState implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -173,6 +178,7 @@ public enum ProcessInstanceState implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

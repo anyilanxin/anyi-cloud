@@ -67,7 +67,9 @@ public class ValidateDto implements Serializable {
     @Schema(name = "codeId", title = "code Id")
     private String codeId;
 
-    @JsonIgnore private boolean status;
+    @JsonIgnore
+    private boolean status;
 
-    @JsonIgnore private String msg;
+    @JsonIgnore
+    private String msg;
 }

@@ -57,10 +57,7 @@ public class RbacCorrelateRoleVo implements Serializable {
     @NotBlankOrNull(message = "关联id不能为空")
     private String correlateId;
 
-    @Schema(
-            name = "correlateType",
-            title = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致",
-            required = true)
+    @Schema(name = "correlateType", title = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致", required = true)
     @NotBlankOrNull(message = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致不能为空")
     private Integer correlateType;
 

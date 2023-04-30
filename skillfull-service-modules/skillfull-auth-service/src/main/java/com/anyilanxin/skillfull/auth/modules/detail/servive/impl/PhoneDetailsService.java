@@ -53,8 +53,7 @@ public class PhoneDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        SkillFullUserDetails userDetails =
-                Oauth2CommonUtils.toUserDetails(authService.getUserByPhone(phone));
+        SkillFullUserDetails userDetails = Oauth2CommonUtils.toUserDetails(authService.getUserByPhone(phone));
         Oauth2LogUtils.setUserDetailInfo(userDetails);
         return userDetails;
     }

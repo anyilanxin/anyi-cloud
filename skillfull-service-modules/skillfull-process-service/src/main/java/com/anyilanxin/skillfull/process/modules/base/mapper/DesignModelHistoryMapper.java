@@ -57,8 +57,8 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
      * @author zxiaozhou
      * @date 2021-11-25 09:52:36
      */
-    IPage<DesignModelHistoryPageDto> pageByModel(
-            Page<DesignModelHistoryPageDto> page, @Param("query") DesignModelHistoryPageVo vo);
+    IPage<DesignModelHistoryPageDto> pageByModel(Page<DesignModelHistoryPageDto> page, @Param("query") DesignModelHistoryPageVo vo);
+
 
     /**
      * 通过历史模型id物理删除
@@ -69,6 +69,7 @@ public interface DesignModelHistoryMapper extends BaseMapper<DesignModelHistoryE
      * @date 2021-11-25 09:52:36
      */
     int physicalDeleteById(@Param("id") String historyModelId);
+
 
     /**
      * 通过历史模型id物理批量删除

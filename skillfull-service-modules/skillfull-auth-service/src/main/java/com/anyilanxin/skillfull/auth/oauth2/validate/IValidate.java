@@ -51,6 +51,7 @@ public interface IValidate {
      */
     ValidateDto getVerification(JSONObject parameter, HttpServletRequest request);
 
+
     /**
      * 验证码验证
      *

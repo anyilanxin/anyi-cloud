@@ -69,10 +69,7 @@ public class ManageServiceVo implements Serializable {
     @NotBlankOrNull(message = "服务名不能为空")
     private String serviceName;
 
-    @Schema(
-            name = "isLoadBalancer",
-            title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填",
-            required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填", required = true)
     @NotBlankOrNull(message = "服务是否负载均衡不能为空")
     private Integer isLoadBalancer;
 

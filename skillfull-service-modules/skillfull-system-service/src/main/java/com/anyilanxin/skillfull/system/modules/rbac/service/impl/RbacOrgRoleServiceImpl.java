@@ -68,8 +68,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacOrgRoleEntity>
-        implements IRbacOrgRoleService {
+public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacOrgRoleEntity> implements IRbacOrgRoleService {
     private final RbacOrgRoleCopyMap map;
     private final IRbacOrgRoleMenuService menuService;
     private final RbacOrgRoleUserMapper rbacOrgRoleUserMapper;
@@ -83,10 +82,10 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         RbacOrgRoleEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -98,31 +97,28 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         entity.setOrgRoleId(orgRoleId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public RbacOrgRoleDto getById(String orgRoleId) throws RuntimeException {
         RbacOrgRoleEntity byId = super.getById(orgRoleId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -132,8 +128,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         // 删除数据
         boolean b = this.removeById(orgRoleId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         List<String> roleIds = new ArrayList<>(1);
         roleIds.add(orgRoleId);
@@ -145,28 +140,24 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         rbacOrgRoleUserMapper.physicalDeleteBatchIds(roleIds);
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> orgRoleIds) throws RuntimeException {
         List<RbacOrgRoleEntity> entities = this.listByIds(orgRoleIds);
         if (CollUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         entities.forEach(v -> deleteById(v.getOrgRoleId()));
     }
+
 
     @Override
     public void updateAuth(String orgRoleId, RbacOrgRoleAuthVo vo) {
         // 查询数据是否存在
         this.getById(orgRoleId);
         // 更新数据
-        RbacOrgRoleEntity rbacRoleEntity =
-                RbacOrgRoleEntity.builder()
-                        .customDataAuthData(vo.getCustomDataAuthData())
-                        .dataAuthType(vo.getDataAuthType())
-                        .orgRoleId(orgRoleId)
-                        .build();
+        RbacOrgRoleEntity rbacRoleEntity = RbacOrgRoleEntity.builder().customDataAuthData(vo.getCustomDataAuthData()).dataAuthType(vo.getDataAuthType()).orgRoleId(orgRoleId).build();
         boolean b = this.updateById(rbacRoleEntity);
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新权限失败");
@@ -175,6 +166,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         menuService.deleteBatch(List.of(rbacRoleEntity.getOrgRoleId()));
         menuService.saveBatch(rbacRoleEntity.getOrgRoleId(), vo.getMenuIds());
     }
+
 
     @Override
     public Set<RbacOrgRoleMenuButtonDto> getMenuActions(String orgRoleId) {
@@ -186,30 +178,26 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         if (CollUtil.isNotEmpty(rbacRolePermission)) {
             List<RbacOrgRoleMenuButtonDto> permissionInfos = new ArrayList<>();
             List<RbacOrgRoleMenuButtonDto.Action> actions = new ArrayList<>();
-            rbacRolePermission.forEach(
-                    v -> {
-                        if (v.getMenuType() == MenuType.MENU.getType()) {
-                            permissionInfos.add(menuActionMap.vToD(v));
-                        } else if (v.getMenuType() == MenuType.BUTTON.getType()) {
-                            actions.add(menuActionMap.vToE(v));
+            rbacRolePermission.forEach(v -> {
+                if (v.getMenuType() == MenuType.MENU.getType()) {
+                    permissionInfos.add(menuActionMap.vToD(v));
+                } else if (v.getMenuType() == MenuType.BUTTON.getType()) {
+                    actions.add(menuActionMap.vToE(v));
+                }
+            });
+            if (CollUtil.isNotEmpty(actions) && CollUtil.isNotEmpty(permissionInfos)) {
+                permissionInfos.forEach(v -> {
+                    Set<RbacOrgRoleMenuButtonDto.Action> finalActions = new HashSet<>();
+                    String menuId = v.getMenuId();
+                    actions.forEach(sv -> {
+                        if (menuId.equals(sv.getParentId()) && sv.getRoleId().equals(v.getRoleId())) {
+                            finalActions.add(sv);
                         }
                     });
-            if (CollUtil.isNotEmpty(actions) && CollUtil.isNotEmpty(permissionInfos)) {
-                permissionInfos.forEach(
-                        v -> {
-                            Set<RbacOrgRoleMenuButtonDto.Action> finalActions = new HashSet<>();
-                            String menuId = v.getMenuId();
-                            actions.forEach(
-                                    sv -> {
-                                        if (menuId.equals(sv.getParentId())
-                                                && sv.getRoleId().equals(v.getRoleId())) {
-                                            finalActions.add(sv);
-                                        }
-                                    });
-                            if (CollUtil.isNotEmpty(finalActions)) {
-                                v.setActionSet(finalActions);
-                            }
-                        });
+                    if (CollUtil.isNotEmpty(finalActions)) {
+                        v.setActionSet(finalActions);
+                    }
+                });
             }
             if (CollUtil.isNotEmpty(permissionInfos)) {
                 return new HashSet<>(permissionInfos);
@@ -217,6 +205,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         }
         return Collections.emptySet();
     }
+
 
     @Override
     public void updateStatus(String orgRoleId, Integer status) {
@@ -227,8 +216,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         entity.setRoleStatus(status);
         boolean b = this.updateById(entity);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, "角色" + (status == 0 ? "禁用" : "启用") + "失败");
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, "角色" + (status == 0 ? "禁用" : "启用") + "失败");
         }
     }
 }

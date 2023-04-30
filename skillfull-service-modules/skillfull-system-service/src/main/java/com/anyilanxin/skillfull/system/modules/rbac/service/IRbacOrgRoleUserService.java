@@ -54,6 +54,7 @@ public interface IRbacOrgRoleUserService extends BaseService<RbacOrgRoleUserEnti
      */
     void saveBatch(String userId, String orgId, Set<String> orgRoleIds) throws RuntimeException;
 
+
     /**
      * 通过指定用户以及机构删除
      *

@@ -51,22 +51,14 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 public class OpenIdTokenGranter extends AbstractTokenGranter {
     private final AuthenticationManager authenticationManager;
 
-    public OpenIdTokenGranter(
-            AuthenticationManager authenticationManager,
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.OPEN_ID.getType());
+    public OpenIdTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.OPEN_ID.getType());
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         Map<String, String> requestParameters = tokenRequest.getRequestParameters();
         String openId = requestParameters.get("open_id");

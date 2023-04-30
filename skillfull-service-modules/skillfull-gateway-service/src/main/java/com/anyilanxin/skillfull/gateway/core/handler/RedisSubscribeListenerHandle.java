@@ -57,34 +57,25 @@ public class RedisSubscribeListenerHandle {
         routeService.loadRoute();
     }
 
+
     public void deleteRouter(String msg) {
         log.info("-----------deleteApi------------->收到消息:{}", msg);
         routeService.deleteRoute(msg);
     }
 
+
     public void updateRouter(String msg) {
         log.info("----------updateApi-------------->收到消息:{}", msg);
-        reactiveStringRedisTemplate
-                .opsForValue()
-                .get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + msg)
-                .flatMap(
-                        item -> {
-                            if (StringUtils.isNotBlank(item)) {
-                                SystemRouterModel vo =
-                                        JSONObject.parseObject(item, SystemRouterModel.class);
-                                routeService.updateRoute(vo);
-                            }
-                            return Mono.empty();
-                        })
-                .onErrorContinue(
-                        (throwable, routeDefinition) -> {
-                            if (log.isErrorEnabled()) {
-                                log.error(
-                                        "get routes from redis error cause : {}",
-                                        throwable.toString(),
-                                        throwable);
-                            }
-                        })
-                .subscribe();
+        reactiveStringRedisTemplate.opsForValue().get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + msg).flatMap(item -> {
+            if (StringUtils.isNotBlank(item)) {
+                SystemRouterModel vo = JSONObject.parseObject(item, SystemRouterModel.class);
+                routeService.updateRoute(vo);
+            }
+            return Mono.empty();
+        }).onErrorContinue((throwable, routeDefinition) -> {
+            if (log.isErrorEnabled()) {
+                log.error("get routes from redis error cause : {}", throwable.toString(), throwable);
+            }
+        }).subscribe();
     }
 }

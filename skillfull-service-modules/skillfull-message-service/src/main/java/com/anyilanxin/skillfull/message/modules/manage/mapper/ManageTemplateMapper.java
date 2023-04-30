@@ -58,8 +58,8 @@ public interface ManageTemplateMapper extends BaseMapper<ManageTemplateEntity> {
      * @author zxiaozhou
      * @date 2022-03-29 05:23:43
      */
-    IPage<ManageTemplatePageDto> pageByModel(
-            Page<ManageTemplatePageDto> page, @Param("query") ManageTemplatePageVo vo);
+    IPage<ManageTemplatePageDto> pageByModel(Page<ManageTemplatePageDto> page, @Param("query") ManageTemplatePageVo vo);
+
 
     /**
      * 通过模板id物理删除
@@ -70,6 +70,7 @@ public interface ManageTemplateMapper extends BaseMapper<ManageTemplateEntity> {
      * @date 2022-03-29 05:23:43
      */
     int physicalDeleteById(@Param("id") String templateId);
+
 
     /**
      * 通过模板id物理批量删除

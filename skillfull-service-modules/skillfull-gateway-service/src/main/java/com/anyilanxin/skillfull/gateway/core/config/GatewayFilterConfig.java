@@ -56,22 +56,24 @@ public class GatewayFilterConfig {
         return new CorsOptionsWebFilter();
     }
 
+
     @Bean
-    public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory(
-            final CustomSecurityProperties securityProperties,
-            final AntPathMatcher antPathMatcher) {
+    public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory(final CustomSecurityProperties securityProperties, final AntPathMatcher antPathMatcher) {
         return new AuthorizeGatewayFilterFactory(securityProperties, antPathMatcher);
     }
+
 
     @Bean
     public LogRequestGatewayFilterFactory logRequestGatewayFilterFactory() {
         return new LogRequestGatewayFilterFactory();
     }
 
+
     @Bean
     public LogResponseGatewayFilterFactory logResponseGatewayFilterFactory() {
         return new LogResponseGatewayFilterFactory();
     }
+
 
     @Bean
     public CorsWebGatewayFilterFactory corsWebGatewayFilterFactory() {

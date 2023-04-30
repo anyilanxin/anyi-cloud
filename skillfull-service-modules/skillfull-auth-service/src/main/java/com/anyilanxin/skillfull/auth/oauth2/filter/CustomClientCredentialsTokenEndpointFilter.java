@@ -48,30 +48,29 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @since JDK1.8
  */
 @Slf4j
-public class CustomClientCredentialsTokenEndpointFilter
-        extends ClientCredentialsTokenEndpointFilter {
+public class CustomClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
     private final AuthorizationServerSecurityConfigurer configurer;
 
-    public CustomClientCredentialsTokenEndpointFilter(
-            AuthorizationServerSecurityConfigurer configurer) {
+    public CustomClientCredentialsTokenEndpointFilter(AuthorizationServerSecurityConfigurer configurer) {
         this.configurer = configurer;
     }
+
 
     @Override
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
         super.setAuthenticationSuccessHandler(successHandler);
     }
 
+
     @Override
     protected AuthenticationManager getAuthenticationManager() {
         return configurer.and().getSharedObject(AuthenticationManager.class);
     }
 
+
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(
-            HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         return super.attemptAuthentication(request, response);
     }
 }

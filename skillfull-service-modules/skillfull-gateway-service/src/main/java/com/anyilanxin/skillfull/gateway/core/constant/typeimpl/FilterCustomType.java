@@ -55,24 +55,12 @@ import lombok.Getter;
 @ConstantType
 public enum FilterCustomType implements ISuperType {
     /** 鉴权过滤器 */
-    AUTHORIZE(
-            CoreCommonGatewayConstant.AUTHORIZE_FILTER,
-            "鉴权",
-            AuthorizeGatewayFilterFactory.class.getName(),
-            "2",
-            3),
+    AUTHORIZE(CoreCommonGatewayConstant.AUTHORIZE_FILTER, "鉴权", AuthorizeGatewayFilterFactory.class.getName(), "2", 3),
 
     /**
      * 日志处理(前置+后置)，前置必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
      */
-    LOG_REQUEST(
-            "LogRequest,LogResponse",
-            "日志记录",
-            LogRequestGatewayFilterFactory.class.getName()
-                    + ","
-                    + LogResponseGatewayFilterFactory.class.getName(),
-            LOAD_BALANCER_CLIENT_FILTER_ORDER + 1 + ",-2",
-            1),
+    LOG_REQUEST("LogRequest,LogResponse", "日志记录", LogRequestGatewayFilterFactory.class.getName() + "," + LogResponseGatewayFilterFactory.class.getName(), LOAD_BALANCER_CLIENT_FILTER_ORDER + 1 + ",-2", 1),
 
     /** 跨域处理过滤器(后置) */
     CORS_WEB("CorsWeb", "跨域处理", CorsWebGatewayFilterFactory.class.getName(), "1", 0);
@@ -92,18 +80,14 @@ public enum FilterCustomType implements ISuperType {
     /** 过滤器顺序 */
     private final String order;
 
-    FilterCustomType(
-            String filterType,
-            String filterTypeDescribe,
-            String filterTypeClassName,
-            String order,
-            int specialUrlType) {
+    FilterCustomType(String filterType, String filterTypeDescribe, String filterTypeClassName, String order, int specialUrlType) {
         this.filterType = filterType;
         this.filterTypeDescribe = filterTypeDescribe;
         this.filterTypeClassName = filterTypeClassName;
         this.order = order;
         this.specialUrlType = specialUrlType;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -123,6 +107,7 @@ public enum FilterCustomType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -138,6 +123,7 @@ public enum FilterCustomType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     /**
      * 通过class name获取类型
@@ -156,6 +142,7 @@ public enum FilterCustomType implements ISuperType {
         }
         return null;
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

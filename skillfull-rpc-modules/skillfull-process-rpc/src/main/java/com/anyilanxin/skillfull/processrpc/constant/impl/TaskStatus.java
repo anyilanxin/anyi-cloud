@@ -91,6 +91,7 @@ public enum TaskStatus implements ISuperType {
         this.describe = describe;
     }
 
+
     /**
      * 判断某个值是否存在
      *
@@ -108,6 +109,7 @@ public enum TaskStatus implements ISuperType {
         }
         return false;
     }
+
 
     /**
      * 根据类型获取LB
@@ -127,6 +129,7 @@ public enum TaskStatus implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取某个字符串前面匹配的Lb类型
      *
@@ -145,6 +148,7 @@ public enum TaskStatus implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -160,6 +164,7 @@ public enum TaskStatus implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

@@ -42,8 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-01-07 23:40:25
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonCategoryDtoMap extends BaseMap<CommonCategoryDto, CommonCategoryEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonCategoryDtoMap extends BaseMap<CommonCategoryDto, CommonCategoryEntity> {
+}

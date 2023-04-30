@@ -71,9 +71,11 @@ public class PageDto<T> implements Serializable {
         }
     }
 
+
     public PageDto() {
         this.records = Collections.emptyList();
     }
+
 
     public PageDto(long total, List<T> records) {
         this.total = total;
@@ -82,6 +84,7 @@ public class PageDto<T> implements Serializable {
             this.records = records;
         }
     }
+
 
     public PageDto(IPage<?> page, List<T> records) {
         this.total = page.getTotal();

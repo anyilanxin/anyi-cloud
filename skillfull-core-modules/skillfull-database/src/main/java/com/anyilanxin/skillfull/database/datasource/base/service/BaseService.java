@@ -38,4 +38,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @date 2020-06-22 17:19
  * @since JDK11
  */
-public interface BaseService<T> extends IService<T> {}
+public interface BaseService<T> extends IService<T> {
+}

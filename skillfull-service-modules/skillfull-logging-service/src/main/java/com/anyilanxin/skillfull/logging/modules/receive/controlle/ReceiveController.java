@@ -66,20 +66,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReceiveController extends BaseController {
     private final IReceiveService service;
 
-    @Operation(
-            summary = "接收授权日志",
-            tags = {"v1.0.0"},
-            description = "接收授权日志")
+    @Operation(summary = "接收授权日志", tags = {"v1.0.0"}, description = "接收授权日志")
     @DeleteMapping(value = "/receive/auth-log")
     public Result<String> receiveAuthLog(@RequestBody AuthLogModel model) {
         service.saveAuth(model);
         return ok("接收成功");
     }
 
-    @Operation(
-            summary = "批量接收授权日志",
-            tags = {"v1.0.0"},
-            description = "接收授权日志")
+
+    @Operation(summary = "批量接收授权日志", tags = {"v1.0.0"}, description = "接收授权日志")
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @DeleteMapping(value = "/receive/batch/auth-log")
     public Result<String> receiveBatchAuthLog(@RequestBody List<AuthLogModel> models) {
@@ -87,20 +82,16 @@ public class ReceiveController extends BaseController {
         return ok("批量接收成功");
     }
 
-    @Operation(
-            summary = "接收操作日志",
-            tags = {"v1.0.0"},
-            description = "接收操作日志")
+
+    @Operation(summary = "接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/operate-log")
     public Result<String> receiveOperateLog(@RequestBody OperateLogModel model) {
         service.saveOperate(model);
         return ok("接收成功");
     }
 
-    @Operation(
-            summary = "批量接收操作日志",
-            tags = {"v1.0.0"},
-            description = "接收操作日志")
+
+    @Operation(summary = "批量接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/batch/operate-log")
     public Result<String> receiveBatchOperateLog(@RequestBody List<OperateLogModel> models) {
         service.saveOperateBatch(models);

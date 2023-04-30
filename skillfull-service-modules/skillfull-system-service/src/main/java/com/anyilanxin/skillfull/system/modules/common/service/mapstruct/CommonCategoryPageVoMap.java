@@ -42,9 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-01-07 23:40:35
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonCategoryPageVoMap
-        extends BaseMap<CommonCategoryPageVo, CommonCategoryEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonCategoryPageVoMap extends BaseMap<CommonCategoryPageVo, CommonCategoryEntity> {
+}

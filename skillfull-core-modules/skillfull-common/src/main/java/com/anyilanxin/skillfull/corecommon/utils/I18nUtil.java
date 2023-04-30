@@ -59,6 +59,7 @@ public class I18nUtil {
         util = this;
     }
 
+
     /**
      * 获取单个国际化翻译值
      *
@@ -74,6 +75,7 @@ public class I18nUtil {
             return code;
         }
     }
+
 
     /**
      * 获取单个国际化翻译值
@@ -92,6 +94,7 @@ public class I18nUtil {
         }
     }
 
+
     /**
      * 获取单个国际化翻译值
      *
@@ -108,6 +111,7 @@ public class I18nUtil {
             return code;
         }
     }
+
 
     /**
      * 获取单个国际化翻译值
@@ -126,6 +130,7 @@ public class I18nUtil {
             return defaultMessage;
         }
     }
+
 
     /**
      * i18n兼容处理

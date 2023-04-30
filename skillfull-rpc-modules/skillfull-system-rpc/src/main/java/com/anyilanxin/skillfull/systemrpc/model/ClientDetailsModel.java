@@ -84,9 +84,7 @@ public class ClientDetailsModel implements Serializable {
     @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
     private String signatureKey;
 
-    @Schema(
-            name = "authorizedGrantTypes",
-            title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array")
+    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array")
     private List<String> authorizedGrantTypes;
 
     @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0")
@@ -107,11 +105,7 @@ public class ClientDetailsModel implements Serializable {
     @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0")
     private Integer innerSystem;
 
-    @Schema(
-            name = "lastAuthTime",
-            title = "上次授权时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "lastAuthTime", title = "上次授权时间", type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime lastAuthTime;
 

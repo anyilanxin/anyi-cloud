@@ -53,16 +53,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class StorageEngineServiceAliOssImpl implements IStorageEngineService {
 
     @Override
-    public StorageInfoModel storage(
-            MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
+    public StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
         return null;
     }
 
+
     @Override
-    public List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
+    public List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
         return null;
     }
+
 
     @Override
     public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {

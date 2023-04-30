@@ -58,6 +58,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     void save(RbacUserAgentVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -68,6 +69,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @date 2022-05-02 16:12:20
      */
     void updateById(String agentId, RbacUserAgentVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -80,6 +82,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -90,6 +93,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @date 2022-05-02 16:12:20
      */
     List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -102,6 +106,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     RbacUserAgentDto getById(String agentId) throws RuntimeException;
 
+
     /**
      * 通过agentId删除
      *
@@ -111,6 +116,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @date 2022-05-02 16:12:20
      */
     void deleteById(String agentId) throws RuntimeException;
+
 
     /**
      * 用户-代理人表批量删除

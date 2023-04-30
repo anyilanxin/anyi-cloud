@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageTemplateEntity extends BaseEntity {
     private static final long serialVersionUID = 125199450464820958L;
 
-    @TableId private String templateId;
+    @TableId
+    private String templateId;
 
     /** 模板名称 */
     private String templateName;

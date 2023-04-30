@@ -58,6 +58,7 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
+
     /**
      * 存储websocket session,键为sessionId
      *
@@ -69,6 +70,7 @@ public class MybatisPlusConfig {
     public ConcurrentHashMap<String, Session> socketSessionsCache() {
         return new ConcurrentHashMap<>();
     }
+
 
     /**
      * sql公共字段自定义注入

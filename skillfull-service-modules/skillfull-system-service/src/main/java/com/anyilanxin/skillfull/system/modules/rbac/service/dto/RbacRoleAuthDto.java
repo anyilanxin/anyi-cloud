@@ -60,9 +60,7 @@ public class RbacRoleAuthDto implements Serializable {
     @Schema(name = "apiIds", title = "资源api列表(只有非角色权限指令才有必要授权)")
     private List<String> apiIds;
 
-    @Schema(
-            name = "dataAuthType",
-            title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,8-仅自己")
+    @Schema(name = "dataAuthType", title = "数据权限类型：1-全部,2-机构,3-机构及以下,4-机构自定义,5-区域,6-区域及以下,7-区域自定义,8-仅自己")
     private Integer dataAuthType;
 
     @Schema(name = "customDataAuthData", title = "自定义类数据权限数据")

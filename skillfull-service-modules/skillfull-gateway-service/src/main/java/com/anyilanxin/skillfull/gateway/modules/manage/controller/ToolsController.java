@@ -62,23 +62,17 @@ import reactor.core.publisher.Mono;
 public class ToolsController extends BaseController {
     private final IToolService service;
 
-    @Operation(
-            summary = "获取请求安全基础信息",
-            tags = {"v1.0.0"},
-            description = "获取请求安全基础信息")
+    @Operation(summary = "获取请求安全基础信息", tags = {"v1.0.0"}, description = "获取请求安全基础信息")
     @GetMapping("/select/base-security")
     Mono<Result<WebSecurityModel>> getBaseSecurity() {
         return ok(service.getBaseSecurity());
     }
 
-    @Operation(
-            summary = "请求安全基础信息刷新",
-            tags = {"v1.0.0"},
-            description = "请求安全基础信息刷新")
+
+    @Operation(summary = "请求安全基础信息刷新", tags = {"v1.0.0"}, description = "请求安全基础信息刷新")
     @Parameter(in = ParameterIn.PATH, description = "请求序列", name = "serialNumber", required = true)
     @GetMapping("/select/base-security/refresh/{serialNumber}")
-    Mono<Result<WebSecurityModel>> getRefreshBaseSecurity(
-            @PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber) {
+    Mono<Result<WebSecurityModel>> getRefreshBaseSecurity(@PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber) {
         return ok(service.getRefreshBaseSecurity(serialNumber));
     }
 }

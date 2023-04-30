@@ -63,10 +63,8 @@ public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-                OAuth2AuthenticationDetails token =
-                        (OAuth2AuthenticationDetails) authentication.getDetails();
-                template.header(
-                        AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
+                OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
+                template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
             }
         } catch (Exception e) {
             log.error("------------------设置token下传失败------apply--->{}", e.getMessage());

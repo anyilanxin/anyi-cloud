@@ -56,6 +56,7 @@ public interface ManageRouteFilterMapper extends BaseMapper<ManageRouteFilterEnt
      */
     int physicalDeleteById(@Param("id") String filterId);
 
+
     /**
      * 通过过滤器id物理批量删除
      *

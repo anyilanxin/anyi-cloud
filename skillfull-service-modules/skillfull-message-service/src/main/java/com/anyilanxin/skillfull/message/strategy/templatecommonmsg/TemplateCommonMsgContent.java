@@ -56,18 +56,15 @@ import org.springframework.stereotype.Component;
 public class TemplateCommonMsgContent {
     private final IManageTemplateService templateService;
     private final IManageSendRecordService recordService;
-    private static final Map<String, ITemplateCommonMsgStrategy> STRATEGY =
-            new ConcurrentHashMap<>();
+    private static final Map<String, ITemplateCommonMsgStrategy> STRATEGY = new ConcurrentHashMap<>();
 
     @Autowired
-    public TemplateCommonMsgContent(
-            final Map<String, ITemplateCommonMsgStrategy> strategyMap,
-            final IManageTemplateService templateService,
-            final IManageSendRecordService recordService) {
+    public TemplateCommonMsgContent(final Map<String, ITemplateCommonMsgStrategy> strategyMap, final IManageTemplateService templateService, final IManageSendRecordService recordService) {
         STRATEGY.putAll(strategyMap);
         this.templateService = templateService;
         this.recordService = recordService;
     }
+
 
     /**
      * 发送通用模板消息
@@ -84,11 +81,9 @@ public class TemplateCommonMsgContent {
         }
         ManageTemplateSendInfoDto sendInfo = templateService.getSendInfo(model.getTemplateCode());
         if (Objects.isNull(sendInfo)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, "未找到当前模板的配置信息:" + model.getTemplateCode());
         }
-        List<ManageSendRecordEntity> manageSendRecordEntities =
-                commonMsgStrategy.sendMsg(model, sendInfo);
+        List<ManageSendRecordEntity> manageSendRecordEntities = commonMsgStrategy.sendMsg(model, sendInfo);
         return recordService.saveBatchRecord(manageSendRecordEntities);
     }
 }

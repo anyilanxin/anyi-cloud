@@ -52,9 +52,9 @@ public class NotNullSizeValidator implements ConstraintValidator<NotNullSize, Co
         this.max = constraintAnnotation.max();
     }
 
+
     @Override
-    public boolean isValid(
-            Collection value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Collection value, ConstraintValidatorContext constraintValidatorContext) {
         if (CollectionUtils.isEmpty(value)) {
             return false;
         }

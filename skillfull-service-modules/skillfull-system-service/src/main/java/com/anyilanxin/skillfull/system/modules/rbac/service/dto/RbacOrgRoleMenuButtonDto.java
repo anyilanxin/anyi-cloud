@@ -82,6 +82,7 @@ public class RbacOrgRoleMenuButtonDto implements Serializable {
         return Objects.equals(getMenuId(), that.getMenuId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getMenuId());
@@ -127,6 +128,7 @@ public class RbacOrgRoleMenuButtonDto implements Serializable {
             Action action = (Action) o;
             return Objects.equals(getMenuId(), action.getMenuId());
         }
+
 
         @Override
         public int hashCode() {

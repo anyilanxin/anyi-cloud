@@ -59,6 +59,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     void save(ProcessCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -71,6 +72,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     void updateById(String categoryId, ProcessCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -81,6 +83,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:47:01
      */
     PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -93,6 +96,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo) throws RuntimeException;
 
+
     /**
      * 通过编码查询所有类表
      *
@@ -103,6 +107,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes);
 
+
     /**
      * 通过编码查询类表
      *
@@ -112,6 +117,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:58
      */
     ProcessCategoryDto selectByCode(String categoryCode);
+
 
     /**
      * 通过id查询详情
@@ -124,6 +130,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     ProcessCategoryDto getById(String categoryId) throws RuntimeException;
 
+
     /**
      * 通过categoryId删除
      *
@@ -133,6 +140,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:47:01
      */
     void deleteById(String categoryId) throws RuntimeException;
+
 
     /**
      * 获取建模流程类别下拉列表

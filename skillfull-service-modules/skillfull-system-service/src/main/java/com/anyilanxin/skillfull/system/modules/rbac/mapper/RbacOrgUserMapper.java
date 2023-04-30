@@ -57,6 +57,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      */
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
 
+
     /**
      * 通过机构用户id物理删除
      *
@@ -67,6 +68,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      */
     int physicalDeleteById(@Param("id") String orgUserId);
 
+
     /**
      * 通过用户id物理删除
      *
@@ -76,6 +78,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      * @date 2022-07-02 23:01:20
      */
     int physicalDeleteByUserId(@Param("id") String userId);
+
 
     /**
      * 通过机构用户id物理批量删除

@@ -52,6 +52,7 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(Status.ERROR);
     }
 
+
     /**
      * 构造函数
      *
@@ -61,6 +62,7 @@ public class ResponseException extends RuntimeException {
         super(status.getMessage());
         this.result = new Result<>(status);
     }
+
 
     /**
      * 构造函数
@@ -73,6 +75,7 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(status, data);
     }
 
+
     /**
      * 构造函数
      *
@@ -84,6 +87,7 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(status, message);
     }
 
+
     /**
      * 构造函数
      *
@@ -93,6 +97,7 @@ public class ResponseException extends RuntimeException {
         super(message);
         this.result = new Result<>(Status.ERROR, message);
     }
+
 
     /**
      * 构造函数
@@ -105,6 +110,7 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(code, message);
     }
 
+
     /**
      * 构造函数
      *
@@ -114,6 +120,7 @@ public class ResponseException extends RuntimeException {
         super(result.getMessage());
         this.result = result;
     }
+
 
     /**
      * 获取错误堆栈信息
@@ -129,9 +136,11 @@ public class ResponseException extends RuntimeException {
         }
     }
 
+
     public Result<Object> getResult() {
         return result;
     }
+
 
     /**
      * 获取错误堆栈信息

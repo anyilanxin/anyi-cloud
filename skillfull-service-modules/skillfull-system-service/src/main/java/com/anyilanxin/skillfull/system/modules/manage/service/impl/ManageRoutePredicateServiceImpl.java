@@ -59,20 +59,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageRoutePredicateServiceImpl
-        extends ServiceImpl<ManageRoutePredicateMapper, ManageRoutePredicateEntity>
-        implements IManageRoutePredicateService {
+public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePredicateMapper, ManageRoutePredicateEntity> implements IManageRoutePredicateService {
     private final ManageRoutePredicateCopyMap map;
     private final ManageRoutePredicateMapper mapper;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(
-            List<ManageRoutePredicateVo> vos, String routerId, String serviceId, boolean override)
-            throws RuntimeException {
+    public void save(List<ManageRoutePredicateVo> vos, String routerId, String serviceId, boolean override) throws RuntimeException {
         if (override) {
-            LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
-                    new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routerId);
             List<ManageRoutePredicateEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
@@ -87,85 +82,74 @@ public class ManageRoutePredicateServiceImpl
         // 保存新数据
         if (CollUtil.isNotEmpty(vos)) {
             List<ManageRoutePredicateEntity> list = new ArrayList<>(vos.size());
-            vos.forEach(
-                    v -> {
-                        ManageRoutePredicateEntity manageRoutePredicateEntity = map.vToE(v);
-                        manageRoutePredicateEntity.setRouteId(routerId);
-                        manageRoutePredicateEntity.setServiceId(serviceId);
-                        list.add(manageRoutePredicateEntity);
-                    });
+            vos.forEach(v -> {
+                ManageRoutePredicateEntity manageRoutePredicateEntity = map.vToE(v);
+                manageRoutePredicateEntity.setRouteId(routerId);
+                manageRoutePredicateEntity.setServiceId(serviceId);
+                list.add(manageRoutePredicateEntity);
+            });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<ManageRoutePredicateDto> getByRouteId(String routeId) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routeId);
         return map.eToD(this.list(lambdaQueryWrapper));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public Map<String, List<ManageRoutePredicateDto>> getByRouteId(Set<String> routeIds)
-            throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public Map<String, List<ManageRoutePredicateDto>> getByRouteId(Set<String> routeIds) throws RuntimeException {
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routeIds);
         List<ManageRoutePredicateEntity> list = this.list(lambdaQueryWrapper);
         Map<String, List<ManageRoutePredicateDto>> stringListMap = new HashMap<>();
         if (CollUtil.isNotEmpty(list)) {
-            list.forEach(
-                    v -> {
-                        List<ManageRoutePredicateDto> manageRoutePredicateDtos =
-                                stringListMap.get(v.getRouteId());
-                        if (CollectionUtil.isEmpty(manageRoutePredicateDtos)) {
-                            manageRoutePredicateDtos = new ArrayList<>();
-                        }
-                        manageRoutePredicateDtos.add(map.eToD(v));
-                        stringListMap.put(v.getRouteId(), manageRoutePredicateDtos);
-                    });
+            list.forEach(v -> {
+                List<ManageRoutePredicateDto> manageRoutePredicateDtos = stringListMap.get(v.getRouteId());
+                if (CollectionUtil.isEmpty(manageRoutePredicateDtos)) {
+                    manageRoutePredicateDtos = new ArrayList<>();
+                }
+                manageRoutePredicateDtos.add(map.eToD(v));
+                stringListMap.put(v.getRouteId(), manageRoutePredicateDtos);
+            });
         }
         return stringListMap;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageRoutePredicateDto getById(String predicateId) throws RuntimeException {
         ManageRoutePredicateEntity byId = super.getById(predicateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterId(String routerId) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routerId);
         this.remove(lambdaQueryWrapper);
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterIds(Set<String> routerIds) throws RuntimeException {
-        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routerIds);
         this.remove(lambdaQueryWrapper);
     }

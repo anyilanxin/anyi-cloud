@@ -44,9 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-04-05 09:57:59
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface StorageInfoFileCopyMap
-        extends BaseThreeMap<StorageInfoFileEntity, StorageInfoModel, StorageInfoFileVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface StorageInfoFileCopyMap extends BaseThreeMap<StorageInfoFileEntity, StorageInfoModel, StorageInfoFileVo> {
+}

@@ -55,6 +55,7 @@ public interface IStorageEngineService {
      */
     StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request);
 
+
     /**
      * 批量存储
      *
@@ -64,8 +65,8 @@ public interface IStorageEngineService {
      * @author zxiaozhou
      * @date 2022-04-05 10:19
      */
-    List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+    List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+
 
     /**
      * 批量url地址存储

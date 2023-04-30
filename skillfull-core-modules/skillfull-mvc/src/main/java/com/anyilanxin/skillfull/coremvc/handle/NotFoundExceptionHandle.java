@@ -60,8 +60,6 @@ public class NotFoundExceptionHandle extends BaseController implements ErrorCont
     @ResponseBody
     public Result<String> error(HttpServletRequest request, HttpServletResponse response) {
         response.setStatus(HttpStatus.NOT_FOUND.value());
-        return fail(
-                Status.REQUEST_NOT_FOUND,
-                "请求页面不存在:" + request.getMethod() + " " + request.getRequestURI());
+        return fail(Status.REQUEST_NOT_FOUND, "请求页面不存在:" + request.getMethod() + " " + request.getRequestURI());
     }
 }

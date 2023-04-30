@@ -68,7 +68,9 @@ public class Result<T> implements Serializable {
     @Schema(title = "响应时间")
     private long timestamp;
 
-    public Result() {}
+    public Result() {
+    }
+
 
     public Result(Status status) {
         this.setSuccess(status.getCode() == 0);
@@ -76,6 +78,7 @@ public class Result<T> implements Serializable {
         this.setMessage(status.getMessage());
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(Status status, T data) {
         this.setSuccess(status.getCode() == 0);
@@ -85,6 +88,7 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(Status status, String message) {
         this.setSuccess(status.getCode() == 0);
         this.setCode(status.getCode());
@@ -92,6 +96,7 @@ public class Result<T> implements Serializable {
         this.setData(data);
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(Status status, String message, T data) {
         this.setSuccess(status.getCode() == 0);
@@ -101,6 +106,7 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(int code, T data) {
         this.setSuccess(code == 0);
         this.setCode(code);
@@ -108,12 +114,14 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(int code, String message) {
         this.setSuccess(code == 0);
         this.setCode(code);
         this.setMessage(message);
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(int code, String message, T data) {
         this.setSuccess(code == 0);

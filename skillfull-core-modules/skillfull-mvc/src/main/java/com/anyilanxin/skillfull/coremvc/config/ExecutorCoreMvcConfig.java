@@ -71,7 +71,7 @@ public class ExecutorCoreMvcConfig {
         // 线程池名前缀
         executor.setThreadNamePrefix(CommonCoreMvcConstant.TASK_EXECUTOR_PREFIX);
         // 增加 TaskDecorator 属性的配置线程间同步数据
-        //        executor.setTaskDecorator(new ContextDecorator());
+        // executor.setTaskDecorator(new ContextDecorator());
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
         return executor;

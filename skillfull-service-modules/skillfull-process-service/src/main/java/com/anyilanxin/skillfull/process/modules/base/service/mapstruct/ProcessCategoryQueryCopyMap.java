@@ -42,9 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-11-19 10:47:01
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ProcessCategoryQueryCopyMap
-        extends BaseMap<ProcessCategoryQueryVo, ProcessCategoryEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ProcessCategoryQueryCopyMap extends BaseMap<ProcessCategoryQueryVo, ProcessCategoryEntity> {
+}

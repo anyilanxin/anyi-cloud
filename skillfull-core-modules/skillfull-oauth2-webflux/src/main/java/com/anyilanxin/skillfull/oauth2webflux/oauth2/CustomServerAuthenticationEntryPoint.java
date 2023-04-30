@@ -67,14 +67,11 @@ public class CustomServerAuthenticationEntryPoint implements ServerAuthenticatio
 
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException e) {
-        log.error(
-                "------------RestAuthenticationEntryPoint------------>commence--->异常消息:\n{}",
-                e.getMessage());
+        log.error("------------RestAuthenticationEntryPoint------------>commence--->异常消息:\n{}", e.getMessage());
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        Result<String> result =
-                new Result<>(Status.ACCESS_ERROR, getLocalMessage(LOCAL, e.getMessage()));
+        Result<String> result = new Result<>(Status.ACCESS_ERROR, getLocalMessage(LOCAL, e.getMessage()));
         String body = JSONUtil.toJsonStr(result);
         DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));

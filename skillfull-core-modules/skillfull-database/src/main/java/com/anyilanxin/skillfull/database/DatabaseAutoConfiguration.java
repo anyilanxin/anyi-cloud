@@ -41,4 +41,5 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @AutoConfiguration
 @ComponentScan
-public class DatabaseAutoConfiguration {}
+public class DatabaseAutoConfiguration {
+}

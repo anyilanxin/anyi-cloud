@@ -58,8 +58,8 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      * @author zxiaozhou
      * @date 2021-12-19 00:22:19
      */
-    IPage<ManageServicePageDto> pageByModel(
-            Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
+    IPage<ManageServicePageDto> pageByModel(Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
+
 
     /**
      * 通过服务id物理删除
@@ -70,6 +70,7 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      * @date 2021-12-19 00:22:19
      */
     int physicalDeleteById(@Param("id") String serviceId);
+
 
     /**
      * 通过服务id物理批量删除

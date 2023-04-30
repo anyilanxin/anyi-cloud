@@ -58,8 +58,8 @@ public interface RbacSystemMapper extends BaseMapper<RbacSystemEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 11:46:37
      */
-    IPage<RbacSystemPageDto> pageByModel(
-            Page<RbacSystemPageDto> page, @Param("query") RbacSystemPageVo vo);
+    IPage<RbacSystemPageDto> pageByModel(Page<RbacSystemPageDto> page, @Param("query") RbacSystemPageVo vo);
+
 
     /**
      * 通过系统id物理删除
@@ -70,6 +70,7 @@ public interface RbacSystemMapper extends BaseMapper<RbacSystemEntity> {
      * @date 2022-05-02 11:46:37
      */
     int physicalDeleteById(@Param("id") String systemId);
+
 
     /**
      * 通过系统id物理批量删除

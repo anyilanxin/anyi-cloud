@@ -56,6 +56,7 @@ public interface INacosService {
      */
     void subscribe(NacosSubscribeVo vo) throws RuntimeException;
 
+
     /**
      * 取消服务变化订阅
      *
@@ -65,6 +66,7 @@ public interface INacosService {
      * @date 2020-10-11 13:03
      */
     void unsubscribe(NacosSubscribeVo vo) throws RuntimeException;
+
 
     /**
      * 服务实例上下线
@@ -76,6 +78,7 @@ public interface INacosService {
      */
     void updateInstance(NacosUpdateInstanceVo vo) throws RuntimeException;
 
+
     /**
      * 查询某个服务所有实例
      *
@@ -86,6 +89,7 @@ public interface INacosService {
      * @date 2020-10-11 13:03
      */
     ServiceInstanceDto getAllInstances(NacosAllInstancesQueryVo vo) throws RuntimeException;
+
 
     /**
      * 获取已经注册的服务

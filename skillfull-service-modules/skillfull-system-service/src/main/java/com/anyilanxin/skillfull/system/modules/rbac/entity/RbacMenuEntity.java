@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacMenuEntity extends BaseEntity {
     private static final long serialVersionUID = 391242347439472730L;
 
-    @TableId private String menuId;
+    @TableId
+    private String menuId;
 
     /** 父id */
     private String parentId;

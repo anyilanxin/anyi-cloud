@@ -71,19 +71,14 @@ public class ManageRouteVo implements Serializable {
     @NotBlankOrNull(message = "路由名称不能为空")
     private String routeName;
 
-    @Schema(
-            name = "isLoadBalancer",
-            title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应",
-            required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应", required = true)
     @NotBlankOrNull(message = "是否负载均衡器不能为空")
     private Integer isLoadBalancer;
 
     @Schema(name = "url", title = "路由url地址,当选择非负载均衡器时必填")
     private String url;
 
-    @Schema(
-            name = "loadBalancerType",
-            title = "负载均衡器类型:0-lb,1-lb:ws,2-lb:wss,来自常量字典:gateway-service:LbType")
+    @Schema(name = "loadBalancerType", title = "负载均衡器类型:0-lb,1-lb:ws,2-lb:wss,来自常量字典:gateway-service:LbType")
     private String loadBalancerType;
 
     @Schema(name = "metadataJson", title = "路由元数据,数据库json存储,入库前转为字符串")

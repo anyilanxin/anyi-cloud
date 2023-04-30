@@ -79,12 +79,11 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
     private String clusterName;
 
     @Autowired
-    public CustomNacosNamingServiceImpl(
-            NacosDiscoveryProperties properties, ServiceInstancePageMap instancePageMap)
-            throws NacosException {
+    public CustomNacosNamingServiceImpl(NacosDiscoveryProperties properties, ServiceInstancePageMap instancePageMap) throws NacosException {
         init(properties);
         this.instancePageMap = instancePageMap;
     }
+
 
     private void init(NacosDiscoveryProperties properties) throws NacosException {
         ValidatorUtils.checkInitParam(properties.getNacosProperties());
@@ -93,20 +92,11 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         this.clusterName = properties.getClusterName();
         initServerAddr(properties.getNacosProperties());
         InitUtils.initWebRootContext(properties.getNacosProperties());
-        ServerListManager serverListManager =
-                new ServerListManager(properties.getNacosProperties(), namespace);
-        SecurityProxy securityProxy =
-                new SecurityProxy(
-                        properties.getNacosProperties(),
-                        NamingHttpClientManager.getInstance().getNacosRestTemplate());
-        this.serverProxy =
-                new NamingHttpClientProxy(
-                        this.namespace,
-                        securityProxy,
-                        serverListManager,
-                        properties.getNacosProperties(),
-                        null);
+        ServerListManager serverListManager = new ServerListManager(properties.getNacosProperties(), namespace);
+        SecurityProxy securityProxy = new SecurityProxy(properties.getNacosProperties(), NamingHttpClientManager.getInstance().getNacosRestTemplate());
+        this.serverProxy = new NamingHttpClientProxy(this.namespace, securityProxy, serverListManager, properties.getNacosProperties(), null);
     }
+
 
     private void initServerAddr(Properties properties) {
         serverList = properties.getProperty(PropertyKeyConst.SERVER_ADDR);
@@ -116,9 +106,9 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         }
     }
 
+
     @Override
-    public List<Instance> getAllInstances(
-            String serviceCode, String groupName, List<String> clusters) throws RuntimeException {
+    public List<Instance> getAllInstances(String serviceCode, String groupName, List<String> clusters) throws RuntimeException {
         final Map<String, String> params = new HashMap<>(8);
         params.put(CommonParams.NAMESPACE_ID, namespace);
         params.put(CommonParams.SERVICE_NAME, serviceCode);
@@ -138,11 +128,7 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         params.put("pageNo", "1");
         try {
             List<Instance> instances = Collections.emptyList();
-            String result =
-                    serverProxy.reqApi(
-                            UtilAndComs.nacosUrlBase + "/catalog/instances",
-                            params,
-                            HttpMethod.GET);
+            String result = serverProxy.reqApi(UtilAndComs.nacosUrlBase + "/catalog/instances", params, HttpMethod.GET);
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
@@ -152,14 +138,11 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             return instances;
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------------>getAllInstances:serviceName-{},groupName-{},errMsg-{}",
-                    serviceCode,
-                    groupName,
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------------>getAllInstances:serviceName-{},groupName-{},errMsg-{}", serviceCode, groupName, e.getErrMsg());
             return Collections.emptyList();
         }
     }
+
 
     @Override
     public PageDto<ServiceInstancePageDto> selectInstancePage(InstancePageVo vo) {
@@ -184,17 +167,12 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
         List<ServiceInstancePageDto> pageDtos = Collections.emptyList();
         int count = 0;
         try {
-            String result =
-                    serverProxy.reqApi(
-                            UtilAndComs.nacosUrlBase + "/catalog/instances",
-                            params,
-                            HttpMethod.GET);
+            String result = serverProxy.reqApi(UtilAndComs.nacosUrlBase + "/catalog/instances", params, HttpMethod.GET);
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 count = jsonObject.getIntValue("count");
                 if (count >= 1) {
-                    List<Instance> instances =
-                            JSON.parseArray(jsonObject.getString("list"), Instance.class);
+                    List<Instance> instances = JSON.parseArray(jsonObject.getString("list"), Instance.class);
                     pageDtos = new ArrayList<>(count);
                     for (Instance instance : instances) {
                         pageDtos.add(instancePageMap.bToA(instance));
@@ -203,45 +181,35 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             }
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------------>getAllInstances:serviceName-{},groupName-{},errMsg-{}",
-                    vo.getServiceCode(),
-                    groupName,
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------------>getAllInstances:serviceName-{},groupName-{},errMsg-{}", vo.getServiceCode(), groupName, e.getErrMsg());
         }
         return new PageDto<>(count, pageDtos);
     }
+
 
     @Override
     public List<NacosNamespacesDto> getAllNamespaces() throws RuntimeException {
         final Map<String, String> params = new HashMap<>(0);
         try {
-            String result =
-                    serverProxy.reqApi(
-                            UtilAndComs.webContext + "/v1/console/namespaces",
-                            params,
-                            HttpMethod.GET);
+            String result = serverProxy.reqApi(UtilAndComs.webContext + "/v1/console/namespaces", params, HttpMethod.GET);
             List<NacosNamespacesDto> nacosNamespacesDtos = Collections.emptyList();
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("code") == HttpStatus.HTTP_OK) {
-                    nacosNamespacesDtos =
-                            JSON.parseArray(jsonObject.getString("data"), NacosNamespacesDto.class);
+                    nacosNamespacesDtos = JSON.parseArray(jsonObject.getString("data"), NacosNamespacesDto.class);
                 }
             }
             return nacosNamespacesDtos;
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------查询命名空间异常------>getAllInstances:{}",
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------查询命名空间异常------>getAllInstances:{}", e.getErrMsg());
             throw new ResponseException(Status.ERROR, "查询命名空间异常:" + e.getErrMsg());
         }
     }
 
+
     @Override
-    public List<NacosServiceInfoDto> getServicesOfServer(
-            Integer pageNo, Integer pageSize, String groupName) throws RuntimeException {
+    public List<NacosServiceInfoDto> getServicesOfServer(Integer pageNo, Integer pageSize, String groupName) throws RuntimeException {
         final Map<String, String> params = new HashMap<>(8);
         if (StringUtils.isBlank(groupName)) {
             groupName = group;
@@ -250,33 +218,24 @@ public class CustomNacosNamingServiceImpl implements ICustomNacosNamingService {
             }
         }
         params.put("groupName", groupName);
-        params.put(
-                "pageSize",
-                String.valueOf(Objects.isNull(pageSize) ? Integer.MAX_VALUE : pageSize));
+        params.put("pageSize", String.valueOf(Objects.isNull(pageSize) ? Integer.MAX_VALUE : pageSize));
         params.put("pageNo", String.valueOf(Objects.isNull(pageNo) ? Integer.MAX_VALUE : pageNo));
         params.put("hasIpCount", String.valueOf(true));
         params.put("withInstances", String.valueOf(false));
         params.put(CommonParams.NAMESPACE_ID, namespace);
         try {
-            String result =
-                    serverProxy.reqApi(
-                            UtilAndComs.nacosUrlBase + "/catalog/services", params, HttpMethod.GET);
+            String result = serverProxy.reqApi(UtilAndComs.nacosUrlBase + "/catalog/services", params, HttpMethod.GET);
             List<NacosServiceInfoDto> nacosServiceInfoDtos = Collections.emptyList();
             if (StringUtils.isNotBlank(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 if (jsonObject.getIntValue("count") >= 1) {
-                    nacosServiceInfoDtos =
-                            JSON.parseArray(
-                                    jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
+                    nacosServiceInfoDtos = JSON.parseArray(jsonObject.getString("serviceList"), NacosServiceInfoDto.class);
                 }
             }
             return nacosServiceInfoDtos;
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------查询组下所有服务异常------>getServicesOfServer:groupName-{},errMsg-{}",
-                    groupName,
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------查询组下所有服务异常------>getServicesOfServer:groupName-{},errMsg-{}", groupName, e.getErrMsg());
             throw new ResponseException(Status.ERROR, "查询" + groupName + "组服务异常:" + e.getErrMsg());
         }
     }

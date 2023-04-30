@@ -56,8 +56,7 @@ public class ClientAuthServiceImpl implements IClientAuthService {
 
     @Override
     public ClientAndResourceAuthModel getByClientId(String clientId) {
-        ClientAndResourceAuthModel clientDetailsModel =
-                clientAuthMapper.selectClientIdByClientId(clientId);
+        ClientAndResourceAuthModel clientDetailsModel = clientAuthMapper.selectClientIdByClientId(clientId);
         if (Objects.isNull(clientDetailsModel)) {
             throw new ResponseException("客户端信息不存在:" + clientId);
         }
@@ -66,11 +65,10 @@ public class ClientAuthServiceImpl implements IClientAuthService {
         Set<RoleInfo> clientAuthRole = clientAuthMapper.getClientAuthRole(clientDetailId);
         Set<String> roleIds = new HashSet<>(64);
         Set<String> roleCodes = new HashSet<>(64);
-        clientAuthRole.forEach(
-                v -> {
-                    roleIds.add(v.getRoleId());
-                    roleCodes.add(v.getRoleCode());
-                });
+        clientAuthRole.forEach(v -> {
+            roleIds.add(v.getRoleId());
+            roleCodes.add(v.getRoleCode());
+        });
         clientDetailsModel.setRoleInfos(clientAuthRole);
         clientDetailsModel.setRoleCodes(roleCodes);
         clientDetailsModel.setRoleIds(roleIds);

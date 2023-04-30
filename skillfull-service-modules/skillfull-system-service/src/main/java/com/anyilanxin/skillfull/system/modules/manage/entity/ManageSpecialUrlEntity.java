@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageSpecialUrlEntity extends BaseEntity {
     private static final long serialVersionUID = -14556683450209175L;
 
-    @TableId private String specialUrlId;
+    @TableId
+    private String specialUrlId;
 
     /** 自定义过滤器id */
     private String customFilterId;

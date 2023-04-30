@@ -68,6 +68,7 @@ public enum AuthType implements ISuperType {
         this.typeDescribe = typeDescribe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -88,6 +89,7 @@ public enum AuthType implements ISuperType {
         }
         return false;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -110,6 +112,7 @@ public enum AuthType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -125,6 +128,7 @@ public enum AuthType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

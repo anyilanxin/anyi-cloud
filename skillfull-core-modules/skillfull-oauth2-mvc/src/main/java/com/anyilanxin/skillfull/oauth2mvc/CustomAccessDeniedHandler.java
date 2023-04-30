@@ -58,17 +58,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     @Override
-    public void handle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AccessDeniedException accessDeniedException)
-            throws IOException {
-        log.error(
-                "------------CustomAccessDeniedHandler------------>handle:异常消息:\n{}",
-                accessDeniedException.getLocalizedMessage());
-        ResponseUtils.writeResult(
-                response,
-                getLocalMessage(LOCAL, accessDeniedException.getMessage()),
-                Status.ACCESS_DENIED);
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+        log.error("------------CustomAccessDeniedHandler------------>handle:异常消息:\n{}", accessDeniedException.getLocalizedMessage());
+        ResponseUtils.writeResult(response, getLocalMessage(LOCAL, accessDeniedException.getMessage()), Status.ACCESS_DENIED);
     }
 }

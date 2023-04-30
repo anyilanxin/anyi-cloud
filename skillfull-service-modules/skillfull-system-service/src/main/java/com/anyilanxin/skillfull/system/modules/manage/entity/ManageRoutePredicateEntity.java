@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageRoutePredicateEntity extends BaseEntity {
     private static final long serialVersionUID = 635114207423655775L;
 
-    @TableId private String predicateId;
+    @TableId
+    private String predicateId;
 
     /** 服务id */
     private String serviceId;

@@ -57,10 +57,7 @@ public class CommonConstantDictServiceImpl implements ICommonConstantDictService
     public List<ConstantDictModel> getListByConstantTypes(String constantTypes) {
         List<ConstantDictModel> constantList = new ArrayList<>(16);
         for (String constantType : constantTypes.split("[,，]")) {
-            Object constantObject =
-                    redisTemplate
-                            .opsForValue()
-                            .get(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + constantType);
+            Object constantObject = redisTemplate.opsForValue().get(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + constantType);
             if (Objects.nonNull(constantObject)) {
                 List<ConstantDictModel> constantDictList = (List<ConstantDictModel>) constantObject;
                 constantList.addAll(constantDictList);

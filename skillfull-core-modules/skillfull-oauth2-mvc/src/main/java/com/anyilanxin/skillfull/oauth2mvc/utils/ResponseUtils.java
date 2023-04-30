@@ -56,10 +56,10 @@ public class ResponseUtils {
      * @author zxiaozhou
      * @date 2022-03-02 15:01
      */
-    public static void writeResult(HttpServletResponse response, String msg, Status status)
-            throws IOException {
+    public static void writeResult(HttpServletResponse response, String msg, Status status) throws IOException {
         writeResult(response, msg, status, status.getStatus());
     }
+
 
     /**
      * 流写响应消息
@@ -70,9 +70,7 @@ public class ResponseUtils {
      * @author zxiaozhou
      * @date 2022-03-02 15:01
      */
-    public static void writeResult(
-            HttpServletResponse response, String msg, Status status, HttpStatus httpStatus)
-            throws IOException {
+    public static void writeResult(HttpServletResponse response, String msg, Status status, HttpStatus httpStatus) throws IOException {
         Result<String> result = new Result<>(status, msg);
         response.setStatus(httpStatus.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

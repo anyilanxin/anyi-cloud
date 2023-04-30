@@ -42,7 +42,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class StorageApplicationTests {
-    @Autowired private OSSClient ossClient;
+    @Autowired
+    private OSSClient ossClient;
 
     @Test
     void contextLoads() throws FileNotFoundException {
@@ -53,16 +54,12 @@ class StorageApplicationTests {
         ObjectMetadata meta = new ObjectMetadata();
         meta.setContentDisposition("attachment; filename=coding_java.png");
 
-        PutObjectResult putObjectResult =
-                ossClient.putObject(bucketName, "lsjdfkdflsdkflsf.png", inputStream, meta);
+        PutObjectResult putObjectResult = ossClient.putObject(bucketName, "lsjdfkdflsdkflsf.png", inputStream, meta);
 
         System.out.println("---putObjectResult---" + putObjectResult);
         ossClient.shutdown();
         Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
-        String url =
-                ossClient
-                        .generatePresignedUrl(bucketName, "lsjdfkdflsdkflsf.png", expiration)
-                        .toString();
+        String url = ossClient.generatePresignedUrl(bucketName, "lsjdfkdflsdkflsf.png", expiration).toString();
         System.out.println("----url------" + url);
     }
 }

@@ -75,20 +75,16 @@ public class LogUtils {
                 operateLogModel.setDataSources(utils.serviceName);
             }
             if (StringUtils.isBlank(operateLogModel.getDataSourcesDescribe())) {
-                operateLogModel.setDataSourcesDescribe(
-                        "来源于" + utils.serviceName + "(版本:" + utils.applicationVersion + ")的日志");
+                operateLogModel.setDataSourcesDescribe("来源于" + utils.serviceName + "(版本:" + utils.applicationVersion + ")的日志");
             }
-            if (Objects.nonNull(operateLogModel.getRequestStartTime())
-                    && Objects.nonNull(operateLogModel.getRequestEndTime())) {
-                Duration duration =
-                        Duration.between(
-                                operateLogModel.getRequestStartTime(),
-                                operateLogModel.getRequestEndTime());
+            if (Objects.nonNull(operateLogModel.getRequestStartTime()) && Objects.nonNull(operateLogModel.getRequestEndTime())) {
+                Duration duration = Duration.between(operateLogModel.getRequestStartTime(), operateLogModel.getRequestEndTime());
                 operateLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.OPERATE_LOG_PROCESS, operateLogModel);
         }
     }
+
 
     /**
      * 保存授权日志
@@ -99,17 +95,14 @@ public class LogUtils {
      */
     public static void sendAuthLog(AuthLogModel authLogModel) {
         if (Objects.nonNull(authLogModel)) {
-            if (Objects.nonNull(authLogModel.getRequestStartTime())
-                    && Objects.nonNull(authLogModel.getRequestEndTime())) {
-                Duration duration =
-                        Duration.between(
-                                authLogModel.getRequestStartTime(),
-                                authLogModel.getRequestEndTime());
+            if (Objects.nonNull(authLogModel.getRequestStartTime()) && Objects.nonNull(authLogModel.getRequestEndTime())) {
+                Duration duration = Duration.between(authLogModel.getRequestStartTime(), authLogModel.getRequestEndTime());
                 authLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.AUTH_LOG_PROCESS, authLogModel);
         }
     }
+
 
     @PostConstruct
     private void init() {

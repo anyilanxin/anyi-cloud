@@ -66,8 +66,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonDictEntity>
-        implements ICommonDictService {
+public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonDictEntity> implements ICommonDictService {
     private final CommonDictDtoMap dtoMap;
     private final CommonDictVoMap voMap;
     private final CommonDictMapper mapper;
@@ -79,11 +78,11 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         CommonDictEntity entity = voMap.aToB(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         log.info("------------CommonDictServiceImpl------------>save:{}", entity);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -100,11 +99,9 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         // 判断编码是否有变动，变动则更新子项
         if (!byId.getDictCode().equals(vo.getDictCode())) {
             // 查询是否有子项
-            LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper =
-                    new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(CommonDictItemEntity::getDictId, dictId);
-            List<CommonDictItemEntity> commonDictItemEntities =
-                    itemMapper.selectList(lambdaQueryWrapper);
+            List<CommonDictItemEntity> commonDictItemEntities = itemMapper.selectList(lambdaQueryWrapper);
             // 有子项则更新所有子项编码
             if (CollUtil.isNotEmpty(commonDictItemEntities)) {
                 CommonDictItemEntity itemEntity = new CommonDictItemEntity();
@@ -117,26 +114,24 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<CommonDictPageDto> pageByModel(CommonDictPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public CommonDictDto getById(String dictId) throws RuntimeException {
         CommonDictEntity byId = super.getById(dictId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -145,15 +140,13 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         this.getById(dictId);
         boolean b = this.removeById(dictId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 查询是否有子项,有子项则删除子项
         // 查询是否有子项
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CommonDictItemEntity::getDictId, dictId);
-        List<CommonDictItemEntity> commonDictItemEntities =
-                itemMapper.selectList(lambdaQueryWrapper);
+        List<CommonDictItemEntity> commonDictItemEntities = itemMapper.selectList(lambdaQueryWrapper);
         // 有子项则更新所有子项编码
         if (CollUtil.isNotEmpty(commonDictItemEntities)) {
             int delete = itemMapper.delete(lambdaQueryWrapper);
@@ -163,22 +156,22 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> dictIds) throws RuntimeException {
         List<CommonDictEntity> entities = this.listByIds(dictIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getDictId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})

@@ -51,13 +51,11 @@ public class SkillfullInnerSetHeaderStrategy implements ISetHeaderStrategy {
 
     @Override
     public void setHeader(RequestTemplate template) {
-        Collection<String> headerToken =
-                template.headers().get(AuthConstant.BEARER_TOKEN_HEADER_NAME);
+        Collection<String> headerToken = template.headers().get(AuthConstant.BEARER_TOKEN_HEADER_NAME);
         if (CollectionUtil.isEmpty(headerToken)) {
             String tokenToAuthService = ClientTokenUtils.getTokenToAuthService();
             if (StringUtils.isNotBlank(tokenToAuthService)) {
-                template.header(
-                        AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + tokenToAuthService);
+                template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + tokenToAuthService);
             }
         }
     }

@@ -69,6 +69,7 @@ public enum DataPermissionResultType implements ISuperType {
         this.typeDescribe = typeDescribe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -86,6 +87,7 @@ public enum DataPermissionResultType implements ISuperType {
         }
         return false;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -108,6 +110,7 @@ public enum DataPermissionResultType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -123,6 +126,7 @@ public enum DataPermissionResultType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

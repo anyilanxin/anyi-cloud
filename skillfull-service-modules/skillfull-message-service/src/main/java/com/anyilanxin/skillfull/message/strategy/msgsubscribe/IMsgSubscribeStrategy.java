@@ -49,7 +49,5 @@ public interface IMsgSubscribeStrategy {
      * @author zxiaozhou
      * @date 2022-08-27 15:15
      */
-    void handleMsg(
-            SubscribeMsgModel subscribeMsgModel,
-            ConcurrentHashMap<String, WebSocketSession> sessions);
+    void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions);
 }

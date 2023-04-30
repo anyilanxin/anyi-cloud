@@ -68,19 +68,11 @@ public class RbacUserAgentDto implements Serializable {
     @Schema(name = "isLimit", title = "是否限制时间:0-不限制,1-限制，默认0")
     private Integer isLimit;
 
-    @Schema(
-            name = "agentStartTime",
-            title = "代理开始时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "agentStartTime", title = "代理开始时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime agentStartTime;
 
-    @Schema(
-            name = "agentEndTime",
-            title = "代理结束时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "agentEndTime", title = "代理结束时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime agentEndTime;
 

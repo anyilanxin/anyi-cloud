@@ -56,6 +56,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      */
     void save(DesignModelHistoryVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -66,8 +67,8 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * @author zxiaozhou
      * @date 2021-11-25 09:52:37
      */
-    PageDto<DesignModelHistoryPageDto> pageByModel(DesignModelHistoryPageVo vo)
-            throws RuntimeException;
+    PageDto<DesignModelHistoryPageDto> pageByModel(DesignModelHistoryPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -79,6 +80,7 @@ public interface IDesignModelHistoryService extends BaseService<DesignModelHisto
      * @date 2021-11-25 09:52:37
      */
     DesignModelHistoryDto getById(String historyModelId) throws RuntimeException;
+
 
     /**
      * 流程模型历史逻辑删除

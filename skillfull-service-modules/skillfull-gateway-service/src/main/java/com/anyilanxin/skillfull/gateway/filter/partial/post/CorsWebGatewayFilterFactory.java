@@ -52,22 +52,22 @@ import reactor.core.publisher.Mono;
  * @since JDK1.8
  */
 @Slf4j
-public class CorsWebGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<CorsWebGatewayFilterFactory.Config> {
+public class CorsWebGatewayFilterFactory extends AbstractGatewayFilterFactory<CorsWebGatewayFilterFactory.Config> {
 
     public CorsWebGatewayFilterFactory() {
         super(CorsWebGatewayFilterFactory.Config.class);
     }
+
 
     @Override
     public List<String> shortcutFieldOrder() {
         return Collections.singletonList(PARAM_ENABLED_KEY);
     }
 
+
     @Override
     public GatewayFilter apply(CorsWebGatewayFilterFactory.Config config) {
-        CorsWebGatewayFilterFactory.CorsWebGatewayFilter gatewayFilter =
-                new CorsWebGatewayFilterFactory.CorsWebGatewayFilter(config);
+        CorsWebGatewayFilterFactory.CorsWebGatewayFilter gatewayFilter = new CorsWebGatewayFilterFactory.CorsWebGatewayFilter(config);
         gatewayFilter.setFactory(this);
         return gatewayFilter;
     }
@@ -82,29 +82,28 @@ public class CorsWebGatewayFilterFactory
             this.config = config;
         }
 
+
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------CorsWebGatewayFilter------------>filter:{}", "跨域处理过滤器");
             return CorsWebUtils.corsHandle(chain, exchange);
         }
 
+
         @Override
         public int getOrder() {
             return 1;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
 
-        public void setFactory(
-                GatewayFilterFactory<CorsWebGatewayFilterFactory.Config> gatewayFilterFactory) {
+
+        public void setFactory(GatewayFilterFactory<CorsWebGatewayFilterFactory.Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
         }
     }
@@ -113,11 +112,14 @@ public class CorsWebGatewayFilterFactory
         // 控制是否开启认证
         private boolean enabled;
 
-        public Config() {}
+        public Config() {
+        }
+
 
         public boolean isEnabled() {
             return enabled;
         }
+
 
         public CorsWebGatewayFilterFactory.Config setEnabled(boolean enabled) {
             this.enabled = enabled;

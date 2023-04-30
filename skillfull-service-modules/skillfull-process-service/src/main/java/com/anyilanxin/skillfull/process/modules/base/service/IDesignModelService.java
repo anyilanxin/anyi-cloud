@@ -57,6 +57,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     void save(DesignModelVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     void updateById(String modelId, DesignModelVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -79,6 +81,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @date 2021-11-25 05:22:56
      */
     PageDto<DesignModelPageDto> pageByModel(DesignModelPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -91,6 +94,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     DesignModelDto getById(String modelId) throws RuntimeException;
 
+
     /**
      * 模型删除
      *
@@ -100,6 +104,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @date 2020-08-28 12:20
      */
     void deleteByModel(DeleteDesignModelVo vo) throws RuntimeException;
+
 
     /**
      * 模型状态统计

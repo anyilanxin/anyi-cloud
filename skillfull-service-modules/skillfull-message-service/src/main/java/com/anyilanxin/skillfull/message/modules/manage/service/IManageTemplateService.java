@@ -58,6 +58,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      */
     void save(ManageTemplateVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -70,6 +71,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      */
     void updateById(String templateId, ManageTemplateVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -80,6 +82,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @date 2022-03-29 05:23:43
      */
     PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -92,6 +95,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      */
     ManageTemplateDto getById(String templateId) throws RuntimeException;
 
+
     /**
      * 通过templateId删除
      *
@@ -102,6 +106,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      */
     void deleteById(String templateId) throws RuntimeException;
 
+
     /**
      * 消息模板批量删除
      *
@@ -111,6 +116,7 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
      * @date 2022-03-29 05:23:43
      */
     void deleteBatch(List<String> templateIds) throws RuntimeException;
+
 
     /**
      * 根据模板编码查询发送配置信息

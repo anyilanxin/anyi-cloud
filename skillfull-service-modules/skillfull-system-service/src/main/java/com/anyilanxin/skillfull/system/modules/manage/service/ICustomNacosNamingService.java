@@ -55,8 +55,8 @@ public interface ICustomNacosNamingService {
      * @author zxiaozhou zxiaozhou
      * @date 2020-10-11 21:51
      */
-    List<Instance> getAllInstances(String serviceCode, String groupName, List<String> clusters)
-            throws RuntimeException;
+    List<Instance> getAllInstances(String serviceCode, String groupName, List<String> clusters) throws RuntimeException;
+
 
     /**
      * 获取当前所有命名空间
@@ -68,6 +68,7 @@ public interface ICustomNacosNamingService {
      */
     List<NacosNamespacesDto> getAllNamespaces() throws RuntimeException;
 
+
     /**
      * 服务实例分页查询
      *
@@ -77,6 +78,7 @@ public interface ICustomNacosNamingService {
      * @date 2021-12-28 05:54
      */
     PageDto<ServiceInstancePageDto> selectInstancePage(InstancePageVo vo);
+
 
     /**
      * 查询某个组的所有服务
@@ -89,6 +91,5 @@ public interface ICustomNacosNamingService {
      * @author zxiaozhou zxiaozhou
      * @date 2020-10-11 21:54
      */
-    List<NacosServiceInfoDto> getServicesOfServer(
-            Integer pageNo, Integer pageSize, String groupName) throws RuntimeException;
+    List<NacosServiceInfoDto> getServicesOfServer(Integer pageNo, Integer pageSize, String groupName) throws RuntimeException;
 }

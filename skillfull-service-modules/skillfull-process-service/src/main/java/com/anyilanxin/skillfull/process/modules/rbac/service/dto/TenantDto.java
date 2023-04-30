@@ -64,11 +64,7 @@ public class TenantDto implements Serializable {
         TenantDto tenantModel = null;
         if (Objects.nonNull(tenant)) {
             TenantEntity tenantEntity = (TenantEntity) tenant;
-            tenantModel =
-                    TenantDto.builder()
-                            .tenantId(tenantEntity.getId())
-                            .name(tenantEntity.getName())
-                            .build();
+            tenantModel = TenantDto.builder().tenantId(tenantEntity.getId()).name(tenantEntity.getName()).build();
         }
         return tenantModel;
     }

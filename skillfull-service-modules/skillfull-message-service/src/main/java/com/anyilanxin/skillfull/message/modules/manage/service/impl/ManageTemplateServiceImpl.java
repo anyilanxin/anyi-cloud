@@ -63,9 +63,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageTemplateServiceImpl
-        extends ServiceImpl<ManageTemplateMapper, ManageTemplateEntity>
-        implements IManageTemplateService {
+public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper, ManageTemplateEntity> implements IManageTemplateService {
     private final ManageTemplateCopyMap map;
     private final ManageTemplateMapper mapper;
 
@@ -75,10 +73,10 @@ public class ManageTemplateServiceImpl
         ManageTemplateEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -90,32 +88,28 @@ public class ManageTemplateServiceImpl
         entity.setTemplateId(templateId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageTemplateDto getById(String templateId) throws RuntimeException {
         ManageTemplateEntity byId = super.getById(templateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -125,27 +119,26 @@ public class ManageTemplateServiceImpl
         // 删除数据
         boolean b = this.removeById(templateId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> templateIds) throws RuntimeException {
         List<ManageTemplateEntity> entities = this.listByIds(templateIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getTemplateId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
+
 
     @Override
     public ManageTemplateSendInfoDto getSendInfo(String templateCode) {

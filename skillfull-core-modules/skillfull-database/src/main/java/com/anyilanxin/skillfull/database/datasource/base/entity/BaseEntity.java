@@ -105,5 +105,6 @@ public class BaseEntity implements Serializable {
     private LocalDateTime updateTime;
 
     /** 删除标识0-正常,1-已删除 */
-    @TableLogic private Integer delFlag;
+    @TableLogic
+    private Integer delFlag;
 }

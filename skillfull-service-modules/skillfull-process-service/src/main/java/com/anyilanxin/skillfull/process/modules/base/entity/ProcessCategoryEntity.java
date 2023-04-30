@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class ProcessCategoryEntity extends BaseEntity {
     private static final long serialVersionUID = -30458247825549992L;
 
-    @TableId private String categoryId;
+    @TableId
+    private String categoryId;
 
     /** 类别编码(唯一) */
     private String categoryCode;

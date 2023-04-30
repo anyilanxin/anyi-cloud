@@ -95,12 +95,7 @@ public class DataModel implements Serializable {
     @Schema(name = "lineNumber", title = "代码行数")
     private Integer lineNumber;
 
-    @Schema(
-            name = "requestStartTime",
-            title = "请求开始时间(创建实例时自动处理)",
-            hidden = true,
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestStartTime", title = "请求开始时间(创建实例时自动处理)", hidden = true, type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 

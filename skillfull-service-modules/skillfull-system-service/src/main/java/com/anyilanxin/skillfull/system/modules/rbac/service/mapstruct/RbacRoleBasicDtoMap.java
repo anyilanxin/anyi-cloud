@@ -42,8 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-10-08 13:44:04
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface RbacRoleBasicDtoMap extends BaseMap<RbacRoleBasicDto, RbacRoleEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface RbacRoleBasicDtoMap extends BaseMap<RbacRoleBasicDto, RbacRoleEntity> {
+}

@@ -91,6 +91,7 @@ public class SyncUserVo implements Serializable {
         return userEntity;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,6 +103,7 @@ public class SyncUserVo implements Serializable {
         SyncUserVo that = (SyncUserVo) o;
         return Objects.equals(getUserId(), that.getUserId());
     }
+
 
     @Override
     public int hashCode() {

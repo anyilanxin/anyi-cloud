@@ -55,8 +55,7 @@ public class OpenIdDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String openId) throws UsernameNotFoundException {
-        SkillFullUserDetails userDetails =
-                Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
+        SkillFullUserDetails userDetails = Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
         Oauth2LogUtils.setUserDetailInfo(userDetails);
         return userDetails;
     }

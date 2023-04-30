@@ -49,6 +49,7 @@ public interface IToolService {
      */
     WebSecurityModel getBaseSecurity();
 
+
     /**
      * 获取请求安全基础信息
      *

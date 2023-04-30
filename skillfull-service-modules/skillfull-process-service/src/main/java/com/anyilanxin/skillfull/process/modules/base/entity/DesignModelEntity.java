@@ -57,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 public class DesignModelEntity extends BaseEntity {
     private static final long serialVersionUID = -12178072556417422L;
 
-    @TableId private String modelId;
+    @TableId
+    private String modelId;
 
     /** bpmn模型(转换为base64存储) */
     private String diagramData;

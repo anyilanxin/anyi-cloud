@@ -81,6 +81,7 @@ public class SyncGroupVo implements Serializable {
         return groupEntity;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -92,6 +93,7 @@ public class SyncGroupVo implements Serializable {
         SyncGroupVo that = (SyncGroupVo) o;
         return Objects.equals(getGroupId(), that.getGroupId());
     }
+
 
     @Override
     public int hashCode() {

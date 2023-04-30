@@ -73,65 +73,49 @@ public class ReceiveServiceImpl implements IReceiveService {
     public void saveAuth(AuthLogModel model) throws RuntimeException {
         AuthDataEntity authDataEntity = authDataCopyMap.bToA(model);
         setUserInfo(authDataEntity);
-        stringRedisTemplate
-                .opsForList()
-                .leftPush(
-                        LoggingCommonConstant.AUTH_LOG_KEY_PREFIX,
-                        JSONObject.toJSONString(
-                                authDataEntity, JSONWriter.Feature.WriteMapNullValue));
+        stringRedisTemplate.opsForList().leftPush(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX, JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerAuthLog();
     }
 
+
     @Override
     public void saveAuthBatch(List<AuthLogModel> models) throws RuntimeException {
         List<String> authLogs = new ArrayList<>(models.size());
-        models.forEach(
-                v -> {
-                    AuthDataEntity authDataEntity = authDataCopyMap.bToA(v);
-                    setUserInfo(authDataEntity);
-                    authLogs.add(
-                            JSONObject.toJSONString(
-                                    authDataEntity, JSONWriter.Feature.WriteMapNullValue));
-                });
-        stringRedisTemplate
-                .opsForList()
-                .leftPushAll(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX, authLogs);
+        models.forEach(v -> {
+            AuthDataEntity authDataEntity = authDataCopyMap.bToA(v);
+            setUserInfo(authDataEntity);
+            authLogs.add(JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
+        });
+        stringRedisTemplate.opsForList().leftPushAll(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX, authLogs);
         // 触发入库
         triggerAuthLog();
     }
+
 
     @Override
     public void saveOperate(OperateLogModel model) throws RuntimeException {
         OperateEntity operateLogModel = operateCopyMap.bToA(model);
         setUserInfo(operateLogModel);
-        stringRedisTemplate
-                .opsForList()
-                .leftPush(
-                        LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX,
-                        JSONObject.toJSONString(
-                                operateLogModel, JSONWriter.Feature.WriteMapNullValue));
+        stringRedisTemplate.opsForList().leftPush(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX, JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerOperateLog();
     }
 
+
     @Override
     public void saveOperateBatch(List<OperateLogModel> models) throws RuntimeException {
         List<String> operateLogs = new ArrayList<>(models.size());
-        models.forEach(
-                v -> {
-                    OperateEntity operateLogModel = operateCopyMap.bToA(v);
-                    setUserInfo(operateLogModel);
-                    operateLogs.add(
-                            JSONObject.toJSONString(
-                                    operateLogModel, JSONWriter.Feature.WriteMapNullValue));
-                });
-        stringRedisTemplate
-                .opsForList()
-                .leftPushAll(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX, operateLogs);
+        models.forEach(v -> {
+            OperateEntity operateLogModel = operateCopyMap.bToA(v);
+            setUserInfo(operateLogModel);
+            operateLogs.add(JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
+        });
+        stringRedisTemplate.opsForList().leftPushAll(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX, operateLogs);
         // 触发入库
         triggerOperateLog();
     }
+
 
     /**
      * 触发授权日志入库
@@ -143,6 +127,7 @@ public class ReceiveServiceImpl implements IReceiveService {
         authDataService.storage();
     }
 
+
     /**
      * 触发操作日志入库
      *
@@ -152,6 +137,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     private void triggerOperateLog() {
         operateService.storage();
     }
+
 
     private <T extends BaseEntity> void setUserInfo(T data) {
         data.setCreateTime(LocalDateTime.now());

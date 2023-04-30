@@ -157,30 +157,36 @@ public class SkillFullUserDetails implements UserDetails {
         return this.authorities;
     }
 
+
     @Override
     public String getPassword() {
         return this.password;
     }
+
 
     @Override
     public String getUsername() {
         return this.userName;
     }
 
+
     @Override
     public boolean isAccountNonExpired() {
         return this.accountNonExpired;
     }
+
 
     @Override
     public boolean isAccountNonLocked() {
         return this.accountNonLocked;
     }
 
+
     @Override
     public boolean isCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
+
 
     @Override
     public boolean isEnabled() {

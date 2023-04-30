@@ -51,6 +51,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     D eToD(E e);
 
+
     /**
      * E集合转D集合
      *
@@ -59,6 +60,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     List<D> eToD(List<E> eList);
 
+
     /**
      * E集合转D集合
      *
@@ -66,6 +68,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     Set<D> eToD(Set<E> eSet);
+
 
     /**
      * E更新D
@@ -76,6 +79,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     void updateEToD(E e, @MappingTarget D d);
 
+
     /**
      * E集合更新D集合
      *
@@ -85,6 +89,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     void updateEListToDList(List<E> eList, @MappingTarget List<D> dList);
 
+
     /**
      * D转E
      *
@@ -92,6 +97,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     E dToE(D d);
+
 
     /**
      * D集合转E集合
@@ -101,6 +107,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     List<E> dToE(List<D> dList);
 
+
     /**
      * D集合转E集合
      *
@@ -109,6 +116,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     Set<E> dToE(Set<D> dSet);
 
+
     /**
      * D更新E
      *
@@ -116,6 +124,7 @@ public interface BaseThreeMap<E, D, V> {
      * @param e /
      */
     void updateDToE(D d, @MappingTarget E e);
+
 
     /**
      * D更新E
@@ -127,6 +136,7 @@ public interface BaseThreeMap<E, D, V> {
 
     // -------------E与V互转-------------
 
+
     /**
      * E转V
      *
@@ -134,6 +144,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     V eToV(E e);
+
 
     /**
      * E集合转V集合
@@ -143,6 +154,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     List<V> eToV(List<E> eList);
 
+
     /**
      * E集合转V集合
      *
@@ -150,6 +162,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     Set<V> eToV(Set<E> eSet);
+
 
     /**
      * E更新V
@@ -159,6 +172,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     void updateEToV(E e, @MappingTarget V v);
 
+
     /**
      * E集合更新V集合
      *
@@ -166,6 +180,7 @@ public interface BaseThreeMap<E, D, V> {
      * @param vList /
      */
     void updateEListToVList(List<E> eList, @MappingTarget List<V> vList);
+
 
     /**
      * V转E
@@ -175,6 +190,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     E vToE(V v);
 
+
     /**
      * V集合转E集合
      *
@@ -182,6 +198,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     List<E> vToE(List<V> vList);
+
 
     /**
      * V集合转E集合
@@ -191,6 +208,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     Set<E> vToE(Set<V> vSet);
 
+
     /**
      * V更新E
      *
@@ -198,6 +216,7 @@ public interface BaseThreeMap<E, D, V> {
      * @param e /
      */
     void updateVToE(V v, @MappingTarget E e);
+
 
     /**
      * V集合更新E集合
@@ -209,6 +228,7 @@ public interface BaseThreeMap<E, D, V> {
 
     // -------------D与V互转-------------
 
+
     /**
      * D转V
      *
@@ -216,6 +236,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     V dToV(D d);
+
 
     /**
      * D集合转V集合
@@ -225,6 +246,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     List<V> dToV(List<D> dList);
 
+
     /**
      * D集合转V集合
      *
@@ -232,6 +254,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     Set<V> dToV(Set<D> dSet);
+
 
     /**
      * D更新V
@@ -241,6 +264,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     void updateDToV(D d, @MappingTarget V v);
 
+
     /**
      * D集合更新V集合
      *
@@ -248,6 +272,7 @@ public interface BaseThreeMap<E, D, V> {
      * @param vList /
      */
     void updateDListToVList(List<D> dList, @MappingTarget List<V> vList);
+
 
     /**
      * V转D
@@ -257,6 +282,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     D vToD(V v);
 
+
     /**
      * V集合转D集合
      *
@@ -264,6 +290,7 @@ public interface BaseThreeMap<E, D, V> {
      * @return /
      */
     List<D> vToD(List<V> vList);
+
 
     /**
      * V集合转D集合
@@ -273,6 +300,7 @@ public interface BaseThreeMap<E, D, V> {
      */
     Set<D> vToD(Set<V> vSet);
 
+
     /**
      * V更新D
      *
@@ -280,6 +308,7 @@ public interface BaseThreeMap<E, D, V> {
      * @param d /
      */
     void updateVToD(V v, @MappingTarget D d);
+
 
     /**
      * V集合更新D集合

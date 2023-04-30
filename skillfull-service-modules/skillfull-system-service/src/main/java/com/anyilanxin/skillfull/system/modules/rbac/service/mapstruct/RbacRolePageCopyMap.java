@@ -44,9 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-05-02 19:29:58
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface RbacRolePageCopyMap
-        extends BaseThreeMap<RbacRoleEntity, RbacRolePageDto, RbacRolePageVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface RbacRolePageCopyMap extends BaseThreeMap<RbacRoleEntity, RbacRolePageDto, RbacRolePageVo> {
+}

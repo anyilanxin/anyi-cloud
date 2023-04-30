@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class CommonAreaEntity extends BaseEntity {
     private static final long serialVersionUID = -25020041841128565L;
 
-    @TableId private String areaId;
+    @TableId
+    private String areaId;
 
     /** 所属省级id */
     private String provinceId;

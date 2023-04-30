@@ -59,6 +59,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      */
     void save(RbacOrgVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @date 2022-05-02 16:39:45
      */
     void updateById(String orgId, RbacOrgVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -81,6 +83,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      */
     PageDto<RbacOrgTreePageDto> pageByModel(RbacOrgPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -92,6 +95,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      */
     RbacOrgDto getById(String orgId) throws RuntimeException;
 
+
     /**
      * 通过orgId删除
      *
@@ -101,6 +105,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @date 2022-05-02 16:39:45
      */
     void deleteById(String orgId) throws RuntimeException;
+
 
     /**
      * 查询机构树(异步)
@@ -113,6 +118,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      */
     List<RbacOrgTreeDto> selectOrgTreeAsync(String parentId, String activateOrgId);
 
+
     /**
      * 通过机构id修改机构状态
      *
@@ -124,6 +130,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      */
     void updateOrgState(String orgId, Integer type) throws RuntimeException;
 
+
     /**
      * 获取组织机构信息
      *
@@ -134,8 +141,8 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * @author zxiaozhou
      * @date 2021-01-30 23:34
      */
-    List<RbacOrgHasChildrenDto> selectOrgList(Integer type, String parentId)
-            throws RuntimeException;
+    List<RbacOrgHasChildrenDto> selectOrgList(Integer type, String parentId) throws RuntimeException;
+
 
     /**
      * 获取组织机构树

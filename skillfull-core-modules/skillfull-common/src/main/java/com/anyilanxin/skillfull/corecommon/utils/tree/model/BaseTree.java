@@ -65,6 +65,7 @@ public class BaseTree<T> implements Serializable {
         return this.isLeaf;
     }
 
+
     public void setIsLeaf(boolean isLeaf) {
         this.isLeaf = isLeaf;
     }

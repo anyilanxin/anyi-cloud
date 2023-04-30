@@ -60,6 +60,7 @@ public interface OperateMapper extends MysqlBaseMapper<OperateEntity> {
      */
     IPage<OperatePageDto> pageByModel(Page<OperatePageDto> page, @Param("query") OperatePageVo vo);
 
+
     /**
      * 通过操作日志id物理删除
      *
@@ -69,6 +70,7 @@ public interface OperateMapper extends MysqlBaseMapper<OperateEntity> {
      * @date 2022-01-26 19:51:06
      */
     int physicalDeleteById(@Param("id") String operateId);
+
 
     /**
      * 通过操作日志id物理批量删除

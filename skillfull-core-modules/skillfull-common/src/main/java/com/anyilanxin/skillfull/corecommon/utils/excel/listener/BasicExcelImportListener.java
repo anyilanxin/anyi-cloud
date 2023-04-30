@@ -64,31 +64,26 @@ public class BasicExcelImportListener<I, R> extends AnalysisEventListener<I> {
         this.service = service;
     }
 
+
     @Override
     public void invoke(I i, AnalysisContext analysisContext) {
-        log.debug(
-                "------------当前读取到的数据------{}------>\n{}",
-                analysisContext.readRowHolder().getRowIndex(),
-                JSONObject.toJSONString(i, SerializerFeature.WriteMapNullValue));
+        log.debug("------------当前读取到的数据------{}------>\n{}", analysisContext.readRowHolder().getRowIndex(), JSONObject.toJSONString(i, SerializerFeature.WriteMapNullValue));
         if (Objects.nonNull(i)) {
             importData.add(i);
         }
     }
 
+
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-        log.info(
-                "------------读取到的全部数据------------>\n{}",
-                JSONObject.toJSONString(importData, SerializerFeature.WriteMapNullValue));
+        log.info("------------读取到的全部数据------------>\n{}", JSONObject.toJSONString(importData, SerializerFeature.WriteMapNullValue));
         if (CollectionUtil.isEmpty(importData)) {
             log.error("------------------------>当前读取数据结果为0，不进行处理");
             saveData = Collections.emptyList();
             return;
         }
         saveData = service.saveData(importData);
-        log.debug(
-                "------------数据处理返回结果------------>\n{}",
-                JSONObject.toJSONString(saveData, SerializerFeature.WriteMapNullValue));
+        log.debug("------------数据处理返回结果------------>\n{}", JSONObject.toJSONString(saveData, SerializerFeature.WriteMapNullValue));
     }
 
     /**

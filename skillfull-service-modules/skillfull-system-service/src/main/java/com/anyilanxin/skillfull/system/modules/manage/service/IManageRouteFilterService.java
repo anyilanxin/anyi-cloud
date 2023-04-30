@@ -57,8 +57,8 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    void save(List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override)
-            throws RuntimeException;
+    void save(List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -71,6 +71,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      */
     ManageRouteFilterDto getById(String filterId) throws RuntimeException;
 
+
     /**
      * 通过routeId查询详情
      *
@@ -82,6 +83,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      */
     List<ManageRouteFilterDto> getByRouteId(String routeId) throws RuntimeException;
 
+
     /**
      * 通过routeIds查询详情
      *
@@ -91,8 +93,8 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds)
-            throws RuntimeException;
+    Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds) throws RuntimeException;
+
 
     /**
      * 通过routerId删除
@@ -103,6 +105,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      * @date 2021-12-19 10:37:42
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
+
 
     /**
      * 通过routerIds删除

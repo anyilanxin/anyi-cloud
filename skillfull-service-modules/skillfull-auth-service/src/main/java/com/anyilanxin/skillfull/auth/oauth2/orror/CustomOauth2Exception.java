@@ -51,10 +51,12 @@ public class CustomOauth2Exception extends OAuth2Exception {
         this.error = new Result<>(Status.ACCESS_ERROR, msg);
     }
 
+
     public CustomOauth2Exception(Result<T> error) {
         super(error.getMessage());
         this.error = error;
     }
+
 
     public Result<T> getResult() {
         return this.error;

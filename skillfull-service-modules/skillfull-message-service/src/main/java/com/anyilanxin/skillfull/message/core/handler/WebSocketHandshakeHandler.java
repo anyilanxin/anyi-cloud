@@ -51,8 +51,7 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 @Slf4j
 public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
     @Override
-    protected Principal determineUser(
-            ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+    protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication principal = context.getAuthentication();
         Object userPrincipal = principal.getPrincipal();
@@ -61,12 +60,10 @@ public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
             attributes.put(WebSocketSessionType.USER_ID.getType(), userDetails.getUserId());
         }
         if (principal.getDetails() instanceof OAuth2AuthenticationDetails) {
-            OAuth2AuthenticationDetails token =
-                    (OAuth2AuthenticationDetails) principal.getDetails();
+            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) principal.getDetails();
             attributes.put(WebSocketSessionType.TOKEN.getType(), token.getTokenValue());
         }
-        attributes.put(
-                WebSocketSessionType.CUSTOM_SESSION_ID.getType(), CoreCommonUtils.getSnowflakeId());
+        attributes.put(WebSocketSessionType.CUSTOM_SESSION_ID.getType(), CoreCommonUtils.getSnowflakeId());
         return principal;
     }
 }

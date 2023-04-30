@@ -55,10 +55,9 @@ public class CustomOAuth2AccessTokenJackson1Serializer extends StdSerializer<Ski
         super(SkillFullAccessToken.class);
     }
 
+
     @Override
-    public void serialize(
-            SkillFullAccessToken token, JsonGenerator gen, SerializerProvider provider)
-            throws IOException {
+    public void serialize(SkillFullAccessToken token, JsonGenerator gen, SerializerProvider provider) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(OAuth2AccessToken.ACCESS_TOKEN, token.getValue());
         jsonObject.put(OAuth2AccessToken.TOKEN_TYPE, token.getTokenType());

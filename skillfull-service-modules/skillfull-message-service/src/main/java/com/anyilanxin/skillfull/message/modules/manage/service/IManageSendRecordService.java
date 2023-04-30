@@ -58,6 +58,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     void save(ManageSendRecordVo vo) throws RuntimeException;
 
+
     /**
      * 批量保存记录
      *
@@ -67,6 +68,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @date 2022-08-30 10:27
      */
     TemplateResultModel saveBatchRecord(List<ManageSendRecordEntity> recordEntities);
+
 
     /**
      * 分页查询
@@ -79,6 +81,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     PageDto<ManageSendRecordPageDto> pageByModel(ManageSendRecordPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -90,6 +93,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     ManageSendRecordDto getById(String sendRecordId) throws RuntimeException;
 
+
     /**
      * 通过sendRecordId删除
      *
@@ -99,6 +103,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @date 2022-03-29 05:23:42
      */
     void deleteById(String sendRecordId) throws RuntimeException;
+
 
     /**
      * 消息发送记录表批量删除

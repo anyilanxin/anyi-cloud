@@ -52,6 +52,7 @@ public interface IUserService {
      */
     void saveOrUpdate(UserVo vo) throws RuntimeException;
 
+
     /**
      * 用户与用户组关联
      *
@@ -61,6 +62,7 @@ public interface IUserService {
      */
     void deleteOrAddGroup(UserGroupVo vo) throws RuntimeException;
 
+
     /**
      * 用户与租户关联
      *
@@ -69,6 +71,7 @@ public interface IUserService {
      * @date 2021-11-07 21:10
      */
     void deleteOrAddTenant(UserTenantVo vo) throws RuntimeException;
+
 
     /**
      * 获取用户
@@ -80,6 +83,7 @@ public interface IUserService {
      */
     UserDto getUser(String userId) throws RuntimeException;
 
+
     /**
      * 获取用户信息
      *
@@ -89,6 +93,7 @@ public interface IUserService {
      * @date 2021-11-05 17:51
      */
     List<UserDto> getUserList(UserQueryVo vo) throws RuntimeException;
+
 
     /**
      * 分页获取用户信息
@@ -100,6 +105,7 @@ public interface IUserService {
      */
     PageDto<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException;
 
+
     /**
      * 删除用户
      *
@@ -108,6 +114,7 @@ public interface IUserService {
      * @date 2021-11-05 17:51
      */
     void deleteUser(String userId) throws RuntimeException;
+
 
     /**
      * 全量同步用户信息

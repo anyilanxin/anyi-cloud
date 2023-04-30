@@ -45,22 +45,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ProcessApplicationTests {
-    @Autowired private IUserService service;
+    @Autowired
+    private IUserService service;
 
-    @Autowired private RepositoryService repositoryService;
+    @Autowired
+    private RepositoryService repositoryService;
 
     @Test
     void getUser() {
-        InputStream processModel =
-                repositoryService.getProcessModel(
-                        "Process_0l1itr1:3:5f310a62-b197-11ec-a2f2-3ef1726bb0dc");
+        InputStream processModel = repositoryService.getProcessModel("Process_0l1itr1:3:5f310a62-b197-11ec-a2f2-3ef1726bb0dc");
         BpmnModelInstance modelInstance = Bpmn.readModelFromStream(processModel);
         ModelElementType type = modelInstance.getModel().getType(UserTask.class);
         Collection<ModelElementInstance> taskInstances = modelInstance.getModelElementsByType(type);
-        taskInstances.forEach(
-                v -> {
-                    UserTask userTask = (UserTask) v;
-                    ExtensionElements extensionElements = userTask.getExtensionElements();
-                });
+        taskInstances.forEach(v -> {
+            UserTask userTask = (UserTask) v;
+            ExtensionElements extensionElements = userTask.getExtensionElements();
+        });
     }
 }

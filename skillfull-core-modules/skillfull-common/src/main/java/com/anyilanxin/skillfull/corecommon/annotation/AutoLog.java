@@ -64,6 +64,7 @@ public @interface AutoLog {
      */
     String note() default "";
 
+
     /**
      * 操作类型
      *

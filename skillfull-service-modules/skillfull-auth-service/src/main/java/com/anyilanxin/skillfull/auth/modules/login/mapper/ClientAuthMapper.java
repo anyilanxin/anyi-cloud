@@ -53,6 +53,7 @@ public interface ClientAuthMapper {
      */
     Set<RoleInfo> getClientAuthRole(@Param("clientDetailId") String clientDetailId);
 
+
     /**
      * 通过客户端id查询客户端信息
      *

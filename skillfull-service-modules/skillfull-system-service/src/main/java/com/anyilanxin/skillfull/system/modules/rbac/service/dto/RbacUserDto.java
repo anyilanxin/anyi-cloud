@@ -132,11 +132,7 @@ public class RbacUserDto implements Serializable {
     @Schema(name = "currentLoginIp", title = "最后登录IP")
     private String currentLoginIp;
 
-    @Schema(
-            name = "currentLoginDate",
-            title = "最后登录时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "currentLoginDate", title = "最后登录时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime currentLoginDate;
 

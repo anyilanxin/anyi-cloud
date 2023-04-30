@@ -69,66 +69,47 @@ import org.springframework.web.bind.annotation.*;
 public class ProcessCategoryController extends BaseController {
     private final IProcessCategoryService service;
 
-    @Operation(
-            summary = "流程类别添加",
-            tags = {"v1.0.0"},
-            description = "添加流程类别")
+    @Operation(summary = "流程类别添加", tags = {"v1.0.0"}, description = "添加流程类别")
     @PostMapping(value = "/insert")
     public Result<String> insert(@RequestBody @Valid ProcessCategoryVo vo) {
         service.save(vo);
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    @Operation(
-            summary = "通过类别id修改",
-            tags = {"v1.0.0"},
-            description = "修改流程类别")
+
+    @Operation(summary = "通过类别id修改", tags = {"v1.0.0"}, description = "修改流程类别")
     @Parameter(in = ParameterIn.PATH, description = "类别id", name = "categoryId", required = true)
     @PutMapping(value = "/update/{categoryId}")
-    public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空")
-                    String categoryId,
-            @RequestBody @Valid ProcessCategoryVo vo) {
+    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空") String categoryId, @RequestBody @Valid ProcessCategoryVo vo) {
         service.updateById(categoryId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "流程类别逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除流程类别")
+
+    @Operation(summary = "流程类别逻辑删除", tags = {"v1.0.0"}, description = "删除流程类别")
     @Parameter(in = ParameterIn.PATH, description = "类别id", name = "categoryId", required = true)
     @DeleteMapping(value = "/delete-one/{categoryId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空")
-                    String categoryId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "类别id不能为空") String categoryId) {
         service.deleteById(categoryId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过条件查询流程类别多条数据",
-            tags = {"v1.0.0"},
-            description = "查询有效的类表")
+
+    @Operation(summary = "通过条件查询流程类别多条数据", tags = {"v1.0.0"}, description = "查询有效的类表")
     @PostMapping(value = "/select/list")
     public Result<List<ProcessCategoryDto>> getList(@RequestBody ProcessCategoryQueryVo vo) {
         return ok(service.selectListByModel(vo));
     }
 
-    @Operation(
-            summary = "流程类别分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询流程类别")
+
+    @Operation(summary = "流程类别分页查询", tags = {"v1.0.0"}, description = "分页查询流程类别")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<ProcessCategoryPageDto>> selectPage(
-            @RequestBody ProcessCategoryPageVo vo) {
+    public Result<PageDto<ProcessCategoryPageDto>> selectPage(@RequestBody ProcessCategoryPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 
-    @Operation(
-            summary = "获取建模流程类别下拉列表",
-            tags = {"v1.0.0"},
-            description = "获取建模流程类别下拉列表")
+
+    @Operation(summary = "获取建模流程类别下拉列表", tags = {"v1.0.0"}, description = "获取建模流程类别下拉列表")
     @GetMapping(value = "/select/category-list")
     public Result<List<SelectModel>> getModelDesignList() {
         return ok(service.getModelDesignList());

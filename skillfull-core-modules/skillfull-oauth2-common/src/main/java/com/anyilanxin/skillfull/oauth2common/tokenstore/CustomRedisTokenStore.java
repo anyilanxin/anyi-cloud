@@ -46,6 +46,7 @@ public class CustomRedisTokenStore extends RedisTokenStore {
         super(connectionFactory);
     }
 
+
     public OAuth2Authentication readAuthentication(OAuth2AccessToken token) {
         OAuth2Authentication oAuth2Authentication = this.readAuthentication(token.getValue());
         return oAuth2Authentication;

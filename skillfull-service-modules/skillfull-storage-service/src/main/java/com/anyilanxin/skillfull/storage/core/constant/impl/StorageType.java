@@ -71,6 +71,7 @@ public enum StorageType implements ISuperType {
         this.describe = describe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -88,6 +89,7 @@ public enum StorageType implements ISuperType {
         }
         return false;
     }
+
 
     /**
      * 通过类型查找存储类型
@@ -107,6 +109,7 @@ public enum StorageType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -122,6 +125,7 @@ public enum StorageType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

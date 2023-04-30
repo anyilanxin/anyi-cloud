@@ -43,9 +43,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-03-29 08:34:22
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ManageAnnouncementQueryCopyMap
-        extends BaseMap<ManageAnnouncementQueryVo, ManageAnnouncementEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ManageAnnouncementQueryCopyMap extends BaseMap<ManageAnnouncementQueryVo, ManageAnnouncementEntity> {
+}

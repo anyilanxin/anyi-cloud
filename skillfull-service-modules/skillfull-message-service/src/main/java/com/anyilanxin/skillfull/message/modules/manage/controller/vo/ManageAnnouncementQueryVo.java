@@ -94,11 +94,7 @@ public class ManageAnnouncementQueryVo implements Serializable {
     @Schema(name = "sendType", title = "发布方式：0-手动,1-自动")
     private Integer sendType;
 
-    @Schema(
-            name = "autoSendTime",
-            title = "自动发布时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "autoSendTime", title = "自动发布时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime autoSendTime;
 

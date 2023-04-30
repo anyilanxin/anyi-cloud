@@ -52,10 +52,12 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
         this.redisTemplate = redisTemplate;
     }
 
+
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
         redisTemplate.opsForValue().set(code, authentication, validitySeconds, TimeUnit.SECONDS);
     }
+
 
     @Override
     protected OAuth2Authentication remove(String code) {
@@ -65,6 +67,7 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
         }
         return (OAuth2Authentication) object;
     }
+
 
     public void setValiditySeconds(int validitySeconds) {
         this.validitySeconds = validitySeconds;

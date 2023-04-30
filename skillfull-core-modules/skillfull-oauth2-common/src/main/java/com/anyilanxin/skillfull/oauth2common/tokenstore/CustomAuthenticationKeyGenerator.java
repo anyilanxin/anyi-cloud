@@ -61,7 +61,9 @@ public class CustomAuthenticationKeyGenerator implements AuthenticationKeyGenera
     public static final String LOGIN_ENDPOINT = OAuth2RequestExtendConstant.LOGIN_ENDPOINT;
     public static final String LIMIT_RESOURCE = OAuth2RequestExtendConstant.LIMIT_RESOURCE;
 
-    public CustomAuthenticationKeyGenerator() {}
+    public CustomAuthenticationKeyGenerator() {
+    }
+
 
     public String extractKey(OAuth2Authentication authentication) {
         Map<String, String> values = new LinkedHashMap<>();
@@ -72,10 +74,7 @@ public class CustomAuthenticationKeyGenerator implements AuthenticationKeyGenera
         Map<String, Serializable> extensions = authentication.getOAuth2Request().getExtensions();
         values.put(CLIENT_ID, authorizationRequest.getClientId());
         if (authorizationRequest.getScope() != null) {
-            values.put(
-                    SCOPE,
-                    OAuth2Utils.formatParameterList(
-                            new TreeSet<>(authorizationRequest.getScope())));
+            values.put(SCOPE, OAuth2Utils.formatParameterList(new TreeSet<>(authorizationRequest.getScope())));
         }
         if (CollectionUtil.isNotEmpty(extensions)) {
             Serializable serializable = extensions.get(LOGIN_UNIQUE);
@@ -94,17 +93,16 @@ public class CustomAuthenticationKeyGenerator implements AuthenticationKeyGenera
         return this.generateKey(values);
     }
 
+
     protected String generateKey(Map<String, String> values) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             byte[] bytes = digest.digest(values.toString().getBytes("UTF-8"));
             return String.format("%032x", new BigInteger(1, bytes));
         } catch (NoSuchAlgorithmException var4) {
-            throw new IllegalStateException(
-                    "MD5 algorithm not available.  Fatal (should be in the JDK).", var4);
+            throw new IllegalStateException("MD5 algorithm not available.  Fatal (should be in the JDK).", var4);
         } catch (UnsupportedEncodingException var5) {
-            throw new IllegalStateException(
-                    "UTF-8 encoding not available.  Fatal (should be in the JDK).", var5);
+            throw new IllegalStateException("UTF-8 encoding not available.  Fatal (should be in the JDK).", var5);
         }
     }
 }

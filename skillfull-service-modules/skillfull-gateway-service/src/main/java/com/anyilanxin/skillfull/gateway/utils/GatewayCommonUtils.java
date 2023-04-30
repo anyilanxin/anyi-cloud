@@ -83,12 +83,7 @@ public class GatewayCommonUtils {
      * @param statusCode statusCode
      * @param message message
      */
-    public static Mono<Void> responseWrite(
-            ServerWebExchange exchange,
-            HttpStatus statusCode,
-            Status status,
-            String message,
-            Map<String, String> headers) {
+    public static Mono<Void> responseWrite(ServerWebExchange exchange, HttpStatus statusCode, Status status, String message, Map<String, String> headers) {
         if (CollUtil.isNotEmpty(headers)) {
             headers.forEach((key, value) -> exchange.getResponse().getHeaders().add(key, value));
         }
@@ -98,29 +93,22 @@ public class GatewayCommonUtils {
         }
         CorsWebUtils.addCorsHeaders(exchange);
         if (StringUtils.isNotBlank(message)) {
-            return exchange.getResponse()
-                    .writeWith(
-                            Flux.create(
-                                    sink -> {
-                                        Result<String> result = new Result<>();
-                                        result.setSuccess(false);
-                                        result.setCode(status.getCode());
-                                        result.setTimestamp(System.currentTimeMillis());
-                                        result.setMessage(message);
-                                        NettyDataBufferFactory nettyDataBufferFactory =
-                                                new NettyDataBufferFactory(
-                                                        new UnpooledByteBufAllocator(false));
-                                        DataBuffer dataBuffer =
-                                                nettyDataBufferFactory.wrap(
-                                                        JSONObject.toJSONString(result)
-                                                                .getBytes(StandardCharsets.UTF_8));
-                                        sink.next(dataBuffer);
-                                        sink.complete();
-                                    }));
+            return exchange.getResponse().writeWith(Flux.create(sink -> {
+                Result<String> result = new Result<>();
+                result.setSuccess(false);
+                result.setCode(status.getCode());
+                result.setTimestamp(System.currentTimeMillis());
+                result.setMessage(message);
+                NettyDataBufferFactory nettyDataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
+                DataBuffer dataBuffer = nettyDataBufferFactory.wrap(JSONObject.toJSONString(result).getBytes(StandardCharsets.UTF_8));
+                sink.next(dataBuffer);
+                sink.complete();
+            }));
         } else {
             return exchange.getResponse().setComplete();
         }
     }
+
 
     /**
      * 检测当前url是否在提供的名单中
@@ -131,18 +119,18 @@ public class GatewayCommonUtils {
      * @author zxiaozhou
      * @date 2021-07-28 23:15
      */
-    public static CheckUrlInfo isHaveUrl(
-            ServerWebExchange exchange, RouteMetaSpecialUrlModel specialUrl) {
+    public static CheckUrlInfo isHaveUrl(ServerWebExchange exchange, RouteMetaSpecialUrlModel specialUrl) {
         CheckUrlInfo result = new CheckUrlInfo();
-        //        if (Objects.isNull(specialUrl) ||
+        // if (Objects.isNull(specialUrl) ||
         // CollectionUtil.isEmpty(specialUrl.getBlackSpecialUrls())) {
-        //            return result;
-        //        }
-        //        Set<SpecialUrlModel> checkUrlList = specialUrl.getSpecialUrl();
-        //        result.setResult(GatewayCommonUtils.isHaveUrl(exchange, checkUrlList));
-        //        result.setSpecialUrlType(specialUrl.getSpecialUrlType());
+        // return result;
+        // }
+        // Set<SpecialUrlModel> checkUrlList = specialUrl.getSpecialUrl();
+        // result.setResult(GatewayCommonUtils.isHaveUrl(exchange, checkUrlList));
+        // result.setSpecialUrlType(specialUrl.getSpecialUrlType());
         return result;
     }
+
 
     /**
      * 检测当前是否为白名单中的请求

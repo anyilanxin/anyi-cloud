@@ -69,10 +69,12 @@ public class KeyCoreDatabaseConfig {
             this.generatorSnowflake = snowflake;
         }
 
+
         @Override
         public Number nextId(Object entity) {
             return generatorSnowflake.nextId();
         }
+
 
         @Override
         public String nextUUID(Object entity) {

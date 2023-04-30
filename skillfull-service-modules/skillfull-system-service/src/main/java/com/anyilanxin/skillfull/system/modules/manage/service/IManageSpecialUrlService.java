@@ -56,6 +56,7 @@ public interface IManageSpecialUrlService extends BaseService<ManageSpecialUrlEn
      */
     void deleteAndSave(List<ManageSpecialUrlVo> vo, String customFilterId) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -67,6 +68,7 @@ public interface IManageSpecialUrlService extends BaseService<ManageSpecialUrlEn
      */
     List<ManageSpecialUrlDto> selectByCustomFilterId(String customFilterId) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -77,8 +79,8 @@ public interface IManageSpecialUrlService extends BaseService<ManageSpecialUrlEn
      * @author zxiaozhou
      * @date 2021-12-19 09:34:50
      */
-    Map<String, List<ManageSpecialUrlDto>> selectByCustomFilterIds(Set<String> customFilterIds)
-            throws RuntimeException;
+    Map<String, List<ManageSpecialUrlDto>> selectByCustomFilterIds(Set<String> customFilterIds) throws RuntimeException;
+
 
     /**
      * 删除特殊url
@@ -88,6 +90,7 @@ public interface IManageSpecialUrlService extends BaseService<ManageSpecialUrlEn
      * @date 2021-12-19 09:59
      */
     void deleteByCustomFilterId(String customFilterId) throws RuntimeException;
+
 
     /**
      * 删除特殊url

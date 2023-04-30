@@ -43,8 +43,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-05-02 11:46:37
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface RbacSystemQueryCopyMap extends BaseMap<RbacSystemQueryVo, RbacSystemEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface RbacSystemQueryCopyMap extends BaseMap<RbacSystemQueryVo, RbacSystemEntity> {
+}

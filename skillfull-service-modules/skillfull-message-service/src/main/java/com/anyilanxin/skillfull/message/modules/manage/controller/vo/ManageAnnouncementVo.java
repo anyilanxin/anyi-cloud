@@ -95,11 +95,7 @@ public class ManageAnnouncementVo implements Serializable {
     @NotBlankOrNull(message = "发布方式：0-手动,1-自动不能为空")
     private Integer sendType;
 
-    @Schema(
-            name = "autoSendTime",
-            title = "自动发布时间",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "autoSendTime", title = "自动发布时间", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime autoSendTime;
 
@@ -139,12 +135,7 @@ public class ManageAnnouncementVo implements Serializable {
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
-    @Schema(
-            name = "createTime",
-            title = "创建时间",
-            type = "string",
-            example = "2020-11-12 11:23:59",
-            required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
     @NotBlankOrNull(message = "创建时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime createTime;

@@ -57,9 +57,7 @@ import reactor.core.publisher.Mono;
 public class CustomServerAccessDeniedHandler implements ServerAccessDeniedHandler {
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
-        log.error(
-                "------------RestfulAccessDeniedHandler------------>handle--->异常消息:\n{}",
-                denied.getMessage());
+        log.error("------------RestfulAccessDeniedHandler------------>handle--->异常消息:\n{}", denied.getMessage());
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.FORBIDDEN);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);

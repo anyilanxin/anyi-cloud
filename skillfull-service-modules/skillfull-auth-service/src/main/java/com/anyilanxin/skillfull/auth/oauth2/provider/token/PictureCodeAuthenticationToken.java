@@ -46,8 +46,7 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
     private String pictureCode;
     private String pictureCodeId;
 
-    public PictureCodeAuthenticationToken(
-            String accountOrPhone, String password, String pictureCode, String pictureCodeId) {
+    public PictureCodeAuthenticationToken(String accountOrPhone, String password, String pictureCode, String pictureCodeId) {
         super(accountOrPhone, password);
         this.accountOrPhone = accountOrPhone;
         this.password = password;
@@ -56,12 +55,8 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
         setAuthenticated(false);
     }
 
-    public PictureCodeAuthenticationToken(
-            String accountOrPhone,
-            String password,
-            String pictureCode,
-            String pictureCodeId,
-            Collection<? extends GrantedAuthority> authorities) {
+
+    public PictureCodeAuthenticationToken(String accountOrPhone, String password, String pictureCode, String pictureCodeId, Collection<? extends GrantedAuthority> authorities) {
         super(accountOrPhone, password, authorities);
         this.accountOrPhone = accountOrPhone;
         this.password = password;
@@ -70,18 +65,22 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return this.password;
     }
 
+
     public String getPictureCode() {
         return this.pictureCode;
     }
 
+
     public String getPictureCodeId() {
         return this.pictureCodeId;
     }
+
 
     @Override
     public Object getPrincipal() {

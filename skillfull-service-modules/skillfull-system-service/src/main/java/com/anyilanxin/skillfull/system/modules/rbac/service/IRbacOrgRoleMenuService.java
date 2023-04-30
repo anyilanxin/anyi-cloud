@@ -53,6 +53,7 @@ public interface IRbacOrgRoleMenuService extends BaseService<RbacOrgRoleMenuEnti
      */
     void saveBatch(String orgRoleId, List<String> menuIds) throws RuntimeException;
 
+
     /**
      * 角色-菜单表批量删除
      *

@@ -44,9 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-03-29 05:23:42
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ManageSendRecordCopyMap
-        extends BaseThreeMap<ManageSendRecordEntity, ManageSendRecordDto, ManageSendRecordVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ManageSendRecordCopyMap extends BaseThreeMap<ManageSendRecordEntity, ManageSendRecordDto, ManageSendRecordVo> {
+}

@@ -43,9 +43,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-09-12 16:33:37
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface SecurityToWebSecurityMap
-        extends BaseThreeMap<UserDataSecurityModel, WebSecurityModel, ConfigDataSecurityModel> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface SecurityToWebSecurityMap extends BaseThreeMap<UserDataSecurityModel, WebSecurityModel, ConfigDataSecurityModel> {
+}

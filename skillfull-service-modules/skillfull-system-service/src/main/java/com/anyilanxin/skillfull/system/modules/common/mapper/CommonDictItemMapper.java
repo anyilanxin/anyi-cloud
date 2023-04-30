@@ -58,8 +58,8 @@ public interface CommonDictItemMapper extends BaseMapper<CommonDictItemEntity> {
      * @author zxiaozhou
      * @date 2020-11-02 09:25:25
      */
-    IPage<CommonDictItemPageDto> pageByModel(
-            Page<CommonDictItemPageDto> page, @Param("query") CommonDictItemPageVo vo);
+    IPage<CommonDictItemPageDto> pageByModel(Page<CommonDictItemPageDto> page, @Param("query") CommonDictItemPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -70,6 +70,7 @@ public interface CommonDictItemMapper extends BaseMapper<CommonDictItemEntity> {
      * @date 2020-11-02 09:25:25
      */
     List<CommonDictItemDto> selectListByCode(@Param("dictCode") String dictCode);
+
 
     /**
      * 通过字典项id物理删除

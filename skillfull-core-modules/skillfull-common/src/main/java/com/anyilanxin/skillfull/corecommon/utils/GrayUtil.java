@@ -78,20 +78,16 @@ public class GrayUtil {
         if (CollUtil.isNotEmpty(headers)) {
             List<String> headerValues = headers.get(GRAY_HEADER_KEY);
             if (CollUtil.isNotEmpty(headerValues)) {
-                Stream<ServiceInstance> stream =
-                        grayInstances.stream()
-                                .filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String enableGray =
-                                                        metadata.get("gray-info.enable-gray");
-                                                if (StringUtils.isNotBlank(enableGray)) {
-                                                    return Boolean.parseBoolean(enableGray);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                Stream<ServiceInstance> stream = grayInstances.stream().filter(v -> {
+                    Map<String, String> metadata = v.getMetadata();
+                    if (CollUtil.isNotEmpty(metadata)) {
+                        String enableGray = metadata.get("gray-info.enable-gray");
+                        if (StringUtils.isNotBlank(enableGray)) {
+                            return Boolean.parseBoolean(enableGray);
+                        }
+                    }
+                    return true;
+                });
                 for (String headerValue : headerValues) {
                     if (headerValue.startsWith("grayIp=")) {
                         String ip = headerValue.split("=")[1];
@@ -99,35 +95,29 @@ public class GrayUtil {
                     }
                     if (headerValue.startsWith("grayActive=")) {
                         String active = headerValue.split("=")[1];
-                        stream =
-                                stream.filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String instanceActive =
-                                                        metadata.get("gray-info.active");
-                                                if (StringUtils.isNotBlank(instanceActive)) {
-                                                    return instanceActive.equals(active);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                        stream = stream.filter(v -> {
+                            Map<String, String> metadata = v.getMetadata();
+                            if (CollUtil.isNotEmpty(metadata)) {
+                                String instanceActive = metadata.get("gray-info.active");
+                                if (StringUtils.isNotBlank(instanceActive)) {
+                                    return instanceActive.equals(active);
+                                }
+                            }
+                            return true;
+                        });
                     }
                     if (headerValue.startsWith("grayVersion=")) {
                         String version = headerValue.split("=")[1];
-                        stream =
-                                stream.filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String instanceVersion =
-                                                        metadata.get("gray-info.version");
-                                                if (StringUtils.isNotBlank(instanceVersion)) {
-                                                    return instanceVersion.equals(version);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                        stream = stream.filter(v -> {
+                            Map<String, String> metadata = v.getMetadata();
+                            if (CollUtil.isNotEmpty(metadata)) {
+                                String instanceVersion = metadata.get("gray-info.version");
+                                if (StringUtils.isNotBlank(instanceVersion)) {
+                                    return instanceVersion.equals(version);
+                                }
+                            }
+                            return true;
+                        });
                     }
                 }
                 List<ServiceInstance> finallyGrayInstances = stream.collect(Collectors.toList());

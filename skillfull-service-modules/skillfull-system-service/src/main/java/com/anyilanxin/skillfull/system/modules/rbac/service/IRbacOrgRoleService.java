@@ -60,6 +60,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void save(RbacOrgRoleVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -70,6 +71,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-05 00:22:57
      */
     void updateById(String orgRoleId, RbacOrgRoleVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,6 +84,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     PageDto<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -93,6 +96,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     RbacOrgRoleDto getById(String orgRoleId) throws RuntimeException;
 
+
     /**
      * 通过orgRoleId删除
      *
@@ -102,6 +106,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-05 00:22:57
      */
     void deleteById(String orgRoleId) throws RuntimeException;
+
 
     /**
      * 机构角色表批量删除
@@ -113,6 +118,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void deleteBatch(List<String> orgRoleIds) throws RuntimeException;
 
+
     /**
      * 更新或添加角色权限
      *
@@ -123,6 +129,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void updateAuth(String orgRoleId, RbacOrgRoleAuthVo vo);
 
+
     /**
      * 通过角色id查询菜单按钮权限
      *
@@ -132,6 +139,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-07 09:55
      */
     Set<RbacOrgRoleMenuButtonDto> getMenuActions(String orgRoleId);
+
 
     /**
      * 角色启用或禁用

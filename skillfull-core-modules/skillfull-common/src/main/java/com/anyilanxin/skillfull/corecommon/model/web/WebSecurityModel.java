@@ -54,11 +54,7 @@ public class WebSecurityModel implements Serializable {
     @Schema(name = "validityInSeconds", title = "有效时间(秒)(请在这个时间后手动刷新或者自动刷新)")
     private long validityInSeconds;
 
-    @Schema(
-            name = "expiresAt",
-            title = "有效时间止(请在这个时间后手动刷新或者自动刷新)",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "expiresAt", title = "有效时间止(请在这个时间后手动刷新或者自动刷新)", type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime expiresAt;
 

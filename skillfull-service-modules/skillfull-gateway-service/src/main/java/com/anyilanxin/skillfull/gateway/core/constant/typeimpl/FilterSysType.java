@@ -73,6 +73,7 @@ public enum FilterSysType implements ISuperType {
         this.filterTypeClassName = filterTypeClassName;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -91,6 +92,7 @@ public enum FilterSysType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -106,6 +108,7 @@ public enum FilterSysType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

@@ -57,8 +57,8 @@ public interface CommonDictMapper extends BaseMapper<CommonDictEntity> {
      * @author zxiaozhou
      * @date 2020-11-02 09:25:17
      */
-    IPage<CommonDictPageDto> pageByModel(
-            Page<CommonDictPageDto> page, @Param("query") CommonDictPageVo vo);
+    IPage<CommonDictPageDto> pageByModel(Page<CommonDictPageDto> page, @Param("query") CommonDictPageVo vo);
+
 
     /**
      * 通过字典id物理删除
@@ -69,6 +69,7 @@ public interface CommonDictMapper extends BaseMapper<CommonDictEntity> {
      * @date 2020-08-28 11:36
      */
     int physicalDeleteById(@Param("id") String dictId);
+
 
     /**
      * 通过字典id物理批量删除

@@ -58,6 +58,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      */
     void save(AnnouncementRecordVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -70,6 +71,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      */
     void updateById(String anntReadId, AnnouncementRecordVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -80,8 +82,8 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
-    PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo)
-            throws RuntimeException;
+    PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -92,8 +94,8 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
-    List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo)
-            throws RuntimeException;
+    List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -106,6 +108,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      */
     AnnouncementRecordDto getById(String anntReadId) throws RuntimeException;
 
+
     /**
      * 通过anntReadId删除
      *
@@ -115,6 +118,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @date 2022-03-29 08:35:34
      */
     void deleteById(String anntReadId) throws RuntimeException;
+
 
     /**
      * 系统通知公告阅读记录批量删除

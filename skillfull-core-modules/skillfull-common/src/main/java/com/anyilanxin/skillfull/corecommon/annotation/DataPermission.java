@@ -43,4 +43,5 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DataPermission {}
+public @interface DataPermission {
+}

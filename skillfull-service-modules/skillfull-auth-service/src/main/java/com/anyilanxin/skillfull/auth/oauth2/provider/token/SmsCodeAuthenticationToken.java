@@ -51,18 +51,20 @@ public class SmsCodeAuthenticationToken extends UsernamePasswordAuthenticationTo
         setAuthenticated(false);
     }
 
-    public SmsCodeAuthenticationToken(
-            String phone, String smsCode, Collection<? extends GrantedAuthority> authorities) {
+
+    public SmsCodeAuthenticationToken(String phone, String smsCode, Collection<? extends GrantedAuthority> authorities) {
         super(phone, smsCode, authorities);
         this.phone = phone;
         this.smsCode = smsCode;
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return this.smsCode;
     }
+
 
     @Override
     public Object getPrincipal() {

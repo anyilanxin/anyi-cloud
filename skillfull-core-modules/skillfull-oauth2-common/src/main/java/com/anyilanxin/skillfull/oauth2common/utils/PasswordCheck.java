@@ -49,6 +49,7 @@ public class PasswordCheck {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     public static PasswordCheck getSingleton(PasswordEncoder passwordEncoder) {
         if (singleton == null) {
             synchronized (PasswordCheck.class) {
@@ -59,6 +60,7 @@ public class PasswordCheck {
         }
         return singleton;
     }
+
 
     /**
      * 校验密码
@@ -73,6 +75,7 @@ public class PasswordCheck {
         return passwordEncoder.matches(rawPassword + salt, encodedPassword);
     }
 
+
     /**
      * 校验密码(没有盐)
      *
@@ -84,6 +87,7 @@ public class PasswordCheck {
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
 
     /**
      * 获取密码
@@ -98,6 +102,7 @@ public class PasswordCheck {
         String encodePassword = passwordEncoder.encode(rawPassword + salt);
         return PasswordInfo.builder().salt(salt).encodedPassword(encodePassword).build();
     }
+
 
     /**
      * 获取密码（没有盐）

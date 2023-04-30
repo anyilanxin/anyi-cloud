@@ -76,10 +76,7 @@ public class ManageTemplateVo implements Serializable {
 
     @Schema(name = "templateType", title = "模板类型:1-微信模板,2-短信,3-邮件", required = true)
     @NotBlankOrNull(message = "模板类型:1-微信模板,2-短信,3-邮件不能为空")
-    @NotInEnum(
-            message = "模板类型只能为:",
-            enumClass = MsgTemplateCommonChannelType.class,
-            autoMessage = true)
+    @NotInEnum(message = "模板类型只能为:", enumClass = MsgTemplateCommonChannelType.class, autoMessage = true)
     private Integer templateType;
 
     @Schema(name = "limitSend", title = "是否限制发送次数：0-不限制,1-限制。默认0", required = true)

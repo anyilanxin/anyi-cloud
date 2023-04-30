@@ -51,6 +51,7 @@ public interface IRbacOrgUserService extends BaseService<RbacOrgUserEntity> {
      */
     void joinOrg(RbacJoinOrgVo vo);
 
+
     /**
      * 移除机构
      *

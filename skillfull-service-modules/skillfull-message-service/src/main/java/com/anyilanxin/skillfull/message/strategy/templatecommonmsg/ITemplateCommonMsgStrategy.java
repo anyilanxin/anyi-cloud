@@ -52,6 +52,5 @@ public interface ITemplateCommonMsgStrategy {
      * @author zxiaozhou
      * @date 2022-08-30 09:25
      */
-    List<ManageSendRecordEntity> sendMsg(
-            TemplateCommonMsgModel model, ManageTemplateSendInfoDto sendInfo);
+    List<ManageSendRecordEntity> sendMsg(TemplateCommonMsgModel model, ManageTemplateSendInfoDto sendInfo);
 }

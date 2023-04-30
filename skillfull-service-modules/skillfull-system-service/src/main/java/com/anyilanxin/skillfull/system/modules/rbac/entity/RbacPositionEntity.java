@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacPositionEntity extends BaseEntity {
     private static final long serialVersionUID = -42001886261952020L;
 
-    @TableId private String positionId;
+    @TableId
+    private String positionId;
 
     /** 职位编码 */
     private String positionCode;

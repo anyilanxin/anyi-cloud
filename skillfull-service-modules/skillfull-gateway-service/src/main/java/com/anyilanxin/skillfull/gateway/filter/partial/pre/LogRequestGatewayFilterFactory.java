@@ -60,8 +60,7 @@ import reactor.core.publisher.Mono;
  * @since JDK11
  */
 @Slf4j
-public class LogRequestGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<LogRequestGatewayFilterFactory.Config> {
+public class LogRequestGatewayFilterFactory extends AbstractGatewayFilterFactory<LogRequestGatewayFilterFactory.Config> {
 
     private final List<HttpMessageReader<?>> messageReaders;
 
@@ -70,10 +69,12 @@ public class LogRequestGatewayFilterFactory
         this.messageReaders = HandlerStrategies.withDefaults().messageReaders();
     }
 
+
     @Override
     public List<String> shortcutFieldOrder() {
         return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
     }
+
 
     @Override
     public GatewayFilter apply(Config config) {
@@ -95,12 +96,12 @@ public class LogRequestGatewayFilterFactory
             this.messageReaders = messageReaders;
         }
 
+
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------LogGatewayFilter------------>filter:{}", "日志记录过滤器");
             // 验证特殊url
-            GatewayCommonUtils.CheckUrlInfo haveUrl =
-                    GatewayCommonUtils.isHaveUrl(exchange, config.specialUrl);
+            GatewayCommonUtils.CheckUrlInfo haveUrl = GatewayCommonUtils.isHaveUrl(exchange, config.specialUrl);
             // 没有url没有任何类型直接运行获取日志
             if (haveUrl.getSpecialUrlType() == 0) {
                 return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
@@ -117,6 +118,7 @@ public class LogRequestGatewayFilterFactory
             return LogRecordUtils.getRequestInfo(exchange, chain, messageReaders);
         }
 
+
         @Override
         /**
          * 必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
@@ -125,15 +127,13 @@ public class LogRequestGatewayFilterFactory
             return LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
+
 
         public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
@@ -149,10 +149,10 @@ public class LogRequestGatewayFilterFactory
             return specialUrl;
         }
 
+
         public Config setSpecialUrl(String specialUrl) {
             if (StringUtils.isNotBlank(specialUrl)) {
-                this.specialUrl =
-                        JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
+                this.specialUrl = JSONObject.parseObject(specialUrl, RouteMetaSpecialUrlModel.class);
             }
             return this;
         }

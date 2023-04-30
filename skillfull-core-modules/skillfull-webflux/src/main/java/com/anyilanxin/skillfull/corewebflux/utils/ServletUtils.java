@@ -55,6 +55,7 @@ public class ServletUtils {
         THREAD_LOCAL.set(request);
     }
 
+
     /**
      * 本地线程获取ServerHttpRequest同时删除
      *
@@ -70,6 +71,7 @@ public class ServletUtils {
         return httpRequest;
     }
 
+
     /**
      * 本地线程获取ServerHttpRequest不删除
      *
@@ -81,6 +83,7 @@ public class ServletUtils {
         return THREAD_LOCAL.get();
     }
 
+
     /**
      * 本地线程变量删除数据
      *
@@ -90,6 +93,7 @@ public class ServletUtils {
     public static void removeServerHttpRequest() {
         THREAD_LOCAL.remove();
     }
+
 
     /**
      * 获取ip

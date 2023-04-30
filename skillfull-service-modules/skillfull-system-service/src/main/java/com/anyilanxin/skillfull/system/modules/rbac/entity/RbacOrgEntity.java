@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class RbacOrgEntity extends BaseEntity {
     private static final long serialVersionUID = -26667015921374659L;
 
-    @TableId private String orgId;
+    @TableId
+    private String orgId;
 
     /** 父级组织id */
     private String parentId;

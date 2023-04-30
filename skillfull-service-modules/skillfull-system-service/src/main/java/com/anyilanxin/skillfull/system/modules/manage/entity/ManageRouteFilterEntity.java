@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageRouteFilterEntity extends BaseEntity {
     private static final long serialVersionUID = -28363313730786050L;
 
-    @TableId private String filterId;
+    @TableId
+    private String filterId;
 
     /** 路由id */
     private String routeId;

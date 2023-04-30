@@ -54,9 +54,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     private final TokenStore tokenStore;
 
     @Override
-    public void onLogoutSuccess(
-            HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Authentication extract = bearerTokenExtractor.extract(request);
         Object principal = extract.getPrincipal();
         if (Objects.nonNull(principal)) {

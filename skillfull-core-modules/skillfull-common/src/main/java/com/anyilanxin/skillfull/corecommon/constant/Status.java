@@ -60,8 +60,7 @@ public enum Status {
     TOKEN_KICKED_OUT(4002, I18nUtil.get("Status.TOKEN_KICKED_OUT"), HttpStatus.UNAUTHORIZED),
 
     /** 其他地方登录下线 */
-    TOKEN_LOGIN_ELSEWHERE(
-            4003, I18nUtil.get("Status.TOKEN_LOGIN_ELSEWHERE"), HttpStatus.UNAUTHORIZED),
+    TOKEN_LOGIN_ELSEWHERE(4003, I18nUtil.get("Status.TOKEN_LOGIN_ELSEWHERE"), HttpStatus.UNAUTHORIZED),
 
     // ------------------------操作异常------------------
     /** 操作异常！ */
@@ -80,12 +79,10 @@ public enum Status {
     REQUEST_NOT_FOUND(4004, I18nUtil.get("Status.REQUEST_NOT_FOUND"), HttpStatus.NOT_FOUND),
 
     /** 数据库操作失败 */
-    DATABASE_BASE_ERROR(
-            5000, I18nUtil.get("Status.DATABASE_BASE_ERROR"), HttpStatus.INTERNAL_SERVER_ERROR),
+    DATABASE_BASE_ERROR(5000, I18nUtil.get("Status.DATABASE_BASE_ERROR"), HttpStatus.INTERNAL_SERVER_ERROR),
 
     /** 验证失败 */
-    VERIFICATION_FAILED(
-            5000, I18nUtil.get("Status.VERIFICATION_FAILED"), HttpStatus.INTERNAL_SERVER_ERROR),
+    VERIFICATION_FAILED(5000, I18nUtil.get("Status.VERIFICATION_FAILED"), HttpStatus.INTERNAL_SERVER_ERROR),
 
     /** 需要刷新 */
     NEED_REFRESH(4006, I18nUtil.get("Status.NEED_REFRESH"), HttpStatus.NOT_ACCEPTABLE),

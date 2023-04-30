@@ -56,7 +56,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageServiceEntity extends BaseEntity {
     private static final long serialVersionUID = 307682001232473844L;
 
-    @TableId private String serviceId;
+    @TableId
+    private String serviceId;
 
     /** 服务编码 */
     private String serviceCode;

@@ -63,6 +63,7 @@ public enum PermissionStatus implements ISuperType {
         this.typeDescribe = typeDescribe;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -81,6 +82,7 @@ public enum PermissionStatus implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -96,6 +98,7 @@ public enum PermissionStatus implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

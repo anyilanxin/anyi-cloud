@@ -55,8 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSocketCacheModel implements Serializable {
     private static final long serialVersionUID = -6963249109704133425L;
     /** userId为键 */
-    private ConcurrentHashMap<String, Set<WebSocketSessionModel>> socketSessions =
-            new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Set<WebSocketSessionModel>> socketSessions = new ConcurrentHashMap<>();
 
     /** token为键,userId为值 */
     private ConcurrentHashMap<String, String> socketToken = new ConcurrentHashMap<>();
@@ -89,6 +88,7 @@ public class WebSocketCacheModel implements Serializable {
             this.userId = UserContextUtils.getUserInfo(token).getUserId();
         }
 
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -96,13 +96,10 @@ public class WebSocketCacheModel implements Serializable {
 
             WebSocketSessionModel that = (WebSocketSessionModel) o;
 
-            if (getSessionId() != null
-                    ? !getSessionId().equals(that.getSessionId())
-                    : that.getSessionId() != null) return false;
-            return getToken() != null
-                    ? getToken().equals(that.getToken())
-                    : that.getToken() == null;
+            if (getSessionId() != null ? !getSessionId().equals(that.getSessionId()) : that.getSessionId() != null) return false;
+            return getToken() != null ? getToken().equals(that.getToken()) : that.getToken() == null;
         }
+
 
         @Override
         public int hashCode() {
@@ -110,6 +107,7 @@ public class WebSocketCacheModel implements Serializable {
             result = 31 * result + (getToken() != null ? getToken().hashCode() : 0);
             return result;
         }
+
 
         /**
          * 发送websocket消息
@@ -121,9 +119,7 @@ public class WebSocketCacheModel implements Serializable {
         public void sendData(Object data) {
             String stringMsg = JSONObject.toJSONString(data);
             this.session.getAsyncRemote().sendText(stringMsg);
-            log.info(
-                    "------------WebSocketSessionModel------发送websocket消息------>sendData:{}",
-                    stringMsg);
+            log.info("------------WebSocketSessionModel------发送websocket消息------>sendData:{}", stringMsg);
         }
     }
 }

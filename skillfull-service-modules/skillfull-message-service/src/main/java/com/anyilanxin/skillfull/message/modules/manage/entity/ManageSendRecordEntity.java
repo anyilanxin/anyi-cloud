@@ -60,7 +60,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageSendRecordEntity extends BaseEntity {
     private static final long serialVersionUID = 921903043857933745L;
 
-    @TableId private String sendRecordId;
+    @TableId
+    private String sendRecordId;
 
     /** 模板id */
     private String templateId;

@@ -59,21 +59,16 @@ public class PictureCodeAuthenticationProvider extends AbstractUserDetailsAuthen
     private final UserDetailsService userDetailsService;
     private final IValidate validate;
 
-    public PictureCodeAuthenticationProvider(
-            final UserDetailsService userDetailsService,
-            final PasswordEncoder passwordEncoder,
-            final IValidate validate) {
+    public PictureCodeAuthenticationProvider(final UserDetailsService userDetailsService, final PasswordEncoder passwordEncoder, final IValidate validate) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.validate = validate;
     }
 
+
     @Override
-    protected void additionalAuthenticationChecks(
-            UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
-        PictureCodeAuthenticationToken pictureCodeAuthenticationToken =
-                (PictureCodeAuthenticationToken) authentication;
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        PictureCodeAuthenticationToken pictureCodeAuthenticationToken = (PictureCodeAuthenticationToken) authentication;
         String pictureCode = pictureCodeAuthenticationToken.getPictureCode();
         String pictureCodeId = pictureCodeAuthenticationToken.getPictureCodeId();
         CheckDto checkDto = validate.checkVerification(new CheckModel(pictureCodeId, pictureCode));
@@ -82,31 +77,27 @@ public class PictureCodeAuthenticationProvider extends AbstractUserDetailsAuthen
         }
         SkillFullUserDetails customUserDetails = (SkillFullUserDetails) userDetails;
         PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-        if (!passwordCheck.matches(
-                pictureCodeAuthenticationToken.getCredentials().toString(),
-                customUserDetails.getSalt(),
-                userDetails.getPassword())) {
-            throw new BadCredentialsException(
-                    I18nUtil.get("PictureCodeAuthenticationProvider.badCredentials"));
+        if (!passwordCheck.matches(pictureCodeAuthenticationToken.getCredentials().toString(), customUserDetails.getSalt(), userDetails.getPassword())) {
+            throw new BadCredentialsException(I18nUtil.get("PictureCodeAuthenticationProvider.badCredentials"));
         }
     }
 
+
     @Override
-    protected UserDetails retrieveUser(
-            String username, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
+    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new UsernameNotFoundException(
-                    I18nUtil.get("PictureCodeAuthenticationProvider.userNotFound"));
+            throw new UsernameNotFoundException(I18nUtil.get("PictureCodeAuthenticationProvider.userNotFound"));
         }
         return userDetails;
     }
+
 
     @Override
     public boolean supports(Class<?> authentication) {
         return PictureCodeAuthenticationToken.class.isAssignableFrom(authentication);
     }
+
 
     @Override
     public void setHideUserNotFoundExceptions(boolean hideUserNotFoundExceptions) {

@@ -83,6 +83,7 @@ public class SyncGroupRequestModel implements Serializable {
         return Objects.equals(getGroupId(), that.getGroupId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getGroupId());

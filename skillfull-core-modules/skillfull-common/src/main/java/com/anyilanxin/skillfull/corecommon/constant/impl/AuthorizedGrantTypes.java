@@ -76,6 +76,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         this.describe = describe;
     }
 
+
     /**
      * 获取授权类型
      *
@@ -93,6 +94,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         }
         return null;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -112,6 +114,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -127,6 +130,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

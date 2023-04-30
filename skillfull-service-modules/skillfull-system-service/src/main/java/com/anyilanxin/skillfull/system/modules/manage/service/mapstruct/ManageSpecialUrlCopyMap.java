@@ -44,9 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2021-12-19 09:34:51
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ManageSpecialUrlCopyMap
-        extends BaseThreeMap<ManageSpecialUrlEntity, ManageSpecialUrlDto, ManageSpecialUrlVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ManageSpecialUrlCopyMap extends BaseThreeMap<ManageSpecialUrlEntity, ManageSpecialUrlDto, ManageSpecialUrlVo> {
+}

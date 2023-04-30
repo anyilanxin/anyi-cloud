@@ -50,7 +50,6 @@ import org.springframework.web.socket.WebSocketSession;
 @RequiredArgsConstructor
 public class MsgSubscribeBusinessImpl implements IMsgSubscribeStrategy {
     @Override
-    public void handleMsg(
-            SubscribeMsgModel subscribeMsgModel,
-            ConcurrentHashMap<String, WebSocketSession> sessions) {}
+    public void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
+    }
 }

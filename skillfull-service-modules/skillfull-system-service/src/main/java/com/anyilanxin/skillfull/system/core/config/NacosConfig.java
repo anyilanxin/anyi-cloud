@@ -64,6 +64,7 @@ public class NacosConfig {
         return NacosFactory.createNamingService(properties.getNacosProperties());
     }
 
+
     /**
      * 初始化NamingMaintainService
      *

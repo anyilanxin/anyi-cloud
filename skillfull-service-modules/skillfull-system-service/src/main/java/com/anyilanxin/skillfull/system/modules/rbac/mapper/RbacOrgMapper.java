@@ -58,8 +58,8 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 16:39:45
      */
-    IPage<RbacOrgTreePageDto> pageByModel(
-            Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
+    IPage<RbacOrgTreePageDto> pageByModel(Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
+
 
     /**
      * 通过组织id物理删除
@@ -70,6 +70,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      * @date 2022-05-02 16:39:45
      */
     int physicalDeleteById(@Param("id") String orgId);
+
 
     /**
      * 通过组织id物理批量删除

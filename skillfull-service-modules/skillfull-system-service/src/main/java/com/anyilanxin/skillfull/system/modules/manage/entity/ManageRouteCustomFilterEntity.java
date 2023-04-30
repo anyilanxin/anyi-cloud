@@ -53,7 +53,8 @@ import lombok.experimental.SuperBuilder;
 public class ManageRouteCustomFilterEntity implements Serializable {
     private static final long serialVersionUID = -20330045402293420L;
 
-    @TableId private String routeCustomFilterId;
+    @TableId
+    private String routeCustomFilterId;
 
     /** 自定义过滤器id */
     private String customFilterId;

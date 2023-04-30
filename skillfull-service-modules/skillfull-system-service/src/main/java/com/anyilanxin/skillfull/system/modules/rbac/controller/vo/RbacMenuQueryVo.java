@@ -133,9 +133,7 @@ public class RbacMenuQueryVo implements Serializable {
     @Schema(name = "orderNo", title = "菜单排序")
     private Integer orderNo;
 
-    @Schema(
-            name = "ignoreRoute",
-            title = "忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean")
+    @Schema(name = "ignoreRoute", title = "忽略路由。用于在ROUTE_MAPPING以及BACK权限模式下，生成对应的菜单而忽略路由,实际为boolean")
     private boolean ignoreRoute;
 
     @Schema(name = "showTag", title = "显示tag,0-不显示,1-显示，实际为boolean")

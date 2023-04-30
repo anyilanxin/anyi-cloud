@@ -73,6 +73,7 @@ public class Oauth2CommonUtils {
         utils = this;
     }
 
+
     /**
      * SystemUserAndActionModel转换为CustomUserDetails
      *
@@ -91,32 +92,25 @@ public class Oauth2CommonUtils {
         userDetails.setCredentialsNonExpired(true);
         Set<GrantedAuthority> authorities = new HashSet<>();
         if (CollUtil.isNotEmpty(model.getActions())) {
-            model.getActions()
-                    .forEach(
-                            (k, v) -> {
-                                v.forEach(
-                                        sv -> {
-                                            SkillFullGrantedAuthority authority =
-                                                    new SkillFullGrantedAuthority(k, sv);
-                                            authorities.add(authority);
-                                        });
-                            });
+            model.getActions().forEach((k, v) -> {
+                v.forEach(sv -> {
+                    SkillFullGrantedAuthority authority = new SkillFullGrantedAuthority(k, sv);
+                    authorities.add(authority);
+                });
+            });
         }
         if (CollUtil.isNotEmpty(model.getRoleInfos())) {
-            model.getRoleInfos()
-                    .forEach(
-                            v -> {
-                                SimpleGrantedAuthority authority =
-                                        new SimpleGrantedAuthority(
-                                                AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
-                                authorities.add(authority);
-                            });
+            model.getRoleInfos().forEach(v -> {
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
+                authorities.add(authority);
+            });
         }
         if (CollUtil.isNotEmpty(authorities)) {
             userDetails.setAuthorities(authorities);
         }
         return userDetails;
     }
+
 
     /**
      * ManageClientDetailsModel转换为CustomClientDetails
@@ -134,35 +128,26 @@ public class Oauth2CommonUtils {
         }
         customClientDetails.setClientSecret(model.getClientSecurity());
         if (StringUtils.isNotBlank(model.getWebRegisteredRedirectUri())) {
-            customClientDetails.setRegisteredRedirectUri(
-                    Set.of(model.getWebRegisteredRedirectUri()));
+            customClientDetails.setRegisteredRedirectUri(Set.of(model.getWebRegisteredRedirectUri()));
         }
         Set<GrantedAuthority> authorities = new HashSet<>();
         if (CollUtil.isNotEmpty(model.getActions())) {
-            model.getActions()
-                    .forEach(
-                            (k, v) -> {
-                                v.forEach(
-                                        sv -> {
-                                            SkillFullGrantedAuthority authority =
-                                                    new SkillFullGrantedAuthority(k, sv);
-                                            authorities.add(authority);
-                                        });
-                            });
+            model.getActions().forEach((k, v) -> {
+                v.forEach(sv -> {
+                    SkillFullGrantedAuthority authority = new SkillFullGrantedAuthority(k, sv);
+                    authorities.add(authority);
+                });
+            });
         }
         if (CollUtil.isNotEmpty(model.getRoleInfos())) {
             Set<String> roleCodes = new HashSet<>(model.getRoleInfos().size());
             Set<String> roleIds = new HashSet<>(model.getRoleInfos().size());
-            model.getRoleInfos()
-                    .forEach(
-                            v -> {
-                                roleCodes.add(v.getRoleCode());
-                                roleIds.add(v.getRoleId());
-                                SimpleGrantedAuthority authority =
-                                        new SimpleGrantedAuthority(
-                                                AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
-                                authorities.add(authority);
-                            });
+            model.getRoleInfos().forEach(v -> {
+                roleCodes.add(v.getRoleCode());
+                roleIds.add(v.getRoleId());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(AuthConstant.DEFAULT_ROLE_PREFIX + v.getRoleCode());
+                authorities.add(authority);
+            });
             customClientDetails.setRoleCodes(roleCodes);
             customClientDetails.setRoleIds(roleIds);
         }
@@ -171,6 +156,7 @@ public class Oauth2CommonUtils {
         }
         return customClientDetails;
     }
+
 
     /**
      * 刷新当前用户信息
@@ -184,6 +170,7 @@ public class Oauth2CommonUtils {
         refreshUserOauth(authentication, model);
     }
 
+
     /**
      * 刷新用户信息
      *
@@ -192,31 +179,22 @@ public class Oauth2CommonUtils {
      * @author zxiaozhou
      * @date 2022-04-05 23:23
      */
-    private static void refreshUserOauth(
-            Authentication authentication, UserAndResourceAuthModel model) {
+    private static void refreshUserOauth(Authentication authentication, UserAndResourceAuthModel model) {
         // 在获取用户信息
         if (authentication instanceof OAuth2Authentication) {
             OAuth2Authentication auth2Authentication = (OAuth2Authentication) authentication;
             Authentication userAuthentication = auth2Authentication.getUserAuthentication();
-            if (Objects.nonNull(userAuthentication)
-                    && userAuthentication instanceof UsernamePasswordAuthenticationToken) {
+            if (Objects.nonNull(userAuthentication) && userAuthentication instanceof UsernamePasswordAuthenticationToken) {
                 SkillFullUserDetails customUserDetails = toUserDetails(model);
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(
-                                customUserDetails,
-                                userAuthentication.getCredentials(),
-                                userAuthentication.getAuthorities());
-                auth2Authentication =
-                        new OAuth2Authentication(
-                                auth2Authentication.getOAuth2Request(),
-                                usernamePasswordAuthenticationToken);
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(customUserDetails, userAuthentication.getCredentials(), userAuthentication.getAuthorities());
+                auth2Authentication = new OAuth2Authentication(auth2Authentication.getOAuth2Request(), usernamePasswordAuthenticationToken);
             }
-            DefaultOAuth2AccessToken accessToken =
-                    (DefaultOAuth2AccessToken) utils.tokenStore.getAccessToken(auth2Authentication);
+            DefaultOAuth2AccessToken accessToken = (DefaultOAuth2AccessToken) utils.tokenStore.getAccessToken(auth2Authentication);
             utils.tokenStore.storeAccessToken(accessToken, auth2Authentication);
             SecurityContextHolder.getContext().setAuthentication(auth2Authentication);
         }
     }
+
 
     /**
      * 根据token刷新用户信息
@@ -225,7 +203,9 @@ public class Oauth2CommonUtils {
      * @author zxiaozhou
      * @date 2022-03-11 01:15
      */
-    public static void refreshUserOauth(UserAndResourceAuthModel model, String token) {}
+    public static void refreshUserOauth(UserAndResourceAuthModel model, String token) {
+    }
+
 
     /**
      * 根据userId刷新用户信息
@@ -234,5 +214,6 @@ public class Oauth2CommonUtils {
      * @author zxiaozhou
      * @date 2022-03-11 01:15
      */
-    public static void refreshUserOauth(String userId, UserAndResourceAuthModel model) {}
+    public static void refreshUserOauth(String userId, UserAndResourceAuthModel model) {
+    }
 }

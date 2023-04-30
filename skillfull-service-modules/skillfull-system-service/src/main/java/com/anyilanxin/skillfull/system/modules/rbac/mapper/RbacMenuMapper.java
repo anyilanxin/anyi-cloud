@@ -60,8 +60,8 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
      * @author zxiaozhou
      * @date 2022-05-02 22:49:09
      */
-    IPage<RbacMenuPageDto> pageByModel(
-            Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageVo vo);
+    IPage<RbacMenuPageDto> pageByModel(Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageVo vo);
+
 
     /**
      * 通过权限id物理删除
@@ -73,6 +73,7 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
      */
     int physicalDeleteById(@Param("id") String menuId);
 
+
     /**
      * 通过权限id物理批量删除
      *
@@ -82,6 +83,7 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
      * @date 2022-05-02 22:49:09
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 获取所有有效的菜单信息

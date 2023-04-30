@@ -57,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 public class OperateEntity extends BaseEntity {
     private static final long serialVersionUID = -21170709956720345L;
 
-    @TableId private String operateId;
+    @TableId
+    private String operateId;
 
     /** 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致 */
     private Integer operateType;

@@ -61,8 +61,8 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      * @author zxiaozhou
      * @date 2021-11-19 10:47:01
      */
-    IPage<ProcessCategoryPageDto> pageByModel(
-            Page<ProcessCategoryPageDto> page, @Param("query") ProcessCategoryPageVo vo);
+    IPage<ProcessCategoryPageDto> pageByModel(Page<ProcessCategoryPageDto> page, @Param("query") ProcessCategoryPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -74,6 +74,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      */
     List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo);
 
+
     /**
      * 通过类别id物理删除
      *
@@ -84,6 +85,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      */
     int physicalDeleteById(@Param("id") String categoryId);
 
+
     /**
      * 通过类别id物理批量删除
      *
@@ -93,6 +95,7 @@ public interface ProcessCategoryMapper extends BaseMapper<ProcessCategoryEntity>
      * @date 2021-11-19 10:47:01
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 获取建模流程类别下拉列表

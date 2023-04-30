@@ -58,6 +58,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     void save(RbacClientDetailsVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
@@ -69,6 +70,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     void updateById(String clientDetailId, RbacClientDetailsVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
@@ -78,8 +80,8 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    PageDto<RbacClientDetailsPageDto> pageByModel(RbacClientDetailsPageVo vo)
-            throws RuntimeException;
+    PageDto<RbacClientDetailsPageDto> pageByModel(RbacClientDetailsPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -92,6 +94,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     RbacClientDetailsDto getById(String clientDetailId) throws RuntimeException;
 
+
     /**
      * 通过clientDetailId删除
      *
@@ -101,6 +104,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String clientDetailId) throws RuntimeException;
+
 
     /**
      * 授权客户端信息批量删除
@@ -112,6 +116,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     void deleteBatch(List<String> clientDetailIds) throws RuntimeException;
 
+
     /**
      * 通过客户端id修改状态
      *
@@ -121,6 +126,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      * @date 2022-06-03 02:32
      */
     void updateState(String clientDetailId, Integer type);
+
 
     /**
      * 更新或添加权限

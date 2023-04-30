@@ -59,35 +59,23 @@ public class MsgSubscribeAuthImpl implements IMsgSubscribeStrategy {
     private final SocketMsgModelCopyMap copyMap;
 
     @Override
-    public void handleMsg(
-            SubscribeMsgModel subscribeMsgModel,
-            ConcurrentHashMap<String, WebSocketSession> sessions) {
+    public void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
         SocketMsgModel socketMsgModel = copyMap.bToA(subscribeMsgModel);
         log.info("------------------收到鉴权消息------>handleMsg:\n{}", socketMsgModel);
         Object data = socketMsgModel.getData();
         if (Objects.nonNull(data)) {
             AuthMsgModel msgModel = (AuthMsgModel) data;
-            sessions.forEach(
-                    (k, v) -> {
-                        String token =
-                                v.getAttributes()
-                                        .get(WebSocketSessionType.TOKEN.getType())
-                                        .toString();
-                        if (token.equals(msgModel.getToken())) {
-                            CloseStatus closeStatus =
-                                    new CloseStatus(
-                                            msgModel.getType().getCode(),
-                                            msgModel.getType().getMessage());
-                            try {
-                                v.close(closeStatus);
-                            } catch (IOException e) {
-                                log.error(
-                                        "------------------发送消息失败------handleMsg--->\n参数:\n{}\n异常消息:\n{}",
-                                        msgModel,
-                                        e.getMessage());
-                            }
-                        }
-                    });
+            sessions.forEach((k, v) -> {
+                String token = v.getAttributes().get(WebSocketSessionType.TOKEN.getType()).toString();
+                if (token.equals(msgModel.getToken())) {
+                    CloseStatus closeStatus = new CloseStatus(msgModel.getType().getCode(), msgModel.getType().getMessage());
+                    try {
+                        v.close(closeStatus);
+                    } catch (IOException e) {
+                        log.error("------------------发送消息失败------handleMsg--->\n参数:\n{}\n异常消息:\n{}", msgModel, e.getMessage());
+                    }
+                }
+            });
         }
     }
 }

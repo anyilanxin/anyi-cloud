@@ -38,7 +38,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootTest
 class SystemApplicationTests {
 
-    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void test() {

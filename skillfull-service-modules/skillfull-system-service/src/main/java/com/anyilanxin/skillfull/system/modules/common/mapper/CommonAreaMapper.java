@@ -56,8 +56,8 @@ public interface CommonAreaMapper extends BaseMapper<CommonAreaEntity> {
      * @author zxiaozhou
      * @date 2020-11-02 09:25:03
      */
-    IPage<CommonAreaPageDto> pageByModel(
-            Page<CommonAreaPageDto> page, @Param("query") CommonAreaPageVo vo);
+    IPage<CommonAreaPageDto> pageByModel(Page<CommonAreaPageDto> page, @Param("query") CommonAreaPageVo vo);
+
 
     /**
      * 通过区域id物理删除

@@ -73,6 +73,7 @@ public class CryptAuthUtils {
         return utils.encoder.encode(password + secretKey);
     }
 
+
     /**
      * 密码匹配
      *
@@ -84,6 +85,7 @@ public class CryptAuthUtils {
     public static boolean matches(CharSequence rawPassword, String encodedPassword) {
         return utils.encoder.matches(rawPassword, encodedPassword);
     }
+
 
     /**
      * 密码匹配
@@ -98,6 +100,7 @@ public class CryptAuthUtils {
         CharSequence rawPassword = password + salt;
         return matches(rawPassword, encodedPassword);
     }
+
 
     /**
      * 通过明文密码获取密码信息
@@ -115,6 +118,7 @@ public class CryptAuthUtils {
         passwordInfo.setEncodedPassword(secretPassword);
         return passwordInfo;
     }
+
 
     @PostConstruct
     private void init() {

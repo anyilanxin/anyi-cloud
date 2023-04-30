@@ -70,12 +70,14 @@ public class LocalFileProperty {
         return virtualMapping;
     }
 
+
     public String getUploadFolder() {
         if (StringUtils.isNotBlank(uploadFolder) && uploadFolder.endsWith(SLASH)) {
             uploadFolder = uploadFolder.substring(0, uploadFolder.length() - 1);
         }
         return uploadFolder;
     }
+
 
     public String getContextPath() {
         if (StringUtils.isBlank(contextPath)) {

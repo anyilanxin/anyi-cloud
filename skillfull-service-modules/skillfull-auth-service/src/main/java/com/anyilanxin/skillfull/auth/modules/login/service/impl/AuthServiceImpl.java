@@ -77,6 +77,7 @@ public class AuthServiceImpl implements IAuthService {
         }
     }
 
+
     @Override
     public UserInfo getUserInfo(String orgId) {
         RbacUserDto userDto = userAuthMapper.selectUserInfoByUserId(UserContextUtils.getUserId());
@@ -84,8 +85,7 @@ public class AuthServiceImpl implements IAuthService {
         if (StringUtils.isBlank(currentOrgId)) {
             currentOrgId = UserContextUtils.getCurrentOrgId();
         }
-        if (StringUtils.isNotBlank(currentOrgId)
-                && !currentOrgId.equals(UserContextUtils.getCurrentOrgId())) {
+        if (StringUtils.isNotBlank(currentOrgId) && !currentOrgId.equals(UserContextUtils.getCurrentOrgId())) {
             // 更新用户当前登录机构信息
             userAuthMapper.updateLoginOrgId(userDto.getUserId(), orgId);
         }

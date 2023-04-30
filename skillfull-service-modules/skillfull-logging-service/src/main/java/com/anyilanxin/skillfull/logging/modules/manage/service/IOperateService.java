@@ -54,6 +54,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      */
     void storage();
 
+
     /**
      * 分页查询
      *
@@ -64,6 +65,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @date 2022-01-26 19:51:07
      */
     PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -76,6 +78,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      */
     OperateDto getById(String operateId) throws RuntimeException;
 
+
     /**
      * 通过operateId删除
      *
@@ -85,6 +88,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @date 2022-01-26 19:51:07
      */
     void deleteById(String operateId) throws RuntimeException;
+
 
     /**
      * 操作日志批量删除

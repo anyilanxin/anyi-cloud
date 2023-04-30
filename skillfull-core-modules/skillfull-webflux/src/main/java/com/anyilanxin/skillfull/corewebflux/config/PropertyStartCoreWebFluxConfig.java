@@ -63,9 +63,7 @@ public class PropertyStartCoreWebFluxConfig implements ApplicationRunner {
             if (!file.exists() || !file.isDirectory()) {
                 boolean result = file.mkdirs();
                 if (result) {
-                    log.debug(
-                            "------------StartConfig------------>createOutConfig:{}",
-                            "创建外置配置文件路径成功");
+                    log.debug("------------StartConfig------------>createOutConfig:{}", "创建外置配置文件路径成功");
                 } else {
                     throw new RuntimeException("创建外置配置文件路径失败，请检查环境");
                 }
@@ -74,8 +72,7 @@ public class PropertyStartCoreWebFluxConfig implements ApplicationRunner {
             String application = "application-" + property.getActive() + ".yml";
             file = new File("./config/" + application);
             if (!file.exists()) {
-                try (OutputStream outputStream = new FileOutputStream(file);
-                        InputStream inputStream = property.getResource().getInputStream()) {
+                try (OutputStream outputStream = new FileOutputStream(file); InputStream inputStream = property.getResource().getInputStream()) {
                     IOUtils.copy(inputStream, outputStream);
                 } catch (Exception e) {
                     e.printStackTrace();

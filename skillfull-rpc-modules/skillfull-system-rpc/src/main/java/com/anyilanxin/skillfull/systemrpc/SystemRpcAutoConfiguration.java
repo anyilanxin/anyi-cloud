@@ -43,4 +43,5 @@ import org.springframework.context.annotation.ComponentScan;
 @AutoConfiguration
 @ComponentScan
 @EnableFeignClients(basePackages = "com.anyilanxin.skillfull.systemrpc.feign")
-public class SystemRpcAutoConfiguration {}
+public class SystemRpcAutoConfiguration {
+}

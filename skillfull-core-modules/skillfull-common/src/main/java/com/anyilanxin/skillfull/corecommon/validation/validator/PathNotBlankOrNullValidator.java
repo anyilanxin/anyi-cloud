@@ -41,12 +41,13 @@ import javax.validation.ConstraintValidatorContext;
  * @date 2019-06-18 10:44
  * @since JDK11
  */
-public class PathNotBlankOrNullValidator
-        implements ConstraintValidator<PathNotBlankOrNull, Object> {
+public class PathNotBlankOrNullValidator implements ConstraintValidator<PathNotBlankOrNull, Object> {
     private static final String PATH_NULL_VALUE = "undefined";
 
     @Override
-    public void initialize(PathNotBlankOrNull constraintAnnotation) {}
+    public void initialize(PathNotBlankOrNull constraintAnnotation) {
+    }
+
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {

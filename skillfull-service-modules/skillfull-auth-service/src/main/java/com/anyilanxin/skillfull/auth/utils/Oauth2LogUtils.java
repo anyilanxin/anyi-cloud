@@ -68,8 +68,7 @@ public class Oauth2LogUtils {
         AuthLogModel authLogModel = getAuthLogModel();
         if (Objects.nonNull(authLogModel)) {
             authLogModel.setAuthType(tokenRequest.getGrantType());
-            AuthorizedGrantTypes byType =
-                    AuthorizedGrantTypes.getByType(tokenRequest.getGrantType());
+            AuthorizedGrantTypes byType = AuthorizedGrantTypes.getByType(tokenRequest.getGrantType());
             if (Objects.nonNull(byType)) {
                 authLogModel.setAuthTypeDescribe(byType.getDescribe());
             }
@@ -86,6 +85,7 @@ public class Oauth2LogUtils {
             authLogModel.setRequestStartTime(LocalDateTime.now());
         }
     }
+
 
     /**
      * 获取authLog
@@ -110,6 +110,7 @@ public class Oauth2LogUtils {
         return null;
     }
 
+
     /**
      * 设置用户信息
      *
@@ -121,14 +122,10 @@ public class Oauth2LogUtils {
         AuthLogModel authLogModel = Oauth2LogUtils.getAuthLogModel();
         if (Objects.nonNull(authLogModel) && Objects.nonNull(userDetails)) {
             authLogModel.setAuthUserId(userDetails.getUserId());
-            authLogModel.setAuthUserName(
-                    (StringUtils.isNotBlank(userDetails.getRealName()))
-                            ? userDetails.getRealName()
-                            : StringUtils.isNotBlank(userDetails.getNickName())
-                                    ? userDetails.getNickName()
-                                    : userDetails.getUsername());
+            authLogModel.setAuthUserName((StringUtils.isNotBlank(userDetails.getRealName())) ? userDetails.getRealName() : StringUtils.isNotBlank(userDetails.getNickName()) ? userDetails.getNickName() : userDetails.getUsername());
         }
     }
+
 
     /**
      * 设置客户端信息
@@ -145,6 +142,7 @@ public class Oauth2LogUtils {
         }
     }
 
+
     /**
      * 后置提交授权日志并发送大日志服务
      *
@@ -154,8 +152,7 @@ public class Oauth2LogUtils {
      * @author zxiaozhou
      * @date 2022-08-13 19:56
      */
-    public static void setPostAuthLog(
-            boolean success, String msg, String errMsg, SkillFullAccessToken token) {
+    public static void setPostAuthLog(boolean success, String msg, String errMsg, SkillFullAccessToken token) {
         AuthLogModel authLogModel = getAuthLogModel();
         if (Objects.nonNull(authLogModel)) {
             authLogModel.setRequestEndTime(LocalDateTime.now());
@@ -163,8 +160,7 @@ public class Oauth2LogUtils {
             authLogModel.setLogData(msg);
             authLogModel.setExceptionMessage(errMsg);
             if (Objects.nonNull(token)) {
-                authLogModel.setLogData(
-                        JSONObject.toJSONString(token, SerializerFeature.WriteMapNullValue));
+                authLogModel.setLogData(JSONObject.toJSONString(token, SerializerFeature.WriteMapNullValue));
             }
             LogUtils.sendAuthLog(authLogModel);
         }

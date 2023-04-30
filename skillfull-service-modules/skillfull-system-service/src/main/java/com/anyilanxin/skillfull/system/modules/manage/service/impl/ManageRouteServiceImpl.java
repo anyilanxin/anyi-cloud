@@ -61,8 +61,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, ManageRouteEntity>
-        implements IManageRouteService {
+public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, ManageRouteEntity> implements IManageRouteService {
     private final ManageRouteCopyMap map;
     private final ManageRouteMapper mapper;
     private final IManageRouteFilterService filterService;
@@ -76,20 +75,18 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         ManageRouteEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 保存过滤器
         filterService.save(vo.getRouteFilters(), entity.getRouteId(), entity.getServiceId(), true);
         // 保存断言
-        predicateService.save(
-                vo.getRoutePredicates(), entity.getRouteId(), entity.getServiceId(), true);
+        predicateService.save(vo.getRoutePredicates(), entity.getRouteId(), entity.getServiceId(), true);
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);
-        ;
+        syncService.reloadRoute(true);;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -101,25 +98,21 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         entity.setRouteId(routeId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 保存断言
-        predicateService.save(
-                vo.getRoutePredicates(), entity.getRouteId(), entity.getServiceId(), true);
+        predicateService.save(vo.getRoutePredicates(), entity.getRouteId(), entity.getServiceId(), true);
         // 保存过滤器
         filterService.save(vo.getRouteFilters(), entity.getRouteId(), entity.getServiceId(), true);
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);
-        ;
+        syncService.reloadRoute(true);;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<ManageRouteDto> selectList(String serviceId) throws RuntimeException {
         LambdaQueryWrapper<ManageRouteEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRouteEntity::getServiceId, serviceId);
@@ -128,47 +121,36 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
             Set<String> routerIds = new HashSet<>(manageRouteList.size());
             manageRouteList.forEach(v -> routerIds.add(v.getRouteId()));
             // 获取过滤器
-            Map<String, List<ManageRouteFilterDto>> manageRouteFilterMap =
-                    filterService.getByRouteId(routerIds);
+            Map<String, List<ManageRouteFilterDto>> manageRouteFilterMap = filterService.getByRouteId(routerIds);
             // 获取断言
-            Map<String, List<ManageRoutePredicateDto>> manageRoutePredicateMap =
-                    predicateService.getByRouteId(routerIds);
+            Map<String, List<ManageRoutePredicateDto>> manageRoutePredicateMap = predicateService.getByRouteId(routerIds);
             // 获取自定义过滤器
-            Map<String, List<ManageCustomFilterSimpleDto>> customServiceFilterMap =
-                    routeCustomFilterService.getByRouterIds(routerIds);
+            Map<String, List<ManageCustomFilterSimpleDto>> customServiceFilterMap = routeCustomFilterService.getByRouterIds(routerIds);
             // 数据处理
-            if (CollUtil.isNotEmpty(manageRouteFilterMap)
-                    || CollUtil.isNotEmpty(manageRoutePredicateMap)
-                    || CollUtil.isNotEmpty(customServiceFilterMap)) {
-                manageRouteList.forEach(
-                        v -> {
-                            v.setRouteFilters(manageRouteFilterMap.get(v.getRouteId()));
-                            v.setRoutePredicates(manageRoutePredicateMap.get(v.getRouteId()));
-                            List<ManageCustomFilterSimpleDto> manageCustomFilterSimpleDtos =
-                                    customServiceFilterMap.get(v.getRouteId());
-                            if (CollUtil.isNotEmpty(manageCustomFilterSimpleDtos)) {
-                                v.setCustomFilters(manageCustomFilterSimpleDtos);
-                                List<String> customFilterIdList =
-                                        new ArrayList<>(manageRouteFilterMap.size());
-                                manageCustomFilterSimpleDtos.forEach(
-                                        sv -> customFilterIdList.add(sv.getCustomFilterId()));
-                                v.setCustomFilterIds(customFilterIdList);
-                            }
-                        });
+            if (CollUtil.isNotEmpty(manageRouteFilterMap) || CollUtil.isNotEmpty(manageRoutePredicateMap) || CollUtil.isNotEmpty(customServiceFilterMap)) {
+                manageRouteList.forEach(v -> {
+                    v.setRouteFilters(manageRouteFilterMap.get(v.getRouteId()));
+                    v.setRoutePredicates(manageRoutePredicateMap.get(v.getRouteId()));
+                    List<ManageCustomFilterSimpleDto> manageCustomFilterSimpleDtos = customServiceFilterMap.get(v.getRouteId());
+                    if (CollUtil.isNotEmpty(manageCustomFilterSimpleDtos)) {
+                        v.setCustomFilters(manageCustomFilterSimpleDtos);
+                        List<String> customFilterIdList = new ArrayList<>(manageRouteFilterMap.size());
+                        manageCustomFilterSimpleDtos.forEach(sv -> customFilterIdList.add(sv.getCustomFilterId()));
+                        v.setCustomFilterIds(customFilterIdList);
+                    }
+                });
             }
         }
         return manageRouteList;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageRouteDto getById(String routeId) throws RuntimeException {
         ManageRouteEntity byId = super.getById(routeId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         ManageRouteDto manageRouteDto = map.eToD(byId);
         // 获取过滤器
@@ -176,8 +158,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 获取断言
         manageRouteDto.setRoutePredicates(predicateService.getByRouteId(routeId));
         // 获取自定义过滤器
-        List<ManageCustomFilterSimpleDto> byRouterId =
-                routeCustomFilterService.getByRouterId(routeId);
+        List<ManageCustomFilterSimpleDto> byRouterId = routeCustomFilterService.getByRouterId(routeId);
         if (CollUtil.isNotEmpty(byRouterId)) {
             manageRouteDto.setCustomFilters(byRouterId);
             List<String> customFilterIdList = new ArrayList<>(byRouterId.size());
@@ -187,6 +168,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         return manageRouteDto;
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteById(String routeId) throws RuntimeException {
@@ -195,8 +177,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 删除数据
         boolean b = this.removeById(routeId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除断言
         predicateService.deleteByRouterId(routeId);
@@ -205,9 +186,9 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 删除自定义过滤器关联关系
         routeCustomFilterService.deleteByRouterId(routeId);
         // 刷新路由
-        syncService.reloadRoute(true);
-        ;
+        syncService.reloadRoute(true);;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -231,19 +212,18 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateStatus(String routeId, Integer state) {
         // 查询数据是否存在
         this.getById(routeId);
-        ManageRouteEntity updateEntity =
-                ManageRouteEntity.builder().routeId(routeId).routeState(state).build();
+        ManageRouteEntity updateEntity = ManageRouteEntity.builder().routeId(routeId).routeState(state).build();
         boolean b = this.updateById(updateEntity);
         if (!b) {
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新状态失败");
         }
         // 刷新路由
-        syncService.reloadRoute(true);
-        ;
+        syncService.reloadRoute(true);;
     }
 }

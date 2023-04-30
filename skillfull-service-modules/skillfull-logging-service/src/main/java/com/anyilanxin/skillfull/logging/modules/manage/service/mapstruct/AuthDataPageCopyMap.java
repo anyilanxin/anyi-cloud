@@ -44,9 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-08-13 11:27:29
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface AuthDataPageCopyMap
-        extends BaseThreeMap<AuthDataEntity, AuthDataPageDto, AuthDataPageVo> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface AuthDataPageCopyMap extends BaseThreeMap<AuthDataEntity, AuthDataPageDto, AuthDataPageVo> {
+}

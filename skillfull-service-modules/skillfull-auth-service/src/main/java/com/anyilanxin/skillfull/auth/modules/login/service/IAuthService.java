@@ -48,6 +48,7 @@ public interface IAuthService {
      */
     void logOut();
 
+
     /**
      * 获取当前用户信息
      *

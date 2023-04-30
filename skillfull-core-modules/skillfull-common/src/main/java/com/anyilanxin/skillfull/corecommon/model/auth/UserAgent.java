@@ -70,6 +70,7 @@ public class UserAgent implements Serializable {
         return Objects.equals(getUserId(), agentInfo.getUserId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getUserId());

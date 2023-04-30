@@ -84,14 +84,10 @@ public class GatewayCommonConfig {
      * @date 2022-01-05 03:32
      */
     @Bean
-    SwaggerUiConfigParameters swaggerUiConfigParameters(
-            SwaggerUiConfigProperties swaggerUiConfig,
-            DiscoveryClient disClient,
-            WebClient.Builder webClient,
-            Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
-        return new CustomSwaggerUiConfigParameters(
-                swaggerUiConfig, disClient, webClient, apiDocInfoUrlModel);
+    SwaggerUiConfigParameters swaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder webClient, Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
+        return new CustomSwaggerUiConfigParameters(swaggerUiConfig, disClient, webClient, apiDocInfoUrlModel);
     }
+
 
     /**
      * 初始化swagger url信息缓存
@@ -106,6 +102,7 @@ public class GatewayCommonConfig {
         return new ConcurrentHashMap<>(16);
     }
 
+
     /**
      * 初始化NamingService
      *
@@ -117,6 +114,7 @@ public class GatewayCommonConfig {
     public NamingService getNamingService() throws NacosException {
         return NacosFactory.createNamingService(properties.getNacosProperties());
     }
+
 
     /**
      * token相关配置
@@ -130,6 +128,7 @@ public class GatewayCommonConfig {
         return new ConfigTokenModel();
     }
 
+
     /**
      * 数据加解密配置
      *
@@ -141,6 +140,7 @@ public class GatewayCommonConfig {
     public ConfigDataSecurityModel dataSecurityModel() {
         return new ConfigDataSecurityModel();
     }
+
 
     /**
      * url比较配置
@@ -154,31 +154,27 @@ public class GatewayCommonConfig {
         return new AntPathMatcher();
     }
 
+
     /** 解决启动报错 */
     @Bean
     @Primary
-    public GenericConversionService getGenericConversionService(
-            @Autowired @Qualifier("webFluxConversionService")
-                    FormattingConversionService conversionService) {
+    public GenericConversionService getGenericConversionService(@Autowired @Qualifier("webFluxConversionService") FormattingConversionService conversionService) {
         return conversionService;
     }
 
+
     @Bean
-    public RouteDefinitionRepository redisRouteDefinitionRepository(
-            ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
+    public RouteDefinitionRepository redisRouteDefinitionRepository(ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
         return new CustomRedisRouteDefinitionRepository(reactiveRedisTemplate);
     }
 
+
     @Bean
-    public ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisRouteDefinitionTemplate(
-            ReactiveRedisConnectionFactory factory) {
+    public ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisRouteDefinitionTemplate(ReactiveRedisConnectionFactory factory) {
         StringRedisSerializer keySerializer = new StringRedisSerializer();
-        Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer =
-                new Jackson2JsonRedisSerializer<>(RouteDefinition.class);
-        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition>
-                builder = RedisSerializationContext.newSerializationContext(keySerializer);
-        RedisSerializationContext<String, RouteDefinition> context =
-                builder.value(valueSerializer).build();
+        Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer = new Jackson2JsonRedisSerializer<>(RouteDefinition.class);
+        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition> builder = RedisSerializationContext.newSerializationContext(keySerializer);
+        RedisSerializationContext<String, RouteDefinition> context = builder.value(valueSerializer).build();
         return new ReactiveRedisTemplate<>(factory, context);
     }
 }

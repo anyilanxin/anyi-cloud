@@ -42,9 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2020-10-15 22:17:55
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface ProcessDefinitionPageMap
-        extends BaseMap<ProcessDefinitionPageDto, ProcessDefinitionEntity> {}
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface ProcessDefinitionPageMap extends BaseMap<ProcessDefinitionPageDto, ProcessDefinitionEntity> {
+}

@@ -71,6 +71,7 @@ public class CoreCommonDateUtils {
         return DateUtil.format(date, format);
     }
 
+
     /**
      * Date转字符串
      *
@@ -87,6 +88,7 @@ public class CoreCommonDateUtils {
         return DateUtil.parse(dateStr, format);
     }
 
+
     /**
      * Date转LocalDateTime
      *
@@ -99,10 +101,9 @@ public class CoreCommonDateUtils {
         if (Objects.isNull(date)) {
             return null;
         }
-        return Instant.ofEpochMilli(date.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
+
 
     /**
      * LocalDateTime转Date
@@ -118,6 +119,7 @@ public class CoreCommonDateUtils {
         return Date.from(zdt.toInstant());
     }
 
+
     /**
      * 获取今天的字符串日期
      *
@@ -130,6 +132,7 @@ public class CoreCommonDateUtils {
         LocalDateTime localDateTime = LocalDateTime.now();
         return dateToStr(localDateTime, format);
     }
+
 
     /**
      * 时间格式化为字符串
@@ -144,6 +147,7 @@ public class CoreCommonDateUtils {
         return DateTimeFormatter.ofPattern(format).format(localDateTime);
     }
 
+
     /**
      * 字符串转时间
      *
@@ -157,6 +161,7 @@ public class CoreCommonDateUtils {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(strDate, dateTimeFormatter);
     }
+
 
     /**
      * 获取时间戳并格式化为字符串
@@ -174,6 +179,7 @@ public class CoreCommonDateUtils {
         Duration between = LocalDateTimeUtil.between(startTime, endTime);
         return durationToStr(between);
     }
+
 
     /**
      * 获取时间戳并格式化为字符串
@@ -205,6 +211,7 @@ public class CoreCommonDateUtils {
         return sb.toString();
     }
 
+
     /**
      * 获取时间戳并格式化为字符串
      *
@@ -221,6 +228,7 @@ public class CoreCommonDateUtils {
         Duration between = Duration.between(startTime, endTime);
         return durationToStr(between);
     }
+
 
     /**
      * Duration转字符串
@@ -251,6 +259,7 @@ public class CoreCommonDateUtils {
         return sb.toString();
     }
 
+
     /**
      * 获取时间戳并格式化为字符串
      *
@@ -267,6 +276,7 @@ public class CoreCommonDateUtils {
         return DateUtil.formatBetween(startTime, endTime, BetweenFormatter.Level.SECOND);
     }
 
+
     /**
      * 计算年龄
      *
@@ -279,6 +289,7 @@ public class CoreCommonDateUtils {
         LocalDate nowLocalDate = LocalDate.now();
         return birthLocalDate.until(nowLocalDate).getYears();
     }
+
 
     /**
      * LocalDateTime转毫秒时间戳
@@ -294,6 +305,7 @@ public class CoreCommonDateUtils {
         return 0L;
     }
 
+
     /**
      * LocalDate转毫秒时间戳
      *
@@ -308,6 +320,7 @@ public class CoreCommonDateUtils {
         return 0L;
     }
 
+
     /**
      * 分钟加减
      *
@@ -320,6 +333,7 @@ public class CoreCommonDateUtils {
     public static LocalDateTime minuteAdd(LocalDateTime localDateTime, int num) {
         return localDateTime.plusMinutes(num);
     }
+
 
     /**
      * 小时加减
@@ -334,6 +348,7 @@ public class CoreCommonDateUtils {
         return localDateTime.plusHours(num);
     }
 
+
     /**
      * 天加减
      *
@@ -346,6 +361,7 @@ public class CoreCommonDateUtils {
     public static LocalDateTime dateAdd(LocalDateTime localDateTime, int num) {
         return localDateTime.plusDays(num);
     }
+
 
     /**
      * 周加减
@@ -360,6 +376,7 @@ public class CoreCommonDateUtils {
         return localDateTime.plusWeeks(num);
     }
 
+
     /**
      * 月加减
      *
@@ -372,6 +389,7 @@ public class CoreCommonDateUtils {
     public static LocalDateTime monthAdd(LocalDateTime localDateTime, int num) {
         return localDateTime.plusMonths(num);
     }
+
 
     /**
      * 年加减

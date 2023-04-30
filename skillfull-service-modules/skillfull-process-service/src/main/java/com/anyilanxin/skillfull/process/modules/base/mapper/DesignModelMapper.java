@@ -58,8 +58,8 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      * @author zxiaozhou
      * @date 2021-11-25 05:22:56
      */
-    IPage<DesignModelPageDto> pageByModel(
-            Page<DesignModelPageDto> page, @Param("query") DesignModelPageVo vo);
+    IPage<DesignModelPageDto> pageByModel(Page<DesignModelPageDto> page, @Param("query") DesignModelPageVo vo);
+
 
     /**
      * 模型状态统计
@@ -69,6 +69,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      * @date 2021-03-02 18:01
      */
     DesignModelDeploymentStatiDto statistics();
+
 
     /**
      * 通过模型id物理删除
@@ -80,6 +81,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      */
     int physicalDeleteById(@Param("id") String modelId);
 
+
     /**
      * 获取某个模型数量，排除指定模型id的数量
      *
@@ -89,6 +91,7 @@ public interface DesignModelMapper extends BaseMapper<DesignModelEntity> {
      * @date 2022-06-05 14:49
      */
     int getModelNum(@Param("id") String modelId, @Param("key") String processDefinitionKey);
+
 
     /**
      * 通过模型id物理批量删除

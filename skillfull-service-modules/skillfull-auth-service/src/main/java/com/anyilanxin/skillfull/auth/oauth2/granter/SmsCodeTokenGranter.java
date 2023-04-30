@@ -51,30 +51,20 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 public class SmsCodeTokenGranter extends AbstractTokenGranter {
     private final AuthenticationManager authenticationManager;
 
-    public SmsCodeTokenGranter(
-            AuthenticationManager authenticationManager,
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.SMS_CODE.getType());
+    public SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.SMS_CODE.getType());
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         Map<String, String> requestParameters = tokenRequest.getRequestParameters();
         String phone = requestParameters.get("phone");
         String smsCode = requestParameters.get("smsCode");
-        SmsCodeAuthenticationToken smsCodeAuthenticationToken =
-                new SmsCodeAuthenticationToken(phone, smsCode);
-        Authentication authenticate =
-                authenticationManager.authenticate(smsCodeAuthenticationToken);
+        SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(phone, smsCode);
+        Authentication authenticate = authenticationManager.authenticate(smsCodeAuthenticationToken);
         OAuth2Request oAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
         return new OAuth2Authentication(oAuth2Request, authenticate);
     }

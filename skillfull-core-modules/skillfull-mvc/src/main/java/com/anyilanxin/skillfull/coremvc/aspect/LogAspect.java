@@ -61,7 +61,9 @@ public class LogAspect {
     private static final String REQUEST_JSON_TYPE = "application";
 
     @Pointcut("@annotation(com.anyilanxin.skillfull.corecommon.annotation.AutoLog)")
-    public void logPointCut() {}
+    public void logPointCut() {
+    }
+
 
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -76,6 +78,7 @@ public class LogAspect {
             throw e;
         }
     }
+
 
     private void saveSysLog(ProceedingJoinPoint joinPoint, Object result) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -101,10 +104,10 @@ public class LogAspect {
             model.setExceptionMessage(e.getMessage());
             model.setStackTrace(e.toString());
         } else {
-            model.setRequestResult(
-                    Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
+            model.setRequestResult(Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
         }
     }
+
 
     /**
      * 获取方法请求参数
@@ -131,9 +134,7 @@ public class LogAspect {
                         try {
                             jsonObject.put(parameterNames[i], JSONObject.toJSON(objectParam));
                         } catch (Exception e) {
-                            log.debug(
-                                    "----------LogAspect---------->getMethodParams:{}",
-                                    "日志记录获取方法参数转换json异常");
+                            log.debug("----------LogAspect---------->getMethodParams:{}", "日志记录获取方法参数转换json异常");
                             if (objectParam != null) {
                                 jsonObject.put(parameterNames[i], objectParam.toString());
                             }
@@ -144,22 +145,15 @@ public class LogAspect {
             params = jsonObject.toJSONString();
             // 去掉参数中有关密码关键字的字符串
             params = params.replaceAll("\"password\":\"[0-9a-zA-Z]+\"", "\"password\":\"******\"");
-            params =
-                    params.replaceAll(
-                            "\"newPassword\":\"[0-9a-zA-Z]+\"", "\"newPassword\":\"******\"");
-            params =
-                    params.replaceAll(
-                            "\"oldPassword\":\"[0-9a-zA-Z]+\"", "\"oldPassword\":\"******\"");
+            params = params.replaceAll("\"newPassword\":\"[0-9a-zA-Z]+\"", "\"newPassword\":\"******\"");
+            params = params.replaceAll("\"oldPassword\":\"[0-9a-zA-Z]+\"", "\"oldPassword\":\"******\"");
             params = params.replaceAll("\"Password\":\"[0-9a-zA-Z]+\"", "\"Password\":\"******\"");
-            params =
-                    params.replaceAll(
-                            "\"NewPassword\":\"[0-9a-zA-Z]+\"", "\"NewPassword\":\"******\"");
-            params =
-                    params.replaceAll(
-                            "\"OldPassword\":\"[0-9a-zA-Z]+\"", "\"OldPassword\":\"******\"");
+            params = params.replaceAll("\"NewPassword\":\"[0-9a-zA-Z]+\"", "\"NewPassword\":\"******\"");
+            params = params.replaceAll("\"OldPassword\":\"[0-9a-zA-Z]+\"", "\"OldPassword\":\"******\"");
         }
         return params;
     }
+
 
     /**
      * 判断过滤请求方法参数信息
@@ -168,8 +162,6 @@ public class LogAspect {
      * @return true-过滤,false-不过来
      */
     public boolean isFilterObject(final Object o) {
-        return o instanceof MultipartFile
-                || o instanceof HttpServletRequest
-                || o instanceof HttpServletResponse;
+        return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse;
     }
 }

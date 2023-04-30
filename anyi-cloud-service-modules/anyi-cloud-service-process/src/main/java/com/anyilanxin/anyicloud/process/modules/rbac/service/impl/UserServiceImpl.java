@@ -41,6 +41,7 @@ import com.anyilanxin.anyicloud.process.modules.rbac.service.IUserService;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDto;
 import io.seata.spring.annotation.GlobalTransactional;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -49,8 +50,6 @@ import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.identity.UserQuery;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 /**
  * 用户相关

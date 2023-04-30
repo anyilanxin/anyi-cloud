@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2021-2022 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+
+    AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+      1.请不要删除和修改根目录下的LICENSE文件；
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+      3.请保留源码和相关描述文件的项目出处，作者声明等；
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+      7.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+      8.本软件流程部分请遵循camunda开源协议：
+        https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+        https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+      9.若您的项目无法满足以上几点，可申请商业授权。
+
+-->
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.anyicloud.auth.modules.login.mapper.UserAuthMapper">
+    <!-- @formatter:off -->
+  <resultMap type="com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto" id="RbacUserMap">
+    <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+    <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+    <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+    <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+    <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+    <result property="password" column="password" jdbcType="VARCHAR"/>
+    <result property="salt" column="salt" jdbcType="VARCHAR"/>
+    <result property="shortProfile" column="short_profile" jdbcType="VARCHAR"/>
+    <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+    <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+    <result property="sex" column="sex" jdbcType="INTEGER"/>
+    <result property="email" column="email" jdbcType="VARCHAR"/>
+    <result property="isInitialPassword" column="is_initial_password" jdbcType="INTEGER"/>
+    <result property="phone" column="phone" jdbcType="VARCHAR"/>
+    <result property="registerSource" column="register_source" jdbcType="VARCHAR"/>
+    <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+    <result property="workNo" column="work_no" jdbcType="VARCHAR"/>
+    <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+    <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
+    <result property="positionIds" column="position_ids" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="managerOrgIds" column="manager_org_ids" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="additionalInformation" column="additional_information" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="loginFailErrorNum" column="login_fail_error_num" jdbcType="INTEGER"/>
+    <result property="currentOrgId" column="current_org_id" jdbcType="VARCHAR"/>
+    <result property="currentLoginIp" column="current_login_ip" jdbcType="VARCHAR"/>
+    <result property="currentLoginDate" column="current_login_date" jdbcType="TIMESTAMP"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+
+  <resultMap type="com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo" id="RoleInfoMap">
+    <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+    <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+    <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
+    <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="roleType" column="role_type" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <resultMap type="com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo" id="RbacOrgMap">
+    <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
+    <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+    <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+    <result property="orgNameEn" column="org_name_en" jdbcType="VARCHAR"/>
+    <result property="orgNameAbbr" column="org_name_abbr" jdbcType="VARCHAR"/>
+    <result property="orgOrder" column="org_order" jdbcType="INTEGER"/>
+    <result property="orgType" column="org_type" jdbcType="INTEGER"/>
+    <result property="orgCode" column="org_code" jdbcType="VARCHAR"/>
+    <result property="orgSysCode" column="org_sys_code" jdbcType="VARCHAR"/>
+    <result property="orgStatus" column="org_status" jdbcType="INTEGER"/>
+    <result property="email" column="email" jdbcType="VARCHAR"/>
+    <result property="phone" column="phone" jdbcType="VARCHAR"/>
+    <result property="fax" column="fax" jdbcType="VARCHAR"/>
+    <result property="address" column="address" jdbcType="VARCHAR"/>
+    <result property="socialCode" column="social_code" jdbcType="VARCHAR"/>
+    <result property="areaCodeName" column="area_code_name" jdbcType="VARCHAR"/>
+    <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+    <result property="detailAddress" column="detail_address" jdbcType="VARCHAR"/>
+    <result property="scopeBusiness" column="scope_business" jdbcType="VARCHAR"/>
+    <result property="legalPerson" column="legal_person" jdbcType="VARCHAR"/>
+    <result property="accountsName" column="accounts_name" jdbcType="VARCHAR"/>
+    <result property="accountsBank" column="accounts_bank" jdbcType="VARCHAR"/>
+    <result property="backCard" column="back_card" jdbcType="VARCHAR"/>
+    <result property="businessLicensePicture" column="business_license_picture" jdbcType="VARCHAR"/>
+    <result property="sealPicture" column="seal_picture" jdbcType="VARCHAR"/>
+    <result property="additionalInformation" column="additional_information" jdbcType="VARCHAR"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="orgSimpleName" column="org_simple_name" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <!-- @formatter:off -->
+
+  <!--数据库字段-->
+  <sql id="Column_List_Org">
+    org_id, parent_id, org_name, org_name_en, org_name_abbr,
+    org_order, org_type, org_code, org_sys_code, org_status, email, phone, fax, address,
+    social_code, area_code_name, area_code, detail_address, scope_business, legal_person, accounts_name,
+    accounts_bank, back_card, business_license_picture, seal_picture, additional_information, remark,
+    org_simple_name
+  </sql>
+
+
+
+  <!--数据库字段-->
+  <sql id="Column_List_User">
+    user_id, user_name, open_id, nick_name, real_name, password, salt, short_profile, avatar, birthday, sex,
+    email, is_initial_password, phone, register_source, user_status, work_no, telephone, enable_delete,
+    position_ids, manager_org_ids, additional_information, login_fail_error_num, current_org_id,
+    current_login_ip, current_login_date, remark
+  </sql>
+
+
+  <!-- 通过openId查询用户信息 -->
+  <select id="selectByOpenId" resultMap="RbacUserMap">
+        SELECT <include refid="Column_List_User"/>
+        FROM sys_rbac_user
+        WHERE del_flag = 0
+              AND open_id = #{openId, jdbcType=VARCHAR}
+  </select>
+
+
+  <!-- 通过账号或者电话号码查询用户 -->
+  <select id="selectByPhoneOrAccount" resultMap="RbacUserMap">
+        SELECT <include refid="Column_List_User"/>
+        FROM sys_rbac_user
+        WHERE del_flag = 0
+              AND (
+                  user_name = #{userName, jdbcType=VARCHAR}
+                  OR
+                  phone = #{userName, jdbcType=VARCHAR}
+                  )
+  </select>
+
+
+  <!-- 通过电话号码查询用户信息 -->
+  <select id="selectByPhone" resultMap="RbacUserMap">
+        SELECT <include refid="Column_List_User"/>
+        FROM sys_rbac_user
+        WHERE del_flag = 0
+              AND phone = #{phone, jdbcType=VARCHAR}
+  </select>
+
+
+  <!-- 通过用户id查询用户信息 -->
+  <select id="selectUserInfoByUserId" resultMap="RbacUserMap">
+        SELECT <include refid="Column_List_User"/>
+        FROM sys_rbac_user
+        WHERE del_flag = 0
+              AND user_id = #{userId, jdbcType=VARCHAR}
+  </select>
+
+
+  <!-- 更新用户登录机构 -->
+  <update id="updateLoginOrgId">
+        UPDATE sys_rbac_user
+               SET current_org_id = #{orgId, jdbcType=VARCHAR}
+        WHERE user_id = #{userId, jdbcType=VARCHAR}
+  </update>
+
+
+  <!-- 查询用户关联的机构id -->
+  <select id="selectUserOrgListByUserId"
+          resultType="com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacOrgUserDto">
+    SELECT
+      ali.org_id,
+      ali.parent_id,
+      ali.org_name,
+      ali.org_name_en,
+      ali.org_name_abbr,
+      ali.org_order,
+      ali.org_type,
+      ali.org_code,
+      ali.org_sys_code,
+      ali.org_status,
+      ali.social_code,
+      ali.area_code_name,
+      ali.area_code,
+      ali.org_simple_name,
+      srou.org_user_id,
+      srou.user_id
+    FROM sys_rbac_org ali
+    INNER JOIN sys_rbac_org_user srou ON ali.org_id = srou.org_id
+    WHERE srou.user_id = #{userId, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 查询用户在某个机构下的角色信息 -->
+  <select id="selectByUserIdAndOrgId" resultMap="RoleInfoMap">
+    SELECT
+      sror.role_name,
+      sror.role_code,
+      sror.org_role_id AS role_id,
+      sror.data_auth_type,
+      sror.custom_data_auth_data,
+      1 AS role_type
+    FROM sys_rbac_org_role_user sroru
+    INNER JOIN sys_rbac_org_role sror ON sroru.org_role_id = sror.org_role_id
+    WHERE
+      sroru.user_id = #{userId, jdbcType=VARCHAR}
+      AND sror.org_id = #{orgId, jdbcType=VARCHAR}
+      AND sror.role_status = 1
+      AND sror.del_flag = 0
+  </select>
+
+
+  <!-- 查询用户角色 -->
+  <select id="selectByUserId" resultMap="RoleInfoMap">
+    SELECT
+      srr.role_name,
+      srr.role_code,
+      CASE WHEN srr.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role,
+      srr.role_id,
+      srr.data_auth_type,
+      srr.custom_data_auth_data,
+      0 AS role_type
+    FROM sys_rbac_role_user srru
+    INNER JOIN sys_rbac_role srr ON srru.role_id = srr.role_id
+    WHERE srru.user_id = #{userId, jdbcType=VARCHAR}
+          AND srr.role_status = 1
+          AND srr.del_flag = 0
+  </select>
+
+
+
+  <!-- 通过机构id查询机构信息 -->
+  <select id="selectOrgInfoById" resultMap="RbacOrgMap">
+    SELECT <include refid="Column_List_Org"/>
+    FROM sys_rbac_org
+    WHERE del_flag = 0
+          AND org_id = #{orgId, jdbcType=VARCHAR}
+  </select>
+    <!-- @formatter:off -->
+</mapper>

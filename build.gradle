@@ -94,7 +94,7 @@ allprojects {
     sourceCompatibility = '11'
     targetCompatibility = '11'
     // 项目全局信息
-    group = 'com.anyilanxin.skillfull'
+    group = 'com.anyilanxin.anyicloud'
 
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.text')

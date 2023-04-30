@@ -62,7 +62,7 @@ spotless {
         target project.fileTree(project.rootDir) {
             include '**/*.java'
         }
-        googleJavaFormat("1.15.0").aosp()
+        eclipse('4.26').configFile(rootProject.file('gradle/wrapper/formatter.xml'))
         indentWithSpaces()
         importOrder()
         removeUnusedImports()

@@ -12,14 +12,14 @@ pluginManagement {
 rootProject.name = 'anyi-cloud'
 
 // 服务模块
-include 'anyi-cloud-service-modules-ee:skillfull-auth-service'
-include 'anyi-cloud-service-modules-ee:skillfull-gateway-service'
-include 'anyi-cloud-service-modules-ee:skillfull-logging-service'
-include 'anyi-cloud-service-modules-ee:skillfull-message-service'
-include 'anyi-cloud-service-modules-ee:skillfull-monitor-service'
-include 'anyi-cloud-service-modules-ee:skillfull-process-service'
-include 'anyi-cloud-service-modules-ee:skillfull-storage-service'
-include 'anyi-cloud-service-modules-ee:skillfull-system-service'
+include 'anyi-cloud-service-modules:anyi-cloud-service-auth'
+include 'anyi-cloud-service-modules:anyi-cloud-service-gateway'
+include 'anyi-cloud-service-modules:anyi-cloud-service-logging'
+include 'anyi-cloud-service-modules:anyi-cloud-service-message'
+include 'anyi-cloud-service-modules:anyi-cloud-service-monitor'
+include 'anyi-cloud-service-modules:anyi-cloud-service-process'
+include 'anyi-cloud-service-modules:anyi-cloud-service-storage'
+include 'anyi-cloud-service-modules:anyi-cloud-service-system'
 
 
 // 核心模块

@@ -1,0 +1,46 @@
+# 数据源配置
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/anyi_cloud_open?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+      # 开启seata代理
+      seata: false
+
+
+redis:
+  host: localhost
+  port: 6379
+  password: root
+  database: 15
+
+
+rbmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+
+app:
+  log-operate-save-min: 1 # 操作日志最新入库数量
+  log-auth-save-min: 1 # 授权日志最新入库数量
+  log-delete-type: 1 # 日志删除方式：0-物理删除,1-逻辑删除,默认1
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+  create-out-conf: false  # 启动是否创建外置配置文件
+
+
+# 资源白名单设置
+resource:
+  dev-white-list:
+    - /swagger-ui.html;get
+    - /swagger-ui/**;get
+    - /v3/api-docs/**;get

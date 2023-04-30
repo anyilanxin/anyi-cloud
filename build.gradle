@@ -94,7 +94,7 @@ allprojects {
     sourceCompatibility = '11'
     targetCompatibility = '11'
     // 项目全局信息
-    group = 'com.anyilanxin.skillfull'
+    group = 'com.anyilanxin.anyicloud'
 
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.text')
@@ -147,7 +147,7 @@ subprojects {
             springBootApplication {
                 baseImage = dockerInfo.baseImage
                 ports = [80]
-                images = [dockerInfo.images + jarBaseName + ":" + bootProject['version']]
+                images = [dockerInfo.images + jarBaseName + ":" + version]
             }
             if (dockerInfo.isRemortDocker) {
                 url.set(dockerInfo.remortDocker)

@@ -1,4 +1,4 @@
-com.anyilanxin.skillfull.coremvc.config.FeignMvcConfig
-com.anyilanxin.skillfull.coremvc.config.ExecutorCoreMvcConfig
-com.anyilanxin.skillfull.coremvc.config.PropertyStartCoreMvcConfig
-com.anyilanxin.skillfull.coremvc.config.SpringDocConfig
+com.anyilanxin.anyicloud.coremvc.config.FeignMvcConfig
+com.anyilanxin.anyicloud.coremvc.config.ExecutorCoreMvcConfig
+com.anyilanxin.anyicloud.coremvc.config.PropertyStartCoreMvcConfig
+com.anyilanxin.anyicloud.coremvc.config.SpringDocConfig

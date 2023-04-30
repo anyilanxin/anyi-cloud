@@ -1,3 +1,3 @@
-com.anyilanxin.skillfull.coreredis.config.CoreRedisCommonConfig
-com.anyilanxin.skillfull.coreredis.utils.SendRedisMsgUtils
-com.anyilanxin.skillfull.coreredis.utils.CoreRedisCommonUtils
+com.anyilanxin.anyicloud.coreredis.config.CoreRedisCommonConfig
+com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils
+com.anyilanxin.anyicloud.coreredis.utils.CoreRedisCommonUtils

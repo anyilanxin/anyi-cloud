@@ -30,14 +30,12 @@
 package com.anyilanxin.anyicloud.corecommon.feign.strategy.header.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.AuthConstant;
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.anyicloud.corecommon.utils.ClientTokenUtils;
 import feign.RequestTemplate;
-
 import java.util.Collection;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

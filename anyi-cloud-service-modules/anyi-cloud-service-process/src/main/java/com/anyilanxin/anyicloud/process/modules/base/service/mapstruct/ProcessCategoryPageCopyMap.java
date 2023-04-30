@@ -30,8 +30,8 @@
 package com.anyilanxin.anyicloud.process.modules.base.service.mapstruct;
 
 import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
-import com.anyilanxin.anyicloud.process.modules.base.entity.ProcessCategoryEntity;
 import com.anyilanxin.anyicloud.process.modules.base.controller.vo.ProcessCategoryPageVo;
+import com.anyilanxin.anyicloud.process.modules.base.entity.ProcessCategoryEntity;
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategoryPageDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

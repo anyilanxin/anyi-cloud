@@ -36,16 +36,14 @@ import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteFilterModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RoutePredicateModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel;
+import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.anyicloud.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo.GatewayRouteVo;
-import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
-import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IDynamicRouteService;
 import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
-
+import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import java.net.URI;
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

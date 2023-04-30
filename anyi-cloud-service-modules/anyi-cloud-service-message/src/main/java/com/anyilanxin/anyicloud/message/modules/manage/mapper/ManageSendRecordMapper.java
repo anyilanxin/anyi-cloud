@@ -35,9 +35,7 @@ import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

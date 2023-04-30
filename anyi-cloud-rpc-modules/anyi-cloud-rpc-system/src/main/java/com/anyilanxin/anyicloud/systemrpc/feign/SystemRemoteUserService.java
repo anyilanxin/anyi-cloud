@@ -34,9 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.FeignFallback;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.systemrpc.model.SimpleUserModel;
-
 import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

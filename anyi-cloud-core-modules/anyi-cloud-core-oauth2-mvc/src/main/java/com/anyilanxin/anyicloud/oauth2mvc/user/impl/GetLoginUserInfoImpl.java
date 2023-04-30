@@ -36,11 +36,9 @@ import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
-
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

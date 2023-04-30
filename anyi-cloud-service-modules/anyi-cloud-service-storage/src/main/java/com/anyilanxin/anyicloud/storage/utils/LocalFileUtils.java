@@ -30,9 +30,7 @@
 package com.anyilanxin.skillfull.storage.utils;
 
 import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
-
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

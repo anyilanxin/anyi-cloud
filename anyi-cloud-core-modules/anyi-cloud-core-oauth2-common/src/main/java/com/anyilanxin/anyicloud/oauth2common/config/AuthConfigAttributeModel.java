@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.oauth2common.config;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

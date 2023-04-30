@@ -31,13 +31,11 @@ package com.anyilanxin.anyicloud.oauth2mvc;
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.ResponseUtils;
-
 import java.io.IOException;
 import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

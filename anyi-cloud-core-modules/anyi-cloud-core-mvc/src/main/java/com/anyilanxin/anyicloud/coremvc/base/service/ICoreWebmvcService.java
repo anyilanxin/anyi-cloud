@@ -37,12 +37,10 @@ import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**

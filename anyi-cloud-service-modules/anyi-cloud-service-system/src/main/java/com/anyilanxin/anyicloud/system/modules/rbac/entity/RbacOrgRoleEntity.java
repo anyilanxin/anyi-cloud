@@ -34,9 +34,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

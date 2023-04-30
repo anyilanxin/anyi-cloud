@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.system.core.config;
 
 import com.anyilanxin.anyicloud.corecommon.constant.BindingStreamConstant;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRouteService;
-
 import java.util.function.Consumer;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

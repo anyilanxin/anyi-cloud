@@ -32,11 +32,9 @@ package com.anyilanxin.anyicloud.system.modules.manage.mapper;
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteCustomFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

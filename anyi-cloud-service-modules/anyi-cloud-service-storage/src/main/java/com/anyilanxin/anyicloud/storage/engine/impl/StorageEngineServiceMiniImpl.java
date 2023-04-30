@@ -29,16 +29,14 @@
 
 package com.anyilanxin.skillfull.storage.engine.impl;
 
-import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
-import com.anyilanxin.skillfull.storage.engine.EngineCondition;
-import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-
+import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
+import com.anyilanxin.skillfull.storage.engine.EngineCondition;
+import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

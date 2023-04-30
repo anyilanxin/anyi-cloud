@@ -30,14 +30,12 @@
 package com.anyilanxin.anyicloud.auth.oauth2.validate.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.CheckDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.IValidate;
+import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

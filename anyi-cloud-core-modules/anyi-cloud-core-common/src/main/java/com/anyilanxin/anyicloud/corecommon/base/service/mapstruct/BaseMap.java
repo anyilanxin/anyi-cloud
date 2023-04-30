@@ -31,7 +31,6 @@ package com.anyilanxin.anyicloud.corecommon.base.service.mapstruct;
 
 import java.util.List;
 import java.util.Set;
-
 import org.mapstruct.MappingTarget;
 
 /**

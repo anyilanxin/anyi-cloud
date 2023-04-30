@@ -31,10 +31,9 @@ package com.anyilanxin.anyicloud.system.modules.manage.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageCustomFilterEntity;
+import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.Collection;
 
 /**
  * 自定义过滤器(ManageCustomFilter)持久层

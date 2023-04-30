@@ -31,7 +31,6 @@ package com.anyilanxin.anyicloud.corecommon.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

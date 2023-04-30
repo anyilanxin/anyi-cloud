@@ -34,9 +34,7 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.anyicloud.message.strategy.templateemailmsg.ITemplateEmailMsgStrategy;
 import com.anyilanxin.anyicloud.messagerpc.constant.MsgTemplateEmailChannelConstant;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
-
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 /**

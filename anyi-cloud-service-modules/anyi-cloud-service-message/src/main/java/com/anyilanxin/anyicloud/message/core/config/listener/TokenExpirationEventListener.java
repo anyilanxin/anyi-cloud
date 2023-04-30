@@ -39,9 +39,7 @@ import com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
 import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;

@@ -82,7 +82,7 @@ public class InMemoryCache {
      * @date 2019-06-16 15:47
      */
     public static void clearAllLikeStr(String str) {
-        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext(); ) {
+        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext();) {
             Map.Entry<String, CacheData> item = it.next();
             String key = item.getKey();
             if (key.contains(str)) {

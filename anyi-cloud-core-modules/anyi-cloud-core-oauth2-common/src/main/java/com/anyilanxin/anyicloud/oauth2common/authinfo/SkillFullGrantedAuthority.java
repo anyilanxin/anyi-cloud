@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.oauth2common.authinfo;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 

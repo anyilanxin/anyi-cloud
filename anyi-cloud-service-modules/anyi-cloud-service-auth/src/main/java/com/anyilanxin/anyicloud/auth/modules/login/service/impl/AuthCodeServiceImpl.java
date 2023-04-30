@@ -37,9 +37,7 @@ import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
 import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -30,11 +30,10 @@
 package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.TenantDto;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryPageVoCamunda;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryVo;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantVo;
-
+import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.TenantDto;
 import java.util.List;
 import java.util.Set;
 

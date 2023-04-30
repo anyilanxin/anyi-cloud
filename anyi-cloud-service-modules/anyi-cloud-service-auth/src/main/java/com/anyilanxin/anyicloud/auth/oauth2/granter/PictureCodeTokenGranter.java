@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.granter;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.token.PictureCodeAuthenticationToken;
 import com.anyilanxin.anyicloud.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.anyicloud.corecommon.constant.impl.AuthorizedGrantTypes;
-
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;

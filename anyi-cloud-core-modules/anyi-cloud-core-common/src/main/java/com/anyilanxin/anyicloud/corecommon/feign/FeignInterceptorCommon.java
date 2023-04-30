@@ -34,9 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ContextHeaderSt
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.safety.ContextSafetyStrategy;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.corecommon.constant.model;
 
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

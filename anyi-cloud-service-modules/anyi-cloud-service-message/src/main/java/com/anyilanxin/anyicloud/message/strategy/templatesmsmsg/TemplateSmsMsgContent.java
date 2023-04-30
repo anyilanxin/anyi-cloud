@@ -37,12 +37,10 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.IManageTemplateSe
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateSmsMsgModel;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

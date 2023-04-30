@@ -32,12 +32,10 @@ package com.anyilanxin.anyicloud.message.modules.websocket.model;
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -102,8 +100,7 @@ public class WebSocketCacheModel implements Serializable {
 
             WebSocketSessionModel that = (WebSocketSessionModel) o;
 
-            if (getSessionId() != null ? !getSessionId().equals(that.getSessionId()) : that.getSessionId() != null)
-                return false;
+            if (getSessionId() != null ? !getSessionId().equals(that.getSessionId()) : that.getSessionId() != null) return false;
             return getToken() != null ? getToken().equals(that.getToken()) : that.getToken() == null;
         }
 

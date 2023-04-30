@@ -31,12 +31,10 @@ package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

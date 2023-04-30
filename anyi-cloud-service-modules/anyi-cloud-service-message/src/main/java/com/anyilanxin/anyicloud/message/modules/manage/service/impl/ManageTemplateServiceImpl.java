@@ -38,17 +38,15 @@ import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTempl
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplateVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.mapper.ManageTemplateMapper;
-import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageTemplateCopyMap;
 import com.anyilanxin.anyicloud.message.modules.manage.service.IManageTemplateService;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
+import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageTemplateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

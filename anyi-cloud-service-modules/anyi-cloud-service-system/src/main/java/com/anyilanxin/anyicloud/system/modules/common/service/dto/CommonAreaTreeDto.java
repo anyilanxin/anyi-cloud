@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.system.modules.common.service.dto;
 
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

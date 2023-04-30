@@ -35,27 +35,25 @@ import com.anyilanxin.anyicloud.auth.modules.detail.servive.impl.OpenIdDetailsSe
 import com.anyilanxin.anyicloud.auth.modules.detail.servive.impl.PasswordDetailsService;
 import com.anyilanxin.anyicloud.auth.modules.detail.servive.impl.PhoneDetailsService;
 import com.anyilanxin.anyicloud.auth.oauth2.CustomDefaultTokenServices;
+import com.anyilanxin.anyicloud.auth.oauth2.CustomTokenApprovalStore;
 import com.anyilanxin.anyicloud.auth.oauth2.CustomTokenEnhancer;
 import com.anyilanxin.anyicloud.auth.oauth2.filter.CustomAuthenticationFailureHandler;
 import com.anyilanxin.anyicloud.auth.oauth2.filter.CustomAuthenticationSuccessHandler;
 import com.anyilanxin.anyicloud.auth.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
 import com.anyilanxin.anyicloud.auth.oauth2.granter.*;
+import com.anyilanxin.anyicloud.auth.oauth2.orror.WebOauth2ResponseExceptionTranslator;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.ClientCredentialsAuthenticationProvider;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.OpenIdAuthenticationProvider;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.PictureCodeAuthenticationProvider;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.SmsCodeAuthenticationProvider;
 import com.anyilanxin.anyicloud.auth.oauth2.store.code.RedisAuthorizationCodeServices;
-import com.anyilanxin.anyicloud.auth.oauth2.CustomTokenApprovalStore;
-import com.anyilanxin.skillfull.auth.oauth2.granter.*;
-import com.anyilanxin.anyicloud.auth.oauth2.orror.WebOauth2ResponseExceptionTranslator;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
-
+import com.anyilanxin.skillfull.auth.oauth2.granter.*;
 import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

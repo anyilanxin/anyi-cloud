@@ -30,10 +30,8 @@
 package com.anyilanxin.anyicloud.gateway.core.config;
 
 import com.anyilanxin.anyicloud.gateway.core.handler.WebExceptionHandler;
-
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;

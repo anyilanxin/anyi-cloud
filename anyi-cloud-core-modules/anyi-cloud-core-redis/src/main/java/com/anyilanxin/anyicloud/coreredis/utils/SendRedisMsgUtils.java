@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.coreredis.utils;
 
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

@@ -33,9 +33,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

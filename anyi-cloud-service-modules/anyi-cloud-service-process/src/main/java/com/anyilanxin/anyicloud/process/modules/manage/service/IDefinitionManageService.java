@@ -31,10 +31,10 @@ package com.anyilanxin.anyicloud.process.modules.manage.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.anyicloud.process.modules.manage.controller.vo.*;
-import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.manage.service.dto.DeploymentDetailDto;
 import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionPageDto;
 import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessInfoDto;
+import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 
 /**
  * 流程定义管理

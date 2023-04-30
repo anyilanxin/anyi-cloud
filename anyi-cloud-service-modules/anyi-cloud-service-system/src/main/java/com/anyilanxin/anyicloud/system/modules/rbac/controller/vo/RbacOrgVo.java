@@ -31,11 +31,9 @@ package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

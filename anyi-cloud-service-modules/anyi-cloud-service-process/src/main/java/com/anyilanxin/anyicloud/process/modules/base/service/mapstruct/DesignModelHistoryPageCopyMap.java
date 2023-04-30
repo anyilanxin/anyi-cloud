@@ -30,9 +30,9 @@
 package com.anyilanxin.anyicloud.process.modules.base.service.mapstruct;
 
 import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.anyicloud.process.modules.base.controller.vo.DesignModelHistoryPageVo;
 import com.anyilanxin.anyicloud.process.modules.base.entity.DesignModelHistoryEntity;
 import com.anyilanxin.anyicloud.process.modules.base.service.dto.DesignModelHistoryPageDto;
-import com.anyilanxin.anyicloud.process.modules.base.controller.vo.DesignModelHistoryPageVo;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

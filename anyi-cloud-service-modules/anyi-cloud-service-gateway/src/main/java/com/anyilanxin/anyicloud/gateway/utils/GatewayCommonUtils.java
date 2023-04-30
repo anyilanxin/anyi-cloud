@@ -40,7 +40,6 @@ import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialU
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import io.netty.buffer.UnpooledByteBufAllocator;
-
 import java.io.Serializable;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -48,7 +47,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;

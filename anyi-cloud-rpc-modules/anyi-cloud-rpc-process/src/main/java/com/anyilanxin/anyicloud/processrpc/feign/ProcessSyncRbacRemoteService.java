@@ -35,10 +35,8 @@ import com.anyilanxin.anyicloud.corecommon.feign.FeignFallback;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.processrpc.model.*;
 import com.anyilanxin.skillfull.processrpc.model.*;
-
 import java.util.Set;
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;

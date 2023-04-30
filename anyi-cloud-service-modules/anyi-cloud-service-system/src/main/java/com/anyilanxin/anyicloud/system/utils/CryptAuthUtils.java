@@ -30,10 +30,8 @@
 package com.anyilanxin.anyicloud.system.utils;
 
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -31,7 +31,6 @@ package com.anyilanxin.anyicloud.logging.modules.receive.service;
 
 import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
-
 import java.util.List;
 
 /**

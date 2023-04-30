@@ -31,7 +31,6 @@ package com.anyilanxin.anyicloud.messagerpc.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

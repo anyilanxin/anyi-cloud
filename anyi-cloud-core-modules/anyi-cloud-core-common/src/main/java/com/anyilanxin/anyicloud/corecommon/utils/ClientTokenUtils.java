@@ -32,11 +32,9 @@ package com.anyilanxin.anyicloud.corecommon.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.cache.InMemoryCache;
 import com.anyilanxin.anyicloud.corecommon.config.properties.SkillfullOauthProperty;
-
 import java.net.URI;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;

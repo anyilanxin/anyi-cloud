@@ -33,7 +33,6 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.anyilanxin.anyicloud.corecommon.validation.validator.NotBlankOrNullValidator;
-
 import java.lang.annotation.*;
 import javax.validation.Constraint;
 import javax.validation.Payload;

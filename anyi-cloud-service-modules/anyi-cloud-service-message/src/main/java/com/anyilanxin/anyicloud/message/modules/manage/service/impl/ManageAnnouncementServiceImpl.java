@@ -39,18 +39,16 @@ import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnou
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnouncementVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageAnnouncementEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.mapper.ManageAnnouncementMapper;
-import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementCopyMap;
-import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementPageCopyMap;
-import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementQueryCopyMap;
 import com.anyilanxin.anyicloud.message.modules.manage.service.IManageAnnouncementService;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementPageDto;
+import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementCopyMap;
+import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementPageCopyMap;
+import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageAnnouncementQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

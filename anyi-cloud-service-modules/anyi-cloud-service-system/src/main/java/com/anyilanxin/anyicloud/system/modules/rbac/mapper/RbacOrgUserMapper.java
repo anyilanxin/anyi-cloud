@@ -32,10 +32,8 @@ package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgUserDto;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

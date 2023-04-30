@@ -42,9 +42,9 @@ import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.coreredis.constant.RedisSubscribeConstant;
 import com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils;
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
-import com.anyilanxin.anyicloud.message.utils.WsUtils;
 import com.anyilanxin.anyicloud.message.strategy.afterconnection.AfterConnectionContent;
 import com.anyilanxin.anyicloud.message.strategy.msgsubscribe.MsgSubscribeContent;
+import com.anyilanxin.anyicloud.message.utils.WsUtils;
 import com.anyilanxin.anyicloud.messagerpc.constant.MessageCommonContent;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
 import com.anyilanxin.anyicloud.messagerpc.model.ErrorMsgModel;
@@ -52,11 +52,9 @@ import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.UpOrDownModel;
 import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

@@ -14,7 +14,7 @@ dependencies {
 
 
 // 判断是否输出到统一目录
-if (rootProject.ext["compileBootJarToParent"]) {
+if (compileBootJarToParent) {
     tasks.withType(Jar) {
         destinationDirectory = file("$project.parent.buildDir/bootJar")
     }
@@ -22,7 +22,7 @@ if (rootProject.ext["compileBootJarToParent"]) {
 
 
 // 判断是否分离打包
-if (rootProject.ext["compileSeparate"]) {
+if (compileSplit) {
     // 分离打包处理
     task clearJar(type: Delete) {
         delete "$buildDir/libs/lib"
@@ -32,14 +32,14 @@ if (rootProject.ext["compileSeparate"]) {
         from project.configurations.productionRuntimeClasspath
         into "$buildDir/libs/lib"
         include '*.jar'
-        exclude "skillfull*.jar"
+        exclude "anyi-cloud-*.jar"
     }
 
     bootJar {
         // 排除外部lib下依赖
         project.configurations.productionRuntimeClasspath.files.collect {
             {
-                if (!it.name.startsWith("skillfull")) {
+                if (!it.name.startsWith("anyi-cloud")) {
                     exclude(it.name)
                 }
             }

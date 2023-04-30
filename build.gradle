@@ -147,7 +147,7 @@ subprojects {
             springBootApplication {
                 baseImage = dockerInfo.baseImage
                 ports = [80]
-                images = [dockerInfo.images + jarBaseName + ":" + bootProject['version']]
+                images = [dockerInfo.images + jarBaseName + ":" + version]
             }
             if (dockerInfo.isRemortDocker) {
                 url.set(dockerInfo.remortDocker)

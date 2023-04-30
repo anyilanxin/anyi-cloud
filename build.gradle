@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version '2.7.4'
+    id 'org.springframework.boot' version "${springBootVersion}"
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
     id "com.diffplug.spotless" version "6.18.0"
@@ -13,9 +13,6 @@ plugins {
 
 
 apply from: "config.gradle"
-
-
-version = rootProject.ext.version["skillfull-cloud"]
 
 
 configurations {
@@ -28,9 +25,9 @@ configurations {
 // 批量构建镜像
 tasks.register('dockerImageAll') {
     subprojects.findAll { project ->
-        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
-        if (versionInfo != null && versionInfo['bootJar']) {
-            dependsOn ':skillfull-service-modules:' + project.name + ':dockerBuildImage'
+        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
+        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
+            dependsOn ':anyi-cloud-service-modules:' + project.name + ':dockerBuildImage'
         }
     }
 }
@@ -39,9 +36,9 @@ tasks.register('dockerImageAll') {
 // 批量构建镜像并推送到仓库
 tasks.register('dockerPushImageAll') {
     subprojects.findAll { project ->
-        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
-        if (versionInfo != null && versionInfo['bootJar']) {
-            dependsOn ':skillfull-service-modules:' + project.name + ':dockerPushImage'
+        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
+        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
+            dependsOn ':anyi-cloud-service-modules:' + project.name + ':dockerPushImage'
         }
     }
 }
@@ -50,9 +47,9 @@ tasks.register('dockerPushImageAll') {
 // 批量构建bootJar
 tasks.register('buildBootJarAll') {
     subprojects.findAll { project ->
-        def versionInfo = rootProject.ext.version['skillfull-service-modules:' + project.name]
-        if (versionInfo != null && versionInfo['bootJar']) {
-            dependsOn ':skillfull-service-modules:' + project.name + ':bootJar'
+        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
+        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
+            dependsOn ':anyi-cloud-service-modules:' + project.name + ':bootJar'
         }
     }
 }
@@ -83,8 +80,9 @@ allprojects {
         maven {
             content {
                 excludeGroupByRegex "org\\.camunda.*"
+                excludeGroup "org.springdoc"
             }
-            url 'https://maven.aliyun.com/nexus/content/groups/public/'
+            url 'https://maven.aliyun.com/repository/central/'
         }
         mavenCentral()
     }
@@ -143,13 +141,13 @@ subprojects {
     // jar名称
     def jarBaseName = bootJar.archiveBaseName.get()
     // jar版本号
-    def versionInfo = rootProject.ext.version['skillfull-service-modules:' + jarBaseName]
-    if (versionInfo != null) {
+    def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + jarBaseName]
+    if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
         docker {
             springBootApplication {
                 baseImage = dockerInfo.baseImage
                 ports = [80]
-                images = [dockerInfo.images + jarBaseName + ":" + versionInfo['version']]
+                images = [dockerInfo.images + jarBaseName + ":" + bootProject['version']]
             }
             if (dockerInfo.isRemortDocker) {
                 url.set(dockerInfo.remortDocker)

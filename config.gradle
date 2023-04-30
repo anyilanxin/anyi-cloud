@@ -1,14 +1,4 @@
 ext {
-    set('springCloudVersion', "2021.0.4")
-    set('springCloudAlibabaVersion', "2021.0.4.0")
-    set('springAlibabaVersion', "1.0.0")
-    // 分离打包开关(打开后依赖与源码会分开)
-    set('compileSeparate', true)
-    // boot jar输入出到统一目录(打开后会输出到统一目录)
-    set('compileBootJarToParent', false)
-    // docker打包环境
-    set('dockerEnv', 'company')
-
 
     dependencies = [
             'mapstruct'                                           : 'org.mapstruct:mapstruct:1.5.2.Final',
@@ -62,42 +52,18 @@ ext {
             'tencentcloud-sdk-java'                               : 'com.tencentcloudapi:tencentcloud-sdk-java:4.0.11'
     ]
 
-
-    version = [
-            // 主项目
-            'skillfull-cloud'                                      : '1.0.0-alpha2-SNAPSHOT',
-
+    // boot启动项目(主build.gradle需要分离出boot项目以便配置docker以及打包环境)
+    bootInfo = [
             // 服务模块
-            'skillfull-service-modules:skillfull-auth-service'     : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-gateway-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-logging-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-message-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-process-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-monitor-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-onlinedes-service': [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-storage-service'  : [version: '1.0.0-alpha2', bootJar: true],
-            'skillfull-service-modules:skillfull-system-service'   : [version: '1.0.0-alpha2', bootJar: true],
-
-            // 核心模块
-            'skillfull-core-modules:skillfull-common'              : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-database'            : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-mvc'                 : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-redis'               : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-webflux'             : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-stream'              : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-oauth2-common'       : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-oauth2-mvc'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-oauth2-webflux'      : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-logging-common'      : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-logging-mvc'         : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-core-modules:skillfull-logging-webflux'     : [version: '1.0.0-alpha2', bootJar: false],
-
-            // 远程api模块
-            'skillfull-rpc-modules:skillfull-process-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-rpc-modules:skillfull-system-rpc'           : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-rpc-modules:skillfull-gateway-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-rpc-modules:skillfull-message-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
-            'skillfull-rpc-modules:skillfull-storage-rpc'          : [version: '1.0.0-alpha2', bootJar: false],
+            'anyi-cloud-service-modules:anyi-cloud-service-auth'     : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-gateway'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-logging'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-message'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-process'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-monitor'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-onlinedes': true,
+            'anyi-cloud-service-modules:anyi-cloud-service-storage'  : true,
+            'anyi-cloud-service-modules:anyi-cloud-service-system'   : true,
     ]
 
 

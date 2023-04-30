@@ -1,0 +1,5 @@
+dependencies {
+    api 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
+    api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
+}

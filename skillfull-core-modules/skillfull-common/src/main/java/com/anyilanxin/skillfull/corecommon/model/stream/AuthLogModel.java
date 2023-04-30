@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.stream;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -105,18 +102,10 @@ public class AuthLogModel implements Serializable {
     @Schema(name = "costTime", title = "耗时")
     private Long costTime;
 
-    @Schema(
-            name = "requestStartTime",
-            title = "请求开始时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-12-21 12:22:21")
     private LocalDateTime requestStartTime;
 
-    @Schema(
-            name = "requestEndTime",
-            title = "请求结束时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-12-21 12:22:21")
     private LocalDateTime requestEndTime;
 
     @Schema(name = "exceptionMessage", title = "异常消息")

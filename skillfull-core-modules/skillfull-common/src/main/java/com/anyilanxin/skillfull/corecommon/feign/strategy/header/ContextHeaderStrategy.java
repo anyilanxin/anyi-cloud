@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.feign.strategy.header;
 
 import com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant;
 import feign.RequestTemplate;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -58,6 +55,7 @@ public class ContextHeaderStrategy {
         HEADER_STRATEGY.putAll(headerStrategy);
     }
 
+
     public void setHeader(String strategy, RequestTemplate template) {
         // 先调用默认的
         ISetHeaderStrategy iSetHeaderStrategy = HEADER_STRATEGY.get(SysBaseConstant.FEIGN_DEFAULT);
@@ -65,9 +63,7 @@ public class ContextHeaderStrategy {
             try {
                 iSetHeaderStrategy.setHeader(template);
             } catch (Exception e) {
-                log.error(
-                        "------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}",
-                        e.getMessage());
+                log.error("------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}", e.getMessage());
             }
         }
         // 在调用其他的
@@ -76,9 +72,7 @@ public class ContextHeaderStrategy {
             try {
                 setTokenStrategy.setHeader(template);
             } catch (Exception e) {
-                log.error(
-                        "------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}",
-                        e.getMessage());
+                log.error("------------ContextHeaderStrategy-----feign设置请求头异常------->setHeader--->异常消息:{}", e.getMessage());
             }
         } else {
             log.error("----------ContextStrategy---------->doStrategy:{}", "Api调用未找到设置请求头的方法");

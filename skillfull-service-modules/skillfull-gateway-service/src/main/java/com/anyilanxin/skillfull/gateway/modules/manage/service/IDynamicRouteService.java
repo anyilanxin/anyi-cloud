@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service;
 
 import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel;
@@ -53,6 +52,7 @@ public interface IDynamicRouteService {
      */
     void addRoute(SystemRouterModel vo) throws RuntimeException;
 
+
     /**
      * 更新路由
      *
@@ -62,6 +62,7 @@ public interface IDynamicRouteService {
      * @date 2020-09-10 22:45
      */
     void updateRoute(SystemRouterModel vo) throws RuntimeException;
+
 
     /**
      * 删除路由
@@ -73,6 +74,7 @@ public interface IDynamicRouteService {
      */
     void deleteRoute(String routeId) throws RuntimeException;
 
+
     /**
      * 查询路由
      *
@@ -82,6 +84,7 @@ public interface IDynamicRouteService {
      * @date 2020-09-10 22:49
      */
     Flux<RouteResponseModel> getRoutes() throws RuntimeException;
+
 
     /**
      * 加载或刷新路由

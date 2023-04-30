@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.message.modules.announcement.service.dto.Announc
 import com.anyilanxin.skillfull.message.modules.announcement.service.dto.AnnouncementRecordPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -64,8 +61,8 @@ public interface AnnouncementRecordMapper extends BaseMapper<AnnouncementRecordE
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
-    IPage<AnnouncementRecordPageDto> pageByModel(
-            Page<AnnouncementRecordPageDto> page, @Param("query") AnnouncementRecordPageVo vo);
+    IPage<AnnouncementRecordPageDto> pageByModel(Page<AnnouncementRecordPageDto> page, @Param("query") AnnouncementRecordPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -77,6 +74,7 @@ public interface AnnouncementRecordMapper extends BaseMapper<AnnouncementRecordE
      */
     List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo);
 
+
     /**
      * 通过通知公告阅读记录id物理删除
      *
@@ -86,6 +84,7 @@ public interface AnnouncementRecordMapper extends BaseMapper<AnnouncementRecordE
      * @date 2022-03-29 08:35:34
      */
     int physicalDeleteById(@Param("id") String anntReadId);
+
 
     /**
      * 通过通知公告阅读记录id物理批量删除

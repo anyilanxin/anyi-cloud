@@ -27,14 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.manage.controller.vo.ManageRouteFilterVo;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteFilterEntity;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteFilterDto;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,16 +49,16 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
     /**
      * 保存
      *
-     * @param vos       ${@link List< ManageRouteFilterVo >} 待保存数据
+     * @param vos ${@link List< ManageRouteFilterVo >} 待保存数据
      * @param serviceId ${@link String} 服务id
-     * @param override  ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
-     * @param routerId  ${@link String} 路由id
+     * @param override ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
+     * @param routerId ${@link String} 路由id
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    void save(List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override)
-            throws RuntimeException;
+    void save(List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -73,6 +71,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      */
     ManageRouteFilterDto getById(String filterId) throws RuntimeException;
 
+
     /**
      * 通过routeId查询详情
      *
@@ -84,6 +83,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      */
     List<ManageRouteFilterDto> getByRouteId(String routeId) throws RuntimeException;
 
+
     /**
      * 通过routeIds查询详情
      *
@@ -93,8 +93,8 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      * @author zxiaozhou
      * @date 2021-12-19 10:37:42
      */
-    Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds)
-            throws RuntimeException;
+    Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds) throws RuntimeException;
+
 
     /**
      * 通过routerId删除
@@ -105,6 +105,7 @@ public interface IManageRouteFilterService extends BaseService<ManageRouteFilter
      * @date 2021-12-19 10:37:42
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
+
 
     /**
      * 通过routerIds删除

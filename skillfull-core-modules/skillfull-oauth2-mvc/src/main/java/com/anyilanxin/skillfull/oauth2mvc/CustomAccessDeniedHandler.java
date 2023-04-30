@@ -27,20 +27,17 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc;
 
 import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.oauth2mvc.utils.ResponseUtils;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -61,15 +58,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     @Override
-    public void handle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AccessDeniedException accessDeniedException)
-            throws IOException {
-        log.error(
-                "------------CustomAccessDeniedHandler------------>handle:异常消息:\n{}",
-                accessDeniedException.getLocalizedMessage());
-        ResponseUtils.writeResult(
-                response, getLocalMessage(LOCAL, accessDeniedException.getMessage()), Status.ACCESS_DENIED);
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+        log.error("------------CustomAccessDeniedHandler------------>handle:异常消息:\n{}", accessDeniedException.getLocalizedMessage());
+        ResponseUtils.writeResult(response, getLocalMessage(LOCAL, accessDeniedException.getMessage()), Status.ACCESS_DENIED);
     }
 }

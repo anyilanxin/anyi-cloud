@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.core.config;
 
 import com.anyilanxin.skillfull.database.injector.MysqlBatchInjector;
@@ -58,6 +57,7 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
+
     /**
      * sql公共字段自定义注入
      *
@@ -69,6 +69,7 @@ public class MybatisPlusConfig {
     public MetaObjectHandler metaObjectHandler() {
         return new MyMetaObjectHandler();
     }
+
 
     /**
      * mysql真正批量插入注入器

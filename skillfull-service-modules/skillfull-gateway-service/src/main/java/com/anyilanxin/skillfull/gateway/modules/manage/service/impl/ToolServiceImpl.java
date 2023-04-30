@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
@@ -41,13 +40,11 @@ import com.anyilanxin.skillfull.corecommon.utils.encryption.RSAUtils;
 import com.anyilanxin.skillfull.corewebflux.utils.CoreWebFluxStringUtils;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IToolService;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.mapstruct.SecurityToWebSecurityMap;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -73,48 +70,27 @@ public class ToolServiceImpl implements IToolService {
     @Override
     public WebSecurityModel getBaseSecurity() {
         UserDataSecurityModel userDataSecurityModel = getSecurityModel(null);
-        redisTemplate
-                .opsForValue()
-                .set(
-                        CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
-                                + userDataSecurityModel.getSerialNumber(),
-                        userDataSecurityModel,
-                        userDataSecurityModel.getValidityInSeconds(),
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + userDataSecurityModel.getSerialNumber(), userDataSecurityModel, userDataSecurityModel.getValidityInSeconds(), TimeUnit.SECONDS);
         return securityMap.eToD(userDataSecurityModel);
     }
+
 
     @Override
     public WebSecurityModel getRefreshBaseSecurity(String serialNumber) {
         // 旧数据移到待失效区,并设置更短的快速失效时间
-        Object waitInvalidData =
-                redisTemplate
-                        .opsForValue()
-                        .get(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
+        Object waitInvalidData = redisTemplate.opsForValue().get(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
         if (Objects.nonNull(waitInvalidData) && waitInvalidData instanceof UserDataSecurityModel) {
-            redisTemplate
-                    .opsForValue()
-                    .set(
-                            CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE + serialNumber,
-                            waitInvalidData,
-                            WAIT_INVALID_SECONDS,
-                            TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(CoreCommonCacheConstant.USER_DATA_SECURITY_WAIT_INVALID_CACHE + serialNumber, waitInvalidData, WAIT_INVALID_SECONDS, TimeUnit.SECONDS);
             redisTemplate.delete(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + serialNumber);
         } else {
             throw new ResponseException(Status.VERIFICATION_FAILED, "未查询到当前序列的数据");
         }
         UserDataSecurityModel userDataSecurityModel = getSecurityModel(serialNumber);
         // 加入缓存
-        redisTemplate
-                .opsForValue()
-                .set(
-                        CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE
-                                + userDataSecurityModel.getSerialNumber(),
-                        userDataSecurityModel,
-                        userDataSecurityModel.getValidityInSeconds(),
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(CoreCommonCacheConstant.USER_DATA_SECURITY_CACHE + userDataSecurityModel.getSerialNumber(), userDataSecurityModel, userDataSecurityModel.getValidityInSeconds(), TimeUnit.SECONDS);
         return securityMap.eToD(userDataSecurityModel);
     }
+
 
     /**
      * 创建新的密钥信息
@@ -128,17 +104,12 @@ public class ToolServiceImpl implements IToolService {
         UserDataSecurityModel userDataSecurityModel = securityMap.vToE(configDataSecurityModel);
         userDataSecurityModel.setBase64PrivateKey(rsaKey.getBase64PrivateKey());
         userDataSecurityModel.setBase64PublicKey(rsaKey.getBase64PublicKey());
-        LocalDateTime expiresAt =
-                Instant.ofEpochMilli(
-                                System.currentTimeMillis() + userDataSecurityModel.getValidityInSeconds() * 1000)
-                        .atZone(ZoneOffset.ofHours(8))
-                        .toLocalDateTime();
+        LocalDateTime expiresAt = Instant.ofEpochMilli(System.currentTimeMillis() + userDataSecurityModel.getValidityInSeconds() * 1000).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
         userDataSecurityModel.setExpiresAt(expiresAt);
         if (StringUtils.isNotBlank(serialNumber)) {
             userDataSecurityModel.setSerialNumber(serialNumber);
         } else {
-            String timeInfo =
-                    CoreCommonDateUtils.dateToStr(LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
+            String timeInfo = CoreCommonDateUtils.dateToStr(LocalDateTime.now(), CoreCommonDateUtils.YYYYMMDDHHMMSS);
             userDataSecurityModel.setSerialNumber(timeInfo + CoreWebFluxStringUtils.getSnowflakeId());
         }
         return userDataSecurityModel;

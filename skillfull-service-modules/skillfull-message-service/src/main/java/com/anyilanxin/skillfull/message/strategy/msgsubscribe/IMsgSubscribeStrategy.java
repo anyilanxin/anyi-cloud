@@ -27,13 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.msgsubscribe;
 
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.web.socket.WebSocketSession;
 
 /**
@@ -48,10 +45,9 @@ public interface IMsgSubscribeStrategy {
      * 处理消息
      *
      * @param subscribeMsgModel 消息信息
-     * @param sessions          当前系统所有session
+     * @param sessions 当前系统所有session
      * @author zxiaozhou
      * @date 2022-08-27 15:15
      */
-    void handleMsg(
-            SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions);
+    void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions);
 }

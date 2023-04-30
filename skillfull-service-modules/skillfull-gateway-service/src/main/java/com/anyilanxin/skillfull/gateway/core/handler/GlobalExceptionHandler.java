@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.handler;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -40,13 +39,11 @@ import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.corewebflux.base.controller.BaseController;
 import feign.FeignException;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
@@ -90,6 +87,7 @@ public class GlobalExceptionHandler extends BaseController {
         return fail("服务器出问题了:" + e.getMessage());
     }
 
+
     /**
      * 处理自定义异常
      *
@@ -102,11 +100,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<Result<String>> handlerResponseException(ResponseException e) {
         Result<Object> result = e.getResult();
-        log.error(
-                "------------GlobalExceptionHandler------处理自定义异常------>handlerResponseException:{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------处理自定义异常------>handlerResponseException:{}", e.getMessage());
         return fail(result.getCode(), result.getMessage());
     }
+
 
     /**
      * 处理鉴权异常
@@ -120,10 +117,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Mono<Result<String>> handlerUnauthorizedUserException(UnauthorizedUserException e) {
         e.printStackTrace();
-        log.error(
-                "-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
+        log.error("-----------------处理自定义异常------>handlerUnauthorizedUserException:\n{}", e.getMessage());
         return fail(Status.TOKEN_EXPIRED, e.getMessage());
     }
+
 
     /**
      * 处理请求参数校验(普通传参)异常
@@ -145,8 +142,7 @@ public class GlobalExceptionHandler extends BaseController {
                 ConstraintViolationImpl constraintViolation = (ConstraintViolationImpl) violation;
                 Map messageParameters = constraintViolation.getMessageParameters();
                 if (CollectionUtil.isNotEmpty(messageParameters)) {
-                    Object dynamicMessage =
-                            messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
+                    Object dynamicMessage = messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
                     if (Objects.nonNull(dynamicMessage)) {
                         defaultMessage = dynamicMessage.toString();
                     }
@@ -155,11 +151,10 @@ public class GlobalExceptionHandler extends BaseController {
             sb.append(",").append(defaultMessage);
         }
         String errMeg = sb.toString().replaceFirst(",", "");
-        log.error(
-                "------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleConstraintViolationException:\n{}",
-                errMeg);
+        log.error("------------GlobalExceptionHandler------处理请求参数校验(普通传参)异常------>handleConstraintViolationException:\n{}", errMeg);
         return fail(Status.VERIFICATION_FAILED, errMeg);
     }
+
 
     /**
      * 处理请求参数校验(实体对象传参)异常
@@ -171,8 +166,7 @@ public class GlobalExceptionHandler extends BaseController {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.OK)
-    public Mono<Result<String>> handleMethodArgumentNotValidException(
-            MethodArgumentNotValidException e) {
+    public Mono<Result<String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         e.printStackTrace();
         StringBuilder sb = new StringBuilder();
         for (ObjectError error : e.getAllErrors()) {
@@ -180,8 +174,7 @@ public class GlobalExceptionHandler extends BaseController {
             String defaultMessage = error.getDefaultMessage();
             Map messageParameters = unwrap.getMessageParameters();
             if (CollectionUtil.isNotEmpty(messageParameters)) {
-                Object dynamicMessage =
-                        messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
+                Object dynamicMessage = messageParameters.get(CommonCoreConstant.DYNAMIC_VALIDATE_MESSAGE_KEY);
                 if (Objects.nonNull(dynamicMessage)) {
                     defaultMessage = dynamicMessage.toString();
                 }
@@ -189,11 +182,10 @@ public class GlobalExceptionHandler extends BaseController {
             sb.append(",").append(defaultMessage);
         }
         String errMeg = sb.toString().replaceFirst(",", "");
-        log.error(
-                "------------GlobalExceptionHandler------处理请求参数校验(实体对象传参)异常------>handleMethodArgumentNotValidException:\n{}",
-                errMeg);
+        log.error("------------GlobalExceptionHandler------处理请求参数校验(实体对象传参)异常------>handleMethodArgumentNotValidException:\n{}", errMeg);
         return fail(Status.VERIFICATION_FAILED, errMeg);
     }
+
 
     /**
      * 处理数据库数据重复异常
@@ -206,11 +198,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ExceptionHandler(DuplicateKeyException.class)
     @ResponseStatus(HttpStatus.OK)
     public Mono<Result<String>> handleDuplicateKeyException(DuplicateKeyException e) {
-        log.error(
-                "------------GlobalExceptionHandler------处理数据库数据重复异常------>handleDuplicateKeyException:{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------处理数据库数据重复异常------>handleDuplicateKeyException:{}", e.getMessage());
         return fail("数据库中已存在该记录:" + e.getMessage());
     }
+
 
     /**
      * post请求缺少body参数
@@ -223,11 +214,10 @@ public class GlobalExceptionHandler extends BaseController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.OK)
     public Mono<Result<String>> httpMessageNotReadableException(HttpMessageNotReadableException e) {
-        log.error(
-                "------------GlobalExceptionHandler------post请求缺少body参数------>httpMessageNotReadableException:{}",
-                e.getMessage());
+        log.error("------------GlobalExceptionHandler------post请求缺少body参数------>httpMessageNotReadableException:{}", e.getMessage());
         return fail("post请求缺少body参数:" + e.getMessage());
     }
+
 
     /**
      * feign请求异常
@@ -240,14 +230,11 @@ public class GlobalExceptionHandler extends BaseController {
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.OK)
     public Mono<Result<Object>> feignException(FeignException e) {
-        log.error(
-                "------------GlobalExceptionHandler------feign异常------>feignException--->\n异常消息:{}",
-                e.getLocalizedMessage());
+        log.error("------------GlobalExceptionHandler------feign异常------>feignException--->\n异常消息:{}", e.getLocalizedMessage());
         String resultStringMsg = e.contentUTF8();
         if (StringUtils.isNotBlank(resultStringMsg)) {
-            return Mono.just(
-                    JSONObject.parseObject(resultStringMsg, new TypeReference<Result<Object>>() {
-                    }));
+            return Mono.just(JSONObject.parseObject(resultStringMsg, new TypeReference<Result<Object>>() {
+            }));
         } else {
             return fail(e.getLocalizedMessage());
         }

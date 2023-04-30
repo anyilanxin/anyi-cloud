@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -44,10 +43,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-11-25 09:52:37
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface DesignModelToHistoryCopyMap
-        extends BaseThreeMap<DesignModelEntity, DesignModelHistoryVo, DesignModelHistoryEntity> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface DesignModelToHistoryCopyMap extends BaseThreeMap<DesignModelEntity, DesignModelHistoryVo, DesignModelHistoryEntity> {
 }

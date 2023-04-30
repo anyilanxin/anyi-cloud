@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateResultModel;
-
 import java.util.List;
 
 /**
@@ -60,6 +58,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     void save(ManageSendRecordVo vo) throws RuntimeException;
 
+
     /**
      * 批量保存记录
      *
@@ -69,6 +68,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @date 2022-08-30 10:27
      */
     TemplateResultModel saveBatchRecord(List<ManageSendRecordEntity> recordEntities);
+
 
     /**
      * 分页查询
@@ -81,6 +81,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     PageDto<ManageSendRecordPageDto> pageByModel(ManageSendRecordPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -92,6 +93,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      */
     ManageSendRecordDto getById(String sendRecordId) throws RuntimeException;
 
+
     /**
      * 通过sendRecordId删除
      *
@@ -101,6 +103,7 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
      * @date 2022-03-29 05:23:42
      */
     void deleteById(String sendRecordId) throws RuntimeException;
+
 
     /**
      * 消息发送记录表批量删除

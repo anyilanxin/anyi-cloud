@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.core.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
@@ -73,6 +70,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
     }
 
+
     @Override
     public void updateFill(MetaObject metaObject) {
         // 不需要获取登录信息
@@ -94,6 +92,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             }
         }
     }
+
 
     /**
      * 获取用户信息

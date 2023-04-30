@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.validator;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotNullScope;
-
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -52,6 +50,7 @@ public class NotNullScopeValidator implements ConstraintValidator<NotNullScope, 
         this.min = constraintAnnotation.min();
         this.max = constraintAnnotation.max();
     }
+
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {

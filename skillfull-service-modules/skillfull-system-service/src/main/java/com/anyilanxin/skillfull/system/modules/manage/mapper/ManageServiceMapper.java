@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.system.modules.manage.entity.ManageServiceEntity
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageServicePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageServicePageVo} 查询条件
+     * @param vo ${@link ManageServicePageVo} 查询条件
      * @param page ${@link Page< ManageServicePageDto >} 分页信息
      * @return IPage<ManageServicePageDto> ${@link IPage<ManageServicePageDto>} 结果
      * @author zxiaozhou
      * @date 2021-12-19 00:22:19
      */
-    IPage<ManageServicePageDto> pageByModel(
-            Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
+    IPage<ManageServicePageDto> pageByModel(Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
+
 
     /**
      * 通过服务id物理删除
@@ -73,6 +70,7 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
      * @date 2021-12-19 00:22:19
      */
     int physicalDeleteById(@Param("id") String serviceId);
+
 
     /**
      * 通过服务id物理批量删除

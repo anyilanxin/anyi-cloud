@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto;
-
 import java.util.List;
 
 /**
@@ -60,16 +58,18 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void save(RbacUserVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
      * @param userId 用户id
-     * @param vo     用户表更新数据
+     * @param vo 用户表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
     void updateById(String userId, RbacUserVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,17 +82,19 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
      * @param userId 用户id
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @return RbacUserDto 查询结果
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
     RbacUserDto getById(String userId, String orgId) throws RuntimeException;
+
 
     /**
      * 通过userId删除
@@ -104,6 +106,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void deleteById(String userId) throws RuntimeException;
 
+
     /**
      * 用户表批量删除
      *
@@ -114,15 +117,17 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      */
     void deleteBatch(List<String> userIds) throws RuntimeException;
 
+
     /**
      * 通过用户d修改状态
      *
      * @param userId 用户id
-     * @param type   类型:1-激活,2-冻结
+     * @param type 类型:1-激活,2-冻结
      * @author zxiaozhou
      * @date 2022-06-03 02:35
      */
     void updateState(String userId, Integer type);
+
 
     /**
      * 重置密码
@@ -133,6 +138,7 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * @date 2022-06-03 02:38
      */
     String resetPassword(String userId);
+
 
     /**
      * 分页查询可关联的用户信息

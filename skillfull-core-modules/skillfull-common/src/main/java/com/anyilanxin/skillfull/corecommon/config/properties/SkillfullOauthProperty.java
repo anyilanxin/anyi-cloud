@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.config.properties;
 
 import com.anyilanxin.skillfull.corecommon.constant.impl.AuthorizedGrantTypes;
@@ -53,23 +52,15 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode
 public class SkillfullOauthProperty {
 
-    /**
-     * 授权类型
-     */
+    /** 授权类型 */
     private AuthorizedGrantTypes grantType = AuthorizedGrantTypes.CLIENT_CREDENTIALS;
 
-    /**
-     * 客户端id
-     */
+    /** 客户端id */
     private String clientId;
 
-    /**
-     * 客户端密码
-     */
+    /** 客户端密码 */
     private String clientSecret;
 
-    /**
-     * 授权范围
-     */
+    /** 授权范围 */
     private String scope;
 }

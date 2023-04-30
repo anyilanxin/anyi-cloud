@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -40,12 +39,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.IRbacRoleUserService
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -61,20 +58,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacRoleUserServiceImpl extends ServiceImpl<RbacRoleUserMapper, RbacRoleUserEntity>
-        implements IRbacRoleUserService {
+public class RbacRoleUserServiceImpl extends ServiceImpl<RbacRoleUserMapper, RbacRoleUserEntity> implements IRbacRoleUserService {
     private final RbacRoleUserMapper mapper;
 
     @Override
     public void saveBatch(String userId, Set<String> roleIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(roleIds)) {
             List<RbacRoleUserEntity> roleUserEntities = new ArrayList<>(roleIds.size());
-            roleIds.forEach(
-                    v -> {
-                        RbacRoleUserEntity entity =
-                                RbacRoleUserEntity.builder().userId(userId).roleId(v).build();
-                        roleUserEntities.add(entity);
-                    });
+            roleIds.forEach(v -> {
+                RbacRoleUserEntity entity = RbacRoleUserEntity.builder().userId(userId).roleId(v).build();
+                roleUserEntities.add(entity);
+            });
             boolean b = this.saveBatch(roleUserEntities);
             if (!b) {
                 throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存角色关联失败");
@@ -82,19 +76,18 @@ public class RbacRoleUserServiceImpl extends ServiceImpl<RbacRoleUserMapper, Rba
         }
     }
 
+
     @Override
     public void deleteBatch(List<String> userIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(userIds)) {
-            LambdaQueryWrapper<RbacRoleUserEntity> lambdaQueryWrapper =
-                    Wrappers.<RbacRoleUserEntity>lambdaQuery().in(RbacRoleUserEntity::getUserId, userIds);
+            LambdaQueryWrapper<RbacRoleUserEntity> lambdaQueryWrapper = Wrappers.<RbacRoleUserEntity>lambdaQuery().in(RbacRoleUserEntity::getUserId, userIds);
             List<RbacRoleUserEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> userRoleIds = new HashSet<>(list.size());
                 list.forEach(v -> userRoleIds.add(v.getRoleUserId()));
                 int i = mapper.physicalDeleteBatchIds(userRoleIds);
                 if (i <= 0) {
-                    throw new ResponseException(
-                            Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                    throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
                 }
             }
         }

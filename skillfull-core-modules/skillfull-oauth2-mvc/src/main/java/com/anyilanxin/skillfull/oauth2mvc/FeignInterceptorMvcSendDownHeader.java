@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc;
 
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
@@ -64,8 +63,7 @@ public class FeignInterceptorMvcSendDownHeader implements RequestInterceptor {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-                OAuth2AuthenticationDetails token =
-                        (OAuth2AuthenticationDetails) authentication.getDetails();
+                OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
                 template.header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue());
             }
         } catch (Exception e) {

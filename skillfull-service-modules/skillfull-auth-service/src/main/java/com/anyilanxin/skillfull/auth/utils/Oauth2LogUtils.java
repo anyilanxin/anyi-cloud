@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.utils;
 
 import com.alibaba.fastjson.JSONObject;
@@ -40,11 +39,9 @@ import com.anyilanxin.skillfull.loggingcommon.utils.LogUtils;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.TokenRequest;
@@ -89,6 +86,7 @@ public class Oauth2LogUtils {
         }
     }
 
+
     /**
      * 获取authLog
      *
@@ -112,6 +110,7 @@ public class Oauth2LogUtils {
         return null;
     }
 
+
     /**
      * 设置用户信息
      *
@@ -123,14 +122,10 @@ public class Oauth2LogUtils {
         AuthLogModel authLogModel = Oauth2LogUtils.getAuthLogModel();
         if (Objects.nonNull(authLogModel) && Objects.nonNull(userDetails)) {
             authLogModel.setAuthUserId(userDetails.getUserId());
-            authLogModel.setAuthUserName(
-                    (StringUtils.isNotBlank(userDetails.getRealName()))
-                            ? userDetails.getRealName()
-                            : StringUtils.isNotBlank(userDetails.getNickName())
-                            ? userDetails.getNickName()
-                            : userDetails.getUsername());
+            authLogModel.setAuthUserName((StringUtils.isNotBlank(userDetails.getRealName())) ? userDetails.getRealName() : StringUtils.isNotBlank(userDetails.getNickName()) ? userDetails.getNickName() : userDetails.getUsername());
         }
     }
+
 
     /**
      * 设置客户端信息
@@ -147,6 +142,7 @@ public class Oauth2LogUtils {
         }
     }
 
+
     /**
      * 后置提交授权日志并发送大日志服务
      *
@@ -156,8 +152,7 @@ public class Oauth2LogUtils {
      * @author zxiaozhou
      * @date 2022-08-13 19:56
      */
-    public static void setPostAuthLog(
-            boolean success, String msg, String errMsg, SkillFullAccessToken token) {
+    public static void setPostAuthLog(boolean success, String msg, String errMsg, SkillFullAccessToken token) {
         AuthLogModel authLogModel = getAuthLogModel();
         if (Objects.nonNull(authLogModel)) {
             authLogModel.setRequestEndTime(LocalDateTime.now());
@@ -165,8 +160,7 @@ public class Oauth2LogUtils {
             authLogModel.setLogData(msg);
             authLogModel.setExceptionMessage(errMsg);
             if (Objects.nonNull(token)) {
-                authLogModel.setLogData(
-                        JSONObject.toJSONString(token, SerializerFeature.WriteMapNullValue));
+                authLogModel.setLogData(JSONObject.toJSONString(token, SerializerFeature.WriteMapNullValue));
             }
             LogUtils.sendAuthLog(authLogModel);
         }

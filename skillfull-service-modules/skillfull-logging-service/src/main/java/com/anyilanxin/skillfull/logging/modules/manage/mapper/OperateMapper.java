@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.MysqlBaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,13 +52,14 @@ public interface OperateMapper extends MysqlBaseMapper<OperateEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link OperatePageVo} 查询条件
+     * @param vo ${@link OperatePageVo} 查询条件
      * @param page ${@link Page< OperatePageDto >} 分页信息
      * @return IPage<OperatePageDto> ${@link IPage<OperatePageDto>} 结果
      * @author zxiaozhou
      * @date 2022-01-26 19:51:06
      */
     IPage<OperatePageDto> pageByModel(Page<OperatePageDto> page, @Param("query") OperatePageVo vo);
+
 
     /**
      * 通过操作日志id物理删除
@@ -72,6 +70,7 @@ public interface OperateMapper extends MysqlBaseMapper<OperateEntity> {
      * @date 2022-01-26 19:51:06
      */
     int physicalDeleteById(@Param("id") String operateId);
+
 
     /**
      * 通过操作日志id物理批量删除

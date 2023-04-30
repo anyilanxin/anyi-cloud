@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.utils;
 
 import cn.hutool.core.collection.CollUtil;
@@ -74,6 +73,7 @@ public class CorsWebUtils {
         return chain.filter(exchange);
     }
 
+
     /**
      * 跨域处理工具(非OPTIONS请求)
      *
@@ -89,6 +89,7 @@ public class CorsWebUtils {
         }
         return chain.filter(exchange);
     }
+
 
     public static void addCorsHeaders(ServerWebExchange exchange) {
         ServerHttpRequest request = exchange.getRequest();

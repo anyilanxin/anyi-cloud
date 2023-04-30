@@ -27,19 +27,16 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotNullSize;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.Valid;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -67,10 +64,7 @@ public class GatewayRouteVo implements Serializable {
     @Schema(name = "url", title = "路由url地址,当选择非负载均衡器时必填")
     private String url;
 
-    @Schema(
-            name = "isLoadBalancer",
-            title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时服务名必填，url不填",
-            required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时服务名必填，url不填", required = true)
     @NotBlankOrNull(message = "请确定是否负载均衡器")
     @Builder.Default
     private Integer isLoadBalancer = 0;

@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.OpenIdAuthenticationToken;
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.constant.impl.AuthorizedGrantTypes;
-
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -54,22 +51,14 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 public class OpenIdTokenGranter extends AbstractTokenGranter {
     private final AuthenticationManager authenticationManager;
 
-    public OpenIdTokenGranter(
-            AuthenticationManager authenticationManager,
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.OPEN_ID.getType());
+    public OpenIdTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.OPEN_ID.getType());
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         Map<String, String> requestParameters = tokenRequest.getRequestParameters();
         String openId = requestParameters.get("open_id");

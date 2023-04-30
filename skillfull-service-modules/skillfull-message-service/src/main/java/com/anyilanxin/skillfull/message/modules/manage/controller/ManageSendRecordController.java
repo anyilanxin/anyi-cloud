@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -45,9 +44,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -72,49 +69,34 @@ import org.springframework.web.bind.annotation.*;
 public class ManageSendRecordController extends BaseController {
     private final IManageSendRecordService service;
 
-    @Operation(
-            summary = "消息发送记录表逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除消息发送记录表")
+    @Operation(summary = "消息发送记录表逻辑删除", tags = {"v1.0.0"}, description = "删除消息发送记录表")
     @Parameter(in = ParameterIn.PATH, description = "消息id", name = "sendRecordId", required = true)
     @DeleteMapping(value = "/delete-one/{sendRecordId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空")
-            String sendRecordId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空") String sendRecordId) {
         service.deleteById(sendRecordId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "消息发送记录表逻辑批量删除",
-            tags = {"v1.0.0"},
-            description = "批量删除消息发送记录表")
+
+    @Operation(summary = "消息发送记录表逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除消息发送记录表")
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(
-            @RequestBody @NotNullSize(message = "待删除消息id不能为空") List<String> sendRecordIds) {
+    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除消息id不能为空") List<String> sendRecordIds) {
         service.deleteBatch(sendRecordIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过消息id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询消息发送记录表详情")
+
+    @Operation(summary = "通过消息id查询详情", tags = {"v1.0.0"}, description = "查询消息发送记录表详情")
     @Parameter(in = ParameterIn.PATH, description = "消息id", name = "sendRecordId", required = true)
     @GetMapping(value = "/select/one/{sendRecordId}")
-    public Result<ManageSendRecordDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空")
-            String sendRecordId) {
+    public Result<ManageSendRecordDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "消息id不能为空") String sendRecordId) {
         return ok(service.getById(sendRecordId));
     }
 
-    @Operation(
-            summary = "消息发送记录表分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询消息发送记录表")
+
+    @Operation(summary = "消息发送记录表分页查询", tags = {"v1.0.0"}, description = "分页查询消息发送记录表")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<ManageSendRecordPageDto>> selectPage(
-            @RequestBody ManageSendRecordPageVo vo) {
+    public Result<PageDto<ManageSendRecordPageDto>> selectPage(@RequestBody ManageSendRecordPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

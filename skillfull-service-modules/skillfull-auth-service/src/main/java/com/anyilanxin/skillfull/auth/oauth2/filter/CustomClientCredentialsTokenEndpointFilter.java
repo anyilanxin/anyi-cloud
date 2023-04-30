@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,29 +48,29 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @since JDK1.8
  */
 @Slf4j
-public class CustomClientCredentialsTokenEndpointFilter
-        extends ClientCredentialsTokenEndpointFilter {
+public class CustomClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
     private final AuthorizationServerSecurityConfigurer configurer;
 
-    public CustomClientCredentialsTokenEndpointFilter(
-            AuthorizationServerSecurityConfigurer configurer) {
+    public CustomClientCredentialsTokenEndpointFilter(AuthorizationServerSecurityConfigurer configurer) {
         this.configurer = configurer;
     }
+
 
     @Override
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
         super.setAuthenticationSuccessHandler(successHandler);
     }
 
+
     @Override
     protected AuthenticationManager getAuthenticationManager() {
         return configurer.and().getSharedObject(AuthenticationManager.class);
     }
 
+
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(
-            HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         return super.attemptAuthentication(request, response);
     }
 }

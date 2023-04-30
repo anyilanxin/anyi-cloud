@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.auth.core.constant.AuthCommonConstant;
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -54,15 +51,13 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 @Slf4j
 public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
-    public OAuth2AccessToken enhance(
-            OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+    public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
         if (oAuth2AccessToken instanceof DefaultOAuth2AccessToken) {
             DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) oAuth2AccessToken;
             Map<String, Object> additionalInformation = new HashMap<>();
             // 如果非客户端模式则加入端信息
             if (!oAuth2Authentication.isClientOnly()) {
-                Map<String, String> requestParameters =
-                        oAuth2Authentication.getOAuth2Request().getRequestParameters();
+                Map<String, String> requestParameters = oAuth2Authentication.getOAuth2Request().getRequestParameters();
                 if (CollUtil.isNotEmpty(requestParameters)) {
                     String endpoint = requestParameters.get(AuthCommonConstant.ENDPOINT_REQUEST_KEY);
                     if (StringUtils.isBlank(endpoint)) {

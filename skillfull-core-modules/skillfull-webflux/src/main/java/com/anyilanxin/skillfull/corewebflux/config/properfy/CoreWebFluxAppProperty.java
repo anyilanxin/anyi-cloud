@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.config.properfy;
 
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,39 +56,27 @@ import org.springframework.stereotype.Component;
 public class CoreWebFluxAppProperty implements Serializable {
     private static final long serialVersionUID = 713575253040294540L;
 
-    /**
-     * 运行环境
-     */
+    /** 运行环境 */
     @Value("${spring.profiles.active}")
     private String active = "dev";
 
-    /**
-     * 服务名称
-     */
+    /** 服务名称 */
     @Value("${spring.application.name:skillfull}")
     private String serviceName;
 
-    /**
-     * 当前配置文件路径
-     */
+    /** 当前配置文件路径 */
     @Value(value = "classpath:application-${spring.profiles.active}.yml")
     private Resource resource;
 
-    /**
-     * 请求前缀
-     */
+    /** 请求前缀 */
     @Value("${spring.webflux.base-path:/}")
     private String basePath;
 
-    /**
-     * 服务器ip
-     */
+    /** 服务器ip */
     @Value("${spring.cloud.nacos.discovery.ip:}")
     private String ip;
 
-    /**
-     * 是否生成外置配置文件
-     */
+    /** 是否生成外置配置文件 */
     private boolean createOutConf = false;
 
     public String getIp() {

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.tree.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -67,6 +64,7 @@ public class BaseTree<T> implements Serializable {
     public boolean getIsLeaf() {
         return this.isLeaf;
     }
+
 
     public void setIsLeaf(boolean isLeaf) {
         this.isLeaf = isLeaf;

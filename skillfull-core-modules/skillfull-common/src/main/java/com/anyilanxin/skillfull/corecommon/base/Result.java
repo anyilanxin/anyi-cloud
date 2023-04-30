@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.base;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -74,12 +71,14 @@ public class Result<T> implements Serializable {
     public Result() {
     }
 
+
     public Result(Status status) {
         this.setSuccess(status.getCode() == 0);
         this.setCode(status.getCode());
         this.setMessage(status.getMessage());
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(Status status, T data) {
         this.setSuccess(status.getCode() == 0);
@@ -89,6 +88,7 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(Status status, String message) {
         this.setSuccess(status.getCode() == 0);
         this.setCode(status.getCode());
@@ -96,6 +96,7 @@ public class Result<T> implements Serializable {
         this.setData(data);
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(Status status, String message, T data) {
         this.setSuccess(status.getCode() == 0);
@@ -105,6 +106,7 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(int code, T data) {
         this.setSuccess(code == 0);
         this.setCode(code);
@@ -112,12 +114,14 @@ public class Result<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public Result(int code, String message) {
         this.setSuccess(code == 0);
         this.setCode(code);
         this.setMessage(message);
         this.timestamp = System.currentTimeMillis();
     }
+
 
     public Result(int code, String message, T data) {
         this.setSuccess(code == 0);

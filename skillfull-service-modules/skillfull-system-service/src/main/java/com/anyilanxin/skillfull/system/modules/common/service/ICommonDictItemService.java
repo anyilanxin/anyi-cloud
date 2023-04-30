@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -37,7 +36,6 @@ import com.anyilanxin.skillfull.system.modules.common.controller.vo.CommonDictIt
 import com.anyilanxin.skillfull.system.modules.common.entity.CommonDictItemEntity;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonDictItemDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonDictItemPageDto;
-
 import java.util.List;
 
 /**
@@ -58,17 +56,19 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     void save(CommonDictItemVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo     ${@link CommonDictItemVo} 数据字典配置项表更新
+     * @param vo ${@link CommonDictItemVo} 数据字典配置项表更新
      * @param itemId ${@link String} 字典项id
-     * @param vo     ${@link CommonDictItemVo} 数据字典配置项表更新
+     * @param vo ${@link CommonDictItemVo} 数据字典配置项表更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-11-02 09:25:26
      */
     void updateById(String itemId, CommonDictItemVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -81,6 +81,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -91,6 +92,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      * @date 2020-11-02 09:25:18
      */
     List<CommonDictItemDto> selectListByCode(String dictCode) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -103,6 +105,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     CommonDictItemDto getById(String itemId) throws RuntimeException;
 
+
     /**
      * 通过itemId删除
      *
@@ -112,6 +115,7 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      * @date 2020-08-28 12:20
      */
     void deleteById(String itemId) throws RuntimeException;
+
 
     /**
      * 文件批量删除
@@ -123,11 +127,12 @@ public interface ICommonDictItemService extends BaseService<CommonDictItemEntity
      */
     void deleteBatch(List<String> itemIds) throws RuntimeException;
 
+
     /**
      * 修改字典项状态
      *
      * @param itemId ${@link String} 字典项id
-     * @param type   ${@link Integer} 操作类型:0-禁用,1-启用
+     * @param type ${@link Integer} 操作类型:0-禁用,1-启用
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-11-05 17:38

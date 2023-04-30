@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgUserDto;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -60,6 +57,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      */
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
 
+
     /**
      * 通过机构用户id物理删除
      *
@@ -70,6 +68,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      */
     int physicalDeleteById(@Param("id") String orgUserId);
 
+
     /**
      * 通过用户id物理删除
      *
@@ -79,6 +78,7 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      * @date 2022-07-02 23:01:20
      */
     int physicalDeleteByUserId(@Param("id") String userId);
+
 
     /**
      * 通过机构用户id物理批量删除

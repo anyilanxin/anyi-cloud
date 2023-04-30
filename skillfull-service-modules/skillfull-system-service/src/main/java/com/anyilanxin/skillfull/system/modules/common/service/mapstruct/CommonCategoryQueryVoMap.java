@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseMap;
@@ -43,10 +42,6 @@ import org.mapstruct.ReportingPolicy;
  * @author zxiaozhou
  * @since 2021-01-07 23:40:39
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface CommonCategoryQueryVoMap
-        extends BaseMap<CommonCategoryQueryVo, CommonCategoryEntity> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface CommonCategoryQueryVoMap extends BaseMap<CommonCategoryQueryVo, CommonCategoryEntity> {
 }

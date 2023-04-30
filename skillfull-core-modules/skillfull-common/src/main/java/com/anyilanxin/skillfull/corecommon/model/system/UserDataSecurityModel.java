@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.system;
 
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.utils.encryption.RSAUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.time.LocalDateTime;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,11 +61,7 @@ public class UserDataSecurityModel extends RSAUtils.RsaKey {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime expiresAt;
 
-    @Schema(
-            name = "currentRefreshTime",
-            title = "最近一次刷新时间",
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "currentRefreshTime", title = "最近一次刷新时间", type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime currentRefreshTime;
 

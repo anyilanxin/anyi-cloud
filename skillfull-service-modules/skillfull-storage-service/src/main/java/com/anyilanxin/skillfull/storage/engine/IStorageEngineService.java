@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.engine;
 
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -51,24 +48,25 @@ public interface IStorageEngineService {
      * 单个存储
      *
      * @param fileDirPrefix ${@link String}
-     * @param file          ${@link MultipartFile}
+     * @param file ${@link MultipartFile}
      * @return StorageInfoModel ${@link StorageInfoModel}
      * @author zxiaozhou
      * @date 2022-04-05 10:19
      */
     StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request);
 
+
     /**
      * 批量存储
      *
      * @param fileDirPrefix ${@link String}
-     * @param files         ${@link List<MultipartFile>}
+     * @param files ${@link List<MultipartFile>}
      * @return List<StorageInfoModel> ${@link List<StorageInfoModel>}
      * @author zxiaozhou
      * @date 2022-04-05 10:19
      */
-    List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+    List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request);
+
 
     /**
      * 批量url地址存储

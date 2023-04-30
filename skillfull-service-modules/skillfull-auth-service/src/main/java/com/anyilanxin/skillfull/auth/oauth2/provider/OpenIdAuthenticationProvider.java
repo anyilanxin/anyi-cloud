@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.OpenIdAuthenticationToken;
@@ -55,28 +54,27 @@ public class OpenIdAuthenticationProvider extends AbstractUserDetailsAuthenticat
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
-    protected void additionalAuthenticationChecks(
-            UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
-    }
 
     @Override
-    protected UserDetails retrieveUser(
-            String username, UsernamePasswordAuthenticationToken authentication)
-            throws AuthenticationException {
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+    }
+
+
+    @Override
+    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new InternalAuthenticationServiceException(
-                    I18nUtil.get("OpenIdAuthenticationProvider.userNotFound"));
+            throw new InternalAuthenticationServiceException(I18nUtil.get("OpenIdAuthenticationProvider.userNotFound"));
         }
         return userDetails;
     }
+
 
     @Override
     public boolean supports(Class<?> authentication) {
         return OpenIdAuthenticationToken.class.isAssignableFrom(authentication);
     }
+
 
     @Override
     public void setHideUserNotFoundExceptions(boolean hideUserNotFoundExceptions) {

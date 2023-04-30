@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -46,11 +45,9 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.OperateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,8 +68,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity>
-        implements IOperateService {
+public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity> implements IOperateService {
     private final OperateCopyMap map;
     private final OperateMapper mapper;
     private final StringRedisTemplate stringRedisTemplate;
@@ -97,10 +93,7 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
             if (size >= operateSaveMin) {
                 List<OperateEntity> logEntityList = new ArrayList<>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
-                    String logStr =
-                            stringRedisTemplate
-                                    .opsForList()
-                                    .rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
                         OperateEntity logModel = JSONObject.parseObject(logStr, OperateEntity.class);
                         logModel.setDelFlag(0);
@@ -114,26 +107,24 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public OperateDto getById(String operateId) throws RuntimeException {
         OperateEntity byId = super.getById(operateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -149,19 +140,18 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
         } else {
             boolean b = this.removeById(operateId);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> operateIds) throws RuntimeException {
         List<OperateEntity> entities = this.listByIds(operateIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getOperateId()));
@@ -173,8 +163,7 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
         } else {
             int i = mapper.deleteBatchIds(waitDeleteList);
             if (i <= 0) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

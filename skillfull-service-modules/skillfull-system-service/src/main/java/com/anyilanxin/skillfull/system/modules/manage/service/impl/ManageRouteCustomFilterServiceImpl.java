@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -48,10 +47,8 @@ import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRouteCustomFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -68,9 +65,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageRouteCustomFilterServiceImpl
-        extends ServiceImpl<ManageRouteCustomFilterMapper, ManageRouteCustomFilterEntity>
-        implements IManageRouteCustomFilterService {
+public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteCustomFilterMapper, ManageRouteCustomFilterEntity> implements IManageRouteCustomFilterService {
     private final ManageRouteCustomFilterCopyMap map;
     private final ManageRouteCustomFilterMapper mapper;
     private final ManageCustomFilterSimpleCopyMap simpleCopyMap;
@@ -78,85 +73,66 @@ public class ManageRouteCustomFilterServiceImpl
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override)
-            throws RuntimeException {
+    public void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override) throws RuntimeException {
         if (override) {
             deleteByRouterId(routerId);
         }
         // 保存新数据
         if (CollUtil.isNotEmpty(customFilters)) {
             List<ManageRouteCustomFilterEntity> list = new ArrayList<>(customFilters.size());
-            customFilters.forEach(
-                    v -> {
-                        ManageRouteCustomFilterEntity entity =
-                                ManageRouteCustomFilterEntity.builder()
-                                        .customFilterId(v.getCustomFilterId())
-                                        .routeId(routerId)
-                                        .filterType(v.getFilterType())
-                                        .build();
-                        list.add(entity);
-                    });
+            customFilters.forEach(v -> {
+                ManageRouteCustomFilterEntity entity = ManageRouteCustomFilterEntity.builder().customFilterId(v.getCustomFilterId()).routeId(routerId).filterType(v.getFilterType()).build();
+                list.add(entity);
+            });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
     }
 
+
     @Override
-    public Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds)
-            throws RuntimeException {
+    public Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds) throws RuntimeException {
         if (CollectionUtil.isEmpty(routerIds)) {
             return Collections.emptyMap();
         }
         // 查询所有自定义过滤器id
-        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRouteCustomFilterEntity::getRouteId, routerIds);
         List<ManageRouteCustomFilterEntity> list = this.list(lambdaQueryWrapper);
         Map<String, List<ManageCustomFilterSimpleDto>> resultMap = new HashMap<>();
         if (CollUtil.isNotEmpty(list)) {
             Map<String, List<String>> customFilterIdMap = new HashMap<>();
             Set<String> customFilterIds = new HashSet<>(list.size());
-            list.forEach(
-                    v -> {
-                        customFilterIds.add(v.getCustomFilterId());
-                        List<String> strings = customFilterIdMap.get(v.getRouteId());
-                        if (CollectionUtil.isEmpty(strings)) {
-                            strings = new ArrayList<>();
-                        }
-                        strings.add(v.getCustomFilterId());
-                        customFilterIdMap.put(v.getRouteId(), strings);
-                    });
-            LambdaQueryWrapper<ManageCustomFilterEntity> customFilterLambdaQueryWrapper =
-                    new LambdaQueryWrapper<>();
-            customFilterLambdaQueryWrapper
-                    .in(ManageCustomFilterEntity::getCustomFilterId, customFilterIds)
-                    .eq(ManageCustomFilterEntity::getFilterStatus, 1);
-            List<ManageCustomFilterEntity> customFilterEntityList =
-                    customFilterService.list(customFilterLambdaQueryWrapper);
+            list.forEach(v -> {
+                customFilterIds.add(v.getCustomFilterId());
+                List<String> strings = customFilterIdMap.get(v.getRouteId());
+                if (CollectionUtil.isEmpty(strings)) {
+                    strings = new ArrayList<>();
+                }
+                strings.add(v.getCustomFilterId());
+                customFilterIdMap.put(v.getRouteId(), strings);
+            });
+            LambdaQueryWrapper<ManageCustomFilterEntity> customFilterLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            customFilterLambdaQueryWrapper.in(ManageCustomFilterEntity::getCustomFilterId, customFilterIds).eq(ManageCustomFilterEntity::getFilterStatus, 1);
+            List<ManageCustomFilterEntity> customFilterEntityList = customFilterService.list(customFilterLambdaQueryWrapper);
             if (CollUtil.isNotEmpty(customFilterEntityList)) {
-                List<ManageCustomFilterSimpleDto> manageCustomFilterSimpleDtos =
-                        simpleCopyMap.aToB(customFilterEntityList);
-                customFilterIdMap.forEach(
-                        (k, v) -> {
-                            List<ManageCustomFilterSimpleDto> collect =
-                                    manageCustomFilterSimpleDtos.stream()
-                                            .filter(sv -> v.contains(sv.getCustomFilterId()))
-                                            .collect(Collectors.toList());
-                            resultMap.put(k, collect);
-                        });
+                List<ManageCustomFilterSimpleDto> manageCustomFilterSimpleDtos = simpleCopyMap.aToB(customFilterEntityList);
+                customFilterIdMap.forEach((k, v) -> {
+                    List<ManageCustomFilterSimpleDto> collect = manageCustomFilterSimpleDtos.stream().filter(sv -> v.contains(sv.getCustomFilterId())).collect(Collectors.toList());
+                    resultMap.put(k, collect);
+                });
             }
         }
         return resultMap;
     }
 
+
     @Override
     public List<ManageCustomFilterSimpleDto> getByRouterId(String routerId) throws RuntimeException {
         // 查询所有自定义过滤器id
-        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRouteCustomFilterEntity::getRouteId, routerId);
         List<ManageRouteCustomFilterEntity> list = this.list(lambdaQueryWrapper);
         List<ManageCustomFilterSimpleDto> result = new ArrayList<>();
@@ -164,36 +140,30 @@ public class ManageRouteCustomFilterServiceImpl
             // 获取自定义过滤器
             Set<String> customFilterIds = new HashSet<>();
             list.forEach(v -> customFilterIds.add(v.getCustomFilterId()));
-            LambdaQueryWrapper<ManageCustomFilterEntity> customFilterLambdaQueryWrapper =
-                    new LambdaQueryWrapper<>();
-            customFilterLambdaQueryWrapper
-                    .in(ManageCustomFilterEntity::getCustomFilterId, customFilterIds)
-                    .eq(ManageCustomFilterEntity::getFilterStatus, 1);
-            List<ManageCustomFilterEntity> customFilterEntityList =
-                    customFilterService.list(customFilterLambdaQueryWrapper);
+            LambdaQueryWrapper<ManageCustomFilterEntity> customFilterLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            customFilterLambdaQueryWrapper.in(ManageCustomFilterEntity::getCustomFilterId, customFilterIds).eq(ManageCustomFilterEntity::getFilterStatus, 1);
+            List<ManageCustomFilterEntity> customFilterEntityList = customFilterService.list(customFilterLambdaQueryWrapper);
             result = simpleCopyMap.aToB(customFilterEntityList);
         }
         return result;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageRouteCustomFilterDto getById(String routeCustomFilterId) throws RuntimeException {
         ManageRouteCustomFilterEntity byId = super.getById(routeCustomFilterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterId(String routerId) throws RuntimeException {
-        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRouteCustomFilterEntity::getRouteId, routerId);
         List<ManageRouteCustomFilterEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
@@ -206,18 +176,18 @@ public class ManageRouteCustomFilterServiceImpl
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteByRouterIds(Set<String> routerIds) throws RuntimeException {
-        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRouteCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRouteCustomFilterEntity::getRouteId, routerIds);
         this.remove(lambdaQueryWrapper);
     }
 
+
     @Override
-    public Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds)
-            throws RuntimeException {
+    public Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds) throws RuntimeException {
 
         return new HashMap<>();
     }

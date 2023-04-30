@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,14 +54,12 @@ class StorageApplicationTests {
         ObjectMetadata meta = new ObjectMetadata();
         meta.setContentDisposition("attachment; filename=coding_java.png");
 
-        PutObjectResult putObjectResult =
-                ossClient.putObject(bucketName, "lsjdfkdflsdkflsf.png", inputStream, meta);
+        PutObjectResult putObjectResult = ossClient.putObject(bucketName, "lsjdfkdflsdkflsf.png", inputStream, meta);
 
         System.out.println("---putObjectResult---" + putObjectResult);
         ossClient.shutdown();
         Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
-        String url =
-                ossClient.generatePresignedUrl(bucketName, "lsjdfkdflsdkflsf.png", expiration).toString();
+        String url = ossClient.generatePresignedUrl(bucketName, "lsjdfkdflsdkflsf.png", expiration).toString();
         System.out.println("----url------" + url);
     }
 }

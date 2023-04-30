@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -42,9 +41,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageSpecialU
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageSpecialUrlCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -61,16 +58,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageSpecialUrlServiceImpl
-        extends ServiceImpl<ManageSpecialUrlMapper, ManageSpecialUrlEntity>
-        implements IManageSpecialUrlService {
+public class ManageSpecialUrlServiceImpl extends ServiceImpl<ManageSpecialUrlMapper, ManageSpecialUrlEntity> implements IManageSpecialUrlService {
     private final ManageSpecialUrlCopyMap map;
     private final ManageSpecialUrlMapper mapper;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void deleteAndSave(List<ManageSpecialUrlVo> vo, String customFilterId)
-            throws RuntimeException {
+    public void deleteAndSave(List<ManageSpecialUrlVo> vo, String customFilterId) throws RuntimeException {
         // 删除历史
         LambdaQueryWrapper<ManageSpecialUrlEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageSpecialUrlEntity::getCustomFilterId, customFilterId);
@@ -86,41 +80,36 @@ public class ManageSpecialUrlServiceImpl
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public List<ManageSpecialUrlDto> selectByCustomFilterId(String customFilterId)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public List<ManageSpecialUrlDto> selectByCustomFilterId(String customFilterId) throws RuntimeException {
         LambdaQueryWrapper<ManageSpecialUrlEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageSpecialUrlEntity::getCustomFilterId, customFilterId);
         return map.eToD(this.list(lambdaQueryWrapper));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public Map<String, List<ManageSpecialUrlDto>> selectByCustomFilterIds(Set<String> customFilterIds)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public Map<String, List<ManageSpecialUrlDto>> selectByCustomFilterIds(Set<String> customFilterIds) throws RuntimeException {
         LambdaQueryWrapper<ManageSpecialUrlEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageSpecialUrlEntity::getCustomFilterId, customFilterIds);
         Map<String, List<ManageSpecialUrlDto>> stringListMap = new HashMap<>();
         List<ManageSpecialUrlDto> manageSpecialUrls = map.eToD(this.list(lambdaQueryWrapper));
         if (CollUtil.isNotEmpty(manageSpecialUrls)) {
-            manageSpecialUrls.forEach(
-                    v -> {
-                        List<ManageSpecialUrlDto> manageSpecialUrlList =
-                                stringListMap.get(v.getCustomFilterId());
-                        if (CollectionUtil.isEmpty(manageSpecialUrlList)) {
-                            manageSpecialUrlList = new ArrayList<>();
-                        }
-                        manageSpecialUrlList.add(v);
-                        stringListMap.put(v.getCustomFilterId(), manageSpecialUrlList);
-                    });
+            manageSpecialUrls.forEach(v -> {
+                List<ManageSpecialUrlDto> manageSpecialUrlList = stringListMap.get(v.getCustomFilterId());
+                if (CollectionUtil.isEmpty(manageSpecialUrlList)) {
+                    manageSpecialUrlList = new ArrayList<>();
+                }
+                manageSpecialUrlList.add(v);
+                stringListMap.put(v.getCustomFilterId(), manageSpecialUrlList);
+            });
         }
         return stringListMap;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -137,6 +126,7 @@ public class ManageSpecialUrlServiceImpl
             }
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})

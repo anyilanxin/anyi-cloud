@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.msgsubscribe.impl;
 
 import com.anyilanxin.skillfull.message.strategy.msgsubscribe.IMsgSubscribeStrategy;
 import com.anyilanxin.skillfull.messagerpc.constant.SocketMessageEventContent;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -53,7 +50,6 @@ import org.springframework.web.socket.WebSocketSession;
 @RequiredArgsConstructor
 public class MsgSubscribeNoticeImpl implements IMsgSubscribeStrategy {
     @Override
-    public void handleMsg(
-            SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
+    public void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
     }
 }

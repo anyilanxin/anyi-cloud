@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
@@ -46,29 +44,24 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
  */
 public class SkillFullGrantedAuthority implements GrantedAuthority {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-    /**
-     * 权限
-     */
+    /** 权限 */
     private final String authority;
-    /**
-     * 所属资源
-     */
+    /** 所属资源 */
     private final String resourceId;
-    /**
-     * 属性
-     */
+    /** 属性 */
     private final Map<String, Object> attributes;
 
     public SkillFullGrantedAuthority(Map<String, Object> attributes, String resourceId) {
         this("ROLE_USER", attributes, resourceId);
     }
 
-    public SkillFullGrantedAuthority(
-            String authority, Map<String, Object> attributes, String resourceId) {
+
+    public SkillFullGrantedAuthority(String authority, Map<String, Object> attributes, String resourceId) {
         this.authority = authority;
         this.attributes = Collections.unmodifiableMap(new LinkedHashMap<>(attributes));
         this.resourceId = resourceId;
     }
+
 
     public SkillFullGrantedAuthority(String authority, String resourceId) {
         this.authority = authority;
@@ -76,18 +69,22 @@ public class SkillFullGrantedAuthority implements GrantedAuthority {
         this.resourceId = resourceId;
     }
 
+
     @Override
     public String getAuthority() {
         return this.authority;
     }
 
+
     public Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
+
     public String getResourceId() {
         return resourceId;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -104,12 +101,14 @@ public class SkillFullGrantedAuthority implements GrantedAuthority {
         return this.getAttributes().equals(that.getAttributes());
     }
 
+
     @Override
     public int hashCode() {
         int result = this.getAuthority().hashCode();
         result = 31 * result + this.getAttributes().hashCode();
         return result;
     }
+
 
     @Override
     public String toString() {

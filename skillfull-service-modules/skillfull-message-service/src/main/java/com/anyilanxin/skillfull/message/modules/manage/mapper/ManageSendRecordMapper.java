@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface ManageSendRecordMapper extends BaseMapper<ManageSendRecordEntit
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageSendRecordPageVo} 查询条件
+     * @param vo ${@link ManageSendRecordPageVo} 查询条件
      * @param page ${@link Page< ManageSendRecordPageDto >} 分页信息
      * @return IPage<ManageSendRecordPageDto> ${@link IPage<ManageSendRecordPageDto>} 结果
      * @author zxiaozhou
      * @date 2022-03-29 05:23:41
      */
-    IPage<ManageSendRecordPageDto> pageByModel(
-            Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageVo vo);
+    IPage<ManageSendRecordPageDto> pageByModel(Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageVo vo);
+
 
     /**
      * 通过消息id物理删除
@@ -73,6 +70,7 @@ public interface ManageSendRecordMapper extends BaseMapper<ManageSendRecordEntit
      * @date 2022-03-29 05:23:41
      */
     int physicalDeleteById(@Param("id") String sendRecordId);
+
 
     /**
      * 通过消息id物理批量删除

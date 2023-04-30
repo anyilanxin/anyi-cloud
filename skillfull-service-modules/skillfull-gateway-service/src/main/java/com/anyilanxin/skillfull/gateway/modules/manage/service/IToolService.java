@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service;
 
 import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
@@ -49,6 +48,7 @@ public interface IToolService {
      * @date 2021-07-13 09:50
      */
     WebSecurityModel getBaseSecurity();
+
 
     /**
      * 获取请求安全基础信息

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.mapper.ClientAuthMapper;
@@ -35,11 +34,9 @@ import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -59,8 +56,7 @@ public class ClientAuthServiceImpl implements IClientAuthService {
 
     @Override
     public ClientAndResourceAuthModel getByClientId(String clientId) {
-        ClientAndResourceAuthModel clientDetailsModel =
-                clientAuthMapper.selectClientIdByClientId(clientId);
+        ClientAndResourceAuthModel clientDetailsModel = clientAuthMapper.selectClientIdByClientId(clientId);
         if (Objects.isNull(clientDetailsModel)) {
             throw new ResponseException("客户端信息不存在:" + clientId);
         }
@@ -69,11 +65,10 @@ public class ClientAuthServiceImpl implements IClientAuthService {
         Set<RoleInfo> clientAuthRole = clientAuthMapper.getClientAuthRole(clientDetailId);
         Set<String> roleIds = new HashSet<>(64);
         Set<String> roleCodes = new HashSet<>(64);
-        clientAuthRole.forEach(
-                v -> {
-                    roleIds.add(v.getRoleId());
-                    roleCodes.add(v.getRoleCode());
-                });
+        clientAuthRole.forEach(v -> {
+            roleIds.add(v.getRoleId());
+            roleCodes.add(v.getRoleCode());
+        });
         clientDetailsModel.setRoleInfos(clientAuthRole);
         clientDetailsModel.setRoleCodes(roleCodes);
         clientDetailsModel.setRoleIds(roleIds);

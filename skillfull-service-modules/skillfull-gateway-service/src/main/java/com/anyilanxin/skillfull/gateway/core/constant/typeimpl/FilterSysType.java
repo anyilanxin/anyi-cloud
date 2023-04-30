@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import org.springframework.cloud.gateway.filter.factory.PrefixPathGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.RewritePathGatewayFilterFactory;
@@ -52,34 +49,22 @@ import org.springframework.cloud.gateway.filter.factory.StripPrefixGatewayFilter
 @Getter
 @ConstantType
 public enum FilterSysType implements ISuperType {
-    /**
-     * 路由重写
-     */
+    /** 路由重写 */
     REWRITE_PATH("RewritePath", "重写路由", RewritePathGatewayFilterFactory.class.getName()),
 
-    /**
-     * 前缀剥离
-     */
+    /** 前缀剥离 */
     STRIP_PREFIX("StripPrefix", "前缀剥离", StripPrefixGatewayFilterFactory.class.getName()),
 
-    /**
-     * 前缀追加
-     */
+    /** 前缀追加 */
     PREFIX_PATH("PrefixPath", "前缀追加", PrefixPathGatewayFilterFactory.class.getName());
 
-    /**
-     * 过滤器类型
-     */
+    /** 过滤器类型 */
     private final String filterType;
 
-    /**
-     * 过滤器描述
-     */
+    /** 过滤器描述 */
     private final String filterTypeDescribe;
 
-    /**
-     * 过滤器类型类名称
-     */
+    /** 过滤器类型类名称 */
     private final String filterTypeClassName;
 
     FilterSysType(String filterType, String filterTypeDescribe, String filterTypeClassName) {
@@ -87,6 +72,7 @@ public enum FilterSysType implements ISuperType {
         this.filterTypeDescribe = filterTypeDescribe;
         this.filterTypeClassName = filterTypeClassName;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -106,6 +92,7 @@ public enum FilterSysType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -121,6 +108,7 @@ public enum FilterSysType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

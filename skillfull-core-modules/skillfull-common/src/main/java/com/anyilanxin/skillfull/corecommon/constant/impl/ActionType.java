@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ActionConstant;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -51,35 +48,26 @@ import lombok.Getter;
 @ConstantType
 public enum ActionType implements ISuperType {
 
-    /**
-     * 拥有任意一个指定角色
-     */
+    /** 拥有任意一个指定角色 */
     hasAnyRole(ActionConstant.HAS_ANY_ROLE, "拥有任意一个指定角色"),
 
-    /**
-     * 拥有任意一个指定的权限
-     */
+    /** 拥有任意一个指定的权限 */
     hasAnyAuthority(ActionConstant.HAS_ANY_AUTHORITY, "拥有任意一个指定的权限"),
 
-    /**
-     * 拥有任意一个指定Ip
-     */
+    /** 拥有任意一个指定Ip */
     hasAnyIpAddress(ActionConstant.HAS_ANY_IP_ADDRESS, "拥有任意一个指定Ip");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     ActionType(String type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -99,6 +87,7 @@ public enum ActionType implements ISuperType {
         return false;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -117,6 +106,7 @@ public enum ActionType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -132,6 +122,7 @@ public enum ActionType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

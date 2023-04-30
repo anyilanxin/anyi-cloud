@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 /**
@@ -47,6 +46,7 @@ public interface ISyncProcessService {
      */
     void addOrUpdateUser(String userId);
 
+
     /**
      * 删除用户
      *
@@ -56,6 +56,7 @@ public interface ISyncProcessService {
      */
     void deleteUser(String userId);
 
+
     /**
      * 全量同步用户
      *
@@ -63,6 +64,7 @@ public interface ISyncProcessService {
      * @date 2021-11-08 16:32
      */
     void syncUserAll();
+
 
     /**
      * 添加或更新角色
@@ -73,6 +75,7 @@ public interface ISyncProcessService {
      */
     void addOrUpdateRole(String roleId);
 
+
     /**
      * 删除角色
      *
@@ -81,6 +84,7 @@ public interface ISyncProcessService {
      * @date 2021-11-08 16:32
      */
     void deleteRole(String roleId);
+
 
     /**
      * 全量同步角色

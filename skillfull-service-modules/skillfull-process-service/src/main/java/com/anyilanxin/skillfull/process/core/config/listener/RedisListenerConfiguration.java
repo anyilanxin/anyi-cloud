@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.core.config.listener;
 
 import com.anyilanxin.skillfull.coremvc.base.service.ICoreWebmvcService;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -35,9 +34,7 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.skillfull.database.datasource.base.controller.vo.BasePageVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

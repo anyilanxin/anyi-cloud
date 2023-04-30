@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate.impl;
 
 import static com.anyilanxin.skillfull.auth.core.constant.AuthCommonConstant.PICTURE_CODE_KEY_PREFIX;
@@ -38,11 +37,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.auth.core.properties.AuthProperty;
 import com.anyilanxin.skillfull.auth.oauth2.validate.*;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -70,13 +67,7 @@ public class PictureValidate implements IValidate {
         String code = captcha.getCode();
         String codeId = CoreCommonUtils.get32UUId();
         // 存储
-        redisTemplate
-                .opsForValue()
-                .set(
-                        PICTURE_CODE_KEY_PREFIX + codeId,
-                        code,
-                        authProperty.getCodePictureSeconds(),
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(PICTURE_CODE_KEY_PREFIX + codeId, code, authProperty.getCodePictureSeconds(), TimeUnit.SECONDS);
         // 构造验证码web端信息
         ValidateDto validateDto = new ValidateDto();
         validateDto.setCodeType(CodeType.PICTURE_CODE);
@@ -86,6 +77,7 @@ public class PictureValidate implements IValidate {
         validateDto.setStatus(true);
         return validateDto;
     }
+
 
     @Override
     public CheckDto checkVerification(CheckModel parameter) {

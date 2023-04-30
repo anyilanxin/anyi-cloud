@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,12 +42,10 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacRoleCl
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,9 +61,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacRoleClientServiceImpl
-        extends ServiceImpl<RbacRoleClientMapper, RbacRoleClientEntity>
-        implements IRbacRoleClientService {
+public class RbacRoleClientServiceImpl extends ServiceImpl<RbacRoleClientMapper, RbacRoleClientEntity> implements IRbacRoleClientService {
     private final RbacRoleClientCopyMap map;
     private final RbacRoleClientPageCopyMap pageMap;
     private final RbacRoleClientQueryCopyMap queryMap;
@@ -76,12 +71,10 @@ public class RbacRoleClientServiceImpl
     public void saveBatch(String clientDetailId, Set<String> roleIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(roleIds)) {
             List<RbacRoleClientEntity> roleClientEntities = new ArrayList<>(roleIds.size());
-            roleIds.forEach(
-                    v -> {
-                        RbacRoleClientEntity entity =
-                                RbacRoleClientEntity.builder().clientDetailId(clientDetailId).roleId(v).build();
-                        roleClientEntities.add(entity);
-                    });
+            roleIds.forEach(v -> {
+                RbacRoleClientEntity entity = RbacRoleClientEntity.builder().clientDetailId(clientDetailId).roleId(v).build();
+                roleClientEntities.add(entity);
+            });
             boolean b = this.saveBatch(roleClientEntities);
             if (!b) {
                 throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存客户端角色关联失败");
@@ -89,20 +82,18 @@ public class RbacRoleClientServiceImpl
         }
     }
 
+
     @Override
     public void deleteBatch(List<String> clientDetailIds) throws RuntimeException {
         if (CollUtil.isNotEmpty(clientDetailIds)) {
-            LambdaQueryWrapper<RbacRoleClientEntity> lambdaQueryWrapper =
-                    Wrappers.<RbacRoleClientEntity>lambdaQuery()
-                            .in(RbacRoleClientEntity::getClientDetailId, clientDetailIds);
+            LambdaQueryWrapper<RbacRoleClientEntity> lambdaQueryWrapper = Wrappers.<RbacRoleClientEntity>lambdaQuery().in(RbacRoleClientEntity::getClientDetailId, clientDetailIds);
             List<RbacRoleClientEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> roleClientIds = new HashSet<>(list.size());
                 list.forEach(v -> roleClientIds.add(v.getRoleClient()));
                 int i = mapper.physicalDeleteBatchIds(roleClientIds);
                 if (i <= 0) {
-                    throw new ResponseException(
-                            Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                    throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
                 }
             }
         }

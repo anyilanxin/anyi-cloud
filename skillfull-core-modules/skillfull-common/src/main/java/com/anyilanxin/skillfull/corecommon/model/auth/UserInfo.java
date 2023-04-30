@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.auth;
 
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

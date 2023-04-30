@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -45,10 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-03-29 08:35:34
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface AnnouncementRecordCopyMap
-        extends BaseThreeMap<AnnouncementRecordEntity, AnnouncementRecordDto, AnnouncementRecordVo> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface AnnouncementRecordCopyMap extends BaseThreeMap<AnnouncementRecordEntity, AnnouncementRecordDto, AnnouncementRecordVo> {
 }

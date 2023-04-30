@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.loggingcommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -50,45 +47,32 @@ import lombok.Getter;
 @ConstantType
 public enum OperateType implements ISuperType {
 
-    /**
-     * 查询
-     */
+    /** 查询 */
     QUERY(1, "查询"),
 
-    /**
-     * 添加
-     */
+    /** 添加 */
     ADD(2, "添加"),
 
-    /**
-     * 修改
-     */
+    /** 修改 */
     UPDATE(3, "修改"),
 
-    /**
-     * 删除
-     */
+    /** 删除 */
     DELETE(4, "删除"),
 
-    /**
-     * 其他
-     */
+    /** 其他 */
     OTHER(5, "其他");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     OperateType(int type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -108,6 +92,7 @@ public enum OperateType implements ISuperType {
         return false;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -126,6 +111,7 @@ public enum OperateType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -141,6 +127,7 @@ public enum OperateType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

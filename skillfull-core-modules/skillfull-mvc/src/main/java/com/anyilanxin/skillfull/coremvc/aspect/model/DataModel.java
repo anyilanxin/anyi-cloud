@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.aspect.model;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -35,10 +34,8 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -98,12 +95,7 @@ public class DataModel implements Serializable {
     @Schema(name = "lineNumber", title = "代码行数")
     private Integer lineNumber;
 
-    @Schema(
-            name = "requestStartTime",
-            title = "请求开始时间(创建实例时自动处理)",
-            hidden = true,
-            type = "string",
-            example = "2020-12-21 12:22:21")
+    @Schema(name = "requestStartTime", title = "请求开始时间(创建实例时自动处理)", hidden = true, type = "string", example = "2020-12-21 12:22:21")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 

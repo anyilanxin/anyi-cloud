@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.database.datasource.config;
 
 import cn.hutool.core.lang.Snowflake;
@@ -70,10 +69,12 @@ public class KeyCoreDatabaseConfig {
             this.generatorSnowflake = snowflake;
         }
 
+
         @Override
         public Number nextId(Object entity) {
             return generatorSnowflake.nextId();
         }
+
 
         @Override
         public String nextUUID(Object entity) {

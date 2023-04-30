@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -39,11 +38,9 @@ import com.anyilanxin.skillfull.corecommon.model.auth.UserIdentity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -160,30 +157,36 @@ public class SkillFullUserDetails implements UserDetails {
         return this.authorities;
     }
 
+
     @Override
     public String getPassword() {
         return this.password;
     }
+
 
     @Override
     public String getUsername() {
         return this.userName;
     }
 
+
     @Override
     public boolean isAccountNonExpired() {
         return this.accountNonExpired;
     }
+
 
     @Override
     public boolean isAccountNonLocked() {
         return this.accountNonLocked;
     }
 
+
     @Override
     public boolean isCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
+
 
     @Override
     public boolean isEnabled() {

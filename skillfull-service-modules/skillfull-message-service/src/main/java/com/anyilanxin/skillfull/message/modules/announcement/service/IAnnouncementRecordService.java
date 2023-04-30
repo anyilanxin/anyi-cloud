@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.message.modules.announcement.controller.vo.Annou
 import com.anyilanxin.skillfull.message.modules.announcement.entity.AnnouncementRecordEntity;
 import com.anyilanxin.skillfull.message.modules.announcement.service.dto.AnnouncementRecordDto;
 import com.anyilanxin.skillfull.message.modules.announcement.service.dto.AnnouncementRecordPageDto;
-
 import java.util.List;
 
 /**
@@ -60,29 +58,32 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      */
     void save(AnnouncementRecordVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo         ${@link AnnouncementRecordVo} 系统通知公告阅读记录更新
+     * @param vo ${@link AnnouncementRecordVo} 系统通知公告阅读记录更新
      * @param anntReadId ${@link String} 通知公告阅读记录id
-     * @param vo         ${@link AnnouncementRecordVo} 系统通知公告阅读记录更新
+     * @param vo ${@link AnnouncementRecordVo} 系统通知公告阅读记录更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
     void updateById(String anntReadId, AnnouncementRecordVo vo) throws RuntimeException;
 
+
     /**
      * 分页查询
      *
      * @param vo ${@link AnnouncementRecordPageVo} 系统通知公告阅读记录分页查询Vo
-     * @return PageDto<AnnouncementRecordPageDto> ${@link PageDto< AnnouncementRecordPageDto >} 分页查询结果
+     * @return PageDto<AnnouncementRecordPageDto> ${@link PageDto< AnnouncementRecordPageDto >}
+     *     分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
-    PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo)
-            throws RuntimeException;
+    PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -93,8 +94,8 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @author zxiaozhou
      * @date 2022-03-29 08:35:34
      */
-    List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo)
-            throws RuntimeException;
+    List<AnnouncementRecordDto> selectListByModel(AnnouncementRecordQueryVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -107,6 +108,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      */
     AnnouncementRecordDto getById(String anntReadId) throws RuntimeException;
 
+
     /**
      * 通过anntReadId删除
      *
@@ -116,6 +118,7 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
      * @date 2022-03-29 08:35:34
      */
     void deleteById(String anntReadId) throws RuntimeException;
+
 
     /**
      * 系统通知公告阅读记录批量删除

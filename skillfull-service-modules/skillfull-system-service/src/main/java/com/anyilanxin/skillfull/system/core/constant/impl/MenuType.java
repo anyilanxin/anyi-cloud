@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -50,34 +47,25 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum MenuType implements ISuperType {
-    /**
-     * 目录
-     */
+    /** 目录 */
     CATALOGUE(0, "目录"),
-    /**
-     * 菜单
-     */
+    /** 菜单 */
     MENU(1, "菜单"),
 
-    /**
-     * 按钮
-     */
+    /** 按钮 */
     BUTTON(2, "按钮");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     MenuType(int type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -97,6 +85,7 @@ public enum MenuType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -112,6 +101,7 @@ public enum MenuType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

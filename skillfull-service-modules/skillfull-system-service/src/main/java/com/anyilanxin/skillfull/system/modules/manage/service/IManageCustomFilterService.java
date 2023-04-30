@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.system.modules.manage.entity.ManageCustomFilterE
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterDetailDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterListDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -60,17 +58,19 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     void save(ManageCustomFilterVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo             ${@link ManageCustomFilterVo} 自定义过滤器更新
+     * @param vo ${@link ManageCustomFilterVo} 自定义过滤器更新
      * @param customFilterId ${@link String} 自定义过滤器id
-     * @param vo             ${@link ManageCustomFilterVo} 自定义过滤器更新
+     * @param vo ${@link ManageCustomFilterVo} 自定义过滤器更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:15
      */
     void updateById(String customFilterId, ManageCustomFilterVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -83,6 +83,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     ManageCustomFilterDetailDto getById(String customFilterId) throws RuntimeException;
 
+
     /**
      * 通过customFilterId删除
      *
@@ -92,6 +93,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @date 2021-12-19 00:22:15
      */
     void deleteById(String customFilterId) throws RuntimeException;
+
 
     /**
      * 通过serviceId删除
@@ -103,6 +105,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     void deleteByServiceId(String serviceId) throws RuntimeException;
 
+
     /**
      * 查询所有服务自定义过滤器
      *
@@ -113,6 +116,7 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      */
     List<ManageCustomFilterListDto> selectList(String serviceId);
 
+
     /**
      * 查询所有服务自定义过滤器(有效的)，并组装为routerId为键的map
      *
@@ -122,18 +126,19 @@ public interface IManageCustomFilterService extends BaseService<ManageCustomFilt
      * @author zxiaozhou zxiaozhou
      * @date 2021-12-19 09:21
      */
-    Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(
-            Set<String> routerIds, String serviceId);
+    Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(Set<String> routerIds, String serviceId);
+
 
     /**
      * 修改过滤器状态
      *
      * @param customFilterId ${@link String} 过滤器id
-     * @param state          ${@link Integer} 操作类型:0-禁止,1-启用
+     * @param state ${@link Integer} 操作类型:0-禁止,1-启用
      * @author zxiaozhou
      * @date 2021-12-19 15:23
      */
     void updateStatus(String customFilterId, Integer state);
+
 
     /**
      * 查询服务自定义过滤器(无特殊url信息)

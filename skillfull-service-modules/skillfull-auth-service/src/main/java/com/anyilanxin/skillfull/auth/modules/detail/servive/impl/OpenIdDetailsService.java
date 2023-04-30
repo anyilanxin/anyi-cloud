@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IUserAuthService;
@@ -56,8 +55,7 @@ public class OpenIdDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String openId) throws UsernameNotFoundException {
-        SkillFullUserDetails userDetails =
-                Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
+        SkillFullUserDetails userDetails = Oauth2CommonUtils.toUserDetails(authService.getUserByOpenId(openId));
         Oauth2LogUtils.setUserDetailInfo(userDetails);
         return userDetails;
     }

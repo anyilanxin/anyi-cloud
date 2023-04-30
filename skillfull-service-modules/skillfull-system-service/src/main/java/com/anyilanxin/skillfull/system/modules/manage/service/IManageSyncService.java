@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 /**
@@ -48,6 +47,7 @@ public interface IManageSyncService {
      */
     void reloadRoute(boolean force);
 
+
     /**
      * 同步指定服务路由
      *
@@ -56,6 +56,7 @@ public interface IManageSyncService {
      * @date 2021-12-22 22:00
      */
     void updateServiceRoute(String serviceId);
+
 
     /**
      * 删除服务路由

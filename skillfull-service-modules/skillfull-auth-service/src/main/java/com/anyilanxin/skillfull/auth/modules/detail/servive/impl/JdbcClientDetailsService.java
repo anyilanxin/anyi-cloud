@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IClientAuthService;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.utils.I18nUtil;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.skillfull.oauth2common.utils.Oauth2CommonUtils;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -63,20 +60,15 @@ public class JdbcClientDetailsService implements ClientDetailsService {
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        SkillFullClientDetails customClientDetails =
-                Oauth2CommonUtils.toClientDetails(service.getByClientId(clientId));
+        SkillFullClientDetails customClientDetails = Oauth2CommonUtils.toClientDetails(service.getByClientId(clientId));
         Map<String, Object> map = new HashMap<>();
         map.put("sdfsdf", "sdfsdfsdfsdf000000");
         customClientDetails.setAdditionalInformation(map);
         Oauth2LogUtils.setClientDetailInfo(customClientDetails);
         if (customClientDetails.getClientStatus() == 0) {
-            throw new InvalidClientException(
-                    I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdNotEnabled", customClientDetails.getClientId()));
+            throw new InvalidClientException(I18nUtil.get("JdbcClientDetailsService.clientIdNotEnabled", customClientDetails.getClientId()));
         } else if (customClientDetails.getClientStatus() == 2) {
-            throw new InternalAuthenticationServiceException(
-                    I18nUtil.get(
-                            "JdbcClientDetailsService.clientIdIsDisabled", customClientDetails.getClientId()));
+            throw new InternalAuthenticationServiceException(I18nUtil.get("JdbcClientDetailsService.clientIdIsDisabled", customClientDetails.getClientId()));
         }
         return customClientDetails;
     }

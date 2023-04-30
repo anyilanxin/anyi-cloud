@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -37,7 +36,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserIdenti
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserIdentityEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserIdentityDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserIdentityPageDto;
-
 import java.util.List;
 
 /**
@@ -59,16 +57,18 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     void save(RbacUserIdentityVo vo) throws RuntimeException;
 
+
     /**
      * 实名审核
      *
      * @param identityId 实名信息id
-     * @param vo         实名信息表更新数据
+     * @param vo 实名信息表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
     void audit(String identityId, RbacUserIdentityVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -81,6 +81,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     PageDto<RbacUserIdentityPageDto> pageByModel(RbacUserIdentityPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -92,6 +93,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      */
     RbacUserIdentityDto getById(String identityId) throws RuntimeException;
 
+
     /**
      * 通过identityId删除
      *
@@ -101,6 +103,7 @@ public interface IRbacUserIdentityService extends BaseService<RbacUserIdentityEn
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String identityId) throws RuntimeException;
+
 
     /**
      * 实名信息表批量删除

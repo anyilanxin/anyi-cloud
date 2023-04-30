@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
@@ -35,7 +34,6 @@ import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantQueryPa
 import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantQueryVo;
 import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.TenantDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -56,6 +54,7 @@ public interface ITenantService {
      */
     void saveOrUpdate(TenantVo vo) throws RuntimeException;
 
+
     /**
      * 获取租户
      *
@@ -65,6 +64,7 @@ public interface ITenantService {
      * @date 2021-11-05 17:51
      */
     TenantDto getTenant(String tenantId) throws RuntimeException;
+
 
     /**
      * 获取租户信息
@@ -76,6 +76,7 @@ public interface ITenantService {
      */
     List<TenantDto> getTenantList(TenantQueryVo vo) throws RuntimeException;
 
+
     /**
      * 分页获取租户信息
      *
@@ -86,6 +87,7 @@ public interface ITenantService {
      */
     PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException;
 
+
     /**
      * 删除租户
      *
@@ -94,6 +96,7 @@ public interface ITenantService {
      * @date 2021-11-05 17:51
      */
     void deleteTenant(String tenantId) throws RuntimeException;
+
 
     /**
      * 全量同步租户信息

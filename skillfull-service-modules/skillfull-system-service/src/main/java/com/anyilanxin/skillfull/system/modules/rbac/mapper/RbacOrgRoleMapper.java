@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRolePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface RbacOrgRoleMapper extends BaseMapper<RbacOrgRoleEntity> {
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacOrgRolePageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57
      */
-    IPage<RbacOrgRolePageDto> pageByModel(
-            Page<RbacOrgRolePageDto> page, @Param("query") RbacOrgRolePageVo vo);
+    IPage<RbacOrgRolePageDto> pageByModel(Page<RbacOrgRolePageDto> page, @Param("query") RbacOrgRolePageVo vo);
+
 
     /**
      * 通过机构角色id物理删除
@@ -73,6 +70,7 @@ public interface RbacOrgRoleMapper extends BaseMapper<RbacOrgRoleEntity> {
      * @date 2022-07-05 00:22:57
      */
     int physicalDeleteById(@Param("id") String orgRoleId);
+
 
     /**
      * 通过机构角色id物理批量删除

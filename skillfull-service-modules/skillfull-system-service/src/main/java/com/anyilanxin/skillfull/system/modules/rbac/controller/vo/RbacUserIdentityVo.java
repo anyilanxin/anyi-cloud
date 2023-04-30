@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -35,12 +34,10 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -83,19 +80,11 @@ public class RbacUserIdentityVo implements Serializable {
     @Schema(name = "idCardIssue", title = "身份证件发证机关")
     private String idCardIssue;
 
-    @Schema(
-            name = "idCardEffective",
-            title = "身份证书有效期开始",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffective", title = "身份证书有效期开始", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffective;
 
-    @Schema(
-            name = "idCardEffectiveEnd",
-            title = "身份证有效期结束",
-            type = "string",
-            example = "2020-11-12 11:23:59")
+    @Schema(name = "idCardEffectiveEnd", title = "身份证有效期结束", type = "string", example = "2020-11-12 11:23:59")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime idCardEffectiveEnd;
 

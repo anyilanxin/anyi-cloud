@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.config.properties;
 
 import com.anyilanxin.skillfull.storage.core.constant.impl.StorageType;
@@ -50,8 +49,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "storage")
 public class EngineProperty {
-    /**
-     * 使用存储类型
-     */
+    /** 使用存储类型 */
     private StorageType type = StorageType.LOCAL;
 }

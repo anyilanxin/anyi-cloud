@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.core.constant;
 
 /**
@@ -38,18 +37,12 @@ package com.anyilanxin.skillfull.logging.core.constant;
  * @since JDK11
  */
 public interface LoggingCommonConstant {
-    /**
-     * redis key前缀
-     */
+    /** redis key前缀 */
     String REDIS_KEY_PREFIX = "logging-service:";
 
-    /**
-     * 授权日志前缀
-     */
+    /** 授权日志前缀 */
     String AUTH_LOG_KEY_PREFIX = REDIS_KEY_PREFIX + "AUTH_LOG:";
 
-    /**
-     * 操作日志前缀
-     */
+    /** 操作日志前缀 */
     String OPERATE_LOG_KEY_PREFIX = REDIS_KEY_PREFIX + "OPERATE_LOG:";
 }

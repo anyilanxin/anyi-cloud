@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -57,33 +56,21 @@ public class RbacSystemEntity extends BaseEntity {
     @TableId
     private String systemId;
 
-    /**
-     * 系统名称
-     */
+    /** 系统名称 */
     private String systemName;
 
-    /**
-     * 系统编码
-     */
+    /** 系统编码 */
     private String systemCode;
 
-    /**
-     * 系统描述
-     */
+    /** 系统描述 */
     private String systemDescribe;
 
-    /**
-     * 系统图标
-     */
+    /** 系统图标 */
     private String icon;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 
-    /**
-     * 唯一索引帮助字段,默认1，如果删除该值为主键
-     */
+    /** 唯一索引帮助字段,默认1，如果删除该值为主键 */
     private String uniqueHelp;
 }

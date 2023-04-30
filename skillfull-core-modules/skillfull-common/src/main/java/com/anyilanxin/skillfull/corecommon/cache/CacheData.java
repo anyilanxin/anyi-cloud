@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.cache;
 
 import java.util.Date;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -57,6 +55,7 @@ public class CacheData<T> {
         return this.expiresIn != -1 ? Long.valueOf(expiresIn / 1000L).intValue() : -1;
     }
 
+
     /**
      * 设置过期时间,永不过期为-1(单位:秒)
      *
@@ -70,6 +69,7 @@ public class CacheData<T> {
         }
     }
 
+
     /**
      * 获取如果过期时间,如果永不过期此时返回null;
      *
@@ -80,6 +80,7 @@ public class CacheData<T> {
     public Date getExpiration() {
         return this.expiration;
     }
+
 
     /**
      * 设置过期时间,永不过期为null
@@ -93,6 +94,7 @@ public class CacheData<T> {
             this.expiresIn = expiration.getTime();
         }
     }
+
 
     /**
      * 判断当前缓存是否过期
@@ -108,13 +110,16 @@ public class CacheData<T> {
         }
     }
 
+
     public T getT() {
         return this.t;
     }
 
+
     public void setT(T t) {
         this.t = t;
     }
+
 
     @Override
     public String toString() {

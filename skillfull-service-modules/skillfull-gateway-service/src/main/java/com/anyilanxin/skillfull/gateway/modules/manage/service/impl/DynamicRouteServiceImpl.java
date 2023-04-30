@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -42,10 +41,8 @@ import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.skillfull.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import com.anyilanxin.skillfull.gateway.modules.manage.service.IDynamicRouteService;
 import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
-
 import java.net.URI;
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -93,141 +90,108 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         notifyChanged();
     }
 
+
     @Override
     public void updateRoute(SystemRouterModel vo) throws RuntimeException {
         addRoute(vo);
     }
 
+
     @Override
     public void deleteRoute(String routeId) throws RuntimeException {
-        routeDefinitionRepository
-                .delete(Mono.just(routeId))
-                .then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
-                .onErrorResume(
-                        t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build()))
-                .subscribe();
+        routeDefinitionRepository.delete(Mono.just(routeId)).then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build()))).onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build())).subscribe();
         notifyChanged();
     }
+
 
     @Override
     public Flux<RouteResponseModel> getRoutes() throws RuntimeException {
-        return routeDefinitionRepository
-                .getRouteDefinitions()
-                .map(
-                        v -> {
-                            // 处理基础部分
-                            RouteResponseModel dto = new RouteResponseModel();
-                            dto.setRouteCode(v.getId());
-                            dto.setRouteOrder(v.getOrder());
-                            String url = v.getUri().toString().toLowerCase();
-                            dto.setIsLoadBalancer(0);
-                            if (url.startsWith(CommonGatewayConstant.LB_PREFIX)) {
-                                dto.setIsLoadBalancer(1);
-                                LbType startMatch = LbType.getStartMatch(url);
-                                if (Objects.nonNull(startMatch)) {
-                                    dto.setLoadBalancerType(startMatch.getTypeName());
-                                    dto.setServiceName(url.replace(startMatch.getTypeName(), ""));
-                                }
-                            } else {
-                                dto.setUrl(url);
-                            }
-                            // 处理断言
-                            List<RouteResponseModel.RoutePredicate> routePredicates = new ArrayList<>();
-                            List<PredicateDefinition> predicates = v.getPredicates();
-                            if (!CollectionUtils.isEmpty(predicates)) {
-                                predicates.forEach(
-                                        sv -> {
-                                            RouteResponseModel.RoutePredicate predicate =
-                                                    new RouteResponseModel.RoutePredicate();
-                                            predicate.setPredicateType(sv.getName());
-                                            Set<RouteResponseModel.Rule> rules = new HashSet<>();
-                                            Map<String, String> args = sv.getArgs();
-                                            if (!CollectionUtils.isEmpty(args)) {
-                                                args.forEach(
-                                                        (k, ssv) -> {
-                                                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
-                                                            rule.setRuleName(k);
-                                                            rule.setRuleValue(ssv);
-                                                            rules.add(rule);
-                                                        });
-                                            }
-                                            predicate.setRules(rules);
-                                            routePredicates.add(predicate);
-                                        });
-                                dto.setRoutePredicates(routePredicates);
-                            }
-                            // 处理过滤器
-                            List<RouteResponseModel.RouteFilter> routeFilters = new ArrayList<>();
-                            List<FilterDefinition> filters = v.getFilters();
-                            if (!CollectionUtils.isEmpty(filters)) {
-                                filters.forEach(
-                                        sv -> {
-                                            RouteResponseModel.RouteFilter filter = new RouteResponseModel.RouteFilter();
-                                            filter.setFilterType(sv.getName());
-                                            Set<RouteResponseModel.Rule> rules = new HashSet<>();
-                                            Map<String, String> args = sv.getArgs();
-                                            if (!CollectionUtils.isEmpty(args)) {
-                                                args.forEach(
-                                                        (k, ssv) -> {
-                                                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
-                                                            rule.setRuleValue(ssv);
-                                                            rule.setRuleName(k);
-                                                            rules.add(rule);
-                                                        });
-                                            }
-                                            filter.setRules(rules);
-                                            routeFilters.add(filter);
-                                        });
-                                dto.setRouteFilters(routeFilters);
-                            }
-                            return dto;
+        return routeDefinitionRepository.getRouteDefinitions().map(v -> {
+            // 处理基础部分
+            RouteResponseModel dto = new RouteResponseModel();
+            dto.setRouteCode(v.getId());
+            dto.setRouteOrder(v.getOrder());
+            String url = v.getUri().toString().toLowerCase();
+            dto.setIsLoadBalancer(0);
+            if (url.startsWith(CommonGatewayConstant.LB_PREFIX)) {
+                dto.setIsLoadBalancer(1);
+                LbType startMatch = LbType.getStartMatch(url);
+                if (Objects.nonNull(startMatch)) {
+                    dto.setLoadBalancerType(startMatch.getTypeName());
+                    dto.setServiceName(url.replace(startMatch.getTypeName(), ""));
+                }
+            } else {
+                dto.setUrl(url);
+            }
+            // 处理断言
+            List<RouteResponseModel.RoutePredicate> routePredicates = new ArrayList<>();
+            List<PredicateDefinition> predicates = v.getPredicates();
+            if (!CollectionUtils.isEmpty(predicates)) {
+                predicates.forEach(sv -> {
+                    RouteResponseModel.RoutePredicate predicate = new RouteResponseModel.RoutePredicate();
+                    predicate.setPredicateType(sv.getName());
+                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
+                    Map<String, String> args = sv.getArgs();
+                    if (!CollectionUtils.isEmpty(args)) {
+                        args.forEach((k, ssv) -> {
+                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                            rule.setRuleName(k);
+                            rule.setRuleValue(ssv);
+                            rules.add(rule);
                         });
+                    }
+                    predicate.setRules(rules);
+                    routePredicates.add(predicate);
+                });
+                dto.setRoutePredicates(routePredicates);
+            }
+            // 处理过滤器
+            List<RouteResponseModel.RouteFilter> routeFilters = new ArrayList<>();
+            List<FilterDefinition> filters = v.getFilters();
+            if (!CollectionUtils.isEmpty(filters)) {
+                filters.forEach(sv -> {
+                    RouteResponseModel.RouteFilter filter = new RouteResponseModel.RouteFilter();
+                    filter.setFilterType(sv.getName());
+                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
+                    Map<String, String> args = sv.getArgs();
+                    if (!CollectionUtils.isEmpty(args)) {
+                        args.forEach((k, ssv) -> {
+                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                            rule.setRuleValue(ssv);
+                            rule.setRuleName(k);
+                            rules.add(rule);
+                        });
+                    }
+                    filter.setRules(rules);
+                    routeFilters.add(filter);
+                });
+                dto.setRouteFilters(routeFilters);
+            }
+            return dto;
+        });
     }
+
 
     @Override
     public void loadRoute() throws RuntimeException {
-        routeDefinitionRepository
-                .getRouteDefinitions()
-                .flatMap(
-                        item -> {
-                            deleteRoute(item.getId());
-                            return Mono.empty();
-                        })
-                .collectList()
-                .publishOn(Schedulers.boundedElastic())
-                .doOnNext(
-                        v ->
-                                reactiveStringRedisTemplate
-                                        .keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*")
-                                        .flatMap(
-                                                key ->
-                                                        reactiveStringRedisTemplate
-                                                                .opsForValue()
-                                                                .get(key)
-                                                                .flatMap(
-                                                                        item -> {
-                                                                            SystemRouterModel vo =
-                                                                                    JSONObject.parseObject(item, SystemRouterModel.class);
-                                                                            RouteDefinition routeDefinition = getRouteDefinition(vo);
-                                                                            if (Objects.nonNull(routeDefinition)) {
-                                                                                return routeDefinitionRepository.save(
-                                                                                        Mono.just(routeDefinition));
-                                                                            }
-                                                                            return Mono.empty();
-                                                                        }))
-                                        .onErrorContinue(
-                                                (throwable, routeDefinition) -> {
-                                                    if (log.isErrorEnabled()) {
-                                                        log.error(
-                                                                "get routes from redis error cause : {}",
-                                                                throwable.toString(),
-                                                                throwable);
-                                                    }
-                                                })
-                                        .subscribe())
-                .subscribe();
+        routeDefinitionRepository.getRouteDefinitions().flatMap(item -> {
+            deleteRoute(item.getId());
+            return Mono.empty();
+        }).collectList().publishOn(Schedulers.boundedElastic()).doOnNext(v -> reactiveStringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*").flatMap(key -> reactiveStringRedisTemplate.opsForValue().get(key).flatMap(item -> {
+            SystemRouterModel vo = JSONObject.parseObject(item, SystemRouterModel.class);
+            RouteDefinition routeDefinition = getRouteDefinition(vo);
+            if (Objects.nonNull(routeDefinition)) {
+                return routeDefinitionRepository.save(Mono.just(routeDefinition));
+            }
+            return Mono.empty();
+        })).onErrorContinue((throwable, routeDefinition) -> {
+            if (log.isErrorEnabled()) {
+                log.error("get routes from redis error cause : {}", throwable.toString(), throwable);
+            }
+        }).subscribe()).subscribe();
         notifyChanged();
     }
+
 
     /**
      * 把传递进来的参数转换成路由对象
@@ -239,8 +203,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
      */
     private RouteDefinition getRouteDefinition(SystemRouterModel vo) {
         /*
-         * 数据校验
-         * 1.如果是负载均衡器负载均衡器类型必填,服务名必填,并且均衡器类型只能为0,1,2
+         * 数据校验 1.如果是负载均衡器负载均衡器类型必填,服务名必填,并且均衡器类型只能为0,1,2
          * 2.如果非负载均衡器,url必填并且开头必须是http,https,ws,wss
          */
         RouteDefinition definition = new RouteDefinition();
@@ -256,10 +219,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         } else {
             String url = vo.getUrl();
             if (StringUtils.isBlank(url) || !ProtocolType.isHaveByType(url)) {
-                log.error(
-                        "------------DynamicRouteServiceImpl------设置路由判断失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}",
-                        vo,
-                        "非负载均衡器时url必填,并且只能是:" + ProtocolType.getAllType());
+                log.error("------------DynamicRouteServiceImpl------设置路由判断失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", vo, "非负载均衡器时url必填,并且只能是:" + ProtocolType.getAllType());
                 return null;
             }
             uri = UriComponentsBuilder.fromHttpUrl(url).build().toUri();
@@ -272,13 +232,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
             for (RoutePredicateModel predicate : routePredicates) {
                 // 验证断言类型是否存在
                 if (!PredicateSysType.isHaveByType(predicate.getPredicateType())) {
-                    log.error(
-                            "------------DynamicRouteServiceImpl------断言设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}",
-                            predicate,
-                            "断言类型:"
-                                    + predicate.getPredicateType()
-                                    + "不存在,当前只能为:"
-                                    + PredicateSysType.getAllType());
+                    log.error("------------DynamicRouteServiceImpl------断言设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", predicate, "断言类型:" + predicate.getPredicateType() + "不存在,当前只能为:" + PredicateSysType.getAllType());
                     continue;
                 }
                 Map<String, String> rules = predicate.getRules();
@@ -297,19 +251,9 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         if (!CollectionUtils.isEmpty(routeFilters)) {
             for (RouteFilterModel routeFilter : routeFilters) {
                 // 验证过滤器类型是否存在
-                if (!FilterSysType.isHaveByType(routeFilter.getFilterType())
-                        && !FilterCustomType.isHaveByType(routeFilter.getFilterType())) {
-                    String msg =
-                            "过滤器类型:"
-                                    + routeFilter.getFilterType()
-                                    + "不存在,当前只能为:"
-                                    + FilterSysType.getAllType()
-                                    + ",或"
-                                    + FilterCustomType.getAllType();
-                    log.error(
-                            "------------DynamicRouteServiceImpl------过滤器判设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}",
-                            routeFilter,
-                            msg);
+                if (!FilterSysType.isHaveByType(routeFilter.getFilterType()) && !FilterCustomType.isHaveByType(routeFilter.getFilterType())) {
+                    String msg = "过滤器类型:" + routeFilter.getFilterType() + "不存在,当前只能为:" + FilterSysType.getAllType() + ",或" + FilterCustomType.getAllType();
+                    log.error("------------DynamicRouteServiceImpl------过滤器判设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", routeFilter, msg);
                     continue;
                 }
                 String filterTypeInfo = routeFilter.getFilterType();
@@ -328,6 +272,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         definition.setFilters(filters);
         return definition;
     }
+
 
     /**
      * 刷新路由

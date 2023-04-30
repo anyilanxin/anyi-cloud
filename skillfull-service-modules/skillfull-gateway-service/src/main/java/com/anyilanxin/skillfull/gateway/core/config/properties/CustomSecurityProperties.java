@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config.properties;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.PRO;
 
 import java.util.Set;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,30 +47,18 @@ import org.springframework.stereotype.Component;
 @ToString
 @EqualsAndHashCode
 public class CustomSecurityProperties {
-    /**
-     * 当前环境
-     */
+    /** 当前环境 */
     @Value("${spring.profiles.active:" + PRO + "}")
     private String active;
-    /**
-     * 打开鉴权,默认关闭
-     */
+    /** 打开鉴权,默认关闭 */
     private boolean enabled;
-    /**
-     * 公共白名单
-     */
+    /** 公共白名单 */
     private Set<String> commonWhiteList;
-    /**
-     * 开发白名单
-     */
+    /** 开发白名单 */
     private Set<String> devWhiteList;
-    /**
-     * 正式环境白名单
-     */
+    /** 正式环境白名单 */
     private Set<String> proWhiteList;
-    /**
-     * 测试环境白名单
-     */
+    /** 测试环境白名单 */
     private Set<String> testWhiteList;
 
     public void setEnabled(boolean enabled) {

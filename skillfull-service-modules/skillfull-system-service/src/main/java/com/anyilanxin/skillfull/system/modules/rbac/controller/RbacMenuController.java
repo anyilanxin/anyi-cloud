@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -74,84 +71,57 @@ import org.springframework.web.bind.annotation.*;
 public class RbacMenuController extends BaseController {
     private final IRbacMenuService service;
 
-    @Operation(
-            summary = "菜单表添加",
-            tags = {"v1.0.0"},
-            description = "添加菜单表")
+    @Operation(summary = "菜单表添加", tags = {"v1.0.0"}, description = "添加菜单表")
     @PostMapping(value = "/insert")
     public Result<String> insert(@RequestBody @Valid RbacMenuVo vo) {
         service.save(vo);
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    @Operation(
-            summary = "通过权限id修改",
-            tags = {"v1.0.0"},
-            description = "修改菜单表")
+
+    @Operation(summary = "通过权限id修改", tags = {"v1.0.0"}, description = "修改菜单表")
     @Parameter(in = ParameterIn.PATH, description = "权限id", name = "menuId", required = true)
     @PutMapping(value = "/update/{menuId}")
-    public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId,
-            @RequestBody @Valid RbacMenuVo vo) {
+    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId, @RequestBody @Valid RbacMenuVo vo) {
         service.updateById(menuId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "菜单表逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除菜单表")
+
+    @Operation(summary = "菜单表逻辑删除", tags = {"v1.0.0"}, description = "删除菜单表")
     @Parameter(in = ParameterIn.PATH, description = "权限id", name = "menuId", required = true)
     @DeleteMapping(value = "/delete-one/{menuId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
         service.deleteById(menuId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "菜单表逻辑批量删除",
-            tags = {"v1.0.0"},
-            description = "批量删除菜单表")
+
+    @Operation(summary = "菜单表逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除菜单表")
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(
-            @RequestBody @NotNullSize(message = "待删除权限id不能为空") List<String> menuIds) {
+    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除权限id不能为空") List<String> menuIds) {
         service.deleteBatch(menuIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过权限id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询菜单表详情")
+
+    @Operation(summary = "通过权限id查询详情", tags = {"v1.0.0"}, description = "查询菜单表详情")
     @Parameter(in = ParameterIn.PATH, description = "权限id", name = "menuId", required = true)
     @GetMapping(value = "/select/one/{menuId}")
-    public Result<RbacMenuDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
+    public Result<RbacMenuDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "权限id不能为空") String menuId) {
         return ok(service.getById(menuId));
     }
 
-    @Operation(
-            summary = "获取菜单权限树",
-            tags = {"v1.0.0"},
-            description = "获取菜单权限树")
-    @Parameters({
-            @Parameter(description = "类型:0-目录,1-菜单,2-按钮，多个英文逗号隔开", name = "type"),
-            @Parameter(description = "系统id", name = "systemId"),
-            @Parameter(description = "状态:1-有效、2-所有,默认2", name = "status")
-    })
+
+    @Operation(summary = "获取菜单权限树", tags = {"v1.0.0"}, description = "获取菜单权限树")
+    @Parameters({@Parameter(description = "类型:0-目录,1-菜单,2-按钮，多个英文逗号隔开", name = "type"), @Parameter(description = "系统id", name = "systemId"), @Parameter(description = "状态:1-有效、2-所有,默认2", name = "status")})
     @GetMapping(value = "/select/tree")
-    public Result<List<RbacMenuTreeDto>> getMenuTree(
-            @RequestParam(defaultValue = "0", required = false) String type,
-            @RequestParam(required = false) String systemId,
-            @RequestParam(defaultValue = "2", required = false) Integer status) {
+    public Result<List<RbacMenuTreeDto>> getMenuTree(@RequestParam(defaultValue = "0", required = false) String type, @RequestParam(required = false) String systemId, @RequestParam(defaultValue = "2", required = false) Integer status) {
         return ok(service.getMenuTree(type, systemId, status));
     }
 
-    @Operation(
-            summary = "菜单表分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询菜单表")
+
+    @Operation(summary = "菜单表分页查询", tags = {"v1.0.0"}, description = "分页查询菜单表")
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacMenuPageDto>> selectPage(@RequestBody RbacMenuPageVo vo) {
         return ok(service.pageByModel(vo));

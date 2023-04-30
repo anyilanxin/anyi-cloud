@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc;
 
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -64,6 +62,7 @@ public class CustomBearerTokenExtractor extends BearerTokenExtractor {
         }
     }
 
+
     @Override
     protected String extractToken(HttpServletRequest request) {
         String token = this.extractHeaderToken(request);
@@ -79,6 +78,7 @@ public class CustomBearerTokenExtractor extends BearerTokenExtractor {
         return token;
     }
 
+
     @Override
     protected String extractHeaderToken(HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders(bearerTokenHeaderName);
@@ -91,9 +91,7 @@ public class CustomBearerTokenExtractor extends BearerTokenExtractor {
         } while (!value.toLowerCase().startsWith("Bearer".toLowerCase()));
 
         String authHeaderValue = value.substring("Bearer".length()).trim();
-        request.setAttribute(
-                OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE,
-                value.substring(0, "Bearer".length()).trim());
+        request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, value.substring(0, "Bearer".length()).trim());
         int commaIndex = authHeaderValue.indexOf(44);
         if (commaIndex > 0) {
             authHeaderValue = authHeaderValue.substring(0, commaIndex);
@@ -101,17 +99,21 @@ public class CustomBearerTokenExtractor extends BearerTokenExtractor {
         return authHeaderValue;
     }
 
+
     public void setAllowUriQueryParameter(boolean allowUriQueryParameter) {
         this.allowUriQueryParameter = allowUriQueryParameter;
     }
+
 
     public void setAccessTokenQueryName(String accessTokenQueryName) {
         this.accessTokenQueryName = accessTokenQueryName;
     }
 
+
     public void setBearerTokenHeaderName(String bearerTokenHeaderName) {
         this.bearerTokenHeaderName = bearerTokenHeaderName;
     }
+
 
     private boolean isParameterTokenSupportedForRequest() {
         return this.allowUriQueryParameter;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.core.config;
 
 import lombok.RequiredArgsConstructor;
@@ -43,23 +42,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class CamundaDataSourceConfig {
-    //    @Bean
-    //    @Primary
-    //    @ConfigurationProperties(prefix = "spring.datasource.dynamic.master")
-    //    public DataSource primaryDataSource() {
-    //        return DataSourceBuilder.create().build();
-    //    }
+    // @Bean
+    // @Primary
+    // @ConfigurationProperties(prefix = "spring.datasource.dynamic.master")
+    // public DataSource primaryDataSource() {
+    // return DataSourceBuilder.create().build();
+    // }
 
     //
-    //    @Bean(name = "camundaBpmDataSource")
-    //    @ConfigurationProperties(prefix = "datasource.secondary")
-    //    public DataSource secondaryDataSource() {
-    //        return DataSourceBuilder.create().build();
-    //    }
+    // @Bean(name = "camundaBpmDataSource")
+    // @ConfigurationProperties(prefix = "datasource.secondary")
+    // public DataSource secondaryDataSource() {
+    // return DataSourceBuilder.create().build();
+    // }
     //
     //
-    //    @Bean(name = "camundaBpmTransactionManager")
-    //    public PlatformTransactionManager secondTransactionManager(DataSource dataSource) {
-    //        return new DataSourceTransactionManager(dataSource);
-    //    }
+    // @Bean(name = "camundaBpmTransactionManager")
+    // public PlatformTransactionManager secondTransactionManager(DataSource
+    // dataSource) {
+    // return new DataSourceTransactionManager(dataSource);
+    // }
 }

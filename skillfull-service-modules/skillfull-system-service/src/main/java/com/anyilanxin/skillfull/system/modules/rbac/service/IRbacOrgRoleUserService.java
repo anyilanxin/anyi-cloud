@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleUserEntity;
-
 import java.util.Set;
 
 /**
@@ -47,8 +45,8 @@ public interface IRbacOrgRoleUserService extends BaseService<RbacOrgRoleUserEnti
     /**
      * 保存
      *
-     * @param userId     用户id
-     * @param orgId      机构id
+     * @param userId 用户id
+     * @param orgId 机构id
      * @param orgRoleIds 机构角色 id
      * @throws RuntimeException
      * @author zxiaozhou
@@ -56,11 +54,12 @@ public interface IRbacOrgRoleUserService extends BaseService<RbacOrgRoleUserEnti
      */
     void saveBatch(String userId, String orgId, Set<String> orgRoleIds) throws RuntimeException;
 
+
     /**
      * 通过指定用户以及机构删除
      *
      * @param userId 用户id
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20

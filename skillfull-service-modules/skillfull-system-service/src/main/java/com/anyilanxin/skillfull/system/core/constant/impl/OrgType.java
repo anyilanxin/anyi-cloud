@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -51,30 +48,23 @@ import lombok.Getter;
 @ConstantType
 public enum OrgType implements ISuperType {
 
-    /**
-     * 公司
-     */
+    /** 公司 */
     ORG(1, "公司"),
 
-    /**
-     * 部门
-     */
+    /** 部门 */
     DEPARTMENT(2, "部门");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     OrgType(int type, String describe) {
         this.type = type;
         this.describe = describe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -94,6 +84,7 @@ public enum OrgType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -109,6 +100,7 @@ public enum OrgType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

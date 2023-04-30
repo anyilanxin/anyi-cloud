@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -63,8 +61,7 @@ public class SpringDocPrintApplicationRunner implements ApplicationRunner {
             e.printStackTrace();
         }
         String port = environment.getProperty("server.port");
-        boolean webflux =
-                Boolean.TRUE.equals(environment.getProperty("springdoc.webflux", Boolean.class));
+        boolean webflux = Boolean.TRUE.equals(environment.getProperty("springdoc.webflux", Boolean.class));
         String path;
         if (webflux) {
             path = environment.getProperty("spring.webflux.base-path", "");
@@ -86,28 +83,6 @@ public class SpringDocPrintApplicationRunner implements ApplicationRunner {
         String profilesActive = environment.getProperty("spring.profiles.active");
         String version = environment.getProperty("spring.application.version");
         String projectName = environment.getProperty("spring.application.name");
-        log.info(
-                "\n-----------------------------------------------------------------------------\n"
-                        + "SkillFull Cloud Application（"
-                        + projectName
-                        + " v"
-                        + version
-                        + " "
-                        + (StringUtils.isNotBlank(profilesActive) ? profilesActive : "")
-                        + "）is running! Access URLs:\n"
-                        + "\tWebsite Preview:\thttps://skillfull.divisu.com\n"
-                        + "\tApi Url Prefix:\t\thttp://"
-                        + ip
-                        + ":"
-                        + port
-                        + path
-                        + "\n"
-                        + "\tSwagger Ui:\t\t\thttp://"
-                        + ip
-                        + ":"
-                        + port
-                        + swaggerUrl
-                        + "\n"
-                        + "-----------------------------------------------------------------------------");
+        log.info("\n-----------------------------------------------------------------------------\n" + "SkillFull Cloud Application（" + projectName + " v" + version + " " + (StringUtils.isNotBlank(profilesActive) ? profilesActive : "") + "）is running! Access URLs:\n" + "\tWebsite Preview:\thttps://skillfull.divisu.com\n" + "\tApi Url Prefix:\t\thttp://" + ip + ":" + port + path + "\n" + "\tSwagger Ui:\t\t\thttp://" + ip + ":" + port + swaggerUrl + "\n" + "-----------------------------------------------------------------------------");
     }
 }

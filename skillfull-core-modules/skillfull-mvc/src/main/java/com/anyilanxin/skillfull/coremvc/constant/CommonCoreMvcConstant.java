@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.constant;
 
 /**
@@ -40,23 +39,15 @@ package com.anyilanxin.skillfull.coremvc.constant;
 public interface CommonCoreMvcConstant {
     String CONST_PREFIX = "coremvc_";
 
-    /**
-     * 测试缓存key
-     */
+    /** 测试缓存key */
     String TEST_DEMO_CACHE = "test-webmvc:demo";
 
-    /**
-     * 雪花终端id
-     */
+    /** 雪花终端id */
     long WORKER_ID = 12L;
 
-    /**
-     * 雪花数据中心id
-     */
+    /** 雪花数据中心id */
     long DATACENTER_ID = 12L;
 
-    /**
-     * 线程池前缀
-     */
+    /** 线程池前缀 */
     String TASK_EXECUTOR_PREFIX = "taskExecutor-";
 }

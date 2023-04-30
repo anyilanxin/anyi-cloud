@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.business.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -42,9 +41,7 @@ import com.anyilanxin.skillfull.messagerpc.model.TemplateSmsMsgModel;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -74,33 +71,23 @@ public class ManageSendController extends BaseController {
     private final TemplateSmsMsgContent smsMsgContent;
     private final TemplateEmailMsgContent emailMsgContent;
 
-    @Operation(
-            summary = "发送通用模板消息",
-            tags = {"v1.0.0"},
-            description = "发送通用模板消息")
+    @Operation(summary = "发送通用模板消息", tags = {"v1.0.0"}, description = "发送通用模板消息")
     @PostMapping(value = "/common")
-    public Result<TemplateResultModel> sendTemplateCommon(
-            @RequestBody @Valid TemplateCommonMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateCommon(@RequestBody @Valid TemplateCommonMsgModel model) {
         return ok(commonMsgContent.sendCommon(model));
     }
 
-    @Operation(
-            summary = "发送短信模板消息",
-            tags = {"v1.0.0"},
-            description = "发送短信模板消息")
+
+    @Operation(summary = "发送短信模板消息", tags = {"v1.0.0"}, description = "发送短信模板消息")
     @PostMapping(value = "/sms")
-    public Result<TemplateResultModel> sendTemplateSms(
-            @RequestBody @Valid TemplateSmsMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateSms(@RequestBody @Valid TemplateSmsMsgModel model) {
         return ok(smsMsgContent.sendSms(model));
     }
 
-    @Operation(
-            summary = "发送邮件模板消息",
-            tags = {"v1.0.0"},
-            description = "发送邮件模板消息")
+
+    @Operation(summary = "发送邮件模板消息", tags = {"v1.0.0"}, description = "发送邮件模板消息")
     @PostMapping(value = "/email")
-    public Result<TemplateResultModel> sendTemplateEmail(
-            @RequestBody @Valid TemplateEmailMsgModel model) {
+    public Result<TemplateResultModel> sendTemplateEmail(@RequestBody @Valid TemplateEmailMsgModel model) {
         return ok(emailMsgContent.sendEmail(model));
     }
 }

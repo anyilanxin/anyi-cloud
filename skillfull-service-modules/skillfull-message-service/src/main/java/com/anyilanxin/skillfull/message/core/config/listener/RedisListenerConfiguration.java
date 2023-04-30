@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.config.listener;
 
 import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
@@ -55,25 +54,24 @@ public class RedisListenerConfiguration {
 
     @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
-        RedisMessageListenerContainer redisMessageListenerContainer =
-                new RedisMessageListenerContainer();
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(connectionFactory);
 
         MessageListenerAdapter messageLogListenerAdapter = messageLogListenerAdapter();
         messageLogListenerAdapter.setSerializer(RedisSerializer.string());
-        redisMessageListenerContainer.addMessageListener(
-                messageLogListenerAdapter, new ChannelTopic(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE));
+        redisMessageListenerContainer.addMessageListener(messageLogListenerAdapter, new ChannelTopic(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE));
         return redisMessageListenerContainer;
     }
+
 
     @Bean
     MessageListenerAdapter messageLogListenerAdapter() {
         return new MessageListenerAdapter(subscribeContent, "socketMsgHandle");
     }
 
+
     @Bean
-    TokenExpirationEventListener tokenExpirationEventListener(
-            RedisConnectionFactory connectionFactory) {
+    TokenExpirationEventListener tokenExpirationEventListener(RedisConnectionFactory connectionFactory) {
         return new TokenExpirationEventListener(container(connectionFactory));
     }
 }

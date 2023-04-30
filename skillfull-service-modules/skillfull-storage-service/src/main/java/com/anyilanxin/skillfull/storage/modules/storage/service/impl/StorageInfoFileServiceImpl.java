@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -47,12 +46,10 @@ import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -70,34 +67,28 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StorageInfoFileServiceImpl
-        extends ServiceImpl<StorageInfoFileMapper, StorageInfoFileEntity>
-        implements IStorageInfoFileService {
+public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMapper, StorageInfoFileEntity> implements IStorageInfoFileService {
     private final StorageInfoFileCopyMap map;
     private final StorageInfoFileMapper mapper;
     private final IStorageEngineService storageEngine;
 
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public StorageInfoModel getById(String fileId) throws RuntimeException {
         StorageInfoFileEntity byId = super.getById(fileId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -107,61 +98,59 @@ public class StorageInfoFileServiceImpl
         // 删除数据
         boolean b = this.removeById(fileId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> fileIds) throws RuntimeException {
         List<StorageInfoFileEntity> entities = this.listByIds(fileIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getFileId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public StorageInfoModel storage(
-            MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
+    public StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
         StorageInfoModel storage = storageEngine.storage(file, fileDirPrefix, request);
         saveBatch(List.of(storage));
         return storage;
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
-        List<StorageInfoModel> storageInfoModels =
-                storageEngine.storageBatch(files, fileDirPrefix, request);
+    public List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
+        List<StorageInfoModel> storageInfoModels = storageEngine.storageBatch(files, fileDirPrefix, request);
         saveBatch(storageInfoModels);
         return storageInfoModels;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {
         List<StorageInfoUrlModel> storageInfoUrlModels = storageEngine.storageBatchUrl(model);
         List<StorageInfoModel> models = new ArrayList<>(storageInfoUrlModels.size());
-        storageInfoUrlModels.forEach(
-                v -> {
-                    if (Objects.nonNull(v.getStatus()) && v.getStatus() == 1) {
-                        models.add(v);
-                    }
-                });
+        storageInfoUrlModels.forEach(v -> {
+            if (Objects.nonNull(v.getStatus()) && v.getStatus() == 1) {
+                models.add(v);
+            }
+        });
         saveBatch(models);
         return storageInfoUrlModels;
     }
+
 
     /**
      * 数据存入数据库

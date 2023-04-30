@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.encryption;
 
 import cn.hutool.core.util.CharsetUtil;
@@ -65,6 +64,7 @@ public class RSAUtils {
         return rsaKey;
     }
 
+
     /**
      * 公钥加密
      *
@@ -76,14 +76,14 @@ public class RSAUtils {
      */
     public static String encryptPublicKey(String publicKey, String plaintext) {
         RSA rsa = new RSA(null, publicKey);
-        return rsa.encryptBase64(
-                StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PublicKey);
+        return rsa.encryptBase64(StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PublicKey);
     }
+
 
     /**
      * 公钥解密
      *
-     * @param publicKey  {@link String} X509格式公钥
+     * @param publicKey {@link String} X509格式公钥
      * @param ciphertext {@link String} 密文
      * @return String {@link String} 明文
      * @author zhouxuanhong
@@ -94,20 +94,21 @@ public class RSAUtils {
         return StrUtil.str(rsa.decrypt(ciphertext, KeyType.PublicKey), CharsetUtil.CHARSET_UTF_8);
     }
 
+
     /**
      * 私钥加密
      *
      * @param privateKey {@link String} PKCS8格式私钥
-     * @param plaintext  {@link String} 明文
+     * @param plaintext {@link String} 明文
      * @return String {@link String} 密文
      * @author zhouxuanhong
      * @date 2019-10-22 09:54
      */
     public static String encryptPrivateKey(String privateKey, String plaintext) {
         RSA rsa = new RSA(privateKey, null);
-        return rsa.encryptBase64(
-                StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PrivateKey);
+        return rsa.encryptBase64(StrUtil.bytes(plaintext, CharsetUtil.CHARSET_UTF_8), KeyType.PrivateKey);
     }
+
 
     /**
      * 私钥解密

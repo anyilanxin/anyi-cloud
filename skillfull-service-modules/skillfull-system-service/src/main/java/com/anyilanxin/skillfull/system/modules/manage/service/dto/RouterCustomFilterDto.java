@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.dto;
 
 import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteFilterModel;
 import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -62,8 +59,6 @@ public class RouterCustomFilterDto implements Serializable {
     @Schema(name = "filterModels", title = "过滤器")
     private List<RouteFilterModel> filterModels;
 
-    @Schema(
-            name = "specialUrls",
-            title = "特殊url:map<过滤器filterType(FilterCustomPreType、FilterCustomPostType),特殊url>")
+    @Schema(name = "specialUrls", title = "特殊url:map<过滤器filterType(FilterCustomPreType、FilterCustomPostType),特殊url>")
     private Map<String, RouteMetaSpecialUrlModel> specialUrls;
 }

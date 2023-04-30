@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import java.util.function.Consumer;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 
@@ -45,20 +43,24 @@ class EmptyObjectProvider<T> implements ObjectProvider<T> {
         return null;
     }
 
+
     @Override
     public T getIfAvailable() throws BeansException {
         return null;
     }
+
 
     @Override
     public T getIfUnique() throws BeansException {
         return null;
     }
 
+
     @Override
     public T getObject() throws BeansException {
         return null;
     }
+
 
     @Override
     public void forEach(Consumer action) {

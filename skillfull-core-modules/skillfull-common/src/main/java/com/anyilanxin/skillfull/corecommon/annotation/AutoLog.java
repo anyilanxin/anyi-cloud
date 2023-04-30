@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.annotation;
 
 import java.lang.annotation.*;
@@ -43,33 +42,19 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AutoLog {
-    /**
-     * 查询
-     */
+    /** 查询 */
     int QUERY = 1;
-    /**
-     * 添加
-     */
+    /** 添加 */
     int ADD = 2;
-    /**
-     * 修改
-     */
+    /** 修改 */
     int EDIT = 3;
-    /**
-     * 删除
-     */
+    /** 删除 */
     int DELETE = 4;
-    /**
-     * 登录
-     */
+    /** 登录 */
     int LOGIN = 5;
-    /**
-     * 退出
-     */
+    /** 退出 */
     int LOGIN_OUT = 6;
-    /**
-     * 其他
-     */
+    /** 其他 */
     int OTHER = 7;
 
     /**
@@ -78,6 +63,7 @@ public @interface AutoLog {
      * @return 日志信息
      */
     String note() default "";
+
 
     /**
      * 操作类型

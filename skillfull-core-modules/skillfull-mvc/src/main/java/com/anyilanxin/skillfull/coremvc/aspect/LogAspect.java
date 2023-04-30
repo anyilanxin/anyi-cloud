@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.aspect;
 
 import cn.hutool.core.collection.CollUtil;
@@ -36,12 +35,10 @@ import com.anyilanxin.skillfull.corecommon.annotation.AutoLog;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.coremvc.aspect.model.OperateModel;
 import com.anyilanxin.skillfull.coremvc.utils.ServletUtils;
-
 import java.lang.reflect.Method;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -67,6 +64,7 @@ public class LogAspect {
     public void logPointCut() {
     }
 
+
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         // 执行方法
@@ -80,6 +78,7 @@ public class LogAspect {
             throw e;
         }
     }
+
 
     private void saveSysLog(ProceedingJoinPoint joinPoint, Object result) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -105,16 +104,16 @@ public class LogAspect {
             model.setExceptionMessage(e.getMessage());
             model.setStackTrace(e.toString());
         } else {
-            model.setRequestResult(
-                    Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
+            model.setRequestResult(Objects.nonNull(result) ? CoreCommonUtils.objectToJsonStr(result) : "");
         }
     }
+
 
     /**
      * 获取方法请求参数
      *
      * @param methodSignature ${@link MethodSignature}
-     * @param joinPoint       ${@link ProceedingJoinPoint}
+     * @param joinPoint ${@link ProceedingJoinPoint}
      * @return String ${@link String}
      * @author zhouxuanhong
      * @date 2019-06-20 16:33
@@ -155,6 +154,7 @@ public class LogAspect {
         return params;
     }
 
+
     /**
      * 判断过滤请求方法参数信息
      *
@@ -162,8 +162,6 @@ public class LogAspect {
      * @return true-过滤,false-不过来
      */
     public boolean isFilterObject(final Object o) {
-        return o instanceof MultipartFile
-                || o instanceof HttpServletRequest
-                || o instanceof HttpServletResponse;
+        return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse;
     }
 }

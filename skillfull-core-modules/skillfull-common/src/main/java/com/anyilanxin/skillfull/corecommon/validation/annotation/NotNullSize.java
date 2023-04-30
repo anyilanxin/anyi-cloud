@@ -27,14 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.validation.annotation;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.anyilanxin.skillfull.corecommon.validation.validator.NotNullSizeValidator;
-
 import java.lang.annotation.*;
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -46,14 +44,7 @@ import javax.validation.Payload;
  * @date 2019-06-18 10:43
  * @since JDK11
  */
-@Target({
-        ElementType.METHOD,
-        ElementType.FIELD,
-        ElementType.ANNOTATION_TYPE,
-        ElementType.CONSTRUCTOR,
-        ElementType.PARAMETER,
-        ElementType.TYPE_USE
-})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(NotNullSize.List.class)
@@ -62,14 +53,18 @@ public @interface NotNullSize {
     // 默认错误消息
     String message() default "属性不能为空";
 
+
     // 分组
     Class<?>[] groups() default {};
+
 
     // 负载
     Class<? extends Payload>[] payload() default {};
 
+
     // 最小数量
     int min() default 1;
+
 
     // 最大数量
     int max() default 2147483647;

@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.store.code;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 
@@ -43,13 +41,13 @@ import org.springframework.security.oauth2.provider.code.RandomValueAuthorizatio
  * @since JDK1.8
  */
 public class InMemoryAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
-    protected final ConcurrentHashMap<String, OAuth2Authentication> authorizationCodeStore =
-            new ConcurrentHashMap<>();
+    protected final ConcurrentHashMap<String, OAuth2Authentication> authorizationCodeStore = new ConcurrentHashMap<>();
 
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
         this.authorizationCodeStore.put(code, authentication);
     }
+
 
     @Override
     public OAuth2Authentication remove(String code) {

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -55,10 +54,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -76,8 +73,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity>
-        implements IRbacOrgService {
+public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity> implements IRbacOrgService {
     private final RbacOrgCopyMap map;
     private final IRbacRoleService rbacRoleService;
     private final RbacOrgMenuMapper menuMapper;
@@ -93,12 +89,12 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         entity.setOrgSysCode(generateCode(vo.getParentId()));
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 保存权限信息
         saveAuth(entity.getOrgId(), vo);
     }
+
 
     /**
      * 存储机构权限
@@ -113,6 +109,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         menuService.save(orgId, vo.getOrgMenuIds());
     }
 
+
     /**
      * 生成系统code
      *
@@ -121,18 +118,13 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      * @author zxiaozhou
      * @date 2021-03-08 12:00
      */
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     synchronized String generateCode(String newParentId) {
         newParentId = StringUtils.isBlank(newParentId) ? "" : newParentId;
         String code;
         if (StringUtils.isBlank(newParentId)) {
             LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper
-                    .and(v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""))
-                    .orderByDesc(RbacOrgEntity::getOrgSysCode)
-                    .last("LIMIT 1");
+            lambdaQueryWrapper.and(v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, "")).orderByDesc(RbacOrgEntity::getOrgSysCode).last("LIMIT 1");
             RbacOrgEntity one = this.getOne(lambdaQueryWrapper);
             code = CodeUtil.getSubYouBianCode(null, Objects.isNull(one) ? null : one.getOrgSysCode());
         } else {
@@ -140,17 +132,13 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             RbacOrgDto byId = this.getById(newParentId);
             // 获取本级最大code
             LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper
-                    .like(RbacOrgEntity::getOrgSysCode, byId.getOrgSysCode() + "___")
-                    .orderByDesc(RbacOrgEntity::getOrgSysCode)
-                    .last("LIMIT 1");
+            lambdaQueryWrapper.like(RbacOrgEntity::getOrgSysCode, byId.getOrgSysCode() + "___").orderByDesc(RbacOrgEntity::getOrgSysCode).last("LIMIT 1");
             RbacOrgEntity one = this.getOne(lambdaQueryWrapper);
-            code =
-                    CodeUtil.getSubYouBianCode(
-                            byId.getOrgSysCode(), Objects.isNull(one) ? null : one.getOrgSysCode());
+            code = CodeUtil.getSubYouBianCode(byId.getOrgSysCode(), Objects.isNull(one) ? null : one.getOrgSysCode());
         }
         return code;
     }
+
 
     /**
      * 入库前数据校验以及生产系统机构编码
@@ -179,10 +167,10 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
         one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(
-                    Status.VERIFICATION_FAILED, "当前机构社会信用代码已经存在:" + entity.getOrgCode());
+            throw new ResponseException(Status.VERIFICATION_FAILED, "当前机构社会信用代码已经存在:" + entity.getOrgCode());
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -198,24 +186,21 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         this.checkData(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 保存权限信息
         saveAuth(entity.getOrgId(), vo);
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<RbacOrgTreePageDto> pageByModel(RbacOrgPageVo vo) throws RuntimeException {
         // 分页查询
         vo.getAscs().add("orgSysCode");
         IPage<RbacOrgTreePageDto> pageInfo = mapper.pageByModel(vo.getPage(), vo);
         /*
-         * 1. 获取根节点
-         * 2. 构建树形
+         * 1. 获取根节点 2. 构建树形
          */
         // 获取根节点
         List<RbacOrgTreePageDto> records = pageInfo.getRecords();
@@ -234,10 +219,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
                 if (isParent) {
                     rootRecords.add(pageDto);
                     // 添加所有子类
-                    List<RbacOrgTreePageDto> collect =
-                            records.stream()
-                                    .filter(v -> v.getOrgSysCode().startsWith(orgSysCode))
-                                    .collect(Collectors.toList());
+                    List<RbacOrgTreePageDto> collect = records.stream().filter(v -> v.getOrgSysCode().startsWith(orgSysCode)).collect(Collectors.toList());
                     if (CollUtil.isNotEmpty(collect)) {
                         records.removeAll(collect);
                         childRecords.addAll(collect);
@@ -247,35 +229,30 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
                 }
             }
             // 构建树形
-            TreeToolUtils<RbacOrgTreePageDto> treeToolUtils =
-                    new TreeToolUtils<>(
-                            rootRecords,
-                            childRecords,
-                            new TreeToolUtils.TreeId<>() {
-                                @Override
-                                public String getId(RbacOrgTreePageDto orgTreePageDto) {
-                                    return orgTreePageDto.getOrgId();
-                                }
+            TreeToolUtils<RbacOrgTreePageDto> treeToolUtils = new TreeToolUtils<>(rootRecords, childRecords, new TreeToolUtils.TreeId<>() {
+                @Override
+                public String getId(RbacOrgTreePageDto orgTreePageDto) {
+                    return orgTreePageDto.getOrgId();
+                }
 
-                                @Override
-                                public String getParentId(RbacOrgTreePageDto orgTreePageDto) {
-                                    return orgTreePageDto.getParentId();
-                                }
-                            });
+
+                @Override
+                public String getParentId(RbacOrgTreePageDto orgTreePageDto) {
+                    return orgTreePageDto.getParentId();
+                }
+            });
             records = treeToolUtils.getTree();
         }
         return new PageDto<>(pageInfo, records);
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public RbacOrgDto getById(String orgId) throws RuntimeException {
         RbacOrgEntity byId = super.getById(orgId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacOrgDto rbacOrgDto = map.eToD(byId);
         // 查询功能权限
@@ -287,15 +264,14 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         return rbacOrgDto;
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteById(String orgId) throws RuntimeException {
         // 查询数据是否存在
         RbacOrgDto byId = this.getById(orgId);
         // 查询下级
-        LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper =
-                Wrappers.<RbacOrgEntity>lambdaQuery()
-                        .likeRight(RbacOrgEntity::getOrgSysCode, byId.getOrgSysCode());
+        LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = Wrappers.<RbacOrgEntity>lambdaQuery().likeRight(RbacOrgEntity::getOrgSysCode, byId.getOrgSysCode());
         List<RbacOrgEntity> list = this.list(lambdaQueryWrapper);
         // 获取默认角色id
         List<String> orgIds = new ArrayList<>();
@@ -304,11 +280,11 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         if (CollUtil.isNotEmpty(list)) {
             boolean remove = this.removeBatchByIds(orgIds);
             if (!remove) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
+
 
     @Override
     public void updateOrgState(String orgId, Integer type) throws RuntimeException {
@@ -324,6 +300,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
     }
 
+
     @Override
     public List<RbacOrgTreeDto> selectOrgTreeAsync(String parentId, String activateOrgId) {
         List<RbacOrgTreeDto> parentOrgList = new ArrayList<>(128);
@@ -333,25 +310,22 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         if (StringUtils.isNotBlank(parentId)) {
             lambdaQueryWrapper.eq(RbacOrgEntity::getParentId, parentId);
         } else {
-            lambdaQueryWrapper.and(
-                    v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""));
+            lambdaQueryWrapper.and(v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""));
         }
         List<RbacOrgEntity> orgEntities = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(orgEntities)) {
             parentOrgList.addAll(queryMap.dToE(orgEntities));
             List<String> orgIdsList = new ArrayList<>(orgEntities.size());
-            orgEntities.forEach(
-                    v -> {
-                        parentOrgList.add(queryMap.dToE(v));
-                        orgIdsList.add(v.getOrgId());
-                    });
+            orgEntities.forEach(v -> {
+                parentOrgList.add(queryMap.dToE(v));
+                orgIdsList.add(v.getOrgId());
+            });
             Map<String, Boolean> checkResults = checkHaveChildren(orgIdsList);
-            parentOrgList.forEach(
-                    v -> {
-                        Boolean result = checkResults.get(v.getOrgId());
-                        v.setHasChildren(Objects.nonNull(result));
-                        v.setIsLeaf(!Objects.nonNull(result));
-                    });
+            parentOrgList.forEach(v -> {
+                Boolean result = checkResults.get(v.getOrgId());
+                v.setHasChildren(Objects.nonNull(result));
+                v.setIsLeaf(!Objects.nonNull(result));
+            });
             // 2. 如果有需要激活的id，获取父级到需要激活的整个树数据
             if (StringUtils.isNotBlank(activateOrgId)) {
                 RbacOrgEntity byId = super.getById(activateOrgId);
@@ -365,10 +339,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
                         }
                     }
                     if (StringUtils.isNotBlank(orgSysParentCode)) {
-                        lambdaQueryWrapper =
-                                Wrappers.<RbacOrgEntity>lambdaQuery()
-                                        .ne(RbacOrgEntity::getOrgId, orgSysParentCode)
-                                        .likeRight(RbacOrgEntity::getOrgSysCode, orgSysParentCode);
+                        lambdaQueryWrapper = Wrappers.<RbacOrgEntity>lambdaQuery().ne(RbacOrgEntity::getOrgId, orgSysParentCode).likeRight(RbacOrgEntity::getOrgSysCode, orgSysParentCode);
                         List<RbacOrgEntity> list = this.list(lambdaQueryWrapper);
                         if (CollUtil.isNotEmpty(list)) {
                             childOrgList.addAll(queryMap.dToE(list));
@@ -378,23 +349,21 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             }
         }
         // 3. 构建树
-        TreeToolUtils<RbacOrgTreeDto> treeToolUtils =
-                new TreeToolUtils<>(
-                        parentOrgList,
-                        childOrgList,
-                        new TreeToolUtils.TreeId<>() {
-                            @Override
-                            public String getId(RbacOrgTreeDto orgTreeDto) {
-                                return orgTreeDto.getOrgId();
-                            }
+        TreeToolUtils<RbacOrgTreeDto> treeToolUtils = new TreeToolUtils<>(parentOrgList, childOrgList, new TreeToolUtils.TreeId<>() {
+            @Override
+            public String getId(RbacOrgTreeDto orgTreeDto) {
+                return orgTreeDto.getOrgId();
+            }
 
-                            @Override
-                            public String getParentId(RbacOrgTreeDto orgTreeDto) {
-                                return orgTreeDto.getParentId();
-                            }
-                        });
+
+            @Override
+            public String getParentId(RbacOrgTreeDto orgTreeDto) {
+                return orgTreeDto.getParentId();
+            }
+        });
         return treeToolUtils.getTree();
     }
+
 
     /**
      * 检测是否有下级
@@ -405,8 +374,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
      * @date 2022-05-02 18:38
      */
     private Map<String, Boolean> checkHaveChildren(List<String> orgIdsList) {
-        LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper =
-                Wrappers.<RbacOrgEntity>lambdaQuery().in(RbacOrgEntity::getParentId, orgIdsList);
+        LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = Wrappers.<RbacOrgEntity>lambdaQuery().in(RbacOrgEntity::getParentId, orgIdsList);
         List<RbacOrgEntity> list = this.list(lambdaQueryWrapper);
         Map<String, Boolean> result = new HashMap<>(orgIdsList.size());
         if (CollUtil.isNotEmpty(list)) {
@@ -414,6 +382,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
         return result;
     }
+
 
     @Override
     public List<RbacOrgHasChildrenDto> selectOrgList(Integer type, String parentId) {
@@ -432,23 +401,22 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             rbacOrgTreeDtos.forEach(v -> parentIds.add(v.getOrgId()));
             Map<String, Boolean> checkResults = checkHaveChildren(parentIds);
             if (CollUtil.isNotEmpty(checkResults)) {
-                rbacOrgTreeDtos.forEach(
-                        v -> {
-                            Boolean result = checkResults.get(v.getOrgId());
-                            v.setHasChildren(Objects.nonNull(result));
-                            v.setIsLeaf(!Objects.nonNull(result));
-                        });
+                rbacOrgTreeDtos.forEach(v -> {
+                    Boolean result = checkResults.get(v.getOrgId());
+                    v.setHasChildren(Objects.nonNull(result));
+                    v.setIsLeaf(!Objects.nonNull(result));
+                });
             }
         }
         return rbacOrgTreeDtos;
     }
 
+
     @Override
     public List<RbacOrgTreeDto> selectOrgTreeList(Integer type) throws RuntimeException {
         // 获取父级
         LambdaQueryWrapper<RbacOrgEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.and(
-                v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""));
+        lambdaQueryWrapper.and(v -> v.isNull(RbacOrgEntity::getParentId).or().eq(RbacOrgEntity::getParentId, ""));
         if (type == 1) {
             lambdaQueryWrapper.eq(RbacOrgEntity::getOrgStatus, 1);
         }
@@ -462,21 +430,18 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         List<RbacOrgEntity> children = this.list(lambdaQueryWrapper);
         // 组装树形
         if (CollUtil.isNotEmpty(parentList)) {
-            TreeToolUtils<RbacOrgTreeDto> utils =
-                    new TreeToolUtils<>(
-                            queryMap.dToE(parentList),
-                            queryMap.dToE(children),
-                            new TreeToolUtils.TreeId<>() {
-                                @Override
-                                public String getId(RbacOrgTreeDto rbacOrgTreeDto) {
-                                    return rbacOrgTreeDto.getOrgId();
-                                }
+            TreeToolUtils<RbacOrgTreeDto> utils = new TreeToolUtils<>(queryMap.dToE(parentList), queryMap.dToE(children), new TreeToolUtils.TreeId<>() {
+                @Override
+                public String getId(RbacOrgTreeDto rbacOrgTreeDto) {
+                    return rbacOrgTreeDto.getOrgId();
+                }
 
-                                @Override
-                                public String getParentId(RbacOrgTreeDto rbacOrgTreeDto) {
-                                    return rbacOrgTreeDto.getParentId();
-                                }
-                            });
+
+                @Override
+                public String getParentId(RbacOrgTreeDto rbacOrgTreeDto) {
+                    return rbacOrgTreeDto.getParentId();
+                }
+            });
             return utils.getTree();
         }
         return Collections.emptyList();

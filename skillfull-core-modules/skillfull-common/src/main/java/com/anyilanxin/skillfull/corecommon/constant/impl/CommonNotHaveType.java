@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,30 +46,23 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum CommonNotHaveType implements ISuperType {
-    /**
-     * 否
-     */
+    /** 否 */
     NOT(0, "否"),
 
-    /**
-     * 是
-     */
+    /** 是 */
     HAVE(1, "是");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     CommonNotHaveType(int type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -92,6 +82,7 @@ public enum CommonNotHaveType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -107,6 +98,7 @@ public enum CommonNotHaveType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

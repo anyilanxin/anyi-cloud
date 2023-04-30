@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,11 +48,9 @@ import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDi
 import com.anyilanxin.skillfull.system.modules.common.service.mapstruct.CommonDictItemVoMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,9 +66,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommonDictItemServiceImpl
-        extends ServiceImpl<CommonDictItemMapper, CommonDictItemEntity>
-        implements ICommonDictItemService {
+public class CommonDictItemServiceImpl extends ServiceImpl<CommonDictItemMapper, CommonDictItemEntity> implements ICommonDictItemService {
     private final CommonDictItemDtoMap dtoMap;
     private final CommonDictItemVoMap voMap;
     private final CommonDictItemMapper mapper;
@@ -83,13 +78,7 @@ public class CommonDictItemServiceImpl
         CommonDictItemEntity entity = voMap.aToB(vo);
         // 查询当前值是否已经存在
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper
-                .or(
-                        v ->
-                                v.eq(CommonDictItemEntity::getItemText, vo.getItemText())
-                                        .or()
-                                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
-                .eq(CommonDictItemEntity::getDictId, vo.getDictId());
+        lambdaQueryWrapper.or(v -> v.eq(CommonDictItemEntity::getItemText, vo.getItemText()).or().eq(CommonDictItemEntity::getItemValue, vo.getItemValue())).eq(CommonDictItemEntity::getDictId, vo.getDictId());
         List<CommonDictItemEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
             throw new ResponseException(Status.VERIFICATION_FAILED, "当前字典项值或字典项名称已经存在,请重新输入");
@@ -106,6 +95,7 @@ public class CommonDictItemServiceImpl
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateById(String itemId, CommonDictItemVo vo) throws RuntimeException {
@@ -113,14 +103,7 @@ public class CommonDictItemServiceImpl
         this.getById(itemId);
         // 查询字典项是否已经存在
         LambdaQueryWrapper<CommonDictItemEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper
-                .or(
-                        v ->
-                                v.eq(CommonDictItemEntity::getItemText, vo.getItemText())
-                                        .or()
-                                        .eq(CommonDictItemEntity::getItemValue, vo.getItemValue()))
-                .eq(CommonDictItemEntity::getDictId, vo.getDictId())
-                .ne(CommonDictItemEntity::getItemId, itemId);
+        lambdaQueryWrapper.or(v -> v.eq(CommonDictItemEntity::getItemText, vo.getItemText()).or().eq(CommonDictItemEntity::getItemValue, vo.getItemValue())).eq(CommonDictItemEntity::getDictId, vo.getDictId()).ne(CommonDictItemEntity::getItemId, itemId);
         List<CommonDictItemEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
             throw new ResponseException(Status.VERIFICATION_FAILED, "当前字典项值或字典项名称已经存在,请重新输入");
@@ -134,35 +117,31 @@ public class CommonDictItemServiceImpl
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<CommonDictItemDto> selectListByCode(String dictCode) throws RuntimeException {
         return mapper.selectListByCode(dictCode);
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<CommonDictItemPageDto> pageByModel(CommonDictItemPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public CommonDictItemDto getById(String itemId) throws RuntimeException {
         CommonDictItemEntity byId = super.getById(itemId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -175,13 +154,13 @@ public class CommonDictItemServiceImpl
         }
     }
 
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> itemIds) throws RuntimeException {
         List<CommonDictItemEntity> entities = this.listByIds(itemIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getItemId()));
@@ -190,6 +169,7 @@ public class CommonDictItemServiceImpl
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "批量删除数据字典项失败");
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})

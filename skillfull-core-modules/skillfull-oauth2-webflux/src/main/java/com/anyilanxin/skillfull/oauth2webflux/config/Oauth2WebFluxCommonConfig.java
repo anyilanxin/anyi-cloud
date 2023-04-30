@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.config;
 
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
@@ -59,44 +58,24 @@ public class Oauth2WebFluxCommonConfig {
     private final TokenStore tokenStore;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
 
-    /**
-     * webclient 配置
-     */
+    /** webclient 配置 */
     @Bean
     @LoadBalanced
     @ConditionalOnMissingBean
     public WebClient webClientBuilder() {
-        return WebClient.builder()
-                .filter(
-                        ExchangeFilterFunction.ofRequestProcessor(
-                                request ->
-                                        ReactiveSecurityContextHolder.getContext()
-                                                .map(
-                                                        context -> {
-                                                            Authentication authentication = context.getAuthentication();
-                                                            if (authentication.getDetails()
-                                                                    instanceof OAuth2AuthenticationDetails) {
-                                                                OAuth2AuthenticationDetails token =
-                                                                        (OAuth2AuthenticationDetails) authentication.getDetails();
-                                                                return ClientRequest.from(request)
-                                                                        .header(
-                                                                                AuthConstant.BEARER_TOKEN_HEADER_NAME,
-                                                                                "Bearer " + token.getTokenValue())
-                                                                        .build();
-                                                            } else if (authentication.getDetails()
-                                                                    instanceof DefaultOAuth2AccessToken) {
-                                                                DefaultOAuth2AccessToken token =
-                                                                        (DefaultOAuth2AccessToken) authentication.getDetails();
-                                                                return ClientRequest.from(request)
-                                                                        .header(
-                                                                                AuthConstant.BEARER_TOKEN_HEADER_NAME,
-                                                                                "Bearer " + token.getValue())
-                                                                        .build();
-                                                            }
-                                                            return ClientRequest.from(request).build();
-                                                        })))
-                .build();
+        return WebClient.builder().filter(ExchangeFilterFunction.ofRequestProcessor(request -> ReactiveSecurityContextHolder.getContext().map(context -> {
+            Authentication authentication = context.getAuthentication();
+            if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+                OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
+                return ClientRequest.from(request).header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getTokenValue()).build();
+            } else if (authentication.getDetails() instanceof DefaultOAuth2AccessToken) {
+                DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) authentication.getDetails();
+                return ClientRequest.from(request).header(AuthConstant.BEARER_TOKEN_HEADER_NAME, "Bearer " + token.getValue()).build();
+            }
+            return ClientRequest.from(request).build();
+        }))).build();
     }
+
 
     @Bean
     @ConditionalOnMissingBean

@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -50,50 +47,35 @@ import lombok.Getter;
 @ConstantType
 public enum AuthorizedGrantTypes implements ISuperType {
 
-    /**
-     * 图片验证码授权
-     */
+    /** 图片验证码授权 */
     PICTURE_CODE("picture_code", "图片验证码模式"),
 
-    /**
-     * 短信验证码授权
-     */
+    /** 短信验证码授权 */
     SMS_CODE("sms_code", "短信验证码模式"),
 
-    /**
-     * 客户端授权
-     */
+    /** 客户端授权 */
     CLIENT_CREDENTIALS("client_credentials", "客户端模式"),
 
-    /**
-     * 授权码授权
-     */
+    /** 授权码授权 */
     AUTHORIZATION_CODE("authorization_code", "授权码模式"),
 
-    /**
-     * 开放id授权
-     */
+    /** 开放id授权 */
     OPEN_ID("open_id", "开放id模式"),
 
-    /**
-     * 刷新token
-     */
+    /** 刷新token */
     REFRESH_TOKEN("refresh_token", "刷新token");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     AuthorizedGrantTypes(String type, String describe) {
         this.type = type;
         this.describe = describe;
     }
+
 
     /**
      * 获取授权类型
@@ -113,6 +95,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         return null;
     }
 
+
     /**
      * 判断某个类型是否存在
      *
@@ -131,6 +114,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -146,6 +130,7 @@ public enum AuthorizedGrantTypes implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

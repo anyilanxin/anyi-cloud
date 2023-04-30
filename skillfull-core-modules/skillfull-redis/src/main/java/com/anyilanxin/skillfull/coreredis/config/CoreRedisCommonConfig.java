@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.config;
 
 import static java.util.Collections.singletonMap;
@@ -37,9 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.time.Duration;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -93,6 +90,7 @@ public class CoreRedisCommonConfig {
         return redisTemplate;
     }
 
+
     /**
      * redisTemplate配置
      *
@@ -105,6 +103,7 @@ public class CoreRedisCommonConfig {
         return new StringRedisTemplate(redisConnectionFactory);
     }
 
+
     /**
      * 缓存配置
      *
@@ -116,61 +115,37 @@ public class CoreRedisCommonConfig {
     @ConditionalOnMissingBean
     public CacheManager cacheManager() {
         // 配置序列化
-        RedisCacheConfiguration config =
-                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
-        RedisCacheConfiguration redisCacheConfiguration =
-                config
-                        .serializeKeysWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(
-                                        new StringRedisSerializer()))
-                        .serializeValuesWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(getSerializer()));
-        return RedisCacheManager.builder(
-                        RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(redisCacheConfiguration)
-                .withInitialCacheConfigurations(
-                        singletonMap(
-                                CommonCoreConstant.TEST_DEMO_CACHE,
-                                RedisCacheConfiguration.defaultCacheConfig()
-                                        .entryTtl(Duration.ofMinutes(5))
-                                        .disableCachingNullValues()))
-                .transactionAware()
-                .build();
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
+        RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(getSerializer()));
+        return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory)).cacheDefaults(redisCacheConfiguration).withInitialCacheConfigurations(singletonMap(CommonCoreConstant.TEST_DEMO_CACHE, RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)).disableCachingNullValues())).transactionAware().build();
     }
+
 
     @Bean
     @ConditionalOnMissingBean
     public RedisMessageListenerContainer redisMessageListenerContainer() {
-        RedisMessageListenerContainer redisMessageListenerContainer =
-                new RedisMessageListenerContainer();
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
         return redisMessageListenerContainer;
     }
 
+
     private Jackson2JsonRedisSerializer<Object> getSerializer() {
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer =
-                new Jackson2JsonRedisSerializer<>(Object.class);
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.activateDefaultTyping(
-                LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         return jackson2JsonRedisSerializer;
     }
 
+
     @Bean
     @ConditionalOnMissingBean
-    public ReactiveStringRedisTemplate reactiveStringRedisTemplate(
-            ReactiveRedisConnectionFactory factory) {
+    public ReactiveStringRedisTemplate reactiveStringRedisTemplate(ReactiveRedisConnectionFactory factory) {
         RedisSerializer<String> serializer = new StringRedisSerializer();
-        RedisSerializationContext<String, String> serializationContext =
-                RedisSerializationContext.<String, String>newSerializationContext()
-                        .key(serializer)
-                        .value(serializer)
-                        .hashKey(serializer)
-                        .hashValue(serializer)
-                        .build();
+        RedisSerializationContext<String, String> serializationContext = RedisSerializationContext.<String, String>newSerializationContext().key(serializer).value(serializer).hashKey(serializer).hashValue(serializer).build();
         return new ReactiveStringRedisTemplate(factory, serializationContext);
     }
 }

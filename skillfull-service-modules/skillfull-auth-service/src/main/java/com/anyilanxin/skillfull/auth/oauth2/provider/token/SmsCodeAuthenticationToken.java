@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider.token;
 
 import java.util.Collection;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -53,18 +51,20 @@ public class SmsCodeAuthenticationToken extends UsernamePasswordAuthenticationTo
         setAuthenticated(false);
     }
 
-    public SmsCodeAuthenticationToken(
-            String phone, String smsCode, Collection<? extends GrantedAuthority> authorities) {
+
+    public SmsCodeAuthenticationToken(String phone, String smsCode, Collection<? extends GrantedAuthority> authorities) {
         super(phone, smsCode, authorities);
         this.phone = phone;
         this.smsCode = smsCode;
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return this.smsCode;
     }
+
 
     @Override
     public Object getPrincipal() {

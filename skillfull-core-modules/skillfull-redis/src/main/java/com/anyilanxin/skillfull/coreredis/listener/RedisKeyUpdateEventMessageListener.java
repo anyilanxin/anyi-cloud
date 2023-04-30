@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.listener;
 
 import com.anyilanxin.skillfull.coreredis.utils.CoreRedisCommonUtils;
@@ -48,8 +47,7 @@ import org.springframework.lang.Nullable;
  * @date 2021-07-09 21:45
  * @since JDK1.8
  */
-public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageListener
-        implements ApplicationEventPublisherAware {
+public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageListener implements ApplicationEventPublisherAware {
     private static final Topic KEY_EVENT_UPDATE_TOPIC = new PatternTopic("__keyevent@*__:set");
 
     @Nullable
@@ -59,15 +57,18 @@ public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageList
         super(listenerContainer);
     }
 
+
     @Override
     protected void doRegister(RedisMessageListenerContainer listenerContainer) {
         listenerContainer.addMessageListener(this, KEY_EVENT_UPDATE_TOPIC);
     }
 
+
     @Override
     protected void doHandleMessage(Message message) {
         this.publishEvent(new RedisKeyExpiredEvent(message.getBody()));
     }
+
 
     protected void publishEvent(RedisKeyExpiredEvent event) {
         if (this.publisher != null) {
@@ -75,10 +76,12 @@ public class RedisKeyUpdateEventMessageListener extends KeyspaceEventMessageList
         }
     }
 
+
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.publisher = applicationEventPublisher;
     }
+
 
     /**
      * 获取服务锁(如果锁不存在则自动添加),过期时间10s

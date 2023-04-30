@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -74,9 +71,7 @@ public class RbacResourceVo implements Serializable {
     @Schema(name = "remark", title = "备注")
     private String remark;
 
-    @Schema(
-            name = "requestPrefix",
-            title = "资源请求前缀，即server.servlet.context-path值或spring.webflux.base-path值，前缀mvc,后缀webflux")
+    @Schema(name = "requestPrefix", title = "资源请求前缀，即server.servlet.context-path值或spring.webflux.base-path值，前缀mvc,后缀webflux")
     private String requestPrefix;
 
     @Schema(name = "resourceType", title = "资源类型：1-内部服务,2-外部资源", required = true)

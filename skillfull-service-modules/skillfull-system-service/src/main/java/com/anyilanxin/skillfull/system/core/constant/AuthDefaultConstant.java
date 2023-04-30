@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant;
 
 /**
@@ -38,8 +37,6 @@ package com.anyilanxin.skillfull.system.core.constant;
  * @since JDK11
  */
 public interface AuthDefaultConstant {
-    /**
-     * 默认鉴权表达式
-     */
+    /** 默认鉴权表达式 */
     String DEFAULT_AUTH_EXPRESSION = "permitAll()";
 }

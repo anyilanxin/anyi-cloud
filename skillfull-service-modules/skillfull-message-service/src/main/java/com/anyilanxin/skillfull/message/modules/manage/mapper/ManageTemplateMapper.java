@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.message.modules.manage.entity.ManageTemplateEnti
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface ManageTemplateMapper extends BaseMapper<ManageTemplateEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageTemplatePageVo} 查询条件
+     * @param vo ${@link ManageTemplatePageVo} 查询条件
      * @param page ${@link Page< ManageTemplatePageDto >} 分页信息
      * @return IPage<ManageTemplatePageDto> ${@link IPage<ManageTemplatePageDto>} 结果
      * @author zxiaozhou
      * @date 2022-03-29 05:23:43
      */
-    IPage<ManageTemplatePageDto> pageByModel(
-            Page<ManageTemplatePageDto> page, @Param("query") ManageTemplatePageVo vo);
+    IPage<ManageTemplatePageDto> pageByModel(Page<ManageTemplatePageDto> page, @Param("query") ManageTemplatePageVo vo);
+
 
     /**
      * 通过模板id物理删除
@@ -73,6 +70,7 @@ public interface ManageTemplateMapper extends BaseMapper<ManageTemplateEntity> {
      * @date 2022-03-29 05:23:43
      */
     int physicalDeleteById(@Param("id") String templateId);
+
 
     /**
      * 通过模板id物理批量删除

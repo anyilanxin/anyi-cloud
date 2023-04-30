@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.authcenter.service;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.UserOrgTreeInfo;
@@ -37,9 +36,7 @@ import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.FindPass
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdateInfoVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdatePasswordVo;
 import com.anyilanxin.skillfull.system.modules.authcenter.controller.vo.UpdatePhoneVo;
-
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -61,6 +58,7 @@ public interface IUserCenterService {
      */
     List<UserRouteModel> getRouterInfo(String systemCodes);
 
+
     /**
      * 获取用户路由菜单信息(树形)
      *
@@ -71,6 +69,7 @@ public interface IUserCenterService {
      */
     List<UserRouteTreeModel> getRouterInfoTree(String systemCodes);
 
+
     /**
      * 修改用户资料
      *
@@ -79,6 +78,7 @@ public interface IUserCenterService {
      * @date 2022-05-02 09:44
      */
     void updateUserInfo(UpdateInfoVo vo);
+
 
     /**
      * 修改用户头像
@@ -89,6 +89,7 @@ public interface IUserCenterService {
      */
     void updateUserAvatar(MultipartFile file);
 
+
     /**
      * 修改用户手机号
      *
@@ -97,6 +98,7 @@ public interface IUserCenterService {
      * @date 2022-05-02 09:45
      */
     void updateUserPhone(UpdatePhoneVo vo);
+
 
     /**
      * 修改密码
@@ -107,6 +109,7 @@ public interface IUserCenterService {
      */
     void updatePassword(UpdatePasswordVo vo);
 
+
     /**
      * 找回密码
      *
@@ -116,6 +119,7 @@ public interface IUserCenterService {
      */
     void findPassword(FindPasswordVo vo);
 
+
     /**
      * 修改手机号或者找回密码发送短信验证码
      *
@@ -124,6 +128,7 @@ public interface IUserCenterService {
      * @date 2022-05-02 09:47
      */
     void sendSmsCode(String phone);
+
 
     /**
      * 获取用户机构列表

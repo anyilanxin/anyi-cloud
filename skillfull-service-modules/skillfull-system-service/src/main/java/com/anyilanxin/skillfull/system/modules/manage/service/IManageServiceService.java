@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.corecommon.model.system.ManageSwaggerInfoModel;
@@ -40,7 +39,6 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageServiceD
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageServicePageDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.SystemStatDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ValidServiceInfoDto;
-
 import java.util.List;
 import java.util.Map;
 
@@ -63,17 +61,19 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      */
     void save(ManageServiceVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo        ${@link ManageServiceVo} 服务管理更新
+     * @param vo ${@link ManageServiceVo} 服务管理更新
      * @param serviceId ${@link String} 服务id
-     * @param vo        ${@link ManageServiceVo} 服务管理更新
+     * @param vo ${@link ManageServiceVo} 服务管理更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:20
      */
     void updateById(String serviceId, ManageServiceVo vo) throws RuntimeException;
+
 
     /**
      * 获取swagger信息
@@ -84,6 +84,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * @date 2020-09-14 03:19
      */
     Map<String, ManageSwaggerInfoModel> selectSwaggerInfo() throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -96,6 +97,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      */
     PageDto<ManageServicePageDto> pageByModel(ManageServicePageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -107,6 +109,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      */
     ManageServiceDto getById(String serviceId) throws RuntimeException;
 
+
     /**
      * 通过serviceId删除
      *
@@ -117,6 +120,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      */
     void deleteById(String serviceId) throws RuntimeException;
 
+
     /**
      * 获取系统统计
      *
@@ -126,6 +130,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      * @date 2021-01-27 16:55
      */
     SystemStatDto systemStat() throws RuntimeException;
+
 
     /**
      * 获取有效的服务列表

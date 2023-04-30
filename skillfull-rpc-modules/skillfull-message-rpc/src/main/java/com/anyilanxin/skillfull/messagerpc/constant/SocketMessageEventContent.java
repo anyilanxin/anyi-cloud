@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant;
 
 /**
@@ -38,33 +37,21 @@ package com.anyilanxin.skillfull.messagerpc.constant;
  * @since JDK11
  */
 public interface SocketMessageEventContent {
-    /**
-     * 授权事件
-     */
+    /** 授权事件 */
     String AUTH_EVENT = "AUTH_EVENT";
 
-    /**
-     * 异常事件
-     */
+    /** 异常事件 */
     String ERROR_EVENT = "ERROR_EVENT";
 
-    /**
-     * 通知事件
-     */
+    /** 通知事件 */
     String NOTICE_EVENT = "NOTICE_EVENT";
 
-    /**
-     * 业务事件
-     */
+    /** 业务事件 */
     String BUSINESS_EVENT = "BUSINESS_EVENT";
 
-    /**
-     * 聊天事件
-     */
+    /** 聊天事件 */
     String CHAT_EVENT = "CHAT_EVENT";
 
-    /**
-     * 上下线通知
-     */
+    /** 上下线通知 */
     String UP_DOWN = "UP_DOWN";
 }

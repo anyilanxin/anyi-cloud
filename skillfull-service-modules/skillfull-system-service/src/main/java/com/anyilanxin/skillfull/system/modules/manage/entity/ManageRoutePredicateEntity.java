@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.entity;
 
 import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
@@ -35,9 +34,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -62,44 +59,28 @@ public class ManageRoutePredicateEntity extends BaseEntity {
     @TableId
     private String predicateId;
 
-    /**
-     * 服务id
-     */
+    /** 服务id */
     private String serviceId;
 
-    /**
-     * 路由id
-     */
+    /** 路由id */
     private String routeId;
 
-    /**
-     * 断言类型
-     */
+    /** 断言类型 */
     private String predicateType;
 
-    /**
-     * 断言类型名称
-     */
+    /** 断言类型名称 */
     private String predicateTypeName;
 
-    /**
-     * 断言名称
-     */
+    /** 断言名称 */
     private String predicateName;
 
-    /**
-     * 断言规则:Map
-     */
+    /** 断言规则:Map */
     @TableField(typeHandler = FastjsonTypeHandler.class)
     private Map<String, String> rules;
 
-    /**
-     * 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)
-     */
+    /** 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除) */
     private Integer enableDelete;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

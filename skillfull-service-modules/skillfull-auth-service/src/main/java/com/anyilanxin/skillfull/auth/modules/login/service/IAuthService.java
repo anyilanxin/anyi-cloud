@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
@@ -48,6 +47,7 @@ public interface IAuthService {
      * @date 2022-02-22 22:49
      */
     void logOut();
+
 
     /**
      * 获取当前用户信息

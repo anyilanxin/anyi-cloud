@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,30 +46,23 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum SecurityType implements ISuperType {
-    /**
-     * 对称加密
-     */
+    /** 对称加密 */
     Symmetric("Authorize", "对称加密"),
 
-    /**
-     * 非对称
-     */
+    /** 非对称 */
     Asymmetric("Decrypt", "非对称");
 
-    /**
-     * 加密方式
-     */
+    /** 加密方式 */
     private final String type;
 
-    /**
-     * 加密方式描述
-     */
+    /** 加密方式描述 */
     private final String typeDescribe;
 
     SecurityType(String type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -92,6 +82,7 @@ public enum SecurityType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -107,6 +98,7 @@ public enum SecurityType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

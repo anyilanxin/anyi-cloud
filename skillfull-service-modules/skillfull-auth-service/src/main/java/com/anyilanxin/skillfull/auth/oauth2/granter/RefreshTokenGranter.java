@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
@@ -47,20 +46,13 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 @Slf4j
 public class RefreshTokenGranter extends AbstractTokenGranter {
 
-    public RefreshTokenGranter(
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.REFRESH_TOKEN.getType());
+    public RefreshTokenGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.REFRESH_TOKEN.getType());
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         return super.getOAuth2Authentication(client, tokenRequest);
     }

@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Map;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -98,9 +95,7 @@ public class RbacResourceApiVo implements Serializable {
     @Max(value = 1, message = "是否需要鉴权只能为0、1")
     private Integer requireAuth;
 
-    @Schema(
-            name = "authType",
-            title = "鉴权类型:1-全局(网关与服务都开启时同时鉴权)，2-网关(紧网关鉴权)，3-服务(网关与服务都开启时紧紧服务鉴权)，默认1,具体与AuthType一致")
+    @Schema(name = "authType", title = "鉴权类型:1-全局(网关与服务都开启时同时鉴权)，2-网关(紧网关鉴权)，3-服务(网关与服务都开启时紧紧服务鉴权)，默认1,具体与AuthType一致")
     private Integer authType;
 
     @Schema(name = "permissionExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.systemrpc.feign;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.constant.ServiceConstant;
 import com.anyilanxin.skillfull.corecommon.feign.FeignFallback;
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.systemrpc.model.SimpleUserModel;
-
 import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,10 +46,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2022-02-12 21:54
  * @since JDK1.8
  */
-@FeignClient(
-        value = ServiceConstant.SYSTEM_SERVICE,
-        path = ServiceConstant.SYSTEM_SERVICE_PATH,
-        fallbackFactory = FeignFallback.class)
+@FeignClient(value = ServiceConstant.SYSTEM_SERVICE, path = ServiceConstant.SYSTEM_SERVICE_PATH, fallbackFactory = FeignFallback.class)
 public interface SystemRemoteRoleService {
     /**
      * 根据多个用户组id查询用户组信息

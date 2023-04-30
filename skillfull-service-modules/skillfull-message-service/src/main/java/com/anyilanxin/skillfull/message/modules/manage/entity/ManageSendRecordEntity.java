@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.entity;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -39,9 +38,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -66,80 +63,50 @@ public class ManageSendRecordEntity extends BaseEntity {
     @TableId
     private String sendRecordId;
 
-    /**
-     * 模板id
-     */
+    /** 模板id */
     private String templateId;
 
-    /**
-     * 三方系统模板编码
-     */
+    /** 三方系统模板编码 */
     private String templateThirdCode;
 
-    /**
-     * 模板code
-     */
+    /** 模板code */
     private String templateCode;
 
-    /**
-     * 发送批次号
-     */
+    /** 发送批次号 */
     private String sendBatchNo;
 
-    /**
-     * 业务id
-     */
+    /** 业务id */
     private String businessId;
 
-    /**
-     * 模板原始数据,json
-     */
+    /** 模板原始数据,json */
     @TableField(typeHandler = FastjsonTypeHandler.class)
     private JSONObject templateOriginalData;
 
-    /**
-     * 发送方式:1-微信模板,2-短信,3-邮件
-     */
+    /** 发送方式:1-微信模板,2-短信,3-邮件 */
     private Integer sendType;
 
-    /**
-     * 接收人
-     */
+    /** 接收人 */
     private String sendReceiver;
 
-    /**
-     * 发送内容
-     */
+    /** 发送内容 */
     private String sendContent;
 
-    /**
-     * 发送时间
-     */
+    /** 发送时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime sendTime;
 
-    /**
-     * 发送状态:0-失败，1-成功，2-多次发送后失败。默认0
-     */
+    /** 发送状态:0-失败，1-成功，2-多次发送后失败。默认0 */
     private String sendStatus;
 
-    /**
-     * 发送失败原因，json数组
-     */
+    /** 发送失败原因，json数组 */
     private String sendResults;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 
-    /**
-     * 已经发送次数，默认1
-     */
+    /** 已经发送次数，默认1 */
     private Integer sendNum;
 
-    /**
-     * 最大发送次数，默认1
-     */
+    /** 最大发送次数，默认1 */
     private Integer sendMaxNum;
 }

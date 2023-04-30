@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider.token;
 
 import java.util.Collection;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -48,8 +46,7 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
     private String pictureCode;
     private String pictureCodeId;
 
-    public PictureCodeAuthenticationToken(
-            String accountOrPhone, String password, String pictureCode, String pictureCodeId) {
+    public PictureCodeAuthenticationToken(String accountOrPhone, String password, String pictureCode, String pictureCodeId) {
         super(accountOrPhone, password);
         this.accountOrPhone = accountOrPhone;
         this.password = password;
@@ -58,12 +55,8 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
         setAuthenticated(false);
     }
 
-    public PictureCodeAuthenticationToken(
-            String accountOrPhone,
-            String password,
-            String pictureCode,
-            String pictureCodeId,
-            Collection<? extends GrantedAuthority> authorities) {
+
+    public PictureCodeAuthenticationToken(String accountOrPhone, String password, String pictureCode, String pictureCodeId, Collection<? extends GrantedAuthority> authorities) {
         super(accountOrPhone, password, authorities);
         this.accountOrPhone = accountOrPhone;
         this.password = password;
@@ -72,18 +65,22 @@ public class PictureCodeAuthenticationToken extends UsernamePasswordAuthenticati
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return this.password;
     }
 
+
     public String getPictureCode() {
         return this.pictureCode;
     }
 
+
     public String getPictureCodeId() {
         return this.pictureCodeId;
     }
+
 
     @Override
     public Object getPrincipal() {

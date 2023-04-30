@@ -27,14 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.manage.controller.vo.ManageRouteVo;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteEntity;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteDto;
-
 import java.util.List;
 
 /**
@@ -56,17 +54,19 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     void save(ManageRouteVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo      ${@link ManageRouteVo} 路由更新
+     * @param vo ${@link ManageRouteVo} 路由更新
      * @param routeId ${@link String} 路由id
-     * @param vo      ${@link ManageRouteVo} 路由更新
+     * @param vo ${@link ManageRouteVo} 路由更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:16
      */
     void updateById(String routeId, ManageRouteVo vo) throws RuntimeException;
+
 
     /**
      * 条件查询多条
@@ -79,6 +79,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     List<ManageRouteDto> selectList(String serviceId) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -90,6 +91,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     ManageRouteDto getById(String routeId) throws RuntimeException;
 
+
     /**
      * 通过routeId删除
      *
@@ -99,6 +101,7 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      * @date 2021-12-19 00:22:16
      */
     void deleteById(String routeId) throws RuntimeException;
+
 
     /**
      * 通过serviceId删除
@@ -110,11 +113,12 @@ public interface IManageRouteService extends BaseService<ManageRouteEntity> {
      */
     void deleteByServiceId(String serviceId) throws RuntimeException;
 
+
     /**
      * 修改路由状态
      *
      * @param routeId ${@link String} 路由id
-     * @param state   ${@link Integer} 操作类型:0-禁止,1-启用
+     * @param state ${@link Integer} 操作类型:0-禁止,1-启用
      * @author zxiaozhou
      * @date 2021-12-19 17:41
      */

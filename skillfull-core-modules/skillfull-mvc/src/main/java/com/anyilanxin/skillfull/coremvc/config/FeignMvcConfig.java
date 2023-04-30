@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -76,27 +73,27 @@ public class FeignMvcConfig {
         return Logger.Level.FULL;
     }
 
+
     @Bean
     @ConditionalOnMissingBean
     public okhttp3.OkHttpClient okHttpClient() {
         return new okhttp3.OkHttpClient.Builder().connectionPool(new ConnectionPool()).build();
     }
 
+
     @Bean
     @ConditionalOnMissingBean
     public Decoder feignDecoder() {
-        return new ResponseEntityDecoder(
-                new SpringDecoder(feignHttpMessageConverter(), new EmptyObjectProvider<>()));
+        return new ResponseEntityDecoder(new SpringDecoder(feignHttpMessageConverter(), new EmptyObjectProvider<>()));
     }
 
+
     public ObjectFactory<HttpMessageConverters> feignHttpMessageConverter() {
-        final HttpMessageConverters httpMessageConverters =
-                new HttpMessageConverters(new GateWayMappingJackson2HttpMessageConverter());
+        final HttpMessageConverters httpMessageConverters = new HttpMessageConverters(new GateWayMappingJackson2HttpMessageConverter());
         return () -> httpMessageConverters;
     }
 
-    public static class GateWayMappingJackson2HttpMessageConverter
-            extends MappingJackson2HttpMessageConverter {
+    public static class GateWayMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
         GateWayMappingJackson2HttpMessageConverter() {
             List<MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MediaType.valueOf(MediaType.TEXT_HTML_VALUE + ";charset=UTF-8"));

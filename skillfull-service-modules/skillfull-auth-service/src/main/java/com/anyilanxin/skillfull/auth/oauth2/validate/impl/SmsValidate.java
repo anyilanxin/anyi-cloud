@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate.impl;
 
 import com.alibaba.fastjson.JSONObject;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.skillfull.auth.oauth2.validate.IValidate;
 import com.anyilanxin.skillfull.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -53,34 +50,36 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class SmsValidate implements IValidate {
-    //    private final SecurityProperties properties;
+    // private final SecurityProperties properties;
     private final RedisTemplate<String, Object> redisTemplate;
     public static final String PHONE = "phone";
 
     @Override
     public ValidateDto getVerification(JSONObject parameter, HttpServletRequest request) {
         String code = CoreCommonUtils.get32UUId();
-        //        redisTemplate.opsForValue().set(SMS_CODE_KEY_PREFIX + parameter.getString(PHONE),
+        // redisTemplate.opsForValue().set(SMS_CODE_KEY_PREFIX +
+        // parameter.getString(PHONE),
         // code, properties.getCodeValidityInSeconds());
         // 发送短信验证码
         return null;
     }
 
+
     @Override
     public CheckDto checkVerification(CheckModel parameter) {
-        //        String codeKey = SMS_CODE_KEY_PREFIX + parameter.getCodeId();
-        //        Object data = redisTemplate.opsForValue().get(codeKey);
+        // String codeKey = SMS_CODE_KEY_PREFIX + parameter.getCodeId();
+        // Object data = redisTemplate.opsForValue().get(codeKey);
         CheckDto checkDto = new CheckDto();
-        //        if (Objects.nonNull(data)) {
-        //            String code = data.toString();
-        //            if (code.equals(parameter.getCodeValue())) {
-        //                checkDto.setResult(true);
-        //            } else {
-        //                checkDto.setMsg("验证码不正确");
-        //            }
-        //        } else {
-        //            checkDto.setMsg("验证码过期");
-        //        }
+        // if (Objects.nonNull(data)) {
+        // String code = data.toString();
+        // if (code.equals(parameter.getCodeValue())) {
+        // checkDto.setResult(true);
+        // } else {
+        // checkDto.setMsg("验证码不正确");
+        // }
+        // } else {
+        // checkDto.setMsg("验证码过期");
+        // }
         return checkDto;
     }
 }

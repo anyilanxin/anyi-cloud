@@ -27,14 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -61,6 +59,7 @@ public class Base64FileUtils {
         return new ByteArrayInputStream(bytes);
     }
 
+
     /**
      * 字符串转Base64字符串
      *
@@ -72,6 +71,7 @@ public class Base64FileUtils {
     public static String strToBase64Str(String str) {
         return Base64.encodeBase64String(str.getBytes(StandardCharsets.UTF_8));
     }
+
 
     /**
      * InputStream转base64
@@ -87,9 +87,7 @@ public class Base64FileUtils {
             bytes = IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error(
-                    "------------Base64FileUtils------InputStream转byte[]异常------>inputStreamToBase64:{}",
-                    e.getMessage());
+            log.error("------------Base64FileUtils------InputStream转byte[]异常------>inputStreamToBase64:{}", e.getMessage());
         }
         return Base64.encodeBase64String(bytes);
     }

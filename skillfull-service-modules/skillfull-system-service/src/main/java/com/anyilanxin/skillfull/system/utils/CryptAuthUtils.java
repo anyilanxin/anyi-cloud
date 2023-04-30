@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.utils;
 
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,7 +53,7 @@ public class CryptAuthUtils {
     /**
      * 加密明文密码
      *
-     * @param password  ${@link String} 明文密码
+     * @param password ${@link String} 明文密码
      * @param secretKey ${@link String} 盐
      * @return String ${@link String}
      * @author zxiaozhou
@@ -76,10 +73,11 @@ public class CryptAuthUtils {
         return utils.encoder.encode(password + secretKey);
     }
 
+
     /**
      * 密码匹配
      *
-     * @param rawPassword     ${@link CharSequence} 原密码
+     * @param rawPassword ${@link CharSequence} 原密码
      * @param encodedPassword ${@link String} 加密后的密码
      * @author zxiaozhou
      * @date 2019-05-19 00:41
@@ -88,11 +86,12 @@ public class CryptAuthUtils {
         return utils.encoder.matches(rawPassword, encodedPassword);
     }
 
+
     /**
      * 密码匹配
      *
-     * @param password        ${@link String} 明文密码
-     * @param salt            ${@link String} 密码盐
+     * @param password ${@link String} 明文密码
+     * @param salt ${@link String} 密码盐
      * @param encodedPassword ${@link String} 加密后的密码
      * @author zxiaozhou
      * @date 2019-05-19 00:41
@@ -101,6 +100,7 @@ public class CryptAuthUtils {
         CharSequence rawPassword = password + salt;
         return matches(rawPassword, encodedPassword);
     }
+
 
     /**
      * 通过明文密码获取密码信息
@@ -119,6 +119,7 @@ public class CryptAuthUtils {
         return passwordInfo;
     }
 
+
     @PostConstruct
     private void init() {
         utils = this;
@@ -129,14 +130,10 @@ public class CryptAuthUtils {
     @ToString
     @EqualsAndHashCode
     public static class PasswordInfo {
-        /**
-         * 密码盐
-         */
+        /** 密码盐 */
         private String salt;
 
-        /**
-         * 密文密码
-         */
+        /** 密文密码 */
         private String encodedPassword;
     }
 }

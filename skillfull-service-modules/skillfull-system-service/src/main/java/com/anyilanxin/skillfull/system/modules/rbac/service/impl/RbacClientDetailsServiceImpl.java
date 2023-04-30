@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -52,9 +51,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDt
 import com.anyilanxin.skillfull.system.modules.rbac.service.mapstruct.RbacClientDetailsCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -73,9 +70,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RbacClientDetailsServiceImpl
-        extends ServiceImpl<RbacClientDetailsMapper, RbacClientDetailsEntity>
-        implements IRbacClientDetailsService {
+public class RbacClientDetailsServiceImpl extends ServiceImpl<RbacClientDetailsMapper, RbacClientDetailsEntity> implements IRbacClientDetailsService {
     private final RbacClientDetailsCopyMap map;
     private final RbacRoleClientMapper rbacRoleClientMapper;
     private final RbacRoleMapper rbacRoleMapper;
@@ -94,10 +89,10 @@ public class RbacClientDetailsServiceImpl
         entity.setClientSecurity(encodePassword);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
+
 
     /**
      * 数据校验
@@ -106,9 +101,7 @@ public class RbacClientDetailsServiceImpl
      * @author zxiaozhou
      * @date 2022-02-10 16:19
      */
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     void check(RbacClientDetailsVo vo) {
         if (StringUtils.isBlank(vo.getClientId())) {
             if (StringUtils.isBlank(vo.getClientId())) {
@@ -127,11 +120,11 @@ public class RbacClientDetailsServiceImpl
             vo.setClientId(null);
             vo.setClientSecurity(null);
         }
-        if (vo.getLimitError() == CommonNotHaveType.HAVE.getType()
-                && (Objects.isNull(vo.getMaxErrorNum()) || vo.getMaxErrorNum() <= 0)) {
+        if (vo.getLimitError() == CommonNotHaveType.HAVE.getType() && (Objects.isNull(vo.getMaxErrorNum()) || vo.getMaxErrorNum() <= 0)) {
             throw new ResponseException(Status.VERIFICATION_FAILED, "当前设置了需要限制验证错误次数，请填写最大允许错误次数");
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -145,29 +138,24 @@ public class RbacClientDetailsServiceImpl
         entity.setClientDetailId(clientDetailId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public PageDto<RbacClientDetailsPageDto> pageByModel(RbacClientDetailsPageVo vo)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public PageDto<RbacClientDetailsPageDto> pageByModel(RbacClientDetailsPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public RbacClientDetailsDto getById(String clientDetailId) throws RuntimeException {
         RbacClientDetailsEntity byId = super.getById(clientDetailId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacClientDetailsDto rbacClientDetailsDto = map.eToD(byId);
         // 获取管关联角色
@@ -175,8 +163,7 @@ public class RbacClientDetailsServiceImpl
         if (CollectionUtil.isEmpty(roleIds)) {
             roleIds = Collections.emptySet();
         }
-        Set<RbacRoleSimpleDto> roleInfos =
-                rbacRoleClientMapper.selectRoleAllInfoListById(clientDetailId);
+        Set<RbacRoleSimpleDto> roleInfos = rbacRoleClientMapper.selectRoleAllInfoListById(clientDetailId);
         if (CollectionUtil.isEmpty(roleInfos)) {
             roleInfos = Collections.emptySet();
         }
@@ -184,6 +171,7 @@ public class RbacClientDetailsServiceImpl
         rbacClientDetailsDto.setRoleInfos(roleInfos);
         return rbacClientDetailsDto;
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -193,39 +181,38 @@ public class RbacClientDetailsServiceImpl
         // 删除数据
         boolean b = this.removeById(clientDetailId);
         if (!b) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> clientDetailIds) throws RuntimeException {
         List<RbacClientDetailsEntity> entities = this.listByIds(clientDetailIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getClientDetailId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
+
 
     @Override
     public void updateState(String clientDetailId, Integer type) {
         // 查询数据是否存在
         this.getById(clientDetailId);
-        RbacClientDetailsEntity detailsEntity =
-                RbacClientDetailsEntity.builder().clientDetailId(clientDetailId).clientStatus(type).build();
+        RbacClientDetailsEntity detailsEntity = RbacClientDetailsEntity.builder().clientDetailId(clientDetailId).clientStatus(type).build();
         boolean result = super.updateById(detailsEntity);
         if (!result) {
             throw new ResponseException("修改状态失败");
         }
     }
+
 
     @Override
     public void updateAuth(String clientDetailId, RbacClientAuthVo vo) {

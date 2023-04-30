@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.config.properfy;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.GRAY_HEADER_KEY;
 
 import cn.hutool.core.collection.CollectionUtil;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -57,50 +54,32 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "springdoc")
 public class SpringDocCoreWebFluxProperty {
-    /**
-     * 请求头
-     */
+    /** 请求头 */
     private Set<String> headers;
 
-    /**
-     * 是否为webflux,用于spring doc打印信息路径判断使用
-     */
+    /** 是否为webflux,用于spring doc打印信息路径判断使用 */
     private boolean webflux;
 
-    /**
-     * 版本号
-     */
+    /** 版本号 */
     private String version;
 
-    /**
-     * swagger请求前缀
-     */
+    /** swagger请求前缀 */
     private String apiPrefix;
 
-    /**
-     * 联系人
-     */
+    /** 联系人 */
     private String contactUser = "zxiaozhou";
 
-    /**
-     * 联系邮箱
-     */
+    /** 联系邮箱 */
     private String contactEmail = "";
 
-    /**
-     * 标题
-     */
+    /** 标题 */
     private String title = "";
 
-    /**
-     * 是否启用doc
-     */
+    /** 是否启用doc */
     @Value("${springdoc.swagger-ui.enabled}")
     private boolean swaggerEnable;
 
-    /**
-     * 扫包路径
-     */
+    /** 扫包路径 */
     private String packagesToScan;
 
     public Set<String> getHeaders() {

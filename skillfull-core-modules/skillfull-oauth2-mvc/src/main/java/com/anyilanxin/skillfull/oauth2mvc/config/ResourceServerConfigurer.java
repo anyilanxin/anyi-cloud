@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc.config;
 
 import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.DEFAULT_RESOURCE_ID;
@@ -41,9 +40,7 @@ import com.anyilanxin.skillfull.oauth2mvc.CustomLogoutSuccessHandler;
 import com.anyilanxin.skillfull.oauth2mvc.CustomOAuthEntryPoint;
 import com.anyilanxin.skillfull.oauth2mvc.config.properties.CustomSecurityProperties;
 import com.anyilanxin.skillfull.oauth2mvc.utils.Oauth2Utils;
-
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -96,20 +93,15 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
             http.authorizeRequests().anyRequest().permitAll();
         } else {
             // 接管所有请求
-            Set<Oauth2Utils.WhiteListInfo> whiteList =
-                    Oauth2Utils.getWhiteList(applicationContext, properties);
-            log.info(
-                    "------------CustomResourceServerConfigurer------当前鉴权白名单------>configure:\n{}",
-                    whiteList);
+            Set<Oauth2Utils.WhiteListInfo> whiteList = Oauth2Utils.getWhiteList(applicationContext, properties);
+            log.info("------------CustomResourceServerConfigurer------当前鉴权白名单------>configure:\n{}", whiteList);
             if (CollUtil.isNotEmpty(whiteList)) {
                 for (Oauth2Utils.WhiteListInfo whiteListInfo : whiteList) {
                     Set<HttpMethod> methods = whiteListInfo.getMethods();
                     Set<String> urls = whiteListInfo.getUrls();
                     if (CollUtil.isNotEmpty(methods)) {
                         for (HttpMethod method : methods) {
-                            http.authorizeRequests()
-                                    .antMatchers(method, urls.toArray(new String[]{}))
-                                    .permitAll();
+                            http.authorizeRequests().antMatchers(method, urls.toArray(new String[]{})).permitAll();
                         }
                     } else {
                         http.authorizeRequests().antMatchers(urls.toArray(new String[]{})).permitAll();
@@ -120,41 +112,40 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         }
     }
 
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources
-                .tokenStore(tokenStore)
-                .resourceId(applicationName)
-                .tokenExtractor(tokenExtractor())
-                .authenticationManager(authenticationManager())
-                .authenticationEntryPoint(oAuthEntryPoint())
-                .accessDeniedHandler(accessDeniedHandler());
+        resources.tokenStore(tokenStore).resourceId(applicationName).tokenExtractor(tokenExtractor()).authenticationManager(authenticationManager()).authenticationEntryPoint(oAuthEntryPoint()).accessDeniedHandler(accessDeniedHandler());
     }
+
 
     @Bean
     public OAuth2AuthenticationManager authenticationManager() {
-        CustomOAuth2AuthenticationManager customOAuth2AuthenticationManager =
-                new CustomOAuth2AuthenticationManager();
+        CustomOAuth2AuthenticationManager customOAuth2AuthenticationManager = new CustomOAuth2AuthenticationManager();
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore);
         customOAuth2AuthenticationManager.setTokenServices(defaultTokenServices);
         return customOAuth2AuthenticationManager;
     }
 
+
     @Bean
     public CustomOAuthEntryPoint oAuthEntryPoint() {
         return new CustomOAuthEntryPoint();
     }
+
 
     @Bean
     public CustomAccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
 
+
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler(tokenExtractor(), tokenStore);
     }
+
 
     @Bean
     public TokenExtractor tokenExtractor() {

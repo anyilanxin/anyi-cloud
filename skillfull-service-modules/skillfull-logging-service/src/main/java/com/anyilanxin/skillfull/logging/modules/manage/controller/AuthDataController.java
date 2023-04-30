@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -44,9 +43,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -70,46 +67,32 @@ import org.springframework.web.bind.annotation.*;
 public class AuthDataController extends BaseController {
     private final IAuthDataService service;
 
-    @Operation(
-            summary = "登录日志删除",
-            tags = {"v1.0.0"},
-            description = "登录日志删除")
+    @Operation(summary = "登录日志删除", tags = {"v1.0.0"}, description = "登录日志删除")
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @DeleteMapping(value = "/delete-one/{authLogId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空")
-            String authLogId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空") String authLogId) {
         service.deleteById(authLogId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "登录日志批量删除",
-            tags = {"v1.0.0"},
-            description = "登录日志批量删除")
+
+    @Operation(summary = "登录日志批量删除", tags = {"v1.0.0"}, description = "登录日志批量删除")
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(
-            @RequestBody @NotNullSize(message = "待删除授权日志id不能为空") List<String> authLogIds) {
+    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除授权日志id不能为空") List<String> authLogIds) {
         service.deleteBatch(authLogIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过授权日志id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询登录日志详情")
+
+    @Operation(summary = "通过授权日志id查询详情", tags = {"v1.0.0"}, description = "查询登录日志详情")
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @GetMapping(value = "/select/one/{authLogId}")
-    public Result<AuthDataDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空")
-            String authLogId) {
+    public Result<AuthDataDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "授权日志id不能为空") String authLogId) {
         return ok(service.getById(authLogId));
     }
 
-    @Operation(
-            summary = "登录日志分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询登录日志")
+
+    @Operation(summary = "登录日志分页查询", tags = {"v1.0.0"}, description = "分页查询登录日志")
     @PostMapping(value = "/select/page")
     public Result<PageDto<AuthDataPageDto>> selectPage(@RequestBody AuthDataPageVo vo) {
         return ok(service.pageByModel(vo));

@@ -6,7 +6,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
-    id "com.diffplug.gradle.spotless" version "4.5.1"
+    id "com.diffplug.spotless" version "6.18.0"
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.bmuschko.docker-spring-boot-application' version '8.1.0'
 }
@@ -61,9 +61,15 @@ spotless {
     java {
         target project.fileTree(project.rootDir) {
             include '**/*.java'
-            exclude 'build/generated/*'
         }
-        googleJavaFormat("1.16.0")
+        eclipse('4.26').configFile(rootProject.file('gradle/wrapper/formatter.xml'))
+        indentWithSpaces()
+        importOrder()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+        toggleOffOn("formatting:off", "formatting:on")
+        targetExclude("**/build/generated/source*/**/*.*")
     }
 }
 

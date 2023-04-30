@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.UserInfo;
 import com.anyilanxin.skillfull.messagerpc.constant.impl.SocketMessageEventType;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -55,34 +52,22 @@ import lombok.experimental.SuperBuilder;
 public class SubscribeMsgModel extends SocketMsgModel {
     private static final long serialVersionUID = -3931714024892969626L;
 
-    /**
-     * 发送人自定义session id
-     */
+    /** 发送人自定义session id */
     private String sendCustomSessionId;
 
-    /**
-     * 发送人session id
-     */
+    /** 发送人session id */
     private String sendSessionId;
 
-    /**
-     * 发送时间
-     */
+    /** 发送时间 */
     private LocalDateTime sendTime;
 
-    /**
-     * 发送用户信息
-     */
+    /** 发送用户信息 */
     private UserInfo sendUserInfo;
 
-    /**
-     * 发送用户信息id
-     */
+    /** 发送用户信息id */
     private String userId;
 
-    /**
-     * 发送人token
-     */
+    /** 发送人token */
     private String sendToken;
 
     public SubscribeMsgModel(SocketMessageEventType eventType) {

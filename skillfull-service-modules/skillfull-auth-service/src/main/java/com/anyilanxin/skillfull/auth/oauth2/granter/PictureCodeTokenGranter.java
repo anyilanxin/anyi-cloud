@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
 import com.anyilanxin.skillfull.auth.oauth2.provider.token.PictureCodeAuthenticationToken;
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.skillfull.corecommon.constant.impl.AuthorizedGrantTypes;
-
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,22 +53,14 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 public class PictureCodeTokenGranter extends AbstractTokenGranter {
     private final AuthenticationManager authenticationManager;
 
-    public PictureCodeTokenGranter(
-            AuthenticationManager authenticationManager,
-            AuthorizationServerTokenServices tokenServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
-        super(
-                tokenServices,
-                clientDetailsService,
-                requestFactory,
-                AuthorizedGrantTypes.PICTURE_CODE.getType());
+    public PictureCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, AuthorizedGrantTypes.PICTURE_CODE.getType());
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         Map<String, String> requestParameters = tokenRequest.getRequestParameters();
         String accountOrPhone = requestParameters.get("userName");
@@ -90,10 +79,8 @@ public class PictureCodeTokenGranter extends AbstractTokenGranter {
         if (StringUtils.isBlank(pictureCodeId)) {
             throw new InternalAuthenticationServiceException("验证码不能为空");
         }
-        PictureCodeAuthenticationToken pictureCodeAuthenticationToken =
-                new PictureCodeAuthenticationToken(accountOrPhone, password, pictureCode, pictureCodeId);
-        Authentication authenticate =
-                authenticationManager.authenticate(pictureCodeAuthenticationToken);
+        PictureCodeAuthenticationToken pictureCodeAuthenticationToken = new PictureCodeAuthenticationToken(accountOrPhone, password, pictureCode, pictureCodeId);
+        Authentication authenticate = authenticationManager.authenticate(pictureCodeAuthenticationToken);
         OAuth2Request oAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
         return new OAuth2Authentication(oAuth2Request, authenticate);
     }

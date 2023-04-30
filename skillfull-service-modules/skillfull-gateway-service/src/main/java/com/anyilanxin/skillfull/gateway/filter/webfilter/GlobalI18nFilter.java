@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.webfilter;
 
 import java.util.Locale;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -57,8 +55,7 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String acceptLanguage =
-                exchange.getRequest().getHeaders().getFirst(HttpHeaders.ACCEPT_LANGUAGE);
+        String acceptLanguage = exchange.getRequest().getHeaders().getFirst(HttpHeaders.ACCEPT_LANGUAGE);
         if (StringUtils.isNotBlank(acceptLanguage)) {
             String[] split = acceptLanguage.split("_");
             Locale locale;
@@ -71,6 +68,7 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
         }
         return chain.filter(exchange);
     }
+
 
     @Override
     public int getOrder() {

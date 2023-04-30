@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.OperatePage
 import com.anyilanxin.skillfull.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.OperatePageDto;
-
 import java.util.List;
 
 /**
@@ -56,6 +54,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      */
     void storage();
 
+
     /**
      * 分页查询
      *
@@ -66,6 +65,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @date 2022-01-26 19:51:07
      */
     PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -78,6 +78,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      */
     OperateDto getById(String operateId) throws RuntimeException;
 
+
     /**
      * 通过operateId删除
      *
@@ -87,6 +88,7 @@ public interface IOperateService extends BaseService<OperateEntity> {
      * @date 2022-01-26 19:51:07
      */
     void deleteById(String operateId) throws RuntimeException;
+
 
     /**
      * 操作日志批量删除

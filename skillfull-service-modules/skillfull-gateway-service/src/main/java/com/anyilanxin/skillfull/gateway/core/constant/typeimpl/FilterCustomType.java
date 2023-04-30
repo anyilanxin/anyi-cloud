@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import static org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER;
@@ -41,10 +40,8 @@ import com.anyilanxin.skillfull.gateway.filter.partial.post.CorsWebGatewayFilter
 import com.anyilanxin.skillfull.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
 import com.anyilanxin.skillfull.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -57,70 +54,40 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum FilterCustomType implements ISuperType {
-    /**
-     * 鉴权过滤器
-     */
-    AUTHORIZE(
-            CoreCommonGatewayConstant.AUTHORIZE_FILTER,
-            "鉴权",
-            AuthorizeGatewayFilterFactory.class.getName(),
-            "2",
-            3),
+    /** 鉴权过滤器 */
+    AUTHORIZE(CoreCommonGatewayConstant.AUTHORIZE_FILTER, "鉴权", AuthorizeGatewayFilterFactory.class.getName(), "2", 3),
 
     /**
      * 日志处理(前置+后置)，前置必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
      */
-    LOG_REQUEST(
-            "LogRequest,LogResponse",
-            "日志记录",
-            LogRequestGatewayFilterFactory.class.getName()
-                    + ","
-                    + LogResponseGatewayFilterFactory.class.getName(),
-            LOAD_BALANCER_CLIENT_FILTER_ORDER + 1 + ",-2",
-            1),
+    LOG_REQUEST("LogRequest,LogResponse", "日志记录", LogRequestGatewayFilterFactory.class.getName() + "," + LogResponseGatewayFilterFactory.class.getName(), LOAD_BALANCER_CLIENT_FILTER_ORDER + 1 + ",-2", 1),
 
-    /**
-     * 跨域处理过滤器(后置)
-     */
+    /** 跨域处理过滤器(后置) */
     CORS_WEB("CorsWeb", "跨域处理", CorsWebGatewayFilterFactory.class.getName(), "1", 0);
 
-    /**
-     * 过滤器类型
-     */
+    /** 过滤器类型 */
     private final String filterType;
 
-    /**
-     * 过滤器描述
-     */
+    /** 过滤器描述 */
     private final String filterTypeDescribe;
 
-    /**
-     * 过滤器类型类名称
-     */
+    /** 过滤器类型类名称 */
     private final String filterTypeClassName;
 
-    /**
-     * 可添加特殊url类型:0-不可添加,1-白名单,2-黑名单,3-黑白名单
-     */
+    /** 可添加特殊url类型:0-不可添加,1-白名单,2-黑名单,3-黑白名单 */
     private final int specialUrlType;
 
-    /**
-     * 过滤器顺序
-     */
+    /** 过滤器顺序 */
     private final String order;
 
-    FilterCustomType(
-            String filterType,
-            String filterTypeDescribe,
-            String filterTypeClassName,
-            String order,
-            int specialUrlType) {
+    FilterCustomType(String filterType, String filterTypeDescribe, String filterTypeClassName, String order, int specialUrlType) {
         this.filterType = filterType;
         this.filterTypeDescribe = filterTypeDescribe;
         this.filterTypeClassName = filterTypeClassName;
         this.order = order;
         this.specialUrlType = specialUrlType;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -140,6 +107,7 @@ public enum FilterCustomType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -155,6 +123,7 @@ public enum FilterCustomType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     /**
      * 通过class name获取类型
@@ -173,6 +142,7 @@ public enum FilterCustomType implements ISuperType {
         }
         return null;
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

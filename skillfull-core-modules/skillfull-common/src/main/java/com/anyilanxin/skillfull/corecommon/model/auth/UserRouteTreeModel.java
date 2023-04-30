@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.auth;
 
 import com.anyilanxin.skillfull.corecommon.utils.tree.model.BaseTree;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,8 +49,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class UserRouteTreeModel extends BaseTree<UserRouteTreeModel>
-        implements Serializable, Comparable<UserRouteTreeModel> {
+public class UserRouteTreeModel extends BaseTree<UserRouteTreeModel> implements Serializable, Comparable<UserRouteTreeModel> {
     private static final long serialVersionUID = 8553706904170909229L;
 
     @Schema(name = "menuId", title = "权限id")

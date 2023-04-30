@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct;
 
 import com.anyilanxin.skillfull.corecommon.base.service.mapstruct.BaseThreeMap;
@@ -45,10 +44,6 @@ import org.mapstruct.ReportingPolicy;
  * @copyright zxiaozhou（https://skillfull.divisu.com）
  * @since 2022-04-05 09:57:59
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        builder = @Builder(disableBuilder = true))
-public interface StorageInfoFileCopyMap
-        extends BaseThreeMap<StorageInfoFileEntity, StorageInfoModel, StorageInfoFileVo> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
+public interface StorageInfoFileCopyMap extends BaseThreeMap<StorageInfoFileEntity, StorageInfoModel, StorageInfoFileVo> {
 }

@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgMenuEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuTreeDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -49,13 +47,14 @@ public interface IRbacOrgMenuService extends BaseService<RbacOrgMenuEntity> {
     /**
      * 保存
      *
-     * @param orgId   机构id
+     * @param orgId 机构id
      * @param menuIds 机构菜单id
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-07-02 23:01:20
      */
     void save(String orgId, Set<String> menuIds) throws RuntimeException;
+
 
     /**
      * 通过orgId删除
@@ -67,12 +66,13 @@ public interface IRbacOrgMenuService extends BaseService<RbacOrgMenuEntity> {
      */
     void deleteById(String orgId) throws RuntimeException;
 
+
     /**
      * 获取机构菜单权限树
      *
-     * @param orgId    机构id
+     * @param orgId 机构id
      * @param systemId 系统id
-     * @param status   菜单状态:0-禁用,1-启用,不传所有
+     * @param status 菜单状态:0-禁用,1-启用,不传所有
      * @return List<RbacMenuTreeDto>
      * @author zxiaozhou
      * @date 2020-10-07 20:23

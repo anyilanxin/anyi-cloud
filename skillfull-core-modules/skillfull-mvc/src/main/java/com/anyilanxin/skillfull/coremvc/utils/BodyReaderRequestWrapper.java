@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import com.alibaba.fastjson.JSONObject;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.ReadListener;
@@ -39,7 +37,6 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -61,13 +58,16 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         body = stringBody.getBytes(StandardCharsets.UTF_8);
     }
 
+
     public String getStringBody() {
         return this.stringBody;
     }
 
+
     public JSONObject getJsonObjectBody() {
         return this.jsonObjectBody;
     }
+
 
     /**
      * 获取请求Body
@@ -86,6 +86,7 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         }
         return bodyString;
     }
+
 
     /**
      * 复制输入流
@@ -110,10 +111,12 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
         return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
     }
 
+
     @Override
     public BufferedReader getReader() throws IOException {
         return new BufferedReader(new InputStreamReader(getInputStream(), StandardCharsets.UTF_8));
     }
+
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
@@ -124,15 +127,18 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
                 return bais.read();
             }
 
+
             @Override
             public boolean isFinished() {
                 return false;
             }
 
+
             @Override
             public boolean isReady() {
                 return false;
             }
+
 
             @Override
             public void setReadListener(ReadListener readListener) {

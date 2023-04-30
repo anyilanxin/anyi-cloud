@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service.impl;
 
 import com.anyilanxin.skillfull.auth.modules.login.mapper.UserAuthMapper;
@@ -39,9 +38,7 @@ import com.anyilanxin.skillfull.corecommon.model.system.UserAndResourceAuthModel
 import com.anyilanxin.skillfull.oauth2common.utils.Oauth2CommonUtils;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -80,6 +77,7 @@ public class AuthServiceImpl implements IAuthService {
         }
     }
 
+
     @Override
     public UserInfo getUserInfo(String orgId) {
         RbacUserDto userDto = userAuthMapper.selectUserInfoByUserId(UserContextUtils.getUserId());
@@ -87,8 +85,7 @@ public class AuthServiceImpl implements IAuthService {
         if (StringUtils.isBlank(currentOrgId)) {
             currentOrgId = UserContextUtils.getCurrentOrgId();
         }
-        if (StringUtils.isNotBlank(currentOrgId)
-                && !currentOrgId.equals(UserContextUtils.getCurrentOrgId())) {
+        if (StringUtils.isNotBlank(currentOrgId) && !currentOrgId.equals(UserContextUtils.getCurrentOrgId())) {
             // 更新用户当前登录机构信息
             userAuthMapper.updateLoginOrgId(userDto.getUserId(), orgId);
         }

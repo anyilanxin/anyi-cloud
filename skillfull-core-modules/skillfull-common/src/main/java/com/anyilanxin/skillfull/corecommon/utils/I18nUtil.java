@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -61,6 +59,7 @@ public class I18nUtil {
         util = this;
     }
 
+
     /**
      * 获取单个国际化翻译值
      *
@@ -77,10 +76,11 @@ public class I18nUtil {
         }
     }
 
+
     /**
      * 获取单个国际化翻译值
      *
-     * @param code           ${@link String} the code of the message
+     * @param code ${@link String} the code of the message
      * @param defaultMessage ${@link String} the String to return if the lookup fails
      * @return String ${@link String}
      * @author zxiaozhou
@@ -93,6 +93,7 @@ public class I18nUtil {
             return defaultMessage;
         }
     }
+
 
     /**
      * 获取单个国际化翻译值
@@ -111,11 +112,12 @@ public class I18nUtil {
         }
     }
 
+
     /**
      * 获取单个国际化翻译值
      *
-     * @param code           ${@link String} the code of the message
-     * @param args           ${@link String[]} arguments for the message, or null if none
+     * @param code ${@link String} the code of the message
+     * @param args ${@link String[]} arguments for the message, or null if none
      * @param defaultMessage ${@link String} the String to return if the lookup fails
      * @return String ${@link String}
      * @author zxiaozhou
@@ -129,11 +131,12 @@ public class I18nUtil {
         }
     }
 
+
     /**
      * i18n兼容处理
      *
      * @param errMsg ${@link String}
-     * @param local  ${@link Map <String, String>} 替换编码
+     * @param local ${@link Map <String, String>} 替换编码
      * @return String ${@link String}
      * @author zxiaozhou
      * @date 2022-02-16 11:36

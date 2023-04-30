@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.utils;
 
 import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
@@ -36,11 +35,9 @@ import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -57,7 +54,7 @@ public class FreemarkerUtils {
      * 解析字符串模板,通用方法
      *
      * @param templateStr ${@link String} 待解析字符串
-     * @param jsonObject  ${@link JSONObject} 填充内容
+     * @param jsonObject ${@link JSONObject} 填充内容
      * @return String ${@link String}
      * @author zxiaozhou
      * @date 2021-04-25 20:27
@@ -69,14 +66,10 @@ public class FreemarkerUtils {
         Configuration configuration = new Configuration(DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         StringWriter out = new StringWriter();
         try {
-            new Template("template", new StringReader(templateStr), configuration)
-                    .process(jsonObject, out);
+            new Template("template", new StringReader(templateStr), configuration).process(jsonObject, out);
         } catch (TemplateException | IOException e) {
             e.printStackTrace();
-            log.error(
-                    "------------FreemarkerUtils------模板解析异常------>processStr--->\n参数:{},异常消息:{}",
-                    templateStr,
-                    e.getMessage());
+            log.error("------------FreemarkerUtils------模板解析异常------>processStr--->\n参数:{},异常消息:{}", templateStr, e.getMessage());
         }
         return out.toString();
     }

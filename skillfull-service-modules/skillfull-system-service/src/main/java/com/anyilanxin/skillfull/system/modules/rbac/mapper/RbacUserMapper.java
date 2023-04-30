@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -37,9 +36,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -56,7 +53,7 @@ public interface RbacUserMapper extends BaseMapper<RbacUserEntity> {
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacUserPageDto> 查询结果
      * @author zxiaozhou
@@ -64,17 +61,18 @@ public interface RbacUserMapper extends BaseMapper<RbacUserEntity> {
      */
     IPage<RbacUserPageDto> pageByModel(Page<RbacUserPageDto> page, @Param("query") RbacUserPageVo vo);
 
+
     /**
      * 分页查询可关联的用户信息
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacUserPageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacUserPageDto> selectEnableUserPage(
-            Page<RbacUserPageDto> page, @Param("query") RbacEnalbeUserPageVo vo);
+    IPage<RbacUserPageDto> selectEnableUserPage(Page<RbacUserPageDto> page, @Param("query") RbacEnalbeUserPageVo vo);
+
 
     /**
      * 通过用户id物理删除
@@ -85,6 +83,7 @@ public interface RbacUserMapper extends BaseMapper<RbacUserEntity> {
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String userId);
+
 
     /**
      * 通过用户id物理批量删除

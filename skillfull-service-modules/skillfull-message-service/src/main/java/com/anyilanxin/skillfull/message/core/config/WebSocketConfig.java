@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.core.config;
 
 import com.anyilanxin.skillfull.message.core.handler.WebSocketHandshakeHandler;
@@ -58,11 +57,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry
-                .addHandler(
-                        new WebSocketMainHandler(afterConnectionContent, msgSubscribeContent, loginUserInfo),
-                        "socket")
-                .setHandshakeHandler(new WebSocketHandshakeHandler())
-                .setAllowedOrigins("*");
+        registry.addHandler(new WebSocketMainHandler(afterConnectionContent, msgSubscribeContent, loginUserInfo), "socket").setHandshakeHandler(new WebSocketHandshakeHandler()).setAllowedOrigins("*");
     }
 }

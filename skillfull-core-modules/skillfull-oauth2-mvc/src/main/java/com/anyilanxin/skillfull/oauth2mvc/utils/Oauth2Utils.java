@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.oauth2mvc.config.properties.CustomSecurityProperties;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -65,14 +62,10 @@ public class Oauth2Utils {
      * @author zxiaozhou
      * @date 2022-02-19 13:11
      */
-    public static Set<WhiteListInfo> getWhiteList(
-            ApplicationContext applicationContext, CustomSecurityProperties properties) {
+    public static Set<WhiteListInfo> getWhiteList(ApplicationContext applicationContext, CustomSecurityProperties properties) {
         String active = properties.getActive();
         // 处理匿名用户访问
-        Map<RequestMappingInfo, HandlerMethod> handlerMethodMap =
-                applicationContext
-                        .getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class)
-                        .getHandlerMethods();
+        Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = applicationContext.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class).getHandlerMethods();
         Set<WhiteListInfo> whiteList = new HashSet<>();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> infoEntry : handlerMethodMap.entrySet()) {
             HandlerMethod handlerMethod = infoEntry.getValue();
@@ -81,9 +74,7 @@ public class Oauth2Utils {
             if (Objects.isNull(preAuthorize) && Objects.isNull(secured)) {
                 continue;
             }
-            if (Objects.nonNull(preAuthorize)
-                    && (preAuthorize.value().contains("isAnonymous")
-                    || preAuthorize.value().contains("permitAll"))) {
+            if (Objects.nonNull(preAuthorize) && (preAuthorize.value().contains("isAnonymous") || preAuthorize.value().contains("permitAll"))) {
                 WhiteListInfo whiteListInfo = requestMappingToWhite(infoEntry.getKey());
                 if (Objects.nonNull(whiteListInfo)) {
                     whiteList.add(whiteListInfo);
@@ -92,9 +83,7 @@ public class Oauth2Utils {
             }
             if (Objects.nonNull(secured)) {
                 String[] securedValues = secured.value();
-                if (Objects.nonNull(securedValues)
-                        && securedValues.length > 0
-                        && Arrays.asList(securedValues).contains("ROLE_ANONYMOUS")) {
+                if (Objects.nonNull(securedValues) && securedValues.length > 0 && Arrays.asList(securedValues).contains("ROLE_ANONYMOUS")) {
                     WhiteListInfo whiteListInfo = requestMappingToWhite(infoEntry.getKey());
                     if (Objects.nonNull(whiteListInfo)) {
                         whiteList.add(whiteListInfo);
@@ -103,49 +92,34 @@ public class Oauth2Utils {
             }
         }
         if (CollUtil.isNotEmpty(properties.getCommonWhiteList())) {
-            properties
-                    .getCommonWhiteList()
-                    .forEach(
-                            v -> {
-                                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
-                                if (Objects.nonNull(whiteListInfo)) {
-                                    whiteList.add(whiteListInfo);
-                                }
-                            });
+            properties.getCommonWhiteList().forEach(v -> {
+                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
+                if (Objects.nonNull(whiteListInfo)) {
+                    whiteList.add(whiteListInfo);
+                }
+            });
         }
-        if (CommonCoreConstant.PRO.equalsIgnoreCase(active)
-                && CollUtil.isNotEmpty(properties.getProWhiteList())) {
-            properties
-                    .getProWhiteList()
-                    .forEach(
-                            v -> {
-                                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
-                                if (Objects.nonNull(whiteListInfo)) {
-                                    whiteList.add(whiteListInfo);
-                                }
-                            });
-        } else if (CommonCoreConstant.TEST.equalsIgnoreCase(active)
-                && CollUtil.isNotEmpty(properties.getTestWhiteList())) {
-            properties
-                    .getTestWhiteList()
-                    .forEach(
-                            v -> {
-                                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
-                                if (Objects.nonNull(whiteListInfo)) {
-                                    whiteList.add(whiteListInfo);
-                                }
-                            });
-        } else if (CommonCoreConstant.DEV.equalsIgnoreCase(active)
-                && CollUtil.isNotEmpty(properties.getDevWhiteList())) {
-            properties
-                    .getDevWhiteList()
-                    .forEach(
-                            v -> {
-                                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
-                                if (Objects.nonNull(whiteListInfo)) {
-                                    whiteList.add(whiteListInfo);
-                                }
-                            });
+        if (CommonCoreConstant.PRO.equalsIgnoreCase(active) && CollUtil.isNotEmpty(properties.getProWhiteList())) {
+            properties.getProWhiteList().forEach(v -> {
+                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
+                if (Objects.nonNull(whiteListInfo)) {
+                    whiteList.add(whiteListInfo);
+                }
+            });
+        } else if (CommonCoreConstant.TEST.equalsIgnoreCase(active) && CollUtil.isNotEmpty(properties.getTestWhiteList())) {
+            properties.getTestWhiteList().forEach(v -> {
+                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
+                if (Objects.nonNull(whiteListInfo)) {
+                    whiteList.add(whiteListInfo);
+                }
+            });
+        } else if (CommonCoreConstant.DEV.equalsIgnoreCase(active) && CollUtil.isNotEmpty(properties.getDevWhiteList())) {
+            properties.getDevWhiteList().forEach(v -> {
+                WhiteListInfo whiteListInfo = urlInfoToWhite(v);
+                if (Objects.nonNull(whiteListInfo)) {
+                    whiteList.add(whiteListInfo);
+                }
+            });
         }
         // 放开所有actuator端点
         WhiteListInfo whiteListInfo = new WhiteListInfo();
@@ -169,14 +143,10 @@ public class Oauth2Utils {
     @Getter
     @Setter
     public static class WhiteListInfo {
-        /**
-         * url信息
-         */
+        /** url信息 */
         private Set<String> urls;
 
-        /**
-         * url对应请求方法
-         */
+        /** url对应请求方法 */
         private Set<HttpMethod> methods;
     }
 
@@ -190,8 +160,7 @@ public class Oauth2Utils {
      */
     private static WhiteListInfo requestMappingToWhite(RequestMappingInfo mappingInfo) {
         PathPatternsRequestCondition pathPatternsCondition = mappingInfo.getPathPatternsCondition();
-        if (Objects.nonNull(pathPatternsCondition)
-                && CollUtil.isNotEmpty(pathPatternsCondition.getPatternValues())) {
+        if (Objects.nonNull(pathPatternsCondition) && CollUtil.isNotEmpty(pathPatternsCondition.getPatternValues())) {
             WhiteListInfo whiteListInfo = new WhiteListInfo();
             whiteListInfo.setUrls(pathPatternsCondition.getPatternValues());
             RequestMethodsRequestCondition methodsCondition = mappingInfo.getMethodsCondition();
@@ -213,6 +182,7 @@ public class Oauth2Utils {
         }
         return null;
     }
+
 
     /**
      * config配置url info to WhiteListInfo

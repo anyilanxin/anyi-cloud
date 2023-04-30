@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.base.service.mapstruct;
 
 import java.util.List;
 import java.util.Set;
-
 import org.mapstruct.MappingTarget;
 
 /**
@@ -51,6 +49,7 @@ public interface BaseMap<A, B> {
      */
     B aToB(A a);
 
+
     /**
      * A集合转B集合
      *
@@ -59,6 +58,7 @@ public interface BaseMap<A, B> {
      */
     List<B> aToB(List<A> aList);
 
+
     /**
      * A集合转B集合
      *
@@ -66,6 +66,7 @@ public interface BaseMap<A, B> {
      * @return /
      */
     Set<B> aToB(Set<A> aSet);
+
 
     /**
      * A更新B
@@ -76,6 +77,7 @@ public interface BaseMap<A, B> {
      */
     void updateAToB(A a, @MappingTarget B b);
 
+
     /**
      * A集合更新B集合
      *
@@ -85,6 +87,7 @@ public interface BaseMap<A, B> {
      */
     void updateAListToBList(List<A> aList, @MappingTarget List<B> bList);
 
+
     /**
      * B转A
      *
@@ -92,6 +95,7 @@ public interface BaseMap<A, B> {
      * @return /
      */
     A bToA(B b);
+
 
     /**
      * B集合转A集合
@@ -101,6 +105,7 @@ public interface BaseMap<A, B> {
      */
     List<A> bToA(List<B> bList);
 
+
     /**
      * B集合转A集合
      *
@@ -109,6 +114,7 @@ public interface BaseMap<A, B> {
      */
     Set<A> bToA(Set<B> bSet);
 
+
     /**
      * B更新A
      *
@@ -116,6 +122,7 @@ public interface BaseMap<A, B> {
      * @param a /
      */
     void updateBToA(B b, @MappingTarget A a);
+
 
     /**
      * B集合更新A集合

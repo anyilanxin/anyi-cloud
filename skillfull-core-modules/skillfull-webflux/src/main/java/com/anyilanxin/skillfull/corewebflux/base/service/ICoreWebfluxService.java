@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.base.service;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.LOCK_EXPIRES;
@@ -38,12 +37,10 @@ import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.corecommon.utils.CoreCommonUtils;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
@@ -65,36 +62,27 @@ public interface ICoreWebfluxService {
      */
     void loadConstantDict(boolean force);
 
+
     /**
      * 加载常量字典默认实现
      *
-     * @param force         ${@link Boolean} 是否强制刷新:true-强制立马刷新,false-如果上次刷新距离本次5分钟,当前刷新无效
+     * @param force ${@link Boolean} 是否强制刷新:true-强制立马刷新,false-如果上次刷新距离本次5分钟,当前刷新无效
      * @param redisTemplate ${@link RedisTemplate} RedisTemplate实例
-     * @param serviceName   ${@link String} 服务名
+     * @param serviceName ${@link String} 服务名
      * @author zxiaozhou
      * @date 2021-09-15 22:02
      */
-    static void loadConstantDict(
-            boolean force, RedisTemplate<String, Object> redisTemplate, String serviceName) {
+    static void loadConstantDict(boolean force, RedisTemplate<String, Object> redisTemplate, String serviceName) {
         if (!force) {
-            Object redisLockValue =
-                    redisTemplate.opsForValue().get(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName);
+            Object redisLockValue = redisTemplate.opsForValue().get(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName);
             if (Objects.nonNull(redisLockValue)) {
                 return;
             }
         }
-        Map<String, List<ConstantDictModel>> constantDict =
-                CoreCommonUtils.createOrGetConstantDict(serviceName, BOOT_BASE_SCAN_PACKAGE);
+        Map<String, List<ConstantDictModel>> constantDict = CoreCommonUtils.createOrGetConstantDict(serviceName, BOOT_BASE_SCAN_PACKAGE);
         if (CollUtil.isNotEmpty(constantDict)) {
-            constantDict.forEach(
-                    (k, v) ->
-                            redisTemplate
-                                    .opsForValue()
-                                    .set(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + k, v));
+            constantDict.forEach((k, v) -> redisTemplate.opsForValue().set(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + k, v));
         }
-        redisTemplate
-                .opsForValue()
-                .set(
-                        ICoreWebfluxService.REDIS_LOCK_KEY + serviceName, true, LOCK_EXPIRES, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(ICoreWebfluxService.REDIS_LOCK_KEY + serviceName, true, LOCK_EXPIRES, TimeUnit.SECONDS);
     }
 }

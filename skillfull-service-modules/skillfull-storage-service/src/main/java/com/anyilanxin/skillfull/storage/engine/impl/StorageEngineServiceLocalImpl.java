@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.engine.impl;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.SLASH;
@@ -50,12 +49,10 @@ import com.anyilanxin.skillfull.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.skillfull.storagerpc.model.StorageModel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -80,8 +77,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
     private final StorageInfoFileMapper fileMapper;
 
     @Override
-    public StorageInfoModel storage(
-            MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
+    public StorageInfoModel storage(MultipartFile file, String fileDirPrefix, HttpServletRequest request) {
         // 获取文件基本信息并补全存放文件信息
         String fileOriginalFullName = file.getOriginalFilename();
         long fileSizeDetail = file.getSize();
@@ -100,8 +96,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
             fileType = "." + fileType;
         }
         // 处理文件保存文件夹
-        String fileDiskRelativePathFolder =
-                SLASH + CoreCommonDateUtils.getNowStrDate(CoreCommonDateUtils.YYYYMMDD);
+        String fileDiskRelativePathFolder = SLASH + CoreCommonDateUtils.getNowStrDate(CoreCommonDateUtils.YYYYMMDD);
         if (StringUtils.isNotBlank(fileDirPrefix)) {
             if (!fileDirPrefix.startsWith(SLASH)) {
                 fileDirPrefix = SLASH + fileDirPrefix;
@@ -111,30 +106,15 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
             }
             fileDiskRelativePathFolder = fileDiskRelativePathFolder + fileDirPrefix;
         }
-        StorageInfoModel model =
-                StorageInfoModel.builder()
-                        .contentType(file.getContentType())
-                        .fileMd5(fileMd5)
-                        .fileDirPrefix(fileDirPrefix)
-                        .fileId(snowflake.nextIdStr())
-                        .fileSize(fileSize)
-                        .fileOriginalName(fileOriginalFullName)
-                        .fileType(fileType)
-                        .fileStorageType(StorageType.LOCAL.getType())
-                        .fileSizeDetail(file.getSize())
-                        .fileRelativePath(fileDiskRelativePathFolder + SLASH + snowflake.nextIdStr() + fileType)
-                        .build();
+        StorageInfoModel model = StorageInfoModel.builder().contentType(file.getContentType()).fileMd5(fileMd5).fileDirPrefix(fileDirPrefix).fileId(snowflake.nextIdStr()).fileSize(fileSize).fileOriginalName(fileOriginalFullName).fileType(fileType).fileStorageType(StorageType.LOCAL.getType()).fileSizeDetail(file.getSize()).fileRelativePath(fileDiskRelativePathFolder + SLASH + snowflake.nextIdStr() + fileType).build();
         // 查看文件是否已经存储(如果存在则使用已经存在的文件信息)
         LambdaQueryWrapper<StorageInfoFileEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper
-                .eq(StorageInfoFileEntity::getFileMd5, model.getFileMd5())
-                .eq(StorageInfoFileEntity::getFileStorageType, StorageType.LOCAL.getType());
+        lambdaQueryWrapper.eq(StorageInfoFileEntity::getFileMd5, model.getFileMd5()).eq(StorageInfoFileEntity::getFileStorageType, StorageType.LOCAL.getType());
         List<StorageInfoFileEntity> storageInfoFileEntities = fileMapper.selectList(lambdaQueryWrapper);
         boolean isHave = false;
         if (CollUtil.isNotEmpty(storageInfoFileEntities)) {
             StorageInfoFileEntity storageInfoFileEntity = storageInfoFileEntities.get(0);
-            model =
-                    model.toBuilder().fileRelativePath(storageInfoFileEntity.getFileRelativePath()).build();
+            model = model.toBuilder().fileRelativePath(storageInfoFileEntity.getFileRelativePath()).build();
             isHave = true;
         }
         // 存放文件
@@ -157,24 +137,20 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
             try {
                 file.transferTo(localFile);
             } catch (IOException e) {
-                log.error(
-                        "------------LocalFileServiceImpl------存放文件到本地失败------>upload:{}", e.getMessage());
+                log.error("------------LocalFileServiceImpl------存放文件到本地失败------>upload:{}", e.getMessage());
                 throw new ResponseException(Status.ERROR, "存放文件到本地失败:" + e.getMessage());
             }
-            model.setFileRelativePath(
-                    property.getVirtualMapping()
-                            + model.getFileRelativePath()
-                            + "?original_name="
-                            + model.getFileOriginalName());
+            model.setFileRelativePath(property.getVirtualMapping() + model.getFileRelativePath() + "?original_name=" + model.getFileOriginalName());
         }
         return model;
     }
 
+
     @Override
-    public List<StorageInfoModel> storageBatch(
-            List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
+    public List<StorageInfoModel> storageBatch(List<MultipartFile> files, String fileDirPrefix, HttpServletRequest request) {
         return null;
     }
+
 
     @Override
     public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {

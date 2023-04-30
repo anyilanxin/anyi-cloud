@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.manage.entity.ManageSpecialUrlEntity;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -57,6 +54,7 @@ public interface ManageSpecialUrlMapper extends BaseMapper<ManageSpecialUrlEntit
      * @date 2021-12-19 09:34:50
      */
     int physicalDeleteById(@Param("id") String specialUrlId);
+
 
     /**
      * 通过特殊过滤器id物理批量删除

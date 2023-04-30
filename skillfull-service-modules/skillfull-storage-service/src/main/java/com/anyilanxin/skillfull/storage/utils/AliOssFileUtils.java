@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.anyilanxin.skillfull.storage.core.config.properties.OssProperty;
-
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -59,6 +56,7 @@ public class AliOssFileUtils {
         utils = this;
     }
 
+
     /**
      * 创建OSSClient
      *
@@ -69,6 +67,7 @@ public class AliOssFileUtils {
     public static OSSClient createOssClient() {
         return createOssClient("");
     }
+
 
     /**
      * 创建OSSClient
@@ -83,9 +82,7 @@ public class AliOssFileUtils {
         if (StringUtils.isBlank(endpoint)) {
             endpoint = ossProperty.getEndpoint();
         }
-        OSS build =
-                new OSSClientBuilder()
-                        .build(endpoint, ossProperty.getAccessKey(), ossProperty.getSecretKey());
+        OSS build = new OSSClientBuilder().build(endpoint, ossProperty.getAccessKey(), ossProperty.getSecretKey());
         return (OSSClient) build;
     }
 }

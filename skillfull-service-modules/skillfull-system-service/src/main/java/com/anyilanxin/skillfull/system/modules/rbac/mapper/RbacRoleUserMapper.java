@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleUserEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDto;
-
 import java.util.Collection;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -62,6 +59,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     Set<String> selectUserRoleListById(@Param("userId") String userId);
 
+
     /**
      * 获取用户角色(完整数据)
      *
@@ -71,6 +69,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @date 2022-07-04 01:18
      */
     Set<RbacRoleSimpleDto> selectUserRoleAllInfoListById(@Param("userId") String userId);
+
 
     /**
      * 查询用户角色
@@ -82,17 +81,18 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     Set<RoleInfo> selectByUserId(@Param("userId") String userId);
 
+
     /**
      * 查询用户角色授权菜单信息
      *
-     * @param userId        用户id
+     * @param userId 用户id
      * @param systemCodeSet 系统编码
      * @return Set<RbacMenuDto>
      * @author zxiaozhou
      * @date 2022-07-05 00:42
      */
-    Set<RbacMenuDto> selectMenuByUserId(
-            @Param("userId") String userId, @Param("systemCodes") Set<String> systemCodeSet);
+    Set<RbacMenuDto> selectMenuByUserId(@Param("userId") String userId, @Param("systemCodes") Set<String> systemCodeSet);
+
 
     /**
      * 通过用户id物理删除
@@ -104,6 +104,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     int physicalDeleteByUserId(@Param("id") String userId);
 
+
     /**
      * 通过角色用户id物理删除
      *
@@ -114,6 +115,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      */
     int physicalDeleteById(@Param("id") String roleUserId);
 
+
     /**
      * 通过角色id物理批量删除
      *
@@ -123,6 +125,7 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @date 2022-07-02 23:01:21
      */
     int physicalDeleteBatchRoleIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 通过角色关联id物理批量删除

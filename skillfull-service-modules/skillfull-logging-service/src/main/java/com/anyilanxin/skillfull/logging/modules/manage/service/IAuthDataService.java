@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.logging.modules.manage.controller.vo.AuthDataPag
 import com.anyilanxin.skillfull.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto;
-
 import java.util.List;
 
 /**
@@ -57,6 +55,7 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
      */
     void storage();
 
+
     /**
      * 分页查询
      *
@@ -67,6 +66,7 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
      * @date 2022-01-26 21:53:03
      */
     PageDto<AuthDataPageDto> pageByModel(AuthDataPageVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -79,6 +79,7 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
      */
     AuthDataDto getById(String authLogId) throws RuntimeException;
 
+
     /**
      * 通过authLogId删除
      *
@@ -88,6 +89,7 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
      * @date 2022-01-26 21:53:03
      */
     void deleteById(String authLogId) throws RuntimeException;
+
 
     /**
      * 登录日志批量删除

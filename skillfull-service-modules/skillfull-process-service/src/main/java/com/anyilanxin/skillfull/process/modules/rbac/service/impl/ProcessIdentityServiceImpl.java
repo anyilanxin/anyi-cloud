@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import com.anyilanxin.skillfull.process.modules.rbac.service.IProcessIdentityService;
 import com.anyilanxin.skillfull.processrpc.model.ProcessRoleModel;
 import com.anyilanxin.skillfull.processrpc.model.ProcessUserModel;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,15 +54,18 @@ public class ProcessIdentityServiceImpl implements IProcessIdentityService {
         return Collections.emptyMap();
     }
 
+
     @Override
     public ProcessUserModel getUserById(String userId) {
         return null;
     }
 
+
     @Override
     public Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds) {
         return Collections.emptyMap();
     }
+
 
     @Override
     public ProcessRoleModel getRoleById(String roleId) {

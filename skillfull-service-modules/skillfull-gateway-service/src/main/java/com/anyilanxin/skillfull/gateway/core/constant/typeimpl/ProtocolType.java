@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,40 +46,29 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum ProtocolType implements ISuperType {
-    /**
-     * http协议前缀
-     */
+    /** http协议前缀 */
     HTTP("HTTP://", "http协议前缀"),
 
-    /**
-     * https协议前缀
-     */
+    /** https协议前缀 */
     HTTPS("HTTPS://", "https协议前缀"),
 
-    /**
-     * ws协议前缀
-     */
+    /** ws协议前缀 */
     WS("WS://", "ws协议前缀"),
 
-    /**
-     * wss协议前缀
-     */
+    /** wss协议前缀 */
     WSS("WSS://", "wss协议前缀");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     ProtocolType(String type, String describe) {
         this.type = type;
         this.describe = describe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -102,6 +88,7 @@ public enum ProtocolType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -117,6 +104,7 @@ public enum ProtocolType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

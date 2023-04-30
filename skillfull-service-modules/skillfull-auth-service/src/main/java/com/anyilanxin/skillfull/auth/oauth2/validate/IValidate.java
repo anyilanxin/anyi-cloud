@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.validate;
 
 import com.alibaba.fastjson.JSONObject;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -46,12 +44,13 @@ public interface IValidate {
      * 获取验证码信息 redis key构建:picture:codeKey+system,sms:codeKey+system+phone
      *
      * @param parameter ${@link JSONObject} 获取验证码参数
-     * @param request   ${@link HttpServletRequest} HttpServletRequest
+     * @param request ${@link HttpServletRequest} HttpServletRequest
      * @return ValidateDto ${@link ValidateDto} 验证码结果
      * @author zxiaozhou
      * @date 2020-06-29 02:25
      */
     ValidateDto getVerification(JSONObject parameter, HttpServletRequest request);
+
 
     /**
      * 验证码验证

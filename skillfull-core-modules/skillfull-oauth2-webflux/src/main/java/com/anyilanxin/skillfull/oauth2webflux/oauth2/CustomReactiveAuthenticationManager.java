@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,37 +55,28 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
         this.tokenStore = tokenStore;
     }
 
+
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
-        return Mono.justOrEmpty(authentication)
-                .filter(a -> a instanceof BearerTokenAuthenticationToken)
-                .cast(BearerTokenAuthenticationToken.class)
-                .map(BearerTokenAuthenticationToken::getToken)
-                .flatMap(
-                        (accessToken -> {
-                            OAuth2AccessToken oAuth2AccessToken = this.tokenStore.readAccessToken(accessToken);
-                            // 根据access_token从数据库获取不到OAuth2AccessToken
-                            if (oAuth2AccessToken == null) {
-                                throw new InvalidTokenException("无效的token");
-                            } else if (oAuth2AccessToken.isExpired()) {
-                                throw new InvalidTokenException("token已经过期，请刷新");
-                            }
-                            OAuth2Authentication oAuth2Authentication =
-                                    this.tokenStore.readAuthentication(accessToken);
-                            if (oAuth2Authentication == null) {
-                                throw new InvalidTokenException("Access Token 无效!");
-                            } else if (oAuth2Authentication.isClientOnly()
-                                    && !oAuth2Authentication.isAuthenticated()) {
-                                throw new UnauthorizedClientException("当前客户端未授权");
-                            } else if (!oAuth2Authentication.isClientOnly()
-                                    && !oAuth2Authentication.getUserAuthentication().isAuthenticated()) {
-                                throw new UnauthorizedUserException("当前用户未授权");
-                            } else {
-                                oAuth2Authentication.setDetails(oAuth2AccessToken);
-                                return Mono.just(oAuth2Authentication);
-                            }
-                        }))
-                .onErrorStop()
-                .cast(Authentication.class);
+        return Mono.justOrEmpty(authentication).filter(a -> a instanceof BearerTokenAuthenticationToken).cast(BearerTokenAuthenticationToken.class).map(BearerTokenAuthenticationToken::getToken).flatMap((accessToken -> {
+            OAuth2AccessToken oAuth2AccessToken = this.tokenStore.readAccessToken(accessToken);
+            // 根据access_token从数据库获取不到OAuth2AccessToken
+            if (oAuth2AccessToken == null) {
+                throw new InvalidTokenException("无效的token");
+            } else if (oAuth2AccessToken.isExpired()) {
+                throw new InvalidTokenException("token已经过期，请刷新");
+            }
+            OAuth2Authentication oAuth2Authentication = this.tokenStore.readAuthentication(accessToken);
+            if (oAuth2Authentication == null) {
+                throw new InvalidTokenException("Access Token 无效!");
+            } else if (oAuth2Authentication.isClientOnly() && !oAuth2Authentication.isAuthenticated()) {
+                throw new UnauthorizedClientException("当前客户端未授权");
+            } else if (!oAuth2Authentication.isClientOnly() && !oAuth2Authentication.getUserAuthentication().isAuthenticated()) {
+                throw new UnauthorizedUserException("当前用户未授权");
+            } else {
+                oAuth2Authentication.setDetails(oAuth2AccessToken);
+                return Mono.just(oAuth2Authentication);
+            }
+        })).onErrorStop().cast(Authentication.class);
     }
 }

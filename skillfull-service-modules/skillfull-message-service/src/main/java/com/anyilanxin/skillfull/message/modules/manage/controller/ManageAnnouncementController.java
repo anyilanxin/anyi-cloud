@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -47,10 +46,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -75,87 +72,58 @@ import org.springframework.web.bind.annotation.*;
 public class ManageAnnouncementController extends BaseController {
     private final IManageAnnouncementService service;
 
-    @Operation(
-            summary = "系统通告公告管理添加",
-            tags = {"v1.0.0"},
-            description = "添加系统通告公告管理",
-            hidden = true)
+    @Operation(summary = "系统通告公告管理添加", tags = {"v1.0.0"}, description = "添加系统通告公告管理", hidden = true)
     @PostMapping(value = "/insert")
     public Result<String> insert(@RequestBody @Valid ManageAnnouncementVo vo) {
         service.save(vo);
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    @Operation(
-            summary = "通过通知公告id修改",
-            tags = {"v1.0.0"},
-            description = "修改系统通告公告管理",
-            hidden = true)
+
+    @Operation(summary = "通过通知公告id修改", tags = {"v1.0.0"}, description = "修改系统通告公告管理", hidden = true)
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @PutMapping(value = "/update/{anntId}")
-    public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId,
-            @RequestBody @Valid ManageAnnouncementVo vo) {
+    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId, @RequestBody @Valid ManageAnnouncementVo vo) {
         service.updateById(anntId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "系统通告公告管理逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除系统通告公告管理",
-            hidden = true)
+
+    @Operation(summary = "系统通告公告管理逻辑删除", tags = {"v1.0.0"}, description = "删除系统通告公告管理", hidden = true)
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @DeleteMapping(value = "/delete-one/{anntId}")
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
         service.deleteById(anntId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "系统通告公告管理逻辑批量删除",
-            tags = {"v1.0.0"},
-            description = "批量删除系统通告公告管理",
-            hidden = true)
+
+    @Operation(summary = "系统通告公告管理逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除系统通告公告管理", hidden = true)
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(
-            @RequestBody @NotNullSize(message = "待删除通知公告id不能为空") List<String> anntIds) {
+    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除通知公告id不能为空") List<String> anntIds) {
         service.deleteBatch(anntIds);
         return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
-    @Operation(
-            summary = "通过通知公告id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询系统通告公告管理详情",
-            hidden = true)
+
+    @Operation(summary = "通过通知公告id查询详情", tags = {"v1.0.0"}, description = "查询系统通告公告管理详情", hidden = true)
     @Parameter(in = ParameterIn.PATH, description = "通知公告id", name = "anntId", required = true)
     @GetMapping(value = "/select/one/{anntId}")
-    public Result<ManageAnnouncementDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
+    public Result<ManageAnnouncementDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "通知公告id不能为空") String anntId) {
         return ok(service.getById(anntId));
     }
 
-    @Operation(
-            summary = "通过条件查询系统通告公告管理多条数据",
-            tags = {"v1.0.0"},
-            description = "通过条件查询系统通告公告管理",
-            hidden = true)
+
+    @Operation(summary = "通过条件查询系统通告公告管理多条数据", tags = {"v1.0.0"}, description = "通过条件查询系统通告公告管理", hidden = true)
     @PostMapping(value = "/select/list/by-model")
-    public Result<List<ManageAnnouncementDto>> selectListByModel(
-            @RequestBody ManageAnnouncementQueryVo vo) {
+    public Result<List<ManageAnnouncementDto>> selectListByModel(@RequestBody ManageAnnouncementQueryVo vo) {
         return ok(service.selectListByModel(vo));
     }
 
-    @Operation(
-            summary = "系统通告公告管理分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询系统通告公告管理",
-            hidden = true)
+
+    @Operation(summary = "系统通告公告管理分页查询", tags = {"v1.0.0"}, description = "分页查询系统通告公告管理", hidden = true)
     @PostMapping(value = "/select/page")
-    public Result<PageDto<ManageAnnouncementPageDto>> selectPage(
-            @RequestBody ManageAnnouncementPageVo vo) {
+    public Result<PageDto<ManageAnnouncementPageDto>> selectPage(@RequestBody ManageAnnouncementPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 }

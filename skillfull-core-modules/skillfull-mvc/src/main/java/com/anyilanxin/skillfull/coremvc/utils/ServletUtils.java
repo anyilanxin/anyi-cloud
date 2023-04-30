@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.utils;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -74,34 +72,30 @@ public class ServletUtils {
             try {
                 return new BodyReaderRequestWrapper(request);
             } catch (IOException e) {
-                log.error(
-                        "------------ServletUtils------创建BodyReaderRequestWrapper失败------>cloneRequest--->\n异常消息:{}",
-                        e.getMessage());
+                log.error("------------ServletUtils------创建BodyReaderRequestWrapper失败------>cloneRequest--->\n异常消息:{}", e.getMessage());
             }
         }
         return null;
     }
 
-    /**
-     * 获取request
-     */
+
+    /** 获取request */
     public static HttpServletRequest getRequest() {
         return Objects.nonNull(getRequestAttributes()) ? getRequestAttributes().getRequest() : null;
     }
 
-    /**
-     * 获取response
-     */
+
+    /** 获取response */
     public static HttpServletResponse getResponse() {
         return Objects.nonNull(getRequestAttributes()) ? getRequestAttributes().getResponse() : null;
     }
 
-    /**
-     * 获取session
-     */
+
+    /** 获取session */
     public static HttpSession getSession() {
         return Objects.nonNull(getRequest()) ? getRequest().getSession() : null;
     }
+
 
     public static ServletRequestAttributes getRequestAttributes() {
         try {
@@ -111,6 +105,7 @@ public class ServletUtils {
             return null;
         }
     }
+
 
     /**
      * 是否是Ajax异步请求
@@ -122,17 +117,15 @@ public class ServletUtils {
     public static boolean isAjaxRequest(HttpServletRequest request) {
         if (Objects.nonNull(request)) {
             String contentType = request.getContentType();
-            if (StringUtils.isNotBlank(contentType)
-                    && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)) {
+            if (StringUtils.isNotBlank(contentType) && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)) {
                 return true;
             }
         }
         return false;
     }
 
-    /**
-     * 获取IP地址
-     */
+
+    /** 获取IP地址 */
     public static String getIpAddr(HttpServletRequest request) {
         String ip = null;
         try {
@@ -158,6 +151,7 @@ public class ServletUtils {
         return ip;
     }
 
+
     /**
      * 获取ip信息
      *
@@ -168,6 +162,7 @@ public class ServletUtils {
     public static String getIpAddr() {
         return getIpAddr(utils.request);
     }
+
 
     /**
      * 获取浏览器user agent信息
@@ -180,6 +175,7 @@ public class ServletUtils {
         return getUserAgent(utils.request);
     }
 
+
     /**
      * 获取浏览器user agent信息
      *
@@ -191,6 +187,7 @@ public class ServletUtils {
     public static String getUserAgent(HttpServletRequest request) {
         return request.getHeader("User-Agent");
     }
+
 
     @PostConstruct
     private void init() {

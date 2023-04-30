@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.announcement.entity;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -63,24 +60,16 @@ public class AnnouncementRecordEntity extends BaseEntity {
     @TableId
     private String anntReadId;
 
-    /**
-     * 通知公告id
-     */
+    /** 通知公告id */
     private String anntId;
 
-    /**
-     * 阅读状态：0-未读，1-已经。默认0
-     */
+    /** 阅读状态：0-未读，1-已经。默认0 */
     private Integer readStatus;
 
-    /**
-     * 阅读时间
-     */
+    /** 阅读时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime readTime;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -51,14 +50,14 @@ public interface CommonAreaMapper extends BaseMapper<CommonAreaEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link CommonAreaPageVo} 查询条件
+     * @param vo ${@link CommonAreaPageVo} 查询条件
      * @param page ${@link Page< CommonAreaPageDto >} 分页信息
      * @return IPage<CommonAreaPageDto> ${@link IPage<CommonAreaPageDto>} 结果
      * @author zxiaozhou
      * @date 2020-11-02 09:25:03
      */
-    IPage<CommonAreaPageDto> pageByModel(
-            Page<CommonAreaPageDto> page, @Param("query") CommonAreaPageVo vo);
+    IPage<CommonAreaPageDto> pageByModel(Page<CommonAreaPageDto> page, @Param("query") CommonAreaPageVo vo);
+
 
     /**
      * 通过区域id物理删除

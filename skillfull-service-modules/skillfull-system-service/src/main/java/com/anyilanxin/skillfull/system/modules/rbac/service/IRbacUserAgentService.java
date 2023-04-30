@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacUserAgentV
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacUserAgentEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserAgentDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacUserAgentPageDto;
-
 import java.util.List;
 
 /**
@@ -60,16 +58,18 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     void save(RbacUserAgentVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
      * @param agentId 代理id
-     * @param vo      用户-代理人表更新数据
+     * @param vo 用户-代理人表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:20
      */
     void updateById(String agentId, RbacUserAgentVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,6 +82,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -92,6 +93,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @date 2022-05-02 16:12:20
      */
     List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -104,6 +106,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      */
     RbacUserAgentDto getById(String agentId) throws RuntimeException;
 
+
     /**
      * 通过agentId删除
      *
@@ -113,6 +116,7 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * @date 2022-05-02 16:12:20
      */
     void deleteById(String agentId) throws RuntimeException;
+
 
     /**
      * 用户-代理人表批量删除

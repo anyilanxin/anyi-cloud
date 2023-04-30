@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -40,7 +39,6 @@ import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -48,7 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -67,16 +64,14 @@ import org.springframework.web.socket.WebSocketSession;
 public class WsUtils {
     private static WsUtils utils;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
-    /**
-     * 保存连接 session 的地方
-     */
-    public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL =
-            new ConcurrentHashMap<>();
+    /** 保存连接 session 的地方 */
+    public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
 
     @PostConstruct
     private void init() {
         utils = this;
     }
+
 
     /**
      * 添加 session
@@ -88,6 +83,7 @@ public class WsUtils {
         SESSION_POOL.put(getSessionId(session), session);
     }
 
+
     /**
      * 删除 session,会返回删除的 session
      *
@@ -98,6 +94,7 @@ public class WsUtils {
         // 删除 session
         return SESSION_POOL.remove(getSessionId(session));
     }
+
 
     /**
      * 删除并同步关闭连接
@@ -117,6 +114,7 @@ public class WsUtils {
         }
     }
 
+
     /**
      * 获取自定义session id
      *
@@ -129,6 +127,7 @@ public class WsUtils {
         return session.getAttributes().get(WebSocketSessionType.CUSTOM_SESSION_ID.getType()).toString();
     }
 
+
     /**
      * 获得 session
      *
@@ -140,6 +139,7 @@ public class WsUtils {
         return SESSION_POOL.get(getSessionId(session));
     }
 
+
     /**
      * 获得 session
      *
@@ -150,34 +150,27 @@ public class WsUtils {
         return SESSION_POOL;
     }
 
-    /**
-     * 创建redis订阅信息
-     */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMessageEventType eventType) {
+
+    /** 创建redis订阅信息 */
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMessageEventType eventType) {
         return createSubscribeMsgModel(session, null, eventType);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMsgModel socketMsgModel) {
+
+    /** 创建redis订阅信息 */
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel) {
         return createSubscribeMsgModel(session, socketMsgModel, null);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
+
+    /** 创建redis订阅信息 */
     public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session) {
         return createSubscribeMsgModel(session, null, null);
     }
 
-    /**
-     * 创建redis订阅信息
-     */
-    public static SubscribeMsgModel createSubscribeMsgModel(
-            WebSocketSession session, SocketMsgModel socketMsgModel, SocketMessageEventType eventType) {
+
+    /** 创建redis订阅信息 */
+    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel, SocketMessageEventType eventType) {
         SubscribeMsgModel subscribeMsgModel;
         if (Objects.nonNull(socketMsgModel)) {
             subscribeMsgModel = (SubscribeMsgModel) socketMsgModel;
@@ -202,8 +195,7 @@ public class WsUtils {
             if (Objects.nonNull(objectToken)) {
                 subscribeMsgModel.setSendToken(objectToken.toString());
             }
-            Object objectCustomSessionId =
-                    attributes.get(WebSocketSessionType.CUSTOM_SESSION_ID.getType());
+            Object objectCustomSessionId = attributes.get(WebSocketSessionType.CUSTOM_SESSION_ID.getType());
             if (Objects.nonNull(objectCustomSessionId)) {
                 subscribeMsgModel.setSendCustomSessionId(objectCustomSessionId.toString());
             }
@@ -213,6 +205,7 @@ public class WsUtils {
         }
         return subscribeMsgModel;
     }
+
 
     /**
      * 发送消息
@@ -225,17 +218,13 @@ public class WsUtils {
     public static void sendMsg(WebSocketSession session, SocketMsgModel msgModel) {
         try {
             if (Objects.nonNull(session) && Objects.nonNull(msgModel)) {
-                session.sendMessage(
-                        new TextMessage(
-                                JSONObject.toJSONString(msgModel, JSONWriter.Feature.WriteMapNullValue)));
+                session.sendMessage(new TextMessage(JSONObject.toJSONString(msgModel, JSONWriter.Feature.WriteMapNullValue)));
             }
         } catch (IOException exception) {
-            log.error(
-                    "------------------发送消息失败------sendMsg--->\n参数:\n{}\n异常消息:\n{}",
-                    msgModel,
-                    exception.getMessage());
+            log.error("------------------发送消息失败------sendMsg--->\n参数:\n{}\n异常消息:\n{}", msgModel, exception.getMessage());
         }
     }
+
 
     /**
      * 获取用户信息

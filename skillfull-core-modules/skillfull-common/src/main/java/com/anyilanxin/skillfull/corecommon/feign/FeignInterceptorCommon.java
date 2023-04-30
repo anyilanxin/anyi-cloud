@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.feign;
 
 import com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.feign.strategy.header.ContextHeaderSt
 import com.anyilanxin.skillfull.corecommon.feign.strategy.safety.ContextSafetyStrategy;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +66,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
         this.contextHeaderStrategy = contextHeaderStrategy;
     }
 
+
     /**
      * 本处不能使用构造器注入,因为会造成feign拦截器失效
      *
@@ -80,6 +78,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
     private void setContextSafetyStrategy(final ContextSafetyStrategy contextSafetyStrategy) {
         this.contextSafetyStrategy = contextSafetyStrategy;
     }
+
 
     /**
      * token设置
@@ -105,6 +104,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
         }
     }
 
+
     /**
      * 获取策略基本信息
      *
@@ -122,9 +122,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
             if (!CollectionUtils.isEmpty(headerStrategy)) {
                 String strategy = new ArrayList<>(headerStrategy).get(0);
                 if (StringUtils.isNotBlank(strategy)) {
-                    log.debug(
-                            "----------FeignInterceptor---------->getParams:{}",
-                            "执行feign拦截器,当前需要设置请求头,调用策略" + strategy);
+                    log.debug("----------FeignInterceptor---------->getParams:{}", "执行feign拦截器,当前需要设置请求头,调用策略" + strategy);
                     strategies.put("headerStrategy", strategy);
                 }
             }
@@ -133,9 +131,7 @@ public class FeignInterceptorCommon implements RequestInterceptor {
             if (!CollectionUtils.isEmpty(safetyStrategy)) {
                 String strategy = new ArrayList<>(safetyStrategy).get(0);
                 if (StringUtils.isNotBlank(strategy)) {
-                    log.debug(
-                            "----------FeignInterceptor---------->getParams:{}",
-                            "执行feign拦截器,当前数据需要安全处理,调用策略" + strategy);
+                    log.debug("----------FeignInterceptor---------->getParams:{}", "执行feign拦截器,当前数据需要安全处理,调用策略" + strategy);
                     strategies.put("safetyStrategy", strategy);
                 }
             }

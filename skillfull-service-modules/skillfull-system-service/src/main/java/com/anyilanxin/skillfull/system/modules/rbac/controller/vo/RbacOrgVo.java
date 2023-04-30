@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -79,7 +76,7 @@ public class RbacOrgVo implements Serializable {
 
     @Schema(name = "orgType", title = "组织机构类型：1-公司,2-部门", required = true)
     @NotNull(message = "组织机构类不能为空")
-    //    @NotInEnum(autoMessage = true, enumClass = OrgType.class)
+    // @NotInEnum(autoMessage = true, enumClass = OrgType.class)
     private Integer orgType;
 
     @Schema(name = "orgCode", title = "组织编码", required = true)
@@ -88,7 +85,7 @@ public class RbacOrgVo implements Serializable {
 
     @Schema(name = "orgStatus", title = "组织状态：0-禁用，1-启用，默认0", required = true)
     @NotBlankOrNull(message = "组织状态不能为空")
-    //    @NotInEnum(autoMessage = true, enumClass = CommonNotEnableType.class)
+    // @NotInEnum(autoMessage = true, enumClass = CommonNotEnableType.class)
     private Integer orgStatus;
 
     @Schema(name = "email", title = "邮箱")

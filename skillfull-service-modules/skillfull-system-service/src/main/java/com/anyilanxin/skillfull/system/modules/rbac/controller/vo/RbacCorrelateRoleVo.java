@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -60,10 +57,7 @@ public class RbacCorrelateRoleVo implements Serializable {
     @NotBlankOrNull(message = "关联id不能为空")
     private String correlateId;
 
-    @Schema(
-            name = "correlateType",
-            title = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致",
-            required = true)
+    @Schema(name = "correlateType", title = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致", required = true)
     @NotBlankOrNull(message = "关联类型：1-组织机构,2-职位,3-个人,4-用户组,具体与RoleCorrelateType一致不能为空")
     private Integer correlateType;
 

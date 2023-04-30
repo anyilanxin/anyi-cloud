@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.messagerpc.constant.StreamSocketBusinessConstant;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -51,50 +48,35 @@ import lombok.Getter;
 @ConstantType
 public enum StreamSocketBusinessType implements ISuperType {
 
-    /**
-     * 流程消息
-     */
+    /** 流程消息 */
     PROCESS_MSG(StreamSocketBusinessConstant.PROCESS_MSG, "流程消息"),
 
-    /**
-     * 授权消息
-     */
+    /** 授权消息 */
     AUTH_MSG(StreamSocketBusinessConstant.AUTH_MSG, "授权消息"),
 
-    /**
-     * 异常消息
-     */
+    /** 异常消息 */
     ERROR_MSG(StreamSocketBusinessConstant.ERROR_MSG, "异常消息"),
 
-    /**
-     * 系统消息
-     */
+    /** 系统消息 */
     SYSTEM_NOTICE(StreamSocketBusinessConstant.SYSTEM_NOTICE, "系统消息"),
 
-    /**
-     * 业务消息
-     */
+    /** 业务消息 */
     BUSINESS_MSG(StreamSocketBusinessConstant.BUSINESS_MSG, "业务消息"),
 
-    /**
-     * 聊天消息
-     */
+    /** 聊天消息 */
     CHART_MSG(StreamSocketBusinessConstant.CHART_MSG, "聊天消息");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final String type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     StreamSocketBusinessType(String type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -114,6 +96,7 @@ public enum StreamSocketBusinessType implements ISuperType {
         return false;
     }
 
+
     /**
      * 判断某个类型
      *
@@ -132,6 +115,7 @@ public enum StreamSocketBusinessType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -147,6 +131,7 @@ public enum StreamSocketBusinessType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

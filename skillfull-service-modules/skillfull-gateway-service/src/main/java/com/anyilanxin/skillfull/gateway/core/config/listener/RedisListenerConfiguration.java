@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config.listener;
 
 import com.anyilanxin.skillfull.coreredis.constant.RedisSubscribeConstant;
@@ -61,41 +60,31 @@ public class RedisListenerConfiguration {
         return new ConstantDeleteEventListener(redisMessageListenerContainer, coreCommonService);
     }
 
+
     @Bean
-    ReactiveRedisMessageListenerContainer container(
-            ReactiveRedisConnectionFactory connectionFactory) {
-        ReactiveRedisMessageListenerContainer container =
-                new ReactiveRedisMessageListenerContainer(connectionFactory);
-        Runtime.getRuntime()
-                .addShutdownHook(
-                        new Thread(
-                                () -> {
-                                    container.destroyLater().subscribe();
-                                }));
-        container
-                .receive(reloadTopic())
-                .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListenerHandle::reloadRouter);
-        container
-                .receive(updateTopic())
-                .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListenerHandle::updateRouter);
-        container
-                .receive(deleteTopic())
-                .map(ReactiveSubscription.Message::getMessage)
-                .subscribe(redisSubscribeListenerHandle::deleteRouter);
+    ReactiveRedisMessageListenerContainer container(ReactiveRedisConnectionFactory connectionFactory) {
+        ReactiveRedisMessageListenerContainer container = new ReactiveRedisMessageListenerContainer(connectionFactory);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            container.destroyLater().subscribe();
+        }));
+        container.receive(reloadTopic()).map(ReactiveSubscription.Message::getMessage).subscribe(redisSubscribeListenerHandle::reloadRouter);
+        container.receive(updateTopic()).map(ReactiveSubscription.Message::getMessage).subscribe(redisSubscribeListenerHandle::updateRouter);
+        container.receive(deleteTopic()).map(ReactiveSubscription.Message::getMessage).subscribe(redisSubscribeListenerHandle::deleteRouter);
         return container;
     }
+
 
     @Bean
     public ChannelTopic reloadTopic() {
         return new ChannelTopic(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD);
     }
 
+
     @Bean
     public ChannelTopic updateTopic() {
         return new ChannelTopic(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE);
     }
+
 
     @Bean
     public ChannelTopic deleteTopic() {

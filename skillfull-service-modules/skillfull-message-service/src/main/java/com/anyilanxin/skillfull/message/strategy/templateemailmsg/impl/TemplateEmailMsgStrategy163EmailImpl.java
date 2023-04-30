@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.templateemailmsg.impl;
 
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEntity;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.skillfull.message.strategy.templateemailmsg.ITemplateEmailMsgStrategy;
 import com.anyilanxin.skillfull.messagerpc.constant.MsgTemplateEmailChannelConstant;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateEmailMsgModel;
-
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 /**
@@ -51,8 +48,7 @@ import org.springframework.stereotype.Component;
 @Component(value = MsgTemplateEmailChannelConstant.MAIL_163)
 public class TemplateEmailMsgStrategy163EmailImpl implements ITemplateEmailMsgStrategy {
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateEmailMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateEmailMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

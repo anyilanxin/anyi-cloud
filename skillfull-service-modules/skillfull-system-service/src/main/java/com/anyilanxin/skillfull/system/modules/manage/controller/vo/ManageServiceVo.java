@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -72,10 +69,7 @@ public class ManageServiceVo implements Serializable {
     @NotBlankOrNull(message = "服务名不能为空")
     private String serviceName;
 
-    @Schema(
-            name = "isLoadBalancer",
-            title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填",
-            required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-时，默认0。选择均衡器时服务名必填，url不填", required = true)
     @NotBlankOrNull(message = "服务是否负载均衡不能为空")
     private Integer isLoadBalancer;
 

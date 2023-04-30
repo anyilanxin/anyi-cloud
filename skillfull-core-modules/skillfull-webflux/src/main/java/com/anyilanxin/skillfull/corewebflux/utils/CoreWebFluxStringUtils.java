@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.utils;
 
 import cn.hutool.core.lang.Snowflake;
 import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
-
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -60,6 +57,7 @@ public class CoreWebFluxStringUtils {
         util = this;
     }
 
+
     /**
      * 获取32位uuid(使用ThreadLocalRandom提高性能)
      *
@@ -69,10 +67,9 @@ public class CoreWebFluxStringUtils {
      */
     public static String get32UUId() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new UUID(random.nextLong(), random.nextLong())
-                .toString()
-                .replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
+        return new UUID(random.nextLong(), random.nextLong()).toString().replace(CommonCoreConstant.DASH, CommonCoreConstant.EMPTY);
     }
+
 
     /**
      * 获取有序唯一id

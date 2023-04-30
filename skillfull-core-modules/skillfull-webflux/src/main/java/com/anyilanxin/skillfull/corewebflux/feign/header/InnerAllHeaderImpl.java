@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.feign.header;
 
 import cn.hutool.core.collection.CollUtil;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant;
 import com.anyilanxin.skillfull.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.skillfull.corewebflux.utils.ServletUtils;
 import feign.RequestTemplate;
-
 import java.util.*;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -60,17 +57,15 @@ public class InnerAllHeaderImpl implements ISetHeaderStrategy {
         }
         Map<String, Set<String>> headers = getHeaders(serverHttpRequest);
         if (CollUtil.isNotEmpty(headers)) {
-            headers.forEach(
-                    (key, value) -> {
-                        // 需要排除Content-Length，否则造成数据传输长度异常
-                        if (StringUtils.isNotBlank(key)
-                                && CollUtil.isNotEmpty(value)
-                                && !key.equalsIgnoreCase(CONTENT_LENGTH)) {
-                            template.header(key, value);
-                        }
-                    });
+            headers.forEach((key, value) -> {
+                // 需要排除Content-Length，否则造成数据传输长度异常
+                if (StringUtils.isNotBlank(key) && CollUtil.isNotEmpty(value) && !key.equalsIgnoreCase(CONTENT_LENGTH)) {
+                    template.header(key, value);
+                }
+            });
         }
     }
+
 
     /**
      * 获取请求头信息

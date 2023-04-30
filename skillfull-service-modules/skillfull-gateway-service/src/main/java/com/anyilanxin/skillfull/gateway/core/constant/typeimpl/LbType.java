@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,34 +46,22 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum LbType implements ISuperType {
-    /**
-     * lb
-     */
+    /** lb */
     LB(0, "lb://", "http路由负载均衡"),
 
-    /**
-     * lb:ws
-     */
+    /** lb:ws */
     LB_WS(1, "lb:ws://", "ws路由负载均衡"),
 
-    /**
-     * lb:wss
-     */
+    /** lb:wss */
     LB_WSS(2, "lb:wss://", "wss路由负载均衡");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型名称
-     */
+    /** 类型名称 */
     private final String typeName;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String describe;
 
     LbType(int type, String typeName, String describe) {
@@ -84,6 +69,7 @@ public enum LbType implements ISuperType {
         this.typeName = typeName;
         this.describe = describe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -103,6 +89,7 @@ public enum LbType implements ISuperType {
         return false;
     }
 
+
     /**
      * 根据类型获取LB
      *
@@ -120,6 +107,7 @@ public enum LbType implements ISuperType {
         }
         return LbType.LB;
     }
+
 
     /**
      * 获取某个字符串前面匹配的Lb类型
@@ -139,6 +127,7 @@ public enum LbType implements ISuperType {
         return null;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -154,6 +143,7 @@ public enum LbType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

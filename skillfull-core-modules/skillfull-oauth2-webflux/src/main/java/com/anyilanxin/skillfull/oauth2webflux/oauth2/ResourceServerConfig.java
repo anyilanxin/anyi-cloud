@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
@@ -60,33 +59,16 @@ public class ResourceServerConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         // token管理器
-        ReactiveAuthenticationManager authenticationManager =
-                new CustomReactiveAuthenticationManager(tokenStore);
+        ReactiveAuthenticationManager authenticationManager = new CustomReactiveAuthenticationManager(tokenStore);
         // 认证过滤器
-        AuthenticationWebFilter authenticationWebFilter =
-                new AuthenticationWebFilter(authenticationManager);
-        CustomServerBearerTokenAuthenticationConverter serverBearerTokenAuthenticationConverter =
-                new CustomServerBearerTokenAuthenticationConverter();
+        AuthenticationWebFilter authenticationWebFilter = new AuthenticationWebFilter(authenticationManager);
+        CustomServerBearerTokenAuthenticationConverter serverBearerTokenAuthenticationConverter = new CustomServerBearerTokenAuthenticationConverter();
         serverBearerTokenAuthenticationConverter.setAllowUriQueryParameter(true);
-        serverBearerTokenAuthenticationConverter.setAccessTokenQueryName(
-                AuthConstant.ACCESS_TOKEN_QUERY_NAME);
-        serverBearerTokenAuthenticationConverter.setBearerTokenHeaderName(
-                AuthConstant.BEARER_TOKEN_HEADER_NAME);
-        authenticationWebFilter.setServerAuthenticationConverter(
-                serverBearerTokenAuthenticationConverter);
-        http.httpBasic()
-                .disable()
-                .addFilterBefore(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .authorizeExchange()
-                .anyExchange()
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(customServerAccessDeniedHandler) // 处理未授权
-                .authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .csrf()
-                .disable();
+        serverBearerTokenAuthenticationConverter.setAccessTokenQueryName(AuthConstant.ACCESS_TOKEN_QUERY_NAME);
+        serverBearerTokenAuthenticationConverter.setBearerTokenHeaderName(AuthConstant.BEARER_TOKEN_HEADER_NAME);
+        authenticationWebFilter.setServerAuthenticationConverter(serverBearerTokenAuthenticationConverter);
+        http.httpBasic().disable().addFilterBefore(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION).authorizeExchange().anyExchange().permitAll().and().exceptionHandling().accessDeniedHandler(customServerAccessDeniedHandler) // 处理未授权
+                .authenticationEntryPoint(authenticationEntryPoint).and().csrf().disable();
         return http.build();
     }
 }

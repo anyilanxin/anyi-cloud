@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.msgsubscribe.impl;
 
 import com.anyilanxin.skillfull.message.core.constant.impl.WebSocketSessionType;
@@ -37,9 +36,7 @@ import com.anyilanxin.skillfull.message.utils.WsUtils;
 import com.anyilanxin.skillfull.messagerpc.constant.SocketMessageEventContent;
 import com.anyilanxin.skillfull.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.skillfull.messagerpc.model.SubscribeMsgModel;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -59,19 +56,17 @@ public class MsgSubscribeUpOrDownImpl implements IMsgSubscribeStrategy {
     private final SocketMsgModelCopyMap copyMap;
 
     @Override
-    public void handleMsg(
-            SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
+    public void handleMsg(SubscribeMsgModel subscribeMsgModel, ConcurrentHashMap<String, WebSocketSession> sessions) {
         log.info("-----------上线下消息------------->handleMsg:\n{}", subscribeMsgModel);
         // 获取当前用户关联的好友id列表或者群列表
         SocketMsgModel socketMsgModel = copyMap.bToA(subscribeMsgModel);
         String receiveUserId = subscribeMsgModel.getUserId();
-        sessions.forEach(
-                (v, k) -> {
-                    String userId = k.getAttributes().get(WebSocketSessionType.USER_ID.getType()).toString();
-                    if (!receiveUserId.equals(userId)) {
-                        WsUtils.sendMsg(k, socketMsgModel);
-                    }
-                    WsUtils.sendMsg(k, socketMsgModel);
-                });
+        sessions.forEach((v, k) -> {
+            String userId = k.getAttributes().get(WebSocketSessionType.USER_ID.getType()).toString();
+            if (!receiveUserId.equals(userId)) {
+                WsUtils.sendMsg(k, socketMsgModel);
+            }
+            WsUtils.sendMsg(k, socketMsgModel);
+        });
     }
 }

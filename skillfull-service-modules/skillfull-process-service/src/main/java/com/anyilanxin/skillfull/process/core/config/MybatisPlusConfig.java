@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.core.config;
 
 import com.anyilanxin.skillfull.process.core.handler.MyMetaObjectHandler;
@@ -58,6 +57,7 @@ public class MybatisPlusConfig {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return interceptor;
     }
+
 
     /**
      * sql公共字段自定义注入

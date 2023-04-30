@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coreredis.constant;
 
 /**
@@ -38,37 +37,23 @@ package com.anyilanxin.skillfull.coreredis.constant;
  * @since JDK1.8
  */
 public interface RedisSubscribeConstant {
-    /**
-     * 路由重新加载
-     */
+    /** 路由重新加载 */
     String GATEWAY_ROUTER_INFO_RELOAD = "GATEWAY_ROUTER_INFO_RELOAD";
 
-    /**
-     * socket消息广播处理
-     */
+    /** socket消息广播处理 */
     String MESSAGE_SOCKET_HANDLE = "MESSAGE_SOCKET_HANDLE";
-    /**
-     * 更新路由
-     */
+    /** 更新路由 */
     String GATEWAY_ROUTER_INFO_UPDATE = "GATEWAY_ROUTER_INFO_UPDATE";
 
-    /**
-     * 删除路由
-     */
+    /** 删除路由 */
     String GATEWAY_ROUTER_INFO_DELETE = "GATEWAY_ROUTER_INFO_DELETE";
 
-    /**
-     * url动态权限重新加载
-     */
+    /** url动态权限重新加载 */
     String SECURITY_AUTH_URL_RELOAD = "SECURITY_AUTH_URL_RELOAD";
 
-    /**
-     * url动态权限更新
-     */
+    /** url动态权限更新 */
     String SECURITY_AUTH_URL_UPDATE_PREFIX = "SECURITY_AUTH_URL_UPDATE:";
 
-    /**
-     * url动态权限删除
-     */
+    /** url动态权限删除 */
     String SECURITY_AUTH_URL_DELETE_PREFIX = "SECURITY_AUTH_URL_DELETE:";
 }

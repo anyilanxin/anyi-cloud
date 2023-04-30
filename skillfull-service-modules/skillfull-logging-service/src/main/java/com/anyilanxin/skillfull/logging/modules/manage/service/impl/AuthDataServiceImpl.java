@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -47,11 +46,9 @@ import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.dto.AuthDataPageDto;
 import com.anyilanxin.skillfull.logging.modules.manage.service.mapstruct.AuthDataCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -72,8 +69,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEntity>
-        implements IAuthDataService {
+public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEntity> implements IAuthDataService {
     private final AuthDataCopyMap map;
     private final StringRedisTemplate stringRedisTemplate;
     private final AuthDataMapper mapper;
@@ -98,8 +94,7 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
             if (size >= authSaveMin) {
                 List<AuthDataEntity> logEntityList = new ArrayList<>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
-                    String logStr =
-                            stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
                         AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
                         logModel.setDelFlag(0);
@@ -113,26 +108,24 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public PageDto<AuthDataPageDto> pageByModel(AuthDataPageVo vo) throws RuntimeException {
         return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public AuthDataDto getById(String authLogId) throws RuntimeException {
         AuthDataEntity byId = super.getById(authLogId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -148,19 +141,18 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         } else {
             boolean b = this.removeById(authLogId);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> authLogIds) throws RuntimeException {
         List<AuthDataEntity> entities = this.listByIds(authLogIds);
         if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getAuthLogId()));
@@ -172,8 +164,7 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         } else {
             boolean b = this.removeByIds(waitDeleteList);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

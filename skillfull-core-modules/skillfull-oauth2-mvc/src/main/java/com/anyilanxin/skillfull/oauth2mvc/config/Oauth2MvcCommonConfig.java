@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2mvc.config;
 
 import com.anyilanxin.skillfull.corecommon.constant.AuthConstant;
@@ -63,21 +62,19 @@ public class Oauth2MvcCommonConfig {
     private final TokenStore tokenStore;
     private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
 
-    /**
-     * url权限配置存储
-     */
+    /** url权限配置存储 */
     @Bean
     public AuthConfigAttributeModel authConfigAttribute() {
         return new AuthConfigAttributeModel();
     }
 
-    /**
-     * bearer读取配置
-     */
+
+    /** bearer读取配置 */
     @Bean
     public BearerTokenExtractor bearerTokenExtractor() {
         return new CustomBearerTokenExtractor();
     }
+
 
     /**
      * rest template
@@ -91,36 +88,28 @@ public class Oauth2MvcCommonConfig {
     @ConditionalOnMissingBean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate
-                .getInterceptors()
-                .add(
-                        (request, body, execution) -> {
-                            Authentication authentication =
-                                    SecurityContextHolder.getContext().getAuthentication();
-                            if (authentication == null) {
-                                return execution.execute(request, body);
-                            }
-                            if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)) {
-                                return execution.execute(request, body);
-                            }
-                            OAuth2AuthenticationDetails token =
-                                    (OAuth2AuthenticationDetails) authentication.getDetails();
-                            request
-                                    .getHeaders()
-                                    .add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
-                            // 不存在则启动客户端模式获取token
-                            if (StringUtils.isBlank(token.getTokenValue())) {
-                                String tokenToAuthService = ClientTokenUtils.getTokenToAuthService();
-                                if (StringUtils.isNotBlank(tokenToAuthService)) {
-                                    request
-                                            .getHeaders()
-                                            .add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
-                                }
-                            }
-                            return execution.execute(request, body);
-                        });
+        restTemplate.getInterceptors().add((request, body, execution) -> {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null) {
+                return execution.execute(request, body);
+            }
+            if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)) {
+                return execution.execute(request, body);
+            }
+            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) authentication.getDetails();
+            request.getHeaders().add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
+            // 不存在则启动客户端模式获取token
+            if (StringUtils.isBlank(token.getTokenValue())) {
+                String tokenToAuthService = ClientTokenUtils.getTokenToAuthService();
+                if (StringUtils.isNotBlank(tokenToAuthService)) {
+                    request.getHeaders().add(AuthConstant.BEARER_TOKEN_HEADER_NAME, token.getTokenValue());
+                }
+            }
+            return execution.execute(request, body);
+        });
         return restTemplate;
     }
+
 
     @Bean
     @ConditionalOnMissingBean

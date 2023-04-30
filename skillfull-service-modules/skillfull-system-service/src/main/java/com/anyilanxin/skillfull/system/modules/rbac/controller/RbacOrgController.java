@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -46,12 +45,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -78,10 +75,7 @@ public class RbacOrgController extends BaseController {
     private final IRbacOrgService service;
     private final IRbacOrgMenuService menuService;
 
-    @Operation(
-            summary = "组织表添加",
-            tags = {"v1.0.0"},
-            description = "添加组织表")
+    @Operation(summary = "组织表添加", tags = {"v1.0.0"}, description = "添加组织表")
     @PostMapping(value = "/insert")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
     public Result<String> insert(@RequestBody @Valid RbacOrgVo vo) {
@@ -89,137 +83,92 @@ public class RbacOrgController extends BaseController {
         return ok(I18nUtil.get("Controller.InsertSuccess"));
     }
 
-    //    @Operation(summary = "更新机构默认菜单权限", tags = {"v1.0.0"}, description = "更新机构默认菜单权限")
-    //    @PostMapping(value = "/update/org-auth")
-    //    public Result<String> updateOrgAuth(@RequestBody @Valid RbacDefaultAuthVo vo) {
-    //        service.updateOrgAuth(vo);
-    //        return ok("修改成功");
-    //    }
+    // @Operation(summary = "更新机构默认菜单权限", tags = {"v1.0.0"}, description =
+    // "更新机构默认菜单权限")
+    // @PostMapping(value = "/update/org-auth")
+    // public Result<String> updateOrgAuth(@RequestBody @Valid RbacDefaultAuthVo vo)
+    // {
+    // service.updateOrgAuth(vo);
+    // return ok("修改成功");
+    // }
 
-    @Operation(
-            summary = "通过机构id修改机构状态",
-            tags = {"v1.0.0"},
-            description = "通过机构id修改机构状态")
-    @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId", required = true),
-            @Parameter(in = ParameterIn.QUERY, description = "类型:0-禁用,1-启用", name = "type", required = true)
-    })
+
+    @Operation(summary = "通过机构id修改机构状态", tags = {"v1.0.0"}, description = "通过机构id修改机构状态")
+    @Parameters({@Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId", required = true), @Parameter(in = ParameterIn.QUERY, description = "类型:0-禁用,1-启用", name = "type", required = true)})
     @GetMapping(value = "/update/org/state")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> updateOrgState(
-            @RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId,
-            @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
+    public Result<String> updateOrgState(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
         service.updateOrgState(orgId, type);
         return ok(type == 0 ? "禁用成功" : "启用成功");
     }
 
-    @Operation(
-            summary = "通过组织id修改",
-            tags = {"v1.0.0"},
-            description = "修改组织表")
+
+    @Operation(summary = "通过组织id修改", tags = {"v1.0.0"}, description = "修改组织表")
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @PutMapping(value = "/update/{orgId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> update(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId,
-            @RequestBody @Valid RbacOrgVo vo) {
+    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId, @RequestBody @Valid RbacOrgVo vo) {
         service.updateById(orgId, vo);
         return ok(I18nUtil.get("Controller.UpdateSuccess"));
     }
 
-    @Operation(
-            summary = "组织表逻辑删除",
-            tags = {"v1.0.0"},
-            description = "删除组织表")
+
+    @Operation(summary = "组织表逻辑删除", tags = {"v1.0.0"}, description = "删除组织表")
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @DeleteMapping(value = "/delete-one/{orgId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> deleteById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
+    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
         service.deleteById(orgId);
         return ok(I18nUtil.get("Controller.DeleteSuccess"));
     }
 
-    @Operation(
-            summary = "查询机构树(异步)",
-            tags = {"v1.0.0"},
-            description = "查询机构树(异步)")
+
+    @Operation(summary = "查询机构树(异步)", tags = {"v1.0.0"}, description = "查询机构树(异步)")
     @PostMapping(value = "/select/async/org-tree")
-    @Parameters({
-            @Parameter(in = ParameterIn.QUERY, description = "上级组织id", name = "parentId"),
-            @Parameter(in = ParameterIn.QUERY, description = "需要激活的组织id", name = "activateOrgId")
-    })
-    @Cacheable(
-            value = CoreCommonCacheConstant.ENGINE_ORG_CACHE,
-            key = "'asyncdeparttree:'+#parentId+#activateOrgId")
-    public Result<List<RbacOrgTreeDto>> selectOrgTreeAsync(
-            @RequestParam(required = false, defaultValue = "") String parentId,
-            @RequestParam(required = false, defaultValue = "") String activateOrgId) {
+    @Parameters({@Parameter(in = ParameterIn.QUERY, description = "上级组织id", name = "parentId"), @Parameter(in = ParameterIn.QUERY, description = "需要激活的组织id", name = "activateOrgId")})
+    @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'asyncdeparttree:'+#parentId+#activateOrgId")
+    public Result<List<RbacOrgTreeDto>> selectOrgTreeAsync(@RequestParam(required = false, defaultValue = "") String parentId, @RequestParam(required = false, defaultValue = "") String activateOrgId) {
         return ok(service.selectOrgTreeAsync(parentId, activateOrgId));
     }
 
-    @Operation(
-            summary = "组织列表查询",
-            tags = {"v1.0.0"},
-            description = "组织列表查询")
+
+    @Operation(summary = "组织列表查询", tags = {"v1.0.0"}, description = "组织列表查询")
     @GetMapping(value = "/select/org-list")
-    @Parameters({
-            @Parameter(description = "类型:0-所有,1-有效,默认1", name = "type"),
-            @Parameter(description = "父级id", name = "parentId")
-    })
+    @Parameters({@Parameter(description = "类型:0-所有,1-有效,默认1", name = "type"), @Parameter(description = "父级id", name = "parentId")})
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'list:'+#parentId+#type")
-    public Result<List<RbacOrgHasChildrenDto>> selectOrgList(
-            @RequestParam(defaultValue = "1", required = false) Integer type,
-            @RequestParam(defaultValue = "", required = false) String parentId) {
+    public Result<List<RbacOrgHasChildrenDto>> selectOrgList(@RequestParam(defaultValue = "1", required = false) Integer type, @RequestParam(defaultValue = "", required = false) String parentId) {
         return ok(service.selectOrgList(type, parentId));
     }
 
-    @Operation(
-            summary = "获取组织机构树",
-            tags = {"v1.0.0"},
-            description = "获取组织机构树")
+
+    @Operation(summary = "获取组织机构树", tags = {"v1.0.0"}, description = "获取组织机构树")
     @GetMapping(value = "/select/org-tree-list")
     @Parameter(description = "类型:0-所有,1-有效,默认1", name = "type")
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'listtree:'+#type")
-    public Result<List<RbacOrgTreeDto>> selectOrgTreeList(
-            @RequestParam(defaultValue = "1", required = false) Integer type) {
+    public Result<List<RbacOrgTreeDto>> selectOrgTreeList(@RequestParam(defaultValue = "1", required = false) Integer type) {
         return ok(service.selectOrgTreeList(type));
     }
 
-    @Operation(
-            summary = "通过组织id查询详情",
-            tags = {"v1.0.0"},
-            description = "查询组织表详情")
+
+    @Operation(summary = "通过组织id查询详情", tags = {"v1.0.0"}, description = "查询组织表详情")
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @GetMapping(value = "/select/one/{orgId}")
-    public Result<RbacOrgDto> getById(
-            @PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
+    public Result<RbacOrgDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
         return ok(service.getById(orgId));
     }
 
-    @Operation(
-            summary = "组织表分页查询",
-            tags = {"v1.0.0"},
-            description = "分页查询组织表")
+
+    @Operation(summary = "组织表分页查询", tags = {"v1.0.0"}, description = "分页查询组织表")
     @PostMapping(value = "/select/page")
     public Result<PageDto<RbacOrgTreePageDto>> selectPage(@RequestBody RbacOrgPageVo vo) {
         return ok(service.pageByModel(vo));
     }
 
-    @Operation(
-            summary = "获取机构菜单权限树",
-            tags = {"v1.0.0"},
-            description = "获取机构菜单权限树")
-    @Parameters({
-            @Parameter(description = "机构id", name = "orgId", required = true),
-            @Parameter(description = "系统id", name = "systemId"),
-            @Parameter(description = "菜单状态:0-禁用,1-启用,不传所有", name = "status")
-    })
+
+    @Operation(summary = "获取机构菜单权限树", tags = {"v1.0.0"}, description = "获取机构菜单权限树")
+    @Parameters({@Parameter(description = "机构id", name = "orgId", required = true), @Parameter(description = "系统id", name = "systemId"), @Parameter(description = "菜单状态:0-禁用,1-启用,不传所有", name = "status")})
     @GetMapping(value = "/select/tree")
-    public Result<List<RbacMenuTreeDto>> getMenuTree(
-            @RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId,
-            @RequestParam(required = false) String systemId,
-            @RequestParam(required = false) Integer status) {
+    public Result<List<RbacMenuTreeDto>> getMenuTree(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) String systemId, @RequestParam(required = false) Integer status) {
         return ok(menuService.getMenuTree(orgId, systemId, status));
     }
 }

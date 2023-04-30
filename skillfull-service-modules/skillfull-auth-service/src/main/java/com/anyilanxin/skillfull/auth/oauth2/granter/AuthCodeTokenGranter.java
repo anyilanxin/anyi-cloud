@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.granter;
 
 import com.anyilanxin.skillfull.auth.utils.Oauth2LogUtils;
@@ -47,17 +46,13 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 @Slf4j
 public class AuthCodeTokenGranter extends AuthorizationCodeTokenGranter {
 
-    public AuthCodeTokenGranter(
-            AuthorizationServerTokenServices tokenServices,
-            AuthorizationCodeServices authorizationCodeServices,
-            ClientDetailsService clientDetailsService,
-            OAuth2RequestFactory requestFactory) {
+    public AuthCodeTokenGranter(AuthorizationServerTokenServices tokenServices, AuthorizationCodeServices authorizationCodeServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
         super(tokenServices, authorizationCodeServices, clientDetailsService, requestFactory);
     }
 
+
     @Override
-    protected OAuth2Authentication getOAuth2Authentication(
-            ClientDetails client, TokenRequest tokenRequest) {
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Oauth2LogUtils.setPreAuthLog(client, tokenRequest);
         return super.getOAuth2Authentication(client, tokenRequest);
     }

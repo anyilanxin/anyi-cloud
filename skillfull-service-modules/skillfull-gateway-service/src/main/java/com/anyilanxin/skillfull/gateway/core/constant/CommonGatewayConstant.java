@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.constant;
 
 /**
@@ -39,23 +38,15 @@ package com.anyilanxin.skillfull.gateway.core.constant;
  */
 public interface CommonGatewayConstant {
 
-    /**
-     * 负载均衡类型前缀
-     */
+    /** 负载均衡类型前缀 */
     String LB_PREFIX = "lb:";
 
-    /**
-     * 用户信息
-     */
+    /** 用户信息 */
     String GATEWAY_USER_INFO = "GATEWAY_USER_INFO";
 
-    /**
-     * 日志记录数据
-     */
+    /** 日志记录数据 */
     String GATEWAY_LOG_INFO = "GATEWAY_LOG_INFO";
 
-    /**
-     * 加解密密钥信息
-     */
+    /** 加解密密钥信息 */
     String GATEWAY_ENCRYPT_DECRYPT_INFO = "GATEWAY_ENCRYPT_DECRYPT_INFO";
 }

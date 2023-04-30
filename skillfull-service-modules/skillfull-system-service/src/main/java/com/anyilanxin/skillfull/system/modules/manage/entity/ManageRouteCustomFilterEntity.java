@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -59,18 +56,12 @@ public class ManageRouteCustomFilterEntity implements Serializable {
     @TableId
     private String routeCustomFilterId;
 
-    /**
-     * 自定义过滤器id
-     */
+    /** 自定义过滤器id */
     private String customFilterId;
 
-    /**
-     * 路由id
-     */
+    /** 路由id */
     private String routeId;
 
-    /**
-     * 过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType
-     */
+    /** 过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType */
     private String filterType;
 }

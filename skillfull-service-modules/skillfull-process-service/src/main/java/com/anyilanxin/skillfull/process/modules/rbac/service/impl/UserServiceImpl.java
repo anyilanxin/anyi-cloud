@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -42,9 +41,7 @@ import com.anyilanxin.skillfull.process.modules.rbac.service.IUserService;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.UserDto;
 import io.seata.spring.annotation.GlobalTransactional;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -86,6 +83,7 @@ public class UserServiceImpl implements IUserService {
         setDetailInfo(vo.getUserId(), vo.getDetailInfo());
     }
 
+
     @Override
     @GlobalTransactional
     public void deleteOrAddGroup(UserGroupVo vo) throws RuntimeException {
@@ -93,24 +91,19 @@ public class UserServiceImpl implements IUserService {
         List<Group> list = identityService.createGroupQuery().list();
         if (CollUtil.isNotEmpty(list)) {
             // 删除历史信息
-            list.forEach(
-                    v -> {
-                        User user =
-                                identityService
-                                        .createUserQuery()
-                                        .userId(userId)
-                                        .memberOfGroup(v.getId())
-                                        .singleResult();
-                        if (Objects.nonNull(user)) {
-                            identityService.deleteMembership(userId, v.getId());
-                        }
-                    });
+            list.forEach(v -> {
+                User user = identityService.createUserQuery().userId(userId).memberOfGroup(v.getId()).singleResult();
+                if (Objects.nonNull(user)) {
+                    identityService.deleteMembership(userId, v.getId());
+                }
+            });
             // 添加新信息
             if (CollUtil.isNotEmpty(vo.getGroupIds())) {
                 vo.getGroupIds().forEach(v -> identityService.createMembership(userId, v));
             }
         }
     }
+
 
     @Override
     @GlobalTransactional
@@ -119,18 +112,12 @@ public class UserServiceImpl implements IUserService {
         List<Tenant> list = identityService.createTenantQuery().list();
         if (CollUtil.isNotEmpty(list)) {
             // 删除历史信息
-            list.forEach(
-                    v -> {
-                        User user =
-                                identityService
-                                        .createUserQuery()
-                                        .userId(userId)
-                                        .memberOfTenant(v.getId())
-                                        .singleResult();
-                        if (Objects.nonNull(user)) {
-                            identityService.deleteTenantUserMembership(v.getId(), userId);
-                        }
-                    });
+            list.forEach(v -> {
+                User user = identityService.createUserQuery().userId(userId).memberOfTenant(v.getId()).singleResult();
+                if (Objects.nonNull(user)) {
+                    identityService.deleteTenantUserMembership(v.getId(), userId);
+                }
+            });
             // 添加新信息
             if (CollUtil.isNotEmpty(vo.getTenantIds())) {
                 vo.getTenantIds().forEach(v -> identityService.createTenantUserMembership(v, userId));
@@ -138,12 +125,14 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+
     @Override
     public UserDto getUser(String userId) throws RuntimeException {
         User user = getCamundaUser(userId);
         UserDetailDto detailInfo = this.getDetailInfo(user.getId());
         return new UserDto().getUser(user, detailInfo);
     }
+
 
     @Override
     public List<UserDto> getUserList(UserQueryVo vo) throws RuntimeException {
@@ -168,14 +157,14 @@ public class UserServiceImpl implements IUserService {
             return Collections.emptyList();
         }
         List<UserDto> userList = new ArrayList<>(list.size());
-        list.forEach(
-                v -> {
-                    UserDetailDto detailInfo = this.getDetailInfo(v.getId());
-                    UserDto userModel = new UserDto().getUser(v, detailInfo);
-                    userList.add(userModel);
-                });
+        list.forEach(v -> {
+            UserDetailDto detailInfo = this.getDetailInfo(v.getId());
+            UserDto userModel = new UserDto().getUser(v, detailInfo);
+            userList.add(userModel);
+        });
         return userList;
     }
+
 
     @Override
     public PageDto<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException {
@@ -196,34 +185,30 @@ public class UserServiceImpl implements IUserService {
             userQuery.memberOfTenant(vo.getTenantId());
         }
         if (CollUtil.isNotEmpty(vo.getAscs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("realName")) {
-                                    userQuery.orderByUserFirstName().asc();
-                                }
-                                if (v.equals("userName")) {
-                                    userQuery.orderByUserLastName().asc();
-                                }
-                                if (v.equals("email")) {
-                                    userQuery.orderByUserEmail().asc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("realName")) {
+                    userQuery.orderByUserFirstName().asc();
+                }
+                if (v.equals("userName")) {
+                    userQuery.orderByUserLastName().asc();
+                }
+                if (v.equals("email")) {
+                    userQuery.orderByUserEmail().asc();
+                }
+            });
         }
         if (CollUtil.isNotEmpty(vo.getDescs())) {
-            vo.getAscs()
-                    .forEach(
-                            v -> {
-                                if (v.equals("realName")) {
-                                    userQuery.orderByUserFirstName().desc();
-                                }
-                                if (v.equals("userName")) {
-                                    userQuery.orderByUserLastName().desc();
-                                }
-                                if (v.equals("email")) {
-                                    userQuery.orderByUserEmail().desc();
-                                }
-                            });
+            vo.getAscs().forEach(v -> {
+                if (v.equals("realName")) {
+                    userQuery.orderByUserFirstName().desc();
+                }
+                if (v.equals("userName")) {
+                    userQuery.orderByUserLastName().desc();
+                }
+                if (v.equals("email")) {
+                    userQuery.orderByUserEmail().desc();
+                }
+            });
         }
         long count = userQuery.count();
         if (count == 0L) {
@@ -231,14 +216,14 @@ public class UserServiceImpl implements IUserService {
         }
         List<User> list = userQuery.listPage(vo.getCurrent(), vo.getSize());
         List<UserDto> userList = new ArrayList<>(list.size());
-        list.forEach(
-                v -> {
-                    UserDetailDto detailInfo = this.getDetailInfo(v.getId());
-                    UserDto userModel = new UserDto().getUser(v, detailInfo);
-                    userList.add(userModel);
-                });
+        list.forEach(v -> {
+            UserDetailDto detailInfo = this.getDetailInfo(v.getId());
+            UserDto userModel = new UserDto().getUser(v, detailInfo);
+            userList.add(userModel);
+        });
         return new PageDto<>(count, userList);
     }
+
 
     @Override
     @GlobalTransactional
@@ -260,6 +245,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+
     /**
      * 获取详细信息
      *
@@ -279,10 +265,11 @@ public class UserServiceImpl implements IUserService {
         return detailInfo;
     }
 
+
     /**
      * 保存或更新详细信息
      *
-     * @param userId     ${@link String} 用户id
+     * @param userId ${@link String} 用户id
      * @param detailInfo ${@link UserDetailVo} 详细信息
      * @author zxiaozhou
      * @date 2021-11-07 00:03
@@ -293,14 +280,14 @@ public class UserServiceImpl implements IUserService {
         // 添加新的详细信息
         if (Objects.nonNull(detailInfo)) {
             JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(detailInfo));
-            jsonObject.forEach(
-                    (k, v) -> {
-                        if (StringUtils.isNotBlank(k) && Objects.nonNull(v)) {
-                            identityService.setUserInfo(userId, k, v.toString());
-                        }
-                    });
+            jsonObject.forEach((k, v) -> {
+                if (StringUtils.isNotBlank(k) && Objects.nonNull(v)) {
+                    identityService.setUserInfo(userId, k, v.toString());
+                }
+            });
         }
     }
+
 
     /**
      * 删除用户详细信息
@@ -315,6 +302,7 @@ public class UserServiceImpl implements IUserService {
             userInfoKeys.forEach(v -> identityService.deleteUserInfo(userId, v));
         }
     }
+
 
     /**
      * 获取用户信息
@@ -333,6 +321,7 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
+
     @Override
     @GlobalTransactional
     public void syncUser(Set<SyncUserVo> voSet) throws RuntimeException {
@@ -341,61 +330,46 @@ public class UserServiceImpl implements IUserService {
         List<User> list = identityService.createUserQuery().list();
         if (CollUtil.isNotEmpty(list)) {
             // 删除历史数据
-            list.forEach(
-                    v -> {
-                        if (!DEFAULT_USER_ID.equals(v.getId())) {
-                            // 删除关联关系
-                            if (CollUtil.isNotEmpty(tenants)) {
-                                tenants.forEach(
-                                        sv -> {
-                                            User user =
-                                                    identityService
-                                                            .createUserQuery()
-                                                            .userId(v.getId())
-                                                            .memberOfTenant(sv.getId())
-                                                            .singleResult();
-                                            if (Objects.nonNull(user)) {
-                                                identityService.deleteTenantUserMembership(sv.getId(), v.getId());
-                                            }
-                                        });
+            list.forEach(v -> {
+                if (!DEFAULT_USER_ID.equals(v.getId())) {
+                    // 删除关联关系
+                    if (CollUtil.isNotEmpty(tenants)) {
+                        tenants.forEach(sv -> {
+                            User user = identityService.createUserQuery().userId(v.getId()).memberOfTenant(sv.getId()).singleResult();
+                            if (Objects.nonNull(user)) {
+                                identityService.deleteTenantUserMembership(sv.getId(), v.getId());
                             }
-                            if (CollUtil.isNotEmpty(groups)) {
-                                groups.forEach(
-                                        sv -> {
-                                            User user =
-                                                    identityService
-                                                            .createUserQuery()
-                                                            .userId(v.getId())
-                                                            .memberOfGroup(sv.getId())
-                                                            .singleResult();
-                                            if (Objects.nonNull(user)) {
-                                                identityService.deleteMembership(v.getId(), sv.getId());
-                                            }
-                                        });
+                        });
+                    }
+                    if (CollUtil.isNotEmpty(groups)) {
+                        groups.forEach(sv -> {
+                            User user = identityService.createUserQuery().userId(v.getId()).memberOfGroup(sv.getId()).singleResult();
+                            if (Objects.nonNull(user)) {
+                                identityService.deleteMembership(v.getId(), sv.getId());
                             }
-                            // 删除用户
-                            identityService.deleteUser(v.getId());
-                            // 删除附加信息
-                            deleteDetailInfo(v.getId());
-                        }
-                    });
+                        });
+                    }
+                    // 删除用户
+                    identityService.deleteUser(v.getId());
+                    // 删除附加信息
+                    deleteDetailInfo(v.getId());
+                }
+            });
             // 添加新数据
-            voSet.forEach(
-                    v -> {
-                        User camundaUser = v.getCamundaUser();
-                        camundaUser.setPassword(DEFAULT_PASSWORD);
-                        identityService.saveUser(camundaUser);
-                        // 保存附加信息
-                        setDetailInfo(v.getUserId(), v.getDetailInfo());
-                        // 添加关联关系
-                        if (CollUtil.isNotEmpty(v.getGroupIds())) {
-                            v.getGroupIds().forEach(sv -> identityService.createMembership(v.getUserId(), sv));
-                        }
-                        if (CollUtil.isNotEmpty(v.getTenantIds())) {
-                            v.getTenantIds()
-                                    .forEach(sv -> identityService.createTenantUserMembership(sv, v.getUserId()));
-                        }
-                    });
+            voSet.forEach(v -> {
+                User camundaUser = v.getCamundaUser();
+                camundaUser.setPassword(DEFAULT_PASSWORD);
+                identityService.saveUser(camundaUser);
+                // 保存附加信息
+                setDetailInfo(v.getUserId(), v.getDetailInfo());
+                // 添加关联关系
+                if (CollUtil.isNotEmpty(v.getGroupIds())) {
+                    v.getGroupIds().forEach(sv -> identityService.createMembership(v.getUserId(), sv));
+                }
+                if (CollUtil.isNotEmpty(v.getTenantIds())) {
+                    v.getTenantIds().forEach(sv -> identityService.createTenantUserMembership(sv, v.getUserId()));
+                }
+            });
         }
     }
 }

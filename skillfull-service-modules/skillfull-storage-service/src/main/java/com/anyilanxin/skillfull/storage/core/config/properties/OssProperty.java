@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.config.properties;
 
 import lombok.Getter;
@@ -50,30 +49,20 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "alibaba.cloud.oss")
 public class OssProperty {
-    /**
-     * 默认bucket
-     */
+    /** 默认bucket */
     private String bucket;
 
-    /**
-     * 生成文件url访问过期时间(单位:s,默认12小时)
-     */
+    /** 生成文件url访问过期时间(单位:s,默认12小时) */
     private long accessExpireTime = 43200L;
 
-    /**
-     * oss endpoint
-     */
+    /** oss endpoint */
     private String endpoint;
 
-    /**
-     * accessKey
-     */
+    /** accessKey */
     @Value("${alibaba.cloud.access-key}")
     private String accessKey;
 
-    /**
-     * secretKey
-     */
+    /** secretKey */
     @Value("${alibaba.cloud.secret-key}")
     private String secretKey;
 }

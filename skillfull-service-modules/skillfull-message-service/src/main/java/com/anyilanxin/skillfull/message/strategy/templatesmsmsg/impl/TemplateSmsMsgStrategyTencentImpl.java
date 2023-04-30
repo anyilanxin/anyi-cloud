@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.strategy.templatesmsmsg.impl;
 
 import com.anyilanxin.skillfull.message.modules.manage.entity.ManageSendRecordEntity;
@@ -35,9 +34,7 @@ import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.skillfull.message.strategy.templatesmsmsg.ITemplateSmsMsgStrategy;
 import com.anyilanxin.skillfull.messagerpc.constant.MsgTemplateSmsChannelConstant;
 import com.anyilanxin.skillfull.messagerpc.model.TemplateSmsMsgModel;
-
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 /**
@@ -51,8 +48,7 @@ import org.springframework.stereotype.Component;
 @Component(value = MsgTemplateSmsChannelConstant.TENCENT_SMS)
 public class TemplateSmsMsgStrategyTencentImpl implements ITemplateSmsMsgStrategy {
     @Override
-    public List<ManageSendRecordEntity> sendMsg(
-            TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
+    public List<ManageSendRecordEntity> sendMsg(TemplateSmsMsgModel model, ManageTemplateSendInfoDto sendInfo) {
         return null;
     }
 }

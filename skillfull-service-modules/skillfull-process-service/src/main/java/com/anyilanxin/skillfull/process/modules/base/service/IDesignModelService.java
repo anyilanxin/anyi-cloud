@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -58,17 +57,19 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     void save(DesignModelVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo      ${@link DesignModelVo} 流程模型管理更新
+     * @param vo ${@link DesignModelVo} 流程模型管理更新
      * @param modelId ${@link String} 模型id
-     * @param vo      ${@link DesignModelVo} 流程模型管理更新
+     * @param vo ${@link DesignModelVo} 流程模型管理更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-11-25 05:22:56
      */
     void updateById(String modelId, DesignModelVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -81,6 +82,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     PageDto<DesignModelPageDto> pageByModel(DesignModelPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -92,6 +94,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      */
     DesignModelDto getById(String modelId) throws RuntimeException;
 
+
     /**
      * 模型删除
      *
@@ -101,6 +104,7 @@ public interface IDesignModelService extends BaseService<DesignModelEntity> {
      * @date 2020-08-28 12:20
      */
     void deleteByModel(DeleteDesignModelVo vo) throws RuntimeException;
+
 
     /**
      * 模型状态统计

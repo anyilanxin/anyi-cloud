@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**
@@ -49,40 +46,29 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum SocketMsgType implements ISuperType {
-    /**
-     * 指定接收人
-     */
+    /** 指定接收人 */
     DESIGNATED_PERSONNEL(0, "指定接收人"),
 
-    /**
-     * 指定系统接收人
-     */
+    /** 指定系统接收人 */
     DESIGNATED_SYSTEM_PERSONNEL(1, "指定系统接收人"),
 
-    /**
-     * 广播
-     */
+    /** 广播 */
     BROADCAST(2, "广播"),
 
-    /**
-     * 请求业务数据
-     */
+    /** 请求业务数据 */
     BUSINESS_DATA(3, "请求业务数据");
 
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 类型描述
-     */
+    /** 类型描述 */
     private final String typeDescribe;
 
     SocketMsgType(int type, String typeDescribe) {
         this.type = type;
         this.typeDescribe = typeDescribe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -102,6 +88,7 @@ public enum SocketMsgType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -117,6 +104,7 @@ public enum SocketMsgType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

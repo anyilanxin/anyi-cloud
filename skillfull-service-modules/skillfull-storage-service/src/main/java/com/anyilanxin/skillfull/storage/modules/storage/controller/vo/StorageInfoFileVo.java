@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.modules.storage.controller.vo;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -35,10 +34,8 @@ import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -69,10 +66,7 @@ public class StorageInfoFileVo implements Serializable {
     @Schema(name = "fileDirPrefix", title = "存放文件夹名称")
     private String fileDirPrefix;
 
-    @Schema(
-            name = "fileStorageType",
-            title = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致",
-            required = true)
+    @Schema(name = "fileStorageType", title = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致", required = true)
     @NotBlankOrNull(message = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致不能为空")
     private Integer fileStorageType;
 
@@ -126,12 +120,7 @@ public class StorageInfoFileVo implements Serializable {
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
-    @Schema(
-            name = "createTime",
-            title = "创建时间",
-            type = "string",
-            example = "2020-11-12 11:23:59",
-            required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
     @NotBlankOrNull(message = "创建时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime createTime;

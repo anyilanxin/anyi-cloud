@@ -27,21 +27,19 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage;
+
+import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_MAPPER_BASE_SCAN_PACKAGE;
 
 import com.anyilanxin.skillfull.corecommon.annotation.SkillfulCloudApplication;
 import com.anyilanxin.skillfull.corecommon.constant.TimeZoneConstant;
+import java.util.TimeZone;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.util.TimeZone;
-
-import static com.anyilanxin.skillfull.corecommon.constant.SysBaseConstant.BOOT_MAPPER_BASE_SCAN_PACKAGE;
 
 /**
  * start

@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service.impl;
 
 import com.anyilanxin.skillfull.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.skillfull.system.modules.common.service.ICommonConstantDictService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -60,10 +57,7 @@ public class CommonConstantDictServiceImpl implements ICommonConstantDictService
     public List<ConstantDictModel> getListByConstantTypes(String constantTypes) {
         List<ConstantDictModel> constantList = new ArrayList<>(16);
         for (String constantType : constantTypes.split("[,，]")) {
-            Object constantObject =
-                    redisTemplate
-                            .opsForValue()
-                            .get(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + constantType);
+            Object constantObject = redisTemplate.opsForValue().get(CoreCommonCacheConstant.ENGINE_CONSTANT_DICT_CACHE + constantType);
             if (Objects.nonNull(constantObject)) {
                 List<ConstantDictModel> constantDictList = (List<ConstantDictModel>) constantObject;
                 constantList.addAll(constantDictList);

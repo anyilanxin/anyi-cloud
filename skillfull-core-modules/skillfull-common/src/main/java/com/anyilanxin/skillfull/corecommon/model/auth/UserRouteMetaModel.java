@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.auth;
 
 import com.anyilanxin.skillfull.corecommon.model.system.RouteTagModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

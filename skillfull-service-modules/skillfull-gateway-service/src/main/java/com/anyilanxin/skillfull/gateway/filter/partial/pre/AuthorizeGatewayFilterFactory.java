@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.pre;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.ATTRIBUTES_KEY;
@@ -41,11 +40,9 @@ import com.anyilanxin.skillfull.gateway.core.config.properties.CustomSecurityPro
 import com.anyilanxin.skillfull.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.skillfull.oauth2common.constant.OAuth2RequestExtendConstant;
-
 import java.io.Serializable;
 import java.net.URI;
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -76,27 +73,26 @@ import reactor.core.publisher.Mono;
  * @since JDK11
  */
 @Slf4j
-public class AuthorizeGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<AuthorizeGatewayFilterFactory.Config> {
+public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthorizeGatewayFilterFactory.Config> {
     private final CustomSecurityProperties securityProperties;
     private final AntPathMatcher antPathMatcher;
 
-    public AuthorizeGatewayFilterFactory(
-            CustomSecurityProperties securityProperties, AntPathMatcher antPathMatcher) {
+    public AuthorizeGatewayFilterFactory(CustomSecurityProperties securityProperties, AntPathMatcher antPathMatcher) {
         super(AuthorizeGatewayFilterFactory.Config.class);
         this.securityProperties = securityProperties;
         this.antPathMatcher = antPathMatcher;
     }
+
 
     @Override
     public List<String> shortcutFieldOrder() {
         return Arrays.asList(CoreCommonGatewayConstant.PARAM_TYPE_KEY, ATTRIBUTES_KEY);
     }
 
+
     @Override
     public GatewayFilter apply(Config config) {
-        AuthorizeGatewayFilter gatewayFilter =
-                new AuthorizeGatewayFilter(config, antPathMatcher, securityProperties);
+        AuthorizeGatewayFilter gatewayFilter = new AuthorizeGatewayFilter(config, antPathMatcher, securityProperties);
         gatewayFilter.setFactory(this);
         return gatewayFilter;
     }
@@ -106,100 +102,86 @@ public class AuthorizeGatewayFilterFactory
         private final CustomSecurityProperties properties;
         private final AntPathMatcher antPathMatcher;
         private GatewayFilterFactory<Config> gatewayFilterFactory;
-        private final Authentication anonymous =
-                new AnonymousAuthenticationToken(
-                        "key", "anonymous", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+        private final Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
-        public AuthorizeGatewayFilter(
-                Config config, AntPathMatcher antPathMatcher, CustomSecurityProperties securityProperties) {
+        public AuthorizeGatewayFilter(Config config, AntPathMatcher antPathMatcher, CustomSecurityProperties securityProperties) {
             this.config = config;
             this.properties = securityProperties;
             this.antPathMatcher = antPathMatcher;
         }
+
 
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             if (!this.properties.isEnabled()) {
                 return chain.filter(exchange);
             }
-            return ReactiveSecurityContextHolder.getContext()
-                    .map(SecurityContext::getAuthentication)
-                    .defaultIfEmpty(this.anonymous)
-                    .filter(
-                            a -> {
-                                if (a instanceof OAuth2Authentication) {
-                                    // 缓存用户信息到上下文
-                                    OAuth2Authentication authentication = (OAuth2Authentication) a;
-                                    Object principal = authentication.getPrincipal();
-                                    if (principal instanceof SkillFullUserDetails) {
-                                        SkillFullUserDetails userDetails = (SkillFullUserDetails) principal;
-                                        // 存储上下文
-                                        exchange
-                                                .getAttributes()
-                                                .put(CommonGatewayConstant.GATEWAY_USER_INFO, userDetails);
-                                        // 如果是超级管理员直接放行
-                                        if (userDetails.isSuperAdmin()) {
-                                            return true;
-                                        }
-                                    }
-                                    // 验证白名单
-                                    if (isWhiteList(antPathMatcher, properties, exchange)) {
-                                        return true;
-                                    }
-                                    // 验证资源权限
-                                    Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-                                    if (Objects.isNull(route)) {
-                                        return true;
-                                    }
-                                    String resourceId = route.getId();
-                                    OAuth2Request oAuth2Request = authentication.getOAuth2Request();
-                                    Map<String, Serializable> extensions = oAuth2Request.getExtensions();
-                                    if (CollUtil.isNotEmpty(extensions)
-                                            && Objects.nonNull(
-                                            extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
-                                        if ((Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE) == 1) {
-                                            Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
-                                            if (CollectionUtil.isEmpty(resourceIds)
-                                                    || !resourceIds.contains(resourceId)) {
-                                                throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
-                                            }
-                                        }
-                                    } else {
-                                        Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
-                                        if (CollectionUtil.isEmpty(resourceIds) || !resourceIds.contains(resourceId)) {
-                                            throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
-                                        }
-                                    }
-                                }
-                                // 验证白名单
-                                if (isWhiteList(antPathMatcher, properties, exchange)) {
-                                    return true;
-                                }
-                                return false;
-                            })
-                    .map(authModel -> exchange.mutate().build())
-                    .defaultIfEmpty(exchange)
-                    .flatMap(chain::filter);
+            return ReactiveSecurityContextHolder.getContext().map(SecurityContext::getAuthentication).defaultIfEmpty(this.anonymous).filter(a -> {
+                if (a instanceof OAuth2Authentication) {
+                    // 缓存用户信息到上下文
+                    OAuth2Authentication authentication = (OAuth2Authentication) a;
+                    Object principal = authentication.getPrincipal();
+                    if (principal instanceof SkillFullUserDetails) {
+                        SkillFullUserDetails userDetails = (SkillFullUserDetails) principal;
+                        // 存储上下文
+                        exchange.getAttributes().put(CommonGatewayConstant.GATEWAY_USER_INFO, userDetails);
+                        // 如果是超级管理员直接放行
+                        if (userDetails.isSuperAdmin()) {
+                            return true;
+                        }
+                    }
+                    // 验证白名单
+                    if (isWhiteList(antPathMatcher, properties, exchange)) {
+                        return true;
+                    }
+                    // 验证资源权限
+                    Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+                    if (Objects.isNull(route)) {
+                        return true;
+                    }
+                    String resourceId = route.getId();
+                    OAuth2Request oAuth2Request = authentication.getOAuth2Request();
+                    Map<String, Serializable> extensions = oAuth2Request.getExtensions();
+                    if (CollUtil.isNotEmpty(extensions) && Objects.nonNull(extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE))) {
+                        if ((Integer) extensions.get(OAuth2RequestExtendConstant.LIMIT_RESOURCE) == 1) {
+                            Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
+                            if (CollectionUtil.isEmpty(resourceIds) || !resourceIds.contains(resourceId)) {
+                                throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
+                            }
+                        }
+                    } else {
+                        Set<String> resourceIds = authentication.getOAuth2Request().getResourceIds();
+                        if (CollectionUtil.isEmpty(resourceIds) || !resourceIds.contains(resourceId)) {
+                            throw new AccessDeniedException("当前用户没有访问该资源的权限:" + resourceId);
+                        }
+                    }
+                }
+                // 验证白名单
+                if (isWhiteList(antPathMatcher, properties, exchange)) {
+                    return true;
+                }
+                return false;
+            }).map(authModel -> exchange.mutate().build()).defaultIfEmpty(exchange).flatMap(chain::filter);
         }
+
 
         @Override
         public int getOrder() {
             return 2;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
+
 
         public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
         }
+
 
         /**
          * 验证是否为白名单
@@ -209,24 +191,18 @@ public class AuthorizeGatewayFilterFactory
          * @author zxiaozhou
          * @date 2022-07-28 07:57
          */
-        private static boolean isWhiteList(
-                AntPathMatcher antPathMatcher,
-                CustomSecurityProperties properties,
-                ServerWebExchange exchange) {
+        private static boolean isWhiteList(AntPathMatcher antPathMatcher, CustomSecurityProperties properties, ServerWebExchange exchange) {
             URI uri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
             HttpMethod method = exchange.getRequest().getMethod();
             Set<String> commonWhiteList = properties.getCommonWhiteList();
             if (CollUtil.isEmpty(commonWhiteList)) {
                 commonWhiteList = new HashSet<>();
             }
-            if (CommonCoreConstant.PRO.equalsIgnoreCase(properties.getActive())
-                    && CollUtil.isNotEmpty(properties.getProWhiteList())) {
+            if (CommonCoreConstant.PRO.equalsIgnoreCase(properties.getActive()) && CollUtil.isNotEmpty(properties.getProWhiteList())) {
                 commonWhiteList.addAll(properties.getProWhiteList());
-            } else if (CommonCoreConstant.TEST.equalsIgnoreCase(properties.getActive())
-                    && CollUtil.isNotEmpty(properties.getTestWhiteList())) {
+            } else if (CommonCoreConstant.TEST.equalsIgnoreCase(properties.getActive()) && CollUtil.isNotEmpty(properties.getTestWhiteList())) {
                 commonWhiteList.addAll(properties.getTestWhiteList());
-            } else if (CommonCoreConstant.DEV.equalsIgnoreCase(properties.getActive())
-                    && CollUtil.isNotEmpty(properties.getDevWhiteList())) {
+            } else if (CommonCoreConstant.DEV.equalsIgnoreCase(properties.getActive()) && CollUtil.isNotEmpty(properties.getDevWhiteList())) {
                 commonWhiteList.addAll(properties.getDevWhiteList());
             }
             if (CollUtil.isNotEmpty(commonWhiteList)) {

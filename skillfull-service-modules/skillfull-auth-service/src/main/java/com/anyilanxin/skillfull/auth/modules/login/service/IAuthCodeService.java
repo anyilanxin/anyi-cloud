@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.service;
 
 import com.anyilanxin.skillfull.auth.oauth2.validate.ValidateDto;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -54,10 +52,11 @@ public interface IAuthCodeService {
      */
     ValidateDto getPictureCode(HttpServletRequest request) throws RuntimeException;
 
+
     /**
      * 获取手机验证码(会验证手机是否存在)
      *
-     * @param phone   ${@link String} 手机号码
+     * @param phone ${@link String} 手机号码
      * @param request ${@link HttpServletRequest}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou

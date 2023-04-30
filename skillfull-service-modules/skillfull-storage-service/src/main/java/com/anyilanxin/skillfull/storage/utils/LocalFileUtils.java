@@ -27,13 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.utils;
 
 import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
-
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +52,7 @@ public class LocalFileUtils {
         utils = this;
     }
 
+
     /**
      * 映射路径转磁盘路径
      *
@@ -67,6 +65,7 @@ public class LocalFileUtils {
         String path = mapPath.replaceFirst(utils.fileProperty.getVirtualMapping(), "");
         return utils.fileProperty.getUploadFolder() + path;
     }
+
 
     /**
      * 磁盘路径转映射路径

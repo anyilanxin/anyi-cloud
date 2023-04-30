@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.stream.component;
 
 import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
@@ -58,8 +57,8 @@ public class BindingComponent {
      * 发送消息并设置未消费过期时间
      *
      * @param bindingName ${@link String} bind名称
-     * @param t           ${@link Object} 数据
-     * @param ttl         ${@link Long} 过期时间,单位:s
+     * @param t ${@link Object} 数据
+     * @param ttl ${@link Long} 过期时间,单位:s
      * @author zxiaozhou
      * @date 2021-07-29 17:52
      */
@@ -73,11 +72,12 @@ public class BindingComponent {
         streamBridge.send(bindingName + BindingStreamConstant.OUT_SUFFIX, stringMessage);
     }
 
+
     /**
      * 发送消息
      *
      * @param bindingName ${@link String} bind名称
-     * @param t           ${@link Object} 数据
+     * @param t ${@link Object} 数据
      * @author zxiaozhou
      * @date 2021-08-30 15:32
      */

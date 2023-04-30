@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.exception;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -46,15 +44,14 @@ import java.io.StringWriter;
 public class ResponseException extends RuntimeException {
     private static final long serialVersionUID = 7207809155561786625L;
 
-    /**
-     * 错误异常结果
-     */
+    /** 错误异常结果 */
     private final Result<Object> result;
 
     public ResponseException() {
         super(Status.ERROR.getMessage());
         this.result = new Result<>(Status.ERROR);
     }
+
 
     /**
      * 构造函数
@@ -66,27 +63,30 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(status);
     }
 
+
     /**
      * 构造函数
      *
      * @param status 响应代码
-     * @param data   业务数据
+     * @param data 业务数据
      */
     public ResponseException(Status status, Object data) {
         super(status.getMessage());
         this.result = new Result<>(status, data);
     }
 
+
     /**
      * 构造函数
      *
-     * @param status  响应代码
+     * @param status 响应代码
      * @param message 异常消息
      */
     public ResponseException(Status status, String message) {
         super(message);
         this.result = new Result<>(status, message);
     }
+
 
     /**
      * 构造函数
@@ -98,16 +98,18 @@ public class ResponseException extends RuntimeException {
         this.result = new Result<>(Status.ERROR, message);
     }
 
+
     /**
      * 构造函数
      *
-     * @param code    响应代码
+     * @param code 响应代码
      * @param message 消息提示
      */
     public ResponseException(int code, String message) {
         super(message);
         this.result = new Result<>(code, message);
     }
+
 
     /**
      * 构造函数
@@ -118,6 +120,7 @@ public class ResponseException extends RuntimeException {
         super(result.getMessage());
         this.result = result;
     }
+
 
     /**
      * 获取错误堆栈信息
@@ -133,9 +136,11 @@ public class ResponseException extends RuntimeException {
         }
     }
 
+
     public Result<Object> getResult() {
         return result;
     }
+
 
     /**
      * 获取错误堆栈信息

@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacRoleClientEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacRoleSimpleDto;
-
 import java.util.Collection;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -62,6 +59,7 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      */
     int physicalDeleteById(@Param("id") String roleClient);
 
+
     /**
      * 通过客户端角色id物理批量删除
      *
@@ -71,6 +69,7 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      * @date 2022-05-02 16:12:20
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 获取客户端角色权限
@@ -82,6 +81,7 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      */
     Set<String> selectRoleListById(@Param("id") String clientDetailId);
 
+
     /**
      * 获取客户端角色权限(完整数据)
      *
@@ -91,6 +91,7 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      * @date 2022-07-04 01:18
      */
     Set<RbacRoleSimpleDto> selectRoleAllInfoListById(@Param("id") String clientDetailId);
+
 
     /**
      * 获取客户端角色

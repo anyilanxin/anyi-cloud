@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.mapper;
 
 import com.anyilanxin.skillfull.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.skillfull.corecommon.model.system.ClientAndResourceAuthModel;
-
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -55,6 +52,7 @@ public interface ClientAuthMapper {
      * @date 2022-04-06 00:08
      */
     Set<RoleInfo> getClientAuthRole(@Param("clientDetailId") String clientDetailId);
+
 
     /**
      * 通过客户端id查询客户端信息

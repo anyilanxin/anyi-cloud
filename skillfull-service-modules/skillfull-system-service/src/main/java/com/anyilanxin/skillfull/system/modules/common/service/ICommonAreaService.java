@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.common.entity.CommonAreaEntity;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaPageDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonAreaTreeDto;
-
 import java.util.List;
 
 /**
@@ -59,17 +57,19 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     void save(CommonAreaVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo     ${@link CommonAreaVo} 区域表更新
+     * @param vo ${@link CommonAreaVo} 区域表更新
      * @param areaId ${@link String} 区域id
-     * @param vo     ${@link CommonAreaVo} 区域表更新
+     * @param vo ${@link CommonAreaVo} 区域表更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2020-11-02 09:25:04
      */
     void updateById(String areaId, CommonAreaVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,6 +82,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     PageDto<CommonAreaPageDto> pageByModel(CommonAreaPageVo vo) throws RuntimeException;
 
+
     /**
      * 区域查询下级
      *
@@ -93,6 +94,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     List<CommonAreaPageDto> selectPageChildren(String parentId) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -102,8 +104,8 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @author zxiaozhou
      * @date 2020-11-02 09:25:04
      */
-    List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId)
-            throws RuntimeException;
+    List<CommonAreaTreeDto> selectList(String parentId, String activateAreaId) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -116,6 +118,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      */
     CommonAreaDto getById(String areaId) throws RuntimeException;
 
+
     /**
      * 通过areaId删除
      *
@@ -125,6 +128,7 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
      * @date 2020-08-28 12:20
      */
     void deleteById(String areaId) throws RuntimeException;
+
 
     /**
      * 文件批量删除

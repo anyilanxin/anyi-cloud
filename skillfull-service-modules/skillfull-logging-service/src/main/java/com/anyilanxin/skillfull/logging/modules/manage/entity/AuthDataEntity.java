@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.modules.manage.entity;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -63,85 +60,53 @@ public class AuthDataEntity extends BaseEntity {
     @TableId
     private String authLogId;
 
-    /**
-     * 日志编号
-     */
+    /** 日志编号 */
     private String logCode;
 
-    /**
-     * 请求ip
-     */
+    /** 请求ip */
     private String requestIp;
 
-    /**
-     * 授权类型，具体参考常量字典AuthorizedGrantTypes
-     */
+    /** 授权类型，具体参考常量字典AuthorizedGrantTypes */
     private String authType;
 
-    /**
-     * 授权类型描述，具体参考常量字典AuthorizedGrantTypes
-     */
+    /** 授权类型描述，具体参考常量字典AuthorizedGrantTypes */
     private String authTypeDescribe;
 
-    /**
-     * 授权用户id
-     */
+    /** 授权用户id */
     private String authUserId;
 
-    /**
-     * 授权用户名称
-     */
+    /** 授权用户名称 */
     private String authUserName;
 
-    /**
-     * 授权客户端编号
-     */
+    /** 授权客户端编号 */
     private String authClientCode;
 
-    /**
-     * 授权客户端名称
-     */
+    /** 授权客户端名称 */
     private String authClientName;
 
-    /**
-     * 授权状态：0-失败,1-成功
-     */
+    /** 授权状态：0-失败,1-成功 */
     private Integer authStatus;
 
-    /**
-     * 日志内容
-     */
+    /** 日志内容 */
     private String logData;
 
-    /**
-     * 日志其余内容
-     */
+    /** 日志其余内容 */
     private String logOtherData;
 
-    /**
-     * 异常消息
-     */
+    /** 异常消息 */
     private String exceptionMessage;
 
-    /**
-     * 请求开始时间
-     */
+    /** 请求开始时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
-    /**
-     * 耗时
-     */
+    /** 耗时 */
     private Long costTime;
 
-    /**
-     * 请求结束时间
-     */
+    /** 请求结束时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
 
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 }

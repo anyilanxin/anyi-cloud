@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.config;
 
 import com.anyilanxin.skillfull.corewebflux.config.properfy.CoreWebFluxAppProperty;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -75,8 +72,7 @@ public class PropertyStartCoreWebFluxConfig implements ApplicationRunner {
             String application = "application-" + property.getActive() + ".yml";
             file = new File("./config/" + application);
             if (!file.exists()) {
-                try (OutputStream outputStream = new FileOutputStream(file);
-                     InputStream inputStream = property.getResource().getInputStream()) {
+                try (OutputStream outputStream = new FileOutputStream(file); InputStream inputStream = property.getResource().getInputStream()) {
                     IOUtils.copy(inputStream, outputStream);
                 } catch (Exception e) {
                     e.printStackTrace();

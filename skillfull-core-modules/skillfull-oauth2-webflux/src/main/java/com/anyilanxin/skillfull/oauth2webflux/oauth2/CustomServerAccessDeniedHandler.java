@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import cn.hutool.json.JSONUtil;
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -60,9 +57,7 @@ import reactor.core.publisher.Mono;
 public class CustomServerAccessDeniedHandler implements ServerAccessDeniedHandler {
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
-        log.error(
-                "------------RestfulAccessDeniedHandler------------>handle--->异常消息:\n{}",
-                denied.getMessage());
+        log.error("------------RestfulAccessDeniedHandler------------>handle--->异常消息:\n{}", denied.getMessage());
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.FORBIDDEN);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);

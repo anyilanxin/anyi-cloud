@@ -27,19 +27,16 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.GRAY_HEADER_KEY;
 
 import cn.hutool.core.collection.CollUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -67,7 +64,7 @@ public class GrayUtil {
      * grayVersion:服务版本(spring.application.version) </div>
      *
      * @param instances ${@link List<ServiceInstance>}
-     * @param request   ${@link Request}
+     * @param request ${@link Request}
      * @return GrayModel ${@link GrayModel}
      * @author zxiaozhou
      * @date 2022-01-06 19:47
@@ -81,19 +78,16 @@ public class GrayUtil {
         if (CollUtil.isNotEmpty(headers)) {
             List<String> headerValues = headers.get(GRAY_HEADER_KEY);
             if (CollUtil.isNotEmpty(headerValues)) {
-                Stream<ServiceInstance> stream =
-                        grayInstances.stream()
-                                .filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String enableGray = metadata.get("gray-info.enable-gray");
-                                                if (StringUtils.isNotBlank(enableGray)) {
-                                                    return Boolean.parseBoolean(enableGray);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                Stream<ServiceInstance> stream = grayInstances.stream().filter(v -> {
+                    Map<String, String> metadata = v.getMetadata();
+                    if (CollUtil.isNotEmpty(metadata)) {
+                        String enableGray = metadata.get("gray-info.enable-gray");
+                        if (StringUtils.isNotBlank(enableGray)) {
+                            return Boolean.parseBoolean(enableGray);
+                        }
+                    }
+                    return true;
+                });
                 for (String headerValue : headerValues) {
                     if (headerValue.startsWith("grayIp=")) {
                         String ip = headerValue.split("=")[1];
@@ -101,33 +95,29 @@ public class GrayUtil {
                     }
                     if (headerValue.startsWith("grayActive=")) {
                         String active = headerValue.split("=")[1];
-                        stream =
-                                stream.filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String instanceActive = metadata.get("gray-info.active");
-                                                if (StringUtils.isNotBlank(instanceActive)) {
-                                                    return instanceActive.equals(active);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                        stream = stream.filter(v -> {
+                            Map<String, String> metadata = v.getMetadata();
+                            if (CollUtil.isNotEmpty(metadata)) {
+                                String instanceActive = metadata.get("gray-info.active");
+                                if (StringUtils.isNotBlank(instanceActive)) {
+                                    return instanceActive.equals(active);
+                                }
+                            }
+                            return true;
+                        });
                     }
                     if (headerValue.startsWith("grayVersion=")) {
                         String version = headerValue.split("=")[1];
-                        stream =
-                                stream.filter(
-                                        v -> {
-                                            Map<String, String> metadata = v.getMetadata();
-                                            if (CollUtil.isNotEmpty(metadata)) {
-                                                String instanceVersion = metadata.get("gray-info.version");
-                                                if (StringUtils.isNotBlank(instanceVersion)) {
-                                                    return instanceVersion.equals(version);
-                                                }
-                                            }
-                                            return true;
-                                        });
+                        stream = stream.filter(v -> {
+                            Map<String, String> metadata = v.getMetadata();
+                            if (CollUtil.isNotEmpty(metadata)) {
+                                String instanceVersion = metadata.get("gray-info.version");
+                                if (StringUtils.isNotBlank(instanceVersion)) {
+                                    return instanceVersion.equals(version);
+                                }
+                            }
+                            return true;
+                        });
                     }
                 }
                 List<ServiceInstance> finallyGrayInstances = stream.collect(Collectors.toList());
@@ -145,13 +135,9 @@ public class GrayUtil {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class GrayModel {
-        /**
-         * 灰度实例获取是否成功
-         */
+        /** 灰度实例获取是否成功 */
         private boolean graySuccess;
-        /**
-         * 灰度处理后实例信息
-         */
+        /** 灰度处理后实例信息 */
         private List<ServiceInstance> instances;
     }
 }

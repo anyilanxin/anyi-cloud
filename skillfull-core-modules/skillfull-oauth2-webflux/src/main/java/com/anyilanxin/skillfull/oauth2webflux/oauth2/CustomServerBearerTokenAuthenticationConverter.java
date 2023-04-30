@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
@@ -55,10 +53,8 @@ import reactor.core.publisher.Mono;
  * @date 2022-08-30 20:01
  * @since JDK11
  */
-public class CustomServerBearerTokenAuthenticationConverter
-        extends ServerBearerTokenAuthenticationConverter {
-    private static final Pattern authorizationPattern =
-            Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$", Pattern.CASE_INSENSITIVE);
+public class CustomServerBearerTokenAuthenticationConverter extends ServerBearerTokenAuthenticationConverter {
+    private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$", Pattern.CASE_INSENSITIVE);
 
     private boolean allowUriQueryParameter = false;
 
@@ -68,16 +64,15 @@ public class CustomServerBearerTokenAuthenticationConverter
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
-        return Mono.fromCallable(() -> token(exchange.getRequest()))
-                .map(
-                        (token) -> {
-                            if (token.isEmpty()) {
-                                BearerTokenError error = invalidTokenError();
-                                throw new OAuth2AuthenticationException(error);
-                            }
-                            return new BearerTokenAuthenticationToken(token);
-                        });
+        return Mono.fromCallable(() -> token(exchange.getRequest())).map((token) -> {
+            if (token.isEmpty()) {
+                BearerTokenError error = invalidTokenError();
+                throw new OAuth2AuthenticationException(error);
+            }
+            return new BearerTokenAuthenticationToken(token);
+        });
     }
+
 
     private String token(ServerHttpRequest request) {
         String authorizationHeaderToken = resolveFromAuthorizationHeader(request.getHeaders());
@@ -85,8 +80,7 @@ public class CustomServerBearerTokenAuthenticationConverter
 
         if (authorizationHeaderToken != null) {
             if (parameterToken != null) {
-                BearerTokenError error =
-                        BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
+                BearerTokenError error = BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
                 throw new OAuth2AuthenticationException(error);
             }
             return authorizationHeaderToken;
@@ -97,6 +91,7 @@ public class CustomServerBearerTokenAuthenticationConverter
         return null;
     }
 
+
     private String resolveAccessTokenFromRequest(ServerHttpRequest request) {
         List<String> parameterTokens = request.getQueryParams().get(this.accessTokenQueryName);
         if (CollectionUtils.isEmpty(parameterTokens)) {
@@ -106,17 +101,17 @@ public class CustomServerBearerTokenAuthenticationConverter
             return parameterTokens.get(0);
         }
 
-        BearerTokenError error =
-                BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
+        BearerTokenError error = BearerTokenErrors.invalidRequest("Found multiple bearer tokens in the request");
         throw new OAuth2AuthenticationException(error);
     }
+
 
     /**
      * Set if transport of access token using URI query parameter is supported. Defaults to {@code
      * false}.
      *
-     * <p>The spec recommends against using this mechanism for sending bearer tokens, and even goes as
-     * far as stating that it was only included for completeness.
+     * <p>The spec recommends against using this mechanism for sending bearer tokens, and even goes
+     * as far as stating that it was only included for completeness.
      *
      * @param allowUriQueryParameter if the URI query parameter is supported
      */
@@ -124,9 +119,10 @@ public class CustomServerBearerTokenAuthenticationConverter
         this.allowUriQueryParameter = allowUriQueryParameter;
     }
 
+
     /**
-     * Set this value to configure what header is checked when resolving a Bearer Token. This value is
-     * defaulted to {@link HttpHeaders#AUTHORIZATION}.
+     * Set this value to configure what header is checked when resolving a Bearer Token. This value
+     * is defaulted to {@link HttpHeaders#AUTHORIZATION}.
      *
      * <p>This allows other headers to be used as the Bearer Token source such as {@link
      * HttpHeaders#PROXY_AUTHORIZATION}
@@ -138,9 +134,11 @@ public class CustomServerBearerTokenAuthenticationConverter
         this.bearerTokenHeaderName = bearerTokenHeaderName;
     }
 
+
     public void setAccessTokenQueryName(String accessTokenQueryName) {
         this.accessTokenQueryName = accessTokenQueryName;
     }
+
 
     private String resolveFromAuthorizationHeader(HttpHeaders headers) {
         String authorization = headers.getFirst(this.bearerTokenHeaderName);
@@ -155,9 +153,11 @@ public class CustomServerBearerTokenAuthenticationConverter
         return matcher.group("token");
     }
 
+
     private static BearerTokenError invalidTokenError() {
         return BearerTokenErrors.invalidToken("Bearer token is malformed");
     }
+
 
     private boolean isParameterTokenSupportedForRequest() {
         return this.allowUriQueryParameter;

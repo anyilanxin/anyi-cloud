@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.storage.core.config;
 
 import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
@@ -52,8 +51,6 @@ public class UploadLocalFileConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler(property.getVirtualMapping() + "/**")
-                .addResourceLocations("file:" + property.getUploadFolder() + "/");
+        registry.addResourceHandler(property.getVirtualMapping() + "/**").addResourceLocations("file:" + property.getUploadFolder() + "/");
     }
 }

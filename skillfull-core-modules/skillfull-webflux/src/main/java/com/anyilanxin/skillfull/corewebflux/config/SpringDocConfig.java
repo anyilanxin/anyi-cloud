@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corewebflux.config;
 
 import cn.hutool.core.collection.CollUtil;
@@ -41,9 +40,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -75,10 +72,10 @@ public class SpringDocConfig {
     private RequestMappingInfoHandlerMapping handlerMapping;
 
     @Autowired
-    private void setRequestMappingInfoHandlerMapping(
-            @Qualifier("requestMappingHandlerMapping") RequestMappingInfoHandlerMapping handlerMapping) {
+    private void setRequestMappingInfoHandlerMapping(@Qualifier("requestMappingHandlerMapping") RequestMappingInfoHandlerMapping handlerMapping) {
         this.handlerMapping = handlerMapping;
     }
+
 
     /**
      * 基本配置
@@ -93,16 +90,10 @@ public class SpringDocConfig {
         Set<String> headers = property.getHeaders();
         Map<String, SecurityScheme> securitySchemes = new HashMap<>(headers.size());
         List<SecurityRequirement> security = new ArrayList<>(headers.size());
-        headers.forEach(
-                v -> {
-                    securitySchemes.put(
-                            v,
-                            new SecurityScheme()
-                                    .type(SecurityScheme.Type.APIKEY)
-                                    .in(SecurityScheme.In.HEADER)
-                                    .name(v));
-                    security.add(new SecurityRequirement().addList(v));
-                });
+        headers.forEach(v -> {
+            securitySchemes.put(v, new SecurityScheme().type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.HEADER).name(v));
+            security.add(new SecurityRequirement().addList(v));
+        });
         int total = 0;
         Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = handlerMapping.getHandlerMethods();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> infoEntry : handlerMethodMap.entrySet()) {
@@ -112,16 +103,9 @@ public class SpringDocConfig {
             }
             total++;
         }
-        return new OpenAPI()
-                .info(
-                        new Info()
-                                .title(property.getTitle() + "(总计:" + total + ")")
-                                .version(property.getVersion()))
-                .addServersItem(new Server().url(fluxAppProperty.getBasePath()))
-                .addServersItem(new Server().url(apiPrefix))
-                .components(new Components().securitySchemes(securitySchemes))
-                .security(security);
+        return new OpenAPI().info(new Info().title(property.getTitle() + "(总计:" + total + ")").version(property.getVersion())).addServersItem(new Server().url(fluxAppProperty.getBasePath())).addServersItem(new Server().url(apiPrefix)).components(new Components().securitySchemes(securitySchemes)).security(security);
     }
+
 
     /**
      * 默认分组
@@ -132,11 +116,9 @@ public class SpringDocConfig {
      */
     @Bean
     public GroupedOpenApi defaultGroup() {
-        return GroupedOpenApi.builder()
-                .group("all")
-                .packagesToScan(property.getPackagesToScan().split("[,，]"))
-                .build();
+        return GroupedOpenApi.builder().group("all").packagesToScan(property.getPackagesToScan().split("[,，]")).build();
     }
+
 
     /**
      * 其他分组
@@ -169,46 +151,31 @@ public class SpringDocConfig {
             }
         }
         if (CollUtil.isNotEmpty(docInfoModelMap)) {
-            DefaultListableBeanFactory defaultListableBeanFactory =
-                    (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
-            docInfoModelMap.forEach(
-                    (k, v) -> {
-                        GroupedOpenApi build =
-                                GroupedOpenApi.builder()
-                                        .group(v.getVersion())
-                                        .packagesToScan(property.getPackagesToScan().split("[,，]"))
-                                        .addOpenApiCustomiser(
-                                                sv ->
-                                                        sv.setInfo(
-                                                                new Info()
-                                                                        .title(property.getTitle() + "(总计:" + v.getTotal() + ")")
-                                                                        .version(v.getVersion())))
-                                        .addOpenApiMethodFilter(
-                                                sv -> {
-                                                    Class<?> beanType = sv.getClass();
-                                                    Hidden hidden = beanType.getAnnotation(Hidden.class);
-                                                    if (Objects.nonNull(hidden)) {
-                                                        return false;
-                                                    }
-                                                    Operation annotation = sv.getAnnotation(Operation.class);
-                                                    if (Objects.isNull(annotation)) {
-                                                        return false;
-                                                    }
-                                                    String[] tagInfos = annotation.tags();
-                                                    if (Objects.isNull(tagInfos) || tagInfos.length <= 0) {
-                                                        return false;
-                                                    }
-                                                    return Arrays.asList(tagInfos).contains(v.getVersion());
-                                                })
-                                        .build();
-                        defaultListableBeanFactory.registerSingleton(k, build);
-                    });
+            DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
+            docInfoModelMap.forEach((k, v) -> {
+                GroupedOpenApi build = GroupedOpenApi.builder().group(v.getVersion()).packagesToScan(property.getPackagesToScan().split("[,，]")).addOpenApiCustomiser(sv -> sv.setInfo(new Info().title(property.getTitle() + "(总计:" + v.getTotal() + ")").version(v.getVersion()))).addOpenApiMethodFilter(sv -> {
+                    Class<?> beanType = sv.getClass();
+                    Hidden hidden = beanType.getAnnotation(Hidden.class);
+                    if (Objects.nonNull(hidden)) {
+                        return false;
+                    }
+                    Operation annotation = sv.getAnnotation(Operation.class);
+                    if (Objects.isNull(annotation)) {
+                        return false;
+                    }
+                    String[] tagInfos = annotation.tags();
+                    if (Objects.isNull(tagInfos) || tagInfos.length <= 0) {
+                        return false;
+                    }
+                    return Arrays.asList(tagInfos).contains(v.getVersion());
+                }).build();
+                defaultListableBeanFactory.registerSingleton(k, build);
+            });
         }
     }
 
-    /**
-     * 判断接口是否有效
-     */
+
+    /** 判断接口是否有效 */
     private boolean isEffective(HandlerMethod handlerMethod) {
         Class<?> beanType = handlerMethod.getBeanType();
         Hidden hidden = beanType.getAnnotation(Hidden.class);
@@ -229,13 +196,9 @@ public class SpringDocConfig {
     @Getter
     @Setter
     public static class DocInfoModel {
-        /**
-         * 当前版本总数
-         */
+        /** 当前版本总数 */
         private int total;
-        /**
-         * 版本
-         */
+        /** 版本 */
         private String version;
     }
 }

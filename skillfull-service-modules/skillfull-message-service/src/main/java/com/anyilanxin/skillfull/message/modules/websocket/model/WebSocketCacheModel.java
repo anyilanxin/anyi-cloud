@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.websocket.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.oauth2mvc.utils.UserContextUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,15 +54,10 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 public class WebSocketCacheModel implements Serializable {
     private static final long serialVersionUID = -6963249109704133425L;
-    /**
-     * userId为键
-     */
-    private ConcurrentHashMap<String, Set<WebSocketSessionModel>> socketSessions =
-            new ConcurrentHashMap<>();
+    /** userId为键 */
+    private ConcurrentHashMap<String, Set<WebSocketSessionModel>> socketSessions = new ConcurrentHashMap<>();
 
-    /**
-     * token为键,userId为值
-     */
+    /** token为键,userId为值 */
     private ConcurrentHashMap<String, String> socketToken = new ConcurrentHashMap<>();
 
     /**
@@ -96,6 +88,7 @@ public class WebSocketCacheModel implements Serializable {
             this.userId = UserContextUtils.getUserInfo(token).getUserId();
         }
 
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -103,11 +96,10 @@ public class WebSocketCacheModel implements Serializable {
 
             WebSocketSessionModel that = (WebSocketSessionModel) o;
 
-            if (getSessionId() != null
-                    ? !getSessionId().equals(that.getSessionId())
-                    : that.getSessionId() != null) return false;
+            if (getSessionId() != null ? !getSessionId().equals(that.getSessionId()) : that.getSessionId() != null) return false;
             return getToken() != null ? getToken().equals(that.getToken()) : that.getToken() == null;
         }
+
 
         @Override
         public int hashCode() {
@@ -115,6 +107,7 @@ public class WebSocketCacheModel implements Serializable {
             result = 31 * result + (getToken() != null ? getToken().hashCode() : 0);
             return result;
         }
+
 
         /**
          * 发送websocket消息

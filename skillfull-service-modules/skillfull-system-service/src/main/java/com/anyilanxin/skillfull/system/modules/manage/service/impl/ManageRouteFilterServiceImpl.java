@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -43,9 +42,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteFil
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ManageRouteFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -62,17 +59,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ManageRouteFilterServiceImpl
-        extends ServiceImpl<ManageRouteFilterMapper, ManageRouteFilterEntity>
-        implements IManageRouteFilterService {
+public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterMapper, ManageRouteFilterEntity> implements IManageRouteFilterService {
     private final ManageRouteFilterCopyMap map;
     private final ManageRouteFilterMapper mapper;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
-    public void save(
-            List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override)
-            throws RuntimeException {
+    public void save(List<ManageRouteFilterVo> vos, String routerId, String serviceId, boolean override) throws RuntimeException {
         if (override) {
             LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(ManageRouteFilterEntity::getRouteId, routerId);
@@ -89,67 +82,60 @@ public class ManageRouteFilterServiceImpl
         // 保存新数据
         if (CollUtil.isNotEmpty(vos)) {
             List<ManageRouteFilterEntity> list = new ArrayList<>(vos.size());
-            vos.forEach(
-                    v -> {
-                        ManageRouteFilterEntity manageRouteFilterEntity = map.vToE(v);
-                        manageRouteFilterEntity.setRouteId(routerId);
-                        manageRouteFilterEntity.setServiceId(serviceId);
-                        list.add(manageRouteFilterEntity);
-                    });
+            vos.forEach(v -> {
+                ManageRouteFilterEntity manageRouteFilterEntity = map.vToE(v);
+                manageRouteFilterEntity.setRouteId(routerId);
+                manageRouteFilterEntity.setServiceId(serviceId);
+                list.add(manageRouteFilterEntity);
+            });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(
-                        Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public List<ManageRouteFilterDto> getByRouteId(String routeId) throws RuntimeException {
         LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRouteFilterEntity::getRouteId, routeId);
         return map.eToD(this.list(lambdaQueryWrapper));
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
-    public Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds)
-            throws RuntimeException {
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
+    public Map<String, List<ManageRouteFilterDto>> getByRouteId(Set<String> routeIds) throws RuntimeException {
         LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRouteFilterEntity::getRouteId, routeIds);
         List<ManageRouteFilterEntity> list = this.list(lambdaQueryWrapper);
         Map<String, List<ManageRouteFilterDto>> stringListMap = new HashMap<>();
         if (CollUtil.isNotEmpty(list)) {
-            list.forEach(
-                    v -> {
-                        List<ManageRouteFilterDto> manageRouteFilterDtos = stringListMap.get(v.getRouteId());
-                        if (CollectionUtil.isEmpty(manageRouteFilterDtos)) {
-                            manageRouteFilterDtos = new ArrayList<>();
-                        }
-                        manageRouteFilterDtos.add(map.eToD(v));
-                        stringListMap.put(v.getRouteId(), manageRouteFilterDtos);
-                    });
+            list.forEach(v -> {
+                List<ManageRouteFilterDto> manageRouteFilterDtos = stringListMap.get(v.getRouteId());
+                if (CollectionUtil.isEmpty(manageRouteFilterDtos)) {
+                    manageRouteFilterDtos = new ArrayList<>();
+                }
+                manageRouteFilterDtos.add(map.eToD(v));
+                stringListMap.put(v.getRouteId(), manageRouteFilterDtos);
+            });
         }
         return stringListMap;
     }
 
+
     @Override
-    @Transactional(
-            rollbackFor = {Exception.class, Error.class},
-            readOnly = true)
+    @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageRouteFilterDto getById(String filterId) throws RuntimeException {
         ManageRouteFilterEntity byId = super.getById(filterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(
-                    Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -158,6 +144,7 @@ public class ManageRouteFilterServiceImpl
         lambdaQueryWrapper.eq(ManageRouteFilterEntity::getRouteId, routerId);
         this.remove(lambdaQueryWrapper);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -39,7 +38,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgRoleEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleMenuButtonDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRolePageDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -62,16 +60,18 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void save(RbacOrgRoleVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
      * @param orgRoleId 机构角色id
-     * @param vo        机构角色表更新数据
+     * @param vo 机构角色表更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57
      */
     void updateById(String orgRoleId, RbacOrgRoleVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -84,6 +84,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     PageDto<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -95,6 +96,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     RbacOrgRoleDto getById(String orgRoleId) throws RuntimeException;
 
+
     /**
      * 通过orgRoleId删除
      *
@@ -104,6 +106,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-05 00:22:57
      */
     void deleteById(String orgRoleId) throws RuntimeException;
+
 
     /**
      * 机构角色表批量删除
@@ -115,6 +118,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void deleteBatch(List<String> orgRoleIds) throws RuntimeException;
 
+
     /**
      * 更新或添加角色权限
      *
@@ -125,6 +129,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      */
     void updateAuth(String orgRoleId, RbacOrgRoleAuthVo vo);
 
+
     /**
      * 通过角色id查询菜单按钮权限
      *
@@ -134,6 +139,7 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-07 09:55
      */
     Set<RbacOrgRoleMenuButtonDto> getMenuActions(String orgRoleId);
+
 
     /**
      * 角色启用或禁用

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.authinfo;
 
 import com.anyilanxin.skillfull.oauth2common.serializer.CustomOAuth2AccessTokenJackson1Serializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.util.*;
-
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -62,21 +59,19 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
     private Map<String, Object> additionalInformation = Collections.emptyMap();
 
-    /**
-     * Create an access token from the value provided.
-     */
+    /** Create an access token from the value provided. */
     public SkillFullAccessToken(String value) {
         super(value);
         this.value = value;
     }
 
-    /**
-     * Private constructor for JPA and other serialization tools.
-     */
+
+    /** Private constructor for JPA and other serialization tools. */
     @SuppressWarnings("unused")
     private SkillFullAccessToken() {
         this((String) null);
     }
+
 
     /**
      * Copy constructor for access token.
@@ -92,10 +87,12 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         setTokenType(accessToken.getTokenType());
     }
 
+
     @Override
     public void setValue(String value) {
         this.value = value;
     }
+
 
     /**
      * The token value.
@@ -107,17 +104,18 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         return value;
     }
 
+
     @Override
     public int getExpiresIn() {
-        return expiration != null
-                ? Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L).intValue()
-                : 0;
+        return expiration != null ? Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L).intValue() : 0;
     }
+
 
     @Override
     protected void setExpiresIn(int delta) {
         setExpiration(new Date(System.currentTimeMillis() + delta));
     }
+
 
     /**
      * The instant the token expires.
@@ -129,6 +127,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         return expiration;
     }
 
+
     /**
      * The instant the token expires.
      *
@@ -138,6 +137,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     public void setExpiration(Date expiration) {
         this.expiration = expiration;
     }
+
 
     /**
      * Convenience method for checking expiration
@@ -149,9 +149,11 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         return expiration != null && expiration.before(new Date());
     }
 
+
     /**
      * The token type, as introduced in draft 11 of the OAuth 2 spec. The spec doesn't define (yet)
-     * that the valid token types are, but says it's required so the default will just be "undefined".
+     * that the valid token types are, but says it's required so the default will just be
+     * "undefined".
      *
      * @return The token type, as introduced in draft 11 of the OAuth 2 spec.
      */
@@ -159,6 +161,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     public String getTokenType() {
         return tokenType;
     }
+
 
     /**
      * The token type, as introduced in draft 11 of the OAuth 2 spec.
@@ -170,6 +173,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         this.tokenType = tokenType;
     }
 
+
     /**
      * The refresh token associated with the access token, if any.
      *
@@ -179,6 +183,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     public OAuth2RefreshToken getRefreshToken() {
         return refreshToken;
     }
+
 
     /**
      * The refresh token associated with the access token, if any.
@@ -190,6 +195,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         this.refreshToken = refreshToken;
     }
 
+
     /**
      * The scope of the token.
      *
@@ -199,6 +205,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
     public Set<String> getScope() {
         return scope;
     }
+
 
     /**
      * The scope of the token.
@@ -210,20 +217,24 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         this.scope = scope;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         return obj != null && toString().equals(obj.toString());
     }
+
 
     @Override
     public int hashCode() {
         return toString().hashCode();
     }
 
+
     @Override
     public String toString() {
         return String.valueOf(getValue());
     }
+
 
     public static OAuth2AccessToken valueOf(Map<String, String> tokenParams) {
         DefaultOAuth2AccessToken token = new DefaultOAuth2AccessToken(tokenParams.get(ACCESS_TOKEN));
@@ -246,8 +257,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
         if (tokenParams.containsKey(SCOPE)) {
             Set<String> scope = new TreeSet<>();
-            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,");
-                 tokenizer.hasMoreTokens(); ) {
+            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,"); tokenizer.hasMoreTokens();) {
                 scope.add(tokenizer.nextToken());
             }
             token.setScope(scope);
@@ -260,10 +270,12 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
         return token;
     }
 
+
     @Override
     public Map<String, Object> getAdditionalInformation() {
         return additionalInformation;
     }
+
 
     @Override
     public void setAdditionalInformation(Map<String, Object> additionalInformation) {

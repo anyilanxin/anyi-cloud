@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.User;
@@ -76,14 +73,7 @@ public class UserDto implements Serializable {
         UserDto userModel = null;
         if (Objects.nonNull(user)) {
             UserEntity userEntity = (UserEntity) user;
-            userModel =
-                    UserDto.builder()
-                            .userId(userEntity.getId())
-                            .realName(userEntity.getFirstName())
-                            .userName(userEntity.getLastName())
-                            .email(userEntity.getEmail())
-                            .detailInfo(detailInfo)
-                            .build();
+            userModel = UserDto.builder().userId(userEntity.getId()).realName(userEntity.getFirstName()).userName(userEntity.getLastName()).email(userEntity.getEmail()).detailInfo(detailInfo).build();
         }
         return userModel;
     }

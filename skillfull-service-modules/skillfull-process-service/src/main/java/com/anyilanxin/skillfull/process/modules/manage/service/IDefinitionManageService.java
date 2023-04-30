@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
@@ -53,8 +52,8 @@ public interface IDefinitionManageService {
      * @author zxiaozhou
      * @date 2020-10-14 20:59
      */
-    PageDto<ProcessDefinitionPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo)
-            throws RuntimeException;
+    PageDto<ProcessDefinitionPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException;
+
 
     /**
      * 创建部署
@@ -66,6 +65,7 @@ public interface IDefinitionManageService {
      */
     void createDeployment(DeploymentVo vo) throws RuntimeException;
 
+
     /**
      * 流程定义挂起获取激活操作
      *
@@ -75,6 +75,7 @@ public interface IDefinitionManageService {
      * @date 2020-10-20 09:33
      */
     void processDefinitionUpdateState(UpdateProcessDefinitionStateVo vo) throws RuntimeException;
+
 
     /**
      * 删除流程定义
@@ -86,6 +87,7 @@ public interface IDefinitionManageService {
      */
     void deleteProcessDefinition(DeleteProcessDefinitionVo vo) throws RuntimeException;
 
+
     /**
      * 删除部署
      *
@@ -95,6 +97,7 @@ public interface IDefinitionManageService {
      * @date 2020-10-15 08:45
      */
     void deleteDeployment(String deploymentId) throws RuntimeException;
+
 
     /**
      * 查询部署详情
@@ -106,6 +109,7 @@ public interface IDefinitionManageService {
      */
     DeploymentDetailDto getDeploymentDetail(String processKeywordId);
 
+
     /**
      * 历史再次部署
      *
@@ -114,6 +118,7 @@ public interface IDefinitionManageService {
      * @date 2021-11-26 20:59
      */
     void historyDeployment(DeploymentHistoryVo vo);
+
 
     /**
      * 获取流程详细信息

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.handle;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -35,10 +34,8 @@ import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.coremvc.base.controller.BaseController;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -63,7 +60,6 @@ public class NotFoundExceptionHandle extends BaseController implements ErrorCont
     @ResponseBody
     public Result<String> error(HttpServletRequest request, HttpServletResponse response) {
         response.setStatus(HttpStatus.NOT_FOUND.value());
-        return fail(
-                Status.REQUEST_NOT_FOUND, "请求页面不存在:" + request.getMethod() + " " + request.getRequestURI());
+        return fail(Status.REQUEST_NOT_FOUND, "请求页面不存在:" + request.getMethod() + " " + request.getRequestURI());
     }
 }

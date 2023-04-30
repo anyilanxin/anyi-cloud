@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.base.service;
 
 import com.anyilanxin.skillfull.corecommon.model.common.SelectModel;
@@ -39,7 +38,6 @@ import com.anyilanxin.skillfull.process.modules.base.controller.vo.ProcessCatego
 import com.anyilanxin.skillfull.process.modules.base.entity.ProcessCategoryEntity;
 import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryDto;
 import com.anyilanxin.skillfull.process.modules.base.service.dto.ProcessCategoryPageDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -61,17 +59,19 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     void save(ProcessCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo         ${@link ProcessCategoryVo} 流程类别更新
+     * @param vo ${@link ProcessCategoryVo} 流程类别更新
      * @param categoryId ${@link String} 类别id
-     * @param vo         ${@link ProcessCategoryVo} 流程类别更新
+     * @param vo ${@link ProcessCategoryVo} 流程类别更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-11-19 10:47:01
      */
     void updateById(String categoryId, ProcessCategoryVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -84,6 +84,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     PageDto<ProcessCategoryPageDto> pageByModel(ProcessCategoryPageVo vo) throws RuntimeException;
 
+
     /**
      * 条件查询多条
      *
@@ -95,6 +96,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     List<ProcessCategoryDto> selectListByModel(ProcessCategoryQueryVo vo) throws RuntimeException;
 
+
     /**
      * 通过编码查询所有类表
      *
@@ -105,6 +107,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     List<ProcessCategoryDto> selectListByCodes(Set<String> categoryCodes);
 
+
     /**
      * 通过编码查询类表
      *
@@ -114,6 +117,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:58
      */
     ProcessCategoryDto selectByCode(String categoryCode);
+
 
     /**
      * 通过id查询详情
@@ -126,6 +130,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      */
     ProcessCategoryDto getById(String categoryId) throws RuntimeException;
 
+
     /**
      * 通过categoryId删除
      *
@@ -135,6 +140,7 @@ public interface IProcessCategoryService extends BaseService<ProcessCategoryEnti
      * @date 2021-11-19 10:47:01
      */
     void deleteById(String categoryId) throws RuntimeException;
+
 
     /**
      * 获取建模流程类别下拉列表

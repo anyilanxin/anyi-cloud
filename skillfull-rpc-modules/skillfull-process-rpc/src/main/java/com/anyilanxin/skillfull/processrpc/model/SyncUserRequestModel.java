@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.processrpc.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -94,6 +91,7 @@ public class SyncUserRequestModel implements Serializable {
         SyncUserRequestModel that = (SyncUserRequestModel) o;
         return Objects.equals(getUserId(), that.getUserId());
     }
+
 
     @Override
     public int hashCode() {

@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.model.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -72,6 +69,7 @@ public class UserAgent implements Serializable {
         UserAgent agentInfo = (UserAgent) o;
         return Objects.equals(getUserId(), agentInfo.getUserId());
     }
+
 
     @Override
     public int hashCode() {

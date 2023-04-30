@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.post;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.PARAM_ENABLED_KEY;
 import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 import com.anyilanxin.skillfull.gateway.utils.CorsWebUtils;
-
 import java.util.Collections;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -55,22 +52,22 @@ import reactor.core.publisher.Mono;
  * @since JDK1.8
  */
 @Slf4j
-public class CorsWebGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<CorsWebGatewayFilterFactory.Config> {
+public class CorsWebGatewayFilterFactory extends AbstractGatewayFilterFactory<CorsWebGatewayFilterFactory.Config> {
 
     public CorsWebGatewayFilterFactory() {
         super(CorsWebGatewayFilterFactory.Config.class);
     }
+
 
     @Override
     public List<String> shortcutFieldOrder() {
         return Collections.singletonList(PARAM_ENABLED_KEY);
     }
 
+
     @Override
     public GatewayFilter apply(CorsWebGatewayFilterFactory.Config config) {
-        CorsWebGatewayFilterFactory.CorsWebGatewayFilter gatewayFilter =
-                new CorsWebGatewayFilterFactory.CorsWebGatewayFilter(config);
+        CorsWebGatewayFilterFactory.CorsWebGatewayFilter gatewayFilter = new CorsWebGatewayFilterFactory.CorsWebGatewayFilter(config);
         gatewayFilter.setFactory(this);
         return gatewayFilter;
     }
@@ -85,29 +82,28 @@ public class CorsWebGatewayFilterFactory
             this.config = config;
         }
 
+
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------CorsWebGatewayFilter------------>filter:{}", "跨域处理过滤器");
             return CorsWebUtils.corsHandle(chain, exchange);
         }
 
+
         @Override
         public int getOrder() {
             return 1;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
 
-        public void setFactory(
-                GatewayFilterFactory<CorsWebGatewayFilterFactory.Config> gatewayFilterFactory) {
+
+        public void setFactory(GatewayFilterFactory<CorsWebGatewayFilterFactory.Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
         }
     }
@@ -119,9 +115,11 @@ public class CorsWebGatewayFilterFactory
         public Config() {
         }
 
+
         public boolean isEnabled() {
             return enabled;
         }
+
 
         public CorsWebGatewayFilterFactory.Config setEnabled(boolean enabled) {
             this.enabled = enabled;

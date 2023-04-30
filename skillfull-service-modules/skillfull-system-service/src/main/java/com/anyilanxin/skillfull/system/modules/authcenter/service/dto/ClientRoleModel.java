@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.authcenter.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -78,6 +75,7 @@ public class ClientRoleModel implements Serializable {
         ClientRoleModel role = (ClientRoleModel) o;
         return Objects.equals(getRoleCode(), role.getRoleCode());
     }
+
 
     @Override
     public int hashCode() {

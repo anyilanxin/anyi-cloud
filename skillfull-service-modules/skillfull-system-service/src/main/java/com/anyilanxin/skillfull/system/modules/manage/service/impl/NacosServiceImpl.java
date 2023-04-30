@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -49,9 +48,7 @@ import com.anyilanxin.skillfull.system.modules.manage.service.INacosService;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.NacosServiceInfoDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ServiceInstanceDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.ServiceInstanceDetailMap;
-
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -90,14 +87,11 @@ public class NacosServiceImpl implements INacosService {
             namingService.subscribe(serviceName, groupName, nacosEventListener);
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------订阅服务变更失败------>subscribe:groupName-{},serviceName-{},errMsg-{}",
-                    groupName,
-                    serviceName,
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------订阅服务变更失败------>subscribe:groupName-{},serviceName-{},errMsg-{}", groupName, serviceName, e.getErrMsg());
             throw new ResponseException(Status.ERROR, "订阅" + serviceName + "变更通知异常:" + e.getErrMsg());
         }
     }
+
 
     @Override
     public void unsubscribe(NacosSubscribeVo vo) throws RuntimeException {
@@ -110,23 +104,20 @@ public class NacosServiceImpl implements INacosService {
             namingService.unsubscribe(serviceName, groupName, nacosEventListener);
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------取消服务变化订阅------>unsubscribe:groupName-{},serviceName-{},errMsg-{}",
-                    groupName,
-                    serviceName,
-                    e.getErrMsg());
+            log.error("------------INacosServiceImpl------取消服务变化订阅------>unsubscribe:groupName-{},serviceName-{},errMsg-{}", groupName, serviceName, e.getErrMsg());
             throw new ResponseException(Status.ERROR, "取消" + serviceName + "服务变化订阅异常:" + e.getErrMsg());
         }
     }
+
 
     @Override
     public ServiceInstanceDto getAllInstances(NacosAllInstancesQueryVo vo) throws RuntimeException {
         String groupName = vo.getGroupName();
         String serviceCode = vo.getServiceCode();
-        List<Instance> allInstances =
-                customNacosNamingService.getAllInstances(serviceCode, groupName, null);
+        List<Instance> allInstances = customNacosNamingService.getAllInstances(serviceCode, groupName, null);
         return createServiceInstanceDto(allInstances);
     }
+
 
     /**
      * 服务实例信息转为自定义格式
@@ -174,6 +165,7 @@ public class NacosServiceImpl implements INacosService {
         return serviceInstanceDto;
     }
 
+
     @Override
     public void updateInstance(NacosUpdateInstanceVo vo) throws RuntimeException {
         String groupName = properties.getGroup();
@@ -185,8 +177,7 @@ public class NacosServiceImpl implements INacosService {
         queryVo.setServiceCode(vo.getServiceCode());
         ServiceInstanceDto allInstances = this.getAllInstances(queryVo);
         Map<String, Instance> instanceMap = allInstances.getInstanceMap();
-        List<ServiceInstanceDto.ServiceInstanceDetail> serviceInstanceDetails =
-                allInstances.getServiceInstanceDetails();
+        List<ServiceInstanceDto.ServiceInstanceDetail> serviceInstanceDetails = allInstances.getServiceInstanceDetails();
         if (CollectionUtil.isEmpty(serviceInstanceDetails)) {
             throw new ResponseException(Status.ERROR, "查询" + groupName + "组中" + groupName + "服务不存在");
         }
@@ -199,22 +190,11 @@ public class NacosServiceImpl implements INacosService {
             namingMaintainService.updateInstance(instance.getServiceName(), groupName, instance);
         } catch (NacosException e) {
             e.printStackTrace();
-            log.error(
-                    "------------INacosServiceImpl------------>updateInstance:vo-{},errMsg-{}",
-                    vo,
-                    e.getErrMsg());
-            throw new ResponseException(
-                    Status.ERROR,
-                    "更新"
-                            + groupName
-                            + "组中"
-                            + vo.getServiceCode()
-                            + "服务"
-                            + vo.getInstanceId()
-                            + "实例状态异常:"
-                            + e.getErrMsg());
+            log.error("------------INacosServiceImpl------------>updateInstance:vo-{},errMsg-{}", vo, e.getErrMsg());
+            throw new ResponseException(Status.ERROR, "更新" + groupName + "组中" + vo.getServiceCode() + "服务" + vo.getInstanceId() + "实例状态异常:" + e.getErrMsg());
         }
     }
+
 
     @Override
     public List<NacosServiceInfoDto> getServices(NacosGroupNameVo vo) throws RuntimeException {

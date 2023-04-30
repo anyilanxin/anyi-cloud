@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -86,10 +83,7 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
     private String signatureKey;
 
-    @Schema(
-            name = "authorizedGrantTypes",
-            title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array",
-            required = true)
+    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array", required = true)
     @NotBlankOrNull(message = "允许授权类型不能为空")
     private List<String> authorizedGrantTypes;
 

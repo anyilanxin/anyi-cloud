@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.manage.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -85,37 +82,46 @@ public class ReDeploymentEntity implements Serializable {
         return id_;
     }
 
+
     public void setId(String id) {
         this.id_ = id;
     }
+
 
     public String getName() {
         return name_;
     }
 
+
     public void setName(String name) {
         this.name_ = name;
     }
+
 
     public LocalDateTime getDeployTime() {
         return deployTime_;
     }
 
+
     public void setDeployTime(LocalDateTime deployTime) {
         this.deployTime_ = deployTime;
     }
+
 
     public String getSource() {
         return source_;
     }
 
+
     public void setSource(String source) {
         this.source_ = source;
     }
 
+
     public String getTenantId() {
         return tenantId_;
     }
+
 
     public void setTenantId(String tenantId) {
         this.tenantId_ = tenantId;

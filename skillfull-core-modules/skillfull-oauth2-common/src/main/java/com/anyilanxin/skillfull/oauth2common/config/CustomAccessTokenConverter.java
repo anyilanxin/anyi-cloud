@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.config;
 
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -47,8 +45,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 @Slf4j
 public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
     @Override
-    public Map<String, ?> convertAccessToken(
-            OAuth2AccessToken token, OAuth2Authentication authentication) {
+    public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         // 精简jwt内容防止过大
         Map<String, ?> stringMap = super.convertAccessToken(token, authentication);
         stringMap.remove("scope");

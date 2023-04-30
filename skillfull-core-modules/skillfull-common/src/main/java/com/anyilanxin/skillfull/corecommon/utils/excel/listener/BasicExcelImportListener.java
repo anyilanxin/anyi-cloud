@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.utils.excel.listener;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -35,12 +34,10 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,50 +51,39 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public class BasicExcelImportListener<I, R> extends AnalysisEventListener<I> {
-    /**
-     * 读取后数据处理类
-     */
+    /** 读取后数据处理类 */
     private final ImportService<I, R> service;
 
-    /**
-     * 读取结果集
-     */
+    /** 读取结果集 */
     private final List<I> importData = new ArrayList<>(16);
 
-    /**
-     * 处理后结果集
-     */
+    /** 处理后结果集 */
     private List<R> saveData;
 
     public BasicExcelImportListener(ImportService<I, R> service) {
         this.service = service;
     }
 
+
     @Override
     public void invoke(I i, AnalysisContext analysisContext) {
-        log.debug(
-                "------------当前读取到的数据------{}------>\n{}",
-                analysisContext.readRowHolder().getRowIndex(),
-                JSONObject.toJSONString(i, SerializerFeature.WriteMapNullValue));
+        log.debug("------------当前读取到的数据------{}------>\n{}", analysisContext.readRowHolder().getRowIndex(), JSONObject.toJSONString(i, SerializerFeature.WriteMapNullValue));
         if (Objects.nonNull(i)) {
             importData.add(i);
         }
     }
 
+
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-        log.info(
-                "------------读取到的全部数据------------>\n{}",
-                JSONObject.toJSONString(importData, SerializerFeature.WriteMapNullValue));
+        log.info("------------读取到的全部数据------------>\n{}", JSONObject.toJSONString(importData, SerializerFeature.WriteMapNullValue));
         if (CollectionUtil.isEmpty(importData)) {
             log.error("------------------------>当前读取数据结果为0，不进行处理");
             saveData = Collections.emptyList();
             return;
         }
         saveData = service.saveData(importData);
-        log.debug(
-                "------------数据处理返回结果------------>\n{}",
-                JSONObject.toJSONString(saveData, SerializerFeature.WriteMapNullValue));
+        log.debug("------------数据处理返回结果------------>\n{}", JSONObject.toJSONString(saveData, SerializerFeature.WriteMapNullValue));
     }
 
     /**

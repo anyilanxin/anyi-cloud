@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.feign.strategy.header.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.skillfull.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.skillfull.corecommon.utils.ClientTokenUtils;
 import feign.RequestTemplate;
-
 import java.util.Collection;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

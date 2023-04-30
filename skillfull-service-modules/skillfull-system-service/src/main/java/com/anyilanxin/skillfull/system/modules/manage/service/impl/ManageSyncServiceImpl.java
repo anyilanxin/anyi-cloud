@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service.impl;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CommonCoreConstant.LOCK_EXPIRES;
@@ -49,10 +48,8 @@ import com.anyilanxin.skillfull.system.modules.manage.service.IManageSyncService
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.mapstruct.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -88,25 +85,20 @@ public class ManageSyncServiceImpl implements IManageSyncService {
     public void reloadRoute(boolean force) {
         // 非强制时检测锁情况
         if (!force) {
-            Object redisLockValue =
-                    stringRedisTemplate
-                            .opsForValue()
-                            .get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK);
+            Object redisLockValue = stringRedisTemplate.opsForValue().get(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK);
             if (Objects.nonNull(redisLockValue)) {
                 return;
             }
         }
         // 删除所有
-        Set<String> keys =
-                stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "");
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "");
         if (CollUtil.isNotEmpty(keys)) {
             stringRedisTemplate.delete(keys);
         }
         // 获取所有有效的服务信息
         LambdaQueryWrapper<ManageServiceEntity> serviceLambdaQueryWrapper = new LambdaQueryWrapper<>();
         serviceLambdaQueryWrapper.eq(ManageServiceEntity::getServiceState, 1);
-        List<ManageServiceEntity> manageServiceEntities =
-                serviceMapper.selectList(serviceLambdaQueryWrapper);
+        List<ManageServiceEntity> manageServiceEntities = serviceMapper.selectList(serviceLambdaQueryWrapper);
         if (CollUtil.isNotEmpty(manageServiceEntities)) {
             // 查询服务项所有有效的路由信息
             Set<String> serviceIds = new HashSet<>(manageServiceEntities.size());
@@ -117,50 +109,39 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         // 通知网关刷新
         SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
         // 加锁
-        redisTemplate
-                .opsForValue()
-                .set(
-                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK,
-                        true,
-                        LOCK_EXPIRES,
-                        TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK, true, LOCK_EXPIRES, TimeUnit.SECONDS);
     }
+
 
     @Override
     public void updateServiceRoute(String serviceId) {
         // 先删除当前服务所有路由
-        Set<String> keys =
-                stringRedisTemplate.keys(
-                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
         if (CollUtil.isNotEmpty(keys)) {
             stringRedisTemplate.delete(keys);
-            keys.forEach(
-                    v -> {
-                        // 通知网关刷新
-                        String routerId =
-                                v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
-                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
-                    });
+            keys.forEach(v -> {
+                // 通知网关刷新
+                String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+            });
         }
         routerToRedis(Set.of(serviceId), true);
     }
 
+
     @Override
     public void deleteServiceRoute(String serviceId) {
-        Set<String> keys =
-                stringRedisTemplate.keys(
-                        CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
+        Set<String> keys = stringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + serviceId + "*");
         if (CollUtil.isNotEmpty(keys)) {
             stringRedisTemplate.delete(keys);
-            keys.forEach(
-                    v -> {
-                        String routerId =
-                                v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
-                        // 通知网关删除
-                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
-                    });
+            keys.forEach(v -> {
+                String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
+                // 通知网关删除
+                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+            });
         }
     }
+
 
     /**
      * 获取系统有效的路由信息
@@ -172,20 +153,17 @@ public class ManageSyncServiceImpl implements IManageSyncService {
     private void routerToRedis(Set<String> serviceIds, boolean update) {
         if (CollUtil.isNotEmpty(serviceIds)) {
             LambdaQueryWrapper<ManageRouteEntity> routeLambdaQueryWrapper = new LambdaQueryWrapper<>();
-            routeLambdaQueryWrapper
-                    .in(ManageRouteEntity::getServiceId, serviceIds)
-                    .eq(ManageRouteEntity::getRouteState, 1);
+            routeLambdaQueryWrapper.in(ManageRouteEntity::getServiceId, serviceIds).eq(ManageRouteEntity::getRouteState, 1);
             List<ManageRouteEntity> manageRouteEntities = routeMapper.selectList(routeLambdaQueryWrapper);
             if (CollUtil.isNotEmpty(manageRouteEntities)) {
                 // 路由信息
                 List<SystemRouterModel> routerInfoModels = new ArrayList<>();
                 Set<String> routeIds = new HashSet<>(manageRouteEntities.size());
-                manageRouteEntities.forEach(
-                        v -> {
-                            routeIds.add(v.getRouteId());
-                            SystemRouterModel systemRouterModel = routerCopyMap.bToA(v);
-                            routerInfoModels.add(systemRouterModel);
-                        });
+                manageRouteEntities.forEach(v -> {
+                    routeIds.add(v.getRouteId());
+                    SystemRouterModel systemRouterModel = routerCopyMap.bToA(v);
+                    routerInfoModels.add(systemRouterModel);
+                });
                 // 获取路由过滤器
                 Map<String, List<RouteFilterModel>> filters = getFilters(routeIds);
                 // 获取断言
@@ -193,64 +171,57 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                 // 获取自定义过滤器
                 Map<String, List<RouteFilterModel>> customFilters = getCustomFilters(routeIds);
                 // 数据整理与存入redis
-                routerInfoModels.forEach(
-                        v -> {
-                            String routeId = v.getRouteId();
-                            List<RouteFilterModel> filter = filters.get(routeId);
-                            if (CollectionUtil.isEmpty(filter)) {
-                                filter = new ArrayList<>();
-                            }
-                            List<RouteFilterModel> customFilter = customFilters.get(routeId);
-                            if (CollUtil.isNotEmpty(customFilter)) {
-                                filter.addAll(customFilter);
-                            }
-                            v.setRouteFilters(filter);
-                            v.setRoutePredicates(predicates.get(routeId));
-                            v.setRouteId(v.getServiceCode() + ":" + v.getRouteId());
-                            stringRedisTemplate
-                                    .opsForValue()
-                                    .set(
-                                            CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(),
-                                            JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
-                            if (update) {
-                                SendRedisMsgUtils.sendMsg(
-                                        RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
-                            }
-                        });
+                routerInfoModels.forEach(v -> {
+                    String routeId = v.getRouteId();
+                    List<RouteFilterModel> filter = filters.get(routeId);
+                    if (CollectionUtil.isEmpty(filter)) {
+                        filter = new ArrayList<>();
+                    }
+                    List<RouteFilterModel> customFilter = customFilters.get(routeId);
+                    if (CollUtil.isNotEmpty(customFilter)) {
+                        filter.addAll(customFilter);
+                    }
+                    v.setRouteFilters(filter);
+                    v.setRoutePredicates(predicates.get(routeId));
+                    v.setRouteId(v.getServiceCode() + ":" + v.getRouteId());
+                    stringRedisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(), JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
+                    if (update) {
+                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
+                    }
+                });
             }
         }
     }
+
 
     /**
      * 获取路由断言
      *
      * @param routeIds ${@link Set<String>}
      * @return Map<String, List < RoutePredicateModel>> ${@link Map<String,
-     * List<RoutePredicateModel>>}
+     *     List<RoutePredicateModel>>}
      * @author zxiaozhou
      * @date 2021-12-23 19:32
      */
     private Map<String, List<RoutePredicateModel>> getPredicates(Set<String> routeIds) {
         Map<String, List<RoutePredicateModel>> routePredicateMap = new HashMap<>(routeIds.size() * 2);
-        LambdaQueryWrapper<ManageRoutePredicateEntity> predicateLambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRoutePredicateEntity> predicateLambdaQueryWrapper = new LambdaQueryWrapper<>();
         predicateLambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routeIds);
-        List<ManageRoutePredicateEntity> manageRoutePredicateEntities =
-                predicateMapper.selectList(predicateLambdaQueryWrapper);
+        List<ManageRoutePredicateEntity> manageRoutePredicateEntities = predicateMapper.selectList(predicateLambdaQueryWrapper);
         if (CollUtil.isNotEmpty(manageRoutePredicateEntities)) {
-            manageRoutePredicateEntities.forEach(
-                    v -> {
-                        List<RoutePredicateModel> routePredicateModels = routePredicateMap.get(v.getRouteId());
-                        if (CollectionUtil.isEmpty(routePredicateModels)) {
-                            routePredicateModels = new ArrayList<>();
-                        }
-                        RoutePredicateModel routePredicateModel = predicateCopyMap.bToA(v);
-                        routePredicateModels.add(routePredicateModel);
-                        routePredicateMap.put(v.getRouteId(), routePredicateModels);
-                    });
+            manageRoutePredicateEntities.forEach(v -> {
+                List<RoutePredicateModel> routePredicateModels = routePredicateMap.get(v.getRouteId());
+                if (CollectionUtil.isEmpty(routePredicateModels)) {
+                    routePredicateModels = new ArrayList<>();
+                }
+                RoutePredicateModel routePredicateModel = predicateCopyMap.bToA(v);
+                routePredicateModels.add(routePredicateModel);
+                routePredicateMap.put(v.getRouteId(), routePredicateModels);
+            });
         }
         return routePredicateMap;
     }
+
 
     /**
      * 获取路由过滤器
@@ -262,25 +233,23 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      */
     private Map<String, List<RouteFilterModel>> getFilters(Set<String> routeIds) {
         Map<String, List<RouteFilterModel>> routeFilterMap = new HashMap<>(routeIds.size() * 2);
-        LambdaQueryWrapper<ManageRouteFilterEntity> filterLambdaQueryWrapper =
-                new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<ManageRouteFilterEntity> filterLambdaQueryWrapper = new LambdaQueryWrapper<>();
         filterLambdaQueryWrapper.in(ManageRouteFilterEntity::getRouteId, routeIds);
-        List<ManageRouteFilterEntity> manageRouteFilterEntities =
-                filterMapper.selectList(filterLambdaQueryWrapper);
+        List<ManageRouteFilterEntity> manageRouteFilterEntities = filterMapper.selectList(filterLambdaQueryWrapper);
         if (CollUtil.isNotEmpty(manageRouteFilterEntities)) {
-            manageRouteFilterEntities.forEach(
-                    v -> {
-                        List<RouteFilterModel> routeFilterModels = routeFilterMap.get(v.getRouteId());
-                        if (CollectionUtil.isEmpty(routeFilterModels)) {
-                            routeFilterModels = new ArrayList<>();
-                        }
-                        RouteFilterModel routeFilterModel = filterCopyMap.bToA(v);
-                        routeFilterModels.add(routeFilterModel);
-                        routeFilterMap.put(v.getRouteId(), routeFilterModels);
-                    });
+            manageRouteFilterEntities.forEach(v -> {
+                List<RouteFilterModel> routeFilterModels = routeFilterMap.get(v.getRouteId());
+                if (CollectionUtil.isEmpty(routeFilterModels)) {
+                    routeFilterModels = new ArrayList<>();
+                }
+                RouteFilterModel routeFilterModel = filterCopyMap.bToA(v);
+                routeFilterModels.add(routeFilterModel);
+                routeFilterMap.put(v.getRouteId(), routeFilterModels);
+            });
         }
         return routeFilterMap;
     }
+
 
     /**
      * 获取自定义过滤器
@@ -294,55 +263,49 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         // 最终返回结果
         Map<String, List<RouteFilterModel>> customFilters = new HashMap<>(routeIds.size() * 2);
         // 获取有效的自定义过滤器
-        List<ManageRouteCustomFilterDto> manageRouteCustomFilters =
-                routeCustomFilterMapper.selectListByRouterIds(routeIds);
+        List<ManageRouteCustomFilterDto> manageRouteCustomFilters = routeCustomFilterMapper.selectListByRouterIds(routeIds);
         if (CollUtil.isNotEmpty(manageRouteCustomFilters)) {
             // 获取特殊url
             Set<String> filterIds = new HashSet<>(manageRouteCustomFilters.size());
-            manageRouteCustomFilters.forEach(
-                    v -> {
-                        if (v.getHaveSpecial() == 1) {
-                            filterIds.add(v.getFilterId());
-                        }
-                    });
+            manageRouteCustomFilters.forEach(v -> {
+                if (v.getHaveSpecial() == 1) {
+                    filterIds.add(v.getFilterId());
+                }
+            });
             Map<String, RouteMetaSpecialUrlModel> specialUrls = getSpecialUrls(filterIds);
             // 生成网关过滤器
-            routeIds.forEach(
-                    v -> {
-                        List<RouteFilterModel> routeFilterModels = new ArrayList<>();
-                        manageRouteCustomFilters.forEach(
-                                sv -> {
-                                    if (sv.getRouteId().equals(v)) {
-                                        RouteMetaSpecialUrlModel metaSpecialUrlModel =
-                                                specialUrls.get(sv.getFilterId());
-                                        Map<String, String> ruleMap = new HashMap<>();
-                                        if (sv.getHaveSpecial() == 1) {
-                                            if (Objects.nonNull(metaSpecialUrlModel)) {
-                                                ruleMap.put(
-                                                        CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY,
-                                                        JSONObject.toJSONString(metaSpecialUrlModel));
-                                            }
-                                        }
-                                        RouteFilterModel routeFilterModel = customFilterCopyMap.bToA(sv);
-                                        if (CollUtil.isNotEmpty(ruleMap)) {
-                                            routeFilterModel.setRules(ruleMap);
-                                        }
-                                        routeFilterModels.add(routeFilterModel);
-                                    }
-                                });
-                        if (CollUtil.isNotEmpty(routeFilterModels)) {
-                            customFilters.put(v, routeFilterModels);
+            routeIds.forEach(v -> {
+                List<RouteFilterModel> routeFilterModels = new ArrayList<>();
+                manageRouteCustomFilters.forEach(sv -> {
+                    if (sv.getRouteId().equals(v)) {
+                        RouteMetaSpecialUrlModel metaSpecialUrlModel = specialUrls.get(sv.getFilterId());
+                        Map<String, String> ruleMap = new HashMap<>();
+                        if (sv.getHaveSpecial() == 1) {
+                            if (Objects.nonNull(metaSpecialUrlModel)) {
+                                ruleMap.put(CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY, JSONObject.toJSONString(metaSpecialUrlModel));
+                            }
                         }
-                    });
+                        RouteFilterModel routeFilterModel = customFilterCopyMap.bToA(sv);
+                        if (CollUtil.isNotEmpty(ruleMap)) {
+                            routeFilterModel.setRules(ruleMap);
+                        }
+                        routeFilterModels.add(routeFilterModel);
+                    }
+                });
+                if (CollUtil.isNotEmpty(routeFilterModels)) {
+                    customFilters.put(v, routeFilterModels);
+                }
+            });
         }
         return customFilters;
     }
+
 
     /**
      * 获取特殊url
      *
      * @return Map<String, RouteMetaSpecialUrlModel> ${@link Map<String,
-     * RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
+     *     RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
      * @author zxiaozhou
      * @date 2022-03-05 14:42
      */
@@ -352,37 +315,33 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         }
         LambdaQueryWrapper<ManageSpecialUrlEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageSpecialUrlEntity::getCustomFilterId, filterIds);
-        List<ManageSpecialUrlEntity> manageSpecialUrlEntities =
-                specialUrlMapper.selectList(lambdaQueryWrapper);
+        List<ManageSpecialUrlEntity> manageSpecialUrlEntities = specialUrlMapper.selectList(lambdaQueryWrapper);
         // map<filterId,RouteMetaSpecialUrlModel>
         Map<String, RouteMetaSpecialUrlModel> filterTypeUrlMap = new HashMap<>();
         if (CollUtil.isNotEmpty(manageSpecialUrlEntities)) {
-            manageSpecialUrlEntities.forEach(
-                    v -> {
-                        RouteMetaSpecialUrlModel metaSpecialUrlModel =
-                                filterTypeUrlMap.get(v.getCustomFilterId());
-                        if (Objects.isNull(metaSpecialUrlModel)) {
-                            metaSpecialUrlModel = new RouteMetaSpecialUrlModel();
-                            metaSpecialUrlModel.setWhiteSpecialUrls(new ArrayList<>());
-                            metaSpecialUrlModel.setBlackSpecialUrls(new ArrayList<>());
-                        }
-                        SpecialUrlModel specialUrlModel = specialUrlCopyMap.bToA(v);
-                        String requestMethod = v.getRequestMethod();
-                        if (v.getLimitMethod() == 1 && StringUtils.isNotBlank(requestMethod)) {
-                            specialUrlModel.setRequestMethodSet(
-                                    new HashSet<>(Arrays.asList(requestMethod.split("[,，]"))));
-                        }
-                        List<SpecialUrlModel> blackSpecialUrls = metaSpecialUrlModel.getBlackSpecialUrls();
-                        List<SpecialUrlModel> whiteSpecialUrls = metaSpecialUrlModel.getWhiteSpecialUrls();
-                        if (specialUrlModel.getSpecialUrlType() == 1) {
-                            whiteSpecialUrls.add(specialUrlModel);
-                        } else {
-                            blackSpecialUrls.add(specialUrlModel);
-                        }
-                        metaSpecialUrlModel.setWhiteSpecialUrls(whiteSpecialUrls);
-                        metaSpecialUrlModel.setBlackSpecialUrls(blackSpecialUrls);
-                        filterTypeUrlMap.put(v.getCustomFilterId(), metaSpecialUrlModel);
-                    });
+            manageSpecialUrlEntities.forEach(v -> {
+                RouteMetaSpecialUrlModel metaSpecialUrlModel = filterTypeUrlMap.get(v.getCustomFilterId());
+                if (Objects.isNull(metaSpecialUrlModel)) {
+                    metaSpecialUrlModel = new RouteMetaSpecialUrlModel();
+                    metaSpecialUrlModel.setWhiteSpecialUrls(new ArrayList<>());
+                    metaSpecialUrlModel.setBlackSpecialUrls(new ArrayList<>());
+                }
+                SpecialUrlModel specialUrlModel = specialUrlCopyMap.bToA(v);
+                String requestMethod = v.getRequestMethod();
+                if (v.getLimitMethod() == 1 && StringUtils.isNotBlank(requestMethod)) {
+                    specialUrlModel.setRequestMethodSet(new HashSet<>(Arrays.asList(requestMethod.split("[,，]"))));
+                }
+                List<SpecialUrlModel> blackSpecialUrls = metaSpecialUrlModel.getBlackSpecialUrls();
+                List<SpecialUrlModel> whiteSpecialUrls = metaSpecialUrlModel.getWhiteSpecialUrls();
+                if (specialUrlModel.getSpecialUrlType() == 1) {
+                    whiteSpecialUrls.add(specialUrlModel);
+                } else {
+                    blackSpecialUrls.add(specialUrlModel);
+                }
+                metaSpecialUrlModel.setWhiteSpecialUrls(whiteSpecialUrls);
+                metaSpecialUrlModel.setBlackSpecialUrls(blackSpecialUrls);
+                filterTypeUrlMap.put(v.getCustomFilterId(), metaSpecialUrlModel);
+            });
         }
         return filterTypeUrlMap;
     }

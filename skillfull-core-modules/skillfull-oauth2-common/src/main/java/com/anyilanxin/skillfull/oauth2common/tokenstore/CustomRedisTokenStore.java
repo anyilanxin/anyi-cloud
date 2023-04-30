@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.tokenstore;
 
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -46,6 +45,7 @@ public class CustomRedisTokenStore extends RedisTokenStore {
     public CustomRedisTokenStore(RedisConnectionFactory connectionFactory) {
         super(connectionFactory);
     }
+
 
     public OAuth2Authentication readAuthentication(OAuth2AccessToken token) {
         OAuth2Authentication oAuth2Authentication = this.readAuthentication(token.getValue());

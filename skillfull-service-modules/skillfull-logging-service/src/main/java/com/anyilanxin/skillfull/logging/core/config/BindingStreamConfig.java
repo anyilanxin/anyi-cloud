@@ -27,16 +27,13 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.logging.core.config;
 
 import com.anyilanxin.skillfull.logging.modules.receive.service.IReceiveService;
 import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
-
 import java.util.function.Consumer;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -66,6 +63,7 @@ public class BindingStreamConfig {
     public Consumer<OperateLogModel> operateLogProcess() {
         return receiveService::saveOperate;
     }
+
 
     /**
      * 授权日志

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.modules.login.controller;
 
 import com.anyilanxin.skillfull.auth.modules.login.service.IAuthService;
@@ -65,10 +64,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController extends BaseController {
     private final IAuthService service;
 
-    @Operation(
-            summary = "取消授权",
-            tags = {"v1.0.0"},
-            description = "取消授权")
+    @Operation(summary = "取消授权", tags = {"v1.0.0"}, description = "取消授权")
     @GetMapping(value = "/oauth/logout")
     @PreAuthorize("permitAll()")
     public Result<String> logOut() {
@@ -76,10 +72,8 @@ public class AuthController extends BaseController {
         return ok("取消授权成功");
     }
 
-    @Operation(
-            summary = "获取当前用户信息",
-            tags = {"v1.0.0"},
-            description = "获取当前用户信息")
+
+    @Operation(summary = "获取当前用户信息", tags = {"v1.0.0"}, description = "获取当前用户信息")
     @GetMapping(value = "/oauth/user-info")
     @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId")
     @AutoLog(note = "获取用户信息", type = AutoLog.QUERY)
@@ -87,10 +81,10 @@ public class AuthController extends BaseController {
         return ok(service.getUserInfo(orgId));
     }
 
-    //    @Operation(summary = "授权异常处理", tags = {"v1.0.0"}, description = "授权异常处理")
-    //    @GetMapping(value = "/auth/error")
-    //    public Result<String> error(Map<String, String> params) {
-    //        log.info("------------AuthController------------>error:\n{}", params);
-    //        return ok("取消授权成功");
-    //    }
+    // @Operation(summary = "授权异常处理", tags = {"v1.0.0"}, description = "授权异常处理")
+    // @GetMapping(value = "/auth/error")
+    // public Result<String> error(Map<String, String> params) {
+    // log.info("------------AuthController------------>error:\n{}", params);
+    // return ok("取消授权成功");
+    // }
 }

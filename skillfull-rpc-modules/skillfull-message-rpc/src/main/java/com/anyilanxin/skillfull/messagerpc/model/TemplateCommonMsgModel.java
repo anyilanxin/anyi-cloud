@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.messagerpc.constant.impl.MsgTemplateCommonChannelType;
-
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -56,28 +53,18 @@ import lombok.experimental.SuperBuilder;
 public class TemplateCommonMsgModel implements Serializable {
     private static final long serialVersionUID = 5735357577900147933L;
 
-    /**
-     * 模板code required=true
-     */
+    /** 模板code required=true */
     private String templateCode;
 
-    /**
-     * 接收人信息，电话号码或其他平台需要的信息 required=true
-     */
+    /** 接收人信息，电话号码或其他平台需要的信息 required=true */
     private List<String> receiveInfo;
 
-    /**
-     * 发送数据
-     */
+    /** 发送数据 */
     private JSONObject jsonObject;
 
-    /**
-     * 通用模板消息渠道
-     */
+    /** 通用模板消息渠道 */
     private MsgTemplateCommonChannelType channel;
 
-    /**
-     * 所属业务id
-     */
+    /** 所属业务id */
     private String businessId;
 }

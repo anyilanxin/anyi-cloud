@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.common.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.common.entity.CommonCategoryEntit
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryPageDto;
 import com.anyilanxin.skillfull.system.modules.common.service.dto.CommonCategoryTreeDto;
-
 import java.util.List;
 
 /**
@@ -59,17 +57,19 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     void save(CommonCategoryVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
-     * @param vo         ${@link CommonCategoryVo} 分类字典表更新
+     * @param vo ${@link CommonCategoryVo} 分类字典表更新
      * @param categoryId ${@link String} 分类id
-     * @param vo         ${@link CommonCategoryVo} 分类字典表更新
+     * @param vo ${@link CommonCategoryVo} 分类字典表更新
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
      */
     void updateById(String categoryId, CommonCategoryVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,6 +82,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     PageDto<CommonCategoryPageDto> pageByModel(CommonCategoryPageVo vo) throws RuntimeException;
 
+
     /**
      * 根据统一分类id查询分类
      *
@@ -93,6 +94,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     List<CommonCategoryDto> selectListByCommonCode(String categoryCommonCode) throws RuntimeException;
 
+
     /**
      * 根据统一分类id查询分类(树形)
      *
@@ -102,8 +104,8 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @author zxiaozhou
      * @date 2021-01-07 23:40:21
      */
-    List<CommonCategoryTreeDto> selectTreeListByCommonCode(String categoryCommonCode)
-            throws RuntimeException;
+    List<CommonCategoryTreeDto> selectTreeListByCommonCode(String categoryCommonCode) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -116,6 +118,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     CommonCategoryDto getById(String categoryId) throws RuntimeException;
 
+
     /**
      * 通过categoryId删除
      *
@@ -125,6 +128,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @date 2020-08-28 12:20
      */
     void deleteById(String categoryId) throws RuntimeException;
+
 
     /**
      * 分类字典表批量删除
@@ -136,6 +140,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      */
     void deleteBatch(List<String> categoryIds) throws RuntimeException;
 
+
     /**
      * 分类查询下级
      *
@@ -146,6 +151,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @date 2021-01-08 00:01
      */
     List<CommonCategoryPageDto> selectPageChildren(String parentId) throws RuntimeException;
+
 
     /**
      * 查询所有分类编码

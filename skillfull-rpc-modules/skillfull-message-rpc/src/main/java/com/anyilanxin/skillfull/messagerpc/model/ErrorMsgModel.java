@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -51,8 +49,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class ErrorMsgModel implements Serializable {
     private static final long serialVersionUID = -3931714024892969626L;
-    /**
-     * 异常消息
-     */
+    /** 异常消息 */
     private String data;
 }

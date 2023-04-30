@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.store.code;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -54,10 +52,12 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
         this.redisTemplate = redisTemplate;
     }
 
+
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
         redisTemplate.opsForValue().set(code, authentication, validitySeconds, TimeUnit.SECONDS);
     }
+
 
     @Override
     protected OAuth2Authentication remove(String code) {
@@ -67,6 +67,7 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
         }
         return (OAuth2Authentication) object;
     }
+
 
     public void setValiditySeconds(int validitySeconds) {
         this.validitySeconds = validitySeconds;

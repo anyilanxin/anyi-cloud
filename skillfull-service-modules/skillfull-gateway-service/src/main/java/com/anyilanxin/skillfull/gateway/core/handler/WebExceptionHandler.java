@@ -27,15 +27,12 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.handler;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
 import com.anyilanxin.skillfull.corecommon.exception.ResponseException;
 import com.anyilanxin.skillfull.gateway.utils.CorsWebUtils;
-
 import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -65,16 +62,12 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
-    private static final String SERVICE_NOT_FOUND =
-            "503 SERVICE_UNAVAILABLE \"Unable to find instance for ";
+    private static final String SERVICE_NOT_FOUND = "503 SERVICE_UNAVAILABLE \"Unable to find instance for ";
 
-    public WebExceptionHandler(
-            ErrorAttributes errorAttributes,
-            WebProperties webProperties,
-            ErrorProperties errorProperties,
-            ApplicationContext applicationContext) {
+    public WebExceptionHandler(ErrorAttributes errorAttributes, WebProperties webProperties, ErrorProperties errorProperties, ApplicationContext applicationContext) {
         super(errorAttributes, webProperties.getResources(), errorProperties, applicationContext);
     }
+
 
     /**
      * 构建响应消息
@@ -86,8 +79,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @date 2020-09-11 19:26
      */
     @Override
-    protected Map<String, Object> getErrorAttributes(
-            ServerRequest request, ErrorAttributeOptions options) {
+    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
         int code = 0;
         Throwable error = super.getError(request);
@@ -112,6 +104,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
         return response(status, code, this.buildMessage(request, error));
     }
 
+
     /**
      * 指定响应处理方法为JSON处理的方法
      *
@@ -125,6 +118,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
 
+
     /**
      * 最终响应数据渲染,去掉不想显示的部分
      *
@@ -135,15 +129,12 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      */
     @Override
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
-        Map<String, Object> error =
-                getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
+        Map<String, Object> error = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
         int httpStatus = getHttpStatus(error);
         error.remove("status");
-        return ServerResponse.status(httpStatus)
-                .contentType(MediaType.APPLICATION_JSON)
-                .headers(v -> CorsWebUtils.addCorsHeaders(request.exchange()))
-                .body(BodyInserters.fromValue(error));
+        return ServerResponse.status(httpStatus).contentType(MediaType.APPLICATION_JSON).headers(v -> CorsWebUtils.addCorsHeaders(request.exchange())).body(BodyInserters.fromValue(error));
     }
+
 
     /**
      * 构建异常信息
@@ -185,11 +176,12 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
         return message.toString();
     }
 
+
     /**
      * 构建异常响应消息
      *
-     * @param status       ${@link Integer} Http自身状态码
-     * @param code         ${@link Integer} 自定义状态码
+     * @param status ${@link Integer} Http自身状态码
+     * @param code ${@link Integer} 自定义状态码
      * @param errorMessage ${@link String} 异常消息
      * @return Map<String, Object> ${@link Map<String, Object>}
      * @author zxiaozhou

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleMenuD
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgRoleMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,14 +55,14 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacOrgRoleMenuPageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-07-05 00:22:57
      */
-    IPage<RbacOrgRoleMenuPageDto> pageByModel(
-            Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageVo vo);
+    IPage<RbacOrgRoleMenuPageDto> pageByModel(Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -77,6 +74,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      */
     List<RbacOrgRoleMenuDto> selectListByModel(RbacOrgRoleMenuQueryVo vo);
 
+
     /**
      * 通过机构权限角色id物理删除
      *
@@ -87,6 +85,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      */
     int physicalDeleteById(@Param("id") String orgRoleMenuId);
 
+
     /**
      * 通过机构权限角色id物理批量删除
      *
@@ -96,6 +95,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      * @date 2022-07-05 00:22:57
      */
     int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+
 
     /**
      * 获取有效的菜单按钮权限

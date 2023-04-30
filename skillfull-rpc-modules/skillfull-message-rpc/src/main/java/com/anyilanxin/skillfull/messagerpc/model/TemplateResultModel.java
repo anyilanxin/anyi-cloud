@@ -27,12 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -53,24 +51,16 @@ import lombok.experimental.SuperBuilder;
 public class TemplateResultModel implements Serializable {
     private static final long serialVersionUID = 5735357577900147933L;
 
-    /**
-     * 模板code
-     */
+    /** 模板code */
     private String templateCode;
 
-    /**
-     * 发送成功信息
-     */
+    /** 发送成功信息 */
     private List<String> successInfo;
 
-    /**
-     * 发送失败信息
-     */
+    /** 发送失败信息 */
     private List<Fail> failInfo;
 
-    /**
-     * 发送状态:0-全部失败，1-部分失败，2-全部成功
-     */
+    /** 发送状态:0-全部失败，1-部分失败，2-全部成功 */
     private int status;
 
     @Getter
@@ -82,14 +72,10 @@ public class TemplateResultModel implements Serializable {
     public static class Fail implements Serializable {
         private static final long serialVersionUID = 1661827675724L;
 
-        /**
-         * 接收人
-         */
+        /** 接收人 */
         private String receiveInfo;
 
-        /**
-         * 失败原因
-         */
+        /** 失败原因 */
         private String errorMsg;
     }
 }

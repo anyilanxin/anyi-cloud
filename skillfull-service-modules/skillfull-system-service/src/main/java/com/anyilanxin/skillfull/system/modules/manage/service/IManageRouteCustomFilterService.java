@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -36,7 +35,6 @@ import com.anyilanxin.skillfull.system.modules.manage.entity.ManageRouteCustomFi
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.skillfull.system.modules.manage.service.dto.RouterCustomFilterDto;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,20 +47,19 @@ import java.util.Set;
  * @date 2021-12-19 00:22:17
  * @since JDK1.8
  */
-public interface IManageRouteCustomFilterService
-        extends BaseService<ManageRouteCustomFilterEntity> {
+public interface IManageRouteCustomFilterService extends BaseService<ManageRouteCustomFilterEntity> {
     /**
      * 保存
      *
      * @param customFilters ${@link List< ManageRouteCustomFilterVo >} 自定义过滤器
-     * @param routerId      ${@link String} 路由id
-     * @param override      ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
+     * @param routerId ${@link String} 路由id
+     * @param override ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxiaozhou
      * @date 2021-12-19 00:22:17
      */
-    void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override)
-            throws RuntimeException;
+    void save(List<ManageRouteCustomFilterVo> customFilters, String routerId, boolean override) throws RuntimeException;
+
 
     /**
      * 通过id查询详情
@@ -75,29 +72,30 @@ public interface IManageRouteCustomFilterService
      */
     ManageRouteCustomFilterDto getById(String routeCustomFilterId) throws RuntimeException;
 
+
     /**
      * 通过routerIds获取过滤器
      *
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<
-     * ManageCustomFilterSimpleDto >>}
+     *     ManageCustomFilterSimpleDto >>}
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */
-    Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds)
-            throws RuntimeException;
+    Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds) throws RuntimeException;
+
 
     /**
      * 通过routerIds获取网关过滤器
      *
      * @param routerIds ${@link Set<String>} 路由ids
      * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link
-     * Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
+     *     Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
      * @author zxiaozhou
      * @date 2021-12-22 04:36
      */
-    Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds)
-            throws RuntimeException;
+    Map<String, RouterCustomFilterDto> getGatewayByRouterIds(Set<String> routerIds) throws RuntimeException;
+
 
     /**
      * 通过过routerId获取
@@ -109,6 +107,7 @@ public interface IManageRouteCustomFilterService
      */
     List<ManageCustomFilterSimpleDto> getByRouterId(String routerId) throws RuntimeException;
 
+
     /**
      * 通过routerId删除
      *
@@ -118,6 +117,7 @@ public interface IManageRouteCustomFilterService
      * @date 2021-12-19 00:22:17
      */
     void deleteByRouterId(String routerId) throws RuntimeException;
+
 
     /**
      * 通过routerIds删除

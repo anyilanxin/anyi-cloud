@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.Group;
@@ -70,12 +67,7 @@ public class GroupDto implements Serializable {
         GroupDto groupModel = null;
         if (Objects.nonNull(group)) {
             GroupEntity groupEntity = (GroupEntity) group;
-            groupModel =
-                    GroupDto.builder()
-                            .groupId(groupEntity.getId())
-                            .name(groupEntity.getName())
-                            .code(groupEntity.getType())
-                            .build();
+            groupModel = GroupDto.builder().groupId(groupEntity.getId()).name(groupEntity.getName()).code(groupEntity.getType()).build();
         }
         return groupModel;
     }

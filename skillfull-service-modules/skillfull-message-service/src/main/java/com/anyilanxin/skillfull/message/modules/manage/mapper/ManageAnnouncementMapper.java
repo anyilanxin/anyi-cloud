@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.message.modules.manage.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageAnnounc
 import com.anyilanxin.skillfull.message.modules.manage.service.dto.ManageAnnouncementPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,14 +55,14 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageAnnouncementPageVo} 查询条件
+     * @param vo ${@link ManageAnnouncementPageVo} 查询条件
      * @param page ${@link Page< ManageAnnouncementPageDto >} 分页信息
      * @return IPage<ManageAnnouncementPageDto> ${@link IPage<ManageAnnouncementPageDto>} 结果
      * @author zxiaozhou
      * @date 2022-03-29 08:34:21
      */
-    IPage<ManageAnnouncementPageDto> pageByModel(
-            Page<ManageAnnouncementPageDto> page, @Param("query") ManageAnnouncementPageVo vo);
+    IPage<ManageAnnouncementPageDto> pageByModel(Page<ManageAnnouncementPageDto> page, @Param("query") ManageAnnouncementPageVo vo);
+
 
     /**
      * 条件查询多条
@@ -77,6 +74,7 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
      */
     List<ManageAnnouncementDto> selectListByModel(ManageAnnouncementQueryVo vo);
 
+
     /**
      * 通过通知公告id物理删除
      *
@@ -86,6 +84,7 @@ public interface ManageAnnouncementMapper extends BaseMapper<ManageAnnouncementE
      * @date 2022-03-29 08:34:21
      */
     int physicalDeleteById(@Param("id") String anntId);
+
 
     /**
      * 通过通知公告id物理批量删除

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacClientDetailsEnti
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacClientDetailsPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface RbacClientDetailsMapper extends BaseMapper<RbacClientDetailsEnt
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacClientDetailsPageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacClientDetailsPageDto> pageByModel(
-            Page<RbacClientDetailsPageDto> page, @Param("query") RbacClientDetailsPageVo vo);
+    IPage<RbacClientDetailsPageDto> pageByModel(Page<RbacClientDetailsPageDto> page, @Param("query") RbacClientDetailsPageVo vo);
+
 
     /**
      * 通过客户端信息id物理删除
@@ -73,6 +70,7 @@ public interface RbacClientDetailsMapper extends BaseMapper<RbacClientDetailsEnt
      * @date 2022-05-02 16:12:21
      */
     int physicalDeleteById(@Param("id") String clientDetailId);
+
 
     /**
      * 通过客户端信息id物理批量删除

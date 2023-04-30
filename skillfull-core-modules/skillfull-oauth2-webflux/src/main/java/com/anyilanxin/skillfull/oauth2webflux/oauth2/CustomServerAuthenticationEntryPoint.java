@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2webflux.oauth2;
 
 import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage;
@@ -35,11 +34,9 @@ import static com.anyilanxin.skillfull.corecommon.utils.I18nUtil.getLocalMessage
 import cn.hutool.json.JSONUtil;
 import com.anyilanxin.skillfull.corecommon.base.Result;
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -70,14 +67,11 @@ public class CustomServerAuthenticationEntryPoint implements ServerAuthenticatio
 
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException e) {
-        log.error(
-                "------------RestAuthenticationEntryPoint------------>commence--->异常消息:\n{}",
-                e.getMessage());
+        log.error("------------RestAuthenticationEntryPoint------------>commence--->异常消息:\n{}", e.getMessage());
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        Result<String> result =
-                new Result<>(Status.ACCESS_ERROR, getLocalMessage(LOCAL, e.getMessage()));
+        Result<String> result = new Result<>(Status.ACCESS_ERROR, getLocalMessage(LOCAL, e.getMessage()));
         String body = JSONUtil.toJsonStr(result);
         DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));

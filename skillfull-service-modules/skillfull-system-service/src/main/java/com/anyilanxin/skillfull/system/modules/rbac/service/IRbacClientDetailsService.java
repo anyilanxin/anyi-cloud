@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.BaseService;
@@ -38,7 +37,6 @@ import com.anyilanxin.skillfull.system.modules.rbac.controller.vo.RbacClientDeta
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacClientDetailsEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacClientDetailsDto;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacClientDetailsPageDto;
-
 import java.util.List;
 
 /**
@@ -60,16 +58,18 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     void save(RbacClientDetailsVo vo) throws RuntimeException;
 
+
     /**
      * 通过id更新
      *
      * @param clientDetailId 客户端信息id
-     * @param vo             授权客户端信息更新数据
+     * @param vo 授权客户端信息更新数据
      * @throws RuntimeException
      * @author zxiaozhou
      * @date 2022-05-02 16:12:21
      */
     void updateById(String clientDetailId, RbacClientDetailsVo vo) throws RuntimeException;
+
 
     /**
      * 分页查询
@@ -82,6 +82,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     PageDto<RbacClientDetailsPageDto> pageByModel(RbacClientDetailsPageVo vo) throws RuntimeException;
 
+
     /**
      * 通过id查询详情
      *
@@ -93,6 +94,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     RbacClientDetailsDto getById(String clientDetailId) throws RuntimeException;
 
+
     /**
      * 通过clientDetailId删除
      *
@@ -102,6 +104,7 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      * @date 2022-05-02 16:12:21
      */
     void deleteById(String clientDetailId) throws RuntimeException;
+
 
     /**
      * 授权客户端信息批量删除
@@ -113,15 +116,17 @@ public interface IRbacClientDetailsService extends BaseService<RbacClientDetails
      */
     void deleteBatch(List<String> clientDetailIds) throws RuntimeException;
 
+
     /**
      * 通过客户端id修改状态
      *
      * @param clientDetailId 客户端信息id
-     * @param type           类型:0-禁用,1-启用
+     * @param type 类型:0-禁用,1-启用
      * @author zxiaozhou
      * @date 2022-06-03 02:32
      */
     void updateState(String clientDetailId, Integer type);
+
 
     /**
      * 更新或添加权限

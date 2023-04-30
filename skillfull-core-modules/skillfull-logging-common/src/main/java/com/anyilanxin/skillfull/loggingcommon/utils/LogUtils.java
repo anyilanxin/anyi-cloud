@@ -27,18 +27,15 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.loggingcommon.utils;
 
 import com.anyilanxin.skillfull.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.skillfull.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.skillfull.stream.component.BindingComponent;
 import com.anyilanxin.skillfull.stream.constant.BindingStreamConstant;
-
 import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -78,19 +75,16 @@ public class LogUtils {
                 operateLogModel.setDataSources(utils.serviceName);
             }
             if (StringUtils.isBlank(operateLogModel.getDataSourcesDescribe())) {
-                operateLogModel.setDataSourcesDescribe(
-                        "来源于" + utils.serviceName + "(版本:" + utils.applicationVersion + ")的日志");
+                operateLogModel.setDataSourcesDescribe("来源于" + utils.serviceName + "(版本:" + utils.applicationVersion + ")的日志");
             }
-            if (Objects.nonNull(operateLogModel.getRequestStartTime())
-                    && Objects.nonNull(operateLogModel.getRequestEndTime())) {
-                Duration duration =
-                        Duration.between(
-                                operateLogModel.getRequestStartTime(), operateLogModel.getRequestEndTime());
+            if (Objects.nonNull(operateLogModel.getRequestStartTime()) && Objects.nonNull(operateLogModel.getRequestEndTime())) {
+                Duration duration = Duration.between(operateLogModel.getRequestStartTime(), operateLogModel.getRequestEndTime());
                 operateLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.OPERATE_LOG_PROCESS, operateLogModel);
         }
     }
+
 
     /**
      * 保存授权日志
@@ -101,15 +95,14 @@ public class LogUtils {
      */
     public static void sendAuthLog(AuthLogModel authLogModel) {
         if (Objects.nonNull(authLogModel)) {
-            if (Objects.nonNull(authLogModel.getRequestStartTime())
-                    && Objects.nonNull(authLogModel.getRequestEndTime())) {
-                Duration duration =
-                        Duration.between(authLogModel.getRequestStartTime(), authLogModel.getRequestEndTime());
+            if (Objects.nonNull(authLogModel.getRequestStartTime()) && Objects.nonNull(authLogModel.getRequestEndTime())) {
+                Duration duration = Duration.between(authLogModel.getRequestStartTime(), authLogModel.getRequestEndTime());
                 authLogModel.setCostTime(duration.toMillis());
             }
             utils.bindingComponent.out(BindingStreamConstant.AUTH_LOG_PROCESS, authLogModel);
         }
     }
+
 
     @PostConstruct
     private void init() {

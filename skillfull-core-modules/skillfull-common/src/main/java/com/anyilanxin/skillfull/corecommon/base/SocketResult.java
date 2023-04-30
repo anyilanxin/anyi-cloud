@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.base;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -36,12 +35,10 @@ import com.anyilanxin.skillfull.corecommon.constant.impl.BusinessType;
 import com.anyilanxin.skillfull.corecommon.constant.impl.SocketMsgType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -58,10 +55,7 @@ import lombok.Getter;
 public class SocketResult implements Serializable {
     private static final long serialVersionUID = -7991672291592110700L;
 
-    @Schema(
-            name = "msgType",
-            title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)",
-            required = true)
+    @Schema(name = "msgType", title = "消息类型:0-指定接收人,1-指定接收系统,2-广播,3-请求业务数据,默认4(与SocketMsgType一致)", required = true)
     private Integer msgType;
 
     @Schema(name = "data", title = "业务数据")
@@ -92,30 +86,36 @@ public class SocketResult implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
+
     public SocketResult(BusinessType businessType, Object data) {
         this(businessType);
         this.data = data;
     }
+
 
     public SocketResult setMsgType(SocketMsgType msgType) {
         this.msgType = msgType.getType();
         return this;
     }
 
+
     public SocketResult setData(Object data) {
         this.data = data;
         return this;
     }
+
 
     public SocketResult setMessage(String message) {
         this.message = message;
         return this;
     }
 
+
     public SocketResult setRequestMarker(String requestMarker) {
         this.requestMarker = requestMarker;
         return this;
     }
+
 
     public SocketResult setUserId(String userId) {
         if (CollectionUtil.isEmpty(this.userIds)) {
@@ -125,10 +125,12 @@ public class SocketResult implements Serializable {
         return this;
     }
 
+
     public SocketResult setUserIds(List<String> userIds) {
         this.userIds = userIds;
         return this;
     }
+
 
     public SocketResult setSystemId(String loginCode) {
         if (CollectionUtil.isEmpty(this.loginCodes)) {
@@ -138,10 +140,12 @@ public class SocketResult implements Serializable {
         return this;
     }
 
+
     public SocketResult setSystemIds(List<String> loginCodes) {
         this.loginCodes = loginCodes;
         return this;
     }
+
 
     @Override
     public String toString() {

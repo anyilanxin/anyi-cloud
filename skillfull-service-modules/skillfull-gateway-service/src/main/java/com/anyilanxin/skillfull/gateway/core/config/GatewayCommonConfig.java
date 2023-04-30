@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.core.config;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
@@ -36,10 +35,8 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.anyilanxin.skillfull.corecommon.model.stream.ConfigTokenModel;
 import com.anyilanxin.skillfull.corecommon.model.system.ConfigDataSecurityModel;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.AbstractSwaggerUiConfigProperties;
@@ -80,27 +77,23 @@ public class GatewayCommonConfig {
      * 自定义doc config 信息获取
      *
      * @param swaggerUiConfig ${@link SwaggerUiConfigProperties}
-     * @param disClient       ${@link DiscoveryClient}
-     * @param webClient       ${@link WebClient.Builder}
+     * @param disClient ${@link DiscoveryClient}
+     * @param webClient ${@link WebClient.Builder}
      * @return SwaggerUiConfigParameters ${@link SwaggerUiConfigParameters}
      * @author zxiaozhou
      * @date 2022-01-05 03:32
      */
     @Bean
-    SwaggerUiConfigParameters swaggerUiConfigParameters(
-            SwaggerUiConfigProperties swaggerUiConfig,
-            DiscoveryClient disClient,
-            WebClient.Builder webClient,
-            Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
-        return new CustomSwaggerUiConfigParameters(
-                swaggerUiConfig, disClient, webClient, apiDocInfoUrlModel);
+    SwaggerUiConfigParameters swaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder webClient, Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
+        return new CustomSwaggerUiConfigParameters(swaggerUiConfig, disClient, webClient, apiDocInfoUrlModel);
     }
+
 
     /**
      * 初始化swagger url信息缓存
      *
      * @return Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> ${@link Map<String,
-     * AbstractSwaggerUiConfigProperties.SwaggerUrl>}
+     *     AbstractSwaggerUiConfigProperties.SwaggerUrl>}
      * @author zxiaozhou
      * @date 2022-01-01 21:31
      */
@@ -108,6 +101,7 @@ public class GatewayCommonConfig {
     public Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel() {
         return new ConcurrentHashMap<>(16);
     }
+
 
     /**
      * 初始化NamingService
@@ -121,6 +115,7 @@ public class GatewayCommonConfig {
         return NacosFactory.createNamingService(properties.getNacosProperties());
     }
 
+
     /**
      * token相关配置
      *
@@ -132,6 +127,7 @@ public class GatewayCommonConfig {
     public ConfigTokenModel baseSystemModel() {
         return new ConfigTokenModel();
     }
+
 
     /**
      * 数据加解密配置
@@ -145,6 +141,7 @@ public class GatewayCommonConfig {
         return new ConfigDataSecurityModel();
     }
 
+
     /**
      * url比较配置
      *
@@ -157,33 +154,27 @@ public class GatewayCommonConfig {
         return new AntPathMatcher();
     }
 
-    /**
-     * 解决启动报错
-     */
+
+    /** 解决启动报错 */
     @Bean
     @Primary
-    public GenericConversionService getGenericConversionService(
-            @Autowired @Qualifier("webFluxConversionService")
-            FormattingConversionService conversionService) {
+    public GenericConversionService getGenericConversionService(@Autowired @Qualifier("webFluxConversionService") FormattingConversionService conversionService) {
         return conversionService;
     }
 
+
     @Bean
-    public RouteDefinitionRepository redisRouteDefinitionRepository(
-            ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
+    public RouteDefinitionRepository redisRouteDefinitionRepository(ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
         return new CustomRedisRouteDefinitionRepository(reactiveRedisTemplate);
     }
 
+
     @Bean
-    public ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisRouteDefinitionTemplate(
-            ReactiveRedisConnectionFactory factory) {
+    public ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisRouteDefinitionTemplate(ReactiveRedisConnectionFactory factory) {
         StringRedisSerializer keySerializer = new StringRedisSerializer();
-        Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer =
-                new Jackson2JsonRedisSerializer<>(RouteDefinition.class);
-        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition> builder =
-                RedisSerializationContext.newSerializationContext(keySerializer);
-        RedisSerializationContext<String, RouteDefinition> context =
-                builder.value(valueSerializer).build();
+        Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer = new Jackson2JsonRedisSerializer<>(RouteDefinition.class);
+        RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition> builder = RedisSerializationContext.newSerializationContext(keySerializer);
+        RedisSerializationContext<String, RouteDefinition> context = builder.value(valueSerializer).build();
         return new ReactiveRedisTemplate<>(factory, context);
     }
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gateway.filter.partial.post;
 
 import static com.anyilanxin.skillfull.corecommon.constant.CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY;
@@ -36,10 +35,8 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.skillfull.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.skillfull.gateway.utils.LogRecordUtils;
-
 import java.util.Collections;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -59,16 +56,17 @@ import reactor.core.publisher.Mono;
  * @since JDK11
  */
 @Slf4j
-public class LogResponseGatewayFilterFactory
-        extends AbstractGatewayFilterFactory<LogResponseGatewayFilterFactory.Config> {
+public class LogResponseGatewayFilterFactory extends AbstractGatewayFilterFactory<LogResponseGatewayFilterFactory.Config> {
     public LogResponseGatewayFilterFactory() {
         super(Config.class);
     }
+
 
     @Override
     public List<String> shortcutFieldOrder() {
         return Collections.singletonList(PARAM_SPECIAL_URL_KEY);
     }
+
 
     @Override
     public GatewayFilter apply(Config config) {
@@ -87,27 +85,26 @@ public class LogResponseGatewayFilterFactory
             this.config = config;
         }
 
+
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------LogGatewayFilter------------>filter:{}", "响应数据处理过滤器");
-            return chain.filter(
-                    exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
+            return chain.filter(exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
         }
+
 
         @Override
         public int getOrder() {
             return -2;
         }
 
+
         @Override
         public String toString() {
             Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
-            return filterToStringCreator(obj)
-                    .append("New content type", " config.getNewContentType()")
-                    .append("In class", " config.getInClass()")
-                    .append("Out class", "config.getOutClass()")
-                    .toString();
+            return filterToStringCreator(obj).append("New content type", " config.getNewContentType()").append("In class", " config.getInClass()").append("Out class", "config.getOutClass()").toString();
         }
+
 
         public void setFactory(GatewayFilterFactory<Config> gatewayFilterFactory) {
             this.gatewayFilterFactory = gatewayFilterFactory;
@@ -116,14 +113,13 @@ public class LogResponseGatewayFilterFactory
 
     @Validated
     public static class Config {
-        /**
-         * 特殊url
-         */
+        /** 特殊url */
         private RouteMetaSpecialUrlModel specialUrl;
 
         public RouteMetaSpecialUrlModel getSpecialUrl() {
             return specialUrl;
         }
+
 
         public Config setSpecialUrl(String specialUrl) {
             if (StringUtils.isNotBlank(specialUrl)) {

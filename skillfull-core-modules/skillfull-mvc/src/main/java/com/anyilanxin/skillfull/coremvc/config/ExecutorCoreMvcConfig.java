@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.coremvc.config;
 
 import com.anyilanxin.skillfull.coremvc.constant.CommonCoreMvcConstant;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
-
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -74,7 +71,7 @@ public class ExecutorCoreMvcConfig {
         // 线程池名前缀
         executor.setThreadNamePrefix(CommonCoreMvcConstant.TASK_EXECUTOR_PREFIX);
         // 增加 TaskDecorator 属性的配置线程间同步数据
-        //        executor.setTaskDecorator(new ContextDecorator());
+        // executor.setTaskDecorator(new ContextDecorator());
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
         return executor;

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.orror;
 
 import com.anyilanxin.skillfull.corecommon.base.Result;
@@ -52,10 +51,12 @@ public class CustomOauth2Exception extends OAuth2Exception {
         this.error = new Result<>(Status.ACCESS_ERROR, msg);
     }
 
+
     public CustomOauth2Exception(Result<T> error) {
         super(error.getMessage());
         this.error = error;
     }
+
 
     public Result<T> getResult() {
         return this.error;

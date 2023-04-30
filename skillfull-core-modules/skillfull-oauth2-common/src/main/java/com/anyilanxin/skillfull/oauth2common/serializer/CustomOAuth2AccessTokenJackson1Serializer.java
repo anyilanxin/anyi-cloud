@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.oauth2common.serializer;
 
 import com.alibaba.fastjson.JSONObject;
@@ -37,12 +36,10 @@ import com.anyilanxin.skillfull.oauth2common.authinfo.SkillFullAccessToken;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
-
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.util.Assert;
@@ -58,9 +55,9 @@ public class CustomOAuth2AccessTokenJackson1Serializer extends StdSerializer<Ski
         super(SkillFullAccessToken.class);
     }
 
+
     @Override
-    public void serialize(SkillFullAccessToken token, JsonGenerator gen, SerializerProvider provider)
-            throws IOException {
+    public void serialize(SkillFullAccessToken token, JsonGenerator gen, SerializerProvider provider) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(OAuth2AccessToken.ACCESS_TOKEN, token.getValue());
         jsonObject.put(OAuth2AccessToken.TOKEN_TYPE, token.getTokenType());

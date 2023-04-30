@@ -27,13 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.process.modules.rbac.service;
 
 import com.anyilanxin.skillfull.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.skillfull.process.modules.rbac.service.dto.GroupDto;
-
 import java.util.List;
 import java.util.Set;
 
@@ -54,6 +52,7 @@ public interface IGroupService {
      */
     void saveOrUpdate(GroupVo vo) throws RuntimeException;
 
+
     /**
      * 用户组与租户关联
      *
@@ -62,6 +61,7 @@ public interface IGroupService {
      * @date 2021-11-07 21:10
      */
     void deleteOrAddTenant(GroupTenantVo vo) throws RuntimeException;
+
 
     /**
      * 获取用户组
@@ -73,6 +73,7 @@ public interface IGroupService {
      */
     GroupDto getGroup(String groupId) throws RuntimeException;
 
+
     /**
      * 获取用户组信息
      *
@@ -82,6 +83,7 @@ public interface IGroupService {
      * @date 2021-11-05 17:51
      */
     List<GroupDto> getGroupList(GroupQueryVo model) throws RuntimeException;
+
 
     /**
      * 分页获取用户组信息
@@ -93,6 +95,7 @@ public interface IGroupService {
      */
     PageDto<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException;
 
+
     /**
      * 删除用户组
      *
@@ -101,6 +104,7 @@ public interface IGroupService {
      * @date 2021-11-05 17:51
      */
     void deleteGroup(String groupId) throws RuntimeException;
+
 
     /**
      * 全量同步用户组信息

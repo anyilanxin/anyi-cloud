@@ -27,11 +27,9 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.auth.oauth2.provider.token;
 
 import java.util.Collection;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -51,17 +49,19 @@ public class OpenIdAuthenticationToken extends UsernamePasswordAuthenticationTok
         setAuthenticated(false);
     }
 
-    public OpenIdAuthenticationToken(
-            String openId, Collection<? extends GrantedAuthority> authorities) {
+
+    public OpenIdAuthenticationToken(String openId, Collection<? extends GrantedAuthority> authorities) {
         super(openId, "", authorities);
         this.openId = openId;
         super.setAuthenticated(true);
     }
 
+
     @Override
     public Object getCredentials() {
         return null;
     }
+
 
     @Override
     public Object getPrincipal() {

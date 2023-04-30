@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgMenuEntity;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -61,17 +58,18 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      */
     int physicalDeleteById(@Param("orgId") String orgId);
 
+
     /**
      * 删除不在不存在当前列表的资源
      *
-     * @param orgId  机构id
+     * @param orgId 机构id
      * @param idList 资源api角色id列表
      * @return int 成功状态:0-失败,大于1-成功
      * @author zxiaozhou
      * @date 2022-07-02 23:01:20
      */
-    int physicalDeleteNotInIds(
-            @Param("orgId") String orgId, @Param("coll") Collection<String> idList);
+    int physicalDeleteNotInIds(@Param("orgId") String orgId, @Param("coll") Collection<String> idList);
+
 
     /**
      * 查询机构功能权限
@@ -83,18 +81,16 @@ public interface RbacOrgMenuMapper extends BaseMapper<RbacOrgMenuEntity> {
      */
     Set<String> selectMenuListById(@Param("orgId") String orgId);
 
+
     /**
      * 查询机构菜单树
      *
-     * @param orgId    机构id
+     * @param orgId 机构id
      * @param systemId 系统id
-     * @param status   菜单状态:0-禁用,1-启用,不传所有
+     * @param status 菜单状态:0-禁用,1-启用,不传所有
      * @return List<RbacMenuEntity>
      * @author zxiaozhou
      * @date 2022-07-08 08:16
      */
-    List<RbacMenuEntity> selectByParams(
-            @Param("orgId") String orgId,
-            @Param("systemId") String systemId,
-            @Param("status") Integer status);
+    List<RbacMenuEntity> selectByParams(@Param("orgId") String orgId, @Param("systemId") String systemId, @Param("status") Integer status);
 }

@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.rbac.mapper;
 
 import com.anyilanxin.skillfull.database.datasource.base.mapper.BaseMapper;
@@ -36,9 +35,7 @@ import com.anyilanxin.skillfull.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.skillfull.system.modules.rbac.service.dto.RbacOrgTreePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -55,14 +52,14 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
     /**
      * 分页查询
      *
-     * @param vo   查询条件
+     * @param vo 查询条件
      * @param page 分页信息
      * @return IPage<RbacOrgPageDto> 查询结果
      * @author zxiaozhou
      * @date 2022-05-02 16:39:45
      */
-    IPage<RbacOrgTreePageDto> pageByModel(
-            Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
+    IPage<RbacOrgTreePageDto> pageByModel(Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
+
 
     /**
      * 通过组织id物理删除
@@ -73,6 +70,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      * @date 2022-05-02 16:39:45
      */
     int physicalDeleteById(@Param("id") String orgId);
+
 
     /**
      * 通过组织id物理批量删除

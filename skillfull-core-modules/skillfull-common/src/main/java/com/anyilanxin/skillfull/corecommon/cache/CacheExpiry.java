@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.corecommon.cache;
 
 import java.util.Date;
@@ -50,20 +49,24 @@ class CacheExpiry implements Delayed {
         this.expiry = date.getTime();
     }
 
+
     CacheExpiry(String key, int expiry) {
         this.key = key;
         this.expiry = System.currentTimeMillis() + expiry * 1000;
     }
+
 
     @Override
     public int compareTo(Delayed delayed) {
         return (int) (this.getDelay(TimeUnit.MILLISECONDS) - delayed.getDelay(TimeUnit.MILLISECONDS));
     }
 
+
     @Override
     public long getDelay(TimeUnit timeUnit) {
         return timeUnit.convert(this.expiry - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
     }
+
 
     public String getKey() {
         return this.key;

@@ -27,17 +27,14 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.core.constant.impl;
 
 import com.anyilanxin.skillfull.corecommon.annotation.ConstantType;
 import com.anyilanxin.skillfull.corecommon.constant.ISuperType;
 import com.anyilanxin.skillfull.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 
 /**
@@ -50,32 +47,23 @@ import lombok.Getter;
 @Getter
 @ConstantType
 public enum UserCorrelateType implements ISuperType {
-    /**
-     * 组织机构
-     */
+    /** 组织机构 */
     ORG(1, "组织机构"),
-    /**
-     * 职位
-     */
+    /** 职位 */
     POSITION(2, "职位"),
-    /**
-     * 用户组
-     */
+    /** 用户组 */
     USER_GROUP(3, "职位");
-    /**
-     * 类型
-     */
+    /** 类型 */
     private final int type;
 
-    /**
-     * 描述
-     */
+    /** 描述 */
     private final String describe;
 
     UserCorrelateType(int type, String describe) {
         this.type = type;
         this.describe = describe;
     }
+
 
     /**
      * 判断某个类型是否存在
@@ -95,6 +83,7 @@ public enum UserCorrelateType implements ISuperType {
         return false;
     }
 
+
     /**
      * 获取所有的类型
      *
@@ -110,6 +99,7 @@ public enum UserCorrelateType implements ISuperType {
         }
         return sb.toString().replaceFirst("、", "");
     }
+
 
     @Override
     public List<ConstantDictModel> getConstantDict() {

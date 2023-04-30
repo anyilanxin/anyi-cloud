@@ -27,14 +27,11 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.system.modules.manage.controller.vo;
 
 import com.anyilanxin.skillfull.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -60,10 +57,7 @@ public class ManageRouteCustomFilterVo implements Serializable {
     @NotBlankOrNull(message = "自定义过滤器id不能为空")
     private String customFilterId;
 
-    @Schema(
-            name = "filterType",
-            title = "过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType",
-            required = true)
+    @Schema(name = "filterType", title = "过滤器类型:来自网关常量FilterCustomPostType,FilterCustomPreType", required = true)
     @NotBlankOrNull(message = "过滤器类型不能为空")
     private String filterType;
 }

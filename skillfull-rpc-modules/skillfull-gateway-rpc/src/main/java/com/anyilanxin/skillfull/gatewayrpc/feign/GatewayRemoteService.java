@@ -27,7 +27,6 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.gatewayrpc.feign;
 
 import cn.hutool.json.JSONObject;
@@ -38,10 +37,8 @@ import com.anyilanxin.skillfull.corecommon.model.stream.router.SystemRouterModel
 import com.anyilanxin.skillfull.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.skillfull.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.skillfull.gatewayrpc.model.RouteResponseModel;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,10 +49,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2020-09-12 16:54
  * @since JDK11
  */
-@FeignClient(
-        value = ServiceConstant.GATEWAY_SERVICE,
-        path = ServiceConstant.GATEWAY_SERVICE_PATH,
-        fallbackFactory = FeignFallback.class)
+@FeignClient(value = ServiceConstant.GATEWAY_SERVICE, path = ServiceConstant.GATEWAY_SERVICE_PATH, fallbackFactory = FeignFallback.class)
 public interface GatewayRemoteService {
 
     /**
@@ -68,6 +62,7 @@ public interface GatewayRemoteService {
     @GetMapping("/route/select/list")
     Result<List<RouteResponseModel>> getRoutes();
 
+
     /**
      * 查询网关原始路由路由
      *
@@ -77,6 +72,7 @@ public interface GatewayRemoteService {
      */
     @GetMapping("/route/select/list-original")
     Result<List<JSONObject>> getOriginalRoutes();
+
 
     /**
      * 添加路由
@@ -88,6 +84,7 @@ public interface GatewayRemoteService {
     @PostMapping("/route/add")
     Result<String> addRoute(@RequestBody @Valid SystemRouterModel vo);
 
+
     /**
      * 更新路由
      *
@@ -98,6 +95,7 @@ public interface GatewayRemoteService {
     @PostMapping("/route/update")
     Result<String> updateRoute(@RequestBody @Valid SystemRouterModel vo);
 
+
     /**
      * 删除路由
      *
@@ -107,8 +105,8 @@ public interface GatewayRemoteService {
      * @date 2020-09-15 17:03
      */
     @DeleteMapping("/route/delete/{routeCode}")
-    Result<String> deleteRoute(
-            @PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode);
+    Result<String> deleteRoute(@PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode);
+
 
     /**
      * 获取请求安全基础信息(需要路由设置使用加密传输)
@@ -120,6 +118,7 @@ public interface GatewayRemoteService {
     @GetMapping("/tools/select/base-security")
     Result<WebSecurityModel> getBaseSecurity();
 
+
     /**
      * 获取请求安全基础信息手动刷新(需要路由设置使用加密传输)
      *
@@ -128,6 +127,5 @@ public interface GatewayRemoteService {
      * @date 2020-09-15 17:03
      */
     @GetMapping("/tools/select/base-security/refresh/{serialNumber}")
-    Result<WebSecurityModel> getRefreshBaseSecurity(
-            @PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber);
+    Result<WebSecurityModel> getRefreshBaseSecurity(@PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber);
 }

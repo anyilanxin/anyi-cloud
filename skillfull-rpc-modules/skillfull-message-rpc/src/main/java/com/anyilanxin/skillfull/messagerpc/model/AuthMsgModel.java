@@ -27,13 +27,10 @@
  *   9.若您的项目无法满足以上几点，可申请商业授权。
  */
 
-
 package com.anyilanxin.skillfull.messagerpc.model;
 
 import com.anyilanxin.skillfull.corecommon.constant.Status;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -54,18 +51,12 @@ import lombok.experimental.SuperBuilder;
 public class AuthMsgModel implements Serializable {
     private static final long serialVersionUID = -3931714024892969626L;
 
-    /**
-     * 类型：1-登录过期，2-被强制下线，3-已在其他设备登录下线(开启单设备登录时有效)
-     */
+    /** 类型：1-登录过期，2-被强制下线，3-已在其他设备登录下线(开启单设备登录时有效) */
     private Status type;
 
-    /**
-     * 消息
-     */
+    /** 消息 */
     private String message;
 
-    /**
-     * 鉴权信息针对token
-     */
+    /** 鉴权信息针对token */
     private String token;
 }

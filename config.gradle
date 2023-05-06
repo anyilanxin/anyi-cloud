@@ -84,7 +84,8 @@ ext {
             'local'  : [
                     baseImage     : 'openjdk:11.0.16-jre-buster',
                     images        : "",
-                    isRemortDocker: false,
+                    isRemortDocker: true,
+                    remortDocker  : 'unix:///Users/zhou/.docker/run/docker.sock',
                     credentials   : {
                         url = 'http://myharbor.com:82'
                         username = 'robot$approot'

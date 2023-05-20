@@ -33,9 +33,7 @@ import static com.anyilanxin.anyicloud.corecommon.constant.SysBaseConstant.BOOT_
 
 import com.anyilanxin.anyicloud.corecommon.annotation.SkillfulCloudApplication;
 import com.anyilanxin.anyicloud.corecommon.constant.TimeZoneConstant;
-
 import java.util.TimeZone;
-
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.mybatis.spring.annotation.MapperScan;

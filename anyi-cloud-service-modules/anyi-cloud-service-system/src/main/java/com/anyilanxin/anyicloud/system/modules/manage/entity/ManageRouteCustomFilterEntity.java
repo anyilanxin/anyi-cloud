@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.system.modules.manage.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

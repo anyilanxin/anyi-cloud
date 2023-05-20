@@ -39,12 +39,10 @@ import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.ClientDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.UserDetailsCopyMap;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -34,12 +34,10 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TI
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

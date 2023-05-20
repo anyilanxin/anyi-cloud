@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.oauth2mvc.utils;
 import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.oauth2mvc.config.properties.CustomSecurityProperties;
-
 import java.util.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

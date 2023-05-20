@@ -31,11 +31,9 @@ package com.anyilanxin.anyicloud.corecommon.model.system;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

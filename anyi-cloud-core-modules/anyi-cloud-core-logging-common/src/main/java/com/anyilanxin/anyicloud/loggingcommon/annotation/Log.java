@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.loggingcommon.annotation;
 
 import com.anyilanxin.anyicloud.loggingcommon.constant.impl.OperateType;
-
 import java.lang.annotation.*;
 
 /**

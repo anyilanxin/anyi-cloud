@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.auth.oauth2.provider.token;
 
 import java.util.Collection;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 

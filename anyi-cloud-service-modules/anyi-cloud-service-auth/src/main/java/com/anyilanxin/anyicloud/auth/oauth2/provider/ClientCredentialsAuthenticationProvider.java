@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.provider;
 import com.anyilanxin.anyicloud.auth.oauth2.provider.token.ClientCredentialsAuthenticationToken;
 import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
 import com.anyilanxin.anyicloud.oauth2common.utils.PasswordCheck;
-
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.BadCredentialsException;

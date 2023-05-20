@@ -35,9 +35,7 @@ import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacPositionEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacPositionPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

@@ -36,9 +36,7 @@ import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageServiceEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageServiceMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

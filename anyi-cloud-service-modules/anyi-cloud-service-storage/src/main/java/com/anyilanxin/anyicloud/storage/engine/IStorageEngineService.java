@@ -32,10 +32,8 @@ package com.anyilanxin.skillfull.storage.engine;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
 import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**

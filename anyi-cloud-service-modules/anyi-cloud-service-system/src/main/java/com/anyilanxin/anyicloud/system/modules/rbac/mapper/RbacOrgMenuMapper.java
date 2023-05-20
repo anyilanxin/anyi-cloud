@@ -32,11 +32,9 @@ package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgMenuEntity;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

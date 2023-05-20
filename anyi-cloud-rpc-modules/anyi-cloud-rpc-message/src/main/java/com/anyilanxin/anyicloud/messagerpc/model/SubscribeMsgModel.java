@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.messagerpc.model;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
-
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

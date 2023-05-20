@@ -32,10 +32,8 @@ package com.anyilanxin.anyicloud.coremvc.config;
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

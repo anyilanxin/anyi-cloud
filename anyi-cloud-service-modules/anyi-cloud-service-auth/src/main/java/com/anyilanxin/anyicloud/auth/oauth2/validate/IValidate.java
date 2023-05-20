@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
 import com.alibaba.fastjson.JSONObject;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**

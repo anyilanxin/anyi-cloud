@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.oauth2mvc.user;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
-
 import java.util.Set;
 
 /**

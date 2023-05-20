@@ -31,10 +31,8 @@ package com.anyilanxin.anyicloud.corecommon.model.stream.router;
 
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 
 /**

@@ -36,9 +36,7 @@ import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.FindPass
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdateInfoVo;
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdatePasswordVo;
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdatePhoneVo;
-
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /**

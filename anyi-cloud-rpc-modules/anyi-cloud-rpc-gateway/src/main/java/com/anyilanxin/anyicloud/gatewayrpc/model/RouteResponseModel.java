@@ -31,11 +31,9 @@ package com.anyilanxin.anyicloud.gatewayrpc.model;
 
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

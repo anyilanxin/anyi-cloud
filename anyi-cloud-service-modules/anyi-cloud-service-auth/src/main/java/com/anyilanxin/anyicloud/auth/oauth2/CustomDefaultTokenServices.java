@@ -37,11 +37,9 @@ import com.anyilanxin.anyicloud.corecommon.constant.impl.CommonNotHaveType;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.constant.OAuth2RequestExtendConstant;
-
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;

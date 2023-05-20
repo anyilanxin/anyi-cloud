@@ -45,11 +45,9 @@ import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperatePageDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.mapstruct.OperateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

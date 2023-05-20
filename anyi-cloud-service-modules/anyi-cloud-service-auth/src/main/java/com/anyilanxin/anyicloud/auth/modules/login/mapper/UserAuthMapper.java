@@ -33,10 +33,8 @@ import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacOrgUserDto;
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
-
 import java.util.List;
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.oauth2common.authinfo;
 
 import com.anyilanxin.anyicloud.oauth2common.serializer.CustomOAuth2AccessTokenJackson1Serializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.util.*;
-
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -263,7 +261,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
         if (tokenParams.containsKey(SCOPE)) {
             Set<String> scope = new TreeSet<>();
-            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,"); tokenizer.hasMoreTokens(); ) {
+            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,"); tokenizer.hasMoreTokens();) {
                 scope.add(tokenizer.nextToken());
             }
             token.setScope(scope);

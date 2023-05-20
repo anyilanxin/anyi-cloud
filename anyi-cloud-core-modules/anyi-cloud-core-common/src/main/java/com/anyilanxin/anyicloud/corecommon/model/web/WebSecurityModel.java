@@ -31,10 +31,8 @@ package com.anyilanxin.anyicloud.corecommon.model.web;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

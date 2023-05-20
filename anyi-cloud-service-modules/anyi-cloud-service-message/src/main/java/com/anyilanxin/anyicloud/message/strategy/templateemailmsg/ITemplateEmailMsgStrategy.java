@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.message.strategy.templateemailmsg;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
-
 import java.util.List;
 
 /**

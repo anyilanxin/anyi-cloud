@@ -32,11 +32,9 @@ package com.anyilanxin.anyicloud.system.modules.common.service.impl;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.anyicloud.system.modules.common.service.ICommonConstantDictService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

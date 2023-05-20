@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.corecommon.constant;
 
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
-
 import java.util.List;
 
 /**

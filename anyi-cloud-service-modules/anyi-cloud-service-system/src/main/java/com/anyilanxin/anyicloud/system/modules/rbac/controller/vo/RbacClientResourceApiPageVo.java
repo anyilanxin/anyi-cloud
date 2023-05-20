@@ -31,10 +31,8 @@ package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.database.datasource.base.controller.vo.BasePageVo;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.util.List;
 import javax.validation.constraints.NotBlank;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

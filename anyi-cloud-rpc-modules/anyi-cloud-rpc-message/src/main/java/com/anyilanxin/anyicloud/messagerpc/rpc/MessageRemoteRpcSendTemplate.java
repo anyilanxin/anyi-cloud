@@ -36,9 +36,7 @@ import com.anyilanxin.anyicloud.messagerpc.model.TemplateCommonMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateEmailMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateSmsMsgModel;
-
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

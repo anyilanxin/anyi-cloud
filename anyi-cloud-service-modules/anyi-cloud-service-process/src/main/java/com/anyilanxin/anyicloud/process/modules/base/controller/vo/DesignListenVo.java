@@ -31,10 +31,8 @@ package com.anyilanxin.anyicloud.process.modules.base.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

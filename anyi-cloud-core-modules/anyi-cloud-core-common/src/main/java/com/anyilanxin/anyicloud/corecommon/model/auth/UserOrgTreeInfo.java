@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.corecommon.model.auth;
 
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

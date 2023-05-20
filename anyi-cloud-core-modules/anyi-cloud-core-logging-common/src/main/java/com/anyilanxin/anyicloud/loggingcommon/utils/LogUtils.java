@@ -33,11 +33,9 @@ import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
 import com.anyilanxin.anyicloud.stream.component.BindingComponent;
 import com.anyilanxin.anyicloud.stream.constant.BindingStreamConstant;
-
 import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

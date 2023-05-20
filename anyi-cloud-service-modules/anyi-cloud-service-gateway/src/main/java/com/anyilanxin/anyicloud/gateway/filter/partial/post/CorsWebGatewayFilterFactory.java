@@ -33,10 +33,8 @@ import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayCons
 import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 import com.anyilanxin.anyicloud.gateway.utils.CorsWebUtils;
-
 import java.util.Collections;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

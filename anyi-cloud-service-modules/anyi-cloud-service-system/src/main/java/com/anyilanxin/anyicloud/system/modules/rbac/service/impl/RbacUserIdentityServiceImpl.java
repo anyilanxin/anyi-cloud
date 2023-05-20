@@ -45,11 +45,9 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserId
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserIdentityPageCopyMap;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserIdentityQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

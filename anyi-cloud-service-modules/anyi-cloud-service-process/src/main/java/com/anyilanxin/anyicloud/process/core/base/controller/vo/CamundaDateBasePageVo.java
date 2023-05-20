@@ -31,11 +31,9 @@ package com.anyilanxin.anyicloud.process.core.base.controller.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

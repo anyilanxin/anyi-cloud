@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.auth.oauth2.validate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

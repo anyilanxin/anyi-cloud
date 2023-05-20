@@ -30,9 +30,7 @@
 package com.anyilanxin.anyicloud.messagerpc.model;
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.system.core.config.listener;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.coreredis.listener.RedisKeyDeleteEventMessageListener;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
-
 import java.nio.charset.StandardCharsets;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;

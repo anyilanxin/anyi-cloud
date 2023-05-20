@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.corecommon.config;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
-
 import java.util.Locale;
-
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

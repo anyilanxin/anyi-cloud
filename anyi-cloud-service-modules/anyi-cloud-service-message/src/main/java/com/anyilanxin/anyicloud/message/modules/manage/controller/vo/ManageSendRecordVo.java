@@ -35,10 +35,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

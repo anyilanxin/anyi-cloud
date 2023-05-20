@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.corecommon.validation.validator;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullScope;
-
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

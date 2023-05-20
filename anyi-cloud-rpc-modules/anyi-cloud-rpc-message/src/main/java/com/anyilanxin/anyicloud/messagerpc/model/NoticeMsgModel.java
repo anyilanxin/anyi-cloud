@@ -30,10 +30,8 @@
 package com.anyilanxin.anyicloud.messagerpc.model;
 
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMsgType;
-
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

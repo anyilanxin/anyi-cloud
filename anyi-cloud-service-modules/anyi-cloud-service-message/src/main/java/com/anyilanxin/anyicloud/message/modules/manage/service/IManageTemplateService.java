@@ -37,7 +37,6 @@ import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEnti
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
-
 import java.util.List;
 
 /**

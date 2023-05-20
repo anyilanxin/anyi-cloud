@@ -32,11 +32,9 @@ package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteFilterModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

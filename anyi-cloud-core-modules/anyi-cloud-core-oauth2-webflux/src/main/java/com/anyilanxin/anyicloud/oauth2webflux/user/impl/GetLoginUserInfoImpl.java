@@ -34,9 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2webflux.user.IGetLoginUserInfo;
-
 import java.util.Set;
-
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import reactor.core.publisher.Mono;
 

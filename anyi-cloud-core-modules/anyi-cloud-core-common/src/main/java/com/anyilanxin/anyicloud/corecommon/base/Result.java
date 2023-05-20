@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.corecommon.base;
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

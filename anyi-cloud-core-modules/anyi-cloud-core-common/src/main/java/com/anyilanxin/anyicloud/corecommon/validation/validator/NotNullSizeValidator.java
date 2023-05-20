@@ -30,11 +30,9 @@
 package com.anyilanxin.anyicloud.corecommon.validation.validator;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
-
 import java.util.Collection;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import org.springframework.util.CollectionUtils;
 
 /**

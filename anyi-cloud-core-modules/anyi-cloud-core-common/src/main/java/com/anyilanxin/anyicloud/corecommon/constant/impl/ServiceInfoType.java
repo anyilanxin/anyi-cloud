@@ -33,10 +33,8 @@ import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**

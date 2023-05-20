@@ -37,10 +37,8 @@ import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel
 import com.anyilanxin.anyicloud.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
 import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
-
 import java.util.List;
 import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

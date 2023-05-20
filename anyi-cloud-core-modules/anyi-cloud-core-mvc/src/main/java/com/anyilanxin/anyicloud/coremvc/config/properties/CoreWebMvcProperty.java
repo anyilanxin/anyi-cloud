@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.coremvc.config.properties;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

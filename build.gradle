@@ -156,6 +156,9 @@ subprojects {
             jvmFlags = ['-Xms512m', '-Xmx512m']
             ports = ['80']
             format = 'OCI'
+            environment = {
+                TZ = 'Asia/Shanghai'
+            }
         }
     }
 

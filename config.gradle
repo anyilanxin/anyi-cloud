@@ -69,36 +69,19 @@ ext {
 
     docker = [
             // docker打包多环境配置,切换设置顶部dockerEnv
-            'duyun'  : [
-                    baseImage     : '192.168.1.11:81/library/openjdk:11.0.16-jre-buster',
-                    images        : "192.168.1.11:81/own-projects/",
-                    isRemortDocker: true,
-                    remortDocker  : 'http://192.168.1.11:2375',
-                    credentials   : {
-                        url = 'http://192.168.1.11:81'
-                        username = 'robot$compilesys'
-                        password = 'iEz4iHYeZ8zNrZQmei1foN4Tq7KI4564'
-                    }
+            'local'     : [
+                    'baseImage'        : 'harbor.anyilanxin.com/library/openjdk:11.0.16-jre-buster',
+                    'targetImagePrefix': 'harbor.anyilanxin.com/anyi/',
+                    'username'         : 'demo',
+                    'password'         : 'demo',
             ],
             // docker打包多环境配置,切换设置顶部dockerEnv
-            'local'  : [
-                    baseImage     : 'openjdk:11.0.16-jre-buster',
-                    images        : "",
-                    isRemortDocker: true,
-                    remortDocker  : 'unix:///Users/zhou/.docker/run/docker.sock',
-                    credentials   : {
-                        url = 'http://myharbor.com:82'
-                        username = 'robot$approot'
-                        password = 'qTkXyonFaDMhh044poV3eGnGCrGexKb6'
-                    }
-            ],
-            // docker打包多环境配置,切换设置顶部dockerEnv
-            'company': [
-                    baseImage     : 'openjdk:11.0.16-jre-buster',
-                    images        : "",
-                    isRemortDocker: true,
-                    remortDocker  : 'http://192.168.51.78:2375',
-            ],
+            'anyilanxin': [
+                    'baseImage'        : 'harbor.anyilanxin.com/library/openjdk:11.0.16-jre-buster',
+                    'targetImagePrefix': 'harbor.anyilanxin.com/anyi/',
+                    'username'         : 'demo',
+                    'password'         : 'demo',
+            ]
     ]
 
 }

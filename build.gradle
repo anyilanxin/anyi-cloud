@@ -7,8 +7,8 @@ plugins {
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
     id "com.diffplug.spotless" version "6.18.0"
+    id 'com.google.cloud.tools.jib' version '3.3.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'com.bmuschko.docker-spring-boot-application' version '8.1.0'
 }
 
 
@@ -123,7 +123,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
-    apply plugin: 'com.bmuschko.docker-spring-boot-application'
+    apply plugin: 'com.google.cloud.tools.jib'
 
     jar { enabled = true }
     bootJar { enabled = false }
@@ -136,25 +136,26 @@ subprojects {
         }
     }
 
-    // docker打包
-    def dockerInfo = rootProject.ext.docker[dockerEnv]
-    // jar名称
-    def jarBaseName = bootJar.archiveBaseName.get()
-    // jar版本号
-    def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + jarBaseName]
-    if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
-        docker {
-            springBootApplication {
-                baseImage = dockerInfo.baseImage
-                ports = [80]
-                images = [dockerInfo.images + jarBaseName + ":" + version]
+    jib {
+        from {
+            image = dockerInfo['baseImage'].toString()
+            auth {
+                username = dockerInfo['username'].toString()
+                password = dockerInfo['password'].toString()
             }
-            if (dockerInfo.isRemortDocker) {
-                url.set(dockerInfo.remortDocker)
+        }
+        to {
+            image = targetImagePrefix + project.name
+            tags = [version, 'latest'] as List<String>
+            auth {
+                username = dockerInfo['username'].toString()
+                password = dockerInfo['password'].toString()
             }
-            if (dockerInfo.credentials != null) {
-                registryCredentials dockerInfo.credentials
-            }
+        }
+        container {
+            jvmFlags = ['-Xms512m', '-Xmx512m']
+            ports = ['80']
+            format = 'OCI'
         }
     }
 

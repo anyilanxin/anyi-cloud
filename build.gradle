@@ -152,6 +152,15 @@ subprojects {
                 password = dockerInfo['password'].toString()
             }
         }
+        extraDirectories {
+            paths {
+                path {
+                    from = 'src/main/java'
+                    into = '/app/classes'
+                    includes = ['**/*.xml']
+                }
+            }
+        }
         container {
             jvmFlags = ['-Xms512m', '-Xmx512m']
             ports = ['80']

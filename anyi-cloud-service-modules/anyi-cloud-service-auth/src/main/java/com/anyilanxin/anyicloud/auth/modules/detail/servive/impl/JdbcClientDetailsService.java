@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.auth.modules.detail.servive.impl;
 
 import com.anyilanxin.anyicloud.auth.modules.login.service.IClientAuthService;
@@ -35,10 +34,8 @@ import com.anyilanxin.anyicloud.auth.utils.Oauth2LogUtils;
 import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.utils.Oauth2CommonUtils;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 
 import static org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER;
@@ -41,10 +40,8 @@ import com.anyilanxin.anyicloud.gateway.filter.partial.post.CorsWebGatewayFilter
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 /**

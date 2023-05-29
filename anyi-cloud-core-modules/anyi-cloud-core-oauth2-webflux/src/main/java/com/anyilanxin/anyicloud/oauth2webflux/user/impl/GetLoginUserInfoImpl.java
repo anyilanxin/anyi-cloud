@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.oauth2webflux.user.impl;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
@@ -35,9 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.model.auth.UserIdentity;
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2webflux.user.IGetLoginUserInfo;
-
 import java.util.Set;
-
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import reactor.core.publisher.Mono;
 

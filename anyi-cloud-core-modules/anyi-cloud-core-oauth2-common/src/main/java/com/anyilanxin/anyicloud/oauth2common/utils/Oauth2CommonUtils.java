@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.oauth2common.utils;
 
 import cn.hutool.core.collection.CollUtil;
@@ -40,12 +39,10 @@ import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullGrantedAuthority;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.ClientDetailsCopyMap;
 import com.anyilanxin.anyicloud.oauth2common.mapstruct.UserDetailsCopyMap;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.message.strategy.msgsubscribe.impl;
 
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
@@ -37,11 +36,9 @@ import com.anyilanxin.anyicloud.messagerpc.constant.SocketMessageEventContent;
 import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

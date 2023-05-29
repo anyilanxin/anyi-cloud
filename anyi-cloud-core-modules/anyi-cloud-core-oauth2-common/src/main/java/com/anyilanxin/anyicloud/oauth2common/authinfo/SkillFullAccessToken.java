@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,14 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-
 package com.anyilanxin.anyicloud.oauth2common.authinfo;
 
 import com.anyilanxin.anyicloud.oauth2common.serializer.CustomOAuth2AccessTokenJackson1Serializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.util.*;
-
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -264,7 +261,7 @@ public class SkillFullAccessToken extends DefaultOAuth2AccessToken {
 
         if (tokenParams.containsKey(SCOPE)) {
             Set<String> scope = new TreeSet<>();
-            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,"); tokenizer.hasMoreTokens(); ) {
+            for (StringTokenizer tokenizer = new StringTokenizer(tokenParams.get(SCOPE), " ,"); tokenizer.hasMoreTokens();) {
                 scope.add(tokenizer.nextToken());
             }
             token.setScope(scope);

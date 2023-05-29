@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.auth.modules.login.mapper;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthModel;
-
 import java.util.Set;
-
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -36,11 +36,9 @@ import com.anyilanxin.anyicloud.messagerpc.constant.SocketMessageEventContent;
 import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

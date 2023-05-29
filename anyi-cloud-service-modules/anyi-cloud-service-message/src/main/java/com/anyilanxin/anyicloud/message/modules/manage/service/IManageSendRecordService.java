@@ -37,7 +37,6 @@ import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEn
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
-
 import java.util.List;
 
 /**

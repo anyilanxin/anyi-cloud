@@ -32,7 +32,6 @@ package com.anyilanxin.anyicloud.gateway.core.config.properties;
 import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.PRO;
 
 import java.util.Set;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

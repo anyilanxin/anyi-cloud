@@ -37,11 +37,9 @@ import com.anyilanxin.anyicloud.auth.core.properties.AuthProperty;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.*;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.skillfull.auth.oauth2.validate.*;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

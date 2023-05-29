@@ -52,11 +52,9 @@ import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
 import com.anyilanxin.anyicloud.messagerpc.model.UpOrDownModel;
 import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

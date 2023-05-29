@@ -50,12 +50,10 @@ import com.anyilanxin.anyicloud.auth.oauth2.store.code.RedisAuthorizationCodeSer
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
 import com.anyilanxin.skillfull.auth.oauth2.granter.*;
-
 import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

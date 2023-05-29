@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.system.modules.manage.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRoutePredicateEntity;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

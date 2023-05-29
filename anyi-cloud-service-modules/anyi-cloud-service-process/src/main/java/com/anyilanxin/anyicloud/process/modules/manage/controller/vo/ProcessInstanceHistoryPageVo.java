@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.database.datasource.base.controller.vo.BasePageVo;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -30,10 +30,8 @@
 package com.anyilanxin.anyicloud.storagerpc.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

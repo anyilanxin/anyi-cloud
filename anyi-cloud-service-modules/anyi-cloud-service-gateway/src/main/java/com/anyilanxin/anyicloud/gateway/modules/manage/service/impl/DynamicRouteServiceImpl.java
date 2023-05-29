@@ -42,10 +42,8 @@ import com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo.GatewayRout
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IDynamicRouteService;
 import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
 import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
-
 import java.net.URI;
 import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

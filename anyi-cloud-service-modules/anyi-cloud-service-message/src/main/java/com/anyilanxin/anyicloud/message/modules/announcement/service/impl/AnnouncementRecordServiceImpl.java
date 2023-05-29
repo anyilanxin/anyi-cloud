@@ -46,11 +46,9 @@ import com.anyilanxin.anyicloud.message.modules.announcement.service.mapstruct.A
 import com.anyilanxin.anyicloud.message.modules.announcement.service.mapstruct.AnnouncementRecordPageCopyMap;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.mapstruct.AnnouncementRecordQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

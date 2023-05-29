@@ -32,9 +32,7 @@ package com.anyilanxin.anyicloud.monitor;
 import com.anyilanxin.anyicloud.corecommon.annotation.SkillfulCloudApplication;
 import com.anyilanxin.anyicloud.corecommon.constant.TimeZoneConstant;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
-
 import java.util.TimeZone;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 

@@ -31,11 +31,9 @@ package com.anyilanxin.anyicloud.corewebflux.utils;
 
 import cn.hutool.core.lang.Snowflake;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
-
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

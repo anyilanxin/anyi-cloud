@@ -30,10 +30,8 @@
 package com.anyilanxin.anyicloud.coremvc.config;
 
 import com.anyilanxin.anyicloud.coremvc.constant.CommonCoreMvcConstant;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
-
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

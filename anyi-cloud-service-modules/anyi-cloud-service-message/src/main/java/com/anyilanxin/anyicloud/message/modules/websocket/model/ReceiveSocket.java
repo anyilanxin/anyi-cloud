@@ -30,9 +30,7 @@
 package com.anyilanxin.anyicloud.message.modules.websocket.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

@@ -34,9 +34,7 @@ import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotInEnum;
 import com.anyilanxin.anyicloud.messagerpc.constant.impl.MsgTemplateCommonChannelType;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

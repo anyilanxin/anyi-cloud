@@ -31,10 +31,8 @@ package com.anyilanxin.anyicloud.auth.modules.login.service.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-
 import java.io.Serializable;
 import java.util.Map;
-
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.corecommon.annotation;
 
 import java.lang.annotation.*;
-
 import org.springframework.stereotype.Indexed;
 
 /**

@@ -30,7 +30,6 @@
 package com.anyilanxin.anyicloud.auth.modules.login.service;
 
 import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**

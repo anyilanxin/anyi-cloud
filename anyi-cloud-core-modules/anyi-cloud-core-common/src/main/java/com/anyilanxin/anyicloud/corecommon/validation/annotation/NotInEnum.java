@@ -38,7 +38,6 @@ package com.anyilanxin.anyicloud.corecommon.validation.annotation;
  */
 
 import com.anyilanxin.anyicloud.corecommon.validation.validator.NotInEnumValidator;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

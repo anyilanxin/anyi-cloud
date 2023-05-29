@@ -40,9 +40,7 @@ import com.anyilanxin.anyicloud.oauth2mvc.CustomLogoutSuccessHandler;
 import com.anyilanxin.anyicloud.oauth2mvc.CustomOAuthEntryPoint;
 import com.anyilanxin.anyicloud.oauth2mvc.config.properties.CustomSecurityProperties;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.Oauth2Utils;
-
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

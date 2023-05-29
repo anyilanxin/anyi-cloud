@@ -31,9 +31,7 @@ package com.anyilanxin.anyicloud.process.modules.auxiliary.mapper;
 
 import com.anyilanxin.anyicloudee.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.ExtendPropertyEntity;
-
 import java.util.Collection;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

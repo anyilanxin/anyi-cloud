@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,10 @@
 package com.anyilanxin.anyicloud.coremvc.config;
 
 import com.anyilanxin.anyicloud.coremvc.constant.CommonCoreMvcConstant;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

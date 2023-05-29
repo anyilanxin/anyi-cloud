@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,11 @@ package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

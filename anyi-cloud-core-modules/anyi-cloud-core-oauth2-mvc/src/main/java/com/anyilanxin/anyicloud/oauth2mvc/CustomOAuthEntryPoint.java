@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,11 +33,13 @@ import static com.anyilanxin.anyicloud.corecommon.utils.I18nUtil.getLocalMessage
 
 import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.ResponseUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

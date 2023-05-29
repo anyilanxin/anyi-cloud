@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,10 +50,12 @@ import com.anyilanxin.anyicloud.auth.oauth2.store.code.RedisAuthorizationCodeSer
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
 import com.anyilanxin.skillfull.auth.oauth2.granter.*;
+
 import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

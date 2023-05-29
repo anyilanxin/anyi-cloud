@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,10 @@ package com.anyilanxin.anyicloud.message.core.handler;
 import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
+
 import java.security.Principal;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.security.core.Authentication;

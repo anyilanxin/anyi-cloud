@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,11 @@ import com.anyilanxin.anyicloud.loggingcommon.utils.LogUtils;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullAccessToken;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullClientDetails;
 import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.TokenRequest;

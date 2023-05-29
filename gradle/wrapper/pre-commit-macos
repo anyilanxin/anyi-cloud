@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "运行代码检查..."
+
+./gradlew spotlessJavaApply
+./gradlew licenseFormat
+
+status=$?
+
+# 如果测试失败会返回码置为 1
+[ $status -ne 0 ] && exit 1
+exit 0

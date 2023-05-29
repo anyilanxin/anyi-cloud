@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,9 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

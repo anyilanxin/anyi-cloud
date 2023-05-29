@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,9 @@ import com.anyilanxin.anyicloud.corecommon.model.system.UserAndResourceAuthModel
 import com.anyilanxin.anyicloud.oauth2common.utils.Oauth2CommonUtils;
 import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

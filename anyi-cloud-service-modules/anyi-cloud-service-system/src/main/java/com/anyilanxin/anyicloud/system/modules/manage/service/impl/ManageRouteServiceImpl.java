@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,9 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRoutePre
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageRouteCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -85,7 +87,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -108,7 +111,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -187,7 +191,8 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 删除自定义过滤器关联关系
         routeCustomFilterService.deleteByRouterId(routeId);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.reloadRoute(true);
+        ;
     }
 
 
@@ -225,6 +230,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
             throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新状态失败");
         }
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.reloadRoute(true);
+        ;
     }
 }

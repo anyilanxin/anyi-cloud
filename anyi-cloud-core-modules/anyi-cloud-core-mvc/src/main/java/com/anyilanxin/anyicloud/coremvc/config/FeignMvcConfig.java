@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,10 @@ package com.anyilanxin.anyicloud.coremvc.config;
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

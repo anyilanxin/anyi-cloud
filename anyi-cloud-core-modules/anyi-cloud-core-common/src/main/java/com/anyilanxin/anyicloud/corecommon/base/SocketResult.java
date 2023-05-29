@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,10 +36,12 @@ import com.anyilanxin.anyicloud.corecommon.constant.impl.BusinessType;
 import com.anyilanxin.anyicloud.corecommon.constant.impl.SocketMsgType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

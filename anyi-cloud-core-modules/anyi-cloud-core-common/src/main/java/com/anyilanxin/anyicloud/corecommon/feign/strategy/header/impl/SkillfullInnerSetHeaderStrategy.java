@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,9 @@ import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ISetHeaderStrategy;
 import com.anyilanxin.anyicloud.corecommon.utils.ClientTokenUtils;
 import feign.RequestTemplate;
+
 import java.util.Collection;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

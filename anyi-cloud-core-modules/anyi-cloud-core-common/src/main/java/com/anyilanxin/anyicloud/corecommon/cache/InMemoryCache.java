@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+ * Copyright (c) 2021-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
  *
  * AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ public class InMemoryCache {
      * @date 2019-06-16 15:47
      */
     public static void clearAllLikeStr(String str) {
-        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext();) {
+        for (Iterator<Map.Entry<String, CacheData>> it = CACHE.entrySet().iterator(); it.hasNext(); ) {
             Map.Entry<String, CacheData> item = it.next();
             String key = item.getKey();
             if (key.contains(str)) {

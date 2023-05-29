@@ -98,6 +98,7 @@ allprojects {
 
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.text')
+        ext.year = Calendar.getInstance().get(Calendar.YEAR)
         headerDefinitions {
             anyi_custom {
                 firstLine = "/*"
@@ -115,6 +116,17 @@ allprojects {
         includes(["**/*.java", "**/*.xml"])
     }
 }
+
+
+// 设置git hook--start
+def os = "macos"
+if (System.properties['os.name'].contains('windows')) {
+    os = "windows"
+}
+def hook = new File("$rootProject.projectDir/.git/hooks/pre-commit")
+hook.text = rootProject.file("gradle/wrapper/pre-commit-${os}").getText("utf-8")
+hook.setExecutable(true, false)
+// 设置git hook--end
 
 
 subprojects {
@@ -135,21 +147,41 @@ subprojects {
             into("${buildDir}/classes/java/main")
         }
     }
-
+    // 定义jenkins版本一变随时apply k8s资源
+    def k8sRevision = '1'
+    def jenkinsBuildVersion = System.getenv('JENKINS_BUILD_VERSION')
+    if (jenkinsBuildVersion) {
+        k8sRevision = jenkinsBuildVersion
+    }
+    // docker配置
+    def targetImagePrefix = rootProject.ext.docker['targetImagePrefix'].toString()
+    if (!targetImagePrefix.endsWith('/')) {
+        targetImagePrefix = targetImagePrefix + '/'
+    }
+    def dockerUsername = rootProject.ext.docker['username'].toString()
+    def envDockerUsername = System.getenv('DOCKER_USERNAME')
+    if (envDockerUsername) {
+        dockerUsername = envDockerUsername
+    }
+    def dockerPassword = rootProject.ext.docker['password'].toString()
+    def envDockerPassword = System.getenv('DOCKER_PASSWORD')
+    if (envDockerPassword) {
+        dockerPassword = envDockerPassword
+    }
     jib {
         from {
-            image = dockerInfo['baseImage'].toString()
+            image = rootProject.ext.docker['baseImage'].toString()
             auth {
-                username = dockerInfo['username'].toString()
-                password = dockerInfo['password'].toString()
+                username = dockerUsername
+                password = dockerPassword
             }
         }
         to {
             image = targetImagePrefix + project.name
-            tags = [version, 'latest'] as List<String>
+            tags = [version, 'latest', version + '-' + k8sRevision] as List<String>
             auth {
-                username = dockerInfo['username'].toString()
-                password = dockerInfo['password'].toString()
+                username = dockerUsername
+                password = dockerPassword
             }
         }
         extraDirectories {

@@ -173,6 +173,10 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
+   10. During commercial use, do not modify and package a program similar to
+       AnYi Zeebe EE or AnYi Cloud EE on the basis of AnYi Cloud, and sell or release
+       it to compete in the market of similar software products.
+
    END OF TERMS AND CONDITIONS
 
    APPENDIX: How to apply the Apache License to your work.
@@ -186,7 +190,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright 2021-2022 Xuanhong Zhou(anyilanxin@aliyun.com)
+   Copyright 2021-2023 Xuanhong Zhou(anyilanxin@aliyun.com)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

@@ -98,7 +98,6 @@ allprojects {
 
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.text')
-        ext.year = Calendar.getInstance().get(Calendar.YEAR)
         headerDefinitions {
             anyi_custom {
                 firstLine = "/*"

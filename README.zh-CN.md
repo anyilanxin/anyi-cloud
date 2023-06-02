@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://anyilanxin.com"><img src="./docs/images/logo.png" width="46%"></a>
+	<a href="https://anyilanxin.com"><img src="./docs/images/logo.png" width="24%"></a>
 </p>
 
 AnYi Cloud

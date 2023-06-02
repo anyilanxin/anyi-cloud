@@ -97,7 +97,7 @@ allprojects {
     group = 'com.anyilanxin.anyicloud'
 
     license {
-        header = rootProject.file('gradle/wrapper/LICENSE.text')
+        header = rootProject.file('gradle/wrapper/LICENSE.txt')
         headerDefinitions {
             anyi_custom {
                 firstLine = "/*"

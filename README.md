@@ -1,4 +1,7 @@
-<img src="./docs/images/logo.png"  height="150" width="150">
+
+<p align="center">
+	<a href="https://anyilanxin.com"><img src="./docs/images/logo.png" width="46%"></a>
+</p>
 
 AnYi Cloud
 ===============

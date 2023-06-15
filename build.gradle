@@ -1,58 +1,30 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
+
 plugins {
-    id 'java'
     id 'idea'
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id "java"
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
     id "com.diffplug.spotless" version "6.18.0"
     id 'com.google.cloud.tools.jib' version '3.3.2' apply false
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version "${springBootVersion}"
 }
 
 
 apply from: "config.gradle"
+apply plugin: "com.diffplug.spotless"
 
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-
-// 批量构建镜像
-tasks.register('dockerImageAll') {
-    subprojects.findAll { project ->
-        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
-        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
-            dependsOn ':anyi-cloud-service-modules:' + project.name + ':dockerBuildImage'
+// root关闭所有非clean开头的任务
+gradle.taskGraph.whenReady {
+    tasks.each { task ->
+        if (!task.name.startsWith('clean') && !task.name.startsWith('spotless')) {
+            task.enabled = false
         }
     }
 }
 
-
-// 批量构建镜像并推送到仓库
-tasks.register('dockerPushImageAll') {
-    subprojects.findAll { project ->
-        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
-        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
-            dependsOn ':anyi-cloud-service-modules:' + project.name + ':dockerPushImage'
-        }
-    }
-}
-
-
-// 批量构建bootJar
-tasks.register('buildBootJarAll') {
-    subprojects.findAll { project ->
-        def bootProject = rootProject.ext.bootInfo['anyi-cloud-service-modules:' + project.name]
-        if (bootProject != null && Boolean.parseBoolean(String.valueOf(bootProject))) {
-            dependsOn ':anyi-cloud-service-modules:' + project.name + ':bootJar'
-        }
-    }
-}
 
 spotless {
     java {
@@ -70,10 +42,14 @@ spotless {
     }
 }
 
-
 // 所有项目下载仓库
 allprojects {
     apply plugin: "com.github.hierynomus.license"
+    // 编译jdk版本
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+    group = 'com.anyilanxin.anyicloud'
+
     // 指定所有项目maven仓库
     repositories {
         mavenLocal()
@@ -84,22 +60,33 @@ allprojects {
             }
             url 'https://maven.aliyun.com/repository/central/'
         }
+        // anyilanxin一来走自己仓库
+//        maven {
+//            content {
+//                includeGroupByRegex "com\\.anyilanxin.*"
+//            }
+//            credentials {
+//                username rootProject.ext.repo['username']
+//                password rootProject.ext.repo['password']
+//            }
+//            url rootProject.ext.repo['releasesRepoUrl']
+//        }
         mavenCentral()
     }
-    // 指定编译编码
-    tasks.withType(JavaCompile).configureEach {
-        options.encoding = "UTF-8"
+
+    //跳过测试
+    gradle.taskGraph.whenReady {
+        tasks.each { task ->
+            if (task.name.contains("test")) {
+                task.enabled = false
+            }
+        }
     }
-    // 编译jdk版本
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
-    // 项目全局信息
-    group = 'com.anyilanxin.anyicloud'
 
     license {
         header = rootProject.file('gradle/wrapper/LICENSE.txt')
         headerDefinitions {
-            anyi_custom {
+            anyiee_custom_java {
                 firstLine = "/*"
                 endLine = " */"
                 beforeEachLine = " * "
@@ -110,7 +97,7 @@ allprojects {
             }
         }
         mapping {
-            java = 'anyi_custom'
+            java = 'anyiee_custom_java'
         }
         includes(["**/*.java", "**/*.xml"])
     }
@@ -129,175 +116,290 @@ hook.setExecutable(true, false)
 
 
 subprojects {
-    apply plugin: "java"
     apply plugin: 'idea'
-    apply plugin: 'java-library'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'com.google.cloud.tools.jib'
+    if (!project.getName().endsWith("anyi-cloud-dependencies")) {
+        apply plugin: "java"
 
-    jar { enabled = true }
-    bootJar { enabled = false }
-
-    // 处理非resources下的mapper xml文件问题
-    tasks.register('mapperXmlCopy', Copy) {
-        copy {
-            from("src/main/java") { include("**/xml/*.xml") }
-            into("${buildDir}/classes/java/main")
+        // 指定编译编码
+        tasks.withType(JavaCompile).configureEach {
+            options.encoding = "UTF-8"
         }
-    }
-    // 定义jenkins版本一变随时apply k8s资源
-    def k8sRevision = '1'
-    def jenkinsBuildVersion = System.getenv('JENKINS_BUILD_VERSION')
-    if (jenkinsBuildVersion) {
-        k8sRevision = jenkinsBuildVersion
-    }
-    // docker配置
-    def targetImagePrefix = rootProject.ext.docker['targetImagePrefix'].toString()
-    if (!targetImagePrefix.endsWith('/')) {
-        targetImagePrefix = targetImagePrefix + '/'
-    }
-    def dockerUsername = rootProject.ext.docker['username'].toString()
-    def envDockerUsername = System.getenv('DOCKER_USERNAME')
-    if (envDockerUsername) {
-        dockerUsername = envDockerUsername
-    }
-    def dockerPassword = rootProject.ext.docker['password'].toString()
-    def envDockerPassword = System.getenv('DOCKER_PASSWORD')
-    if (envDockerPassword) {
-        dockerPassword = envDockerPassword
-    }
-    jib {
-        from {
-            image = rootProject.ext.docker['baseImage'].toString()
-            auth {
-                username = dockerUsername
-                password = dockerPassword
+
+        // 进行配置文件变量替换
+        processResources {
+            filteringCharset = 'UTF-8'
+            include('*.yml', '*.yaml', 'META-INF/**', 'i18n/**', "jwt.jks", 'template/**', 'banner.txt')
+            // 只处理yml、yaml文件替换
+            filesMatching('*.yml') {
+                filter(
+                        ReplaceTokens,
+                        "tokens": [
+                                version: version,
+                                name   : project.name
+                        ],
+                        "beginToken": "#@",
+                        "endToken": "@#"
+                )
+            }
+            filesMatching('*.yaml') {
+                filter(
+                        ReplaceTokens,
+                        "tokens": [
+                                version: version,
+                                name   : project.name
+                        ],
+                        "beginToken": "#@",
+                        "endToken": "@#"
+                )
             }
         }
-        to {
-            image = targetImagePrefix + project.name
-            tags = [version, 'latest', version + '-' + k8sRevision] as List<String>
-            auth {
-                username = dockerUsername
-                password = dockerPassword
+
+
+        test {
+            useJUnitPlatform()
+        }
+
+        configurations {
+            compileOnly {
+                extendsFrom annotationProcessor
             }
         }
-        extraDirectories {
-            paths {
-                path {
-                    from = 'src/main/java'
-                    into = '/app/classes'
-                    includes = ['**/*.xml']
+
+
+        // 公共依赖
+        dependencies {
+            implementation platform(project(':anyi-cloud-dependencies'))
+            annotationProcessor platform(project(':anyi-cloud-dependencies'))
+
+            implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}")
+            implementation platform("com.alibaba.cloud:aliyun-spring-boot-dependencies:${springAlibabaVersion}")
+            implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+
+            implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+            annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
+            annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+            annotationProcessor "org.projectlombok:lombok"
+            annotationProcessor 'org.mapstruct:mapstruct'
+            annotationProcessor 'org.mapstruct:mapstruct-processor'
+
+            compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+            compileOnly "org.projectlombok:lombok"
+            compileOnly 'org.mapstruct:mapstruct'
+            compileOnly 'org.mapstruct:mapstruct-processor'
+
+            implementation 'org.springframework.boot:spring-boot-starter-cache'
+            implementation 'org.springframework.boot:spring-boot-configuration-processor'
+            implementation 'org.springframework.boot:spring-boot-starter-validation'
+            implementation 'org.springframework.boot:spring-boot-starter-aop'
+            implementation 'org.springframework.boot:spring-boot-starter-actuator'
+            implementation 'org.springframework.cloud:spring-cloud-starter'
+            implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+            if (bootInfo != null && bootInfo) {
+                implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+                implementation 'io.micrometer:micrometer-registry-prometheus'
+                implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+                implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+                implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+                implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+            }
+            implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+            implementation 'org.springframework.retry:spring-retry'
+            implementation 'org.springframework:spring-context-indexer'
+
+            testImplementation 'org.springframework.amqp:spring-rabbit-test'
+            testImplementation 'org.projectlombok:lombok'
+            testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+            testImplementation 'org.springframework.boot:spring-boot-starter-test'
+            testImplementation 'org.mapstruct:mapstruct'
+            testImplementation 'org.mapstruct:mapstruct-processor'
+        }
+
+
+        // 是否为boot项目,boot允许编译启动jar,其余允许编译非启动jar并推送仓库
+        def bootInfo = rootProject.ext.bootInfo[project.path]
+        if (bootInfo != null && bootInfo) {
+            apply plugin: 'org.springframework.boot'
+            apply plugin: 'com.google.cloud.tools.jib'
+
+            // 定义jenkins版本一变随时apply k8s资源
+            def k8sRevision = '1'
+            def jenkinsBuildVersion = System.getenv('JENKINS_BUILD_VERSION')
+            if (jenkinsBuildVersion) {
+                k8sRevision = jenkinsBuildVersion
+            }
+            // docker配置
+            def targetImagePrefix = rootProject.ext.docker['targetImagePrefix'].toString()
+            if (!targetImagePrefix.endsWith('/')) {
+                targetImagePrefix = targetImagePrefix + '/'
+            }
+            def dockerUsername = rootProject.ext.docker['username'].toString()
+            def envDockerUsername = System.getenv('DOCKER_USERNAME')
+            if (envDockerUsername) {
+                dockerUsername = envDockerUsername
+            }
+            def dockerPassword = rootProject.ext.docker['password'].toString()
+            def envDockerPassword = System.getenv('DOCKER_PASSWORD')
+            if (envDockerPassword) {
+                dockerPassword = envDockerPassword
+            }
+            jib {
+                from {
+                    image = rootProject.ext.docker['baseImage'].toString()
+                    auth {
+                        username = dockerUsername
+                        password = dockerPassword
+                    }
+                }
+                to {
+                    image = targetImagePrefix + project.name
+                    tags = [version, 'latest', version + '-' + k8sRevision] as List<String>
+                    auth {
+                        username = dockerUsername
+                        password = dockerPassword
+                    }
+                }
+                extraDirectories {
+                    paths {
+                        path {
+                            from = 'src/main/java'
+                            into = '/app/classes'
+                            includes = ['**/*.xml']
+                        }
+                    }
+                }
+                container {
+                    jvmFlags = ['-Xms512m', '-Xmx512m']
+                    ports = ['80']
+                    format = 'OCI'
+                    environment = ["TZ": 'Asia/Shanghai']
+                }
+            }
+            // 判断是否输出到统一目录
+            if (Boolean.parseBoolean(compileBootJarToParent)) {
+                tasks.withType(Jar).configureEach {
+                    destinationDirectory = file("$project.parent.buildDir/bootJar")
+                }
+            }
+
+            // 处理非resources下的mapper xml文件问题
+            tasks.register('mapperXmlCopy', Copy) {
+                copy {
+                    from("src/main/java") { include("**/xml/*.xml") }
+                    into("${buildDir}/classes/java/main")
+                }
+            }
+
+            // 处理k8s deployment文件
+            tasks.register('k8sDeploymentCopy', Copy) {
+                copy {
+                    from("docs/k8s") { include("*.yml") }
+                    filter(ReplaceTokens, tokens: [version: version, k8sRevision: k8sRevision])
+                    into("$project.parent.buildDir/k8s")
+                }
+            }
+
+
+            bootJar {
+                enabled = true
+                dependsOn = mapperXmlCopy as Iterable<?>
+                // 指定依赖包的路径
+                manifest {
+                    attributes(
+                            "Manifest-Version": 1.0,
+                            'Implementation-Title': project.name,
+                            'Implementation-Version': project.version,
+                            'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')',
+                            'Built-With': "gradle-${project.getGradle().getGradleVersion()}, groovy-${GroovySystem.getVersion()}",
+                            'Build-Time': "${new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")}",
+                            'Built-By': System.getProperty('user.name'),
+                            'Built-On': "${InetAddress.localHost.hostName}/${InetAddress.localHost.hostAddress}"
+                    )
+                }
+            }
+        } else {
+            apply plugin: 'maven-publish'
+            apply plugin: 'java-library'
+            jar {
+                enabled = true
+                archiveClassifier = ''  // 去掉打包后jar文件有一个plain后缀
+                manifest {
+                    attributes(
+                            'Implementation-Title': project.name,
+                            'Implementation-Version': project.version,
+                            'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')',
+                            'Built-With': "gradle-${project.getGradle().getGradleVersion()}, groovy-${GroovySystem.getVersion()}",
+                            'Build-Time': "${new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")}",
+                            'Built-By': System.getProperty('user.name'),
+                            'Built-On': "${InetAddress.localHost.hostName}/${InetAddress.localHost.hostAddress}"
+                    )
+                }
+            }
+
+            //打包源码
+            tasks.register('sourcesJar', Jar) {
+                from sourceSets.main.allJava
+                archiveClassifier = 'sources'
+            }
+
+            javadoc {
+                if (JavaVersion.current().isJava9Compatible()) {
+                    options.addBooleanOption('html5', true)
+                }
+                options.addStringOption("charset", "UTF-8")
+            }
+
+
+            publishing {
+                publications {
+                    maven(MavenPublication) {
+                        groupId project.group
+                        artifactId project.name
+                        version project.version
+                        from components.java
+                        artifact sourcesJar
+                        pom {
+                            name = project.name
+                            url = 'https://github.com/anyilanxin/anyi-cloud.git'
+                            description = project.description
+                            licenses {
+                                license {
+                                    name = 'The Apache License, Version 2.0'
+                                    url = 'https://github.com/anyilanxin/anyi-cloud/blob/main/LICENSE.txt'
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id = 'zxh'
+                                    name = 'zxh'
+                                    email = 'z7630853@163.com'
+                                }
+                            }
+                            scm {
+                                connection = 'scm:git:git@github.com:anyilanxin/anyi-cloud.git'
+                                developerConnection = 'scm:git:ssh://github.com:anyilanxin/anyi-cloud.git'
+                                url = 'https://anyilanxin.com'
+                            }
+                        }
+                    }
+                }
+                repositories {
+                    maven {
+                        allowInsecureProtocol = true
+                        credentials {
+                            username = rootProject.ext.repo['username']
+                            password = rootProject.ext.repo['password']
+                        }
+                        url = version.endsWith('SNAPSHOT') ? rootProject.ext.repo['snapshotsRepoUrl'] : rootProject.ext.repo['releasesRepoUrl']
+                    }
                 }
             }
         }
-        container {
-            jvmFlags = ['-Xms512m', '-Xmx512m']
-            ports = ['80']
-            format = 'OCI'
-            environment = ["TZ": 'Asia/Shanghai']
-        }
-    }
 
-    // 进行配置文件变量替换
-    processResources {
-        filteringCharset = 'UTF-8'
-        include('*.yml', '*.yaml', 'META-INF/**', 'i18n/**', "jwt.jks", 'template/**', 'banner.txt')
-        // 只处理yml、yaml文件替换
-        filesMatching('*.yml') {
-            filter(
-                    ReplaceTokens,
-                    "tokens": [
-                            version: bootJar.archiveVersion.get(),
-                            name   : bootJar.archiveBaseName.get()
-                    ],
-                    "beginToken": "#@",
-                    "endToken": "@#"
-            )
-        }
-        filesMatching('*.yaml') {
-            filter(
-                    ReplaceTokens,
-                    "tokens": [
-                            version: bootJar.archiveVersion.get(),
-                            name   : bootJar.archiveBaseName.get()
-                    ],
-                    "beginToken": "#@",
-                    "endToken": "@#"
-            )
-        }
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
-
-    // cloud依赖管理
-    dependencyManagement {
-        imports {
-            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-            mavenBom "com.alibaba.cloud:aliyun-spring-boot-dependencies:${springAlibabaVersion}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
-    }
-
-    // 公共依赖
-    dependencies {
-        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-        annotationProcessor "org.projectlombok:lombok"
-        annotationProcessor rootProject.ext.dependencies["mapstruct"]
-        annotationProcessor rootProject.ext.dependencies["mapstruct-processor"]
-
-        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
-        compileOnly "org.projectlombok:lombok"
-        compileOnly rootProject.ext.dependencies["mapstruct"]
-        compileOnly rootProject.ext.dependencies["mapstruct-processor"]
-
-        implementation 'org.springframework.boot:spring-boot-starter-cache'
-        implementation 'org.springframework.boot:spring-boot-configuration-processor'
-        implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation 'org.springframework.boot:spring-boot-starter-aop'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        implementation 'org.springframework.cloud:spring-cloud-starter'
-        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
-        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
-        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-        implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-        implementation 'org.springframework.retry:spring-retry'
-
-        implementation rootProject.ext.dependencies["guava"]
-        implementation rootProject.ext.dependencies["hutool-all"]
-        implementation rootProject.ext.dependencies["commons-lang3"]
-        implementation rootProject.ext.dependencies["commons-codec"]
-        implementation rootProject.ext.dependencies["springdoc-openapi-common"]
-        implementation rootProject.ext.dependencies["fastjson2"]
-        implementation rootProject.ext.dependencies["fastjson"]
-        implementation rootProject.ext.dependencies["slf4j-api"]
-        implementation rootProject.ext.dependencies["commons-io"]
-        implementation rootProject.ext.dependencies["commons-pool2"]
-        implementation rootProject.ext.dependencies["bcprov-jdk14"]
-        implementation rootProject.ext.dependencies["log4j-api"]
-        implementation rootProject.ext.dependencies["log4j-to-slf4j"]
-        implementation rootProject.ext.dependencies["log4j-core"]
-
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
-        testImplementation 'org.springframework.amqp:spring-rabbit-test'
-        testImplementation 'org.projectlombok:lombok'
-        testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
     }
 }
+
+
 
 
 

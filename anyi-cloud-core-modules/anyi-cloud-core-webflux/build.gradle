@@ -1,8 +1,10 @@
+description = "AnYi Cloud Webflux Core"
+
 dependencies {
     api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
     api project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-common')
     api project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
     api 'org.springframework.boot:spring-boot-starter-webflux'
     api 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
-    api rootProject.ext.dependencies["springdoc-openapi-webflux-ui"]
+    api 'org.springdoc:springdoc-openapi-webflux-ui'
 }

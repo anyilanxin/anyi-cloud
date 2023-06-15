@@ -1,8 +1,10 @@
+description = "AnYi Cloud Database Core"
+
 dependencies {
     api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
-    api rootProject.ext.dependencies["mysql-connector-java"]
-    api rootProject.ext.dependencies["mybatis-plus-boot-starter"]
-    api rootProject.ext.dependencies["mybatis-plus-extension"]
-    api rootProject.ext.dependencies["dynamic-datasource-spring-boot-starter"]
-    api rootProject.ext.dependencies["druid-spring-boot-starter"]
+    api 'mysql:mysql-connector-java'
+    api 'com.baomidou:mybatis-plus-boot-starter'
+    api 'com.baomidou:mybatis-plus-extension'
+    api 'com.baomidou:dynamic-datasource-spring-boot-starter'
+    api 'com.alibaba:druid-spring-boot-starter'
 }

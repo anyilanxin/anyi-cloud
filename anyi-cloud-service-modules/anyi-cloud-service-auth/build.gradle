@@ -1,3 +1,5 @@
+description = "AnYi Cloud Auth Service"
+
 bootJar { enabled = true }
 
 
@@ -9,50 +11,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
-    implementation rootProject.ext.dependencies["JustAuth"]
+    implementation 'me.zhyd.oauth:JustAuth'
     implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
     implementation project(':anyi-cloud-core-modules:anyi-cloud-core-logging-mvc')
 }
 
-
-// 判断是否输出到统一目录
-if (compileBootJarToParent) {
-    tasks.withType(Jar) {
-        destinationDirectory = file("$project.parent.buildDir/bootJar")
-    }
-}
-
-
-// 判断是否分离打包
-if (compileSplit) {
-    // 分离打包处理
-    task clearJar(type: Delete) {
-        delete "$buildDir/libs/lib"
-    }
-
-    task copyJar(type: Copy) {
-        from project.configurations.productionRuntimeClasspath
-        into "$buildDir/libs/lib"
-        include '*.jar'
-        exclude "anyi-cloud-*.jar"
-    }
-
-    bootJar {
-        // 排除外部lib下依赖
-        project.configurations.productionRuntimeClasspath.files.collect {
-            {
-                if (!it.name.startsWith("anyi-cloud")) {
-                    exclude(it.name)
-                }
-            }
-        }
-        // 打包前清空
-        dependsOn clearJar
-        dependsOn copyJar
-        // 指定依赖包的路径
-        manifest {
-            attributes "Manifest-Version": 1.0,
-                    'Class-Path': project.configurations.productionRuntimeClasspath.files.collect { "lib/$it.name" }.join(' ')
-        }
-    }
-}

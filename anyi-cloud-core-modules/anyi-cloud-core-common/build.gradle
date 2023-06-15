@@ -1,4 +1,6 @@
+description = "AnYi Cloud Common Core"
+
 dependencies {
-    api rootProject.ext.dependencies["easyexcel"]
-    api rootProject.ext.dependencies["reflections"]
+    api 'com.alibaba:easyexcel'
+    api 'org.reflections:reflections'
 }

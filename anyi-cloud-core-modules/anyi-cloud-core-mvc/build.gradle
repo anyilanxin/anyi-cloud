@@ -1,9 +1,11 @@
+description = "AnYi Cloud Mvc Core"
+
 dependencies {
     api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
     api project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
     // 由于有分离打包配置,下面部分依赖只要服务中使用了都需要再引入一次(否则分离打包会失败，或者运行失败)(如果通过maven仓库正常，本地模块引用不正常)
-    api rootProject.ext.dependencies["feign-okhttp"]
-    api rootProject.ext.dependencies["springdoc-openapi-ui"]
+    api 'io.github.openfeign:feign-okhttp'
+    api 'org.springdoc:springdoc-openapi-ui'
     api 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
     api('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'

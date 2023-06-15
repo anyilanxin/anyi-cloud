@@ -1,3 +1,5 @@
+description = "AnYi Cloud Logging Webflux Core"
+
 dependencies {
     api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
     api project(':anyi-cloud-core-modules:anyi-cloud-core-logging-common')

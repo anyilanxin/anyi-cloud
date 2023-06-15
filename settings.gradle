@@ -11,6 +11,9 @@ pluginManagement {
 // 项目信息
 rootProject.name = 'anyi-cloud'
 
+// 依赖bom
+include 'anyi-cloud-dependencies'
+
 // 服务模块
 include 'anyi-cloud-service-modules:anyi-cloud-service-auth'
 include 'anyi-cloud-service-modules:anyi-cloud-service-gateway'

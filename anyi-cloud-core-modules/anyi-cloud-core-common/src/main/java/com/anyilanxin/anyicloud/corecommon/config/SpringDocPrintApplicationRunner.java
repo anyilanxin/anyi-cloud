@@ -84,11 +84,13 @@ public class SpringDocPrintApplicationRunner implements ApplicationRunner {
         String profilesActive = environment.getProperty("spring.profiles.active");
         String version = environment.getProperty("spring.application.version");
         String projectName = environment.getProperty("spring.application.name");
+        // @formatter:off
         log.info("\n-----------------------------------------------------------------------------\n"
                 + "AnYi Cloud  Application（" + projectName + " v" + version + " " + (StringUtils.isNotBlank(profilesActive) ? profilesActive : "") + "）is running! Access URLs:\n"
                 + "\tWebsite Preview:\thttps://anyilanxin.com\n"
                 + "\tApi Url  Prefix:\thttp://" + ip + ":" + port + path + "\n"
                 + "\tSpring  Doc  Ui:\thttp://" + ip + ":" + port + swaggerUrl + "\n"
                 + "-----------------------------------------------------------------------------");
+        // @formatter:off
     }
 }

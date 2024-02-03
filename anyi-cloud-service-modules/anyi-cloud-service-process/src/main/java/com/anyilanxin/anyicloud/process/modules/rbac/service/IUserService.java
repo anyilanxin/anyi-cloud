@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDto;
-import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -100,11 +101,11 @@ public interface IUserService {
      * 分页获取用户信息
      *
      * @param vo ${@link UserQueryPageVoCamunda}
-     * @return PageDto<UserDto>${@link PageDto<UserDto>}
+     * @return AnYiPageResult<UserDto>${@link AnYiPlusPageResult <UserDto>}
      * @author zxh
      * @date 2021-11-05 17:51
      */
-    PageDto<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException;
+    AnYiPageResult<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException;
 
 
     /**
@@ -120,7 +121,7 @@ public interface IUserService {
     /**
      * 全量同步用户信息
      *
-     * @param voSet ${@link List< SyncUserVo >}
+     * @param voSet ${@link List<SyncUserVo>}
      * @author zxh
      * @date 2021-11-07 21:37
      */

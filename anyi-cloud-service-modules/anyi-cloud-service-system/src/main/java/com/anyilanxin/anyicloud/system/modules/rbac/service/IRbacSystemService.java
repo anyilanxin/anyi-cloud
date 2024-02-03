@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacSystemPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacSystemPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacSystemVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacSystemEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacSystemDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacSystemPageDto;
+
 import java.util.List;
 
 /**
@@ -74,18 +76,18 @@ public interface IRbacSystemService extends BaseService<RbacSystemEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacSystemPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacSystemPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 11:46:37
      */
-    PageDto<RbacSystemPageDto> pageByModel(RbacSystemPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacSystemPageDto> pageByModel(RbacSystemPageQuery vo) throws RuntimeException;
 
 
     /**
      * 查询有效的系统信息
      *
-     * @return List<RbacSystemDto> 查询结果
+     * @return List<RbacSystemDto>  查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-07-28 09:35:45

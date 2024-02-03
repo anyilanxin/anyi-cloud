@@ -27,24 +27,26 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.core.config.listener;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
 import com.anyilanxin.anyicloud.coreredis.constant.RedisSubscribeConstant;
 import com.anyilanxin.anyicloud.coreredis.listener.RedisKeyExpirationEventMessageListener;
-import com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils;
-import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
-import com.anyilanxin.anyicloud.messagerpc.model.AuthMsgModel;
-import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
-import java.nio.charset.StandardCharsets;
+import com.anyilanxin.anyicloud.coreredis.utils.AnYiRedisMsgUtils;
+import com.anyilanxin.anyicloud.messageadapter.constant.enums.SocketMessageEventType;
+import com.anyilanxin.anyicloud.messageadapter.model.AuthMsgModel;
+import com.anyilanxin.anyicloud.messageadapter.model.SubscribeMsgContent1Model;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.lang.Nullable;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * 权限信息被删除监听
@@ -67,13 +69,13 @@ public class TokenExpirationEventListener extends RedisKeyExpirationEventMessage
         log.debug("------------------------>onMessage:\n{}", key);
         if (StringUtils.isNotBlank(key) && key.startsWith(CoreCommonCacheConstant.AUTH_PREFIX + "auth:") && !super.serviceLock(key)) {
             // 广播集群再转给socket处理
-            SubscribeMsgModel subscribeMsgModel = new SubscribeMsgModel(SocketMessageEventType.AUTH_EVENT);
+            SubscribeMsgContent1Model subscribeMsgModel = new SubscribeMsgContent1Model(SocketMessageEventType.AUTH_EVENT);
             AuthMsgModel model = new AuthMsgModel();
             model.setToken(key.replaceFirst(CoreCommonCacheConstant.AUTH_PREFIX + "auth:", ""));
-            model.setType(Status.TOKEN_EXPIRED);
-            model.setMessage(Status.ERROR.getMessage());
+            model.setType(AnYiResultStatus.TOKEN_EXPIRED);
+            model.setMessage(AnYiResultStatus.ERROR.getMessage());
             subscribeMsgModel.setData(model);
-            SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE, JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
+            AnYiRedisMsgUtils.sendMsg(RedisSubscribeConstant.MESSAGE_SOCKET_HANDLE, JSONObject.toJSONString(subscribeMsgModel, JSONWriter.Feature.WriteMapNullValue));
         }
     }
 }

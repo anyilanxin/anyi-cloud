@@ -1,0 +1,8 @@
+description = "AnYi Cloud Stream Core"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+}
+

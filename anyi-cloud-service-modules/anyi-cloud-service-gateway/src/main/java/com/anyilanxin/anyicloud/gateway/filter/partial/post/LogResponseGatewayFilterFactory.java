@@ -27,16 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.filter.partial.post;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY;
-import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
-
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.anyicloud.gateway.utils.LogRecordUtils;
-import java.util.Collections;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -44,9 +40,17 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.core.Ordered;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY;
+import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 /**
  * 日志记录过滤器(后置)
@@ -89,7 +93,12 @@ public class LogResponseGatewayFilterFactory extends AbstractGatewayFilterFactor
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             log.debug("------------LogGatewayFilter------------>filter:{}", "响应数据处理过滤器");
-            return chain.filter(exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
+            MediaType contentType = exchange.getRequest().getHeaders().getContentType();
+            if (Objects.nonNull(contentType) && contentType.includes(MediaType.APPLICATION_JSON)) {
+                return chain.filter(exchange.mutate().response(LogRecordUtils.getResponseInfo(exchange)).build());
+            } else {
+                return chain.filter(exchange);
+            }
         }
 
 

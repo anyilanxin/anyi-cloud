@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.process.core.base.controller.vo.CamundaDateBasePageVo;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 流程定义查询
@@ -49,6 +52,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessDefinitionPageVo extends CamundaDateBasePageVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1013595912436597889L;
 
     @Schema(name = "processDefinitionKey", title = "流程定义key")

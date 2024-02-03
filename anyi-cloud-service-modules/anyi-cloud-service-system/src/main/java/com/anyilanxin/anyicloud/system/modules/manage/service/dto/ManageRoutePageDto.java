@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 路由分页查询Response
@@ -47,11 +50,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class ManageRoutePageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 233482884729875689L;
 
     @Schema(name = "routeId", title = "路由id")
@@ -131,4 +137,5 @@ public class ManageRoutePageDto implements Serializable {
 
     @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0")
     private Integer delFlag;
+
 }

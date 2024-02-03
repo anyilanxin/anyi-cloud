@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.announcement.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统通知公告阅读记录添加或修改Request
@@ -50,14 +52,17 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class AnnouncementRecordVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 431635573807667905L;
 
-    @Schema(name = "anntId", title = "通知公告id", required = true)
+    @Schema(name = "anntId", title = "通知公告id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "通知公告id不能为空")
     private String anntId;
 
@@ -65,7 +70,7 @@ public class AnnouncementRecordVo implements Serializable {
     private Integer readStatus;
 
     @Schema(name = "readTime", title = "阅读时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime readTime;
 
     @Schema(name = "createAreaCode", title = "创建区域编码")
@@ -89,9 +94,9 @@ public class AnnouncementRecordVo implements Serializable {
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
-    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "创建时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserId", title = "更新用户id")
@@ -101,13 +106,14 @@ public class AnnouncementRecordVo implements Serializable {
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
     @Schema(name = "remark", title = "备注")
     private String remark;
 
-    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", required = true)
+    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "删除状态:0-正常,1-已删除,默认0不能为空")
     private Integer delFlag;
+
 }

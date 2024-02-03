@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.authcenter.service;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.UserOrgTreeInfo;
@@ -36,8 +37,9 @@ import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.FindPass
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdateInfoVo;
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdatePasswordVo;
 import com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo.UpdatePhoneVo;
-import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 用户中心
@@ -138,4 +140,5 @@ public interface IUserCenterService {
      * @date 2022-07-16 11:12
      */
     List<UserOrgTreeInfo> getUserOrgInfo();
+
 }

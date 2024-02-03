@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 角色-客户端添加或修改Request
@@ -51,13 +54,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacRoleUserVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -55926532475706912L;
 
-    @Schema(name = "roleId", title = "角色id", required = true)
+    @Schema(name = "roleId", title = "角色id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色id不能为空")
     private String roleId;
 
-    @Schema(name = "userId", title = "用户id", required = true)
+    @Schema(name = "userId", title = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户id不能为空")
     private String userId;
+
 }

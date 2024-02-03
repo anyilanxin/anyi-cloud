@@ -27,14 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.service;
 
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.process.modules.manage.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.manage.service.dto.DeploymentDetailDto;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionPageDto;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionInfoDto;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionInfoPageDto;
 import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessInfoDto;
-import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
 
 /**
  * 流程定义管理
@@ -48,12 +49,12 @@ public interface IDefinitionManageService {
      * 通过流程定义key查询流程定义信息
      *
      * @param pageVo ${@link ProcessDefinitionPageVo} 查询条件
-     * @return PageDto<ProcessDefinitionPageDto> ${@link PageDto< ProcessDefinitionPageDto >}
+     * @return AnYiPageResult<ProcessDefinitionInfoPageDto> ${@link AnYiPlusPageResult <  ProcessDefinitionInfoPageDto  >}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2020-10-14 20:59
      */
-    PageDto<ProcessDefinitionPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException;
+    AnYiPageResult<ProcessDefinitionInfoPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException;
 
 
     /**
@@ -130,4 +131,16 @@ public interface IDefinitionManageService {
      * @date 2022-01-03 11:20
      */
     ProcessInfoDto getProcessInfo(ProcessInfoVo vo);
+
+
+    /**
+     * 查询流动定义
+     *
+     * @param processDefinitionKey 流程定义关键
+     * @return {@link ProcessDefinitionInfoDto }
+     * @author zxh
+     * @date 2023-04-28 23:28:46
+     */
+    ProcessDefinitionInfoDto selectProcessById(String processDefinitionKey);
+
 }

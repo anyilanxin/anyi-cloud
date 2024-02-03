@@ -27,19 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteCustomFilterVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageCustomFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteCustomFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageRouteCustomFilterMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageCustomFilterService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRouteCustomFilterService;
+import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.RouterCustomFilterDto;
@@ -47,12 +47,14 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageRouteCustomFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 路由-自定义过滤器表(ManageRouteCustomFilter)业务层实现
@@ -70,6 +72,7 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
     private final ManageRouteCustomFilterMapper mapper;
     private final ManageCustomFilterSimpleCopyMap simpleCopyMap;
     private final IManageCustomFilterService customFilterService;
+    private final IManageSyncService syncService;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -86,7 +89,7 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
             });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
     }
@@ -94,7 +97,7 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
 
     @Override
     public Map<String, List<ManageCustomFilterSimpleDto>> getByRouterIds(Set<String> routerIds) throws RuntimeException {
-        if (CollectionUtil.isEmpty(routerIds)) {
+        if (CollUtil.isEmpty(routerIds)) {
             return Collections.emptyMap();
         }
         // 查询所有自定义过滤器id
@@ -108,7 +111,7 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
             list.forEach(v -> {
                 customFilterIds.add(v.getCustomFilterId());
                 List<String> strings = customFilterIdMap.get(v.getRouteId());
-                if (CollectionUtil.isEmpty(strings)) {
+                if (CollUtil.isEmpty(strings)) {
                     strings = new ArrayList<>();
                 }
                 strings.add(v.getCustomFilterId());
@@ -154,7 +157,7 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
     public ManageRouteCustomFilterDto getById(String routeCustomFilterId) throws RuntimeException {
         ManageRouteCustomFilterEntity byId = super.getById(routeCustomFilterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -169,9 +172,9 @@ public class ManageRouteCustomFilterServiceImpl extends ServiceImpl<ManageRouteC
         if (CollUtil.isNotEmpty(list)) {
             Set<String> routeCustomFilterIds = new HashSet<>(list.size());
             list.forEach(v -> routeCustomFilterIds.add(v.getRouteCustomFilterId()));
-            int i = mapper.physicalDeleteBatchIds(routeCustomFilterIds);
+            int i = mapper.anyiPhysicalDeleteBatchIds(routeCustomFilterIds);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除历史数据失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除历史数据失败");
             }
         }
     }

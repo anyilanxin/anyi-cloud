@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuPageDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuTreeDto;
+
 import java.util.List;
 
 /**
@@ -75,12 +77,12 @@ public interface IRbacMenuService extends BaseService<RbacMenuEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacMenuPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacMenuPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    PageDto<RbacMenuPageDto> pageByModel(RbacMenuPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacMenuPageDto> pageByModel(RbacMenuPageQuery vo) throws RuntimeException;
 
 
     /**

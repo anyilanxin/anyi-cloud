@@ -1,15 +1,20 @@
 description = "AnYi Cloud Storage Service"
 
-bootJar { enabled = true }
-
+def bootJar = true
 
 dependencies {
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc')
-    implementation project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-storage')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-database')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-mvc')
+    implementation project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-resourcemvc')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
+    implementation project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-storage')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-database')
     implementation 'com.drewnoakes:metadata-extractor'
     implementation 'com.alibaba.cloud:aliyun-oss-spring-boot-starter'
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-logging-mvc')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+}
+
+
+configurations.configureEach {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 }

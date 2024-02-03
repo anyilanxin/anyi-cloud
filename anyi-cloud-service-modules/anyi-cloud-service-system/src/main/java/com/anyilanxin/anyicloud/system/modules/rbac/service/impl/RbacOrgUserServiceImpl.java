@@ -27,11 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacJoinOrgVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgUserMapper;
@@ -39,12 +39,14 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleUserServ
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * 机构-用户(RbacOrgUser)业务层实现
@@ -71,7 +73,7 @@ public class RbacOrgUserServiceImpl extends ServiceImpl<RbacOrgUserMapper, RbacO
             });
             boolean b = this.saveBatch(orgUserEntities);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存用户机构关联失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "保存用户机构关联失败");
             }
         }
     }
@@ -84,9 +86,9 @@ public class RbacOrgUserServiceImpl extends ServiceImpl<RbacOrgUserMapper, RbacO
         lambdaQueryWrapper.eq(RbacOrgUserEntity::getUserId, userId).eq(RbacOrgUserEntity::getOrgId, orgId);
         RbacOrgUserEntity one = this.getOne(lambdaQueryWrapper);
         if (Objects.isNull(one)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "用户未关联当前机构");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "用户未关联当前机构");
         }
-        mapper.physicalDeleteById(one.getOrgUserId());
+        mapper.anyiPhysicalDeleteById(one.getOrgUserId());
         // 删除机构用户角色关联
         orgRoleUserService.deleteByUserId(userId, orgId);
     }

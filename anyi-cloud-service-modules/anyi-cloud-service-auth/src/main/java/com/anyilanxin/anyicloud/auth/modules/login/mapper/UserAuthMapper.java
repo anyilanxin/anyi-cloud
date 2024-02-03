@@ -27,15 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.mapper;
 
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacOrgUserDto;
+import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacResourceApiSimpleDto;
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import java.util.List;
 import java.util.Set;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 用户授权mapper
@@ -109,7 +113,115 @@ public interface UserAuthMapper {
      * @author zxh
      * @date 2022-07-02 23:01:20
      */
+    @Select("""
+            SELECT
+              ali.org_id,
+              ali.parent_id,
+              ali.org_name,
+              ali.org_name_en,
+              ali.org_name_abbr,
+              ali.org_order,
+              ali.org_type,
+              ali.org_code,
+              ali.org_sys_code,
+              ali.org_status,
+              ali.social_code,
+              ali.area_code_name,
+              ali.area_code,
+              ali.org_simple_name,
+              srou.org_user_id,
+              srou.user_id
+            FROM sys_rbac_org ali
+            INNER JOIN sys_rbac_org_user srou ON ali.org_id = srou.org_id
+            WHERE srou.user_id = #{userId, jdbcType=VARCHAR}
+            """)
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
+
+
+    /**
+     * 获取所有资源权限
+     *
+     * @return List<RbacResourceApiSimpleDto>
+     * @author zxh
+     * @date 2022-07-12 12:18
+     */
+    @Select("""
+            SELECT
+              srra.api_id,
+              srra.resource_id,
+              srra.resource_code,
+              srra.permission_express,
+              srra.permission_action
+            FROM sys_rbac_resource_api srra
+            WHERE
+              srra.permission_action IS NOT NULL
+              AND srra.permission_action != ''
+              AND srra.del_flag = 0
+            """)
+    Set<RbacResourceApiSimpleDto> selectResourceApiAll();
+
+
+    /**
+     * 获取用户授权的资源权限
+     *
+     * @param userId
+     * @return List<RbacResourceApiSimpleDto>
+     * @author zxh
+     * @date 2022-07-12 12:18
+     */
+    @Select("""
+            SELECT
+              srra.api_id,
+              srra.resource_id,
+              srra.resource_code,
+              srra.permission_express,
+              srra.permission_action
+            FROM sys_rbac_role_resource_api srrra
+            INNER JOIN sys_rbac_resource_api srra ON srra.api_id = srrra.api_id
+            INNER JOIN sys_rbac_role srr ON srrra.role_id = srr.role_id
+            INNER JOIN sys_rbac_role_user srru ON srru.role_id = srr.role_id
+            INNER JOIN sys_rbac_user sru ON sru.user_id = srru.user_id
+            WHERE
+              sru.user_id = #{userId, jdbcType=VARCHAR}
+              AND srra.permission_action IS NOT NULL
+              AND srra.permission_action != ''
+              AND srra.del_flag = 0
+              AND srr.role_status = 1
+              AND srr.del_flag =0
+            """)
+    Set<RbacResourceApiSimpleDto> selectResourceApiByUserId(@Param("userId") String userId);
+
+
+    /**
+     * 获取用户机构授权的资源权限
+     *
+     * @param userId
+     * @return List<RbacResourceApiSimpleDto>
+     * @author zxh
+     * @date 2022-07-12 12:18
+     */
+    @Select("""
+            SELECT
+              srra.api_id,
+              srra.resource_id,
+              srra.resource_code,
+              srra.permission_express,
+              srra.permission_action
+            FROM sys_rbac_org_role ali
+            INNER JOIN sys_rbac_org_role_user sroru ON ali.org_role_id = sroru.org_role_id
+            INNER JOIN sys_rbac_org_role_resource_api srorra ON srorra.org_role_id = ali.org_role_id
+            INNER JOIN sys_rbac_org_resource_api srora ON srorra.api_id = srora.api_id
+            INNER JOIN sys_rbac_resource_api srra ON srra.api_id = srora.api_id
+            WHERE
+              ali.org_id = #{orgId, jdbcType=VARCHAR}
+              AND ali.del_flag = 0
+              AND ali.role_status = 1
+              AND srra.del_flag = 0
+              AND srra.permission_action != ''
+              AND srra.permission_action IS NOT NULL
+              AND sroru.user_id =  #{userId, jdbcType=VARCHAR}
+            """)
+    Set<RbacResourceApiSimpleDto> selectOrgResourceApiByUserId(@Param("userId") String userId, @Param("orgId") String orgId);
 
 
     /**
@@ -121,6 +233,22 @@ public interface UserAuthMapper {
      * @author zxh
      * @date 2022-07-05 00:36
      */
+    @Select("""
+            SELECT
+              sror.role_name,
+              sror.role_code,
+              sror.org_role_id AS role_id,
+              sror.data_auth_type,
+              sror.custom_data_auth_data,
+              1 AS role_type
+            FROM sys_rbac_org_role_user sroru
+            INNER JOIN sys_rbac_org_role sror ON sroru.org_role_id = sror.org_role_id
+            WHERE
+              sroru.user_id = #{userId, jdbcType=VARCHAR}
+              AND sror.org_id = #{orgId, jdbcType=VARCHAR}
+              AND sror.role_status = 1
+              AND sror.del_flag = 0
+            """)
     Set<RoleInfo> selectByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
 
 
@@ -132,6 +260,21 @@ public interface UserAuthMapper {
      * @author zxh
      * @date 2022-07-05 00:42
      */
+    @Select("""
+            SELECT
+              srr.role_name,
+              srr.role_code,
+              CASE WHEN srr.role_code = #{superRoleCode, jdbcType=VARCHAR} THEN 1 ELSE 0 END super_role,
+              srr.role_id,
+              srr.data_auth_type,
+              srr.custom_data_auth_data,
+              0 AS role_type
+            FROM sys_rbac_role_user srru
+            INNER JOIN sys_rbac_role srr ON srru.role_id = srr.role_id
+            WHERE srru.user_id = #{userId, jdbcType=VARCHAR}
+                  AND srr.role_status = 1
+                  AND srr.del_flag = 0
+            """)
     Set<RoleInfo> selectByUserId(@Param("userId") String userId, @Param("superRoleCode") String superRoleCode);
 
 

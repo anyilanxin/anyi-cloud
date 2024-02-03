@@ -31,14 +31,14 @@
 
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.anyilanxin.anyicloudee.process.modules.auxiliary.mapper.ExtendPropertyMapper">
-  <resultMap type="com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.ExtendPropertyEntity"
+<mapper namespace="com.anyilanxin.anyicloud.process.modules.auxiliary.mapper.ExtendPropertyMapper">
+    <resultMap type="com.anyilanxin.anyicloud.process.modules.auxiliary.entity.ExtendPropertyEntity"
              id="ExtendPropertyMap">
     <result property="propertyId" column="property_id" jdbcType="VARCHAR"/>
     <result property="processDefinitionId" column="process_definition_id" jdbcType="VARCHAR"/>
     <result property="bpmnActivityDefinitionKey" column="bpmn_activity_definition_key" jdbcType="VARCHAR"/>
     <result property="extendPropertyInfo" column="extend_property_info" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="extendPropertyKey" column="extend_property_key" jdbcType="VARCHAR"/>
     <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
     <result property="createPositionCode" column="create_position_code" jdbcType="VARCHAR"/>
@@ -79,26 +79,6 @@
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
     </sql>
 
-
-    <!-- 通过扩展属性id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM act_custom_extend_property
-        WHERE property_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  act_custom_extend_property
-        WHERE property_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE act_custom_extend_property
@@ -120,5 +100,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

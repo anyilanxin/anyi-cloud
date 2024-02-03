@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 创建流程任务
@@ -50,20 +53,21 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class StartTaskVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -1645521148889803833L;
 
     @Schema(name = "formVariables", title = "流程表单数据")
     private Map<String, Object> formVariables;
 
-    @Schema(name = "processInstanceId", title = "流程实例id", required = true)
+    @Schema(name = "processInstanceId", title = "流程实例id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "流程实例id不能为空")
     private String processInstanceId;
 
-    @Schema(name = "businessKey", title = "业务id", required = true)
+    @Schema(name = "businessKey", title = "业务id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "业务id不能为空")
     String businessKey;
 
-    @Schema(name = "userId", title = "用户id", required = true)
+    @Schema(name = "userId", title = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "用户id不能为空")
     private String userId;
 }

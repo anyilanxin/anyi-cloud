@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.core.config;
 
-import com.anyilanxin.anyicloud.corecommon.constant.BindingStreamConstant;
+import com.anyilanxin.anyicloud.stream.constant.BindingStreamConstant;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRouteService;
-import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.function.Consumer;
 
 /**
  * stream配置

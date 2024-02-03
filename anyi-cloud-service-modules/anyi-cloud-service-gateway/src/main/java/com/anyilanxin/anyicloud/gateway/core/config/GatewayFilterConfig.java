@@ -27,18 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.config;
 
-import com.anyilanxin.anyicloud.gateway.core.config.properties.CustomSecurityProperties;
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.CorsWebGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.post.EncryptGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
-import com.anyilanxin.anyicloud.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.post.TokenRefreshGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.BlacklistGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.DecryptGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.VerifySignGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.webfilter.CorsOptionsWebFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.util.AntPathMatcher;
 
 /**
  * 网关过滤器配置
@@ -51,6 +54,11 @@ import org.springframework.util.AntPathMatcher;
 @RequiredArgsConstructor
 public class GatewayFilterConfig {
 
+    // @Bean
+    // public TokenUnifiedWebFilter tokenUnifiedWebFilter() {
+    // return new TokenUnifiedWebFilter();
+    // }
+
     @Bean
     public CorsOptionsWebFilter corsOptionsWebFilter() {
         return new CorsOptionsWebFilter();
@@ -58,8 +66,26 @@ public class GatewayFilterConfig {
 
 
     @Bean
-    public AuthorizeGatewayFilterFactory authorizeGatewayFilterFactory(final CustomSecurityProperties securityProperties, final AntPathMatcher antPathMatcher) {
-        return new AuthorizeGatewayFilterFactory(securityProperties, antPathMatcher);
+    public TokenRefreshGatewayFilterFactory tokenRefreshGatewayFilterFactory() {
+        return new TokenRefreshGatewayFilterFactory();
+    }
+
+
+    @Bean
+    public VerifySignGatewayFilterFactory verifySignGatewayFilterFactory() {
+        return new VerifySignGatewayFilterFactory();
+    }
+
+
+    @Bean
+    public DecryptGatewayFilterFactory decryptGatewayFilterFactory() {
+        return new DecryptGatewayFilterFactory();
+    }
+
+
+    @Bean
+    public EncryptGatewayFilterFactory encryptGatewayFilterFactory() {
+        return new EncryptGatewayFilterFactory();
     }
 
 
@@ -79,4 +105,11 @@ public class GatewayFilterConfig {
     public CorsWebGatewayFilterFactory corsWebGatewayFilterFactory() {
         return new CorsWebGatewayFilterFactory();
     }
+
+
+    @Bean
+    public BlacklistGatewayFilterFactory blacklistGatewayFilterFactory() {
+        return new BlacklistGatewayFilterFactory();
+    }
+
 }

@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service;
 
 /**
@@ -66,4 +67,13 @@ public interface IManageSyncService {
      * @date 2021-12-22 22:00
      */
     void deleteServiceRoute(String serviceId);
+
+
+    /**
+     * 同步路由与按钮权限
+     *
+     * @author zxh
+     * @date 2021-11-08 16:32
+     */
+    void reloadRouteAndAuth(boolean force);
 }

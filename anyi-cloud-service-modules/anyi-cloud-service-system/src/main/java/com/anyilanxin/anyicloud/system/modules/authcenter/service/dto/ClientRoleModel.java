@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.authcenter.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 角色信息
@@ -47,6 +50,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ClientRoleModel implements Serializable {
+    @Serial
     private static final long serialVersionUID = 4071105391782937997L;
 
     @Schema(name = "roleName", title = "角色名称")

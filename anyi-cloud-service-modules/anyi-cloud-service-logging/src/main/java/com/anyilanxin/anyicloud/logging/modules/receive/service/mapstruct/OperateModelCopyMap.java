@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.receive.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
 import org.mapstruct.Builder;
@@ -44,5 +45,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-08-13 10:24:41
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface OperateModelCopyMap extends BaseMap<OperateEntity, OperateLogModel> {
+public interface OperateModelCopyMap extends AnYiBaseMap<OperateEntity, OperateLogModel> {
 }

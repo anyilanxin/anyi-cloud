@@ -27,16 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageQuery;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -59,7 +59,7 @@ public interface RbacUserMapper extends BaseMapper<RbacUserEntity> {
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacUserPageDto> pageByModel(Page<RbacUserPageDto> page, @Param("query") RbacUserPageVo vo);
+    IPage<RbacUserPageDto> pageByModel(Page<RbacUserPageDto> page, @Param("query") RbacUserPageQuery vo);
 
 
     /**
@@ -71,27 +71,6 @@ public interface RbacUserMapper extends BaseMapper<RbacUserEntity> {
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacUserPageDto> selectEnableUserPage(Page<RbacUserPageDto> page, @Param("query") RbacEnalbeUserPageVo vo);
+    IPage<RbacUserPageDto> selectEnableUserPage(Page<RbacUserPageDto> page, @Param("query") RbacEnalbeUserPageQuery vo);
 
-
-    /**
-     * 通过用户id物理删除
-     *
-     * @param userId 用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteById(@Param("id") String userId);
-
-
-    /**
-     * 通过用户id物理批量删除
-     *
-     * @param idList 用户id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

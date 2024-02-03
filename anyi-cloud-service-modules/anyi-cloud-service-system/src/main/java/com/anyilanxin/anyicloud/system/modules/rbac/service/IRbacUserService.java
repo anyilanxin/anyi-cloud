@@ -27,16 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageQuery;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserEntity;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacProcessCommonDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserPageDto;
+import com.anyilanxin.anyicloud.systemadapter.model.SimpleUserModel;
+
 import java.util.List;
 
 /**
@@ -75,12 +79,12 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacUserPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacUserPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacUserPageDto> pageByModel(RbacUserPageQuery vo) throws RuntimeException;
 
 
     /**
@@ -144,9 +148,51 @@ public interface IRbacUserService extends BaseService<RbacUserEntity> {
      * 分页查询可关联的用户信息
      *
      * @param vo
-     * @return PageDto<RbacUserPageDto>
+     * @return AnYiPageResult<RbacUserPageDto>
      * @author zxh
      * @date 2022-08-02 15:44
      */
-    PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo);
+    AnYiPageResult<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageQuery vo);
+
+
+    /**
+     * 通过用户id查询用户信息
+     *
+     * @param userIds
+     * @return List<SimpleUserModel>
+     * @author zxh
+     * @date 2022-08-08 15:47
+     */
+    List<SimpleUserModel> selectUserByIds(List<String> userIds);
+
+
+    /**
+     * 通过用户id查询用户信息
+     *
+     * @param userId
+     * @return SimpleUserModel
+     * @author zxh
+     * @date 2022-11-27 14:43
+     */
+    SimpleUserModel getUserById(String userId);
+
+
+    /**
+     * 获取用户列表
+     *
+     * @return {@link List }<{@link SimpleUserModel }>
+     * @author zxh
+     * @date 2023-06-19 17:14:26
+     */
+    List<SimpleUserModel> getUserList();
+
+    /**
+     * 通过用户ids查询用户信息(流程引擎建模使用)
+     *
+     * @param ids
+     * @return {@link List }<{@link RbacProcessCommonDto }>
+     * @author zxh
+     * @date 2023-10-17 17:36:15
+     */
+    List<RbacProcessCommonDto> selectProcessDesignerByIds(List<String> ids);
 }

@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 路由过滤器添加或修改Request
@@ -47,22 +50,25 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class ManageRouteFilterVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 645976330522385000L;
 
-    @Schema(name = "filterType", title = "过滤器类型", required = true)
+    @Schema(name = "filterType", title = "过滤器类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器类型不能为空")
     private String filterType;
 
-    @Schema(name = "filterTypeName", title = "过滤器类型名称", required = true)
+    @Schema(name = "filterTypeName", title = "过滤器类型名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器类型名称不能为空")
     private String filterTypeName;
 
-    @Schema(name = "filterName", title = "过滤器名称", required = true)
+    @Schema(name = "filterName", title = "过滤器名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器名称不能为空")
     private String filterName;
 

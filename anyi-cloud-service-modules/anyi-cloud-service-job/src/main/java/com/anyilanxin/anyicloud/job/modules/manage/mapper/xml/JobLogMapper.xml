@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2023-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+
+    AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+      1.请不要删除和修改根目录下的LICENSE.txt文件；
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+      3.请保留源码和相关描述文件的项目出处，作者声明等；
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+      7.进行商用时，不得基于AnYi Cloud的基础，修改包装而成一个与AnYi Cloud EE、AnYi Zeebe EE、AnYi Standalone EE功能类似的程序，进行销售或发布，参与同类软件产品市场的竞争；
+      8.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+      9.本软件流程部分请遵循camunda开源协议：
+        https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+        https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+      10.若您的项目无法满足以上几点，可申请商业授权。
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.anyicloud.job.modules.manage.mapper.JobLogMapper">
+  <resultMap type="com.anyilanxin.anyicloud.job.modules.manage.entity.JobLogEntity" id="JobLogMap">
+    <result property="id" column="id" jdbcType="INTEGER"/>
+    <result property="jobGroup" column="job_group" jdbcType="INTEGER"/>
+    <result property="jobId" column="job_id" jdbcType="INTEGER"/>
+    <result property="executorAddress" column="executor_address" jdbcType="VARCHAR"/>
+    <result property="executorHandler" column="executor_handler" jdbcType="VARCHAR"/>
+    <result property="executorParam" column="executor_param" jdbcType="VARCHAR"/>
+    <result property="executorShardingParam" column="executor_sharding_param" jdbcType="VARCHAR"/>
+    <result property="executorFailRetryCount" column="executor_fail_retry_count" jdbcType="INTEGER"/>
+    <result property="triggerTime" column="trigger_time" jdbcType="TIMESTAMP"/>
+    <result property="triggerCode" column="trigger_code" jdbcType="INTEGER"/>
+    <result property="triggerMsg" column="trigger_msg" jdbcType="VARCHAR"/>
+    <result property="handleTime" column="handle_time" jdbcType="TIMESTAMP"/>
+    <result property="handleCode" column="handle_code" jdbcType="INTEGER"/>
+    <result property="handleMsg" column="handle_msg" jdbcType="VARCHAR"/>
+    <result property="alarmStatus" column="alarm_status" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        id, job_group, job_id, executor_address, executor_handler, executor_param, executor_sharding_param,
+        executor_fail_retry_count, trigger_time, trigger_code, trigger_msg, handle_time, handle_code, handle_msg, alarm_status
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.id, ali.job_group, ali.job_id, ali.executor_address, ali.executor_handler, ali.executor_param,
+        ali.executor_sharding_param, ali.executor_fail_retry_count, ali.trigger_time, ali.trigger_code,
+        ali.trigger_msg, ali.handle_time, ali.handle_code, ali.handle_msg, ali.alarm_status
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.id, ali.job_group, ali.job_id, ali.executor_address, ali.executor_handler, ali.executor_param,
+        ali.executor_sharding_param, ali.executor_fail_retry_count, ali.trigger_time, ali.trigger_code,
+        ali.trigger_msg, ali.handle_time, ali.handle_code, ali.handle_msg, ali.alarm_status
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.anyicloud.job.modules.manage.service.dto.JobLogPageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM xxl_job_log ali
+        <where>
+             ali.del_flag = 0
+          <if test='query.logStatus != null'>
+            <choose>
+              <when test="query.logStatus == 1">
+                AND ali.handle_code = 200
+              </when>
+              <when test="query.logStatus == 2">
+                AND (
+                 ali.trigger_code NOT IN (0, 200)
+                 OR
+                 ali.handle_code NOT IN (0, 200)
+                )
+              </when>
+              <when test="query.logStatus == 3">
+                AND ali.trigger_code = 200
+                AND ali.handle_code = 0
+              </when>
+            </choose>
+          </if>
+          <if test='query.jobGroup != null'>
+            AND ali.job_group = #{query.jobGroup, jdbcType=INTEGER}
+          </if>
+          <if test='query.jobId != null'>
+            AND ali.job_id = #{query.jobId, jdbcType=INTEGER}
+          </if>
+          <if test="query.startTime != null">
+            AND ali.trigger_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test="query.endTime != null">
+            AND ali.trigger_time &lt;= #{query.endTime, jdbcType=TIMESTAMP}
+          </if>
+        </where>
+    </select>
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE xxl_job_log
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE xxl_job_log
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+
+    <select id="findLogReport" resultType="java.util.Map" >
+        SELECT
+            COUNT(handle_code) triggerDayCount,
+            SUM(CASE WHEN (trigger_code in (0, 200) and handle_code = 0) then 1 else 0 end) as triggerDayCountRunning,
+            SUM(CASE WHEN handle_code = 200 then 1 else 0 end) as triggerDayCountSuc
+        FROM xxl_job_log
+        WHERE trigger_time BETWEEN #{from} and #{to}
+    </select>
+
+
+    <select id="findLostJobIds" resultType="long" >
+        SELECT
+            t.id
+        FROM xxl_job_log t
+        LEFT JOIN xxl_job_registry t2 ON t.executor_address = t2.registry_value
+        WHERE
+            t.trigger_code = 200
+          AND t.handle_code = 0
+          AND t.trigger_time <![CDATA[ <= ]]> #{losedTime}
+          AND t2.id IS NULL;
+    </select>
+
+
+    <select id="findFailJobLogIds" resultType="long" >
+        SELECT id FROM `xxl_job_log`
+        WHERE !(
+            (trigger_code in (0, 200) and handle_code = 0)
+           OR
+            (handle_code = 200)
+            )
+          AND `alarm_status` = 0
+        ORDER BY id ASC
+            LIMIT #{pagesize}
+    </select>
+
+
+    <update id="updateAlarmStatus" >
+        UPDATE xxl_job_log
+        SET
+            `alarm_status` = #{newAlarmStatus}
+        WHERE `id`= #{logId} AND `alarm_status` = #{oldAlarmStatus}
+    </update>
+
+
+    <select id="findClearLogIds" resultType="long" >
+        SELECT id FROM xxl_job_log
+        <trim prefix="WHERE" prefixOverrides="AND | OR" >
+            <if test="jobGroup gt 0">
+                AND job_group = #{jobGroup}
+            </if>
+            <if test="jobId gt 0">
+                AND job_id = #{jobId}
+            </if>
+            <if test="clearBeforeTime != null">
+                AND trigger_time <![CDATA[ <= ]]> #{clearBeforeTime}
+            </if>
+            <if test="clearBeforeNum gt 0">
+                AND id NOT in(
+                SELECT id FROM(
+                SELECT id FROM xxl_job_log AS t
+                <trim prefix="WHERE" prefixOverrides="AND | OR" >
+                    <if test="jobGroup gt 0">
+                        AND t.job_group = #{jobGroup}
+                    </if>
+                    <if test="jobId gt 0">
+                        AND t.job_id = #{jobId}
+                    </if>
+                </trim>
+                ORDER BY t.trigger_time desc
+                LIMIT 0, #{clearBeforeNum}
+                ) t1
+                )
+            </if>
+        </trim>
+        order by id asc
+        LIMIT #{pagesize}
+    </select>
+    <!-- @formatter:on -->
+</mapper>

@@ -27,12 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 部署信息
@@ -48,10 +51,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class DeploymentDetailDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8084599820581857851L;
-
-    @Schema(name = "modelId", title = "模型id")
-    private String modelId;
 
     @Schema(name = "deploymentId", title = "部署id")
     private String deploymentId;
@@ -86,14 +87,11 @@ public class DeploymentDetailDto implements Serializable {
     @Schema(name = "diagramData", title = "bpmn blob文件")
     private String diagramData;
 
-    @Schema(name = "hasStartFormKey", title = "是否存在开始表单key")
-    private boolean hasStartFormKey;
-
-    @Schema(name = "startFormKey", title = "开始表单key")
-    private String startFormKey;
-
     @Schema(name = "category", title = "类别")
     private String category;
+
+    @Schema(name = "categoryName", title = "类别名称")
+    private String categoryName;
 
     @Schema(name = "historyTimeToLive", title = "历史存活时间(单位:天，引擎自定义不可变更单位)")
     private Integer historyTimeToLive;

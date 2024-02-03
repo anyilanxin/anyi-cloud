@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageCustomFilterVo;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageCustomFilterService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterDetailDto;
@@ -43,16 +44,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 自定义过滤器(ManageCustomFilter)控制层
@@ -68,39 +70,39 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "GatewayManage", description = "网关管理")
 @RequestMapping(value = "/manage-custom-filter", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ManageCustomFilterController extends BaseController {
+public class ManageCustomFilterController extends AnYiBaseController {
     private final IManageCustomFilterService service;
 
     @Operation(summary = "自定义过滤器添加", tags = {"v1.0.0"}, description = "添加自定义过滤器")
     @PostMapping(value = "/insert")
-    public Result<String> insert(@RequestBody @Valid ManageCustomFilterVo vo) {
+    public AnYiResult<String> insert(@RequestBody @Valid ManageCustomFilterVo vo) {
         service.save(vo);
-        return ok(I18nUtil.get("Controller.InsertSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.InsertSuccess"));
     }
 
 
-    @Operation(summary = "通过自定义过滤器id修改", tags = {"v1.0.0"}, description = "修改自定义过滤器")
+    @Operation(summary = "通过自定义过滤器id修改", tags = {"v1.0.0", "v2.0.0"}, description = "修改自定义过滤器")
     @Parameter(in = ParameterIn.PATH, description = "自定义过滤器id", name = "customFilterId", required = true)
     @PutMapping(value = "/update/{customFilterId}")
-    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId, @RequestBody @Valid ManageCustomFilterVo vo) {
+    public AnYiResult<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId, @RequestBody @Valid ManageCustomFilterVo vo) {
         service.updateById(customFilterId, vo);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 
 
     @Operation(summary = "自定义过滤器逻辑删除", tags = {"v1.0.0"}, description = "删除自定义过滤器")
     @Parameter(in = ParameterIn.PATH, description = "自定义过滤器id", name = "customFilterId", required = true)
     @DeleteMapping(value = "/delete-one/{customFilterId}")
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId) {
+    public AnYiResult<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId) {
         service.deleteById(customFilterId);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
     @Operation(summary = "通过自定义过滤器id查询详情", tags = {"v1.0.0"}, description = "查询自定义过滤器详情")
     @Parameter(in = ParameterIn.PATH, description = "自定义过滤器id", name = "customFilterId", required = true)
     @GetMapping(value = "/select/one/{customFilterId}")
-    public Result<ManageCustomFilterDetailDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId) {
+    public AnYiResult<ManageCustomFilterDetailDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "自定义过滤器id不能为空") String customFilterId) {
         return ok(service.getById(customFilterId));
     }
 
@@ -108,7 +110,7 @@ public class ManageCustomFilterController extends BaseController {
     @Operation(summary = "查询服务自定义过滤器", tags = {"v1.0.0"}, description = "查询服务自定义过滤器")
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list/{serviceId}")
-    public Result<List<ManageCustomFilterListDto>> selectList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+    public AnYiResult<List<ManageCustomFilterListDto>> selectList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
         return ok(service.selectList(serviceId));
     }
 
@@ -116,7 +118,7 @@ public class ManageCustomFilterController extends BaseController {
     @Operation(summary = "查询服务自定义过滤器(无特殊url信息，并且是有效的)", tags = {"v1.0.0"}, description = "查询服务自定义过滤器(无特殊url信息，并且是有效的)")
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list-simple/{serviceId}")
-    public Result<List<ManageCustomFilterSimpleDto>> selectSimpleList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+    public AnYiResult<List<ManageCustomFilterSimpleDto>> selectSimpleList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
         return ok(service.selectSimpleList(serviceId));
     }
 
@@ -124,8 +126,8 @@ public class ManageCustomFilterController extends BaseController {
     @Operation(summary = "修改过滤器状态", tags = {"v1.0.0"}, description = "修改过滤器状态")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "过滤器id", name = "customFilterId", required = true), @Parameter(in = ParameterIn.QUERY, description = "操作类型:0-禁止,1-启用", name = "state", required = true)})
     @GetMapping(value = "/update-status")
-    public Result<String> updateStatus(@RequestParam(required = false) @NotBlank(message = "过滤器id不能为空") String customFilterId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") @Range(min = 0, max = 1, message = "操作类型只能为0、1") Integer state) {
+    public AnYiResult<String> updateStatus(@RequestParam(required = false) @NotBlank(message = "过滤器id不能为空") String customFilterId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") @Range(min = 0, max = 1, message = "操作类型只能为0、1") Integer state) {
         service.updateStatus(customFilterId, state);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 }

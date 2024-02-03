@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageSendRecordPageVo;
+import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageSendRecordPageQuery;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageSendRecordVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordPageDto;
-import com.anyilanxin.anyicloud.messagerpc.model.TemplateResultModel;
+import com.anyilanxin.anyicloud.messageadapter.model.TemplateResultModel;
+
 import java.util.List;
 
 /**
@@ -73,13 +75,13 @@ public interface IManageSendRecordService extends BaseService<ManageSendRecordEn
     /**
      * 分页查询
      *
-     * @param vo ${@link ManageSendRecordPageVo} 消息发送记录表分页查询Vo
-     * @return PageDto<ManageSendRecordPageDto> ${@link PageDto<  ManageSendRecordPageDto  >} 分页查询结果
+     * @param vo ${@link ManageSendRecordPageQuery} 消息发送记录表分页查询Vo
+     * @return AnYiPageResult<ManageSendRecordPageDto> ${@link AnYiPlusPageResult <   ManageSendRecordPageDto   >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 05:23:42
      */
-    PageDto<ManageSendRecordPageDto> pageByModel(ManageSendRecordPageVo vo) throws RuntimeException;
+    AnYiPageResult<ManageSendRecordPageDto> pageByModel(ManageSendRecordPageQuery vo) throws RuntimeException;
 
 
     /**

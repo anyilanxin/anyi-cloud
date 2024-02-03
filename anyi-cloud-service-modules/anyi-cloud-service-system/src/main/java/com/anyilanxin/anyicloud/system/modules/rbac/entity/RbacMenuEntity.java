@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
@@ -34,6 +35,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 菜单表(RbacMenu)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("sys_rbac_menu")
 public class RbacMenuEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 391242347439472730L;
 
     @TableId
@@ -207,6 +211,16 @@ public class RbacMenuEntity extends BaseEntity {
     private boolean hidePathForChildren;
 
     /**
+     * 按钮权限标识
+     */
+    private String buttonActionTag;
+
+    /**
+     * 鉴权表达式，不需要鉴权时默认为：permitAll()
+     */
+    private String buttonExpress;
+
+    /**
      * 所属系统
      */
     private String systemId;
@@ -232,7 +246,7 @@ public class RbacMenuEntity extends BaseEntity {
     private String remark;
 
     /**
-     * 按钮鉴权指令
+     * 鉴权指令，只有表达式为非角色是使用
      */
     private String buttonAction;
 }

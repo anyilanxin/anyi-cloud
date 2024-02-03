@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
@@ -35,6 +36,7 @@ import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteCustomFi
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.RouterCustomFilterDto;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -77,8 +79,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * 通过routerIds获取过滤器
      *
      * @param routerIds ${@link Set<String>} 路由ids
-     * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<
-     * ManageCustomFilterSimpleDto >>}
+     * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<  ManageCustomFilterSimpleDto  >>}
      * @author zxh
      * @date 2021-12-22 04:36
      */
@@ -89,8 +90,7 @@ public interface IManageRouteCustomFilterService extends BaseService<ManageRoute
      * 通过routerIds获取网关过滤器
      *
      * @param routerIds ${@link Set<String>} 路由ids
-     * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link
-     * Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
+     * @return Map<String, List < ManageCustomFilterSimpleDto>> ${@link Map<String,List<ManageCustomFilterSimpleDto>>} routerId:过滤器信息
      * @author zxh
      * @date 2021-12-22 04:36
      */

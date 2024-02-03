@@ -27,21 +27,24 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.utils.CodeUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.tree.TreeToolUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageVo;
+import com.anyilanxin.anyicloud.corecommon.utils.tree.AnYiTreeToolUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgMenuMapper;
+import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgResourceApiMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgMenuService;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgResourceApiService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacRoleService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgDto;
@@ -54,13 +57,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 组织表(RbacOrg)业务层实现
@@ -76,8 +81,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity> implements IRbacOrgService {
     private final RbacOrgCopyMap map;
     private final IRbacRoleService rbacRoleService;
+    private final RbacOrgResourceApiMapper apiMapper;
     private final RbacOrgMenuMapper menuMapper;
     private final IRbacOrgMenuService menuService;
+    private final IRbacOrgResourceApiService resourceApiService;
     private final RbacOrgQueryCopyMap queryMap;
     private final RbacOrgMapper mapper;
 
@@ -89,7 +96,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         entity.setOrgSysCode(generateCode(vo.getParentId()));
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 保存权限信息
         saveAuth(entity.getOrgId(), vo);
@@ -107,6 +114,8 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
     public void saveAuth(String orgId, RbacOrgVo vo) {
         // 存储机构功能权限
         menuService.save(orgId, vo.getOrgMenuIds());
+        // 存储机构资源权限
+        resourceApiService.save(orgId, vo.getOrgResourceIds());
     }
 
 
@@ -157,7 +166,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
         RbacOrgEntity one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前机构编码已经存在:" + entity.getOrgCode());
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前机构编码已经存在:" + entity.getOrgCode());
         }
         // 查询社会信用代码是否使用
         lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -167,7 +176,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         }
         one = this.getOne(lambdaQueryWrapper);
         if (Objects.nonNull(one)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前机构社会信用代码已经存在:" + entity.getOrgCode());
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前机构社会信用代码已经存在:" + entity.getOrgCode());
         }
     }
 
@@ -186,7 +195,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         this.checkData(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 保存权限信息
         saveAuth(entity.getOrgId(), vo);
@@ -195,10 +204,10 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<RbacOrgTreePageDto> pageByModel(RbacOrgPageVo vo) throws RuntimeException {
+    public AnYiPageResult<RbacOrgTreePageDto> pageByModel(RbacOrgPageQuery vo) throws RuntimeException {
         // 分页查询
         vo.getAscs().add("orgSysCode");
-        IPage<RbacOrgTreePageDto> pageInfo = mapper.pageByModel(vo.getPage(), vo);
+        IPage<RbacOrgTreePageDto> pageInfo = mapper.pageByModel(PageUtils.getPage(vo), vo);
         /*
          * 1. 获取根节点 2. 构建树形
          */
@@ -229,7 +238,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
                 }
             }
             // 构建树形
-            TreeToolUtils<RbacOrgTreePageDto> treeToolUtils = new TreeToolUtils<>(rootRecords, childRecords, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<RbacOrgTreePageDto> treeToolUtils = new AnYiTreeToolUtils<>(rootRecords, childRecords, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(RbacOrgTreePageDto orgTreePageDto) {
                     return orgTreePageDto.getOrgId();
@@ -243,7 +252,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             });
             records = treeToolUtils.getTree();
         }
-        return new PageDto<>(pageInfo, records);
+        return PageUtils.toPageData(pageInfo, records);
     }
 
 
@@ -252,7 +261,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
     public RbacOrgDto getById(String orgId) throws RuntimeException {
         RbacOrgEntity byId = super.getById(orgId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacOrgDto rbacOrgDto = map.eToD(byId);
         // 查询功能权限
@@ -261,6 +270,15 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             menus = Collections.emptySet();
         }
         rbacOrgDto.setOrgMenuIds(menus);
+        // 查询资源权限
+        Set<String> resourceAuth = apiMapper.selectAllResource(orgId);
+        Set<RbacResourceApiPageDto> selectApiInfos = apiMapper.selectAllAllInfoResource(orgId);
+        if (CollUtil.isEmpty(resourceAuth)) {
+            resourceAuth = Collections.emptySet();
+            selectApiInfos = Collections.emptySet();
+        }
+        rbacOrgDto.setOrgResourceIds(resourceAuth);
+        rbacOrgDto.setOrgResourceInfos(selectApiInfos);
         return rbacOrgDto;
     }
 
@@ -280,7 +298,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         if (CollUtil.isNotEmpty(list)) {
             boolean remove = this.removeBatchByIds(orgIds);
             if (!remove) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
@@ -296,7 +314,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         entity.setOrgStatus(type);
         boolean b = super.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, type == 0 ? "机构禁用失败" : "机构启用失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, type == 0 ? "机构禁用失败" : "机构启用失败");
         }
     }
 
@@ -349,7 +367,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
             }
         }
         // 3. 构建树
-        TreeToolUtils<RbacOrgTreeDto> treeToolUtils = new TreeToolUtils<>(parentOrgList, childOrgList, new TreeToolUtils.TreeId<>() {
+        AnYiTreeToolUtils<RbacOrgTreeDto> treeToolUtils = new AnYiTreeToolUtils<>(parentOrgList, childOrgList, new AnYiTreeToolUtils.TreeId<>() {
             @Override
             public String getId(RbacOrgTreeDto orgTreeDto) {
                 return orgTreeDto.getOrgId();
@@ -407,6 +425,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
                     v.setIsLeaf(!Objects.nonNull(result));
                 });
             }
+
         }
         return rbacOrgTreeDtos;
     }
@@ -430,7 +449,7 @@ public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgMapper, RbacOrgEntity
         List<RbacOrgEntity> children = this.list(lambdaQueryWrapper);
         // 组装树形
         if (CollUtil.isNotEmpty(parentList)) {
-            TreeToolUtils<RbacOrgTreeDto> utils = new TreeToolUtils<>(queryMap.dToE(parentList), queryMap.dToE(children), new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<RbacOrgTreeDto> utils = new AnYiTreeToolUtils<>(queryMap.dToE(parentList), queryMap.dToE(children), new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(RbacOrgTreeDto rbacOrgTreeDto) {
                     return rbacOrgTreeDto.getOrgId();

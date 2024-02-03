@@ -1,0 +1,80 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: anyi-cloud-service-gateway
+  namespace: anyicloud
+  labels:
+    app: anyi-cloud-service-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anyi-cloud-service-gateway
+  template:
+    metadata:
+      labels:
+        app: anyi-cloud-service-gateway
+      annotations:
+        kubesphere.io/creator: admin
+        kubesphere.io/imagepullsecrets: '{"anyi-container-gateway":"harbor"}'
+    spec:
+      volumes:
+        - name: host-time
+          hostPath:
+            path: /etc/localtime
+            type: ''
+      containers:
+        - name: anyi-container-gateway
+          image: >-
+            harbor.anyilanxin.com/anyi/anyi-cloud-service-gateway:@version@-@k8sRevision@
+          ports:
+            - name: tcp-z
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: anyicloud-common-env
+          resources:
+            limits:
+              memory: 2Gi
+          volumeMounts:
+            - name: host-time
+              readOnly: true
+              mountPath: /etc/localtime
+          #          livenessProbe:
+          #            httpGet:
+          #              path: /actuator/health/liveness
+          #              port: 80
+          #              scheme: HTTP
+          #            timeoutSeconds: 3
+          #            periodSeconds: 10
+          #            successThreshold: 1
+          #            failureThreshold: 3
+          #          readinessProbe:
+          #            httpGet:
+          #              path: /actuator/health/readiness
+          #              port: 80
+          #              scheme: HTTP
+          #            timeoutSeconds: 3
+          #            periodSeconds: 10
+          #            successThreshold: 1
+          #            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      serviceAccountName: default
+      serviceAccount: default
+      securityContext: { }
+      imagePullSecrets:
+        - name: harbor
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

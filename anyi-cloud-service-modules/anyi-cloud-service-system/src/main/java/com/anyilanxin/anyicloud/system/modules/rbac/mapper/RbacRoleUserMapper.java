@@ -27,17 +27,29 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | AnYi快速开发平台 [ AnYi ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxiaozhou <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
-import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDto;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
 import java.util.Collection;
 import java.util.Set;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 /**
  * 角色-客户端(RbacRoleUser)持久层
@@ -57,6 +69,14 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @author zxh
      * @date 2022-07-04 01:18
      */
+    @Select("""
+            SELECT ali.role_id
+            FROM sys_rbac_role_user srru
+            INNER JOIN sys_rbac_role ali ON ali.role_id = srru.role_id
+            WHERE
+                ali.del_flag = 0
+                AND srru.user_id = #{userId, jdbcType=VARCHAR}
+            """)
     Set<String> selectUserRoleListById(@Param("userId") String userId);
 
 
@@ -69,17 +89,6 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @date 2022-07-04 01:18
      */
     Set<RbacRoleSimpleDto> selectUserRoleAllInfoListById(@Param("userId") String userId);
-
-
-    /**
-     * 查询用户角色
-     *
-     * @param userId
-     * @return RoleInfo>
-     * @author zxh
-     * @date 2022-07-05 00:42
-     */
-    Set<RoleInfo> selectByUserId(@Param("userId") String userId);
 
 
     /**
@@ -102,38 +111,32 @@ public interface RbacRoleUserMapper extends BaseMapper<RbacRoleUserEntity> {
      * @author zxh
      * @date 2022-07-02 23:01:20
      */
+    @Delete("""
+            DELETE
+            FROM sys_rbac_role_user
+            WHERE user_id = #{id, jdbcType=VARCHAR}
+            """)
     int physicalDeleteByUserId(@Param("id") String userId);
 
 
     /**
-     * 通过角色用户id物理删除
-     *
-     * @param roleUserId 角色用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-07-02 23:01:21
-     */
-    int physicalDeleteById(@Param("id") String roleUserId);
-
-
-    /**
-     * 通过角色id物理批量删除
+     * 通过角色id删除关联信息
      *
      * @param idList 角色用户id列表
      * @return int 成功状态:0-失败,大于1-成功
      * @author zxh
      * @date 2022-07-02 23:01:21
      */
-    int physicalDeleteBatchRoleIds(@Param("coll") Collection<String> idList);
+    @Delete("""
+             <script>
+             DELETE
+             FROM  sys_rbac_role_user
+             WHERE role_id IN
+             <foreach collection="coll" item="item" open="(" separator="," close=")">
+                 #{item}
+             </foreach>
+             </script>
+            """)
+    int physicalDeleteRoleUserBatchIds(@Param("coll") Collection<String> idList);
 
-
-    /**
-     * 通过角色关联id物理批量删除
-     *
-     * @param idList 角色用户id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-07-02 23:01:21
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

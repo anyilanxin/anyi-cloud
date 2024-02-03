@@ -27,16 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageVo;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaVo;
 import com.anyilanxin.anyicloud.system.modules.common.service.ICommonAreaService;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaDto;
@@ -47,8 +48,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -56,6 +56,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 区域表(CommonArea)控制层
@@ -70,15 +72,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "CommonArea", description = "区域表Api接口相关")
 @RequestMapping(value = "/common-area", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CommonAreaController extends BaseController {
+public class CommonAreaController extends AnYiBaseController {
     private final ICommonAreaService service;
 
     @Operation(summary = "区域表添加", tags = {"v1.0.0"}, description = "添加区域表")
     @PostMapping(value = "/insert")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, allEntries = true)
-    public Result<String> insert(@RequestBody @Valid CommonAreaVo vo) {
+    public AnYiResult<String> insert(@RequestBody @Valid CommonAreaVo vo) {
         service.save(vo);
-        return ok(I18nUtil.get("Controller.InsertSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.InsertSuccess"));
     }
 
 
@@ -86,15 +88,15 @@ public class CommonAreaController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "区域id", name = "areaId", required = true)
     @PutMapping(value = "/update/{areaId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, allEntries = true)
-    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId, @RequestBody @Valid CommonAreaVo vo) {
+    public AnYiResult<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId, @RequestBody @Valid CommonAreaVo vo) {
         service.updateById(areaId, vo);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 
 
     @Operation(summary = "区域表分页查询", tags = {"v1.0.0"}, description = "分页查询区域表")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<CommonAreaPageDto>> selectPage(@RequestBody CommonAreaPageVo vo) {
+    public AnYiResult<AnYiPageResult<CommonAreaPageDto>> selectPage(@RequestBody CommonAreaPageQuery vo) {
         return ok(service.pageByModel(vo));
     }
 
@@ -103,16 +105,16 @@ public class CommonAreaController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "区域id", name = "areaId", required = true)
     @DeleteMapping(value = "/delete-one/{areaId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, allEntries = true)
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
+    public AnYiResult<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
         service.deleteById(areaId);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
     @Operation(summary = "通过区域id查询详情", tags = {"v1.0.0"}, description = "查询路由详情")
     @Parameter(in = ParameterIn.PATH, description = "区域id", name = "areaId", required = true)
     @GetMapping(value = "/select/one/{areaId}")
-    public Result<CommonAreaDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
+    public AnYiResult<CommonAreaDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "区域id不能为空") String areaId) {
         return ok(service.getById(areaId));
     }
 
@@ -120,9 +122,9 @@ public class CommonAreaController extends BaseController {
     @Operation(summary = "区域表逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除区域表")
     @PostMapping(value = "/delete-batch")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, allEntries = true)
-    public Result<String> deleteBatch(@RequestBody @NotNullSize(message = "待删除区域id不能为空") List<String> areaIds) {
+    public AnYiResult<String> deleteBatch(@RequestBody @NotNullSize(message = "待删除区域id不能为空") List<String> areaIds) {
         service.deleteBatch(areaIds);
-        return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
 
@@ -130,7 +132,7 @@ public class CommonAreaController extends BaseController {
     @GetMapping(value = "/select/list")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "上级区域编码", name = "parentId"), @Parameter(in = ParameterIn.QUERY, description = "需要激活的区域id", name = "activateAreaId")})
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_AREA_CACHE, key = "#parentId+#activateAreaId")
-    public Result<List<CommonAreaTreeDto>> getList(@RequestParam(required = false, defaultValue = "") String parentId, @RequestParam(required = false, defaultValue = "") String activateAreaId) {
+    public AnYiResult<List<CommonAreaTreeDto>> getList(@RequestParam(required = false, defaultValue = "") String parentId, @RequestParam(required = false, defaultValue = "") String activateAreaId) {
         return ok(service.selectList(parentId, activateAreaId));
     }
 }

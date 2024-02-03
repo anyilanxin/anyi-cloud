@@ -39,7 +39,7 @@
     <result property="serviceId" column="service_id" jdbcType="VARCHAR"/>
     <result property="filterType" column="filter_type" jdbcType="VARCHAR"/>
     <result property="rules" column="rules" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
@@ -232,25 +232,6 @@
     </select>
 
 
-    <!-- 通过过滤器id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_manage_route_filter
-        WHERE filter_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM sys_manage_route_filter
-        WHERE filter_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_manage_route_filter
@@ -272,5 +253,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 菜单表分页查询Response
@@ -55,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Schema
 public class RbacMenuPageDto extends BaseTree<RbacMenuPageDto> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 941956961214347423L;
 
     @Schema(name = "menuId", title = "权限id")
@@ -153,6 +156,12 @@ public class RbacMenuPageDto extends BaseTree<RbacMenuPageDto> implements Serial
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,实际为boolean")
     private boolean hidePathForChildren;
 
+    @Schema(name = "buttonActionTag", title = "按钮权限标识")
+    private String buttonActionTag;
+
+    @Schema(name = "buttonExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")
+    private String buttonExpress;
+
     @Schema(name = "systemId", title = "所属系统")
     private String systemId;
 
@@ -166,16 +175,17 @@ public class RbacMenuPageDto extends BaseTree<RbacMenuPageDto> implements Serial
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserName", title = "更新用户姓名")
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
-    @Schema(name = "buttonAction", title = "按钮鉴权指令")
+    @Schema(name = "buttonAction", title = "鉴权指令，只有表达式为非角色是使用")
     private String buttonAction;
+
 }

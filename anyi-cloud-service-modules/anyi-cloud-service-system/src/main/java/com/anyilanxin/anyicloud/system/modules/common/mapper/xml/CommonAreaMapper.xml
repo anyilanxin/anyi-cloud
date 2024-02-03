@@ -120,14 +120,6 @@
     </select>
 
 
-    <!-- 通过区域id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_common_area
-        WHERE area_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_common_area
@@ -136,5 +128,5 @@
         </set>
         WHERE area_id = #{areaId, jdbcType=VARCHAR}
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

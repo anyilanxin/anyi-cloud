@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 验证码dto
@@ -46,16 +49,23 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class ValidateDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -3819528498303862491L;
 
     @Schema(name = "codeValue", title = "验证码值")
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String codeValue;
+
+    @Schema(name = "codeValueDark", title = "黑暗颜色验证码(适配前端黑暗模式)")
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private String codeValueDark;
 
     @Schema(name = "codeType", title = "验证码类型")
     @JsonInclude(value = JsonInclude.Include.NON_NULL)

@@ -1,0 +1,9 @@
+description = "AnYi Cloud Message Rpc"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-process')
+    api 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+}
+

@@ -27,17 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * 服务管理条件查询Request
@@ -50,10 +53,13 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @Schema
 public class ManageServiceQueryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -99898802554964691L;
 
     @Schema(name = "serviceId", title = "服务id")
@@ -62,7 +68,7 @@ public class ManageServiceQueryVo implements Serializable {
     @Schema(name = "serviceCode", title = "服务编码")
     private String serviceCode;
 
-    @Schema(name = "serviceName", title = "服务名")
+    @Schema(name = "serviceName", title = "服务描述")
     private String serviceName;
 
     @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应")
@@ -142,4 +148,5 @@ public class ManageServiceQueryVo implements Serializable {
 
     @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0")
     private Integer delFlag;
+
 }

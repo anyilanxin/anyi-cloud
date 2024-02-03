@@ -1,0 +1,66 @@
+# 数据源配置
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/anyicloud_job_service?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&rewriteBatchedStatement=true&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: xxx@qq.com
+    from: xxx@qq.com
+    password: xxx
+    properties.mail.smtp:
+      auth: true
+      starttls:
+        enable: true
+        required: true
+      socketFactory. class: jakarta.net.ssl.SSLSocketFactory
+
+
+xxl:
+  job:
+    accessToken: default_token
+    triggerpool:
+      fast.max: 200
+      slow.max: 100
+    logretentiondays: 30
+
+
+
+redis:
+  host: localhost
+  port: 6379
+  password: root
+  database: 15
+
+
+rbmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+
+app:
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+
+
+
+# 资源白名单设置
+anyi:
+  resource:
+    dev-white-list:
+      - /swagger-ui.html;get
+      - /swagger-ui/**;get
+      - /v3/api-docs/**;get
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization

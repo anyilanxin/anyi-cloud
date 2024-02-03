@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageVo;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonCategoryEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
@@ -43,5 +44,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2021-01-07 23:40:35
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface CommonCategoryPageVoMap extends BaseMap<CommonCategoryPageVo, CommonCategoryEntity> {
+public interface CommonCategoryPageVoMap extends AnYiBaseMap<CommonCategoryPageQuery, CommonCategoryEntity> {
 }

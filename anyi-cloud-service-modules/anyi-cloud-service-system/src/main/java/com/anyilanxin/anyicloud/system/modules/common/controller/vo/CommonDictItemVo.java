@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 数据字典配置项表添加或修改Request
@@ -45,22 +48,25 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CommonDictItemVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -38550636353943616L;
 
-    @Schema(name = "dictId", title = "字典id", required = true)
+    @Schema(name = "dictId", title = "字典id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典id不能为空")
     private String dictId;
 
-    @Schema(name = "itemText", title = "字典项名称", required = true)
+    @Schema(name = "itemText", title = "字典项名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典项名称不能为空")
     private String itemText;
 
-    @Schema(name = "itemValue", title = "字典项值", required = true)
+    @Schema(name = "itemValue", title = "字典项值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典项值不能为空")
     private String itemValue;
 

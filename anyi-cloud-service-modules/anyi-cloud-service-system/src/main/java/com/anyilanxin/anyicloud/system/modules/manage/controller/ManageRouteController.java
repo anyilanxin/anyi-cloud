@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteVo;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRouteService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteDto;
@@ -41,16 +42,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 路由(ManageRoute)控制层
@@ -66,39 +68,39 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "GatewayManage", description = "网关管理")
 @RequestMapping(value = "/manage-route", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ManageRouteController extends BaseController {
+public class ManageRouteController extends AnYiBaseController {
     private final IManageRouteService service;
 
     @Operation(summary = "路由添加", tags = {"v1.0.0"}, description = "添加路由")
     @PostMapping(value = "/insert")
-    public Result<String> insert(@RequestBody @Valid ManageRouteVo vo) {
+    public AnYiResult<String> insert(@RequestBody @Valid ManageRouteVo vo) {
         service.save(vo);
-        return ok(I18nUtil.get("Controller.InsertSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.InsertSuccess"));
     }
 
 
     @Operation(summary = "通过路由id修改", tags = {"v1.0.0"}, description = "修改路由")
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @PutMapping(value = "/update/{routeId}")
-    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId, @RequestBody @Valid ManageRouteVo vo) {
+    public AnYiResult<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId, @RequestBody @Valid ManageRouteVo vo) {
         service.updateById(routeId, vo);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 
 
     @Operation(summary = "路由逻辑删除", tags = {"v1.0.0"}, description = "删除路由")
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @DeleteMapping(value = "/delete-one/{routeId}")
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
+    public AnYiResult<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
         service.deleteById(routeId);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
     @Operation(summary = "通过路由id查询详情", tags = {"v1.0.0"}, description = "查询路由详情")
     @Parameter(in = ParameterIn.PATH, description = "路由id", name = "routeId", required = true)
     @GetMapping(value = "/select/one/{routeId}")
-    public Result<ManageRouteDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
+    public AnYiResult<ManageRouteDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "路由id不能为空") String routeId) {
         return ok(service.getById(routeId));
     }
 
@@ -106,7 +108,7 @@ public class ManageRouteController extends BaseController {
     @Operation(summary = "查询服务路由", tags = {"v1.0.0"}, description = "查询所有服务自定义过滤器")
     @Parameter(in = ParameterIn.PATH, description = "服务id", name = "serviceId", required = true)
     @GetMapping(value = "/select/list/{serviceId}")
-    public Result<List<ManageRouteDto>> selectList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
+    public AnYiResult<List<ManageRouteDto>> selectList(@PathVariable(required = false) @PathNotBlankOrNull(message = "服务id不能为空") String serviceId) {
         return ok(service.selectList(serviceId));
     }
 
@@ -114,8 +116,8 @@ public class ManageRouteController extends BaseController {
     @Operation(summary = "修改路由状态", tags = {"v1.0.0"}, description = "修改路由状态")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "路由id", name = "routeId", required = true), @Parameter(in = ParameterIn.QUERY, description = "操作类型:0-禁止,1-启用", name = "state", required = true)})
     @GetMapping(value = "/update-status")
-    public Result<String> updateStatus(@RequestParam(required = false) @NotBlank(message = "路由id不能为空") String routeId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") @Range(min = 0, max = 1, message = "操作类型只能为0、1") Integer state) {
+    public AnYiResult<String> updateStatus(@RequestParam(required = false) @NotBlank(message = "路由id不能为空") String routeId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") @Range(min = 0, max = 1, message = "操作类型只能为0、1") Integer state) {
         service.updateStatus(routeId, state);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 }

@@ -27,12 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.tree.TreeToolUtils;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.tree.AnYiTreeToolUtils;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgMenuMapper;
@@ -40,15 +40,17 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgMenuService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuTreeDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacMenuDtoMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 机构-菜单表(RbacOrgMenu)业务层实现
@@ -82,7 +84,7 @@ public class RbacOrgMenuServiceImpl extends ServiceImpl<RbacOrgMenuMapper, RbacO
             });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存机构功能关联关系失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "保存机构功能关联关系失败");
             }
         }
     }
@@ -109,7 +111,7 @@ public class RbacOrgMenuServiceImpl extends ServiceImpl<RbacOrgMenuMapper, RbacO
                     subList.add(dto);
                 }
             });
-            TreeToolUtils<RbacMenuTreeDto> toolUtils = new TreeToolUtils<>(rootList, subList, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<RbacMenuTreeDto> toolUtils = new AnYiTreeToolUtils<>(rootList, subList, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(RbacMenuTreeDto permissionTreeDto) {
                     return permissionTreeDto.getMenuId();

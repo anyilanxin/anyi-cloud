@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Objects;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 用户组信息
@@ -47,11 +50,14 @@ import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class GroupDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 9119670587651253109L;
 
     @Schema(name = "groupId", title = "用户组id")

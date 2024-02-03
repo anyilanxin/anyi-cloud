@@ -27,10 +27,14 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
-import com.anyilanxin.anyicloud.processrpc.model.ProcessRoleModel;
-import com.anyilanxin.anyicloud.processrpc.model.ProcessUserModel;
+import com.anyilanxin.anyicloud.processadapter.model.AnYiProcessUserModel;
+import com.anyilanxin.anyicloud.processadapter.model.CustomIdentityLink;
+import com.anyilanxin.anyicloud.processadapter.model.ProcessRoleModel;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,22 +51,22 @@ public interface IProcessIdentityService {
      * 通过用户ids获取用户信息
      *
      * @param userIds
-     * @return Map<String, ProcessUserModel>
+     * @return Map<String, AnYiProcessUserModel>
      * @author zxh
      * @date 2022-07-15 01:01
      */
-    Map<String, ProcessUserModel> getUserByIds(Set<String> userIds);
+    Map<String, AnYiProcessUserModel> getUserByIds(Set<String> userIds);
 
 
     /**
      * 通过用户id获取用户信息
      *
      * @param userId
-     * @return ProcessUserModel
+     * @return AnYiProcessUserModel
      * @author zxh
      * @date 2022-07-15 01:01
      */
-    ProcessUserModel getUserById(String userId);
+    AnYiProcessUserModel getUserById(String userId);
 
 
     /**
@@ -74,6 +78,26 @@ public interface IProcessIdentityService {
      * @date 2022-07-15 01:02
      */
     Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds);
+
+
+    /**
+     * 补全用户信息
+     *
+     * @param customIdentityLinkList
+     * @author zxh
+     * @date 2022-08-08 15:11
+     */
+    void completionUserOrRole(List<CustomIdentityLink> customIdentityLinkList);
+
+
+    /**
+     * 补全用户信息
+     *
+     * @param customIdentityLink
+     * @author zxh
+     * @date 2022-08-08 15:12
+     */
+    void completionUserOrRole(CustomIdentityLink customIdentityLink);
 
 
     /**

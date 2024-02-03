@@ -27,23 +27,22 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.process.modules.manage.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.manage.service.IDefinitionManageService;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.DeploymentDetailDto;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionPageDto;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessInfoDto;
-import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionInfoDto;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionInfoPageDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -63,59 +62,51 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "ProcessManageDefinition", description = "流程定义部署管理(管理端)")
 @RequestMapping(value = "/manage-definition", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DefinitionManageController extends BaseController {
+public class DefinitionManageController extends AnYiBaseController {
     private final IDefinitionManageService service;
 
     @Operation(summary = "分页查询流程部署信息", tags = {"v1.0.0"}, description = "分页查询流程部署信息")
     @PostMapping(value = "/select/page/definition/page")
-    public Result<PageDto<ProcessDefinitionPageDto>> selectPageDefinition(@RequestBody @Valid ProcessDefinitionPageVo pageVo) {
+    public AnYiResult<AnYiPageResult<ProcessDefinitionInfoPageDto>> selectPageDefinition(@RequestBody @Valid ProcessDefinitionPageVo pageVo) {
         return ok(service.selectPageDefinition(pageVo));
     }
 
 
     @Operation(summary = "创建部署", tags = {"v1.0.0"}, description = "创建部署")
     @PostMapping(value = "/create/deployment")
-    public Result<String> createDeployment(@RequestBody @Valid DeploymentVo vo) {
+    public AnYiResult<String> createDeployment(@RequestBody @Valid DeploymentVo vo) {
         service.createDeployment(vo);
         return ok("部署成功");
     }
 
 
+    @Operation(summary = "查询流动定义", tags = {"v1.0.0"}, description = "查询流动定义")
+    @GetMapping(value = "/select/process-definition/{processDefinitionKey}")
+    public AnYiResult<ProcessDefinitionInfoDto> selectProcessById(@PathVariable @PathNotBlankOrNull(message = "流程定义key不能为空") String processDefinitionKey) {
+        return ok(service.selectProcessById(processDefinitionKey));
+    }
+
+
+    @Operation(summary = "草稿流程部署", tags = {"ProcessManageDefinition", "v1.0.0"}, description = "草稿流程部署")
+    @Parameter(in = ParameterIn.PATH, description = "草稿id", name = "draftId", required = true)
+    @GetMapping(value = "/create/deployment/draft/{draftId}")
+    public AnYiResult<String> draftProcessDeployment(@PathVariable @PathNotBlankOrNull(message = "草稿id不能为空") String draftId) {
+        service.createDeployment(DeploymentVo.builder().draftId(draftId).build());
+        return ok("草稿流程部署成功");
+    }
+
+
     @Operation(summary = "历史再次部署", tags = {"v1.0.0"}, description = "历史再次部署")
     @PostMapping(value = "/history/deployment")
-    public Result<String> historyDeployment(@RequestBody @Valid DeploymentHistoryVo vo) {
+    public AnYiResult<String> historyDeployment(@RequestBody @Valid DeploymentHistoryVo vo) {
         service.historyDeployment(vo);
         return ok("部署成功");
     }
 
 
-    @Operation(summary = "删除部署", tags = {"v1.0.0"}, description = "删除部署")
-    @Parameter(description = "部署id", name = "deploymentId", required = true)
-    @DeleteMapping(value = "/delete/deployment/by-id/{deploymentId}")
-    public Result<String> deleteDeploymentById(@PathVariable @PathNotBlankOrNull(message = "部署id不能为空") String deploymentId) {
-        service.deleteDeployment(deploymentId);
-        return ok("删除流程部署成功");
-    }
-
-
-    @Operation(summary = "获取流程详细信息", tags = {"v1.0.0"}, description = "获取流程详细信息")
-    @PostMapping(value = "/select/process-info")
-    public Result<ProcessInfoDto> getProcessInfo(@RequestBody @Valid ProcessInfoVo vo) {
-        return ok(service.getProcessInfo(vo));
-    }
-
-
-    @Operation(summary = "查询部署资源信息", tags = {"v1.0.0"}, description = "查询部署资源信息")
-    @GetMapping(value = "/select/deployment/resource/{processKeywordId}")
-    @Parameter(in = ParameterIn.PATH, description = "流程定义id或流程定义key", name = "processKeywordId", required = true)
-    public Result<DeploymentDetailDto> getDeploymentDetail(@PathVariable(required = false) @PathNotBlankOrNull(message = "流程定义id或流程定义key不能为空") String processKeywordId) {
-        return ok(service.getDeploymentDetail(processKeywordId));
-    }
-
-
     @Operation(summary = "流程定义状态修改", tags = {"v1.0.0"}, description = "流程定义状态修改")
     @PostMapping(value = "/update/process-definition/state")
-    public Result<String> processDefinitionUpdateState(@RequestBody @Valid UpdateProcessDefinitionStateVo vo) {
+    public AnYiResult<String> processDefinitionUpdateState(@RequestBody @Valid UpdateProcessDefinitionStateVo vo) {
         service.processDefinitionUpdateState(vo);
         return ok("流程定义" + (vo.getState() ? "激活" : "挂起") + "成功");
     }
@@ -123,7 +114,7 @@ public class DefinitionManageController extends BaseController {
 
     @Operation(summary = "删除流程定义", tags = {"v1.0.0"}, description = "删除流程定义")
     @PostMapping(value = "/delete/process-definition")
-    public Result<String> deleteProcessDefinition(@RequestBody @Valid DeleteProcessDefinitionVo vo) {
+    public AnYiResult<String> deleteProcessDefinition(@RequestBody @Valid DeleteProcessDefinitionVo vo) {
         service.deleteProcessDefinition(vo);
         return ok("删除流程定义成功");
     }

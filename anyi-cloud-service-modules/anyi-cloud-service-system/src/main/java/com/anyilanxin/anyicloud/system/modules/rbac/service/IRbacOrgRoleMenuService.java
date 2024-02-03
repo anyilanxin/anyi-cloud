@@ -27,10 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | AnYi快速开发平台 [ AnYi ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxiaozhou <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleMenuEntity;
+
 import java.util.List;
 
 /**

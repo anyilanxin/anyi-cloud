@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgUserDto;
-import java.util.Collection;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 机构-用户(RbacOrgUser)持久层
@@ -55,18 +57,29 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      * @author zxh
      * @date 2022-07-02 23:01:20
      */
+    @Select("""
+            SELECT
+                ali.org_id,
+                ali.parent_id,
+                ali.org_name,
+                ali.org_name_en,
+                ali.org_name_abbr,
+                ali.org_order,
+                ali.org_type,
+                ali.org_code,
+                ali.org_sys_code,
+                ali.org_status,
+                ali.social_code,
+                ali.area_code_name,
+                ali.area_code,
+                ali.org_simple_name,
+                srou.org_user_id,
+                srou.user_id
+            FROM sys_rbac_org ali
+            INNER JOIN sys_rbac_org_user srou ON ali.org_id = srou.org_id
+            WHERE srou.user_id = #{userId, jdbcType=VARCHAR}
+            """)
     List<RbacOrgUserDto> selectUserOrgListByUserId(@Param("userId") String userId);
-
-
-    /**
-     * 通过机构用户id物理删除
-     *
-     * @param orgUserId 机构用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-07-02 23:01:20
-     */
-    int physicalDeleteById(@Param("id") String orgUserId);
 
 
     /**
@@ -78,15 +91,4 @@ public interface RbacOrgUserMapper extends BaseMapper<RbacOrgUserEntity> {
      * @date 2022-07-02 23:01:20
      */
     int physicalDeleteByUserId(@Param("id") String userId);
-
-
-    /**
-     * 通过机构用户id物理批量删除
-     *
-     * @param idList 机构用户id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-07-02 23:01:20
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

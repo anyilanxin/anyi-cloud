@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnouncementPageVo;
+import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnouncementPageQuery;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnouncementQueryVo;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageAnnouncementVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageAnnouncementEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageAnnouncementPageDto;
+
 import java.util.List;
 
 /**
@@ -75,21 +77,20 @@ public interface IManageAnnouncementService extends BaseService<ManageAnnounceme
     /**
      * 分页查询
      *
-     * @param vo ${@link ManageAnnouncementPageVo} 系统通告公告管理分页查询Vo
-     * @return PageDto<ManageAnnouncementPageDto> ${@link PageDto<  ManageAnnouncementPageDto  >}
-     * 分页查询结果
+     * @param vo ${@link ManageAnnouncementPageQuery} 系统通告公告管理分页查询Vo
+     * @return AnYiPageResult<ManageAnnouncementPageDto> ${@link AnYiPlusPageResult <   ManageAnnouncementPageDto   >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 08:34:22
      */
-    PageDto<ManageAnnouncementPageDto> pageByModel(ManageAnnouncementPageVo vo) throws RuntimeException;
+    AnYiPageResult<ManageAnnouncementPageDto> pageByModel(ManageAnnouncementPageQuery vo) throws RuntimeException;
 
 
     /**
      * 条件查询多条
      *
      * @param vo ${@link ManageAnnouncementQueryVo} 系统通告公告管理条件查询Vo
-     * @return List<ManageAnnouncementDto> ${@link List<  ManageAnnouncementDto  >} 查询结果
+     * @return List<ManageAnnouncementDto> ${@link List<   ManageAnnouncementDto   >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 08:34:22

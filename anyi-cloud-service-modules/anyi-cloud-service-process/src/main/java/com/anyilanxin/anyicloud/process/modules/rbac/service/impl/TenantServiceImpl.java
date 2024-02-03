@@ -27,20 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryPageVoCamunda;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryVo;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.ITenantService;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.TenantDto;
 import io.seata.spring.annotation.GlobalTransactional;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -48,7 +47,10 @@ import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.TenantQuery;
 import org.camunda.bpm.engine.identity.User;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 租户相关
@@ -107,7 +109,7 @@ public class TenantServiceImpl implements ITenantService {
             tenantQuery.tenantNameLike("%" + vo.getName() + "%");
         }
         List<Tenant> list = tenantQuery.list();
-        if (CollectionUtil.isEmpty(list)) {
+        if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
         List<TenantDto> tenantList = new ArrayList<>(list.size());
@@ -117,7 +119,7 @@ public class TenantServiceImpl implements ITenantService {
 
 
     @Override
-    public PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
+    public AnYiPageResult<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException {
         TenantQuery tenantQuery = identityService.createTenantQuery();
         if (StringUtils.isNotBlank(vo.getName())) {
             tenantQuery.tenantNameLike("%" + vo.getName() + "%");
@@ -138,7 +140,7 @@ public class TenantServiceImpl implements ITenantService {
         }
         long count = tenantQuery.count();
         if (count == 0L) {
-            return new PageDto<>(0, Collections.emptyList());
+            return PageUtils.toPageData(0, Collections.emptyList());
         }
         List<Tenant> list = tenantQuery.listPage(vo.getCurrent(), vo.getSize());
         List<TenantDto> tenantList = new ArrayList<>(list.size());
@@ -146,7 +148,7 @@ public class TenantServiceImpl implements ITenantService {
             TenantDto tenantDto = new TenantDto().getTenant(v);
             tenantList.add(tenantDto);
         });
-        return new PageDto<>(count, tenantList);
+        return PageUtils.toPageData(count, tenantList);
     }
 
 
@@ -162,7 +164,7 @@ public class TenantServiceImpl implements ITenantService {
         // 查询租户信息
         Tenant tenant = identityService.createTenantQuery().tenantId(tenantId).singleResult();
         if (Objects.isNull(tenant)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "租户信息不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "租户信息不存在");
         }
         return tenant;
     }

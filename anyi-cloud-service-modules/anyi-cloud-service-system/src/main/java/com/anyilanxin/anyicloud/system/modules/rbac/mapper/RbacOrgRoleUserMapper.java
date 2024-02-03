@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
@@ -34,10 +35,11 @@ import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDto;
-import java.util.Collection;
-import java.util.Set;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.Set;
 
 /**
  * 机构角色-用户(RbacOrgRoleUser)持久层
@@ -58,6 +60,15 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxh
      * @date 2022-07-04 01:18
      */
+    @Select("""
+            SELECT ali.org_role_id
+            FROM sys_rbac_org_role ali
+            INNER JOIN sys_rbac_org_role_user sroru ON ali.org_role_id = sroru.org_role_id
+            WHERE
+                ali.org_id = #{orgId, jdbcType=VARCHAR}
+              AND ali.del_flag = 0
+              AND sroru.user_id = #{userId, jdbcType=VARCHAR}
+            """)
     Set<String> selectUserOrgRoleListById(@Param("userId") String userId, @Param("orgId") String orgId);
 
 
@@ -82,6 +93,22 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      * @author zxh
      * @date 2022-07-05 00:36
      */
+    @Select("""
+            SELECT
+                sror.role_name,
+                sror.role_code,
+                sror.org_role_id AS role_id,
+                sror.data_auth_type,
+                sror.custom_data_auth_data,
+                1 AS role_type
+            FROM sys_rbac_org_role_user sroru
+            INNER JOIN sys_rbac_org_role sror ON sroru.org_role_id = sror.org_role_id
+            WHERE
+                sroru.user_id = #{userId, jdbcType=VARCHAR}
+                AND sror.org_id = #{orgId, jdbcType=VARCHAR}
+                AND sror.role_status = 1
+                AND sror.del_flag = 0
+            """)
     Set<RoleInfo> selectByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId);
 
 
@@ -97,18 +124,6 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
      */
     Set<RbacMenuDto> selectMenuByUserIdAndOrgId(@Param("userId") String userId, @Param("orgId") String orgId, @Param("systemCodes") Set<String> systemCodeSet);
 
-
-    /**
-     * 通过角色用户id物理删除
-     *
-     * @param roleUserId 角色用户id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-07-05 00:22:57
-     */
-    int physicalDeleteById(@Param("id") String roleUserId);
-
-
     /**
      * 通过用户id物理删除
      *
@@ -120,13 +135,4 @@ public interface RbacOrgRoleUserMapper extends BaseMapper<RbacOrgRoleUserEntity>
     int physicalDeleteByUserId(@Param("id") String userId);
 
 
-    /**
-     * 通过角色用户id物理批量删除
-     *
-     * @param idList 角色用户id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-07-05 00:22:57
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
 import com.anyilanxin.anyicloud.corecommon.utils.tree.model.BaseTree;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 权限表查询Response
@@ -52,6 +55,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Schema
 public class RbacMenuTreeDto extends BaseTree<RbacMenuTreeDto> implements Serializable {
+    @Serial
     private static final long serialVersionUID = -21159540080828469L;
 
     @Schema(name = "menuId", title = "菜单id")

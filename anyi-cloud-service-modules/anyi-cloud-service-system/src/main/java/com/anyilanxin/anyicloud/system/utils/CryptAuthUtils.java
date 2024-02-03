@@ -27,14 +27,14 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.utils;
 
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -48,7 +48,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CryptAuthUtils {
     private static CryptAuthUtils utils;
-    private final PasswordEncoder encoder;
+    // private final PasswordEncoder encoder;
 
     /**
      * 加密明文密码
@@ -70,7 +70,8 @@ public class CryptAuthUtils {
         } else {
             secretKey = "";
         }
-        return utils.encoder.encode(password + secretKey);
+        // return utils.encoder.encode(password + secretKey);
+        return "";
     }
 
 
@@ -83,7 +84,8 @@ public class CryptAuthUtils {
      * @date 2019-05-19 00:41
      */
     public static boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return utils.encoder.matches(rawPassword, encodedPassword);
+        // return utils.encoder.matches(rawPassword, encodedPassword);
+        return true;
     }
 
 
@@ -111,7 +113,7 @@ public class CryptAuthUtils {
      * @date 2020-11-12 17:35
      */
     public static PasswordInfo getPasswordInfo(String password) {
-        String secretKey = CoreCommonUtils.get32UUId();
+        String secretKey = AnYiCoreCommonUtils.get32UUId();
         String secretPassword = getEncoderPassword(password, secretKey);
         PasswordInfo passwordInfo = new PasswordInfo();
         passwordInfo.setSalt(secretKey);
@@ -121,7 +123,7 @@ public class CryptAuthUtils {
 
 
     @PostConstruct
-    private void init() {
+    void init() {
         utils = this;
     }
 
@@ -140,4 +142,5 @@ public class CryptAuthUtils {
          */
         private String encodedPassword;
     }
+
 }

@@ -27,13 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +39,11 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户信息
@@ -52,27 +55,29 @@ import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder
+
 @NoArgsConstructor
 @Schema
 public class SyncUserVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6364921052776119371L;
-
     @Schema(name = "groupIds", title = "用户组ids")
     protected Set<String> groupIds;
 
     @Schema(name = "tenantIds", title = "租户ids")
     protected Set<String> tenantIds;
 
-    @Schema(name = "userId", title = "用户id", required = true)
+    @Schema(name = "userId", title = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "用户id不能为空")
     private String userId;
 
-    @Schema(name = "userName", title = "用户名", required = true)
+    @Schema(name = "userName", title = "用户名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "用户名不能为空")
     private String userName;
 
-    @Schema(name = "realName", title = "真实姓名", required = true)
+    @Schema(name = "realName", title = "真实姓名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "真实姓名不能为空")
     private String realName;
 

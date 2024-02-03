@@ -27,22 +27,28 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 
-import static org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER;
-
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.CorsWebGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.post.EncryptGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.post.LogResponseGatewayFilterFactory;
-import com.anyilanxin.anyicloud.gateway.filter.partial.pre.AuthorizeGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.post.TokenRefreshGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.BlacklistGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.DecryptGatewayFilterFactory;
 import com.anyilanxin.anyicloud.gateway.filter.partial.pre.LogRequestGatewayFilterFactory;
+import com.anyilanxin.anyicloud.gateway.filter.partial.pre.VerifySignGatewayFilterFactory;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
+
+import static org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER;
 
 /**
  * 自定义过滤器类型
@@ -55,9 +61,23 @@ import lombok.Getter;
 @ConstantType
 public enum FilterCustomType implements ISuperType {
     /**
+     * 路由黑名单过滤器
+     */
+    BLACKLIST("Blacklist", "黑名单", BlacklistGatewayFilterFactory.class.getName(), "1", 2),
+    /**
      * 鉴权过滤器
      */
     AUTHORIZE(CoreCommonGatewayConstant.AUTHORIZE_FILTER, "鉴权", AuthorizeGatewayFilterFactory.class.getName(), "2", 3),
+
+    /**
+     * 验签过滤器
+     */
+    VERIFY_SIGN("VerifySign", "验签", VerifySignGatewayFilterFactory.class.getName(), "3", 3),
+
+    /**
+     * 加解密(前置+后置)
+     */
+    DECRYPT_ENCRYPT("Decrypt,Encrypt", "加解密", DecryptGatewayFilterFactory.class.getName() + "," + EncryptGatewayFilterFactory.class.getName(), "4,-3", 3),
 
     /**
      * 日志处理(前置+后置)，前置必须大于LOAD_BALANCER_CLIENT_FILTER_ORDER(10150)，即负载均衡过滤器(ReactiveLoadBalancerClientFilter)的order,否则拿不到真实目标服务ip(request数据)
@@ -67,7 +87,12 @@ public enum FilterCustomType implements ISuperType {
     /**
      * 跨域处理过滤器(后置)
      */
-    CORS_WEB("CorsWeb", "跨域处理", CorsWebGatewayFilterFactory.class.getName(), "1", 0);
+    CORS_WEB("CorsWeb", "跨域处理", CorsWebGatewayFilterFactory.class.getName(), "1", 0),
+
+    /**
+     * token刷新过滤器
+     */
+    TOKEN_REFRESH("TokenRefresh", "token刷新", TokenRefreshGatewayFilterFactory.class.getName(), "-1000", 0);
 
     /**
      * 过滤器类型

@@ -40,15 +40,9 @@
     <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
     <result property="enableSwagger" column="enable_swagger" jdbcType="INTEGER"/>
     <result property="swaggerConfigUrl" column="swagger_config_url" jdbcType="VARCHAR"/>
-    <result property="subscribeChange" column="subscribe_change" jdbcType="INTEGER"/>
-    <result property="noticeChange" column="notice_change" jdbcType="INTEGER"/>
-    <result property="noticeType" column="notice_type" jdbcType="INTEGER"/>
     <result property="serviceState" column="service_state" jdbcType="INTEGER"/>
     <result property="serviceMetadataJson" column="service_metadata_json" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
-    <result property="noticeTemplateId" column="notice_template_id" jdbcType="VARCHAR"/>
-    <result property="headUserName" column="head_user_name" jdbcType="VARCHAR"/>
-    <result property="headUserId" column="head_user_id" jdbcType="VARCHAR"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
@@ -68,9 +62,9 @@
   <!-- @formatter:off -->
     <!--数据库字段-->
     <sql id="Column_List">
-        service_id, service_code, service_name, is_load_balancer, enable_swagger, swagger_config_url, subscribe_change,
-        notice_change, notice_type, service_state, service_metadata_json, notice_template_id, head_user_name,
-        head_user_id, enable_delete, remark, unique_help, create_area_code, create_position_code, create_org_sys_code,
+        service_id, service_code, service_name, is_load_balancer, enable_swagger, swagger_config_url,
+        service_state, service_metadata_json,
+        enable_delete, remark, unique_help, create_area_code, create_position_code, create_org_sys_code,
         create_system_code, create_tenant_id, create_user_id, create_user_name, create_time, update_user_id,
         update_user_name, update_time, del_flag
     </sql>
@@ -78,8 +72,8 @@
     <!--数据库字段待别名-->
     <sql id="Column_List_Ali">
         ali.service_id, ali.service_code, ali.service_name, ali.is_load_balancer, ali.enable_swagger,
-        ali.swagger_config_url, ali.subscribe_change, ali.notice_change, ali.notice_type, ali.service_state,
-        ali.service_metadata_json, ali.notice_template_id, ali.head_user_name, ali.head_user_id, ali.enable_delete,
+        ali.swagger_config_url, ali.service_state,
+        ali.service_metadata_json, ali.enable_delete,
         ali.remark, ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
@@ -88,8 +82,8 @@
     <!--数据库字段-->
     <sql id="Column_List_Page_Ali">
         ali.service_id, ali.service_code, ali.service_name, ali.is_load_balancer, ali.enable_swagger,
-        ali.swagger_config_url, ali.subscribe_change, ali.notice_change, ali.notice_type, ali.service_state,
-        ali.service_metadata_json, ali.notice_template_id, ali.head_user_name, ali.head_user_id, ali.enable_delete,
+        ali.swagger_config_url, ali.service_state,
+        ali.service_metadata_json, ali.enable_delete,
         ali.remark, ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
@@ -123,23 +117,24 @@
     </select>
 
 
-    <!-- 通过服务id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_manage_service
-        WHERE service_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM sys_manage_service
-        WHERE service_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
+   <!-- 服务统计 -->
+    <select id="systemStat" resultType="com.anyilanxin.anyicloud.system.modules.manage.service.dto.SystemStatDto">
+      SELECT
+        sum( ali.lb_total_service + ali.not_lb_total_service ) AS total_service,
+        sum( ali.lb_total_service ) AS lb_total_service,
+        sum( ali.not_lb_total_service ) AS not_lb_total_service,
+        sum( ali.enable_swagger ) AS enable_swagger,
+        sum( ali.not_enable_swagger ) AS not_enable_swagger
+      FROM(
+            SELECT
+              CASE is_load_balancer WHEN 1 THEN 1 ELSE 0 END AS lb_total_service,
+              CASE is_load_balancer WHEN 0 THEN 1 ELSE 0 END AS not_lb_total_service,
+              CASE enable_swagger WHEN 1 THEN 1 ELSE 0 END AS enable_swagger,
+              CASE enable_swagger WHEN 0 THEN 1 ELSE 0 END AS not_enable_swagger
+            FROM sys_manage_service
+            WHERE del_flag = 0
+      )ali
+    </select>
 
 
     <!-- 通过id逻辑删除 -->
@@ -165,5 +160,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

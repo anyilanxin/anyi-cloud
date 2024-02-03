@@ -27,19 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.IGroupService;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.GroupDto;
-import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
 import io.seata.spring.annotation.GlobalTransactional;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -47,7 +45,10 @@ import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.GroupQuery;
 import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.User;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 用户组相关
@@ -60,8 +61,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements IGroupService {
     private final IdentityService identityService;
-    private static final String DEFAULT_GROUP_ID = "camunda-admin";
-    private static final String DEFAULT_GROUP_TYPE = "SYSTEM";
+    private final static String DEFAULT_GROUP_ID = "camunda-admin";
+    private final static String DEFAULT_GROUP_TYPE = "SYSTEM";
 
     @Override
     @GlobalTransactional
@@ -129,7 +130,7 @@ public class GroupServiceImpl implements IGroupService {
             groupQuery.memberOfTenant(vo.getTenantId());
         }
         List<Group> list = groupQuery.list();
-        if (CollectionUtil.isEmpty(list)) {
+        if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
         List<GroupDto> groupList = new ArrayList<>(list.size());
@@ -139,7 +140,7 @@ public class GroupServiceImpl implements IGroupService {
 
 
     @Override
-    public PageDto<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException {
+    public AnYiPageResult<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException {
         GroupQuery groupQuery = identityService.createGroupQuery();
         if (StringUtils.isNotBlank(vo.getName())) {
             groupQuery.groupNameLike("%" + vo.getName() + "%");
@@ -163,7 +164,7 @@ public class GroupServiceImpl implements IGroupService {
         }
         long count = groupQuery.count();
         if (count == 0L) {
-            return new PageDto<>(0, Collections.emptyList());
+            return PageUtils.toPageData(0, Collections.emptyList());
         }
         List<Group> list = groupQuery.listPage(vo.getCurrent(), vo.getSize());
         List<GroupDto> groupList = new ArrayList<>(list.size());
@@ -171,7 +172,7 @@ public class GroupServiceImpl implements IGroupService {
             GroupDto groupModel = new GroupDto().getGroup(v);
             groupList.add(groupModel);
         });
-        return new PageDto<>(count, groupList);
+        return PageUtils.toPageData(count, groupList);
     }
 
 
@@ -187,7 +188,7 @@ public class GroupServiceImpl implements IGroupService {
         // 查询用户组信息
         Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
         if (Objects.isNull(group)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "用户组不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "用户组不存在");
         }
         return group;
     }
@@ -227,5 +228,6 @@ public class GroupServiceImpl implements IGroupService {
                 }
             });
         }
+
     }
 }

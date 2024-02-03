@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.List;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 自定义过滤器添加或修改Request
@@ -48,30 +51,33 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class ManageCustomFilterVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -68994356874750693L;
 
-    @Schema(name = "serviceId", title = "服务id", required = true)
+    @Schema(name = "serviceId", title = "服务id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "服务id不能为空")
     private String serviceId;
 
-    @Schema(name = "filterName", title = "过滤器名称", required = true)
+    @Schema(name = "filterName", title = "过滤器名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器名称不能为空")
     private String filterName;
 
-    @Schema(name = "filterTypeName", title = "过滤器类型名称", required = true)
+    @Schema(name = "filterTypeName", title = "过滤器类型名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器类型名称不能为空")
     private String filterTypeName;
 
-    @Schema(name = "filterType", title = "过滤器类型", required = true)
+    @Schema(name = "filterType", title = "过滤器类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器类型不能为空")
     private String filterType;
 
-    @Schema(name = "filterStatus", title = "过滤器状态:0-禁用,1-启用，默认0", required = true)
+    @Schema(name = "filterStatus", title = "过滤器状态:0-禁用,1-启用，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "过滤器状态不能为空")
     private Integer filterStatus;
 
@@ -82,4 +88,5 @@ public class ManageCustomFilterVo implements Serializable {
     @Schema(name = "specialUrls", title = "特殊url")
     @Valid
     private List<ManageSpecialUrlVo> specialUrls;
+
 }

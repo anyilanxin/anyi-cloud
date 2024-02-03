@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.core.config;
 
 import com.anyilanxin.anyicloud.database.injector.MysqlBatchInjector;
 import com.anyilanxin.anyicloud.logging.core.handler.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author zxh
@@ -79,7 +82,9 @@ public class MybatisPlusConfig {
      * @date 2022-10-07 19:06:23
      */
     @Bean
-    public MysqlBatchInjector mysqlBatchInjector() {
+    @Primary
+    public DefaultSqlInjector sqlInjector() {
         return new MysqlBatchInjector();
     }
+
 }

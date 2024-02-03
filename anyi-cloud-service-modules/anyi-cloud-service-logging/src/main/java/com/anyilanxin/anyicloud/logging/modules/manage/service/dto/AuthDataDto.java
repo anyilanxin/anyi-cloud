@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 授权日志查询Response
@@ -54,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class AuthDataDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 839309637875118772L;
 
     @Schema(name = "authLogId", title = "授权日志id")
@@ -64,6 +67,9 @@ public class AuthDataDto implements Serializable {
 
     @Schema(name = "requestIp", title = "请求ip")
     private String requestIp;
+
+    @Schema(name = "ipAddress", title = "请求ip属地")
+    private String ipAddress;
 
     @Schema(name = "authType", title = "授权类型，具体参考常量字典AuthorizedGrantTypes")
     private String authType;
@@ -96,14 +102,17 @@ public class AuthDataDto implements Serializable {
     private String exceptionMessage;
 
     @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
     @Schema(name = "costTime", title = "耗时")
     private Long costTime;
 
+    @Schema(name = "costTimeStr", title = "耗时,格式化最小单位s")
+    private String costTimeStr;
+
     @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
 
     @Schema(name = "createUserId", title = "创建用户id")
@@ -113,18 +122,8 @@ public class AuthDataDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
-
-    @Schema(name = "updateUserId", title = "更新用户id")
-    private String updateUserId;
-
-    @Schema(name = "updateUserName", title = "更新用户姓名")
-    private String updateUserName;
-
-    @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
-    private LocalDateTime updateTime;
 
     @Schema(name = "remark", title = "备注")
     private String remark;

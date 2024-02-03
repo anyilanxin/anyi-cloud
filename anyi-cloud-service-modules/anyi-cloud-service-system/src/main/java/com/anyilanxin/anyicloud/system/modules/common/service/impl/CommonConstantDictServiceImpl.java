@@ -27,18 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.impl;
 
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
 import com.anyilanxin.anyicloud.system.modules.common.service.ICommonConstantDictService;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 获取常量字典实现

@@ -27,18 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
-import java.util.Set;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 流程定义迁移
@@ -53,13 +56,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class MigrationVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8623417618389717556L;
 
-    @Schema(name = "sourceProcessDefinitionId", title = "原流程定义id", required = true)
+    @Schema(name = "sourceProcessDefinitionId", title = "原流程定义id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "原流程定义id不能为空")
     private String sourceProcessDefinitionId;
 
-    @Schema(name = "targetProcessDefinitionId", title = "目标流程定义id", required = true)
+    @Schema(name = "targetProcessDefinitionId", title = "目标流程定义id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "目标流程定义id不能为空")
     private String targetProcessDefinitionId;
 

@@ -27,12 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Objects;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +39,10 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.impl.persistence.entity.TenantEntity;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 租户信息
@@ -51,17 +54,20 @@ import org.camunda.bpm.engine.impl.persistence.entity.TenantEntity;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder
+
 @NoArgsConstructor
 @Schema
 public class TenantVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -7832815936485684291L;
 
-    @Schema(name = "tenantId", title = "租户id", required = true)
+    @Schema(name = "tenantId", title = "租户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "租户id不能为空")
     protected String tenantId;
 
-    @Schema(name = "name", title = "租户名称", required = true)
+    @Schema(name = "name", title = "租户名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "租户名称不能为空")
     protected String name;
 

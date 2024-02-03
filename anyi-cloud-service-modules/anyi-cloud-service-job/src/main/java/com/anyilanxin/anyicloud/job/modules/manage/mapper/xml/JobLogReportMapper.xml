@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2023-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+
+    AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+      1.请不要删除和修改根目录下的LICENSE.txt文件；
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+      3.请保留源码和相关描述文件的项目出处，作者声明等；
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+      7.进行商用时，不得基于AnYi Cloud的基础，修改包装而成一个与AnYi Cloud EE、AnYi Zeebe EE、AnYi Standalone EE功能类似的程序，进行销售或发布，参与同类软件产品市场的竞争；
+      8.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+      9.本软件流程部分请遵循camunda开源协议：
+        https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+        https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+      10.若您的项目无法满足以上几点，可申请商业授权。
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.anyicloud.job.modules.manage.mapper.JobLogReportMapper">
+  <resultMap type="com.anyilanxin.anyicloud.job.modules.manage.entity.JobLogReportEntity" id="JobLogReportMap">
+    <result property="id" column="id" jdbcType="INTEGER"/>
+    <result property="triggerDay" column="trigger_day" jdbcType="TIMESTAMP"/>
+    <result property="runningCount" column="running_count" jdbcType="INTEGER"/>
+    <result property="sucCount" column="suc_count" jdbcType="INTEGER"/>
+    <result property="failCount" column="fail_count" jdbcType="INTEGER"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        id, trigger_day, running_count, suc_count, fail_count, update_time
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.id, ali.trigger_day, ali.running_count, ali.suc_count, ali.fail_count, ali.update_time
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.id, ali.trigger_day, ali.running_count, ali.suc_count, ali.fail_count, ali.update_time
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.anyicloud.job.modules.manage.service.dto.JobLogReportPageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM xxl_job_log_report ali
+        <where>
+             ali.del_flag = 0
+          <if test='query.id != null'>
+             AND ali.id = #{query.id, jdbcType=INTEGER}
+          </if>
+          <if test='query.triggerDay != null'>
+             AND ali.trigger_day = #{query.triggerDay, jdbcType=TIMESTAMP}
+          </if>
+          <if test='query.runningCount != null'>
+             AND ali.running_count = #{query.runningCount, jdbcType=INTEGER}
+          </if>
+          <if test='query.sucCount != null'>
+             AND ali.suc_count = #{query.sucCount, jdbcType=INTEGER}
+          </if>
+          <if test='query.failCount != null'>
+             AND ali.fail_count = #{query.failCount, jdbcType=INTEGER}
+          </if>
+          <if test='query.updateTime != null'>
+             AND ali.update_time = #{query.updateTime, jdbcType=TIMESTAMP}
+          </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel" resultType="com.anyilanxin.anyicloud.job.modules.manage.service.dto.JobLogReportDto" parameterType="com.anyilanxin.anyicloud.job.modules.manage.controller.vo.JobLogReportQueryVo">
+        SELECT
+            <include refid="Column_List"/>
+        FROM xxl_job_log_report
+        <where>
+             del_flag = 0
+         <if test='id != null'>
+             AND id = #{id, jdbcType=INTEGER}
+         </if>
+         <if test='triggerDay != null'>
+             AND trigger_day = #{triggerDay, jdbcType=TIMESTAMP}
+         </if>
+         <if test='runningCount != null'>
+             AND running_count = #{runningCount, jdbcType=INTEGER}
+         </if>
+         <if test='sucCount != null'>
+             AND suc_count = #{sucCount, jdbcType=INTEGER}
+         </if>
+         <if test='failCount != null'>
+             AND fail_count = #{failCount, jdbcType=INTEGER}
+         </if>
+         <if test='updateTime != null'>
+             AND update_time = #{updateTime, jdbcType=TIMESTAMP}
+         </if>
+        </where>
+    </select>
+
+
+
+    <!-- 查询某段时间运行日志 -->
+    <select id="queryLogReport"
+            resultType="com.anyilanxin.anyicloud.job.modules.manage.service.dto.JobLogReportDto">
+        SELECT <include refid="Column_List" />
+        FROM xxl_job_log_report
+        WHERE trigger_day BETWEEN #{triggerDayFrom, jdbcType=TIMESTAMP} AND #{triggerDayTo, jdbcType=TIMESTAMP}
+        ORDER BY trigger_day ASC
+    </select>
+
+
+    <!-- 查询统计信息 -->
+    <select id="queryLogReportTotal"
+            resultType="com.anyilanxin.anyicloud.job.modules.manage.service.dto.JobLogReportDto">
+        SELECT
+            SUM(running_count) running_count,
+            SUM(suc_count) suc_count,
+            SUM(fail_count) fail_count
+        FROM xxl_job_log_report
+    </select>
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE xxl_job_log_report
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE xxl_job_log_report
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:on -->
+</mapper>

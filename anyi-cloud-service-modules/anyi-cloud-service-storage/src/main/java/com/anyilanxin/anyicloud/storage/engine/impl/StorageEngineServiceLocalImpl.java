@@ -27,38 +27,40 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.engine.impl;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.SLASH;
+package com.anyilanxin.anyicloud.storage.engine.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.lang.Snowflake;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonDateUtils;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
-import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
-import com.anyilanxin.skillfull.storage.core.constant.impl.StorageType;
-import com.anyilanxin.skillfull.storage.engine.EngineCondition;
-import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
-import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
-import com.anyilanxin.skillfull.storage.modules.storage.mapper.StorageInfoFileMapper;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiDateUtils;
+import com.anyilanxin.anyicloud.storage.core.config.properties.LocalFileProperty;
+import com.anyilanxin.anyicloud.storage.core.constant.StorageTypeConstant;
+import com.anyilanxin.anyicloud.storage.core.constant.impl.StorageType;
+import com.anyilanxin.anyicloud.storage.engine.EngineCondition;
+import com.anyilanxin.anyicloud.storage.engine.IStorageEngineService;
+import com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity;
+import com.anyilanxin.anyicloud.storage.modules.storage.mapper.StorageInfoFileMapper;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoUrlModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageModel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.data.id.Snowflake;
+import org.dromara.hutool.core.io.file.FileNameUtil;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.SLASH;
 
 /**
  * 本地存储
@@ -83,12 +85,12 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
         long fileSizeDetail = file.getSize();
         String fileMd5;
         try {
-            fileMd5 = CoreCommonUtils.getFileMd5Hex(file.getInputStream());
+            fileMd5 = AnYiCoreCommonUtils.getFileMd5Hex(file.getInputStream());
         } catch (IOException e) {
             log.error("------------LocalFileServiceImpl------获取文件md5值失败------>upload:{}", e.getMessage());
-            throw new ResponseException(Status.ERROR, "获取文件md5值失败:" + e.getMessage());
+            throw new AnYiResponseException(AnYiResultStatus.ERROR, "获取文件md5值失败:" + e.getMessage());
         }
-        String fileSize = CoreCommonUtils.getFormatFileSize(fileSizeDetail);
+        String fileSize = AnYiCoreCommonUtils.getFormatFileSize(fileSizeDetail);
         String fileType = FileNameUtil.extName(fileOriginalFullName);
         if (StringUtils.isBlank(fileType)) {
             fileType = "";
@@ -96,7 +98,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
             fileType = "." + fileType;
         }
         // 处理文件保存文件夹
-        String fileDiskRelativePathFolder = SLASH + CoreCommonDateUtils.getNowStrDate(CoreCommonDateUtils.YYYYMMDD);
+        String fileDiskRelativePathFolder = SLASH + AnYiDateUtils.getNowStrDate(AnYiDateUtils.YYYYMMDD);
         if (StringUtils.isNotBlank(fileDirPrefix)) {
             if (!fileDirPrefix.startsWith(SLASH)) {
                 fileDirPrefix = SLASH + fileDirPrefix;
@@ -129,7 +131,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
                 boolean mkdirs = localFileFolder.mkdirs();
                 if (!mkdirs) {
                     log.error("------------LocalFileServiceImpl------------>upload:{}", "创建文件存放路径失败");
-                    throw new ResponseException(Status.ERROR, "创建文件存放路径失败");
+                    throw new AnYiResponseException(AnYiResultStatus.ERROR, "创建文件存放路径失败");
                 }
             }
             // 创建存放文件
@@ -138,7 +140,7 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
                 file.transferTo(localFile);
             } catch (IOException e) {
                 log.error("------------LocalFileServiceImpl------存放文件到本地失败------>upload:{}", e.getMessage());
-                throw new ResponseException(Status.ERROR, "存放文件到本地失败:" + e.getMessage());
+                throw new AnYiResponseException(AnYiResultStatus.ERROR, "存放文件到本地失败:" + e.getMessage());
             }
             model.setFileRelativePath(property.getVirtualMapping() + model.getFileRelativePath() + "?original_name=" + model.getFileOriginalName());
         }
@@ -156,4 +158,5 @@ public class StorageEngineServiceLocalImpl implements IStorageEngineService {
     public List<StorageInfoUrlModel> storageBatchUrl(StorageModel model) {
         return null;
     }
+
 }

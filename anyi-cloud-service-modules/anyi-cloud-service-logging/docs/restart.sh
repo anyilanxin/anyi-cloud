@@ -13,8 +13,8 @@ nohup java -jar \
 -Dserver.port=8084 \
 -DPROFILES_ACTIVE=test \
 -DCONFIG_ENABLE=true \
--DNACOS_PASSWORD=skillfull \
--DNACOS_USERNAME=skillfull \
+-DNACOS_PASSWORD=anyi \
+-DNACOS_USERNAME=anyi \
 -DNACOS_ADDR=http://nacos:8848 \
--DNACOS_NAMESPACE=skillfull \
+-DNACOS_NAMESPACE=anyi \
 ./*.jar -Xms1024m -Xmx1024m 日志服务>/dev/null 2>&1 &

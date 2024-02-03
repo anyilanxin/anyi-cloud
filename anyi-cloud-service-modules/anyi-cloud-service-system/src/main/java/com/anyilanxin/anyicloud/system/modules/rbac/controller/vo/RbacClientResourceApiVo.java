@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 客户端-资源表添加或修改Request
@@ -51,13 +54,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacClientResourceApiVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 190015326129393260L;
 
-    @Schema(name = "clientDetailId", title = "客户端信息id", required = true)
+    @Schema(name = "clientDetailId", title = "客户端信息id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "客户端信息id不能为空")
     private String clientDetailId;
 
-    @Schema(name = "apiId", title = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值", required = true)
+    @Schema(name = "apiId", title = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值不能为空")
     private String apiId;
+
 }

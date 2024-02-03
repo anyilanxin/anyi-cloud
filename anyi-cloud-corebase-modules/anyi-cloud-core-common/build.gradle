@@ -1,0 +1,12 @@
+description = "AnYi Cloud Common Core"
+
+dependencies {
+    api 'com.alibaba:easyexcel'
+    api 'org.reflections:reflections'
+}
+
+
+processResources {
+    filteringCharset = 'UTF-8'
+    include('banner.txt')
+}

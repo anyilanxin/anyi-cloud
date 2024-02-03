@@ -1,0 +1,7 @@
+description = "AnYi Cloud System Rpc"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-system')
+}

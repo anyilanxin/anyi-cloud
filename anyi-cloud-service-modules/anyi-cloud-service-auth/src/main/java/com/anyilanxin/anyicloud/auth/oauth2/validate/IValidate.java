@@ -27,10 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
-import com.alibaba.fastjson.JSONObject;
-import javax.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson2.JSONObject;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 /**
  * 验证
@@ -41,7 +43,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IValidate {
     /**
-     * 获取验证码信息 redis key构建:picture:codeKey+system,sms:codeKey+system+phone
+     * 获取验证码信息
+     * redis key构建:picture:codeKey+system,sms:codeKey+system+phone
      *
      * @param parameter ${@link JSONObject} 获取验证码参数
      * @param request   ${@link HttpServletRequest} HttpServletRequest

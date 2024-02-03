@@ -1,0 +1,12 @@
+com.anyilanxin.anyicloud.corecommon.AnYiCommonAutoConfiguration
+com.anyilanxin.anyicloud.corecommon.config.CoreCommonConfig
+com.anyilanxin.anyicloud.corecommon.config.AnYiStrCondition
+com.anyilanxin.anyicloud.corecommon.config.CustomLoadBalancerConfiguration
+com.anyilanxin.anyicloud.corecommon.config.AnYiSystemInfoPrintApplicationRunner
+com.anyilanxin.anyicloud.corecommon.feign.FeignInterceptorCommon
+com.anyilanxin.anyicloud.corecommon.utils.ClientTokenUtils
+com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil
+com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils
+com.anyilanxin.anyicloud.corecommon.config.properties.AnYiOauthProperty
+com.anyilanxin.anyicloud.corecommon.feign.strategy.safety.ContextSafetyStrategy
+com.anyilanxin.anyicloud.corecommon.feign.strategy.header.ContextHeaderStrategy

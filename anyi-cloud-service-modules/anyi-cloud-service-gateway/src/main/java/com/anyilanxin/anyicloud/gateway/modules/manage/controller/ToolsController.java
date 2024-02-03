@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
 import com.anyilanxin.anyicloud.corecommon.model.web.WebSecurityModel;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.corewebflux.base.controller.BaseController;
+import com.anyilanxin.anyicloud.corewebflux.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IToolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -59,12 +60,12 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/tools", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Validated
-public class ToolsController extends BaseController {
+public class ToolsController extends AnYiBaseController {
     private final IToolService service;
 
     @Operation(summary = "获取请求安全基础信息", tags = {"v1.0.0"}, description = "获取请求安全基础信息")
     @GetMapping("/select/base-security")
-    Mono<Result<WebSecurityModel>> getBaseSecurity() {
+    Mono<AnYiResult<WebSecurityModel>> getBaseSecurity() {
         return ok(service.getBaseSecurity());
     }
 
@@ -72,7 +73,7 @@ public class ToolsController extends BaseController {
     @Operation(summary = "请求安全基础信息刷新", tags = {"v1.0.0"}, description = "请求安全基础信息刷新")
     @Parameter(in = ParameterIn.PATH, description = "请求序列", name = "serialNumber", required = true)
     @GetMapping("/select/base-security/refresh/{serialNumber}")
-    Mono<Result<WebSecurityModel>> getRefreshBaseSecurity(@PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber) {
+    Mono<AnYiResult<WebSecurityModel>> getRefreshBaseSecurity(@PathVariable @PathNotBlankOrNull(message = "请求序列不能为空") String serialNumber) {
         return ok(service.getRefreshBaseSecurity(serialNumber));
     }
 }

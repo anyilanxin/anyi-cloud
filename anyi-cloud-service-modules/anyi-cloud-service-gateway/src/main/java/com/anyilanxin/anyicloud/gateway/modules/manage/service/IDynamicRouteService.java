@@ -27,11 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.service;
 
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel;
 import com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo.GatewayRouteVo;
-import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
+import com.anyilanxin.anyicloud.gatewayadapter.model.RouteResponseModel;
 import reactor.core.publisher.Flux;
 
 /**
@@ -78,7 +79,7 @@ public interface IDynamicRouteService {
     /**
      * 查询路由
      *
-     * @return Flux<RouteResponseModel>${@link Flux<RouteResponseModel>}
+     * @return Flux<RouteResponseModel>${@link  Flux<RouteResponseModel>}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2020-09-10 22:49
@@ -94,4 +95,5 @@ public interface IDynamicRouteService {
      * @date 2020-09-13 00:39
      */
     void loadRoute() throws RuntimeException;
+
 }

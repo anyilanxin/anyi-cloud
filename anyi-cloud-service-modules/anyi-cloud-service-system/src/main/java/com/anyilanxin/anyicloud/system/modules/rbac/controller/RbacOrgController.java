@@ -27,17 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageVo;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageQuery;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgResourceApiPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgMenuService;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgResourceApiService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,10 +48,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -56,6 +58,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 组织表(RbacOrg)控制层
@@ -71,22 +75,25 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "RbacOrg", description = "组织相关")
 @RequestMapping(value = "/rbac-org", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RbacOrgController extends BaseController {
+public class RbacOrgController extends AnYiBaseController {
     private final IRbacOrgService service;
+    private final IRbacResourceService resourceService;
+    private final IRbacOrgResourceApiService apiService;
     private final IRbacOrgMenuService menuService;
 
     @Operation(summary = "组织表添加", tags = {"v1.0.0"}, description = "添加组织表")
     @PostMapping(value = "/insert")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> insert(@RequestBody @Valid RbacOrgVo vo) {
+    public AnYiResult<String> insert(@RequestBody @Valid RbacOrgVo vo) {
         service.save(vo);
-        return ok(I18nUtil.get("Controller.InsertSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.InsertSuccess"));
     }
 
     // @Operation(summary = "更新机构默认菜单权限", tags = {"v1.0.0"}, description =
     // "更新机构默认菜单权限")
     // @PostMapping(value = "/update/org-auth")
-    // public Result<String> updateOrgAuth(@RequestBody @Valid RbacDefaultAuthVo vo)
+    // public AnYiResult<String> updateOrgAuth(@RequestBody @Valid RbacDefaultAuthVo
+    // vo)
     // {
     // service.updateOrgAuth(vo);
     // return ok("修改成功");
@@ -97,7 +104,7 @@ public class RbacOrgController extends BaseController {
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId", required = true), @Parameter(in = ParameterIn.QUERY, description = "类型:0-禁用,1-启用", name = "type", required = true)})
     @GetMapping(value = "/update/org/state")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> updateOrgState(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
+    public AnYiResult<String> updateOrgState(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
         service.updateOrgState(orgId, type);
         return ok(type == 0 ? "禁用成功" : "启用成功");
     }
@@ -107,9 +114,9 @@ public class RbacOrgController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @PutMapping(value = "/update/{orgId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId, @RequestBody @Valid RbacOrgVo vo) {
+    public AnYiResult<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId, @RequestBody @Valid RbacOrgVo vo) {
         service.updateById(orgId, vo);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 
 
@@ -117,9 +124,9 @@ public class RbacOrgController extends BaseController {
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @DeleteMapping(value = "/delete-one/{orgId}")
     @CacheEvict(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, allEntries = true)
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
+    public AnYiResult<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
         service.deleteById(orgId);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
@@ -127,7 +134,7 @@ public class RbacOrgController extends BaseController {
     @PostMapping(value = "/select/async/org-tree")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "上级组织id", name = "parentId"), @Parameter(in = ParameterIn.QUERY, description = "需要激活的组织id", name = "activateOrgId")})
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'asyncdeparttree:'+#parentId+#activateOrgId")
-    public Result<List<RbacOrgTreeDto>> selectOrgTreeAsync(@RequestParam(required = false, defaultValue = "") String parentId, @RequestParam(required = false, defaultValue = "") String activateOrgId) {
+    public AnYiResult<List<RbacOrgTreeDto>> selectOrgTreeAsync(@RequestParam(required = false, defaultValue = "") String parentId, @RequestParam(required = false, defaultValue = "") String activateOrgId) {
         return ok(service.selectOrgTreeAsync(parentId, activateOrgId));
     }
 
@@ -136,7 +143,7 @@ public class RbacOrgController extends BaseController {
     @GetMapping(value = "/select/org-list")
     @Parameters({@Parameter(description = "类型:0-所有,1-有效,默认1", name = "type"), @Parameter(description = "父级id", name = "parentId")})
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'list:'+#parentId+#type")
-    public Result<List<RbacOrgHasChildrenDto>> selectOrgList(@RequestParam(defaultValue = "1", required = false) Integer type, @RequestParam(defaultValue = "", required = false) String parentId) {
+    public AnYiResult<List<RbacOrgHasChildrenDto>> selectOrgList(@RequestParam(defaultValue = "1", required = false) Integer type, @RequestParam(defaultValue = "", required = false) String parentId) {
         return ok(service.selectOrgList(type, parentId));
     }
 
@@ -145,7 +152,7 @@ public class RbacOrgController extends BaseController {
     @GetMapping(value = "/select/org-tree-list")
     @Parameter(description = "类型:0-所有,1-有效,默认1", name = "type")
     @Cacheable(value = CoreCommonCacheConstant.ENGINE_ORG_CACHE, key = "'listtree:'+#type")
-    public Result<List<RbacOrgTreeDto>> selectOrgTreeList(@RequestParam(defaultValue = "1", required = false) Integer type) {
+    public AnYiResult<List<RbacOrgTreeDto>> selectOrgTreeList(@RequestParam(defaultValue = "1", required = false) Integer type) {
         return ok(service.selectOrgTreeList(type));
     }
 
@@ -153,14 +160,14 @@ public class RbacOrgController extends BaseController {
     @Operation(summary = "通过组织id查询详情", tags = {"v1.0.0"}, description = "查询组织表详情")
     @Parameter(in = ParameterIn.PATH, description = "组织id", name = "orgId", required = true)
     @GetMapping(value = "/select/one/{orgId}")
-    public Result<RbacOrgDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
+    public AnYiResult<RbacOrgDto> getById(@PathVariable(required = false) @PathNotBlankOrNull(message = "组织id不能为空") String orgId) {
         return ok(service.getById(orgId));
     }
 
 
     @Operation(summary = "组织表分页查询", tags = {"v1.0.0"}, description = "分页查询组织表")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<RbacOrgTreePageDto>> selectPage(@RequestBody RbacOrgPageVo vo) {
+    public AnYiResult<AnYiPageResult<RbacOrgTreePageDto>> selectPage(@RequestBody RbacOrgPageQuery vo) {
         return ok(service.pageByModel(vo));
     }
 
@@ -168,7 +175,22 @@ public class RbacOrgController extends BaseController {
     @Operation(summary = "获取机构菜单权限树", tags = {"v1.0.0"}, description = "获取机构菜单权限树")
     @Parameters({@Parameter(description = "机构id", name = "orgId", required = true), @Parameter(description = "系统id", name = "systemId"), @Parameter(description = "菜单状态:0-禁用,1-启用,不传所有", name = "status")})
     @GetMapping(value = "/select/tree")
-    public Result<List<RbacMenuTreeDto>> getMenuTree(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) String systemId, @RequestParam(required = false) Integer status) {
+    public AnYiResult<List<RbacMenuTreeDto>> getMenuTree(@RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId, @RequestParam(required = false) String systemId, @RequestParam(required = false) Integer status) {
         return ok(menuService.getMenuTree(orgId, systemId, status));
+    }
+
+
+    @Operation(summary = "通过条件查询资源表多条数据", tags = {"v1.0.0"}, description = "通过条件查询资源表")
+    @GetMapping(value = "/select-resource/list")
+    @Parameter(in = ParameterIn.QUERY, description = "类型:0-禁用的,1-有效的，不传所有", name = "type", required = true)
+    public AnYiResult<List<RbacResourceDto>> selectResourceList(@RequestParam(required = false) Integer type) {
+        return ok(resourceService.selectList(type));
+    }
+
+
+    @Operation(summary = "资源api表分页查询", tags = {"v1.0.0"}, description = "分页查询资源api表")
+    @PostMapping(value = "/select-resource-api/page")
+    public AnYiResult<AnYiPageResult<RbacOrgResourceApiPageDto>> selectResourcePage(@RequestBody RbacOrgResourceApiPageQuery vo) {
+        return ok(apiService.selectResourcePage(vo));
     }
 }

@@ -59,7 +59,7 @@
     <result property="businessLicensePicture" column="business_license_picture" jdbcType="VARCHAR"/>
     <result property="sealPicture" column="seal_picture" jdbcType="VARCHAR"/>
     <result property="additionalInformation" column="additional_information" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="uniqueHelp" column="unique_help" jdbcType="VARCHAR"/>
     <result property="createAreaCode" column="create_area_code" jdbcType="VARCHAR"/>
@@ -141,26 +141,6 @@
         </where>
     </select>
 
-
-    <!-- 通过组织id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_org
-        WHERE org_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_org
-        WHERE org_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_rbac_org
@@ -184,5 +164,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.core.config.listener;
 
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.coreredis.listener.RedisKeyDeleteEventMessageListener;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
-import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.lang.Nullable;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * 权限信息被删除监听
@@ -58,11 +60,13 @@ public class RouterDeleteEventListener extends RedisKeyDeleteEventMessageListene
 
     @Override
     public void onMessage(Message message, @Nullable byte[] pattern) {
-        log.debug("------------RouterInfoDeleteEventListener------监听到变化------>onMessage:\n{}", message);
         String key = new String(message.getBody(), StandardCharsets.UTF_8);
         if (StringUtils.isNotBlank(key)) {
             if (key.equals(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX) && !super.serviceLock(key)) {
                 syncService.reloadRoute(true);
+            }
+            if (key.equals(CoreCommonCacheConstant.SYSTEM_AUTH_ACTION_CACHE_PREFIX) && !super.serviceLock(key)) {
+                syncService.reloadRouteAndAuth(true);
             }
         }
     }

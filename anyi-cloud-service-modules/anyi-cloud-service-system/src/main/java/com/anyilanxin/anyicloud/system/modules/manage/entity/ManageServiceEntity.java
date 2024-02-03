@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-import java.util.Map;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * 服务管理(ManageService)Entity
@@ -54,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "sys_manage_service", autoResultMap = true)
 public class ManageServiceEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 307682001232473844L;
 
     @TableId
@@ -85,21 +89,6 @@ public class ManageServiceEntity extends BaseEntity {
     private String swaggerConfigUrl;
 
     /**
-     * 是否监听系统变化:0-不订阅,1-订阅,默认0
-     */
-    private Integer subscribeChange;
-
-    /**
-     * 是否发送变化通知:0-不通知,1-通知。默认0
-     */
-    private Integer noticeChange;
-
-    /**
-     * 通知类型:0-邮件,1-短信,2-微信消息，当选择监听服务变化并且通知时必填
-     */
-    private Integer noticeType;
-
-    /**
      * 服务状态:0-禁用,1-启用。默认0
      */
     private Integer serviceState;
@@ -107,23 +96,8 @@ public class ManageServiceEntity extends BaseEntity {
     /**
      * 服务元数据,数据库json存储,入库前转为字符串
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Map<String, String> serviceMetadataJson;
-
-    /**
-     * 通知模板id，当选择监听服务变化并且通知时必填
-     */
-    private String noticeTemplateId;
-
-    /**
-     * 负责人姓名，当选择监听服务变化并且通知时必填
-     */
-    private String headUserName;
-
-    /**
-     * 负责人用户id，当选择监听服务变化并且通知时必填
-     */
-    private String headUserId;
 
     /**
      * 是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)

@@ -27,19 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 实名信息表添加或修改Request
@@ -57,17 +59,18 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserIdentityVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -64228363088092951L;
 
-    @Schema(name = "userId", title = "用户id", required = true)
+    @Schema(name = "userId", title = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户id不能为空")
     private String userId;
 
-    @Schema(name = "realName", title = "真实姓名", required = true)
+    @Schema(name = "realName", title = "真实姓名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "真实姓名不能为空")
     private String realName;
 
-    @Schema(name = "sex", title = "性别:0-默认未知,1-男,2-女,默认0", required = true)
+    @Schema(name = "sex", title = "性别:0-默认未知,1-男,2-女,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "性别:0-默认未知,1-男,2-女,默认0不能为空")
     private Integer sex;
 
@@ -81,11 +84,11 @@ public class RbacUserIdentityVo implements Serializable {
     private String idCardIssue;
 
     @Schema(name = "idCardEffective", title = "身份证书有效期开始", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime idCardEffective;
 
     @Schema(name = "idCardEffectiveEnd", title = "身份证有效期结束", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime idCardEffectiveEnd;
 
     @Schema(name = "positivePhoto", title = "正面照")
@@ -97,7 +100,7 @@ public class RbacUserIdentityVo implements Serializable {
     @Schema(name = "handheldPhoto", title = "证件手持照")
     private String handheldPhoto;
 
-    @Schema(name = "identityStatus", title = "审核状态:0-不通过，1-通过", required = true)
+    @Schema(name = "identityStatus", title = "审核状态:0-不通过，1-通过", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "审核状态不能为空")
     @Min(value = 0, message = "审核状态只能为0、1")
     @Max(value = 1, message = "审核状态只能为0、1")

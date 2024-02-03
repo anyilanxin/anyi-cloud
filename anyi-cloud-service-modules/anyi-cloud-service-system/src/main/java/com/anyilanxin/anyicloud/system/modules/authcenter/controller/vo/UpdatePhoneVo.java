@@ -27,12 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 修改手机号
@@ -46,9 +49,11 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @Schema
 public class UpdatePhoneVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 3879852206170456367L;
 
     @Schema(name = "phone", title = "手机号")

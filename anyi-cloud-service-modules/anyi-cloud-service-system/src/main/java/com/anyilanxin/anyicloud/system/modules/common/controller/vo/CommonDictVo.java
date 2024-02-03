@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 数据字典表添加或修改Request
@@ -45,22 +48,25 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CommonDictVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -18634770323379386L;
 
-    @Schema(name = "dictName", title = "字典名称", required = true)
+    @Schema(name = "dictName", title = "字典名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典名称不能为空")
     private String dictName;
 
-    @Schema(name = "dictCode", title = "字典编码", required = true)
+    @Schema(name = "dictCode", title = "字典编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典编码不能为空")
     private String dictCode;
 
-    @Schema(name = "dictType", title = "字典类型：0-字符串,1-数字,2-布尔。默认0", required = true)
+    @Schema(name = "dictType", title = "字典类型：0-字符串,1-数字,2-布尔。默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "字典类型：0-字符串,1-数字,2-布尔。默认0不能为空")
     private Integer dictType;
 

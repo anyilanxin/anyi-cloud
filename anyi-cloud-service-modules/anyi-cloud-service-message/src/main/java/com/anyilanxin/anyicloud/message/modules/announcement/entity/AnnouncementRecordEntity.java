@@ -27,17 +27,28 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | SkillFull快速开发平台 [ SkillFull ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxh <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.message.modules.announcement.entity;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.time.LocalDateTime;
 
 /**
  * 系统通知公告阅读记录(AnnouncementRecord)Entity
@@ -55,6 +66,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("msg_announcement_record")
 public class AnnouncementRecordEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 980923426359724708L;
 
     @TableId
@@ -73,7 +85,7 @@ public class AnnouncementRecordEntity extends BaseEntity {
     /**
      * 阅读时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime readTime;
 
     /**

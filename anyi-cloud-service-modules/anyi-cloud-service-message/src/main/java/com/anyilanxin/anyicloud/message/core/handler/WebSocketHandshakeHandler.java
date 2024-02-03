@@ -27,21 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.core.handler;
 
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
-import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
-import java.security.Principal;
-import java.util.Map;
+import com.anyilanxin.anyicloud.oauth2common.authinfo.AnYiUserDetails;
+import com.anyilanxin.anyicloud.oauth2common.store.AnYiAuthentication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
+
+import java.security.Principal;
+import java.util.Map;
 
 /**
  * @author zxh
@@ -50,20 +52,20 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
  */
 @Slf4j
 public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
+
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication principal = context.getAuthentication();
-        Object userPrincipal = principal.getPrincipal();
-        if (userPrincipal instanceof SkillFullUserDetails) {
-            SkillFullUserDetails userDetails = (SkillFullUserDetails) userPrincipal;
-            attributes.put(WebSocketSessionType.USER_ID.getType(), userDetails.getUserId());
+        if (principal instanceof AnYiAuthentication authentication) {
+            Object userPrincipal = authentication.getPrincipal();
+            if (userPrincipal instanceof AnYiUserDetails userDetails) {
+                attributes.put(WebSocketSessionType.USER_ID.getType(), userDetails.getUserId());
+            }
+            attributes.put(WebSocketSessionType.TOKEN.getType(), authentication.getTokenValue());
         }
-        if (principal.getDetails() instanceof OAuth2AuthenticationDetails) {
-            OAuth2AuthenticationDetails token = (OAuth2AuthenticationDetails) principal.getDetails();
-            attributes.put(WebSocketSessionType.TOKEN.getType(), token.getTokenValue());
-        }
-        attributes.put(WebSocketSessionType.CUSTOM_SESSION_ID.getType(), CoreCommonUtils.getSnowflakeId());
+        attributes.put(WebSocketSessionType.CUSTOM_SESSION_ID.getType(), AnYiCoreCommonUtils.getSnowflakeId());
         return principal;
     }
+
 }

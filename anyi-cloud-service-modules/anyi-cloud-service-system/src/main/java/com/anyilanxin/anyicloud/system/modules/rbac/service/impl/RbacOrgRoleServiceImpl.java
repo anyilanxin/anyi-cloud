@@ -27,35 +27,37 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.system.core.constant.impl.MenuType;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleAuthVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRolePageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRolePageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleMenuMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleUserMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleMenuService;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleResourceApiService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleService;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleMenuButtonDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleMenuDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRolePageDto;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.*;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.PermissionOrgMenuActionMap;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacOrgRoleCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 机构角色表(RbacOrgRole)业务层实现
@@ -74,6 +76,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
     private final RbacOrgRoleUserMapper rbacOrgRoleUserMapper;
     private final PermissionOrgMenuActionMap menuActionMap;
     private final RbacOrgRoleMenuMapper roleMenuMapper;
+    private final IRbacOrgRoleResourceApiService apiService;
     private final RbacOrgRoleMapper mapper;
 
     @Override
@@ -82,7 +85,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         RbacOrgRoleEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -97,15 +100,15 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         entity.setOrgRoleId(orgRoleId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
@@ -114,7 +117,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
     public RbacOrgRoleDto getById(String orgRoleId) throws RuntimeException {
         RbacOrgRoleEntity byId = super.getById(orgRoleId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -128,7 +131,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         // 删除数据
         boolean b = this.removeById(orgRoleId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         List<String> roleIds = new ArrayList<>(1);
         roleIds.add(orgRoleId);
@@ -137,7 +140,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         // 删除角色资源关联
         menuService.deleteBatch(roleIds);
         // 删除用户关联
-        rbacOrgRoleUserMapper.physicalDeleteBatchIds(roleIds);
+        rbacOrgRoleUserMapper.anyiPhysicalDeleteBatchIds(roleIds);
     }
 
 
@@ -146,7 +149,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
     public void deleteBatch(List<String> orgRoleIds) throws RuntimeException {
         List<RbacOrgRoleEntity> entities = this.listByIds(orgRoleIds);
         if (CollUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         entities.forEach(v -> deleteById(v.getOrgRoleId()));
     }
@@ -160,11 +163,14 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         RbacOrgRoleEntity rbacRoleEntity = RbacOrgRoleEntity.builder().customDataAuthData(vo.getCustomDataAuthData()).dataAuthType(vo.getDataAuthType()).orgRoleId(orgRoleId).build();
         boolean b = this.updateById(rbacRoleEntity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新权限失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "更新权限失败");
         }
         // 更新菜单关联
         menuService.deleteBatch(List.of(rbacRoleEntity.getOrgRoleId()));
         menuService.saveBatch(rbacRoleEntity.getOrgRoleId(), vo.getMenuIds());
+        // 更新资源关联
+        apiService.deleteBatch(List.of(rbacRoleEntity.getOrgRoleId()));
+        apiService.saveBatch(rbacRoleEntity.getOrgRoleId(), vo.getApiIds());
     }
 
 
@@ -206,6 +212,20 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         return Collections.emptySet();
     }
 
+    @Override
+    public List<RbacProcessCommonDto> selectProcessDesignerByIds(List<String> ids) {
+        List<RbacOrgRoleEntity> rbacOrgRoleEntities = this.listByIds(ids);
+        if (CollUtil.isEmpty(rbacOrgRoleEntities)) {
+            return Collections.emptyList();
+        }
+        return rbacOrgRoleEntities.stream().map(v -> {
+            RbacProcessCommonDto dto = new RbacProcessCommonDto();
+            dto.setIndex(v.getOrgRoleId());
+            dto.setName(v.getRoleName());
+            dto.setState(v.getRoleStatus() == 1 ? 1 : 0);
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
     @Override
     public void updateStatus(String orgRoleId, Integer status) {
@@ -216,7 +236,7 @@ public class RbacOrgRoleServiceImpl extends ServiceImpl<RbacOrgRoleMapper, RbacO
         entity.setRoleStatus(status);
         boolean b = this.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "角色" + (status == 0 ? "禁用" : "启用") + "失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "角色" + (status == 0 ? "禁用" : "启用") + "失败");
         }
     }
 }

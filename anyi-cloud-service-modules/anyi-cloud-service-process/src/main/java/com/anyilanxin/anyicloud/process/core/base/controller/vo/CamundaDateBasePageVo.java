@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.core.base.controller.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * camunda分页基类
@@ -47,11 +50,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CamundaDateBasePageVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 889985578802106850L;
 
     @Schema(name = "startTime", title = "开始时间", type = "string", example = "2020-11-12 11:23")

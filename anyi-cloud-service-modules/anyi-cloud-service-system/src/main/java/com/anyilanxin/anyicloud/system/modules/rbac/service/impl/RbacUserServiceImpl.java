@@ -27,20 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.captcha.generator.RandomGenerator;
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.RandomUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.oauth2common.utils.PasswordCheck;
-import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.coremvc.utils.AnYiUserContextUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageQuery;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleUserMapper;
@@ -50,23 +47,30 @@ import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacUserMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleUserService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacRoleUserService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacUserService;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacProcessCommonDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserPageDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserCopyMap;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserSimpleCopyMap;
+import com.anyilanxin.anyicloud.systemadapter.model.SimpleUserModel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.util.RandomUtil;
+import org.dromara.hutool.swing.captcha.generator.RandomGenerator;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.stream.Collectors;
 
 /**
  * 用户表(RbacUser)业务层实现
@@ -81,11 +85,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEntity> implements IRbacUserService {
     private final RbacUserCopyMap map;
+    private final RbacUserSimpleCopyMap userSimpleCopyMap;
     private final RbacOrgUserMapper orgUserMapper;
     private final IRbacRoleUserService roleUserService;
     private final RbacOrgRoleUserMapper orgRoleUserMapper;
     private final RbacRoleUserMapper rbacRoleUserMapper;
-    private final PasswordEncoder passwordEncoder;
+    // private final PasswordEncoder passwordEncoder;
     private final IRbacOrgRoleUserService orgRoleUserService;
     private final RbacUserMapper mapper;
 
@@ -96,7 +101,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 处理权限
         String userId = entity.getUserId();
@@ -115,13 +120,14 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         // 如果新增密码必填
         if (StringUtils.isBlank(entity.getUserId())) {
             if (StringUtils.isBlank(entity.getPassword())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "密码不能为空");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "密码不能为空");
             }
-            // 设置密码信息
-            PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-            PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(entity.getPassword());
-            entity.setPassword(passwordInfo.getEncodedPassword());
-            entity.setSalt(passwordInfo.getSalt());
+            // // 设置密码信息
+            // PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
+            // PasswordCheck.PasswordInfo passwordInfo =
+            // passwordCheck.getPasswordInfo(entity.getPassword());
+            // entity.setPassword(passwordInfo.getEncodedPassword());
+            // entity.setSalt(passwordInfo.getSalt());
             entity.setIsInitialPassword(1);
         }
         // 修改时密码不可修改
@@ -134,8 +140,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
             lambdaQueryWrapper.ne(RbacUserEntity::getUserId, entity.getUserId());
         }
         List<RbacUserEntity> list = this.list(lambdaQueryWrapper);
-        if (CollectionUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前手机号或用户名已经存在");
+        if (CollUtil.isNotEmpty(list)) {
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前手机号或用户名已经存在");
         }
     }
 
@@ -150,8 +156,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
      */
     void handleAuth(String userId, RbacUserVo vo) {
         // 处理用户角色(只有超级管理员可操作)
-        if (!UserContextUtils.superRole() && Objects.nonNull(vo.getRoleIds())) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "只有超级管理员可设置用户角色");
+        if (!AnYiUserContextUtils.superRole() && Objects.nonNull(vo.getRoleIds())) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "只有超级管理员可设置用户角色");
         }
         // 处理机构角色
         if (StringUtils.isNotBlank(vo.getOrgId())) {
@@ -175,7 +181,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         check(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 处理权限
         handleAuth(userId, vo);
@@ -184,14 +190,14 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<RbacUserPageDto> pageByModel(RbacUserPageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<RbacUserPageDto> pageByModel(RbacUserPageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
     @Override
-    public PageDto<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageVo vo) {
-        return new PageDto<>(mapper.selectEnableUserPage(vo.getPage(), vo));
+    public AnYiPageResult<RbacUserPageDto> selectEnableUserPage(RbacEnalbeUserPageQuery vo) {
+        return PageUtils.toPageData(mapper.selectEnableUserPage(PageUtils.getPage(vo), vo));
     }
 
 
@@ -200,7 +206,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
     public RbacUserDto getById(String userId, String orgId) throws RuntimeException {
         RbacUserEntity byId = super.getById(userId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         RbacUserDto rbacUserDto = map.eToD(byId);
         rbacUserDto.setOrgId(orgId);
@@ -240,7 +246,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         // 删除数据
         boolean b = this.removeById(userId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除机构挂接
         orgUserMapper.physicalDeleteByUserId(userId);
@@ -265,7 +271,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         RbacUserEntity entity = RbacUserEntity.builder().userId(userId).userStatus(type).build();
         boolean b = this.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "修改用户状态失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "修改用户状态失败");
         }
     }
 
@@ -277,13 +283,68 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserMapper, RbacUserEnt
         // 随机生成新密码
         RandomGenerator randomGenerator = new RandomGenerator(RandomUtil.BASE_CHAR_NUMBER, 8);
         String password = randomGenerator.generate();
-        PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
-        PasswordCheck.PasswordInfo passwordInfo = passwordCheck.getPasswordInfo(password);
-        RbacUserEntity entity = RbacUserEntity.builder().userId(userId).password(passwordInfo.getEncodedPassword()).salt(passwordInfo.getSalt()).build();
+        // PasswordCheck passwordCheck = PasswordCheck.getSingleton(passwordEncoder);
+        // PasswordCheck.PasswordInfo passwordInfo =
+        // passwordCheck.getPasswordInfo(password);
+        // @formatter:off
+        RbacUserEntity entity = RbacUserEntity
+                .builder()
+                .userId(userId)
+//                .password(passwordInfo.getEncodedPassword())
+//                .salt(passwordInfo.getSalt())
+                .build();
+        // @formatter:off
         boolean b = this.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "重置密码失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "重置密码失败");
         }
         return password;
+    }
+
+
+    @Override
+    public List<SimpleUserModel> selectUserByIds(List<String> userIds) {
+        if (CollUtil.isEmpty(userIds)) {
+            return Collections.emptyList();
+        }
+        LambdaQueryWrapper<RbacUserEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.in(RbacUserEntity::getUserId, userIds);
+        List<RbacUserEntity> list = this.list(lambdaQueryWrapper);
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return userSimpleCopyMap.aToB(list);
+    }
+
+
+    @Override
+    public SimpleUserModel getUserById(String userId) {
+        return userSimpleCopyMap.aToB(this.getById(userId));
+    }
+
+
+    @Override
+    public List<RbacProcessCommonDto> selectProcessDesignerByIds(List<String> ids) {
+        List<RbacUserEntity> rbacUserEntities = this.listByIds(ids);
+        if(CollUtil.isEmpty(rbacUserEntities)){
+            return Collections.emptyList();
+        }
+       return rbacUserEntities.stream().map(v->{
+            RbacProcessCommonDto dto = new RbacProcessCommonDto();
+            dto.setIndex(v.getUserId());
+            dto.setName(v.getRealName());
+            dto.setState(v.getUserStatus()==1?1:0);
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<SimpleUserModel> getUserList() {
+        List<RbacUserEntity> list = this.list();
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return userSimpleCopyMap.aToB(list);
     }
 }

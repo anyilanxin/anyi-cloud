@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 菜单表添加或修改Request
@@ -53,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacMenuVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 661431679003980068L;
 
     @Schema(name = "parentId", title = "父id(编辑时无效)")
@@ -70,7 +74,7 @@ public class RbacMenuVo implements Serializable {
     @Schema(name = "redirect", title = "重定向地址")
     private String redirect;
 
-    @Schema(name = "menuType", title = "权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType", required = true)
+    @Schema(name = "menuType", title = "权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "权限类型(0:目录; 1:菜单:2:按钮),来源于常量字典:MenuType不能为空")
     private Integer menuType;
 
@@ -83,13 +87,13 @@ public class RbacMenuVo implements Serializable {
     @Schema(name = "frameSrc", title = "内嵌iframe的地址")
     private String frameSrc;
 
-    @Schema(name = "menuStatus", title = "菜单状态:0-禁用,1-启用", required = true)
+    @Schema(name = "menuStatus", title = "菜单状态:0-禁用,1-启用", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "状态为空")
     @Min(value = 0, message = "状态只能为0、1")
     @Max(value = 1, message = "状态只能为0、1")
     private Integer menuStatus;
 
-    @Schema(name = "metaTitle", title = "菜单名称", required = true)
+    @Schema(name = "metaTitle", title = "菜单名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "名称不能为空")
     private String metaTitle;
 
@@ -147,10 +151,16 @@ public class RbacMenuVo implements Serializable {
     @Schema(name = "hidePathForChildren", title = "是否在子级菜单的完整path中忽略本级path,默认false")
     private boolean hidePathForChildren;
 
-    @Schema(name = "buttonAction", title = "按钮鉴权指令")
+    @Schema(name = "buttonActionTag", title = "按钮权限标识,当为按钮是必填")
+    private String buttonActionTag;
+
+    @Schema(name = "buttonExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")
+    private String buttonExpress;
+
+    @Schema(name = "buttonAction", title = "鉴权指令，只有表达式为非角色是使用")
     private String buttonAction;
 
-    @Schema(name = "systemId", title = "所属系统", required = true)
+    @Schema(name = "systemId", title = "所属系统", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "所属系统不能为空")
     private String systemId;
 

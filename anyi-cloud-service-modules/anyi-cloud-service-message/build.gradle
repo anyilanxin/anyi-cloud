@@ -1,21 +1,29 @@
 description = "AnYi Cloud Message Service"
 
-bootJar { enabled = true }
-
+def bootJar = true
 
 dependencies {
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc')
-    implementation project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-message')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-database')
-    implementation('org.springframework.boot:spring-boot-starter-websocket') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-    }
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-mvc')
+    implementation project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-resourcemvc')
+    implementation project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-message')
+    implementation project(':anyi-cloud-adapterrpc-modules:anyi-cloud-rpcadapter-process')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-database')
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'com.alibaba.cloud:aliyun-sms-spring-boot-starter'
     implementation 'com.aliyun:aliyun-java-sdk-core'
     implementation 'com.tencentcloudapi:tencentcloud-sdk-java'
+    implementation 'com.sun.xml.ws:jaxws-rt'
 }
+
+
+configurations.configureEach {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}
+

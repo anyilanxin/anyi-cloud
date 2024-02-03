@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionPageDto;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionInfoPageDto;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
@@ -43,5 +44,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2020-10-15 22:17:55
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ProcessDefinitionPageMap extends BaseMap<ProcessDefinitionPageDto, ProcessDefinitionEntity> {
+public interface ProcessDefinitionPageMap extends AnYiBaseMap<ProcessDefinitionInfoPageDto, ProcessDefinitionEntity> {
 }

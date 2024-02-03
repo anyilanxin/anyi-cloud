@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 用户-关联关系角色表添加或修改Request
@@ -51,21 +54,23 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserCorrelateRoleVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 462319281864512870L;
 
-    @Schema(name = "correlateId", title = "关联id", required = true)
+    @Schema(name = "correlateId", title = "关联id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "关联id不能为空")
     private String correlateId;
 
-    @Schema(name = "roleId", title = "角色id", required = true)
+    @Schema(name = "roleId", title = "角色id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色id不能为空")
     private String roleId;
 
-    @Schema(name = "correlateType", title = "关联类型：1-组织机构角色,2-职位角色,4-用户组角色", required = true)
+    @Schema(name = "correlateType", title = "关联类型：1-组织机构角色,2-职位角色,4-用户组角色", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "关联类型：1-组织机构角色,2-职位角色,4-用户组角色不能为空")
     private Integer correlateType;
 
-    @Schema(name = "userId", title = "用户id", required = true)
+    @Schema(name = "userId", title = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户id不能为空")
     private String userId;
+
 }

@@ -64,6 +64,8 @@
     <result property="content" column="content" jdbcType="VARCHAR"/>
     <result property="dot" column="dot" jdbcType="INTEGER"/>
     <result property="hidePathForChildren" column="hide_path_for_children" jdbcType="INTEGER"/>
+    <result property="buttonActionTag" column="button_action_tag" jdbcType="VARCHAR"/>
+    <result property="buttonExpress" column="button_express" jdbcType="VARCHAR"/>
     <result property="systemId" column="system_id" jdbcType="VARCHAR"/>
     <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
     <result property="menuSysCode" column="menu_sys_code" jdbcType="VARCHAR"/>
@@ -90,8 +92,8 @@
         menu_id, parent_id, `path`, component, path_name, redirect, menu_type, iframe, iframe_type,
         menu_status, meta_title, ignore_auth, ignore_keep_alive, affix, icon, icon_type, frame_src,
         transition_name, hide_breadcrumb, carry_param, hide_children_in_menu, current_active_menu, hide_tab,
-        hide_menu, order_no, ignore_route, show_tag, `type`, content, dot, hide_path_for_children,
-        system_id, enable_delete, menu_sys_code, unique_help, remark, create_area_code,
+        hide_menu, order_no, ignore_route, show_tag, `type`, content, dot, hide_path_for_children, button_action_tag,
+        button_express, system_id, enable_delete, menu_sys_code, unique_help, remark, create_area_code,
         create_position_code, create_org_sys_code, create_system_code, create_tenant_id, create_user_id,
         create_user_name, create_time, update_user_id, update_user_name, update_time, del_flag, button_action
     </sql>
@@ -103,7 +105,7 @@
         ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb,
         ali.carry_param, ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu,
         ali.order_no, ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
-        ali.system_id, ali.enable_delete, ali.menu_sys_code,
+        ali.button_action_tag, ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code,
         ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action
@@ -115,8 +117,8 @@
         ali.iframe, ali.iframe_type, ali.menu_status, ali.meta_title, ali.ignore_auth, ali.ignore_keep_alive,
         ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb, ali.carry_param,
         ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu, ali.order_no,
-        ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
-        ali.system_id, ali.enable_delete, ali.menu_sys_code, ali.unique_help, ali.remark,
+        ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children, ali.button_action_tag,
+        ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code, ali.unique_help, ali.remark,
         ali.create_area_code, ali.create_position_code, ali.create_org_sys_code, ali.create_system_code,
         ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time, ali.update_user_id,
         ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action
@@ -130,7 +132,7 @@
         ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb,
         ali.carry_param, ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu,
         ali.order_no, ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
-        ali.system_id, ali.enable_delete, ali.menu_sys_code,
+        ali.button_action_tag, ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code,
         ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action, srs.system_code
@@ -153,11 +155,11 @@
           <if test="query.menuStatus != null">
              AND ali.menu_status = #{query.menuStatus, jdbcType=INTEGER}
           </if>
-          <if test="query.metaTitle != null and query.metaTitle != ''">
-            AND LOCATE(#{query.metaTitle, jdbcType=VARCHAR}, ali.meta_title) &gt; 0
-          </if>
           <if test="query.systemId != null and query.systemId != ''">
             AND ali.system_id = #{query.systemId, jdbcType=VARCHAR}
+          </if>
+          <if test="query.metaTitle != null and query.metaTitle != ''">
+            AND LOCATE(#{query.metaTitle, jdbcType=VARCHAR}, ali.meta_title) &gt; 0
           </if>
           <if test="query.startTime != null">
              AND ali.create_time &gt;= #{query.startTime, jdbcType=TIMESTAMP}
@@ -167,6 +169,31 @@
           </if>
         </where>
     </select>
+
+
+    <!-- 获取所有有效的按钮权限信息 -->
+    <select id="getAllButton" resultType="com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto">
+        SELECT
+            <include refid="Column_Menu_List_Ali"/>
+        FROM sys_rbac_menu ali
+        INNER JOIN sys_rbac_system srs ON srs.system_id = ali.system_id
+        WHERE
+            ali.del_flag = 0
+            AND ali.menu_status = 1
+            AND ali.menu_type = 2
+            AND srs.del_flag = 0
+            AND ali.button_action_tag IS NOT NULL
+            AND ali.button_action_tag != ''
+            AND ali.button_express IS NOT NULL
+            AND ali.button_express != ''
+            <if test="systemCodes != null and systemCodes.size > 0">
+                AND srs.system_code IN
+                <foreach collection="systemCodes" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+    </select>
+
 
     <!-- 获取所有有效的菜单信息 -->
     <select id="getAllMenu" resultType="com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto">
@@ -185,25 +212,6 @@
                 </foreach>
             </if>
     </select>
-
-    <!-- 通过权限id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_menu
-        WHERE menu_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_menu
-        WHERE menu_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
@@ -228,5 +236,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

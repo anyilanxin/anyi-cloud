@@ -17,15 +17,23 @@ app:
   log-package-level: debug
   enable-gray: true # 是否启用灰度
   enable-doc: true # 是否打开swagger
-  create-out-conf: false  # 启动是否创建外置配置文件
 
 
-resource:
-  common-white-list:
-    - /auth/oauth/token
-    - /auth/code/picture;get
-    - /system/common-system/init/system-info;get
-  dev-white-list:
-    - /*/v3/api-docs/**;get
-    - /webjars/swagger-ui/**;get
-  enabled: true
+anyi:
+  resource:
+    common-white-list:
+      - /auth/oauth/token
+      - /auth/code/picture;get
+      - /system/common-system/init/system-info;get
+      - /aycloudee/document/scripts/*.js;get
+      - /aycloudee/document/css/*.css;get
+      - /aycloudee/document/css/img/*.ico;get
+      - /aycloudee/document/css/img/*.gif;get
+      - /aycloudee/document/css/img/*.svg;get
+      - /aycloudee/document/favicon.ico;get
+    dev-white-list:
+      - /*/v3/api-docs/**;get
+      - /webjars/swagger-ui/**;get
+    disable: true
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization

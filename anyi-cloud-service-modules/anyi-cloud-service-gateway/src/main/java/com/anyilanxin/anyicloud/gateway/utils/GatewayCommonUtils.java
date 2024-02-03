@@ -27,30 +27,22 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.utils;
 
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
-
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.anyicloud.corecommon.base.Result;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
+import com.alibaba.fastjson2.JSONObject;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteMetaSpecialUrlModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
 import io.netty.buffer.UnpooledByteBufAllocator;
-import java.io.Serializable;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.HttpMethod;
@@ -61,6 +53,16 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
 /**
  * 网关公共工具
@@ -83,18 +85,18 @@ public class GatewayCommonUtils {
      * @param statusCode statusCode
      * @param message    message
      */
-    public static Mono<Void> responseWrite(ServerWebExchange exchange, HttpStatus statusCode, Status status, String message, Map<String, String> headers) {
+    public static Mono<Void> responseWrite(ServerWebExchange exchange, HttpStatus statusCode, AnYiResultStatus status, String message, Map<String, String> headers) {
         if (CollUtil.isNotEmpty(headers)) {
             headers.forEach((key, value) -> exchange.getResponse().getHeaders().add(key, value));
         }
         exchange.getResponse().setStatusCode(statusCode);
-        if (CollectionUtil.isEmpty(exchange.getResponse().getHeaders().get("content-type"))) {
+        if (CollUtil.isEmpty(exchange.getResponse().getHeaders().get("content-type"))) {
             exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
         }
         CorsWebUtils.addCorsHeaders(exchange);
         if (StringUtils.isNotBlank(message)) {
             return exchange.getResponse().writeWith(Flux.create(sink -> {
-                Result<String> result = new Result<>();
+                AnYiResult<String> result = new AnYiResult<>();
                 result.setSuccess(false);
                 result.setCode(status.getCode());
                 result.setTimestamp(System.currentTimeMillis());
@@ -122,7 +124,7 @@ public class GatewayCommonUtils {
     public static CheckUrlInfo isHaveUrl(ServerWebExchange exchange, RouteMetaSpecialUrlModel specialUrl) {
         CheckUrlInfo result = new CheckUrlInfo();
         // if (Objects.isNull(specialUrl) ||
-        // CollectionUtil.isEmpty(specialUrl.getBlackSpecialUrls())) {
+        // CollUtil.isEmpty(specialUrl.getBlackSpecialUrls())) {
         // return result;
         // }
         // Set<SpecialUrlModel> checkUrlList = specialUrl.getSpecialUrl();
@@ -142,7 +144,7 @@ public class GatewayCommonUtils {
      * @date 2021-07-28 22:50
      */
     public static boolean isHaveUrl(ServerWebExchange exchange, Set<SpecialUrlModel> checkUrlList) {
-        if (Objects.isNull(exchange) || CollectionUtil.isEmpty(checkUrlList)) {
+        if (Objects.isNull(exchange) || CollUtil.isEmpty(checkUrlList)) {
             return false;
         }
         URI uriInfo = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
@@ -151,11 +153,11 @@ public class GatewayCommonUtils {
             return false;
         }
         for (SpecialUrlModel whiteInfo : checkUrlList) {
-            String pattern = CoreCommonUtils.getUri(whiteInfo.getUrl());
+            String pattern = AnYiCoreCommonUtils.getUri(whiteInfo.getUrl());
             if (whiteInfo.getLimitMethod() == 1) {
                 Set<String> requestMethods = whiteInfo.getRequestMethodSet();
                 HttpMethod httpMethod = exchange.getRequest().getMethod();
-                if (Objects.isNull(httpMethod) || CollectionUtil.isEmpty(requestMethods)) {
+                if (Objects.isNull(httpMethod) || CollUtil.isEmpty(requestMethods)) {
                     continue;
                 }
                 for (String method : requestMethods) {
@@ -179,6 +181,7 @@ public class GatewayCommonUtils {
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
     public static class CheckUrlInfo implements Serializable {
+        @Serial
         private static final long serialVersionUID = 2300450135302465210L;
 
         /**
@@ -193,7 +196,7 @@ public class GatewayCommonUtils {
     }
 
     @PostConstruct
-    private void init() {
+    void init() {
         utils = this;
     }
 }

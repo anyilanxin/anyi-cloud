@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 操作日志添加或修改Request
@@ -55,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class OperateVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -70950926272560145L;
 
     @Schema(name = "operateType", title = " 操作类型（1查询，2添加，3修改，4删除，5其他）具体与常量字典OperateType一致")
@@ -72,12 +75,15 @@ public class OperateVo implements Serializable {
     @Schema(name = "requestClientName", title = "请求客户端名称")
     private String requestClientName;
 
-    @Schema(name = "logCode", title = "日志编号", required = true)
+    @Schema(name = "logCode", title = "日志编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "日志编号不能为空")
     private String logCode;
 
     @Schema(name = "requestIp", title = "请求ip")
     private String requestIp;
+
+    @Schema(name = "ipAddress", title = "请求ip属地")
+    private String ipAddress;
 
     @Schema(name = "targetServiceCode", title = "目标服务")
     private String targetServiceCode;
@@ -116,11 +122,11 @@ public class OperateVo implements Serializable {
     private Long costTime;
 
     @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
     @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
 
     @Schema(name = "createAreaCode", title = "创建区域编码")
@@ -145,7 +151,7 @@ public class OperateVo implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserId", title = "更新用户id")
@@ -155,13 +161,14 @@ public class OperateVo implements Serializable {
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
     @Schema(name = "remark", title = "备注")
     private String remark;
 
-    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", required = true)
+    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "删除状态:0-正常,1-已删除,默认0不能为空")
     private Integer delFlag;
+
 }

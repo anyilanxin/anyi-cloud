@@ -27,15 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageServicePageVo;
+import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageServicePageQuery;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageServiceEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServicePageDto;
+import com.anyilanxin.anyicloud.system.modules.manage.service.dto.SystemStatDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -52,33 +53,22 @@ public interface ManageServiceMapper extends BaseMapper<ManageServiceEntity> {
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageServicePageVo} 查询条件
-     * @param page ${@link Page< ManageServicePageDto >} 分页信息
+     * @param vo   ${@link ManageServicePageQuery} 查询条件
+     * @param page ${@link Page<  ManageServicePageDto  >} 分页信息
      * @return IPage<ManageServicePageDto> ${@link IPage<ManageServicePageDto>} 结果
      * @author zxh
      * @date 2021-12-19 00:22:19
      */
-    IPage<ManageServicePageDto> pageByModel(Page<ManageServicePageDto> page, @Param("query") ManageServicePageVo vo);
+    IPage<ManageServicePageDto> pageByModel(Page<ManageServicePageDto> page, @Param("query") ManageServicePageQuery vo);
 
 
     /**
-     * 通过服务id物理删除
+     * 服务统计
      *
-     * @param serviceId ${@link String} 服务id
-     * @return int ${@link Integer} 成功状态:0-失败,1-成功
+     * @return {@link SystemStatDto }
      * @author zxh
-     * @date 2021-12-19 00:22:19
+     * @date 2022-11-23 21:19:03
      */
-    int physicalDeleteById(@Param("id") String serviceId);
+    SystemStatDto systemStat();
 
-
-    /**
-     * 通过服务id物理批量删除
-     *
-     * @param idList ${@link Collection} 待删除id
-     * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2021-12-19 00:22:19
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

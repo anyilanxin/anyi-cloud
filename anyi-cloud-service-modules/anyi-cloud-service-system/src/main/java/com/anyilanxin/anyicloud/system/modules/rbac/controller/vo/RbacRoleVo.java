@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 角色表添加或修改Request
@@ -53,9 +56,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacRoleVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -68621005002247307L;
 
-    @Schema(name = "roleName", title = "角色名称", required = true)
+    @Schema(name = "roleName", title = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色名称不能为空")
     private String roleName;
 
@@ -65,11 +69,11 @@ public class RbacRoleVo implements Serializable {
     @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0(用户创建时自动挂接)")
     private Integer autoBind;
 
-    @Schema(name = "roleCode", title = "角色编码", required = true)
+    @Schema(name = "roleCode", title = "角色编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色编码不能为空")
     private String roleCode;
 
-    @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0", required = true)
+    @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色状态不能为空")
     @Min(value = 0, message = "角色状态只能为0、1")
     @Max(value = 1, message = "角色状态只能为0、1")

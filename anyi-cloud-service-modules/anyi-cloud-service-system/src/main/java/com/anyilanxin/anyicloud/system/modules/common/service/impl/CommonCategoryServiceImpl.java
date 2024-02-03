@@ -27,16 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.tree.TreeToolUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.corecommon.utils.tree.AnYiTreeToolUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonCategoryEntity;
 import com.anyilanxin.anyicloud.system.modules.common.mapper.CommonCategoryMapper;
@@ -51,12 +51,14 @@ import com.anyilanxin.anyicloud.system.modules.common.service.mapstruct.CommonCa
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 分类字典表(CommonCategory)业务层实现
@@ -82,7 +84,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
         this.checkData(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -98,7 +100,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
     void checkData(CommonCategoryEntity entity) {
         // 如果是子节点父节点必须传
         if (entity.getIsParent() == 1 && StringUtils.isBlank(entity.getParentId())) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "添加子节点时父节点id必填");
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "添加子节点时父节点id必填");
         }
         // 查询分类统一编码是否存在
         LambdaQueryWrapper<CommonCategoryEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -107,7 +109,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
             lambdaQueryWrapper.eq(CommonCategoryEntity::getCategoryCommonCode, entity.getCategoryCommonCode());
             List<CommonCategoryEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "当前分类统一编码:" + entity.getCategoryCommonCode() + "已经存在");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前分类统一编码:" + entity.getCategoryCommonCode() + "已经存在");
             }
         }
         // 分类编码是否重复
@@ -121,7 +123,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
             }
             List<CommonCategoryEntity> list = this.list(lambdaQueryWrapper);
             if (CollUtil.isNotEmpty(list)) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "当前分类编码:" + entity.getCategoryCode() + "已经存在");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前分类编码:" + entity.getCategoryCode() + "已经存在");
             }
         }
     }
@@ -138,7 +140,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
         this.checkData(entity);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
@@ -168,7 +170,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
                 }
             }
             // 构建树形
-            TreeToolUtils<CommonCategoryTreeDto> toolUtils = new TreeToolUtils<>(rootList, commonCategoryTreeDtos, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<CommonCategoryTreeDto> toolUtils = new AnYiTreeToolUtils<>(rootList, commonCategoryTreeDtos, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(CommonCategoryTreeDto commonCategoryTreeDto) {
                     return commonCategoryTreeDto.getCategoryId();
@@ -188,8 +190,8 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<CommonCategoryPageDto> pageByModel(CommonCategoryPageVo vo) throws RuntimeException {
-        IPage<CommonCategoryPageDto> page = mapper.pageByModel(vo.getPage(), vo);
+    public AnYiPageResult<CommonCategoryPageDto> pageByModel(CommonCategoryPageQuery vo) throws RuntimeException {
+        IPage<CommonCategoryPageDto> page = mapper.pageByModel(PageUtils.getPage(vo), vo);
         List<CommonCategoryPageDto> records = page.getRecords();
         // 判断是否有下级
         if (CollUtil.isNotEmpty(records)) {
@@ -209,7 +211,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
                 });
             }
         }
-        return new PageDto<>(page, records);
+        return PageUtils.toPageData(page, records);
     }
 
 
@@ -248,7 +250,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
     public CommonCategoryDto getById(String categoryId) throws RuntimeException {
         CommonCategoryEntity byId = super.getById(categoryId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
@@ -264,11 +266,11 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
         lambdaQueryWrapper.eq(CommonCategoryEntity::getParentId, byId.getCategoryId());
         List<CommonCategoryEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "存在下级,请先删除下级");
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "存在下级,请先删除下级");
         }
         boolean b = this.removeById(categoryId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -277,14 +279,14 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> categoryIds) throws RuntimeException {
         List<CommonCategoryEntity> entities = this.listByIds(categoryIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getCategoryId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 
@@ -303,7 +305,7 @@ public class CommonCategoryServiceImpl extends ServiceImpl<CommonCategoryMapper,
             list = this.list(lambdaQueryWrapper);
             List<CommonCategoryTreeDto> subList = treeDtoMap.bToA(dtoMap.bToA(list));
             // 构建树
-            TreeToolUtils<CommonCategoryTreeDto> toolUtils = new TreeToolUtils<>(rootList, subList, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<CommonCategoryTreeDto> toolUtils = new AnYiTreeToolUtils<>(rootList, subList, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(CommonCategoryTreeDto commonCategoryTreeDto) {
                     return commonCategoryTreeDto.getCategoryId();

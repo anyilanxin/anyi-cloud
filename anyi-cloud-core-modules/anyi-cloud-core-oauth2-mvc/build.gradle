@@ -1,7 +1,0 @@
-description = "AnYi Cloud Oauth2 Mvc Core"
-
-dependencies {
-    api project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-common')
-    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    compileOnly 'org.springframework.boot:spring-boot-starter-web'
-}

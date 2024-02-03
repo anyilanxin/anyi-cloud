@@ -27,69 +27,66 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.config;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.HTTP;
-import static org.springdoc.core.Constants.*;
-import static org.springframework.util.AntPathMatcher.DEFAULT_PATH_SEPARATOR;
-
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
 import com.anyilanxin.anyicloud.corecommon.constant.ServiceConstant;
 import com.anyilanxin.anyicloud.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.SwaggerConfigModel;
-import java.util.*;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springdoc.core.SpringDocConfiguration;
-import org.springdoc.core.SwaggerUiConfigParameters;
-import org.springdoc.core.SwaggerUiConfigProperties;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springdoc.core.configuration.SpringDocConfiguration;
+import org.springdoc.core.properties.SwaggerUiConfigParameters;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
+import org.springdoc.core.utils.Constants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.HTTP;
+import static org.springframework.util.AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
 /**
  * @author zxh
  * @date 2022-01-05 02:26
  * @since 1.0.0
  */
-@Lazy(false)
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(name = SPRINGDOC_SWAGGER_UI_ENABLED, matchIfMissing = true)
+@Configuration
+@Slf4j
+@ConditionalOnProperty(name = Constants.SPRINGDOC_ENABLED, matchIfMissing = true)
 @ConditionalOnBean(SpringDocConfiguration.class)
 public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
     private final SwaggerUiConfigProperties swaggerUiConfig;
     private final DiscoveryClient disClient;
-    private static final String MANAGEMENT_CONTEXT_PATH = "management.context-path";
-    private static final String ACTUATOR = "/actuator";
-    private final WebClient.Builder webClient;
-
-    @Value(value = "${springdoc.api-docs.path:" + DEFAULT_API_DOCS_URL + "}")
+    private final static String MANAGEMENT_CONTEXT_PATH = "management.context-path";
+    private final static String ACTUATOR = "/actuator";
+    private final WebClient client;
+    @Value(value = "${springdoc.api-docs.path:" + Constants.DEFAULT_API_DOCS_URL + "}")
     private String swaggerConfig;
-
-    @Value("${spring.application.name:skillfull}")
+    @Value("${spring.application.name:anyi}")
     private String applicationName;
-
     @Value("${springdoc.other-api-docs-prefix:}")
     private String otherApiDocsPrefix;
-
     @Value("${springdoc.gateway-api-docs-prefix:}")
     private String gatewayApiDocsPrefix;
-
     private final Map<String, SwaggerUrl> apiDocInfoUrlModel;
 
-    public CustomSwaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder webClient, Map<String, SwaggerUrl> apiDocInfoUrlModel) {
+    public CustomSwaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder loadBalancedWebClientBuilder, Map<String, SwaggerUrl> apiDocInfoUrlModel) {
         super(swaggerUiConfig);
         this.swaggerUiConfig = swaggerUiConfig;
         this.disClient = disClient;
-        this.webClient = webClient;
+        this.client = loadBalancedWebClientBuilder.build();
         this.apiDocInfoUrlModel = CollUtil.isEmpty(apiDocInfoUrlModel) ? new HashMap<>() : apiDocInfoUrlModel;
     }
 
@@ -147,31 +144,43 @@ public class CustomSwaggerUiConfigParameters extends SwaggerUiConfigParameters {
         apiDocInfoUrlModel.putAll(middleApiDocInfoUrlModel);
         // 获取内部非网关系统swagger信息
         Set<String> otherServices = services.stream().filter(v -> !v.equals(applicationName)).collect(Collectors.toSet());
-        ParameterizedTypeReference<Result<Map<String, ManageSwaggerInfoModel>>> reference = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<AnYiResult<Map<String, ManageSwaggerInfoModel>>> reference = new ParameterizedTypeReference<>() {
         };
-        WebClient client = webClient.build();
-        client.mutate().build().get().uri(HTTP + ServiceConstant.SYSTEM_SERVICE + ServiceConstant.SYSTEM_SERVICE_PATH + "/manage-service/select/swagger-info").accept(MediaType.APPLICATION_JSON).exchangeToMono(response -> response.bodyToMono(reference)).onErrorStop().filter(result -> result.isSuccess() && CollUtil.isNotEmpty(result.getData())).map(Result::getData).doOnNext(swaggerInfoData -> otherServices.forEach(v -> {
-            List<ServiceInstance> instances = disClient.getInstances(v);
-            if (CollUtil.isNotEmpty(instances)) {
-                instances.forEach(sv -> {
-                    String serviceId = sv.getServiceId();
-                    ManageSwaggerInfoModel manageSwaggerInfoModel = swaggerInfoData.get(serviceId);
-                    if (Objects.nonNull(manageSwaggerInfoModel)) {
-                        Map<String, String> metadata = sv.getMetadata();
-                        String contextPath = metadata.get(MANAGEMENT_CONTEXT_PATH);
-                        contextPath = StringUtils.isBlank(contextPath) ? "" : contextPath;
-                        contextPath = contextPath.replace(ACTUATOR, "");
-                        client.mutate().build().get().uri(HTTP + serviceId + contextPath + swaggerConfig + DEFAULT_PATH_SEPARATOR + SWAGGGER_CONFIG_FILE).exchangeToMono(response -> response.bodyToMono(SwaggerConfigModel.class)).onErrorStop().filter(body -> CollUtil.isNotEmpty(body.getUrls())).map(SwaggerConfigModel::getUrls).doOnNext(urlInfos -> urlInfos.forEach(urlInfo -> {
-                            SwaggerUrl otherSwaggerUrl = new SwaggerUrl();
-                            otherSwaggerUrl.setUrl(otherApiDocsPrefix + urlInfo.getUrl());
-                            otherSwaggerUrl.setDisplayName(serviceId + "(" + urlInfo.getName() + ")");
-                            otherSwaggerUrl.setName(serviceId + "(" + urlInfo.getName() + ")");
-                            apiDocInfoUrlModel.put(otherSwaggerUrl.getName(), otherSwaggerUrl);
-                        })).subscribe();
-                    }
-                });
-            }
-        })).subscribe();
+        client.get().uri(HTTP + ServiceConstant.SYSTEM_SERVICE + ServiceConstant.SYSTEM_SERVICE_PATH + "/manage-service/select/swagger-info")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchangeToMono(response -> response.bodyToMono(reference))
+                .onErrorStop()
+                .filter(result -> result.isSuccess() && CollUtil.isNotEmpty(result.getData()))
+                .map(AnYiResult::getData)
+                .doOnNext(swaggerInfoData -> {
+                    otherServices.forEach(v -> {
+                        List<ServiceInstance> instances = disClient.getInstances(v);
+                        if (CollUtil.isNotEmpty(instances)) {
+                            instances.forEach(sv -> {
+                                String serviceId = sv.getServiceId();
+                                ManageSwaggerInfoModel manageSwaggerInfoModel = swaggerInfoData.get(serviceId);
+                                if (Objects.nonNull(manageSwaggerInfoModel)) {
+                                    Map<String, String> metadata = sv.getMetadata();
+                                    String contextPath = metadata.get(MANAGEMENT_CONTEXT_PATH);
+                                    contextPath = StringUtils.isBlank(contextPath) ? "" : contextPath;
+                                    contextPath = contextPath.replace(ACTUATOR, "");
+                                    client.mutate().build().get().uri(HTTP + serviceId + contextPath + swaggerConfig + DEFAULT_PATH_SEPARATOR + Constants.SWAGGGER_CONFIG_FILE)
+                                            .exchangeToMono(response -> response.bodyToMono(SwaggerConfigModel.class))
+                                            .onErrorStop()
+                                            .filter(body -> CollUtil.isNotEmpty(body.getUrls()))
+                                            .map(SwaggerConfigModel::getUrls)
+                                            .doOnNext(urlInfos -> urlInfos.forEach(urlInfo -> {
+                                                SwaggerUrl otherSwaggerUrl = new SwaggerUrl();
+                                                otherSwaggerUrl.setUrl(otherApiDocsPrefix + urlInfo.getUrl());
+                                                otherSwaggerUrl.setDisplayName(serviceId + "(" + urlInfo.getName() + ")");
+                                                otherSwaggerUrl.setName(serviceId + "(" + urlInfo.getName() + ")");
+                                                apiDocInfoUrlModel.put(otherSwaggerUrl.getName(), otherSwaggerUrl);
+                                            })).subscribe();
+                                }
+                            });
+                        }
+                    });
+                }).subscribe();
         Set<SwaggerUrl> urls = new HashSet<>(apiDocInfoUrlModel.size());
         apiDocInfoUrlModel.forEach((k, v) -> urls.add(v));
         return urls;

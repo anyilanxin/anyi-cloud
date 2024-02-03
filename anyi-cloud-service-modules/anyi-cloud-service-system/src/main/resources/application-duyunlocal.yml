@@ -1,0 +1,57 @@
+# 数据源配置
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.1.244:8306/anyicloud_system_service?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: Anyilan&xin054678
+
+redis:
+  host: 192.168.1.244
+  port: 31313
+  password: Anyilan&xin054678_redis
+  database: 15
+
+
+rbmq:
+  host: 192.168.1.244
+  port: 8388
+  username: anyilanxin
+  password: zuie_07934934KI12991
+
+
+
+
+app:
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+
+
+
+# 资源白名单设置
+anyi:
+  resource:
+    dev-white-list:
+      - /swagger-ui.html;get
+      - /swagger-ui/**;get
+      - /v3/api-docs/**;get
+  oauth:
+    client-id: system_service_client
+    client-secret: system_service_client
+    grant-type: client_credentials
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization
+
+# 外部任务配置
+camunda.bpm.client:
+  enabled: true
+  base-url: http://process-service/process/engine-rest
+  load-balance: true
+
+

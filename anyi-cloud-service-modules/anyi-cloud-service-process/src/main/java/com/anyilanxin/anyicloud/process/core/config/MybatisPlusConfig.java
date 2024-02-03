@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.core.config;
 
 import com.anyilanxin.anyicloud.process.core.handler.MyMetaObjectHandler;
@@ -41,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author zxh
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
 public class MybatisPlusConfig {
     /**
@@ -70,4 +71,5 @@ public class MybatisPlusConfig {
     public MetaObjectHandler metaObjectHandler() {
         return new MyMetaObjectHandler();
     }
+
 }

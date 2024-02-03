@@ -1,16 +1,19 @@
 description = "AnYi Cloud Gateway Service"
 
-bootJar { enabled = true }
-
+def bootJar = true
 
 dependencies {
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-webflux')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-webflux')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-common')
-    implementation project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-gateway')
-//    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-webflux')
+    implementation project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-resourcewebflux')
+    implementation project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-gateway')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-logging-webflux')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway'
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-logging-webflux')
+}
+
+
+configurations.configureEach {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 }

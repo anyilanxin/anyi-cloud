@@ -6,7 +6,7 @@ spring:
         # 主库数据源
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/anyi_cloud_open?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://localhost:3306/anyicloud_process_service?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&nullCatalogMeansCurrent=true&rewriteBatchedStatement=true&serverTimezone=Asia/Shanghai
           username: root
           password: root
       # 开启seata代理
@@ -31,12 +31,22 @@ app:
   log-root-level: info
   log-package-level: debug
   log-camunda-level: debug
+  enable-gray: true # 是否启用灰度
   enable-doc: true # 是否打开swagger
 
 
+
 # 资源白名单设置
-resource:
-  dev-white-list:
-    - /swagger-ui.html;get
-    - /swagger-ui/**;get
-    - /v3/api-docs/**;get
+anyi:
+  notice:
+    task-notice-link: /fixed-router/fixed-page-approval-task-wait # 用户任务通知链接地址
+    show-notice: true # 是否全局通知
+    process-notice-link: /fixed-router/fixed-page-submit-detail # 流程实例通知地址
+  resource:
+    dev-white-list:
+      - /swagger-ui.html;get
+      - /swagger-ui/**;get
+      - /v3/api-docs/**;get
+    disable: true
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization

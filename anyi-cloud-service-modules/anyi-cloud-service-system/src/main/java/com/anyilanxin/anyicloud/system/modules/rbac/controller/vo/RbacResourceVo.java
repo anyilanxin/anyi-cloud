@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 资源表添加或修改Request
@@ -51,20 +54,21 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacResourceVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 584443379737783939L;
 
-    @Schema(name = "resourceCode", title = "资源编码,即后端服务名", required = true)
+    @Schema(name = "resourceCode", title = "资源编码,即后端服务名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源编码,即后端服务名不能为空")
     private String resourceCode;
 
-    @Schema(name = "resourceName", title = "资源名称", required = true)
+    @Schema(name = "resourceName", title = "资源名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源名称不能为空")
     private String resourceName;
 
     @Schema(name = "resourceIcon", title = "资源图标")
     private String resourceIcon;
 
-    @Schema(name = "resourceStatus", title = "状态：0-未启用,1-启用，默认0", required = true)
+    @Schema(name = "resourceStatus", title = "状态：0-未启用,1-启用，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "状态不能为空")
     private Integer resourceStatus;
 
@@ -74,7 +78,7 @@ public class RbacResourceVo implements Serializable {
     @Schema(name = "requestPrefix", title = "资源请求前缀，即server.servlet.context-path值或spring.webflux.base-path值，前缀mvc,后缀webflux")
     private String requestPrefix;
 
-    @Schema(name = "resourceType", title = "资源类型：1-内部服务,2-外部资源", required = true)
+    @Schema(name = "resourceType", title = "资源类型：1-内部服务,2-外部资源", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源类型不能为空")
     private Integer resourceType;
 

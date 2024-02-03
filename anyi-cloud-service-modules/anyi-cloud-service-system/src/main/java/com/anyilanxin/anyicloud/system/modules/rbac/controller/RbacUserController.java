@@ -27,37 +27,42 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageVo;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacEnalbeUserPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacJoinOrgVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgUserService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacUserService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.ISyncProcessService;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacProcessCommonDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserPageDto;
+import com.anyilanxin.anyicloud.systemadapter.model.SimpleUserModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户表(RbacUser)控制层
@@ -73,32 +78,32 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "RbacUser", description = "用户相关")
 @RequestMapping(value = "/rbac-user", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RbacUserController extends BaseController {
+public class RbacUserController extends AnYiBaseController {
     private final IRbacUserService service;
     private final ISyncProcessService syncService;
     private final IRbacOrgUserService orgUserService;
 
     @Operation(summary = "用户表添加", tags = {"v1.0.0"}, description = "添加用户表")
     @PostMapping(value = "/insert")
-    public Result<String> insert(@RequestBody @Valid RbacUserVo vo) {
+    public AnYiResult<String> insert(@RequestBody @Valid RbacUserVo vo) {
         service.save(vo);
-        return ok(I18nUtil.get("Controller.InsertSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.InsertSuccess"));
     }
 
 
     @Operation(summary = "通过用户id修改", tags = {"v1.0.0"}, description = "修改用户表")
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @PutMapping(value = "/update/{userId}")
-    public Result<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId, @RequestBody @Valid RbacUserVo vo) {
+    public AnYiResult<String> update(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId, @RequestBody @Valid RbacUserVo vo) {
         service.updateById(userId, vo);
-        return ok(I18nUtil.get("Controller.UpdateSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.UpdateSuccess"));
     }
 
 
     @Operation(summary = "通过用户d修改状态", tags = {"v1.0.0"}, description = "通过用户d修改状态")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true), @Parameter(in = ParameterIn.QUERY, description = "类型:1-激活,2-冻结", name = "type", required = true)})
     @GetMapping(value = "/update-user/state")
-    public Result<String> updateState(@RequestParam(required = false) @NotBlank(message = "用户id不能为空") String userId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
+    public AnYiResult<String> updateState(@RequestParam(required = false) @NotBlank(message = "用户id不能为空") String userId, @RequestParam(required = false) @NotNull(message = "操作类型不能为空") Integer type) {
         service.updateState(userId, type);
         return ok(type == 1 ? "激活成功" : "冻结成功");
     }
@@ -107,7 +112,7 @@ public class RbacUserController extends BaseController {
     @Operation(summary = "重置密码", tags = {"v1.0.0"}, description = "重置密码")
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @GetMapping(value = "/reset/password/{userId}")
-    public Result<String> resetPassword(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+    public AnYiResult<String> resetPassword(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
         return ok(service.resetPassword(userId), "重置密码成功");
     }
 
@@ -115,24 +120,25 @@ public class RbacUserController extends BaseController {
     @Operation(summary = "用户表逻辑删除", tags = {"v1.0.0"}, description = "删除用户表")
     @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
     @DeleteMapping(value = "/delete-one/{userId}")
-    public Result<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+    public AnYiResult<String> deleteById(@PathVariable(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
         service.deleteById(userId);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
     @Operation(summary = "加入机构", tags = {"v1.0.0"}, description = "加入机构")
     @PostMapping(value = "/join-org")
-    public Result<String> joinOrg(@RequestBody @Valid RbacJoinOrgVo vo) {
+    public AnYiResult<String> joinOrg(@RequestBody @Valid RbacJoinOrgVo vo) {
         orgUserService.joinOrg(vo);
         return ok("加入机构成功");
     }
 
 
     @Operation(summary = "移除机构", tags = {"v1.0.0"}, description = "移除机构")
-    @Parameters({@Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true), @Parameter(in = ParameterIn.PATH, description = "机构id", name = "orgId", required = true)})
+    @Parameters({@Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true), @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId", required = true)})
+
     @GetMapping(value = "/remove-org")
-    public Result<String> removeOrg(@RequestParam(required = false) @NotBlank(message = "用户id不能为空") String userId, @RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId) {
+    public AnYiResult<String> removeOrg(@RequestParam(required = false) @NotBlank(message = "用户id不能为空") String userId, @RequestParam(required = false) @NotBlank(message = "机构id不能为空") String orgId) {
         orgUserService.removeOrg(userId, orgId);
         return ok("移除机构成功");
     }
@@ -140,36 +146,66 @@ public class RbacUserController extends BaseController {
 
     @Operation(summary = "用户表逻辑批量删除", tags = {"v1.0.0"}, description = "批量删除用户表")
     @PostMapping(value = "/delete-batch")
-    public Result<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除用户id不能为空") List<String> userIds) {
+    public AnYiResult<String> deleteBatchByIds(@RequestBody @NotNullSize(message = "待删除用户id不能为空") List<String> userIds) {
         service.deleteBatch(userIds);
-        return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
 
     @Operation(summary = "通过用户id查询详情", tags = {"v1.0.0"}, description = "查询用户表详情")
     @Parameters({@Parameter(in = ParameterIn.QUERY, description = "用户id", name = "userId", required = true), @Parameter(in = ParameterIn.QUERY, description = "机构id", name = "orgId")})
     @GetMapping(value = "/select/one")
-    public Result<RbacUserDto> getById(@RequestParam(required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId, @RequestParam(required = false) String orgId) {
+    public AnYiResult<RbacUserDto> getById(@RequestParam(required = false) @NotBlank(message = "用户id不能为空") String userId, @RequestParam(required = false) String orgId) {
         return ok(service.getById(userId, orgId));
     }
 
 
     @Operation(summary = "用户表分页查询", tags = {"v1.0.0"}, description = "分页查询用户表")
     @PostMapping(value = "/select/page")
-    public Result<PageDto<RbacUserPageDto>> selectPage(@RequestBody RbacUserPageVo vo) {
+    public AnYiResult<AnYiPageResult<RbacUserPageDto>> selectPage(@RequestBody RbacUserPageQuery vo) {
         return ok(service.pageByModel(vo));
+    }
+
+
+    @Operation(summary = "通过用户ids查询用户信息", tags = {"v1.0.0"}, description = "通过用户ids查询用户信息")
+    @PostMapping(value = "/select/list-by-ids")
+    public AnYiResult<List<SimpleUserModel>> selectUserByIds(@RequestBody List<String> userIds) {
+        return ok(service.selectUserByIds(userIds));
+    }
+
+
+    @Operation(summary = "通过ids查询详细信息(流程引擎建模使用)", tags = {"v1.0.0"}, description = "通过ids查询详细信息(流程引擎建模使用)")
+    @PostMapping(value = "/select-process/list-by-ids")
+    public AnYiResult<List<RbacProcessCommonDto>> selectProcessDesignerByIds(@RequestBody List<String> ids) {
+        return ok(service.selectProcessDesignerByIds(ids));
+    }
+
+
+    @Operation(summary = "获取所有用户信息", tags = {"v1.0.0"}, description = "获取所有用户信息")
+    @GetMapping(value = "/select/list")
+    @PreAuthorize("isAnonymous()||permitAll()")
+    public AnYiResult<List<SimpleUserModel>> getUserList() {
+        return ok(service.getUserList());
     }
 
 
     @Operation(summary = "分页查询可关联的用户信息", tags = {"v1.0.0"}, description = "分页查询可关联的用户信息")
     @PostMapping(value = "/select/enable-user-page")
-    public Result<PageDto<RbacUserPageDto>> selectEnableUserPage(@RequestBody @Valid RbacEnalbeUserPageVo vo) {
+    public AnYiResult<AnYiPageResult<RbacUserPageDto>> selectEnableUserPage(@RequestBody @Valid RbacEnalbeUserPageQuery vo) {
         return ok(service.selectEnableUserPage(vo));
+    }
+
+
+    @Operation(summary = "通过用户id查询用户信息", tags = {"v1.0.0"}, description = "通过用户id查询用户信息")
+    @Parameter(in = ParameterIn.PATH, description = "用户id", name = "userId", required = true)
+    @GetMapping("/select/one/{userId}")
+    public AnYiResult<SimpleUserModel> getUserById(@PathVariable(value = "userId", required = false) @PathNotBlankOrNull(message = "用户id不能为空") String userId) {
+        return ok(service.getUserById(userId));
     }
 
     // @Operation(summary = "全量同步流程引擎", tags = {"v1.0.0"}, description = "全量同步流程引擎")
     // @GetMapping(value = "/sync/process")
-    // public Result<String> syncProcess() {
+    // public AnYiResult<String> syncProcess() {
     // syncService.syncRoleAll();
     // syncService.syncUserAll();
     // return ok("同步成功");

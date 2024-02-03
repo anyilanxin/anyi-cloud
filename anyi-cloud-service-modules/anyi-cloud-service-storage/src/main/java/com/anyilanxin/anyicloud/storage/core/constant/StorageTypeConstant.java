@@ -27,7 +27,8 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.core.constant;
+
+package com.anyilanxin.anyicloud.storage.core.constant;
 
 /**
  * 缓存常量

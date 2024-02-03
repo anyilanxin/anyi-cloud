@@ -84,26 +84,6 @@
         </where>
     </select>
 
-
-    <!-- 通过路由自定义过滤器id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_manage_route_custom_filter
-        WHERE route_custom_filter_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM sys_manage_route_custom_filter
-        WHERE route_custom_filter_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_manage_route_custom_filter
@@ -125,5 +105,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

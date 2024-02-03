@@ -27,12 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 用户信息
@@ -49,6 +52,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class UserQueryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6364921052776119371L;
 
     @Schema(name = "userName", title = "用户名")
@@ -65,4 +69,5 @@ public class UserQueryVo implements Serializable {
 
     @Schema(name = "tenantId", title = "租户id")
     private String tenantId;
+
 }

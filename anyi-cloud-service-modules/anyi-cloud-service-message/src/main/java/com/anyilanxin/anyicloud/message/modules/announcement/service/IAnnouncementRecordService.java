@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.announcement.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordPageVo;
+import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordPageQuery;
 import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordQueryVo;
 import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordVo;
 import com.anyilanxin.anyicloud.message.modules.announcement.entity.AnnouncementRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.dto.AnnouncementRecordDto;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.dto.AnnouncementRecordPageDto;
+
 import java.util.List;
 
 /**
@@ -75,21 +77,20 @@ public interface IAnnouncementRecordService extends BaseService<AnnouncementReco
     /**
      * 分页查询
      *
-     * @param vo ${@link AnnouncementRecordPageVo} 系统通知公告阅读记录分页查询Vo
-     * @return PageDto<AnnouncementRecordPageDto> ${@link PageDto<  AnnouncementRecordPageDto  >}
-     * 分页查询结果
+     * @param vo ${@link AnnouncementRecordPageQuery} 系统通知公告阅读记录分页查询Vo
+     * @return AnYiPageResult<AnnouncementRecordPageDto> ${@link AnYiPlusPageResult <   AnnouncementRecordPageDto   >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 08:35:34
      */
-    PageDto<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageVo vo) throws RuntimeException;
+    AnYiPageResult<AnnouncementRecordPageDto> pageByModel(AnnouncementRecordPageQuery vo) throws RuntimeException;
 
 
     /**
      * 条件查询多条
      *
      * @param vo ${@link AnnouncementRecordQueryVo} 系统通知公告阅读记录条件查询Vo
-     * @return List<AnnouncementRecordDto> ${@link List<  AnnouncementRecordDto  >} 查询结果
+     * @return List<AnnouncementRecordDto> ${@link List<   AnnouncementRecordDto   >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 08:35:34

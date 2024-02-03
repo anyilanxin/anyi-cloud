@@ -27,11 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFileQueryVo;
-import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
+package com.anyilanxin.anyicloud.storage.modules.storage.service.mapstruct;
+
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
+import com.anyilanxin.anyicloud.storage.modules.storage.controller.vo.StorageInfoFileQueryVo;
+import com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -44,5 +45,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-04-05 09:57:59
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface StorageInfoFileQueryCopyMap extends BaseMap<StorageInfoFileQueryVo, StorageInfoFileEntity> {
+public interface StorageInfoFileQueryCopyMap extends AnYiBaseMap<StorageInfoFileQueryVo, StorageInfoFileEntity> {
 }

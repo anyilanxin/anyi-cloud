@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.receive.controlle;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
-import com.anyilanxin.anyicloud.coremvc.base.controller.BaseController;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.coremvc.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.logging.modules.receive.service.IReceiveService;
 import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
@@ -39,7 +40,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -48,6 +48,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 日志接收处理
@@ -63,12 +65,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Hidden
 @Tag(name = "ReceiveLog", description = "日志接收")
 @RequestMapping(value = "/receive-log", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ReceiveController extends BaseController {
+public class ReceiveController extends AnYiBaseController {
     private final IReceiveService service;
 
     @Operation(summary = "接收授权日志", tags = {"v1.0.0"}, description = "接收授权日志")
     @DeleteMapping(value = "/receive/auth-log")
-    public Result<String> receiveAuthLog(@RequestBody AuthLogModel model) {
+    public AnYiResult<String> receiveAuthLog(@RequestBody AuthLogModel model) {
         service.saveAuth(model);
         return ok("接收成功");
     }
@@ -77,7 +79,7 @@ public class ReceiveController extends BaseController {
     @Operation(summary = "批量接收授权日志", tags = {"v1.0.0"}, description = "接收授权日志")
     @Parameter(in = ParameterIn.PATH, description = "授权日志id", name = "authLogId", required = true)
     @DeleteMapping(value = "/receive/batch/auth-log")
-    public Result<String> receiveBatchAuthLog(@RequestBody List<AuthLogModel> models) {
+    public AnYiResult<String> receiveBatchAuthLog(@RequestBody List<AuthLogModel> models) {
         service.saveAuthBatch(models);
         return ok("批量接收成功");
     }
@@ -85,7 +87,7 @@ public class ReceiveController extends BaseController {
 
     @Operation(summary = "接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/operate-log")
-    public Result<String> receiveOperateLog(@RequestBody OperateLogModel model) {
+    public AnYiResult<String> receiveOperateLog(@RequestBody OperateLogModel model) {
         service.saveOperate(model);
         return ok("接收成功");
     }
@@ -93,8 +95,9 @@ public class ReceiveController extends BaseController {
 
     @Operation(summary = "批量接收操作日志", tags = {"v1.0.0"}, description = "接收操作日志")
     @DeleteMapping(value = "/receive/batch/operate-log")
-    public Result<String> receiveBatchOperateLog(@RequestBody List<OperateLogModel> models) {
+    public AnYiResult<String> receiveBatchOperateLog(@RequestBody List<OperateLogModel> models) {
         service.saveOperateBatch(models);
         return ok("批量接收成功");
     }
+
 }

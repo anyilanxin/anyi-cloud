@@ -27,31 +27,30 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.utils;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
-import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
+import com.anyilanxin.anyicloud.corecommon.model.auth.AnYiUserInfo;
 import com.anyilanxin.anyicloud.message.core.constant.impl.WebSocketSessionType;
-import com.anyilanxin.anyicloud.messagerpc.constant.impl.SocketMessageEventType;
-import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
-import com.anyilanxin.anyicloud.messagerpc.model.SubscribeMsgModel;
-import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
-import com.anyilanxin.anyicloud.oauth2common.mapstruct.OauthUserAndUserDetailsCopyMap;
+import com.anyilanxin.anyicloud.messageadapter.constant.enums.SocketMessageEventType;
+import com.anyilanxin.anyicloud.messageadapter.model.SocketMsgContent1Model;
+import com.anyilanxin.anyicloud.messageadapter.model.SubscribeMsgContent1Model;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
 /**
  * @author zxh
@@ -63,14 +62,14 @@ import org.springframework.web.socket.WebSocketSession;
 @Component
 public class WsUtils {
     private static WsUtils utils;
-    private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
+    // private final OauthUserAndUserDetailsCopyMap detailsCopyMap;
     /**
      * 保存连接 session 的地方
      */
     public static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
 
     @PostConstruct
-    private void init() {
+    void init() {
         utils = this;
     }
 
@@ -156,7 +155,7 @@ public class WsUtils {
     /**
      * 创建redis订阅信息
      */
-    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMessageEventType eventType) {
+    public static SubscribeMsgContent1Model createSubscribeMsgModel(WebSocketSession session, SocketMessageEventType eventType) {
         return createSubscribeMsgModel(session, null, eventType);
     }
 
@@ -164,7 +163,7 @@ public class WsUtils {
     /**
      * 创建redis订阅信息
      */
-    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel) {
+    public static SubscribeMsgContent1Model createSubscribeMsgModel(WebSocketSession session, SocketMsgContent1Model socketMsgModel) {
         return createSubscribeMsgModel(session, socketMsgModel, null);
     }
 
@@ -172,7 +171,7 @@ public class WsUtils {
     /**
      * 创建redis订阅信息
      */
-    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session) {
+    public static SubscribeMsgContent1Model createSubscribeMsgModel(WebSocketSession session) {
         return createSubscribeMsgModel(session, null, null);
     }
 
@@ -180,26 +179,27 @@ public class WsUtils {
     /**
      * 创建redis订阅信息
      */
-    public static SubscribeMsgModel createSubscribeMsgModel(WebSocketSession session, SocketMsgModel socketMsgModel, SocketMessageEventType eventType) {
-        SubscribeMsgModel subscribeMsgModel;
+    public static SubscribeMsgContent1Model createSubscribeMsgModel(WebSocketSession session, SocketMsgContent1Model socketMsgModel, SocketMessageEventType eventType) {
+        SubscribeMsgContent1Model subscribeMsgModel;
         if (Objects.nonNull(socketMsgModel)) {
-            subscribeMsgModel = (SubscribeMsgModel) socketMsgModel;
+            subscribeMsgModel = (SubscribeMsgContent1Model) socketMsgModel;
         } else {
-            subscribeMsgModel = new SubscribeMsgModel();
+            subscribeMsgModel = new SubscribeMsgContent1Model();
         }
         subscribeMsgModel.setSendTime(LocalDateTime.now());
         subscribeMsgModel.setSendSessionId(session.getId());
         Map<String, Object> attributes = session.getAttributes();
-        if (CollectionUtil.isNotEmpty(attributes)) {
+        if (CollUtil.isNotEmpty(attributes)) {
             Object objectUserId = attributes.get(WebSocketSessionType.USER_ID.getType());
             if (Objects.nonNull(objectUserId)) {
                 subscribeMsgModel.setUserId(objectUserId.toString());
                 Principal principal = session.getPrincipal();
-                if (principal instanceof Authentication) {
-                    Authentication userPrincipal = (Authentication) principal;
-                    SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
-                    subscribeMsgModel.setSendUserInfo(utils.detailsCopyMap.aToB(userDetails));
-                }
+                // if (principal instanceof Authentication) {
+                // Authentication userPrincipal = (Authentication) principal;
+                // AnYiUserDetails userDetails = (AnYiUserDetails)
+                // (userPrincipal.getPrincipal());
+                // subscribeMsgModel.setSendUserInfo(utils.detailsCopyMap.aToB(userDetails));
+                // }
             }
             Object objectToken = attributes.get(WebSocketSessionType.TOKEN.getType());
             if (Objects.nonNull(objectToken)) {
@@ -225,7 +225,7 @@ public class WsUtils {
      * @author zxh
      * @date 2022-08-27 16:07
      */
-    public static void sendMsg(WebSocketSession session, SocketMsgModel msgModel) {
+    public static void sendMsg(WebSocketSession session, SocketMsgContent1Model msgModel) {
         try {
             if (Objects.nonNull(session) && Objects.nonNull(msgModel)) {
                 session.sendMessage(new TextMessage(JSONObject.toJSONString(msgModel, JSONWriter.Feature.WriteMapNullValue)));
@@ -244,13 +244,15 @@ public class WsUtils {
      * @author zxh
      * @date 2022-08-26 03:02
      */
-    public static UserInfo getUserInfo(WebSocketSession session) {
+    public static AnYiUserInfo getUserInfo(WebSocketSession session) {
         Principal principal = session.getPrincipal();
-        if (principal instanceof Authentication) {
-            Authentication userPrincipal = (Authentication) principal;
-            SkillFullUserDetails userDetails = (SkillFullUserDetails) (userPrincipal.getPrincipal());
-            return utils.detailsCopyMap.aToB(userDetails);
-        }
+        // if (principal instanceof Authentication) {
+        // Authentication userPrincipal = (Authentication) principal;
+        // AnYiUserDetails userDetails = (AnYiUserDetails)
+        // (userPrincipal.getPrincipal());
+        // return utils.detailsCopyMap.aToB(userDetails);
+        // }
         return null;
     }
+
 }

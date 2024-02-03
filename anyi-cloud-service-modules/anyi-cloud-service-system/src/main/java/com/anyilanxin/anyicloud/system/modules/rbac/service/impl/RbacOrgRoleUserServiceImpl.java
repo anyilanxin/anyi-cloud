@@ -27,12 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleUserMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleUserService;
@@ -42,13 +42,15 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacOrgRol
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * 机构角色-用户(RbacOrgRoleUser)业务层实现
@@ -77,7 +79,7 @@ public class RbacOrgRoleUserServiceImpl extends ServiceImpl<RbacOrgRoleUserMappe
             });
             boolean b = this.saveBatch(orgRoleUserEntities);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存机构角色关联失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "保存机构角色关联失败");
             }
         }
     }
@@ -90,9 +92,9 @@ public class RbacOrgRoleUserServiceImpl extends ServiceImpl<RbacOrgRoleUserMappe
         if (CollUtil.isNotEmpty(list)) {
             Set<String> roleUserIds = new HashSet<>(list.size());
             list.forEach(v -> roleUserIds.add(v.getRoleUserId()));
-            int i = mapper.physicalDeleteBatchIds(roleUserIds);
+            int i = mapper.anyiPhysicalDeleteBatchIds(roleUserIds);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
             }
         }
     }

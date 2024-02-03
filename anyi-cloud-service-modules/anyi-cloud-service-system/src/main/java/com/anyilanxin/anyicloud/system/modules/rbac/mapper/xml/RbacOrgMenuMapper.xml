@@ -57,7 +57,7 @@
         ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb,
         ali.carry_param, ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu,
         ali.order_no, ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
-        ali.system_id, ali.enable_delete, ali.menu_sys_code,
+        ali.button_action_tag, ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code,
         ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action
@@ -96,24 +96,5 @@
           </where>
     </select>
 
-
-    <!-- 通过权限角色id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_org_menu
-        WHERE org_id = #{orgId, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 删除不在不存在当前列表的资源 -->
-    <delete id="physicalDeleteNotInIds">
-        DELETE
-        FROM  sys_rbac_org_menu
-        WHERE menu_id NOT IN
-             <foreach collection="coll" item="item" open="(" separator="," close=")">
-                #{item}
-             </foreach>
-              AND org_id = #{orgId, jdbcType=VARCHAR}
-    </delete>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

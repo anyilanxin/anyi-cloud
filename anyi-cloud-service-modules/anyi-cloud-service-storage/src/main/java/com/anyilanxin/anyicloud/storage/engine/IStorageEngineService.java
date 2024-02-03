@@ -27,14 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.engine;
 
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+package com.anyilanxin.anyicloud.storage.engine;
+
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoUrlModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 解析api doc

@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.config;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
@@ -35,13 +36,11 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.anyilanxin.anyicloud.corecommon.model.stream.ConfigTokenModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.ConfigDataSecurityModel;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.AbstractSwaggerUiConfigProperties;
-import org.springdoc.core.SwaggerUiConfigParameters;
-import org.springdoc.core.SwaggerUiConfigProperties;
+import org.springdoc.core.properties.AbstractSwaggerUiConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigParameters;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -60,6 +59,9 @@ import org.springframework.format.support.FormattingConversionService;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 网关通用配置
  *
@@ -76,24 +78,24 @@ public class GatewayCommonConfig {
     /**
      * 自定义doc config 信息获取
      *
-     * @param swaggerUiConfig ${@link SwaggerUiConfigProperties}
-     * @param disClient       ${@link DiscoveryClient}
-     * @param webClient       ${@link WebClient.Builder}
-     * @return SwaggerUiConfigParameters ${@link SwaggerUiConfigParameters}
+     * @param swaggerUiConfig              $
+     * @param disClient                    $
+     * @param loadBalancedWebClientBuilder
+     * @param apiDocInfoUrlModel
+     * @return {@link SwaggerUiConfigParameters }
      * @author zxh
-     * @date 2022-01-05 03:32
+     * @date 2023-11-11 22:19:01
      */
     @Bean
-    SwaggerUiConfigParameters swaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder webClient, Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
-        return new CustomSwaggerUiConfigParameters(swaggerUiConfig, disClient, webClient, apiDocInfoUrlModel);
+    SwaggerUiConfigParameters swaggerUiConfigParameters(SwaggerUiConfigProperties swaggerUiConfig, DiscoveryClient disClient, WebClient.Builder loadBalancedWebClientBuilder, Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> apiDocInfoUrlModel) {
+        return new CustomSwaggerUiConfigParameters(swaggerUiConfig, disClient, loadBalancedWebClientBuilder, apiDocInfoUrlModel);
     }
 
 
     /**
      * 初始化swagger url信息缓存
      *
-     * @return Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> ${@link Map<String,
-     * AbstractSwaggerUiConfigProperties.SwaggerUrl>}
+     * @return Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl> ${@link Map<String, AbstractSwaggerUiConfigProperties.SwaggerUrl>}
      * @author zxh
      * @date 2022-01-01 21:31
      */

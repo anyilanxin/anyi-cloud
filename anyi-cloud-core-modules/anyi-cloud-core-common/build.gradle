@@ -1,6 +1,0 @@
-description = "AnYi Cloud Common Core"
-
-dependencies {
-    api 'com.alibaba:easyexcel'
-    api 'org.reflections:reflections'
-}

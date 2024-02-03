@@ -27,14 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 流程图用户任务信息
@@ -50,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class ProcessInfoDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -9172543358400492801L;
 
     @Schema(name = "processDefinitionKey", title = "流程定义key")
@@ -66,9 +71,6 @@ public class ProcessInfoDto implements Serializable {
 
     @Schema(name = "categoryName", title = "类别名称")
     private String categoryName;
-
-    @Schema(name = "deploymentId", title = "部署id")
-    private String deploymentId;
 
     @Schema(name = "resourceNames", title = "资源名称")
     private String resourceNames;
@@ -94,4 +96,7 @@ public class ProcessInfoDto implements Serializable {
 
     @Schema(name = "deploymentName", title = "部署名称")
     private String deploymentName;
+
+    @Schema(name = "userTasks", title = "用户任务信息")
+    List<ProcessTaskInfoDto> userTasks;
 }

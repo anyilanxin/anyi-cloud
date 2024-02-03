@@ -27,9 +27,9 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.core.config;
 
-import com.anyilanxin.anyicloud.coremvc.base.service.ICoreWebmvcService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,15 +48,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 public class SystemStartConfig implements ApplicationRunner {
-    private final ICoreWebmvcService coreCommonService;
+
     private final IManageSyncService syncService;
 
     @Override
     public void run(ApplicationArguments args) {
-        // 加载常量字典
-        coreCommonService.loadConstantDict(false);
         // 路由信息写入redis并通知网关
         log.debug("------------StartConfig------------>loadRoute:{}", "开始加载路由权限信息");
-        syncService.reloadRoute(false);
+        syncService.reloadRouteAndAuth(false);
     }
 }

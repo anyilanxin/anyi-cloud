@@ -27,26 +27,28 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRoutePredicateVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRoutePredicateEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageRoutePredicateMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRoutePredicateService;
+import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRoutePredicateDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageRoutePredicateCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 路由断言(ManageRoutePredicate)业务层实现
@@ -62,6 +64,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePredicateMapper, ManageRoutePredicateEntity> implements IManageRoutePredicateService {
     private final ManageRoutePredicateCopyMap map;
     private final ManageRoutePredicateMapper mapper;
+    private final IManageSyncService syncService;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -73,9 +76,9 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> predicateIds = new HashSet<>(list.size());
                 list.forEach(v -> predicateIds.add(v.getPredicateId()));
-                int i = mapper.physicalDeleteBatchIds(predicateIds);
+                int i = mapper.anyiPhysicalDeleteBatchIds(predicateIds);
                 if (i <= 0) {
-                    throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除历史数据失败");
+                    throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除历史数据失败");
                 }
             }
         }
@@ -90,9 +93,11 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
             });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
+        // 刷新路由
+        syncService.updateServiceRoute(serviceId);
     }
 
 
@@ -115,7 +120,7 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
         if (CollUtil.isNotEmpty(list)) {
             list.forEach(v -> {
                 List<ManageRoutePredicateDto> manageRoutePredicateDtos = stringListMap.get(v.getRouteId());
-                if (CollectionUtil.isEmpty(manageRoutePredicateDtos)) {
+                if (CollUtil.isEmpty(manageRoutePredicateDtos)) {
                     manageRoutePredicateDtos = new ArrayList<>();
                 }
                 manageRoutePredicateDtos.add(map.eToD(v));
@@ -131,7 +136,7 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
     public ManageRoutePredicateDto getById(String predicateId) throws RuntimeException {
         ManageRoutePredicateEntity byId = super.getById(predicateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -142,7 +147,14 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
     public void deleteByRouterId(String routerId) throws RuntimeException {
         LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRoutePredicateEntity::getRouteId, routerId);
-        this.remove(lambdaQueryWrapper);
+        List<ManageRoutePredicateEntity> list = this.list(lambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(list)) {
+            this.remove(lambdaQueryWrapper);
+            // 刷新路由
+            list.forEach(v -> {
+                syncService.updateServiceRoute(v.getServiceId());
+            });
+        }
     }
 
 
@@ -151,6 +163,13 @@ public class ManageRoutePredicateServiceImpl extends ServiceImpl<ManageRoutePred
     public void deleteByRouterIds(Set<String> routerIds) throws RuntimeException {
         LambdaQueryWrapper<ManageRoutePredicateEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRoutePredicateEntity::getRouteId, routerIds);
-        this.remove(lambdaQueryWrapper);
+        List<ManageRoutePredicateEntity> list = this.list(lambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(list)) {
+            this.remove(lambdaQueryWrapper);
+            // 刷新路由
+            list.forEach(v -> {
+                syncService.updateServiceRoute(v.getServiceId());
+            });
+        }
     }
 }

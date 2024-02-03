@@ -102,26 +102,6 @@
         </where>
     </select>
 
-
-    <!-- 通过分类id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_common_category
-        WHERE category_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM sys_common_category
-        WHERE category_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_common_category
@@ -143,5 +123,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

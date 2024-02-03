@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.core.config.properties;
 
-import com.anyilanxin.skillfull.storage.core.constant.impl.StorageType;
+package com.anyilanxin.anyicloud.storage.core.config.properties;
+
+import com.anyilanxin.anyicloud.storage.core.constant.impl.StorageType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

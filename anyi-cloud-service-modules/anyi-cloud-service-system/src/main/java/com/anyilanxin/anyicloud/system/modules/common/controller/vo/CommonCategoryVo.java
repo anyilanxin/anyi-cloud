@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 分类字典表添加或修改Request
@@ -45,29 +48,32 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CommonCategoryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 348923460711945337L;
 
     @Schema(name = "parentId", title = "父级id")
     private String parentId;
 
-    @Schema(name = "categoryName", title = "分类名称", required = true)
+    @Schema(name = "categoryName", title = "分类名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "分类名称不能为空")
     private String categoryName;
 
-    @Schema(name = "categoryCommonCode", title = "分类统一编码", required = true)
+    @Schema(name = "categoryCommonCode", title = "分类统一编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "分类统一编码不能为空")
     private String categoryCommonCode;
 
-    @Schema(name = "categoryCode", title = "分类编码", required = true)
+    @Schema(name = "categoryCode", title = "分类编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "分类编码不能为空")
     private String categoryCode;
 
-    @Schema(name = "isParent", title = "是否父节:0-不是，1-是，默认0", required = true)
+    @Schema(name = "isParent", title = "是否父节:0-不是，1-是，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否父节:0-不是，1-是，默认0不能为空")
     private Integer isParent;
 

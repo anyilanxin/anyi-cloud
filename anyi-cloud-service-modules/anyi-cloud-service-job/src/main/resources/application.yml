@@ -1,0 +1,201 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  datasource:
+    dynamic:
+      primary: master
+      p6spy: true
+      druid:
+        # 初始化连接大小
+        initial-size: 10
+        # 最小空闲连接数
+        min-idle: 5
+        max-active: 20
+        max-wait: 30000
+        # 可关闭的空闲连接间隔时间
+        time-between-eviction-runs-millis: 60000
+        # 配置连接在池中的最小生存时间
+        min-evictable-idle-time-millis: 300000
+        validation-query: select '1' from dual
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        #关闭长时间不使用的连接
+        remove-abandoned: true
+        log-abandoned: true
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+  #  security:
+  #    oauth2:
+  #      resourceserver:
+  #        jwt:
+  #          jwk-set-uri: http://auth-service/auth/oauth2/jwks
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+  data:
+    redis:
+      database: ${redis.database:0}
+      host: ${redis.host:localhost}
+      password: ${redis.password:root}
+      port: ${redis.port:6379}
+      timeout: 5000
+      lettuce:
+        pool:
+          max-idle: 20
+          max-wait: -1
+          min-idle: 0
+          max-active: 200
+
+  rabbitmq:
+    host: ${rbmq.host:localhost}
+    port: ${rbmq.port:5672}
+    username: ${rbmq.username:guest}
+    password: ${rbmq.password:guest}
+  quartz:
+    auto-startup: true
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  cloud:
+    sentinel:
+      log:
+        dir: ./logs
+    function:
+      definition: authUrlProcess
+    stream:
+      bindings:
+        operateLogProcess-out-0:
+          destination: operateLogProcess
+          group: logging-service
+        authUrlProcess-in-0:
+          destination: authUrlProcess
+    openfeign:
+      okhttp:
+        enabled: true
+      client:
+        config:
+          default:
+            connectTimeout: 120000 # 连接超时(ms)
+            readTimeout: 120000  # 读取超时(ms)
+  threads:
+    virtual:
+      enabled: true
+
+# server配置
+server:
+  shutdown: graceful
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 4
+      worker: 56
+  http2:
+    enabled: true
+  # 使其获取请求协议使用远程的,nginx代理需要设置:proxy_set_header X-Forwarded-Proto $scheme;
+  # forward-headers-strategy: framework
+
+
+
+# 开启监控
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: [ 'shutdown' ]
+    web:
+      exposure:
+        include:
+          - prometheus
+          - health
+          - info
+          - metrics
+  info:
+    java:
+      enabled: true
+  health:
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+      # k8s环境会自动打开，如果此处为true则强制打开
+      probes:
+        enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+        descriptions: true
+        step: 1m
+
+
+# 日志
+logging:
+  level:
+    root: ${app.log-root-level:debug}
+    com.anyilanxin: ${app.log-package-level:debug}
+    org.camunda: ${app.log-camunda-level:debug}
+    com.alibaba.nacos: error
+  # 生成日志文件路径(注释不会生成)
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+  file:
+    name: ./logs/${spring.application.name:anyi}.log
+  logback:
+    rollingpolicy:
+      max-history: 7
+  register-shutdown-hook: true
+debug: true
+
+
+# mybatis
+mybatis-plus:
+  # mapper.xml路径
+  mapper-locations: classpath*:com/anyilanxin/anyicloud/*/modules/*/mapper/xml/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.anyilanxin.anyicloud.*.modules.*.entity
+  global-config:
+    banner: false
+    db-config:
+      # 主键类型(使用snowflake id)
+      id-type: ASSIGN_ID
+      # 字段插入判断策略
+      insert-strategy: not_empty
+      # 字段更新判断策略
+      update-strategy: not_null
+      # 字段查询判断策略
+      where-strategy: not_empty
+  configuration:
+    # 配置数据库驼峰与下划线互转
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+
+
+
+# api文档配置
+springdoc:
+  version: ${spring.application.version:1.0.0}
+  api-prefix: /aycloudee${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  title: ${spring.application.name:anyi}服务
+  contact-email: z7630853@163.com
+  contact-user: zxh
+  api-docs:
+    enabled: ${app.enable-doc:false}
+  packages-to-scan: com.anyilanxin.anyicloud
+  swagger-ui:
+    enabled: ${app.enable-doc:false}

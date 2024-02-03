@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.core.handler;
 
-import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
-import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
+import com.alibaba.fastjson2.JSONObject;
+import com.anyilanxin.anyicloud.corecommon.model.auth.AnYiUserInfo;
+import com.anyilanxin.anyicloud.coremvc.utils.AnYiUserContextUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import java.time.LocalDateTime;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 自定义填充公共字段处理类
@@ -57,7 +59,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
 
         // 需要获取登录信息
-        UserInfo user = getUser();
+        AnYiUserInfo user = getUser();
         if (Objects.nonNull(user)) {
             Object createUserId = getFieldValByName("createUserId", metaObject);
             if (Objects.isNull(createUserId)) {
@@ -80,7 +82,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
 
         // 需要获取登录信息
-        UserInfo user = getUser();
+        AnYiUserInfo user = getUser();
         if (Objects.nonNull(user)) {
             Object updateUserId = getFieldValByName("updateUserId", metaObject);
             if (Objects.isNull(updateUserId)) {
@@ -101,9 +103,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      * @author zxh
      * @date 2020-08-26 18:43
      */
-    private UserInfo getUser() {
+    private AnYiUserInfo getUser() {
         try {
-            return UserContextUtils.getUserInfo();
+            return AnYiUserContextUtils.getUserInfo();
         } catch (Exception e) {
             log.error("------------MyMetaObjectHandler------获取用户信息失败------>getUser:{}", e.getMessage());
         }

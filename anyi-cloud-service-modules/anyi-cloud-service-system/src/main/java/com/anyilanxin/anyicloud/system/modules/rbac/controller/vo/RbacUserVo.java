@@ -27,21 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 用户表添加或修改Request
@@ -59,9 +61,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -71393470696705701L;
 
-    @Schema(name = "userName", title = "用户名", required = true)
+    @Schema(name = "userName", title = "用户名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户名不能为空")
     private String userName;
 
@@ -71,7 +74,7 @@ public class RbacUserVo implements Serializable {
     @Schema(name = "orgId", title = "机构id")
     private String orgId;
 
-    @Schema(name = "realName", title = "真实姓名", required = true)
+    @Schema(name = "realName", title = "真实姓名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "真实姓名不能为空")
     private String realName;
 
@@ -94,7 +97,7 @@ public class RbacUserVo implements Serializable {
     private Set<String> managerOrgIds;
 
     @Schema(name = "birthday", title = "生日", type = "string", example = "2020-11-12")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDate birthday;
 
     @Schema(name = "sex", title = "性别:0-默认未知,1-男,2-女,默认0")
@@ -106,7 +109,7 @@ public class RbacUserVo implements Serializable {
     @Schema(name = "phone", title = "电话号码")
     private String phone;
 
-    @Schema(name = "userStatus", title = "状态:0-未激活,1-正常,2-冻结,默认1", required = true)
+    @Schema(name = "userStatus", title = "状态:0-未激活,1-正常,2-冻结,默认1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "状态能为空")
     @Min(value = 0, message = "状态只能为0、1、2")
     @Max(value = 2, message = "状态只能为0、1、2")

@@ -27,14 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.OperatePageVo;
+import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.OperatePageQuery;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperatePageDto;
+
 import java.util.List;
 
 /**
@@ -58,13 +60,13 @@ public interface IOperateService extends BaseService<OperateEntity> {
     /**
      * 分页查询
      *
-     * @param vo ${@link OperatePageVo} 操作日志分页查询Vo
-     * @return PageDto<OperatePageDto> ${@link PageDto< OperatePageDto >} 分页查询结果
+     * @param vo ${@link OperatePageQuery} 操作日志分页查询Vo
+     * @return AnYiPageResult<OperatePageDto> ${@link AnYiPlusPageResult <  OperatePageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-01-26 19:51:07
      */
-    PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException;
+    AnYiPageResult<OperatePageDto> pageByModel(OperatePageQuery vo) throws RuntimeException;
 
 
     /**

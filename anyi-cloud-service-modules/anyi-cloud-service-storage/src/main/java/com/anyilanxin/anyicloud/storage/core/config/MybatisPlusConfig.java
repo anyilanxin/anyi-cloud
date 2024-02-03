@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.core.config;
 
-import com.anyilanxin.skillfull.storage.core.handler.MyMetaObjectHandler;
+package com.anyilanxin.anyicloud.storage.core.config;
+
+import com.anyilanxin.anyicloud.storage.core.handler.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -68,4 +69,5 @@ public class MybatisPlusConfig {
     public MetaObjectHandler metaObjectHandler() {
         return new MyMetaObjectHandler();
     }
+
 }

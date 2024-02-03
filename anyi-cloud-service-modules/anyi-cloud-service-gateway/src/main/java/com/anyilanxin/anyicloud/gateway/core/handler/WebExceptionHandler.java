@@ -27,12 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.handler;
 
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
 import com.anyilanxin.anyicloud.gateway.utils.CorsWebUtils;
-import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -44,15 +43,14 @@ import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
-import org.springframework.security.oauth2.common.exceptions.UnauthorizedClientException;
-import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
+
+import java.util.*;
 
 /**
  * @author zxh
@@ -85,22 +83,20 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
         Throwable error = super.getError(request);
         if (error instanceof ResponseStatusException) {
             status = HttpStatus.NOT_FOUND.value();
-        } else if (error instanceof ResponseException) {
-            ResponseException responseException = (ResponseException) error;
+        } else if (error instanceof AnYiResponseException responseException) {
             code = responseException.getResult().getCode();
-        } else if (error instanceof InvalidTokenException) {
-            InvalidTokenException invalidTokenException = (InvalidTokenException) error;
-            code = Status.ACCESS_ERROR.getCode();
-            status = HttpStatus.UNAUTHORIZED.value();
-        } else if (error instanceof UnauthorizedClientException) {
-            UnauthorizedClientException unauthorizedClientException = (UnauthorizedClientException) error;
-            code = Status.ACCESS_ERROR.getCode();
-            status = HttpStatus.UNAUTHORIZED.value();
-        } else if (error instanceof UnauthorizedUserException) {
-            UnauthorizedUserException unauthorizedUserException = (UnauthorizedUserException) error;
-            code = Status.ACCESS_ERROR.getCode();
-            status = HttpStatus.UNAUTHORIZED.value();
         }
+
+//        else if (error instanceof InvalidTokenException invalidTokenException) {
+//            code = AnYiResultStatus.ACCESS_ERROR.getCode();
+//            status = HttpStatus.UNAUTHORIZED.value();
+//        } else if (error instanceof UnauthorizedClientException unauthorizedClientException) {
+//            code = AnYiResultStatus.ACCESS_ERROR.getCode();
+//            status = HttpStatus.UNAUTHORIZED.value();
+//        } else if (error instanceof UnauthorizedUserException unauthorizedUserException) {
+//            code = AnYiResultStatus.ACCESS_ERROR.getCode();
+//            status = HttpStatus.UNAUTHORIZED.value();
+//        }
         return response(status, code, this.buildMessage(request, error));
     }
 
@@ -113,6 +109,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @author zxh
      * @date 2020-09-11 19:25
      */
+
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
@@ -151,11 +148,9 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
         message.append(", ");
         if (ex != null) {
             String exMessage = ex.getMessage();
-            if (ex instanceof ResponseException) {
-                ResponseException responseException = (ResponseException) ex;
+            if (ex instanceof AnYiResponseException responseException) {
                 exMessage = responseException.getResult().getMessage();
-            } else if (ex instanceof WebExchangeBindException) {
-                WebExchangeBindException webExchangeBindException = (WebExchangeBindException) ex;
+            } else if (ex instanceof WebExchangeBindException webExchangeBindException) {
                 List<ObjectError> allErrors = webExchangeBindException.getBindingResult().getAllErrors();
                 StringBuilder sb = new StringBuilder();
                 Set<ObjectError> violations = new HashSet<>(allErrors);
@@ -163,8 +158,7 @@ public class WebExceptionHandler extends DefaultErrorWebExceptionHandler {
                     sb.append(",").append(violation.getDefaultMessage());
                 }
                 exMessage = sb.toString().replaceFirst(",", "");
-            } else if (ex instanceof NotFoundException) {
-                NotFoundException notFoundException = (NotFoundException) ex;
+            } else if (ex instanceof NotFoundException notFoundException) {
                 String messageInfo = notFoundException.getMessage();
                 if (StringUtils.isNotBlank(messageInfo)) {
                     messageInfo = messageInfo.replace(SERVICE_NOT_FOUND, "").replace("\"", "");

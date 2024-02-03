@@ -27,29 +27,35 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 通过条件查询某个服务实例 vo
  *
- * @author zxh zxiaozhou
+ * @author zxh zxh
  * @date 2020-10-11 16:38
  * @since 1.0.0
  */
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class NacosSelectInstancesVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8282161660745482124L;
 
     @Schema(name = "serviceName", title = "服务名称")

@@ -27,15 +27,24 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | AnYi快速开发平台 [ AnYi ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxiaozhou <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserIdentityPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserIdentityPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserIdentityEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserIdentityPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,27 +67,7 @@ public interface RbacUserIdentityMapper extends BaseMapper<RbacUserIdentityEntit
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacUserIdentityPageDto> pageByModel(Page<RbacUserIdentityPageDto> page, @Param("query") RbacUserIdentityPageVo vo);
+    IPage<RbacUserIdentityPageDto> pageByModel(Page<RbacUserIdentityPageDto> page, @Param("query") RbacUserIdentityPageQuery vo);
 
 
-    /**
-     * 通过实名信息id物理删除
-     *
-     * @param identityId 实名信息id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteById(@Param("id") String identityId);
-
-
-    /**
-     * 通过实名信息id物理批量删除
-     *
-     * @param idList 实名信息id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

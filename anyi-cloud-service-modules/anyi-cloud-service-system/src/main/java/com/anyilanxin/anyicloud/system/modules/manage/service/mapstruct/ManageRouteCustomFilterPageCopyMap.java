@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
-import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteCustomFilterPageVo;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
+import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteCustomFilterPageQuery;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteCustomFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterPageDto;
 import org.mapstruct.Builder;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2021-12-19 00:22:17
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ManageRouteCustomFilterPageCopyMap extends BaseThreeMap<ManageRouteCustomFilterEntity, ManageRouteCustomFilterPageDto, ManageRouteCustomFilterPageVo> {
+public interface ManageRouteCustomFilterPageCopyMap extends AnYiBaseThreeMap<ManageRouteCustomFilterEntity, ManageRouteCustomFilterPageDto, ManageRouteCustomFilterPageQuery> {
 }

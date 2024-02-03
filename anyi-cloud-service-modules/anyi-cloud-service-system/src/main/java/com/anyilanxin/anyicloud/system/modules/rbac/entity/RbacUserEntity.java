@@ -27,22 +27,24 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.entity;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 用户表(RbacUser)Entity
@@ -60,6 +62,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "sys_rbac_user", autoResultMap = true)
 public class RbacUserEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = -40613723241141610L;
 
     @TableId
@@ -108,7 +111,7 @@ public class RbacUserEntity extends BaseEntity {
     /**
      * 生日
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDate birthday;
 
     /**
@@ -159,19 +162,19 @@ public class RbacUserEntity extends BaseEntity {
     /**
      * 扩展信息,json object
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Map<String, Object> additionalInformation;
 
     /**
      * 职位,org_id array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Set<String> positionIds;
 
     /**
      * 负责机构,org_id array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Set<String> managerOrgIds;
 
     /**
@@ -192,7 +195,7 @@ public class RbacUserEntity extends BaseEntity {
     /**
      * 最后登录时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime currentLoginDate;
 
     /**

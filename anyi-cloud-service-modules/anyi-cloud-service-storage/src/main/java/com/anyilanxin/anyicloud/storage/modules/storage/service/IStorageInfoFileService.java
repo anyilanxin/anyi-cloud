@@ -27,19 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.service;
 
+package com.anyilanxin.anyicloud.storage.modules.storage.service;
+
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFilePageVo;
-import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
-import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import com.anyilanxin.anyicloud.storage.modules.storage.controller.vo.StorageInfoFilePageQuery;
+import com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity;
+import com.anyilanxin.anyicloud.storage.modules.storage.service.dto.StorageInfoFilePageDto;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoUrlModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 本地文件服务(StorageInfoFile)业务层接口
@@ -53,13 +55,13 @@ public interface IStorageInfoFileService extends BaseService<StorageInfoFileEnti
     /**
      * 分页查询
      *
-     * @param vo ${@link StorageInfoFilePageVo} 本地文件服务分页查询Vo
-     * @return PageDto<StorageInfoFilePageDto> ${@link PageDto< StorageInfoFilePageDto >} 分页查询结果
+     * @param vo ${@link StorageInfoFilePageQuery} 本地文件服务分页查询Vo
+     * @return AnYiPageResult<StorageInfoFilePageDto> ${@link AnYiPlusPageResult <  StorageInfoFilePageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-04-05 09:57:59
      */
-    PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo) throws RuntimeException;
+    AnYiPageResult<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageQuery vo) throws RuntimeException;
 
 
     /**

@@ -1,14 +1,14 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-
 plugins {
     id 'idea'
     id "java"
     id 'java-library'
     id "com.github.hierynomus.license" version "0.16.1"
-    id "com.diffplug.spotless" version "6.18.0"
-    id 'com.google.cloud.tools.jib' version '3.3.2' apply false
+    id "com.diffplug.spotless" version "6.19.0"
+    id 'com.google.cloud.tools.jib' version '3.4.0' apply false
     id 'org.springframework.boot' version "${springBootVersion}"
+//    id 'org.graalvm.buildtools.native' version '0.9.23'
 }
 
 
@@ -16,15 +16,16 @@ apply from: "config.gradle"
 apply plugin: "com.diffplug.spotless"
 
 
-// root关闭所有非clean开头的任务
+// root关闭一些任务
 gradle.taskGraph.whenReady {
     tasks.each { task ->
-        if (!task.name.startsWith('clean') && !task.name.startsWith('spotless')) {
+        if (task.name.startsWith('boot') ||
+                task.name.startsWith('jib') ||
+                task.name.startsWith('jar')) {
             task.enabled = false
         }
     }
 }
-
 
 spotless {
     java {
@@ -46,31 +47,25 @@ spotless {
 allprojects {
     apply plugin: "com.github.hierynomus.license"
     // 编译jdk版本
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
     group = 'com.anyilanxin.anyicloud'
-
+    tasks.withType(Jar).configureEach {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
     // 指定所有项目maven仓库
     repositories {
         mavenLocal()
         maven {
             content {
+                excludeGroupByRegex "com\\.anyilanxin.*"
                 excludeGroupByRegex "org\\.camunda.*"
-                excludeGroup "org.springdoc"
+                excludeGroupByRegex "org\\.springframework.*"
             }
             url 'https://maven.aliyun.com/repository/central/'
         }
-        // anyilanxin一来走自己仓库
-//        maven {
-//            content {
-//                includeGroupByRegex "com\\.anyilanxin.*"
-//            }
-//            credentials {
-//                username rootProject.ext.repo['username']
-//                password rootProject.ext.repo['password']
-//            }
-//            url rootProject.ext.repo['releasesRepoUrl']
-//        }
         mavenCentral()
     }
 
@@ -105,49 +100,48 @@ allprojects {
 
 
 // 设置git hook--start
-def os = "macos"
-if (System.properties['os.name'].contains('windows')) {
-    os = "windows"
-}
-def hook = new File("$rootProject.projectDir/.git/hooks/pre-commit")
-hook.text = rootProject.file("gradle/wrapper/pre-commit-${os}").getText("utf-8")
-hook.setExecutable(true, false)
+//def os = "macos"
+//if (System.properties['os.name'].contains('windows')) {
+//    os = "windows"
+//}
+//def hook = new File("$rootProject.projectDir/.git/hooks/pre-commit")
+//hook.text = rootProject.file("gradle/wrapper/pre-commit-${os}").getText("utf-8")
+//hook.setExecutable(true, false)
 // 设置git hook--end
 
 
 subprojects {
     apply plugin: 'idea'
-    if (!project.getName().endsWith("anyi-cloud-dependencies")) {
+    def isBootJarProject = false
+    def isPomProject = false
+    if (project.buildFile.isFile()) {
+        isBootJarProject = project.buildFile.collect {
+            return it.trim().replaceAll(" ", "")
+        }.findAll {
+            it.contains("bootJar")
+        }.contains("defbootJar=true")
+        isPomProject = project.buildFile.collect {
+            return it.trim().replaceAll(" ", "")
+        }.findAll {
+            it.contains("pom")
+        }.contains("defpom=true")
+    }
+    if (!isPomProject) {
         apply plugin: "java"
 
         // 指定编译编码
         tasks.withType(JavaCompile).configureEach {
             options.encoding = "UTF-8"
         }
-
         // 进行配置文件变量替换
         processResources {
             filteringCharset = 'UTF-8'
-            include('*.yml', '*.yaml', 'META-INF/**', 'i18n/**', "jwt.jks", 'template/**', 'banner.txt')
+            include('*.yml', 'META-INF/**', 'i18n/**')
             // 只处理yml、yaml文件替换
             filesMatching('*.yml') {
                 filter(
                         ReplaceTokens,
-                        "tokens": [
-                                version: version,
-                                name   : project.name
-                        ],
-                        "beginToken": "#@",
-                        "endToken": "@#"
-                )
-            }
-            filesMatching('*.yaml') {
-                filter(
-                        ReplaceTokens,
-                        "tokens": [
-                                version: version,
-                                name   : project.name
-                        ],
+                        "tokens": [version: version, name: project.name],
                         "beginToken": "#@",
                         "endToken": "@#"
                 )
@@ -195,13 +189,12 @@ subprojects {
             implementation 'org.springframework.boot:spring-boot-starter-actuator'
             implementation 'org.springframework.cloud:spring-cloud-starter'
             implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-            if (bootInfo != null && bootInfo) {
+            if (isBootJarProject) {
                 implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
                 implementation 'io.micrometer:micrometer-registry-prometheus'
                 implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
                 implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
                 implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-                implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
             }
             implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
             implementation 'org.springframework.retry:spring-retry'
@@ -217,14 +210,14 @@ subprojects {
 
 
         // 是否为boot项目,boot允许编译启动jar,其余允许编译非启动jar并推送仓库
-        def bootInfo = rootProject.ext.bootInfo[project.path]
-        if (bootInfo != null && bootInfo) {
+        if (isBootJarProject) {
             apply plugin: 'org.springframework.boot'
             apply plugin: 'com.google.cloud.tools.jib'
+//            apply plugin: 'org.graalvm.buildtools.native'
 
             // 定义jenkins版本一变随时apply k8s资源
             def k8sRevision = '1'
-            def jenkinsBuildVersion = System.getenv('JENKINS_BUILD_VERSION')
+            def jenkinsBuildVersion = System.getenv('BUILD_NUMBER')
             if (jenkinsBuildVersion) {
                 k8sRevision = jenkinsBuildVersion
             }
@@ -269,7 +262,8 @@ subprojects {
                     }
                 }
                 container {
-                    jvmFlags = ['-Xms512m', '-Xmx512m']
+                    jvmFlags = ['-Xms512m', '-Xmx2048m']
+                    args = ['server.port=80']
                     ports = ['80']
                     format = 'OCI'
                     environment = ["TZ": 'Asia/Shanghai']
@@ -278,15 +272,15 @@ subprojects {
             // 判断是否输出到统一目录
             if (Boolean.parseBoolean(compileBootJarToParent)) {
                 tasks.withType(Jar).configureEach {
-                    destinationDirectory = file("$project.parent.buildDir/bootJar")
+                    destinationDirectory = file("$project.parent.layout.buildDirectory.get()/bootJar")
                 }
             }
 
-            // 处理非resources下的mapper xml文件问题
-            tasks.register('mapperXmlCopy', Copy) {
+            tasks.register('copyXml', Copy) {
                 copy {
-                    from("src/main/java") { include("**/xml/*.xml") }
-                    into("${buildDir}/classes/java/main")
+                    from layout.projectDirectory.dir("src/main/java")
+                    include "**/xml/*.xml"
+                    into layout.buildDirectory.dir("classes/java/main")
                 }
             }
 
@@ -295,14 +289,13 @@ subprojects {
                 copy {
                     from("docs/k8s") { include("*.yml") }
                     filter(ReplaceTokens, tokens: [version: version, k8sRevision: k8sRevision])
-                    into("$project.parent.buildDir/k8s")
+                    into("../build/k8s")
                 }
             }
 
 
             bootJar {
                 enabled = true
-                dependsOn = mapperXmlCopy as Iterable<?>
                 // 指定依赖包的路径
                 manifest {
                     attributes(
@@ -333,6 +326,11 @@ subprojects {
                             'Built-By': System.getProperty('user.name'),
                             'Built-On': "${InetAddress.localHost.hostName}/${InetAddress.localHost.hostAddress}"
                     )
+                }
+
+                into("META-INF/maven/$project.group/$project.name") {
+                    from { generatePomFileForMavenPublication }
+                    rename ".*", "pom.xml"
                 }
             }
 
@@ -365,7 +363,7 @@ subprojects {
                             licenses {
                                 license {
                                     name = 'The Apache License, Version 2.0'
-                                    url = 'https://github.com/anyilanxin/anyi-cloud/blob/main/LICENSE.txt'
+                                    url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                                 }
                             }
                             developers {
@@ -376,9 +374,13 @@ subprojects {
                                 }
                             }
                             scm {
-                                connection = 'scm:git:git@github.com:anyilanxin/anyi-cloud.git'
+                                connection = 'scm:git:git://github.com:anyilanxin/anyi-cloud.git'
                                 developerConnection = 'scm:git:ssh://github.com:anyilanxin/anyi-cloud.git'
                                 url = 'https://anyilanxin.com'
+                            }
+                            withXml {
+                                asNode().appendNode('packaging', 'jar')
+                                asNode().appendNode('properties').appendNode('java.version', JavaVersion.VERSION_21)
                             }
                         }
                     }

@@ -27,19 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.engine.impl;
 
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-import com.anyilanxin.skillfull.storage.core.constant.StorageTypeConstant;
-import com.anyilanxin.skillfull.storage.engine.EngineCondition;
-import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+package com.anyilanxin.anyicloud.storage.engine.impl;
+
+import com.anyilanxin.anyicloud.storage.core.constant.StorageTypeConstant;
+import com.anyilanxin.anyicloud.storage.engine.EngineCondition;
+import com.anyilanxin.anyicloud.storage.engine.IStorageEngineService;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoUrlModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * ali oss存储

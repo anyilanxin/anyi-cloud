@@ -4,17 +4,23 @@ spring:
     active: ${PROFILES_ACTIVE:dev}
   application:
     name: monitor-service
-    version: ${VERSION:#@version@#}
+    version: #@version@#
+    title: #@name@#
   cloud:
     nacos:
-      password: ${NACOS_PASSWORD:skillfullcloud}
-      username: ${NACOS_USERNAME:skillfullcloud}
+      password: ${NACOS_PASSWORD:anyicloud}
+      username: ${NACOS_USERNAME:anyicloud}
       server-addr: ${NACOS_ADDR:localhost:8848}
       discovery:
-        namespace: ${NACOS_NAMESPACE:skillfullcloud}
+        namespace: ${NACOS_NAMESPACE:anyicloud}
         metadata:
           management:
             context-path: ${spring.webflux.base-path:}/actuator
+          # 灰度信息
+          gray-info:
+            active: ${spring.profiles.active}
+            version: ${spring.application.version:1.0.0}
+            enable-gray: ${app.enable-gray:false}
       config:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式
@@ -22,6 +28,10 @@ spring:
         name: ${NACOS_CONFIG_NAME:${spring.application.name}}
         enable-remote-sync-config: true
         enabled: ${CONFIG_ENABLE:false}
+        shared-configs:
+          - data-id: commonshare-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+            group: ${NACOS_GROUP:DEFAULT_GROUP}
   webflux:
     base-path: /monitor # 请求前缀
 

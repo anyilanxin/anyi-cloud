@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiSelect;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.AuthDataPageVo;
+import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.AuthDataPageQuery;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.AuthDataPageDto;
+
 import java.util.List;
 
 /**
@@ -59,13 +62,13 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
     /**
      * 分页查询
      *
-     * @param vo ${@link AuthDataPageVo} 登录日志分页查询Vo
-     * @return PageDto<AuthDataPageDto> ${@link PageDto<  AuthDataPageDto  >} 分页查询结果
+     * @param vo ${@link AuthDataPageQuery} 登录日志分页查询Vo
+     * @return AnYiPageResult<AuthDataPageDto> ${@link AnYiPlusPageResult < AuthDataPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-01-26 21:53:03
      */
-    PageDto<AuthDataPageDto> pageByModel(AuthDataPageVo vo) throws RuntimeException;
+    AnYiPageResult<AuthDataPageDto> pageByModel(AuthDataPageQuery vo) throws RuntimeException;
 
 
     /**
@@ -100,4 +103,24 @@ public interface IAuthDataService extends BaseService<AuthDataEntity> {
      * @date 2022-01-26 21:53:03
      */
     void deleteBatch(List<String> authLogIds) throws RuntimeException;
+
+
+    /**
+     * 获取授权类型下拉
+     *
+     * @return List<AnYiSelect>
+     * @author zxh
+     * @date 2022-08-18 16:59
+     */
+    List<AnYiSelect> getAuthSelect();
+
+
+    /**
+     * 获取客户端下拉列表
+     *
+     * @return List<AnYiSelect>
+     * @author zxh
+     * @date 2022-08-18 16:59
+     */
+    List<AnYiSelect> getClientSelect();
 }

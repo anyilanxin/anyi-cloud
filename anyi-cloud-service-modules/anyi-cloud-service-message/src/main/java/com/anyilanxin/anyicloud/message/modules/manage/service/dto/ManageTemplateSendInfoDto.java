@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service.dto;
 
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 发送消息所需要信息
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageTemplateSendInfoDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 400261450235058454L;
 
     @Schema(name = "templateEntity", title = "模板信息")

@@ -37,7 +37,7 @@
     <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
     <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
     <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
     <result property="autoBind" column="auto_bind" jdbcType="INTEGER"/>
     <result property="roleStatus" column="role_status" jdbcType="INTEGER"/>
@@ -110,26 +110,6 @@
         </where>
     </select>
 
-
-    <!-- 通过机构角色id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_org_role
-        WHERE org_role_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_org_role
-        WHERE org_role_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_rbac_org_role
@@ -153,5 +133,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

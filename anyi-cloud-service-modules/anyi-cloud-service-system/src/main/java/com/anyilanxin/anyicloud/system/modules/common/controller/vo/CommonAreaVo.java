@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 区域表添加或修改Request
@@ -46,14 +49,17 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CommonAreaVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 255355653140939408L;
 
-    @Schema(name = "areaId", title = "区域id,12位长度", required = true)
+    @Schema(name = "areaId", title = "区域id,12位长度", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "区域id不能为空")
     @Length(min = 12, max = 12, message = "区域id必须12位,每3位代表一个级别")
     private String areaId;
@@ -61,34 +67,34 @@ public class CommonAreaVo implements Serializable {
     @Schema(name = "parentId", title = "上级区域id")
     private String parentId;
 
-    @Schema(name = "prePinYin", title = "区域名称拼音的第一个字母", required = true)
+    @Schema(name = "prePinYin", title = "区域名称拼音的第一个字母", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "区域名称拼音的第一个字母不能为空")
     private String prePinYin;
 
-    @Schema(name = "simplePy", title = "首字母简拼", required = true)
+    @Schema(name = "simplePy", title = "首字母简拼", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "首字母简拼不能为空")
     private String simplePy;
 
-    @Schema(name = "pinYin", title = "区域名称拼音", required = true)
+    @Schema(name = "pinYin", title = "区域名称拼音", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "区域名称拼音不能为空")
     private String pinYin;
 
     @Schema(name = "provinceId", title = "所属省级id")
     private String provinceId;
 
-    @Schema(name = "simpleName", title = "中文简称", required = true)
+    @Schema(name = "simpleName", title = "中文简称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "中文简称不能为空")
     private String simpleName;
 
-    @Schema(name = "areaLevel", title = "级别：1为省级，2为市级，3为县级, 4为乡, 5为村,4为乡,5为村", required = true)
+    @Schema(name = "areaLevel", title = "级别：1为省级，2为市级，3为县级, 4为乡, 5为村,4为乡,5为村", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "级别：1为省级，2为市级，3为县级, 4为乡, 5为村不能为空")
     private Integer areaLevel;
 
-    @Schema(name = "areaName", title = "区域名称", required = true)
+    @Schema(name = "areaName", title = "区域名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "区域名称不能为空")
     private String areaName;
 
-    @Schema(name = "areaCode", title = "区号", required = true)
+    @Schema(name = "areaCode", title = "区号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "区号不能为空")
     private String areaCode;
 

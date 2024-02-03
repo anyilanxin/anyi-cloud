@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.core.config;
 
-import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
+package com.anyilanxin.anyicloud.storage.core.config;
+
+import com.anyilanxin.anyicloud.storage.core.config.properties.LocalFileProperty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -53,4 +54,5 @@ public class UploadLocalFileConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(property.getVirtualMapping() + "/**").addResourceLocations("file:" + property.getUploadFolder() + "/");
     }
+
 }

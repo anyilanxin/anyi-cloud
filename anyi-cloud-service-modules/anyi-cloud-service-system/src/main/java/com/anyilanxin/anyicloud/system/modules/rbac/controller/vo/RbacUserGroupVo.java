@@ -27,15 +27,27 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | SkillFull快速开发平台 [ SkillFull ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxh <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 用户组添加或修改Request
@@ -53,19 +65,20 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserGroupVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 175609396613145057L;
 
-    @Schema(name = "groupName", title = "用户组名称", required = true)
+    @Schema(name = "groupName", title = "用户组名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户组名称不能为空")
     private String groupName;
 
-    @Schema(name = "groupStatus", title = "用户组状态:0-禁用,1-启用。默认0", required = true)
+    @Schema(name = "groupStatus", title = "用户组状态:0-禁用,1-启用。默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户组状态:0-禁用,1-启用。默认0不能为空")
     @Min(value = 0, message = "状态只能为0、1")
     @Max(value = 1, message = "状态只能为0、1")
     private Integer groupStatus;
 
-    @Schema(name = "groupCode", title = "用户组编码", required = true)
+    @Schema(name = "groupCode", title = "用户组编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户组编码不能为空")
     private String groupCode;
 

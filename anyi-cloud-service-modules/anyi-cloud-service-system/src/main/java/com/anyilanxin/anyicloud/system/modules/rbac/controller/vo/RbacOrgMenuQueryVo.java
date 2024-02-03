@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 机构-菜单表条件查询Request
@@ -52,6 +55,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgMenuQueryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 715708478010857718L;
 
     @Schema(name = "roleMenuId", title = "权限角色id")
@@ -62,4 +66,5 @@ public class RbacOrgMenuQueryVo implements Serializable {
 
     @Schema(name = "orgId", title = "机构id")
     private String orgId;
+
 }

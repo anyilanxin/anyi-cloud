@@ -27,18 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.utils.CodeUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.tree.TreeToolUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.utils.tree.AnYiTreeToolUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.system.core.constant.impl.MenuType;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacMenuMapper;
@@ -52,13 +52,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 菜单表(RbacMenu)业务层实现
@@ -84,7 +86,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         entity.setMenuSysCode(generateCode(null, vo.getParentId(), false));
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -99,18 +101,18 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         // 目录与菜单公共部分
         if (entity.getMenuType() == MenuType.CATALOGUE.getType()) {
             if (StringUtils.isBlank(entity.getPath())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "地址不能为空");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "地址不能为空");
             }
             if (StringUtils.isBlank(entity.getComponent())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "前端组件不能为空");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "前端组件不能为空");
             }
             if (entity.isShowTag()) {
                 if (StringUtils.isBlank(entity.getType())) {
-                    throw new ResponseException(Status.VERIFICATION_FAILED, "tag类型不能为空，并且只能为:primary、error、warn、success");
+                    throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "tag类型不能为空，并且只能为:primary、error、warn、success");
                 }
             }
             if (StringUtils.isBlank(entity.getPathName())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "路由名称不能为空");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "路由名称不能为空");
             }
             // 唯一性校验:同一个系统，通一个父级，路径唯一
             LambdaQueryWrapper<RbacMenuEntity> lambdaQueryWrapper = Wrappers.<RbacMenuEntity>lambdaQuery().eq(RbacMenuEntity::getSystemId, entity.getSystemId()).eq(RbacMenuEntity::getPath, entity.getPath());
@@ -123,30 +125,33 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
                 lambdaQueryWrapper.ne(RbacMenuEntity::getMenuId, entity.getMenuId());
             }
             List<RbacMenuEntity> list = this.list(lambdaQueryWrapper);
-            if (CollectionUtil.isNotEmpty(list)) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "当前路径已经存在:" + entity.getPath());
+            if (CollUtil.isNotEmpty(list)) {
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前路径已经存在:" + entity.getPath());
             }
         }
         // 菜单部分
         if (entity.getMenuType() == MenuType.MENU.getType()) {
             if (entity.isIframe()) {
                 if (Objects.isNull(entity.getIframeType())) {
-                    throw new ResponseException(Status.VERIFICATION_FAILED, "外链接类型不能为空");
+                    throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "外链接类型不能为空");
                 } else if (entity.getIframeType() != 0 && entity.getIframeType() != 1) {
-                    throw new ResponseException(Status.VERIFICATION_FAILED, "外链接类型只能为0、1");
+                    throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "外链接类型只能为0、1");
                 }
                 if (StringUtils.isBlank(entity.getPath())) {
-                    throw new ResponseException(Status.VERIFICATION_FAILED, "地址不能为空");
+                    throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "地址不能为空");
                 }
             }
         }
         // 按钮部分
         else if (entity.getMenuType() == MenuType.BUTTON.getType()) {
-            if (StringUtils.isBlank(entity.getButtonAction())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "权限标识不能为空");
+            if (StringUtils.isBlank(entity.getButtonActionTag())) {
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "权限标识不能为空");
             }
             if (StringUtils.isBlank(entity.getParentId()) && StringUtils.isBlank(entity.getMenuId())) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "上级id不能为空");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "上级id不能为空");
+            }
+            if (StringUtils.isBlank(entity.getButtonExpress())) {
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "鉴权表达式不能为空");
             }
         }
     }
@@ -200,16 +205,16 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         entity.setParentId(null);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<RbacMenuPageDto> pageByModel(RbacMenuPageVo vo) throws RuntimeException {
+    public AnYiPageResult<RbacMenuPageDto> pageByModel(RbacMenuPageQuery vo) throws RuntimeException {
         vo.getAscs().add("menuSysCode");
-        IPage<RbacMenuPageDto> pageInfo = mapper.pageByModel(vo.getPage(), vo);
+        IPage<RbacMenuPageDto> pageInfo = mapper.pageByModel(PageUtils.getPage(vo), vo);
         /*
          * 1. 获取根节点 2. 构建树形
          */
@@ -242,7 +247,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
                 }
             }
             // 构建树形
-            TreeToolUtils<RbacMenuPageDto> treeToolUtils = new TreeToolUtils<>(rootRecords, childRecords, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<RbacMenuPageDto> treeToolUtils = new AnYiTreeToolUtils<>(rootRecords, childRecords, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(RbacMenuPageDto rbacMenuPageDto) {
                     return rbacMenuPageDto.getMenuId();
@@ -256,7 +261,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
             });
             records = treeToolUtils.getTree();
         }
-        return new PageDto<>(pageInfo, records);
+        return PageUtils.toPageData(pageInfo, records);
     }
 
 
@@ -265,7 +270,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
     public RbacMenuDto getById(String menuId) throws RuntimeException {
         RbacMenuEntity byId = super.getById(menuId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -277,15 +282,15 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
         // 查询是否有下级，如果有不能删除
         LambdaQueryWrapper<RbacMenuEntity> lambdaQueryWrapper = Wrappers.<RbacMenuEntity>lambdaQuery().eq(RbacMenuEntity::getParentId, menuId);
         List<RbacMenuEntity> list = this.list(lambdaQueryWrapper);
-        if (CollectionUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "请先删除下级");
+        if (CollUtil.isNotEmpty(list)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "请先删除下级");
         }
         // 查询数据是否存在
         this.getById(menuId);
         // 删除数据
         boolean b = this.removeById(menuId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -322,7 +327,7 @@ public class RbacMenuServiceImpl extends ServiceImpl<RbacMenuMapper, RbacMenuEnt
                     subList.add(dto);
                 }
             });
-            TreeToolUtils<RbacMenuTreeDto> toolUtils = new TreeToolUtils<>(rootList, subList, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<RbacMenuTreeDto> toolUtils = new AnYiTreeToolUtils<>(rootList, subList, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(RbacMenuTreeDto permissionTreeDto) {
                     return permissionTreeDto.getMenuId();

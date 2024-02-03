@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacPositionPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacPositionPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacPositionVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacPositionEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacPositionDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacPositionPageDto;
+
 import java.util.List;
 
 /**
@@ -74,18 +76,18 @@ public interface IRbacPositionService extends BaseService<RbacPositionEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacPositionPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacPositionPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:12:20
      */
-    PageDto<RbacPositionPageDto> pageByModel(RbacPositionPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacPositionPageDto> pageByModel(RbacPositionPageQuery vo) throws RuntimeException;
 
 
     /**
      * 条件查询多条
      *
-     * @return List<RbacPositionDto> 查询结果
+     * @return List<RbacPositionDto>  查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2021-01-19 18:17:57

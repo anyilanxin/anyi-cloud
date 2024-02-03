@@ -37,6 +37,7 @@
     <result property="authLogId" column="auth_log_id" jdbcType="VARCHAR"/>
     <result property="logCode" column="log_code" jdbcType="VARCHAR"/>
     <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
+    <result property="ipAddress" column="ip_address" jdbcType="VARCHAR"/>
     <result property="authType" column="auth_type" jdbcType="VARCHAR"/>
     <result property="authTypeDescribe" column="auth_type_describe" jdbcType="VARCHAR"/>
     <result property="authUserId" column="auth_user_id" jdbcType="VARCHAR"/>
@@ -63,38 +64,41 @@
     <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <result property="authToken" column="auth_token" jdbcType="VARCHAR"/>
+    <result property="authCancelTime" column="auth_cancel_time" jdbcType="TIMESTAMP"/>
+    <result property="costTimeStr" column="cost_time_str" jdbcType="VARCHAR"/>
   </resultMap>
 
   <!-- @formatter:off -->
   <!--数据库字段-->
   <sql id="Column_List">
-    auth_log_id, log_code, request_ip, auth_type, auth_type_describe, auth_user_id, auth_user_name,
-    auth_client_code, auth_client_name, auth_status, log_data, log_other_data, exception_message,
-    request_start_time, cost_time, request_end_time, create_area_code, create_position_code,
-    create_org_sys_code, create_system_code, create_tenant_id, create_user_id, create_user_name,
-    create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    auth_log_id, log_code, request_ip, ip_address, auth_type, auth_type_describe, auth_user_id, auth_user_name,
+    auth_client_code, auth_client_name, auth_status, log_data, log_other_data, exception_message, request_start_time,
+    cost_time, request_end_time, create_area_code, create_position_code, create_org_sys_code, create_system_code,
+    create_tenant_id, create_user_id, create_user_name, create_time, update_user_id, update_user_name,
+    update_time, remark, del_flag, auth_token, auth_cancel_time, cost_time_str
   </sql>
 
   <!--数据库字段待别名-->
   <sql id="Column_List_Ali">
-    ali.auth_log_id, ali.log_code, ali.request_ip, ali.auth_type, ali.auth_type_describe,
+    ali.auth_log_id, ali.log_code, ali.request_ip, ali.ip_address, ali.auth_type, ali.auth_type_describe,
     ali.auth_user_id, ali.auth_user_name, ali.auth_client_code, ali.auth_client_name, ali.auth_status,
     ali.log_data, ali.log_other_data, ali.exception_message, ali.request_start_time, ali.cost_time,
     ali.request_end_time, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
     ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
-    ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag, ali.auth_token,
+    ali.auth_cancel_time, ali.cost_time_str
   </sql>
 
   <!--数据库字段-->
   <sql id="Column_List_Page_Ali">
-    ali.auth_log_id, ali.log_code, ali.request_ip,  ali.auth_type, ali.auth_type_describe,
+    ali.auth_log_id, ali.log_code, ali.request_ip, ali.ip_address, ali.auth_type, ali.auth_type_describe,
     ali.auth_user_id, ali.auth_user_name, ali.auth_client_code, ali.auth_client_name, ali.auth_status,
-    ali.request_start_time, ali.cost_time,
+    ali.request_start_time, ali.cost_time,ali.cost_time_str,
     ali.request_end_time, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
     ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
     ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
   </sql>
-
 
     <!--通过实体作为筛选条件分页查询-->
     <select id="pageByModel" resultType="com.anyilanxin.anyicloud.logging.modules.manage.service.dto.AuthDataPageDto">
@@ -115,8 +119,8 @@
             <if test="query.authUserName != null and query.authUserName != ''">
                 AND LOCATE(#{query.authUserName, jdbcType=VARCHAR}, ali.auth_user_name) &gt; 0
             </if>
-            <if test="query.authClientName != null and query.authClientName != ''">
-                AND LOCATE(#{query.authClientName, jdbcType=VARCHAR}, ali.auth_client_name) &gt; 0
+            <if test="query.authClientCode != null and query.authClientCode != ''">
+                AND ali.auth_client_code = #{query.authClientCode, jdbcType=VARCHAR}
             </if>
             <if test="query.authStatus != null">
                 AND ali.auth_status = #{query.authStatus, jdbcType=INTEGER}
@@ -131,24 +135,24 @@
     </select>
 
 
-    <!-- 通过授权日志id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM logging_auth_data
-        WHERE auth_log_id = #{id, jdbcType=VARCHAR}
-    </delete>
+   <!-- 获取授权类型下拉 -->
+    <select id="getAuthSelect" resultType="com.anyilanxin.anyicloud.corecommon.model.common.AnYiSelect">
+      SELECT DISTINCT
+        auth_type as `value`,
+        auth_type_describe  as label
+      FROM logging_auth_data
+      WHERE del_flag =0
+    </select>
 
 
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM logging_auth_data
-        WHERE auth_log_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
+  <!-- 获取客户端下拉列表 -->
+  <select id="getClientSelect" resultType="com.anyilanxin.anyicloud.corecommon.model.common.AnYiSelect">
+    SELECT DISTINCT
+      auth_client_code as `value`,
+      auth_client_name  as label
+    FROM logging_auth_data
+    WHERE del_flag =0
+  </select>
 
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
@@ -171,5 +175,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

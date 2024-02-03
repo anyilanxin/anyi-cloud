@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
@@ -34,6 +35,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 消息模板(ManageTemplate)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("msg_manage_template")
 public class ManageTemplateEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 125199450464820958L;
 
     @TableId

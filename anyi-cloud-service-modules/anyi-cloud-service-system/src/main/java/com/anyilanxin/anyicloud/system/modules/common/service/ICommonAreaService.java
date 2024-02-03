@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageVo;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonAreaEntity;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaPageDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonAreaTreeDto;
+
 import java.util.List;
 
 /**
@@ -74,20 +76,20 @@ public interface ICommonAreaService extends BaseService<CommonAreaEntity> {
     /**
      * 分页查询
      *
-     * @param vo ${@link CommonAreaPageVo} 区域表分页查询Vo
-     * @return PageDto<CommonAreaPageDto> ${@link PageDto< CommonAreaPageDto >} 分页查询结果
+     * @param vo ${@link CommonAreaPageQuery} 区域表分页查询Vo
+     * @return AnYiPageResult<CommonAreaPageDto> ${@link AnYiPlusPageResult < CommonAreaPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2020-11-02 09:25:04
      */
-    PageDto<CommonAreaPageDto> pageByModel(CommonAreaPageVo vo) throws RuntimeException;
+    AnYiPageResult<CommonAreaPageDto> pageByModel(CommonAreaPageQuery vo) throws RuntimeException;
 
 
     /**
      * 区域查询下级
      *
      * @param parentId ${@link String} 上级区域id
-     * @return List<CommonAreaPageDto> ${@link List<CommonAreaPageDto>}
+     * @return List<CommonAreaPageDto> ${@link  List<CommonAreaPageDto>}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-07 20:13

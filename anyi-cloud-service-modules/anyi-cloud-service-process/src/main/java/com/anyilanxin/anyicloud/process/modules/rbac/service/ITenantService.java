@@ -27,13 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryPageVoCamunda;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantQueryVo;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.TenantVo;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.TenantDto;
+
 import java.util.List;
 import java.util.Set;
 
@@ -81,11 +83,11 @@ public interface ITenantService {
      * 分页获取租户信息
      *
      * @param vo ${@link TenantQueryPageVoCamunda}
-     * @return PageDto<TenantDto>${@link PageDto <TenantDto>}
+     * @return AnYiPageResult<TenantDto>${@link AnYiPlusPageResult <TenantDto>}
      * @author zxh
      * @date 2021-11-05 17:51
      */
-    PageDto<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException;
+    AnYiPageResult<TenantDto> getTenantPage(TenantQueryPageVoCamunda vo) throws RuntimeException;
 
 
     /**

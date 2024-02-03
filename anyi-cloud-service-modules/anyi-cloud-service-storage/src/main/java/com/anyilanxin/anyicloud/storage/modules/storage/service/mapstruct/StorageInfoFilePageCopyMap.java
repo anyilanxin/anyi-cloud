@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
-import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFilePageVo;
-import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
-import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
+package com.anyilanxin.anyicloud.storage.modules.storage.service.mapstruct;
+
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
+import com.anyilanxin.anyicloud.storage.modules.storage.controller.vo.StorageInfoFilePageQuery;
+import com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity;
+import com.anyilanxin.anyicloud.storage.modules.storage.service.dto.StorageInfoFilePageDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-04-05 09:57:59
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface StorageInfoFilePageCopyMap extends BaseThreeMap<StorageInfoFileEntity, StorageInfoFilePageDto, StorageInfoFilePageVo> {
+public interface StorageInfoFilePageCopyMap extends AnYiBaseThreeMap<StorageInfoFileEntity, StorageInfoFilePageDto, StorageInfoFilePageQuery> {
 }

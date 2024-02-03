@@ -27,30 +27,31 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
 import com.anyilanxin.anyicloud.corecommon.constant.AuthConstant;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.processrpc.feign.ProcessSyncRbacRemoteService;
-import com.anyilanxin.anyicloud.processrpc.model.*;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.processadapter.model.*;
+import com.anyilanxin.anyicloud.processrpcadapter.rpc.ProcessRemoteRpcSyncRbac;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacRoleMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacUserMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.ISyncProcessService;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserProcessDtoMap;
-import com.anyilanxin.anyicloud.systemrpc.model.UserRoleModel;
+import com.anyilanxin.anyicloud.systemadapter.model.UserRoleModel;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.seata.spring.annotation.GlobalTransactional;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 同步流程引擎
@@ -66,7 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SyncProcessServiceImpl implements ISyncProcessService {
     private final RbacUserMapper userMapper;
     private final RbacRoleMapper rbacRoleMapper;
-    private final ProcessSyncRbacRemoteService remoteService;
+    private final ProcessRemoteRpcSyncRbac remoteService;
     private final RbacUserProcessDtoMap userProcessDtoMap;
 
     @Override
@@ -81,9 +82,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         vo.setRealName(rbacUserEntity.getRealName());
         UserDetailRequestModel userDetailVo = userProcessDtoMap.bToA(rbacUserEntity);
         vo.setDetailInfo(userDetailVo);
-        Result<String> stringResult = remoteService.saveOrUpdateUser(vo);
+        AnYiResult<String> stringResult = remoteService.saveOrUpdateUser(vo);
         if (!stringResult.isSuccess()) {
-            throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+            throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
         }
         // 同步角色信息
         Set<UserRoleModel> userRoleById = rbacRoleMapper.getUserAuthRole(userId, "", AuthConstant.SUPER_ROLE);
@@ -95,7 +96,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
             userGroupVo.setGroupIds(groupIds);
             stringResult = remoteService.deleteOrAddGroup(userGroupVo);
             if (!stringResult.isSuccess()) {
-                throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+                throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
             }
         }
     }
@@ -105,9 +106,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
     @GlobalTransactional
     public void deleteUser(String userId) {
         // 删除用户信息
-        Result<String> stringResult = remoteService.deleteUserById(userId);
+        AnYiResult<String> stringResult = remoteService.deleteUserById(userId);
         if (!stringResult.isSuccess()) {
-            throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+            throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
         }
     }
 
@@ -123,7 +124,7 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
             if (CollUtil.isNotEmpty(userRoleById)) {
                 userRoleById.forEach(v -> {
                     Set<String> roles = userAndRoles.get(v.getUserId());
-                    if (CollectionUtil.isEmpty(roles)) {
+                    if (CollUtil.isEmpty(roles)) {
                         roles = new HashSet<>();
                     }
                     roles.add(v.getRoleId());
@@ -145,9 +146,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
                 voSet.add(vo);
             });
             // 同步用户信息
-            Result<String> stringResult = remoteService.syncUser(voSet);
+            AnYiResult<String> stringResult = remoteService.syncUser(voSet);
             if (!stringResult.isSuccess()) {
-                throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+                throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
             }
         }
     }
@@ -162,9 +163,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
         vo.setGroupId(rbacRoleEntity.getRoleId());
         vo.setCode(rbacRoleEntity.getRoleCode());
         vo.setName(rbacRoleEntity.getRoleName());
-        Result<String> stringResult = remoteService.saveOrUpdateGroup(vo);
+        AnYiResult<String> stringResult = remoteService.saveOrUpdateGroup(vo);
         if (!stringResult.isSuccess()) {
-            throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+            throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
         }
     }
 
@@ -173,9 +174,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
     @GlobalTransactional
     public void deleteRole(String roleId) {
         // 删除角色信息
-        Result<String> stringResult = remoteService.deleteGroupById(roleId);
+        AnYiResult<String> stringResult = remoteService.deleteGroupById(roleId);
         if (!stringResult.isSuccess()) {
-            throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+            throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
         }
     }
 
@@ -194,9 +195,9 @@ public class SyncProcessServiceImpl implements ISyncProcessService {
                 vo.setName(v.getRoleName());
                 voSet.add(vo);
             });
-            Result<String> stringResult = remoteService.syncGroup(voSet);
+            AnYiResult<String> stringResult = remoteService.syncGroup(voSet);
             if (!stringResult.isSuccess()) {
-                throw new ResponseException(Status.API_ERROR, "数据同步流程引擎失败");
+                throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "数据同步流程引擎失败");
             }
         }
     }

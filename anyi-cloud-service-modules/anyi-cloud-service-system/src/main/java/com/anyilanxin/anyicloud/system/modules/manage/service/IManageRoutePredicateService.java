@@ -27,12 +27,14 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service;
 
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRoutePredicateVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRoutePredicateEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRoutePredicateDto;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,7 +51,7 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
     /**
      * 保存
      *
-     * @param vos       ${@link List< ManageRoutePredicateVo >} 待保存数据
+     * @param vos       ${@link List<  ManageRoutePredicateVo  >} 待保存数据
      * @param serviceId ${@link String} 服务id
      * @param override  ${@link Boolean} 是否覆盖:true-覆盖,false-不覆盖
      * @param routerId  ${@link String} 路由id
@@ -88,8 +90,7 @@ public interface IManageRoutePredicateService extends BaseService<ManageRoutePre
      * 通过routeIds查询详情
      *
      * @param routeIds ${@link Set<String>} 路由ids
-     * @return Map<String, List < ManageRoutePredicateDto>> ${@link Map<String,
-     * List<ManageRoutePredicateDto>>} 查询结果
+     * @return Map<String, List < ManageRoutePredicateDto>> ${@link Map<String, List<ManageRoutePredicateDto>>} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-12-19 10:37:42

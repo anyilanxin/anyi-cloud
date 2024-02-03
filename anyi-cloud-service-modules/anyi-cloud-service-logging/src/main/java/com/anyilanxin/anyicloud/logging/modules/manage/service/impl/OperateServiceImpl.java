@@ -27,17 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson2.JSONObject;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.logging.core.constant.LoggingCommonConstant;
-import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.OperatePageVo;
+import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.OperatePageQuery;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.OperateEntity;
 import com.anyilanxin.anyicloud.logging.modules.manage.mapper.OperateMapper;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.IOperateService;
@@ -45,17 +45,19 @@ import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperateDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.OperatePageDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.mapstruct.OperateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 操作日志(Operate)业务层实现
@@ -72,7 +74,6 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
     private final OperateCopyMap map;
     private final OperateMapper mapper;
     private final StringRedisTemplate stringRedisTemplate;
-
     @Value("${app.delete-log-type:1}")
     private Integer deleteLogType;
 
@@ -82,20 +83,19 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
     @Override
     @Async
     public void storage() {
-        System.out.println("-----sdfsdfsdf----");
-        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
-        int saveMax = 200;
+        var size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+        var saveMax = 200;
         if (Objects.nonNull(size)) {
             // 循环读取100条
             if (size < saveMax) {
                 saveMax = size.intValue();
             }
             if (size >= operateSaveMin) {
-                List<OperateEntity> logEntityList = new ArrayList<>(saveMax);
+                var logEntityList = new ArrayList<OperateEntity>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
-                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
+                    var logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
-                        OperateEntity logModel = JSONObject.parseObject(logStr, OperateEntity.class);
+                        var logModel = JSONObject.parseObject(logStr, OperateEntity.class);
                         logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
@@ -110,17 +110,17 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<OperatePageDto> pageByModel(OperatePageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<OperatePageDto> pageByModel(OperatePageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public OperateDto getById(String operateId) throws RuntimeException {
-        OperateEntity byId = super.getById(operateId);
+        var byId = super.getById(operateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -133,14 +133,14 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
         this.getById(operateId);
         // 删除数据
         if (deleteLogType == 0) {
-            int i = mapper.physicalDeleteById(operateId);
+            var i = mapper.anyiPhysicalDeleteById(operateId);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "物理删除数据失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "物理删除数据失败");
             }
         } else {
-            boolean b = this.removeById(operateId);
+            var b = this.removeById(operateId);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
@@ -149,21 +149,21 @@ public class OperateServiceImpl extends ServiceImpl<OperateMapper, OperateEntity
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> operateIds) throws RuntimeException {
-        List<OperateEntity> entities = this.listByIds(operateIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        var entities = this.listByIds(operateIds);
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
-        List<String> waitDeleteList = new ArrayList<>();
+        var waitDeleteList = new ArrayList<String>();
         entities.forEach(v -> waitDeleteList.add(v.getOperateId()));
         if (deleteLogType == 0) {
-            int i = mapper.physicalDeleteBatchIds(waitDeleteList);
+            var i = mapper.anyiPhysicalDeleteBatchIds(waitDeleteList);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "批量物理删除数据失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "批量物理删除数据失败");
             }
         } else {
-            int i = mapper.deleteBatchIds(waitDeleteList);
+            var i = mapper.deleteBatchIds(waitDeleteList);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
     }

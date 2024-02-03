@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
+package com.anyilanxin.anyicloud.storage.modules.storage.controller.vo;
 
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 本地文件服务添加或修改Request
@@ -50,11 +52,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class StorageInfoFileVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -63987728685645049L;
 
     @Schema(name = "fileOriginalName", title = "原始文件名(不包括扩展名)")
@@ -66,33 +71,33 @@ public class StorageInfoFileVo implements Serializable {
     @Schema(name = "fileDirPrefix", title = "存放文件夹名称")
     private String fileDirPrefix;
 
-    @Schema(name = "fileStorageType", title = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致", required = true)
+    @Schema(name = "fileStorageType", title = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "文件引擎类型：1-本地，2-ali oss,3-minio,具体与StorageType一致不能为空")
     private Integer fileStorageType;
 
     @Schema(name = "contentType", title = "文件流类型")
     private String contentType;
 
-    @Schema(name = "fileSize", title = "文件大小", required = true)
+    @Schema(name = "fileSize", title = "文件大小", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "文件大小不能为空")
     private String fileSize;
 
-    @Schema(name = "fileSizeDetail", title = "文件详细大小", required = true)
+    @Schema(name = "fileSizeDetail", title = "文件详细大小", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "文件详细大小不能为空")
     private Long fileSizeDetail;
 
     @Schema(name = "fileMd5", title = "文件md5值")
     private String fileMd5;
 
-    @Schema(name = "fileRelativePath", title = "文件相对路径", required = true)
+    @Schema(name = "fileRelativePath", title = "文件相对路径", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "文件相对路径不能为空")
     private String fileRelativePath;
 
-    @Schema(name = "endpoint", title = "endpoint", required = true)
+    @Schema(name = "endpoint", title = "endpoint", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "endpoint不能为空")
     private String endpoint;
 
-    @Schema(name = "fileHost", title = "文件域名(主要用于非本地存储使用)", required = true)
+    @Schema(name = "fileHost", title = "文件域名(主要用于非本地存储使用)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "文件域名(主要用于非本地存储使用)不能为空")
     private String fileHost;
 
@@ -120,9 +125,9 @@ public class StorageInfoFileVo implements Serializable {
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
-    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "创建时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserId", title = "更新用户id")
@@ -132,10 +137,11 @@ public class StorageInfoFileVo implements Serializable {
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
-    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", required = true)
+    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "删除状态:0-正常,1-已删除,默认0不能为空")
     private Integer delFlag;
+
 }

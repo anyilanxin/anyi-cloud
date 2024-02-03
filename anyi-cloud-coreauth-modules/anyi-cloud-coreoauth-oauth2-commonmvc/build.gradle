@@ -1,0 +1,10 @@
+description = "AnYi Cloud Oauth2 Mvc Core"
+
+dependencies {
+    api project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-common')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-mvc')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
+    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+}

@@ -4,17 +4,23 @@ spring:
     active: ${PROFILES_ACTIVE:dev}
   application:
     name: process-service
-    version: ${VERSION:#@version@#}
+    version: #@version@#
+    title: #@name@#
   cloud:
     nacos:
-      password: ${NACOS_PASSWORD:skillfullcloud}
-      username: ${NACOS_USERNAME:skillfullcloud}
+      password: ${NACOS_PASSWORD:anyicloud}
+      username: ${NACOS_USERNAME:anyicloud}
       server-addr: ${NACOS_ADDR:localhost:8848}
       discovery:
-        namespace: ${NACOS_NAMESPACE:skillfullcloud}
+        namespace: ${NACOS_NAMESPACE:anyicloud}
         metadata:
           management:
             context-path: ${server.servlet.context-path:}/actuator
+          # 灰度信息
+          gray-info:
+            active: ${spring.profiles.active}
+            version: ${spring.application.version:1.0.0}
+            enable-gray: ${app.enable-gray:false}
         group: ${NACOS_GROUP:DEFAULT_GROUP}
       config:
         namespace: ${spring.cloud.nacos.discovery.namespace}

@@ -5,6 +5,7 @@ spring:
   datasource:
     dynamic:
       primary: master
+      p6spy: true
       druid:
         # 初始化连接大小
         initial-size: 10
@@ -29,18 +30,19 @@ spring:
   jackson:
     time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
-  redis:
-    database: ${redis.database:0}
-    host: ${redis.host:localhost}
-    password: ${redis.password:root}
-    port: ${redis.port:6379}
-    timeout: 5000
-    lettuce:
-      pool:
-        max-idle: 20
-        max-wait: -1
-        min-idle: 0
-        max-active: 200
+  data:
+    redis:
+      database: ${redis.database:0}
+      host: ${redis.host:localhost}
+      password: ${redis.password:root}
+      port: ${redis.port:6379}
+      timeout: 5000
+      lettuce:
+        pool:
+          max-idle: 20
+          max-wait: -1
+          min-idle: 0
+          max-active: 200
   rabbitmq:
     host: ${rbmq.host:localhost}
     port: ${rbmq.port:5672}
@@ -72,11 +74,17 @@ spring:
         authLogProcess-out-0:
           destination: authLogProcess
           group: logging-service
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8081/auth/rsa/publicKey
+    openfeign:
+      okhttp:
+        enabled: true
+      client:
+        config:
+          default:
+            connectTimeout: 120000 # 连接超时(ms)
+            readTimeout: 120000  # 读取超时(ms)
+  threads:
+    virtual:
+      enabled: true
 
 # server配置
 server:
@@ -92,22 +100,47 @@ server:
     threads:
       io: 4
       worker: 56
+  http2:
+    enabled: true
   # 使其获取请求协议使用远程的,nginx代理需要设置:proxy_set_header X-Forwarded-Proto $scheme;
   # forward-headers-strategy: framework
 
 
 # 开启监控
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   endpoints:
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: [ 'shutdown' ]
     web:
       exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+        include:
+          - prometheus
+          - health
+          - info
+          - metrics
   info:
     java:
       enabled: true
+  health:
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+      # k8s环境会自动打开，如果此处为true则强制打开
+      probes:
+        enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+        descriptions: true
+        step: 1m
 
 
 # 日志
@@ -115,12 +148,13 @@ logging:
   level:
     root: ${app.log-root-level:debug}
     com.anyilanxin: ${app.log-package-level:debug}
+    org.camunda: ${app.log-camunda-level:debug}
     com.alibaba.nacos: error
   # 生成日志文件路径(注释不会生成)
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
   file:
-    name: ./logs/${spring.application.name:skillfull}.log
+    name: ./logs/${spring.application.name:anyi}.log
   logback:
     rollingpolicy:
       max-history: 7
@@ -132,9 +166,9 @@ debug: true
 # mybatis
 mybatis-plus:
   # mapper.xml路径
-  mapper-locations: classpath*:com/anyilanxin/skillfull/*/modules/*/mapper/xml/*Mapper.xml
+  mapper-locations: classpath*:com/anyilanxin/anyicloud/*/modules/*/mapper/xml/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.anyilanxin.skillfull.*.modules.*.entity
+  typeAliasesPackage: com.anyilanxin.anyicloud.*.modules.*.entity
   global-config:
     banner: false
     db-config:
@@ -152,38 +186,28 @@ mybatis-plus:
     cache-enabled: false
 
 
+anyi:
+  custom:
+    security:
+      code-picture-seconds: 60 # 图片验证码有效时间(单位s)
+      token-generator-type: 1 # 生成token方式,0-相同用户每次登录生成一样，1-相同用户每次登录生成都不一样，默认0
+      default-format-type: normal
 
-# 权限相关配置
-auth:
-  code-picture-seconds: 60 # 图片验证码有效时间(单位s)
-  token-generator-type: 1 # 生成token方式,0-相同用户每次登录生成一样，1-相同用户每次登录生成都不一样，默认0
 
 
 
-# feign相关配置
-feign:
-  okhttp:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 120000 # 连接超时(ms)
-        readTimeout: 120000  # 读取超时(ms)
 
 
 # api文档配置
 springdoc:
   version: ${spring.application.version:1.0.0}
-  api-prefix: /api${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
-  headers:
-    - skill-full-token
-    - Authorization
-  title: ${spring.application.name:skillfull}服务
+  api-prefix: /aycloudee${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  title: ${spring.application.name:anyi}服务
   contact-email: z7630853@163.com
-  contact-user: zxiaozhou
+  contact-user: zxh
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: com.anyilanxin.skillfull
+  packages-to-scan: com.anyilanxin.anyicloud
   swagger-ui:
     enabled: ${app.enable-doc:false}
 

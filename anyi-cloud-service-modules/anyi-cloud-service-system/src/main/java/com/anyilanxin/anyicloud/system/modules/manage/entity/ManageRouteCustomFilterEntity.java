@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 路由-自定义过滤器表(ManageRouteCustomFilter)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("sys_manage_route_custom_filter")
 public class ManageRouteCustomFilterEntity implements Serializable {
+    @Serial
     private static final long serialVersionUID = -20330045402293420L;
 
     @TableId

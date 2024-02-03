@@ -41,7 +41,7 @@
     <result property="sendBatchNo" column="send_batch_no" jdbcType="VARCHAR"/>
     <result property="businessId" column="business_id" jdbcType="VARCHAR"/>
     <result property="templateOriginalData" column="template_original_data" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="sendType" column="send_type" jdbcType="INTEGER"/>
     <result property="sendNum" column="send_mum" jdbcType="INTEGER"/>
     <result property="sendMaxNum" column="send_max_num" jdbcType="INTEGER"/>
@@ -122,25 +122,6 @@
         </where>
     </select>
 
-    <!-- 通过消息id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM msg_manage_send_record
-        WHERE send_record_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  msg_manage_send_record
-        WHERE send_record_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE msg_manage_send_record
@@ -162,5 +143,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

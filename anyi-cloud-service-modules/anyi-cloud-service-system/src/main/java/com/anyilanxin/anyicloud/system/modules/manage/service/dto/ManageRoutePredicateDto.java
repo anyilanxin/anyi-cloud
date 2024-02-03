@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 路由断言查询Response
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageRoutePredicateDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 929216992206459132L;
 
     @Schema(name = "predicateId", title = "断言id")
@@ -79,4 +83,5 @@ public class ManageRoutePredicateDto implements Serializable {
 
     @Schema(name = "predicateName", title = "断言名称")
     private String predicateName;
+
 }

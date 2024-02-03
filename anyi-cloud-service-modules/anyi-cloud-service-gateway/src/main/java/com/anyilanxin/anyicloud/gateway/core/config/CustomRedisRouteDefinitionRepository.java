@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.config;
 
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ import reactor.core.publisher.Mono;
  */
 public class CustomRedisRouteDefinitionRepository implements RouteDefinitionRepository {
     private static final Logger log = LoggerFactory.getLogger(RedisRouteDefinitionRepository.class);
-    private static final String ROUTEDEFINITION_REDIS_KEY_PREFIX_QUERY = "SKILLFULL_GATEWAY_ROUTEDEFINITION:";
+    private static final String ROUTEDEFINITION_REDIS_KEY_PREFIX_QUERY = "ANYILANXIN_GATEWAY_ROUTEDEFINITION:";
     private ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate;
     private ReactiveValueOperations<String, RouteDefinition> routeDefinitionReactiveValueOperations;
 
@@ -66,6 +67,7 @@ public class CustomRedisRouteDefinitionRepository implements RouteDefinitionRepo
             if (log.isErrorEnabled()) {
                 log.error("get routes from redis error cause : {}", throwable.toString(), throwable);
             }
+
         });
     }
 

@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ServiceInstancePageDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
@@ -39,9 +40,9 @@ import org.mapstruct.ReportingPolicy;
 /**
  * 路由(ManageRoute)Dto与Entity相互转换
  *
- * @author zxh zxiaozhou
+ * @author zxh zxh
  * @since 2020-09-12 16:33:37
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ServiceInstancePageMap extends BaseMap<ServiceInstancePageDto, Instance> {
+public interface ServiceInstancePageMap extends AnYiBaseMap<ServiceInstancePageDto, Instance> {
 }

@@ -1,0 +1,115 @@
+# 数据源配置
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.1.244:8306/anyicloud_system_service?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: Anyilan&xin054678
+  security:
+    oauth2:
+      client:
+        registration:
+          # 这个'gitee'就是registrationId
+          gitee:
+            # 指定oauth登录提供者，该oauth登录由provider中的gitee来处理
+            provider: gitee
+            # 客户端名字
+            client-name: Sign in with Gitee
+            # 认证方式
+            authorization-grant-type: authorization_code
+            # 客户端id，使用自己的gitee的客户端id
+            client-id: dd8de6dfa9674cc307e18ca75616a0ded06126ddc4f95098da36e1fbfa141d0a
+            # 客户端秘钥，使用自己的gitee的客户端秘钥
+            client-secret: 59b069e525b84cac8fcb854148b623743eefd6bbe9d54433c006ec0c2f785c4d
+            # 回调地址
+            redirect-uri: ${custom.security.issuer-url}/login/oauth2/code/gitee
+            # 申请scope列表
+            scope:
+              - emails
+              - projects
+          github:
+            # security client默认实现了GitHub提供的oauth2登录
+            provider: github
+            client-id: 88c69e87b2e50d2dab4d
+            client-secret: 350b351e8287fc142d01082bcf0dc5c6df7c21ae
+            # 回调地址
+            redirect-uri: ${custom.security.issuer-url}/login/oauth2/code/github
+          wechat:
+            # 微信登录配置
+            provider: wechat
+            # 客户端名字
+            client-name: Sign in with WeChat
+            # 认证方式
+            authorization-grant-type: authorization_code
+            # 客户端id，使用自己的微信的appid
+            client-id: wx946ad2f955901214
+            # 客户端秘钥，使用自己的微信的app secret
+            client-secret: e4635ff2ed22c83294394ac818cf75a7
+            # 回调地址
+            redirect-uri: ${custom.security.issuer-url}/login/oauth2/code/wechat
+            # 申请scope列表
+            scope: snsapi_userinfo
+
+        # oauth登录提供商
+        provider:
+          # 微信的OAuth2端点配置
+          wechat:
+            # 设置用户信息响应体中账号的字段
+            user-name-attribute: nickname
+            # 获取token的地址
+            token-uri: https://api.weixin.qq.com/sns/oauth2/access_token
+            # 获取用户信息的地址
+            user-info-uri: https://api.weixin.qq.com/sns/userinfo
+            # 发起授权申请的地址
+            authorization-uri: https://open.weixin.qq.com/connect/oauth2/authorize
+          # gitee的OAuth2端点配置
+          gitee:
+            # 设置用户信息响应体中账号的字段
+            user-name-attribute: login
+            # 获取token的地址
+            token-uri: https://gitee.com/oauth/token
+            # 获取用户信息的地址
+            user-info-uri: https://gitee.com/api/v5/user
+            # 发起授权申请的地址
+            authorization-uri: https://gitee.com/oauth/authorize
+          github:
+            user-name-attribute: login
+
+redis:
+  host: 192.168.1.244
+  port: 31313
+  password: Anyilan&xin054678_redis
+  database: 15
+
+
+rbmq:
+  host: 192.168.1.244
+  port: 8388
+  username: anyilanxin
+  password: zuie_07934934KI12991
+
+
+
+
+# 内部访问获取token配置
+anyi:
+  resource:
+    dev-white-list:
+      - /swagger-ui.html;get
+      - /swagger-ui/**;get
+      - /v3/api-docs/**;get
+
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization
+
+app:
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+
+

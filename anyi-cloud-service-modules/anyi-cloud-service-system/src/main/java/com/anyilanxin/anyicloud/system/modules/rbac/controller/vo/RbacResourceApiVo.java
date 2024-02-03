@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 资源api表添加或修改Request
@@ -54,13 +57,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacResourceApiVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -63465291489451659L;
 
-    @Schema(name = "resourceId", title = "资源id", required = true)
+    @Schema(name = "resourceId", title = "资源id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源id不能为空")
     private String resourceId;
 
-    @Schema(name = "apiUri", title = "接口地址", required = true)
+    @Schema(name = "apiUri", title = "接口地址", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "接口地址不能为空")
     private String apiUri;
 
@@ -70,7 +74,7 @@ public class RbacResourceApiVo implements Serializable {
     @Schema(name = "apiNotes", title = "接口描述")
     private String apiNotes;
 
-    @Schema(name = "requestMethod", title = "请求类型，多个英文逗号隔开", required = true)
+    @Schema(name = "requestMethod", title = "请求类型，多个英文逗号隔开", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "请求类型，多个英文逗号隔开不能为空")
     private String requestMethod;
 
@@ -89,7 +93,7 @@ public class RbacResourceApiVo implements Serializable {
     @Schema(name = "apiVersions", title = "api版本,多个英文逗号隔开")
     private String apiVersions;
 
-    @Schema(name = "requireAuth", title = "是否鉴权,0-不需要,1-需要。默认1", required = true)
+    @Schema(name = "requireAuth", title = "是否鉴权,0-不需要,1-需要。默认1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否鉴权不能为空")
     @Min(value = 0, message = "是否需要鉴权只能为0、1")
     @Max(value = 1, message = "是否需要鉴权只能为0、1")
@@ -101,9 +105,10 @@ public class RbacResourceApiVo implements Serializable {
     @Schema(name = "permissionExpress", title = "鉴权表达式，不需要鉴权时默认为：permitAll()")
     private String permissionExpress;
 
-    @Schema(name = "permissionAction", title = "按钮鉴权指令")
+    @Schema(name = "permissionAction", title = "鉴权指令，只有表达式为非角色是使用")
     private String permissionAction;
 
     @Schema(name = "remark", title = "备注")
     private String remark;
+
 }

@@ -27,12 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RouteFilterModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.RoutePredicateModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel;
@@ -40,13 +40,11 @@ import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.anyicloud.gateway.core.constant.typeimpl.*;
 import com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo.GatewayRouteVo;
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IDynamicRouteService;
-import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
-import com.anyilanxin.skillfull.gateway.core.constant.typeimpl.*;
-import java.net.URI;
-import java.util.*;
+import com.anyilanxin.anyicloud.gatewayadapter.model.RouteResponseModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
@@ -62,6 +60,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 动态路由服务
@@ -81,12 +85,12 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
     @Override
     public void addRoute(SystemRouterModel vo) throws RuntimeException {
         try {
-            RouteDefinition routeDefinition = getRouteDefinition(vo);
+            var routeDefinition = getRouteDefinition(vo);
             if (Objects.nonNull(routeDefinition)) {
                 routeDefinitionRepository.save(Mono.just(routeDefinition)).subscribe();
             }
         } catch (Exception e) {
-            throw new ResponseException("添加路由失败:" + e.getMessage());
+            throw new AnYiResponseException("添加路由失败:" + e.getMessage());
         }
         notifyChanged();
     }
@@ -109,14 +113,14 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
     public Flux<RouteResponseModel> getRoutes() throws RuntimeException {
         return routeDefinitionRepository.getRouteDefinitions().map(v -> {
             // 处理基础部分
-            RouteResponseModel dto = new RouteResponseModel();
+            var dto = new RouteResponseModel();
             dto.setRouteCode(v.getId());
             dto.setRouteOrder(v.getOrder());
-            String url = v.getUri().toString().toLowerCase();
+            var url = v.getUri().toString().toLowerCase();
             dto.setIsLoadBalancer(0);
             if (url.startsWith(CommonGatewayConstant.LB_PREFIX)) {
                 dto.setIsLoadBalancer(1);
-                LbType startMatch = LbType.getStartMatch(url);
+                var startMatch = LbType.getStartMatch(url);
                 if (Objects.nonNull(startMatch)) {
                     dto.setLoadBalancerType(startMatch.getTypeName());
                     dto.setServiceName(url.replace(startMatch.getTypeName(), ""));
@@ -125,17 +129,17 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 dto.setUrl(url);
             }
             // 处理断言
-            List<RouteResponseModel.RoutePredicate> routePredicates = new ArrayList<>();
-            List<PredicateDefinition> predicates = v.getPredicates();
+            var routePredicates = new ArrayList<RouteResponseModel.RoutePredicate>();
+            var predicates = v.getPredicates();
             if (!CollectionUtils.isEmpty(predicates)) {
                 predicates.forEach(sv -> {
-                    RouteResponseModel.RoutePredicate predicate = new RouteResponseModel.RoutePredicate();
+                    var predicate = new RouteResponseModel.RoutePredicate();
                     predicate.setPredicateType(sv.getName());
-                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
-                    Map<String, String> args = sv.getArgs();
+                    var rules = new HashSet<RouteResponseModel.Rule>();
+                    var args = sv.getArgs();
                     if (!CollectionUtils.isEmpty(args)) {
                         args.forEach((k, ssv) -> {
-                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                            var rule = new RouteResponseModel.Rule();
                             rule.setRuleName(k);
                             rule.setRuleValue(ssv);
                             rules.add(rule);
@@ -147,17 +151,17 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                 dto.setRoutePredicates(routePredicates);
             }
             // 处理过滤器
-            List<RouteResponseModel.RouteFilter> routeFilters = new ArrayList<>();
-            List<FilterDefinition> filters = v.getFilters();
+            var routeFilters = new ArrayList<RouteResponseModel.RouteFilter>();
+            var filters = v.getFilters();
             if (!CollectionUtils.isEmpty(filters)) {
                 filters.forEach(sv -> {
-                    RouteResponseModel.RouteFilter filter = new RouteResponseModel.RouteFilter();
+                    var filter = new RouteResponseModel.RouteFilter();
                     filter.setFilterType(sv.getName());
-                    Set<RouteResponseModel.Rule> rules = new HashSet<>();
-                    Map<String, String> args = sv.getArgs();
+                    var rules = new HashSet<RouteResponseModel.Rule>();
+                    var args = sv.getArgs();
                     if (!CollectionUtils.isEmpty(args)) {
                         args.forEach((k, ssv) -> {
-                            RouteResponseModel.Rule rule = new RouteResponseModel.Rule();
+                            var rule = new RouteResponseModel.Rule();
                             rule.setRuleValue(ssv);
                             rule.setRuleName(k);
                             rules.add(rule);
@@ -175,22 +179,32 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
 
     @Override
     public void loadRoute() throws RuntimeException {
-        routeDefinitionRepository.getRouteDefinitions().flatMap(item -> {
-            deleteRoute(item.getId());
+        reactiveStringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*").flatMap(key -> reactiveStringRedisTemplate.opsForValue().get(key).mapNotNull(item -> {
+            var vo = JSONObject.parseObject(item, SystemRouterModel.class);
+            return getRouteDefinition(vo);
+        })).collectList().mapNotNull(v -> v.stream().collect(Collectors.toMap(RouteDefinition::getId, sv -> sv))).switchIfEmpty(Mono.empty()).map(v -> routeDefinitionRepository.getRouteDefinitions().collectList().map(items -> {
+            items.forEach(item -> {
+                var routeDefinition = v.get(item.getId());
+                if (Objects.isNull(v.get(item.getId()))) {
+                    deleteRoute(item.getId());
+                } else {
+                    if (JSONObject.toJSONString(item).equals(JSONObject.toJSONString(routeDefinition))) {
+                        v.remove(item.getId());
+                    }
+                }
+            });
+            return v;
+        }).map(sv -> {
+            sv.forEach((ssk, ssv) -> {
+                routeDefinitionRepository.save(Mono.just(ssv)).subscribe();
+                notifyChanged();
+            });
             return Mono.empty();
-        }).collectList().publishOn(Schedulers.boundedElastic()).doOnNext(v -> reactiveStringRedisTemplate.keys(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + "*").flatMap(key -> reactiveStringRedisTemplate.opsForValue().get(key).flatMap(item -> {
-            SystemRouterModel vo = JSONObject.parseObject(item, SystemRouterModel.class);
-            RouteDefinition routeDefinition = getRouteDefinition(vo);
-            if (Objects.nonNull(routeDefinition)) {
-                return routeDefinitionRepository.save(Mono.just(routeDefinition));
-            }
-            return Mono.empty();
-        })).onErrorContinue((throwable, routeDefinition) -> {
+        }).subscribeOn(Schedulers.boundedElastic()).subscribe()).onErrorContinue((throwable, routeDefinition) -> {
             if (log.isErrorEnabled()) {
                 log.error("get routes from redis error cause : {}", throwable.toString(), throwable);
             }
-        }).subscribe()).subscribe();
-        notifyChanged();
+        }).subscribe();
     }
 
 
@@ -207,7 +221,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
          * 数据校验 1.如果是负载均衡器负载均衡器类型必填,服务名必填,并且均衡器类型只能为0,1,2
          * 2.如果非负载均衡器,url必填并且开头必须是http,https,ws,wss
          */
-        RouteDefinition definition = new RouteDefinition();
+        var definition = new RouteDefinition();
         definition.setId(vo.getRouteId());
         definition.setOrder(vo.getRouteOrder());
         if (CollUtil.isNotEmpty(vo.getMetadata())) {
@@ -218,7 +232,7 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         if (vo.getIsLoadBalancer() == 1 && StringUtils.isNotBlank(vo.getLoadBalancerType())) {
             uri = URI.create(vo.getLoadBalancerType() + vo.getServiceCode());
         } else {
-            String url = vo.getUrl();
+            var url = vo.getUrl();
             if (StringUtils.isBlank(url) || !ProtocolType.isHaveByType(url)) {
                 log.error("------------DynamicRouteServiceImpl------设置路由判断失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", vo, "非负载均衡器时url必填,并且只能是:" + ProtocolType.getAllType());
                 return null;
@@ -227,8 +241,8 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         }
         definition.setUri(uri);
         // 设置断言
-        List<PredicateDefinition> pdList = new ArrayList<>();
-        List<RoutePredicateModel> routePredicates = vo.getRoutePredicates();
+        var pdList = new ArrayList<PredicateDefinition>();
+        var routePredicates = vo.getRoutePredicates();
         if (CollUtil.isNotEmpty(routePredicates)) {
             for (RoutePredicateModel predicate : routePredicates) {
                 // 验证断言类型是否存在
@@ -236,8 +250,8 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
                     log.error("------------DynamicRouteServiceImpl------断言设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", predicate, "断言类型:" + predicate.getPredicateType() + "不存在,当前只能为:" + PredicateSysType.getAllType());
                     continue;
                 }
-                Map<String, String> rules = predicate.getRules();
-                PredicateDefinition predicateDefinition = new PredicateDefinition();
+                var rules = predicate.getRules();
+                var predicateDefinition = new PredicateDefinition();
                 if (CollUtil.isNotEmpty(rules)) {
                     predicateDefinition.setArgs(rules);
                 }
@@ -247,21 +261,21 @@ public class DynamicRouteServiceImpl implements IDynamicRouteService {
         }
         definition.setPredicates(pdList);
         // 设置过滤器
-        List<FilterDefinition> filters = new ArrayList<>();
-        List<RouteFilterModel> routeFilters = vo.getRouteFilters();
+        var filters = new ArrayList<FilterDefinition>();
+        var routeFilters = vo.getRouteFilters();
         if (!CollectionUtils.isEmpty(routeFilters)) {
             for (RouteFilterModel routeFilter : routeFilters) {
                 // 验证过滤器类型是否存在
                 if (!FilterSysType.isHaveByType(routeFilter.getFilterType()) && !FilterCustomType.isHaveByType(routeFilter.getFilterType())) {
-                    String msg = "过滤器类型:" + routeFilter.getFilterType() + "不存在,当前只能为:" + FilterSysType.getAllType() + ",或" + FilterCustomType.getAllType();
+                    var msg = "过滤器类型:" + routeFilter.getFilterType() + "不存在,当前只能为:" + FilterSysType.getAllType() + ",或" + FilterCustomType.getAllType();
                     log.error("------------DynamicRouteServiceImpl------过滤器判设置失败------>getRouteDefinition--->\n参数:\n{}\n异常消息:\n{}", routeFilter, msg);
                     continue;
                 }
-                String filterTypeInfo = routeFilter.getFilterType();
-                Map<String, String> rules = routeFilter.getRules();
-                String[] filterTypes = filterTypeInfo.split("[,，]");
+                var filterTypeInfo = routeFilter.getFilterType();
+                var rules = routeFilter.getRules();
+                var filterTypes = filterTypeInfo.split("[,，]");
                 for (String filterType : filterTypes) {
-                    FilterDefinition filterDefinition = new FilterDefinition();
+                    var filterDefinition = new FilterDefinition();
                     filterDefinition.setName(filterType);
                     if (CollUtil.isNotEmpty(rules)) {
                         filterDefinition.setArgs(rules);

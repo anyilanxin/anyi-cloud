@@ -27,12 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageRouteMapper;
@@ -44,11 +44,13 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRoutePre
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageRouteCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 路由(ManageRoute)业务层实现
@@ -75,7 +77,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         ManageRouteEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 保存过滤器
         filterService.save(vo.getRouteFilters(), entity.getRouteId(), entity.getServiceId(), true);
@@ -84,7 +86,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.updateServiceRoute(entity.getServiceId());
     }
 
 
@@ -98,7 +100,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         entity.setRouteId(routeId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 保存断言
         predicateService.save(vo.getRoutePredicates(), entity.getRouteId(), entity.getServiceId(), true);
@@ -107,7 +109,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 保存自定义过滤器
         routeCustomFilterService.save(vo.getCustomFilters(), entity.getRouteId(), true);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.updateServiceRoute(entity.getServiceId());
     }
 
 
@@ -150,7 +152,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
     public ManageRouteDto getById(String routeId) throws RuntimeException {
         ManageRouteEntity byId = super.getById(routeId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         ManageRouteDto manageRouteDto = map.eToD(byId);
         // 获取过滤器
@@ -173,11 +175,11 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteById(String routeId) throws RuntimeException {
         // 查询数据是否存在
-        this.getById(routeId);
+        ManageRouteDto byId = this.getById(routeId);
         // 删除数据
         boolean b = this.removeById(routeId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除断言
         predicateService.deleteByRouterId(routeId);
@@ -186,7 +188,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         // 删除自定义过滤器关联关系
         routeCustomFilterService.deleteByRouterId(routeId);
         // 刷新路由
-        syncService.reloadRoute(true);;
+        syncService.deleteServiceRoute(byId.getServiceId());
     }
 
 
@@ -199,7 +201,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
         if (CollUtil.isNotEmpty(list)) {
             boolean remove = this.remove(lambdaQueryWrapper);
             if (!remove) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除路由失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除路由失败");
             }
             Set<String> routerIds = new HashSet<>(list.size());
             list.forEach(v -> routerIds.add(v.getRouteId()));
@@ -209,6 +211,7 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
             filterService.deleteByRouterIds(routerIds);
             // 删除自定义过滤器关联关系
             routeCustomFilterService.deleteByRouterIds(routerIds);
+            syncService.deleteServiceRoute(serviceId);
         }
     }
 
@@ -217,13 +220,17 @@ public class ManageRouteServiceImpl extends ServiceImpl<ManageRouteMapper, Manag
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void updateStatus(String routeId, Integer state) {
         // 查询数据是否存在
-        this.getById(routeId);
+        ManageRouteDto byId = this.getById(routeId);
         ManageRouteEntity updateEntity = ManageRouteEntity.builder().routeId(routeId).routeState(state).build();
         boolean b = this.updateById(updateEntity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新状态失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "更新状态失败");
         }
         // 刷新路由
-        syncService.reloadRoute(true);;
+        if (state == 1) {
+            syncService.updateServiceRoute(byId.getServiceId());
+        } else {
+            syncService.deleteServiceRoute(byId.getServiceId());
+        }
     }
 }

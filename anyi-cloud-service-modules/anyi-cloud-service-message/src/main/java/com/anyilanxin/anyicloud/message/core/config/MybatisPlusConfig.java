@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.core.config;
 
 import com.anyilanxin.anyicloud.message.core.handler.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.websocket.Session;
+import jakarta.websocket.Session;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author zxh
@@ -83,4 +85,5 @@ public class MybatisPlusConfig {
     public MetaObjectHandler metaObjectHandler() {
         return new MyMetaObjectHandler();
     }
+
 }

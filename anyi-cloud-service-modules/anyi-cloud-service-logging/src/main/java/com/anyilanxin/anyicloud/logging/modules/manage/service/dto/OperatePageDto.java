@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 操作日志分页查询Response
@@ -54,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Schema
 public class OperatePageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -79023533300323244L;
 
     @Schema(name = "operateId", title = "操作日志id")
@@ -80,6 +83,9 @@ public class OperatePageDto implements Serializable {
     @Schema(name = "requestIp", title = "请求ip")
     private String requestIp;
 
+    @Schema(name = "ipAddress", title = "请求ip属地")
+    private String ipAddress;
+
     @Schema(name = "targetServiceCode", title = "目标服务")
     private String targetServiceCode;
 
@@ -91,18 +97,6 @@ public class OperatePageDto implements Serializable {
 
     @Schema(name = "requestMethod", title = "请求方法")
     private String requestMethod;
-
-    @Schema(name = "requestParam", title = "请求参数")
-    private String requestParam;
-
-    @Schema(name = "requestResult", title = "请求结果")
-    private String requestResult;
-
-    @Schema(name = "logOtherData", title = "日志其余内容")
-    private String logOtherData;
-
-    @Schema(name = "exceptionMessage", title = "异常消息")
-    private String exceptionMessage;
 
     @Schema(name = "operateStatus", title = "操作状态：0-失败,1-成功")
     private Integer operateStatus;
@@ -116,19 +110,22 @@ public class OperatePageDto implements Serializable {
     @Schema(name = "costTime", title = "耗时")
     private Long costTime;
 
+    @Schema(name = "costTimeStr", title = "耗时,格式化最小单位s")
+    private String costTimeStr;
+
     @Schema(name = "requestStartTime", title = "请求开始时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
     @Schema(name = "requestEndTime", title = "请求结束时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
 
     @Schema(name = "createUserName", title = "创建用户姓名")
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "remark", title = "备注")

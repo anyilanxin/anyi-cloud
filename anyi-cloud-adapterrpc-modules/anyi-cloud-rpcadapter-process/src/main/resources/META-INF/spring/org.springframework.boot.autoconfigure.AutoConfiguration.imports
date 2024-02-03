@@ -1,0 +1,4 @@
+com.anyilanxin.anyicloud.processrpcadapter.AnYiProcessRpcAutoConfiguration
+com.anyilanxin.anyicloud.processrpcadapter.externaltask.AnYiClientFactory
+com.anyilanxin.anyicloud.processrpcadapter.config.properties.CamundaExtendConfig
+com.anyilanxin.anyicloud.processrpcadapter.externaltask.AnYiRequestInterceptor

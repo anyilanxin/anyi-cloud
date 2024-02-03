@@ -27,14 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 /**
  * 负载均衡器类型
@@ -54,12 +56,7 @@ public enum LbType implements ISuperType {
     /**
      * lb:ws
      */
-    LB_WS(1, "lb:ws://", "ws路由负载均衡"),
-
-    /**
-     * lb:wss
-     */
-    LB_WSS(2, "lb:wss://", "wss路由负载均衡");
+    LB_WS(1, "lb:ws://", "ws路由负载均衡");
 
     /**
      * 类型

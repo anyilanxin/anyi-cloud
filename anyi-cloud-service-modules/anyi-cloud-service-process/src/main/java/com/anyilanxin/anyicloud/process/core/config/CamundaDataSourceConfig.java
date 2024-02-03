@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.core.config;
 
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022-04-04 20:27
  * @since 1.0.0
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
 public class CamundaDataSourceConfig {
     // @Bean

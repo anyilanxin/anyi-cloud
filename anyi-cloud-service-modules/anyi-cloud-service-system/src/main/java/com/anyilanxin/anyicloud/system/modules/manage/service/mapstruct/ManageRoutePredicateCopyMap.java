@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRoutePredicateVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRoutePredicateEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRoutePredicateDto;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2021-12-19 10:37:43
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ManageRoutePredicateCopyMap extends BaseThreeMap<ManageRoutePredicateEntity, ManageRoutePredicateDto, ManageRoutePredicateVo> {
+public interface ManageRoutePredicateCopyMap extends AnYiBaseThreeMap<ManageRoutePredicateEntity, ManageRoutePredicateDto, ManageRoutePredicateVo> {
 }

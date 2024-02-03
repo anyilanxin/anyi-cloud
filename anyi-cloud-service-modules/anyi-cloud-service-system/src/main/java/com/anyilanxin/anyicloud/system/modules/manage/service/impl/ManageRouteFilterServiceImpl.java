@@ -27,26 +27,28 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageRouteFilterVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageRouteFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageRouteFilterMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageRouteFilterService;
+import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageRouteFilterCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 路由过滤器(ManageRouteFilter)业务层实现
@@ -62,6 +64,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterMapper, ManageRouteFilterEntity> implements IManageRouteFilterService {
     private final ManageRouteFilterCopyMap map;
     private final ManageRouteFilterMapper mapper;
+    private final IManageSyncService syncService;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -73,9 +76,9 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> filterIds = new HashSet<>(list.size());
                 list.forEach(v -> filterIds.add(v.getFilterId()));
-                int i = mapper.physicalDeleteBatchIds(filterIds);
+                int i = mapper.anyiPhysicalDeleteBatchIds(filterIds);
                 if (i <= 0) {
-                    throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除历史数据失败");
+                    throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除历史数据失败");
                 }
             }
         }
@@ -90,9 +93,11 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
             });
             boolean b = this.saveBatch(list);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
             }
         }
+        // 刷新路由
+        syncService.updateServiceRoute(serviceId);
     }
 
 
@@ -115,7 +120,7 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
         if (CollUtil.isNotEmpty(list)) {
             list.forEach(v -> {
                 List<ManageRouteFilterDto> manageRouteFilterDtos = stringListMap.get(v.getRouteId());
-                if (CollectionUtil.isEmpty(manageRouteFilterDtos)) {
+                if (CollUtil.isEmpty(manageRouteFilterDtos)) {
                     manageRouteFilterDtos = new ArrayList<>();
                 }
                 manageRouteFilterDtos.add(map.eToD(v));
@@ -131,7 +136,7 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
     public ManageRouteFilterDto getById(String filterId) throws RuntimeException {
         ManageRouteFilterEntity byId = super.getById(filterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -142,7 +147,15 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
     public void deleteByRouterId(String routerId) throws RuntimeException {
         LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ManageRouteFilterEntity::getRouteId, routerId);
-        this.remove(lambdaQueryWrapper);
+        List<ManageRouteFilterEntity> list = this.list(lambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(list)) {
+            this.remove(lambdaQueryWrapper);
+            // 刷新路由
+            list.forEach(v -> {
+                syncService.updateServiceRoute(v.getServiceId());
+            });
+        }
+
     }
 
 
@@ -151,6 +164,13 @@ public class ManageRouteFilterServiceImpl extends ServiceImpl<ManageRouteFilterM
     public void deleteByRouterIds(Set<String> routerIds) throws RuntimeException {
         LambdaQueryWrapper<ManageRouteFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.in(ManageRouteFilterEntity::getRouteId, routerIds);
-        this.remove(lambdaQueryWrapper);
+        List<ManageRouteFilterEntity> list = this.list(lambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(list)) {
+            this.remove(lambdaQueryWrapper);
+            // 刷新路由
+            list.forEach(v -> {
+                syncService.updateServiceRoute(v.getServiceId());
+            });
+        }
     }
 }

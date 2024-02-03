@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 路由特殊地址分页查询Response
@@ -46,11 +49,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class ManageSpecialUrlPageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 980417425244873573L;
 
     @Schema(name = "specialUrlId", title = "特殊过滤器id")
@@ -121,4 +127,5 @@ public class ManageSpecialUrlPageDto implements Serializable {
 
     @Schema(name = "customFilterId", title = "自定义过滤器id")
     private String customFilterId;
+
 }

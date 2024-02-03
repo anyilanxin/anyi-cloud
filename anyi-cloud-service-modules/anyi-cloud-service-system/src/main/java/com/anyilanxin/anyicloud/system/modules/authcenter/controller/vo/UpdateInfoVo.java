@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.authcenter.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDate;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * 修改用户信息
@@ -51,16 +53,18 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @Schema
 public class UpdateInfoVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -3748041272628412460L;
 
-    @Schema(name = "nickName", title = "用户昵称", required = true)
+    @Schema(name = "nickName", title = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户昵称不能为空")
     private String nickName;
 
-    @Schema(name = "shortProfile", title = "个人简介", required = true)
+    @Schema(name = "shortProfile", title = "个人简介", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "个人简介不能为空")
     private String shortProfile;
 
@@ -68,7 +72,7 @@ public class UpdateInfoVo implements Serializable {
     private String avatar;
 
     @Schema(name = "birthday", title = "生日", type = "string", example = "2020-11-12")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDate birthday;
 
     @Schema(name = "sex", title = "性别:0-默认未知,1-男,2-女,默认0")

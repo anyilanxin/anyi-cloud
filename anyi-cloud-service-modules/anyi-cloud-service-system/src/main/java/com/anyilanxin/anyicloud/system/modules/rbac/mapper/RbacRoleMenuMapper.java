@@ -27,20 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleMenuPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleMenuQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 角色-菜单表(RbacRoleMenu)持久层
@@ -56,7 +57,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
     /**
      * 获取有效的菜单按钮权限
      *
-     * @return List<RbacRoleMenuDto> 结果
+     * @return List<RbacRoleMenuDto>  结果
      * @author zxh
      * @date 2020-10-08 13:29:15
      */
@@ -72,7 +73,7 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
      * @author zxh
      * @date 2022-05-02 16:12:21
      */
-    IPage<RbacRoleMenuPageDto> pageByModel(Page<RbacRoleMenuPageDto> page, @Param("query") RbacRoleMenuPageVo vo);
+    IPage<RbacRoleMenuPageDto> pageByModel(Page<RbacRoleMenuPageDto> page, @Param("query") RbacRoleMenuPageQuery vo);
 
 
     /**
@@ -107,24 +108,4 @@ public interface RbacRoleMenuMapper extends BaseMapper<RbacRoleMenuEntity> {
     List<String> selectAllMenu();
 
 
-    /**
-     * 通过权限角色id物理删除
-     *
-     * @param roleMenuId 权限角色id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteById(@Param("id") String roleMenuId);
-
-
-    /**
-     * 通过权限角色id物理批量删除
-     *
-     * @param idList 权限角色id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:21
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

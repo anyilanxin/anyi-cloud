@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Set;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 加入机构信息
@@ -53,14 +56,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacJoinOrgVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1659430499110L;
 
-    @Schema(name = "userIds", title = "用户ids", required = true)
+    @Schema(name = "userIds", title = "用户ids", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "用户ids不能为空")
     @Size(min = 1, message = "用户ids不能为空")
     private Set<String> userIds;
 
-    @Schema(name = "orgId", title = "组织id", required = true)
+    @Schema(name = "orgId", title = "组织id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "组织id不能为空")
     private String orgId;
 }

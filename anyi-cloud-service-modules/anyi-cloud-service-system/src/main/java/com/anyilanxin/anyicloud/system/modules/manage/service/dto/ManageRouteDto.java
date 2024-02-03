@@ -27,21 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 路由查询Response
@@ -59,6 +61,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageRouteDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 580435386416324010L;
 
     @Schema(name = "routeId", title = "路由id")
@@ -107,13 +110,13 @@ public class ManageRouteDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "routeFilters", title = "过滤器")
     private List<ManageRouteFilterDto> routeFilters;
 
-    @Schema(name = "routePredicates", title = "断言", required = true)
+    @Schema(name = "routePredicates", title = "断言", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "断言不能为空")
     @Valid
     private List<ManageRoutePredicateDto> routePredicates;

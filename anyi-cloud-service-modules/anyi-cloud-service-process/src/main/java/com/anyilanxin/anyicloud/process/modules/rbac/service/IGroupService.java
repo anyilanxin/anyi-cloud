@@ -27,12 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service;
 
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.GroupDto;
-import com.anyilanxin.skillfull.process.modules.rbac.controller.vo.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -90,11 +91,11 @@ public interface IGroupService {
      * 分页获取用户组信息
      *
      * @param vo ${@link GroupQueryPageVoCamunda}
-     * @return PageDto<GroupDto>${@link PageDto <GroupDto>}
+     * @return AnYiPageResult<GroupDto>${@link AnYiPlusPageResult <GroupDto>}
      * @author zxh
      * @date 2021-11-05 17:51
      */
-    PageDto<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException;
+    AnYiPageResult<GroupDto> getGroupPage(GroupQueryPageVoCamunda vo) throws RuntimeException;
 
 
     /**
@@ -110,7 +111,7 @@ public interface IGroupService {
     /**
      * 全量同步用户组信息
      *
-     * @param voSet ${@link List<  SyncGroupVo  >}
+     * @param voSet ${@link List<   SyncGroupVo   >}
      * @author zxh
      * @date 2021-11-07 21:37
      */

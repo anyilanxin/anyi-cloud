@@ -1,6 +1,0 @@
-description = "AnYi Cloud Stream Core"
-
-dependencies {
-    api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
-    api 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
-}

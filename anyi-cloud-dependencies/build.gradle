@@ -7,106 +7,131 @@ apply plugin: 'maven-publish'
 
 description = "AnYi Cloud Dependencies Bom"
 
+def pom = true
+
 javaPlatform {
     allowDependencies()
 }
 
-def dependencyVersion = [
-        springdocVersion: "1.6.15",
-        log4jVersion    : "2.19.0",
-        mapstructVersion: "1.5.2.Final",
-        camundaVersion  : "7.19.0",
+
+def versions = [
+        springdoc  : "2.3.0",
+        log4j      : "2.22.0",
+        mapstruct  : "1.5.5.Final",
+        camunda    : "7.21.0-alpha2",
+        mybatisPlus: '3.5.5'
 ]
 
 
 dependencies {
     constraints {
-        // 基础模块------start
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-database')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-logging-common')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-logging-mvc')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-logging-webflux')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-mvc')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-common')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-webflux')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-        api project(':anyi-cloud-core-modules:anyi-cloud-core-webflux')
-        // 基础模块------end
+        def allProjects = []
+        rootProject.allprojects.each {
+            if (it.parent != null) {
+                allProjects.add(":${it.parent.name}:${it.name}")
+            }
+        }
 
-        // 远程api模块------start
-        api project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-gateway')
-        api project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-message')
-        api project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-process')
-        api project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-storage')
-        api project(':anyi-cloud-rpc-modules:anyi-cloud-rpc-system')
-        // 远程api模块------end
+        // 基础核心模块
+        if (file("${rootDir}/anyi-cloud-corebase-modules").directory) {
+            file("${rootDir}/anyi-cloud-corebase-modules").eachDir {
+                if (allProjects.contains(":anyi-cloud-corebase-modules:${it.name}")) {
+                    api project(":anyi-cloud-corebase-modules:${it.name}")
+                }
+
+            }
+        }
+
+        // 授权核心模块
+        if (file("${rootDir}/anyi-cloud-coreauth-modules").directory) {
+            file("${rootDir}/anyi-cloud-coreauth-modules").eachDir {
+                if (allProjects.contains(":anyi-cloud-coreauth-modules:${it.name}")) {
+                    api project(":anyi-cloud-coreauth-modules:${it.name}")
+                }
+            }
+        }
+
+        // 模块间调用适配层接口
+        if (file("${rootDir}/anyi-cloud-adapter-modules").directory) {
+            file("${rootDir}/anyi-cloud-adapter-modules").eachDir {
+                if (allProjects.contains(":anyi-cloud-adapter-modules:${it.name}")) {
+                    api project(":anyi-cloud-adapter-modules:${it.name}")
+                }
+            }
+        }
+
+        // 模块间调用远程方式适配层
+        if (file("${rootDir}/anyi-cloud-adapterrpc-modules").directory) {
+            file("${rootDir}/anyi-cloud-adapterrpc-modules").eachDir {
+                if (allProjects.contains(":anyi-cloud-adapterrpc-modules:${it.name}")) {
+                    api project(":anyi-cloud-adapterrpc-modules:${it.name}")
+                }
+            }
+        }
+
 
         // 第三方
         // spring doc------start
-        api "org.springdoc:springdoc-openapi-ui:${dependencyVersion.springdocVersion}"
-        api "org.springdoc:springdoc-openapi-webflux-ui:${dependencyVersion.springdocVersion}"
-//        api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${dependencyVersion.springdocVersion}"
-//        api "org.springdoc:springdoc-openapi-starter-webflux-ui:${dependencyVersion.springdocVersion}"
+        api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.springdoc}"
+        api "org.springdoc:springdoc-openapi-starter-webflux-ui:${versions.springdoc}"
         // spring doc------end
-        api "org.mapstruct:mapstruct:${dependencyVersion.mapstructVersion}"
-        api "org.mapstruct:mapstruct-processor:${dependencyVersion.mapstructVersion}"
+        api "org.mapstruct:mapstruct:${versions.mapstruct}"
+        api "org.mapstruct:mapstruct-processor:${versions.mapstruct}"
         // camunda------start
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${dependencyVersion.camundaVersion}"
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${dependencyVersion.camundaVersion}"
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:${dependencyVersion.camundaVersion}"
-        api "org.python:jython:2.7.2"
-        api "org.jruby:jruby-complete:9.2.9.0"
-        api "org.codehaus.groovy:groovy-all:3.0.13"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${versions.camunda}"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${versions.camunda}"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:${versions.camunda}"
+//        api "org.python:jython:2.7.2"
+//        api "org.jruby:jruby-complete:9.2.9.0"
+//        api 'javax.xml.bind:jaxb-api:2.3.1'
+//        api "org.codehaus.groovy:groovy-all:3.0.13"
         // camunda------end
         // mybatis plus------start
-        api "com.baomidou:mybatis-plus-extension:3.5.3.2"
-        api "com.baomidou:mybatis-plus-annotation:3.5.3.2"
-        api "com.baomidou:mybatis-plus-boot-starter:3.5.3.2"
-        api "com.baomidou:dynamic-datasource-spring-boot-starter:3.6.1"
+        api "com.baomidou:mybatis-plus-extension:${versions.mybatisPlus}"
+        api "com.baomidou:mybatis-plus-annotation:${versions.mybatisPlus}"
+        api "com.baomidou:mybatis-plus-spring-boot3-starter:${versions.mybatisPlus}"
+        api "com.baomidou:dynamic-datasource-spring-boot3-starter:4.3.0"
         // mybatis plus------end
         // okhttps-----start
-        api 'cn.zhxu:okhttps:4.0.1'
-        api 'com.squareup.okio:okio:3.3.0'
-        api 'cn.zhxu:okhttps-fastjson2:4.0.1'
-        api 'com.squareup.okhttp3:logging-interceptor:4.11.0'
+        api 'cn.zhxu:okhttps:4.0.2'
+        api 'com.squareup.okio:okio:3.6.0'
+        api 'cn.zhxu:okhttps-fastjson2:4.0.2'
+        api 'cn.zhxu:okhttps-stomp:4.0.2'
+        api 'com.squareup.okhttp3:logging-interceptor:4.12.0'
         // okhttps-----end
-        api "com.alibaba:druid-spring-boot-starter:1.2.18"
-        api "mysql:mysql-connector-java:8.0.33"
-        api "com.alibaba:easyexcel:3.3.1"
-        api "com.deepoove:poi-tl:1.12.1"
-        api "wiki.xsx:x-easypdf:2.11.6"
+        api "com.alibaba:druid-spring-boot-3-starter:1.2.21"
+        api "com.alibaba:easyexcel:3.3.3"
+        api "com.deepoove:poi-tl:1.12.2"
+        api 'org.dromara.x-easypdf:x-easypdf:2.12.2'
         api "org.reflections:reflections:0.10.2"
-        api "de.codecentric:spring-boot-admin-starter-server:2.7.10"
-        api "me.zhyd.oauth:JustAuth:1.16.5"
-        api "com.aliyun:aliyun-java-sdk-core:4.6.2"
-        api "com.drewnoakes:metadata-extractor:2.18.0"
-        api "io.seata:seata-spring-boot-starter:1.6.1"
-        api "io.github.openfeign:feign-okhttp:11.10"
-        api "com.xuxueli:xxl-job-core:2.3.1"
-        api "net.dreamlu:mica-ip2region:2.7.11"
+        api "de.codecentric:spring-boot-admin-starter-server:3.2.1"
+        api "me.zhyd.oauth:JustAuth:1.16.6"
+        api "com.aliyun:aliyun-java-sdk-core:4.6.4"
+        api "com.drewnoakes:metadata-extractor:2.19.0"
+        api "io.seata:seata-spring-boot-starter:2.0.0"
+        api "io.github.openfeign:feign-okhttp:13.1"
+        api "com.xuxueli:xxl-job-core:2.4.0"
+        api "net.dreamlu:mica-ip2region:3.2.2"
         api "com.tencentcloudapi:tencentcloud-sdk-java:4.0.11"
-        api "com.sun.xml.ws:jaxws-rt:2.3.0"
+        api "com.sun.xml.ws:jaxws-rt:4.0.2"
+        api 'org.redisson:redisson-spring-boot-starter:3.26.0'
+        api 'p6spy:p6spy:3.9.1'
+        api 'org.webjars:bootstrap:5.2.3'
     }
 
     dependencies {
-//        api "org.springdoc:springdoc-openapi-starter-common:${dependencyVersion.springdocVersion}"
-        api "org.springdoc:springdoc-openapi-common:${dependencyVersion.springdocVersion}"
-        api 'com.alibaba.fastjson2:fastjson2:2.0.16'
-        api 'com.alibaba:fastjson:1.2.83'
-        api 'com.google.guava:guava:31.1-jre'
-        api 'cn.hutool:hutool-all:5.8.19'
-        api 'org.apache.commons:commons-lang3:3.12.0'
-        api 'commons-codec:commons-codec:1.15'
-        api 'commons-io:commons-io:2.11.0'
-        api 'org.apache.commons:commons-pool2:2.11.1'
-        api 'org.bouncycastle:bcprov-jdk14:1.72'
-        api 'org.slf4j:slf4j-api:1.7.36'
-        api "org.apache.logging.log4j:log4j-api:${dependencyVersion.log4jVersion}"
-        api "org.apache.logging.log4j:log4j-to-slf4j:${dependencyVersion.log4jVersion}"
-        api "org.apache.logging.log4j:log4j-core:${dependencyVersion.log4jVersion}"
+        api "org.springdoc:springdoc-openapi-starter-common:${versions.springdoc}"
+        api 'com.alibaba.fastjson2:fastjson2:2.0.43'
+        api 'com.google.guava:guava:32.1.3-jre'
+        api 'org.dromara.hutool:hutool-all:6.0.0-M8'
+        api 'org.apache.commons:commons-lang3:3.14.0'
+        api 'commons-codec:commons-codec:1.16.0'
+        api 'commons-io:commons-io:2.14.0'
+        api 'org.apache.commons:commons-pool2:2.12.0'
+        api 'org.slf4j:slf4j-api:2.0.9'
+        api "org.apache.logging.log4j:log4j-api:${versions.log4j}"
+        api "org.apache.logging.log4j:log4j-to-slf4j:${versions.log4j}"
+        api "org.apache.logging.log4j:log4j-core:${versions.log4j}"
     }
 }
 

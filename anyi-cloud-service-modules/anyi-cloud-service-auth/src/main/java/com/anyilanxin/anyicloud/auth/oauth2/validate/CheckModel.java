@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -43,6 +44,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor

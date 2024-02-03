@@ -31,8 +31,8 @@
 
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.anyilanxin.skillfull.storage.modules.storage.mapper.StorageInfoFileMapper">
-  <resultMap type="com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity"
+<mapper namespace="com.anyilanxin.anyicloud.storage.modules.storage.mapper.StorageInfoFileMapper">
+  <resultMap type="com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity"
              id="StorageInfoFileMap">
     <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
     <result property="fileOriginalName" column="file_original_name" jdbcType="VARCHAR"/>
@@ -88,7 +88,7 @@
 
 
     <!--通过实体作为筛选条件分页查询-->
-    <select id="pageByModel" resultType="com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto">
+    <select id="pageByModel" resultType="com.anyilanxin.anyicloud.storage.modules.storage.service.dto.StorageInfoFilePageDto">
         SELECT
              <include refid="Column_List_Page_Ali"/>
         FROM storage_info_file ali
@@ -108,26 +108,6 @@
           </if>
         </where>
     </select>
-
-
-    <!-- 通过文件id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM storage_info_file
-        WHERE file_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  storage_info_file
-        WHERE file_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
@@ -150,5 +130,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

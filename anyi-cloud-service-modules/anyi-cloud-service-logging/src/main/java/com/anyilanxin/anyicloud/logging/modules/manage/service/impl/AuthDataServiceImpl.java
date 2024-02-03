@@ -27,18 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.lang.Snowflake;
 import com.alibaba.fastjson2.JSONObject;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiSelect;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.logging.core.constant.LoggingCommonConstant;
-import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.AuthDataPageVo;
+import com.anyilanxin.anyicloud.logging.modules.manage.controller.vo.AuthDataPageQuery;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.AuthDataEntity;
 import com.anyilanxin.anyicloud.logging.modules.manage.mapper.AuthDataMapper;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.IAuthDataService;
@@ -46,17 +46,21 @@ import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.AuthDataDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.dto.AuthDataPageDto;
 import com.anyilanxin.anyicloud.logging.modules.manage.service.mapstruct.AuthDataCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.data.id.Snowflake;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 登录日志(AuthData)业务层实现
@@ -74,7 +78,6 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
     private final StringRedisTemplate stringRedisTemplate;
     private final AuthDataMapper mapper;
     private final Snowflake snowflake;
-
     @Value("${app.log-delete-type:1}")
     private Integer deleteLogType;
 
@@ -84,8 +87,8 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
     @Override
     @Async
     public void storage() {
-        Long size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
-        int saveMax = 200;
+        var size = stringRedisTemplate.opsForList().size(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+        var saveMax = 200;
         if (Objects.nonNull(size)) {
             // 循环读取100条
             if (size < saveMax) {
@@ -94,9 +97,9 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
             if (size >= authSaveMin) {
                 List<AuthDataEntity> logEntityList = new ArrayList<>(saveMax);
                 for (int i = 0; i < saveMax; i++) {
-                    String logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
+                    var logStr = stringRedisTemplate.opsForList().rightPop(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX);
                     if (StringUtils.isNotBlank(logStr)) {
-                        AuthDataEntity logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
+                        var logModel = JSONObject.parseObject(logStr, AuthDataEntity.class);
                         logModel.setDelFlag(0);
                         logEntityList.add(logModel);
                     }
@@ -111,17 +114,17 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<AuthDataPageDto> pageByModel(AuthDataPageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<AuthDataPageDto> pageByModel(AuthDataPageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public AuthDataDto getById(String authLogId) throws RuntimeException {
-        AuthDataEntity byId = super.getById(authLogId);
+        var byId = super.getById(authLogId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -134,14 +137,14 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
         this.getById(authLogId);
         // 删除数据
         if (deleteLogType == 0) {
-            int i = mapper.physicalDeleteById(authLogId);
+            var i = mapper.anyiPhysicalDeleteById(authLogId);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "物理删除数据失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "物理删除数据失败");
             }
         } else {
-            boolean b = this.removeById(authLogId);
+            var b = this.removeById(authLogId);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
             }
         }
     }
@@ -150,22 +153,42 @@ public class AuthDataServiceImpl extends ServiceImpl<AuthDataMapper, AuthDataEnt
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> authLogIds) throws RuntimeException {
-        List<AuthDataEntity> entities = this.listByIds(authLogIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        var entities = this.listByIds(authLogIds);
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
-        List<String> waitDeleteList = new ArrayList<>();
+        var waitDeleteList = new ArrayList<String>();
         entities.forEach(v -> waitDeleteList.add(v.getAuthLogId()));
         if (deleteLogType == 0) {
-            int i = mapper.physicalDeleteBatchIds(waitDeleteList);
+            var i = mapper.anyiPhysicalDeleteBatchIds(waitDeleteList);
             if (i <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "批量物理删除数据失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "批量物理删除数据失败");
             }
         } else {
-            boolean b = this.removeByIds(waitDeleteList);
+            var b = this.removeByIds(waitDeleteList);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
             }
         }
+    }
+
+
+    @Override
+    public List<AnYiSelect> getAuthSelect() {
+        var list = mapper.getAuthSelect();
+        if (CollUtil.isEmpty(list)) {
+            list = Collections.emptyList();
+        }
+        return list;
+    }
+
+
+    @Override
+    public List<AnYiSelect> getClientSelect() {
+        var list = mapper.getClientSelect();
+        if (CollUtil.isEmpty(list)) {
+            list = Collections.emptyList();
+        }
+        return list;
     }
 }

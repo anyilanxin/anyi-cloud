@@ -27,24 +27,26 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.manage.entity;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.time.LocalDateTime;
 
 /**
  * 授权日志(AuthData)Entity
  *
  * @author zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
- * @date 2022-08-13 10:24:40
+ * @date 2022-08-30 15:38:13
  * @since 1.0.0
  */
 @Getter
@@ -55,7 +57,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("logging_auth_data")
 public class AuthDataEntity extends BaseEntity {
-    private static final long serialVersionUID = 515180726702392212L;
+    @Serial
+    private static final long serialVersionUID = 697108734716918836L;
 
     @TableId
     private String authLogId;
@@ -69,6 +72,11 @@ public class AuthDataEntity extends BaseEntity {
      * 请求ip
      */
     private String requestIp;
+
+    /**
+     * 请求ip属地
+     */
+    private String ipAddress;
 
     /**
      * 授权类型，具体参考常量字典AuthorizedGrantTypes
@@ -123,7 +131,7 @@ public class AuthDataEntity extends BaseEntity {
     /**
      * 请求开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestStartTime;
 
     /**
@@ -134,11 +142,67 @@ public class AuthDataEntity extends BaseEntity {
     /**
      * 请求结束时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime requestEndTime;
+
+    /**
+     * 创建职位编码
+     */
+    private String createPositionCode;
+
+    /**
+     * 创建机构系统编码
+     */
+    private String createOrgSysCode;
+
+    /**
+     * 创建系统编码
+     */
+    private String createSystemCode;
+
+    /**
+     * 创建租户id
+     */
+    private String createTenantId;
+
+    /**
+     * 创建用户id
+     */
+    private String createUserId;
+
+    /**
+     * 创建用户姓名
+     */
+    private String createUserName;
+
+    /**
+     * 更新用户id
+     */
+    private String updateUserId;
+
+    /**
+     * 更新用户姓名
+     */
+    private String updateUserName;
 
     /**
      * 备注
      */
     private String remark;
+
+    /**
+     * 授权token,或授权最出token
+     */
+    private String authToken;
+
+    /**
+     * 授权取消时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
+    private LocalDateTime authCancelTime;
+
+    /**
+     * 格式化后耗时
+     */
+    private String costTimeStr;
 }

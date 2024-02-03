@@ -27,21 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.entity;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 授权客户端信息(RbacClientDetails)Entity
@@ -59,6 +61,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "sys_rbac_client_details", autoResultMap = true)
 public class RbacClientDetailsEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = -42956852623383270L;
 
     @TableId
@@ -92,7 +95,7 @@ public class RbacClientDetailsEntity extends BaseEntity {
     /**
      * 授权资源ids,json array，json array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private List<String> resourceIds;
 
     /**
@@ -106,9 +109,9 @@ public class RbacClientDetailsEntity extends BaseEntity {
     private String signatureKey;
 
     /**
-     * 允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array
+     * 允许授权类型，来源常量字典AuthorizedGrantTypes,json array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private List<String> authorizedGrantTypes;
 
     /**
@@ -119,13 +122,13 @@ public class RbacClientDetailsEntity extends BaseEntity {
     /**
      * 领域,json array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private List<String> scopes;
 
     /**
      * 允许登录端点,json array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private List<String> endpoints;
 
     /**
@@ -146,7 +149,7 @@ public class RbacClientDetailsEntity extends BaseEntity {
     /**
      * 授权权限,json array
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Object authorityInfos;
 
     /**
@@ -157,7 +160,7 @@ public class RbacClientDetailsEntity extends BaseEntity {
     /**
      * 上次授权时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime lastAuthTime;
 
     /**
@@ -198,7 +201,7 @@ public class RbacClientDetailsEntity extends BaseEntity {
     /**
      * 扩展信息,json object
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Map<String, Object> additionalInformation;
 
     /**

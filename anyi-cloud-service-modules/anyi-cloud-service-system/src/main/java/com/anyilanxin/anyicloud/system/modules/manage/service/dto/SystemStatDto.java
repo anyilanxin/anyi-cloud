@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
- * @author zxh zxiaozhou
+ * @author zxh zxh
  * @date 2020-10-11 21:04
  * @since 1.0.0
  */
@@ -47,17 +50,21 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Schema
 public class SystemStatDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 2784324896203301262L;
 
-    @Schema(name = "manageTotalService", title = "纳入管理总服务数")
-    private int manageTotalService;
+    @Schema(name = "totalService", title = "总服务数")
+    private int totalService;
 
-    @Schema(name = "notManageTotalService", title = "未纳入管理总服务数")
-    private int notManageTotalService;
+    @Schema(name = "lbTotalService", title = "Lb总服务数")
+    private int lbTotalService;
 
-    @Schema(name = "healthyInstanceCount", title = "健康实例数")
-    private int healthyInstanceCount;
+    @Schema(name = "notLbTotalService", title = "非Lb总服务数")
+    private int notLbTotalService;
 
-    @Schema(name = "noHealthyInstanceCount", title = "不健康实例数")
-    private int noHealthyInstanceCount;
+    @Schema(name = "enableSwagger", title = "聚合swagger总服务数")
+    private int enableSwagger;
+
+    @Schema(name = "notEnableSwagger", title = "不聚合swagger总服务数")
+    private int notEnableSwagger;
 }

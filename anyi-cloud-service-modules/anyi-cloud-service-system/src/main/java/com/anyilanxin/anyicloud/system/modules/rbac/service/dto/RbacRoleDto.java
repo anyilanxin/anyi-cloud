@@ -27,18 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 角色表查询Response
@@ -56,6 +58,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacRoleDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 181443939964497546L;
 
     @Schema(name = "roleId", title = "角色id")
@@ -63,9 +66,6 @@ public class RbacRoleDto implements Serializable {
 
     @Schema(name = "roleName", title = "角色名称")
     private String roleName;
-
-    @Schema(name = "superRole", title = "是否为超级管理员角色")
-    private boolean superRole;
 
     @Schema(name = "roleSysCode", title = "角色系统编码(系统自动创建)")
     private String roleSysCode;
@@ -78,6 +78,9 @@ public class RbacRoleDto implements Serializable {
 
     @Schema(name = "roleCode", title = "角色编码")
     private String roleCode;
+
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
 
     @Schema(name = "parentRoleId", title = "上级角色id")
     private String parentRoleId;
@@ -98,16 +101,22 @@ public class RbacRoleDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserName", title = "更新用户姓名")
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
     @Schema(name = "menuIds", title = "菜单列表")
     private List<String> menuIds;
+
+    @Schema(name = "apiIds", title = "资源api列表(只有非角色权限指令才有必要授权)")
+    private List<String> apiIds;
+
+    @Schema(name = "selectApiInfos", title = "资源api列表完整信息(只有非角色权限指令才有必要授权)")
+    private List<RbacResourceApiPageDto> selectApiInfos;
 }

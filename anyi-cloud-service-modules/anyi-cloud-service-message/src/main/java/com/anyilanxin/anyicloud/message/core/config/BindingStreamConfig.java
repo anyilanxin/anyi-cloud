@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.core.config;
 
-import com.anyilanxin.anyicloud.messagerpc.model.SocketMsgModel;
+import com.anyilanxin.anyicloud.messageadapter.model.SocketMsgContent1Model;
 import com.anyilanxin.anyicloud.stream.constant.BindingStreamConstant;
-import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.function.Consumer;
 
 /**
  * stream配置
@@ -57,7 +59,7 @@ public class BindingStreamConfig {
      * @date 2021-05-29 17:01
      */
     @Bean(value = BindingStreamConstant.SOCKET_PROCESS)
-    public Consumer<SocketMsgModel> socketProcess() {
+    public Consumer<SocketMsgContent1Model> socketProcess() {
         return payload -> {
             log.debug("------------BindingStreamConfig------收到消息------>socketProcess:\n{}", payload);
             // handleContent.processStream(payload);

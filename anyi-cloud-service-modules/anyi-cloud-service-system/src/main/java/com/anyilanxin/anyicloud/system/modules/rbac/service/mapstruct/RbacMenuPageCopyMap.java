@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageVo;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuPageDto;
 import org.mapstruct.Builder;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-05-03 00:29:06
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface RbacMenuPageCopyMap extends BaseThreeMap<RbacMenuEntity, RbacMenuPageDto, RbacMenuPageVo> {
+public interface RbacMenuPageCopyMap extends AnYiBaseThreeMap<RbacMenuEntity, RbacMenuPageDto, RbacMenuPageQuery> {
 }

@@ -1,4 +1,28 @@
+redis:
+  host: localhost
+  port: 6379
+  password: root
+  database: 15
+
+
+rbmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+
 app:
   log-root-level: info
   log-package-level: debug
+  enable-gray: false # 是否启用灰度
   enable-doc: false # 是否打开swagger
+
+
+# 资源白名单设置
+anyi:
+  resource:
+    dev-white-list:
+      - /swagger-ui.html;get
+      - /swagger-ui/**;get
+      - /v3/api-docs/**;get

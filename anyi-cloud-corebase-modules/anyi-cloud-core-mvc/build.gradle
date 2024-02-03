@@ -1,0 +1,15 @@
+description = "AnYi Cloud Mvc Core"
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    api 'io.github.openfeign:feign-okhttp'
+    api 'cn.zhxu:okhttps'
+    api 'com.squareup.okio:okio'
+    api 'cn.zhxu:okhttps-fastjson2'
+    api 'com.squareup.okhttp3:logging-interceptor'
+    api 'cn.zhxu:okhttps-stomp'
+    api 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+

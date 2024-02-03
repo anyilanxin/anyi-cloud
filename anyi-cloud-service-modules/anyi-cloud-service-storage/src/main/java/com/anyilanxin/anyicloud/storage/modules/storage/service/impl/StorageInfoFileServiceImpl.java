@@ -27,34 +27,36 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageInfoUrlModel;
-import com.anyilanxin.anyicloud.storagerpc.model.StorageModel;
-import com.anyilanxin.skillfull.storage.engine.IStorageEngineService;
-import com.anyilanxin.skillfull.storage.modules.storage.controller.vo.StorageInfoFilePageVo;
-import com.anyilanxin.skillfull.storage.modules.storage.entity.StorageInfoFileEntity;
-import com.anyilanxin.skillfull.storage.modules.storage.mapper.StorageInfoFileMapper;
-import com.anyilanxin.skillfull.storage.modules.storage.service.IStorageInfoFileService;
-import com.anyilanxin.skillfull.storage.modules.storage.service.dto.StorageInfoFilePageDto;
-import com.anyilanxin.skillfull.storage.modules.storage.service.mapstruct.StorageInfoFileCopyMap;
+package com.anyilanxin.anyicloud.storage.modules.storage.service.impl;
+
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.storage.engine.IStorageEngineService;
+import com.anyilanxin.anyicloud.storage.modules.storage.controller.vo.StorageInfoFilePageQuery;
+import com.anyilanxin.anyicloud.storage.modules.storage.entity.StorageInfoFileEntity;
+import com.anyilanxin.anyicloud.storage.modules.storage.mapper.StorageInfoFileMapper;
+import com.anyilanxin.anyicloud.storage.modules.storage.service.IStorageInfoFileService;
+import com.anyilanxin.anyicloud.storage.modules.storage.service.dto.StorageInfoFilePageDto;
+import com.anyilanxin.anyicloud.storage.modules.storage.service.mapstruct.StorageInfoFileCopyMap;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageInfoUrlModel;
+import com.anyilanxin.anyicloud.storageadapter.model.StorageModel;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 本地文件服务(StorageInfoFile)业务层实现
@@ -74,8 +76,8 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<StorageInfoFilePageDto> pageByModel(StorageInfoFilePageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
@@ -84,7 +86,7 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
     public StorageInfoModel getById(String fileId) throws RuntimeException {
         StorageInfoFileEntity byId = super.getById(fileId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -98,7 +100,7 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
         // 删除数据
         boolean b = this.removeById(fileId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -107,14 +109,14 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> fileIds) throws RuntimeException {
         List<StorageInfoFileEntity> entities = this.listByIds(fileIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getFileId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 
@@ -164,7 +166,7 @@ public class StorageInfoFileServiceImpl extends ServiceImpl<StorageInfoFileMappe
             List<StorageInfoFileEntity> storageInfoFileEntities = map.dToE(models);
             boolean b = this.saveBatch(storageInfoFileEntities);
             if (!b) {
-                throw new ResponseException("存储文件失败");
+                throw new AnYiResponseException("存储文件失败");
             }
         }
     }

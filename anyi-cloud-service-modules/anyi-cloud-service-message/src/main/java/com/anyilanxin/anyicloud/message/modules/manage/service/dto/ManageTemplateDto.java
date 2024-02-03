@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 消息模板查询Response
@@ -54,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageTemplateDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 400261450235058454L;
 
     @Schema(name = "templateId", title = "模板id")
@@ -93,7 +96,7 @@ public class ManageTemplateDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "remark", title = "备注")

@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 实例信息
@@ -45,11 +48,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class ServiceInstancePageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 4086735209634588642L;
 
     @Schema(name = "instanceId", title = "实例唯一id")

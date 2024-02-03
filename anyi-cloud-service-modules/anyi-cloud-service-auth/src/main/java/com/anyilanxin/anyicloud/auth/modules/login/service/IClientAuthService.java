@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service;
 
 import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthModel;
@@ -49,4 +50,15 @@ public interface IClientAuthService {
      * @date 2022-02-12 22:15
      */
     ClientAndResourceAuthModel getByClientId(String clientId);
+
+
+    /**
+     * 通过客户端主键id查询详情
+     *
+     * @param id 客户端主键id
+     * @return SystemClientDetailsModel 查询结果
+     * @author zxh
+     * @date 2022-02-12 22:15
+     */
+    ClientAndResourceAuthModel getById(String id);
 }

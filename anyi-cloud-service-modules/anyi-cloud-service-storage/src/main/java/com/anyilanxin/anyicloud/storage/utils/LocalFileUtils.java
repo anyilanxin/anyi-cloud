@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.utils;
 
-import com.anyilanxin.skillfull.storage.core.config.properties.LocalFileProperty;
-import javax.annotation.PostConstruct;
+package com.anyilanxin.anyicloud.storage.utils;
+
+import com.anyilanxin.anyicloud.storage.core.config.properties.LocalFileProperty;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +49,7 @@ public class LocalFileUtils {
     private static LocalFileUtils utils;
 
     @PostConstruct
-    private void init() {
+    void init() {
         utils = this;
     }
 
@@ -70,7 +71,7 @@ public class LocalFileUtils {
     /**
      * 磁盘路径转映射路径
      *
-     * @param diskPath ${@link String} 磁盘路径
+     * @param diskPath ${@link String}  磁盘路径
      * @return String ${@link String}
      * @author zxh
      * @date 2021-02-23 09:51

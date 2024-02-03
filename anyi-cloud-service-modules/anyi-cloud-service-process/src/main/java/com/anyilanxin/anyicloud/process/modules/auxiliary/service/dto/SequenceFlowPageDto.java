@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.anyicloud.process.modules.auxiliary.service.dto;
 
-import static com.anyilanxin.anyicloudee.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
+package com.anyilanxin.anyicloud.process.modules.auxiliary.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
 
 /**
  * 流程连线分页查询Response
@@ -54,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Schema
 public class SequenceFlowPageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -89959604891510879L;
 
     @Schema(name = "sequenceFlowId", title = "连线id")

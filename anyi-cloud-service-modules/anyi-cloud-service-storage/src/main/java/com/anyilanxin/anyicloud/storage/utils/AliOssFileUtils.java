@@ -27,13 +27,14 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.utils;
+
+package com.anyilanxin.anyicloud.storage.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
-import com.anyilanxin.skillfull.storage.core.config.properties.OssProperty;
-import javax.annotation.PostConstruct;
+import com.anyilanxin.anyicloud.storage.core.config.properties.OssProperty;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -52,7 +53,7 @@ public class AliOssFileUtils {
     private final OssProperty ossProperty;
 
     @PostConstruct
-    private void init() {
+    void init() {
         utils = this;
     }
 

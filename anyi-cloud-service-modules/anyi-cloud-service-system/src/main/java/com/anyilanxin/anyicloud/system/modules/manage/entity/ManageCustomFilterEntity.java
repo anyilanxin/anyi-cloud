@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-import java.util.Map;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * 自定义过滤器(ManageCustomFilter)Entity
@@ -54,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "sys_manage_custom_filter", autoResultMap = true)
 public class ManageCustomFilterEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 527999192551027560L;
 
     @TableId
@@ -87,7 +91,7 @@ public class ManageCustomFilterEntity extends BaseEntity {
     /**
      * 过滤器规则:Map
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Map<String, String> rules;
 
     /**

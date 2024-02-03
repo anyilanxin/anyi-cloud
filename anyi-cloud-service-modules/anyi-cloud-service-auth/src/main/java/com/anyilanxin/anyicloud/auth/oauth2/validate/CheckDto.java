@@ -27,12 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 验证结果
@@ -44,11 +47,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class CheckDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -5032945213213317228L;
     /**
      * 验证结果

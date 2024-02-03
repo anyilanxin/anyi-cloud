@@ -1,0 +1,6 @@
+description = "AnYi Cloud Process Core"
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api "com.baomidou:mybatis-plus-annotation"
+}

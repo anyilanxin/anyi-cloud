@@ -1,8 +1,0 @@
-description = "AnYi Cloud Redis Core"
-
-dependencies {
-    api 'org.springframework.boot:spring-boot-starter-data-redis'
-    api 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-    api project(':anyi-cloud-core-modules:anyi-cloud-core-common')
-    compileOnly 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-}

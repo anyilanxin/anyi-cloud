@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageVo;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonCategoryVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonCategoryEntity;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonCategoryDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonCategoryPageDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonCategoryTreeDto;
+
 import java.util.List;
 
 /**
@@ -74,20 +76,20 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
     /**
      * 分页查询
      *
-     * @param vo ${@link CommonCategoryPageVo} 分类字典表分页查询Vo
-     * @return PageDto<CommonCategoryPageDto> ${@link PageDto< CommonCategoryPageDto >} 分页查询结果
+     * @param vo ${@link CommonCategoryPageQuery} 分类字典表分页查询Vo
+     * @return AnYiPageResult<CommonCategoryPageDto> ${@link AnYiPlusPageResult <  CommonCategoryPageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-07 23:40:21
      */
-    PageDto<CommonCategoryPageDto> pageByModel(CommonCategoryPageVo vo) throws RuntimeException;
+    AnYiPageResult<CommonCategoryPageDto> pageByModel(CommonCategoryPageQuery vo) throws RuntimeException;
 
 
     /**
      * 根据统一分类id查询分类
      *
      * @param categoryCommonCode ${@link String} 统一分类编码
-     * @return List<CommonCategoryDto> ${@link List< CommonCategoryDto >} 查询结果
+     * @return List<CommonCategoryDto> ${@link List<  CommonCategoryDto  >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-07 23:40:21
@@ -99,7 +101,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * 根据统一分类id查询分类(树形)
      *
      * @param categoryCommonCode ${@link String} 统一分类编码
-     * @return List<CommonCategoryTreeDto> ${@link List< CommonCategoryTreeDto >} 查询结果
+     * @return List<CommonCategoryTreeDto> ${@link  List< CommonCategoryTreeDto >} 查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-07 23:40:21
@@ -145,7 +147,7 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * 分类查询下级
      *
      * @param parentId ${@link String} 上级id
-     * @return List<CommonCategoryPageDto> ${@link List<CommonCategoryPageDto> }
+     * @return List<CommonCategoryPageDto>  ${@link List<CommonCategoryPageDto> }
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-08 00:01
@@ -162,4 +164,5 @@ public interface ICommonCategoryService extends BaseService<CommonCategoryEntity
      * @date 2021-03-12 07:44
      */
     List<CommonCategoryTreeDto> selectAllTree() throws RuntimeException;
+
 }

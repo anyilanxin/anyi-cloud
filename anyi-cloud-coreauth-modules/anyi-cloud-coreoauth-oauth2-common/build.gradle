@@ -1,0 +1,10 @@
+description = "AnYi Cloud Oauth2 Common Core"
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api "org.springframework.boot:spring-boot-starter-security"
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-logging-common')
+}
+

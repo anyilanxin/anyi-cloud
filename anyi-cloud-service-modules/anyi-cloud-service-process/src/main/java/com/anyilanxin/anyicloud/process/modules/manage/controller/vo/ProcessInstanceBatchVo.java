@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 流程实例批量操作vo
@@ -50,9 +53,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class ProcessInstanceBatchVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8339136439559724835L;
 
-    @Schema(name = "processInstanceIds", title = "流程实例ids", required = true)
+    @Schema(name = "processInstanceIds", title = "流程实例ids", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNullSize(message = "流程实例id不能为空")
     private List<String> processInstanceIds;
 }

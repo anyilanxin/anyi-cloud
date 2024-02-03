@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 实名信息表查询Response
@@ -54,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserIdentityDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 685779270689794950L;
 
     @Schema(name = "identityId", title = "实名信息id")
@@ -78,11 +81,11 @@ public class RbacUserIdentityDto implements Serializable {
     private String idCardIssue;
 
     @Schema(name = "idCardEffective", title = "身份证书有效期开始", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime idCardEffective;
 
     @Schema(name = "idCardEffectiveEnd", title = "身份证有效期结束", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime idCardEffectiveEnd;
 
     @Schema(name = "positivePhoto", title = "正面照")
@@ -98,11 +101,11 @@ public class RbacUserIdentityDto implements Serializable {
     private Integer identityStatus;
 
     @Schema(name = "auditStartTime", title = "审核开始时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime auditStartTime;
 
     @Schema(name = "auditEndTime", title = "审核结束时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime auditEndTime;
 
     @Schema(name = "bankCardPositive", title = "银行卡正面")
@@ -127,13 +130,13 @@ public class RbacUserIdentityDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserName", title = "更新用户姓名")
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 }

@@ -55,5 +55,5 @@
     <sql id="Column_List_Page_Ali">
         ali.ID_, ali.NAME_, ali.DEPLOY_TIME_, ali.SOURCE_, ali.TENANT_ID_
     </sql>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

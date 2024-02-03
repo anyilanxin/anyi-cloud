@@ -27,18 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.CheckDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.CheckModel;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.IValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-import javax.servlet.http.HttpServletRequest;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
 
 /**
  * 短信验证码实现
@@ -56,10 +58,9 @@ public class SmsValidate implements IValidate {
 
     @Override
     public ValidateDto getVerification(JSONObject parameter, HttpServletRequest request) {
-        String code = CoreCommonUtils.get32UUId();
+        String code = AnYiCoreCommonUtils.get32UUId();
         // redisTemplate.opsForValue().set(SMS_CODE_KEY_PREFIX +
-        // parameter.getString(PHONE),
-        // code, properties.getCodeValidityInSeconds());
+        // parameter.getString(PHONE), code, properties.getCodeValidityInSeconds());
         // 发送短信验证码
         return null;
     }

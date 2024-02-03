@@ -27,12 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.process.core.base.controller.vo.CamundaNoDateBasePageVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 用户信息
@@ -44,11 +47,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString(callSuper = true)
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Schema
 public class UserQueryPageVoCamunda extends CamundaNoDateBasePageVo {
+    @Serial
     private static final long serialVersionUID = 6364921052776119371L;
 
     @Schema(name = "userName", title = "用户名")

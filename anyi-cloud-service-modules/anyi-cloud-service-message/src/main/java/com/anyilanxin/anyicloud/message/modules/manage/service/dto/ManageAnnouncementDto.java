@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统通告公告管理查询Response
@@ -54,6 +56,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageAnnouncementDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -63694650808367041L;
 
     @Schema(name = "anntId", title = "通知公告id")
@@ -93,15 +96,15 @@ public class ManageAnnouncementDto implements Serializable {
     private Integer sendType;
 
     @Schema(name = "autoSendTime", title = "自动发布时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime autoSendTime;
 
     @Schema(name = "sendTime", title = "发布时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime sendTime;
 
     @Schema(name = "cancelTime", title = "撤销时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime cancelTime;
 
     @Schema(name = "sendStatus", title = "发布状态：0未发布，1已发布，2已撤销，默认0")
@@ -132,7 +135,7 @@ public class ManageAnnouncementDto implements Serializable {
     private String createUserName;
 
     @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserId", title = "更新用户id")
@@ -142,7 +145,7 @@ public class ManageAnnouncementDto implements Serializable {
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
     @Schema(name = "remark", title = "备注")
@@ -150,4 +153,5 @@ public class ManageAnnouncementDto implements Serializable {
 
     @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0")
     private Integer delFlag;
+
 }

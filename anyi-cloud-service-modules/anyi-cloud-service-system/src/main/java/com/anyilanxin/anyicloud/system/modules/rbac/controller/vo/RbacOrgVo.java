@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Set;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 组织表添加或修改Request
@@ -53,12 +56,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 963678539662691043L;
 
     @Schema(name = "parentId", title = "父级组织id(更新是无效)")
     private String parentId;
 
-    @Schema(name = "orgName", title = "组织名称", required = true)
+    @Schema(name = "orgName", title = "组织名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "组织名称不能为空")
     private String orgName;
 
@@ -74,16 +78,16 @@ public class RbacOrgVo implements Serializable {
     @Schema(name = "orgOrder", title = "排序")
     private Integer orgOrder;
 
-    @Schema(name = "orgType", title = "组织机构类型：1-公司,2-部门", required = true)
+    @Schema(name = "orgType", title = "组织机构类型：1-公司,2-部门", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "组织机构类不能为空")
     // @NotInEnum(autoMessage = true, enumClass = OrgType.class)
     private Integer orgType;
 
-    @Schema(name = "orgCode", title = "组织编码", required = true)
+    @Schema(name = "orgCode", title = "组织编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "组织编码不能为空")
     private String orgCode;
 
-    @Schema(name = "orgStatus", title = "组织状态：0-禁用，1-启用，默认0", required = true)
+    @Schema(name = "orgStatus", title = "组织状态：0-禁用，1-启用，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "组织状态不能为空")
     // @NotInEnum(autoMessage = true, enumClass = CommonNotEnableType.class)
     private Integer orgStatus;
@@ -135,4 +139,7 @@ public class RbacOrgVo implements Serializable {
 
     @Schema(name = "orgMenuIds", title = "机构菜单权限")
     private Set<String> orgMenuIds;
+
+    @Schema(name = "orgResourceIds", title = "机构资源权限")
+    private Set<String> orgResourceIds;
 }

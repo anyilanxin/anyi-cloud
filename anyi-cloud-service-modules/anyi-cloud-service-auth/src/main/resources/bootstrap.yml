@@ -1,20 +1,26 @@
 # Spring
 spring:
   profiles:
-    active: ${PROFILES_ACTIVE:dev}
+    active: ${PROFILES_ACTIVE:duyunremote}
   application:
     name: auth-service
-    version: ${VERSION:#@version@#}
+    version: #@version@#
+    title: #@name@#
   cloud:
     nacos:
-      password: ${NACOS_PASSWORD:skillfullcloud}
-      username: ${NACOS_USERNAME:skillfullcloud}
-      server-addr: ${NACOS_ADDR:localhost:8848}
+      password: ${NACOS_PASSWORD:anyicloud}
+      username: ${NACOS_USERNAME:anyicloud}
+      server-addr: ${NACOS_ADDR:162.14.71.212:8848}
       discovery:
-        namespace: ${NACOS_NAMESPACE:skillfullcloud}
+        namespace: ${NACOS_NAMESPACE:anyicloud}
         metadata:
           management:
             context-path: ${server.servlet.context-path:}/actuator
+          # 灰度信息
+          gray-info:
+            active: ${spring.profiles.active}
+            version: ${spring.application.version:1.0.0}
+            enable-gray: ${app.enable-gray:false}
       config:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         # 配置文件格式
@@ -30,6 +36,6 @@ spring:
 
 # 端口与请求前缀
 server:
-  port: 8080
+  port: 604
   servlet:
-    context-path: /auth
+    context-path: /authorization

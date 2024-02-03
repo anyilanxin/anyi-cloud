@@ -27,20 +27,24 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import com.anyilanxin.anyicloud.auth.modules.login.mapper.UserAuthMapper;
 import com.anyilanxin.anyicloud.auth.modules.login.service.IAuthCodeService;
-import com.anyilanxin.anyicloud.auth.modules.login.service.IUserAuthService;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.IValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.ValidateDto;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.PictureValidate;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.impl.SmsValidate;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import javax.servlet.http.HttpServletRequest;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * 授权相关
@@ -54,7 +58,7 @@ import org.springframework.stereotype.Service;
 public class AuthCodeServiceImpl implements IAuthCodeService {
 
     private IValidate pictureValidate;
-    private final IUserAuthService userAuthService;
+    private final UserAuthMapper userAuthMapper;
     private IValidate smsValidate;
 
     @Autowired
@@ -71,9 +75,9 @@ public class AuthCodeServiceImpl implements IAuthCodeService {
 
     @Override
     public ValidateDto getPictureCode(HttpServletRequest request) throws RuntimeException {
-        ValidateDto verification = pictureValidate.getVerification(null, request);
+        var verification = pictureValidate.getVerification(null, request);
         if (!verification.isStatus()) {
-            throw new ResponseException(verification.getMsg());
+            throw new AnYiResponseException(verification.getMsg());
         }
         return verification;
     }
@@ -81,9 +85,12 @@ public class AuthCodeServiceImpl implements IAuthCodeService {
 
     @Override
     public void getPhoneSmsCode(String phone, HttpServletRequest request) throws RuntimeException {
-        userAuthService.getUserByPhone(phone);
+        var entity = userAuthMapper.selectByPhone(phone);
+        if (Objects.isNull(entity)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "用户信息不存在");
+        }
         // 发送验证码
-        JSONObject jsonObject = new JSONObject();
+        var jsonObject = new JSONObject();
         jsonObject.put(SmsValidate.PHONE, phone);
         smsValidate.getVerification(jsonObject, request);
     }

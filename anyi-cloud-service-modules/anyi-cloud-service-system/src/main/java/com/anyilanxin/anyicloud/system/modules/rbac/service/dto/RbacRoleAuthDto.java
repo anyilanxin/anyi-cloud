@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 角色权限添加或修改Request
@@ -52,6 +55,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacRoleAuthDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 963678539662691043L;
 
     @Schema(name = "menuIds", title = "菜单列表")

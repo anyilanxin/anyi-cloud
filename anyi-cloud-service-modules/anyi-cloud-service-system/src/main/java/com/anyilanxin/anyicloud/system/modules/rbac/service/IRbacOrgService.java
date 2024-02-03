@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgHasChildrenDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreeDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreePageDto;
+
 import java.util.List;
 
 /**
@@ -76,12 +78,12 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacOrgPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacOrgPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:39:45
      */
-    PageDto<RbacOrgTreePageDto> pageByModel(RbacOrgPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacOrgTreePageDto> pageByModel(RbacOrgPageQuery vo) throws RuntimeException;
 
 
     /**
@@ -136,7 +138,7 @@ public interface IRbacOrgService extends BaseService<RbacOrgEntity> {
      *
      * @param type     ${@link Integer} 类型:0-所有,1-有效,默认1
      * @param parentId ${@link String} 父级id,为空时查顶级
-     * @return List<RbacOrgHasChildrenDto> ${@link List< RbacOrgHasChildrenDto >}
+     * @return List<RbacOrgHasChildrenDto> ${@link  List<    RbacOrgHasChildrenDto    >}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-01-30 23:34

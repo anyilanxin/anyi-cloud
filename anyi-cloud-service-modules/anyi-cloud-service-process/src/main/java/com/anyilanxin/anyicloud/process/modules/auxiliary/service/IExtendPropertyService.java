@@ -27,11 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.service;
 
-import com.anyilanxin.anyicloudee.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.ExtendPropertyEntity;
-import com.anyilanxin.anyicloudee.processrpc.model.ExtendPropertyModel;
+import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.entity.ExtendPropertyEntity;
+import com.anyilanxin.anyicloud.processadapter.model.ExtendPropertyModel;
+
 import java.util.Map;
 import java.util.Set;
 

@@ -27,20 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleMenuPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleMenuQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 机构角色-菜单表(RbacOrgRoleMenu)持久层
@@ -61,7 +62,7 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
      * @author zxh
      * @date 2022-07-05 00:22:57
      */
-    IPage<RbacOrgRoleMenuPageDto> pageByModel(Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageVo vo);
+    IPage<RbacOrgRoleMenuPageDto> pageByModel(Page<RbacOrgRoleMenuPageDto> page, @Param("query") RbacOrgRoleMenuPageQuery vo);
 
 
     /**
@@ -76,31 +77,9 @@ public interface RbacOrgRoleMenuMapper extends BaseMapper<RbacOrgRoleMenuEntity>
 
 
     /**
-     * 通过机构权限角色id物理删除
-     *
-     * @param orgRoleMenuId 机构权限角色id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-07-05 00:22:57
-     */
-    int physicalDeleteById(@Param("id") String orgRoleMenuId);
-
-
-    /**
-     * 通过机构权限角色id物理批量删除
-     *
-     * @param idList 机构权限角色id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-07-05 00:22:57
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
-
-
-    /**
      * 获取有效的菜单按钮权限
      *
-     * @return List<RbacOrgRoleMenuDto> 结果
+     * @return List<RbacOrgRoleMenuDto>  结果
      * @author zxh
      * @date 2020-10-08 13:29:15
      */

@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.entity;
 
-import com.anyilanxin.anyicloudee.database.datasource.base.entity.BaseEntity;
+import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 流程连线(SequenceFlow)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("act_custom_sequence_flow")
 public class SequenceFlowEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 118704983824127700L;
 
     @TableId

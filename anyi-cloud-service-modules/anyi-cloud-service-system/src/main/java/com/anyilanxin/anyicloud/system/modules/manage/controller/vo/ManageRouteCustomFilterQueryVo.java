@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 路由-自定义过滤器表条件查询Request
@@ -48,10 +51,13 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @Schema
 public class ManageRouteCustomFilterQueryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 130912333288403656L;
 
     @Schema(name = "routeCustomFilterId", title = "路由自定义过滤器id")
@@ -62,4 +68,5 @@ public class ManageRouteCustomFilterQueryVo implements Serializable {
 
     @Schema(name = "routeId", title = "路由id")
     private String routeId;
+
 }

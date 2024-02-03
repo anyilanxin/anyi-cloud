@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.core.config;
 
 import com.anyilanxin.anyicloud.auth.core.handler.MyMetaObjectHandler;
@@ -68,4 +69,5 @@ public class MybatisPlusConfig {
     public MetaObjectHandler metaObjectHandler() {
         return new MyMetaObjectHandler();
     }
+
 }

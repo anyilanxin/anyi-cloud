@@ -1,14 +1,20 @@
 description = "AnYi Cloud Logging Service"
 
-bootJar { enabled = true }
-
+def bootJar = true
 
 dependencies {
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-database')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-logging-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-mvc')
+    implementation project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-resourcemvc')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-database')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-logging-mvc')
+    implementation 'net.dreamlu:mica-ip2region'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+}
+
+
+configurations.configureEach {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 }

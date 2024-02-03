@@ -27,18 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageCustomFilterVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageCustomFilterEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageCustomFilterMapper;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageCustomFilterService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSpecialUrlService;
+import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterDetailDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterListDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageCustomFilterSimpleDto;
@@ -48,11 +48,13 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageCu
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageCustomFilterSimpleCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 自定义过滤器(ManageCustomFilter)业务层实现
@@ -71,6 +73,7 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
     private final ManageCustomFilterSimpleCopyMap simpleCopyMap;
     private final ManageCustomFilterMapper mapper;
     private final IManageSpecialUrlService specialUrlService;
+    private final IManageSyncService syncService;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
@@ -78,10 +81,12 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
         ManageCustomFilterEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         // 保存特殊url
         specialUrlService.deleteAndSave(vo.getSpecialUrls(), entity.getCustomFilterId());
+        // 刷新路由
+        syncService.updateServiceRoute(vo.getServiceId());
     }
 
 
@@ -95,10 +100,12 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
         entity.setCustomFilterId(customFilterId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
         // 保存特殊url
         specialUrlService.deleteAndSave(vo.getSpecialUrls(), customFilterId);
+        // 刷新路由
+        syncService.updateServiceRoute(vo.getServiceId());
     }
 
 
@@ -107,9 +114,11 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
     public ManageCustomFilterDetailDto getById(String customFilterId) throws RuntimeException {
         ManageCustomFilterEntity byId = super.getById(customFilterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
+        // 查询主表数据
         ManageCustomFilterDetailDto manageCustomFilterDto = detailMap.eToD(byId);
+        // 查询字表数据
         manageCustomFilterDto.setSpecialUrls(specialUrlService.selectByCustomFilterId(customFilterId));
         return manageCustomFilterDto;
     }
@@ -119,14 +128,16 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteById(String customFilterId) throws RuntimeException {
         // 查询数据是否存在
-        this.getById(customFilterId);
+        ManageCustomFilterDetailDto byId = this.getById(customFilterId);
         // 删除数据
         boolean b = this.removeById(customFilterId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 删除特殊url
         specialUrlService.deleteByCustomFilterId(customFilterId);
+        // 刷新路由
+        syncService.deleteServiceRoute(byId.getServiceId());
     }
 
 
@@ -141,10 +152,14 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
             list.forEach(v -> customFilterIds.add(v.getCustomFilterId()));
             boolean remove = this.remove(lambdaQueryWrapper);
             if (!remove) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除自定义过滤器失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除自定义过滤器失败");
             }
             // 删除自定义过滤器中特殊url
             specialUrlService.deleteByCustomFilterIds(customFilterIds);
+            list.forEach(v -> {
+                // 刷新路由
+                syncService.deleteServiceRoute(v.getServiceId());
+            });
         }
     }
 
@@ -184,7 +199,7 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
 
     @Override
     public Map<String, List<ManageCustomFilterSimpleDto>> selectListRouterIds(Set<String> routerIds, String serviceId) {
-        if (CollectionUtil.isEmpty(routerIds)) {
+        if (CollUtil.isEmpty(routerIds)) {
             return Collections.emptyMap();
         }
         LambdaQueryWrapper<ManageCustomFilterEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -202,13 +217,21 @@ public class ManageCustomFilterServiceImpl extends ServiceImpl<ManageCustomFilte
     public void updateStatus(String customFilterId, Integer state) {
         ManageCustomFilterEntity byId = super.getById(customFilterId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         ManageCustomFilterEntity waitUpdate = ManageCustomFilterEntity.builder().filterStatus(state).customFilterId(customFilterId).build();
         boolean b = this.updateById(waitUpdate);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "修改状态失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "修改状态失败");
         }
+        if (state == 1) {
+            // 刷新路由
+            syncService.updateServiceRoute(byId.getServiceId());
+        } else {
+            // 刷新路由
+            syncService.deleteServiceRoute(byId.getServiceId());
+        }
+
     }
 
 

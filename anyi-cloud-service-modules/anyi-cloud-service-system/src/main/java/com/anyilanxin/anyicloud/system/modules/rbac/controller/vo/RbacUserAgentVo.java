@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 用户-代理人表添加或修改Request
@@ -55,33 +57,34 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacUserAgentVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -35405650609720859L;
 
-    @Schema(name = "userId", title = "用户名id", required = true)
+    @Schema(name = "userId", title = "用户名id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "用户名id不能为空")
     private String userId;
 
-    @Schema(name = "agentUserId", title = "代理人用户id", required = true)
+    @Schema(name = "agentUserId", title = "代理人用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "代理人用户id不能为空")
     private String agentUserId;
 
-    @Schema(name = "isLimit", title = "是否限制时间:0-不限制,1-限制，默认0", required = true)
+    @Schema(name = "isLimit", title = "是否限制时间:0-不限制,1-限制，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否限制时间:0-不限制,1-限制，默认0不能为空")
     private Integer isLimit;
 
     @Schema(name = "agentStartTime", title = "代理开始时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime agentStartTime;
 
     @Schema(name = "agentEndTime", title = "代理结束时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime agentEndTime;
 
-    @Schema(name = "agentStatus", title = "状态：0-无效，1-有效,默认0", required = true)
+    @Schema(name = "agentStatus", title = "状态：0-无效，1-有效,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "状态：0-无效，1-有效,默认0不能为空")
     private Integer agentStatus;
 
-    @Schema(name = "uniqueHelp", title = "唯一索引帮助字段,默认1，如果删除该值为主键", required = true)
+    @Schema(name = "uniqueHelp", title = "唯一索引帮助字段,默认1，如果删除该值为主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "唯一索引帮助字段,默认1，如果删除该值为主键不能为空")
     private String uniqueHelp;
 
@@ -109,9 +112,9 @@ public class RbacUserAgentVo implements Serializable {
     @Schema(name = "createTenantId", title = "创建租户id")
     private String createTenantId;
 
-    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", required = true)
+    @Schema(name = "createTime", title = "创建时间", type = "string", example = "2020-11-12 11:23:59", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "创建时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
 
     @Schema(name = "updateUserId", title = "更新用户id")
@@ -121,10 +124,11 @@ public class RbacUserAgentVo implements Serializable {
     private String updateUserName;
 
     @Schema(name = "updateTime", title = "更新时间", type = "string", example = "2020-11-12 11:23:59")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime updateTime;
 
-    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", required = true)
+    @Schema(name = "delFlag", title = "删除状态:0-正常,1-已删除,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "删除状态:0-正常,1-已删除,默认0不能为空")
     private Integer delFlag;
+
 }

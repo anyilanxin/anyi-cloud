@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.announcement.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
-import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordPageVo;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
+import com.anyilanxin.anyicloud.message.modules.announcement.controller.vo.AnnouncementRecordPageQuery;
 import com.anyilanxin.anyicloud.message.modules.announcement.entity.AnnouncementRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.announcement.service.dto.AnnouncementRecordPageDto;
 import org.mapstruct.Builder;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-03-29 08:35:35
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface AnnouncementRecordPageCopyMap extends BaseThreeMap<AnnouncementRecordEntity, AnnouncementRecordPageDto, AnnouncementRecordPageVo> {
+public interface AnnouncementRecordPageCopyMap extends AnYiBaseThreeMap<AnnouncementRecordEntity, AnnouncementRecordPageDto, AnnouncementRecordPageQuery> {
 }

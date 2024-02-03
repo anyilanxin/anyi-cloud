@@ -27,14 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentPageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserAgentEntity;
@@ -46,13 +47,15 @@ import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAg
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAgentPageCopyMap;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct.RbacUserAgentQueryCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户-代理人表(RbacUserAgent)业务层实现
@@ -77,7 +80,7 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
         RbacUserAgentEntity entity = map.vToE(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -92,7 +95,7 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
         entity.setAgentId(agentId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
@@ -102,7 +105,7 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
     public List<RbacUserAgentDto> selectListByModel(RbacUserAgentQueryVo vo) throws RuntimeException {
         List<RbacUserAgentDto> list = mapper.selectListByModel(vo);
         if (CollUtil.isEmpty(list)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return list;
     }
@@ -110,8 +113,8 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
@@ -120,7 +123,7 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
     public RbacUserAgentDto getById(String agentId) throws RuntimeException {
         RbacUserAgentEntity byId = super.getById(agentId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -134,7 +137,7 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
         // 删除数据
         boolean b = this.removeById(agentId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -144,13 +147,13 @@ public class RbacUserAgentServiceImpl extends ServiceImpl<RbacUserAgentMapper, R
     public void deleteBatch(List<String> agentIds) throws RuntimeException {
         List<RbacUserAgentEntity> entities = this.listByIds(agentIds);
         if (CollUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getAgentId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 }

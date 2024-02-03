@@ -27,6 +27,7 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.constant;
 
 /**
@@ -47,6 +48,16 @@ public interface CommonGatewayConstant {
      * 用户信息
      */
     String GATEWAY_USER_INFO = "GATEWAY_USER_INFO";
+
+    /**
+     * 授权token
+     */
+    String GATEWAY_AUTH_TOKEN = "GATEWAY_AUTH_TOKEN";
+
+    /**
+     * 客户端信息
+     */
+    String GATEWAY_CLIENT_INFO = "GATEWAY_CLIENT_INFO";
 
     /**
      * 日志记录数据

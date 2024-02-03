@@ -1,0 +1,39 @@
+redis:
+  host: 162.14.71.212
+  port: 30517
+  password: Anyilan&xin054678_redis
+  database: 15
+
+
+rbmq:
+  host: 10.37.129.2
+  port: 5672
+  username: guest
+  password: guest
+
+
+app:
+  log-root-level: info
+  log-package-level: debug
+  enable-gray: true # 是否启用灰度
+  enable-doc: true # 是否打开swagger
+
+
+anyi:
+  resource:
+    common-white-list:
+      - /auth/oauth/token
+      - /auth/code/picture;get
+      - /system/common-system/init/system-info;get
+      - /aycloudee/document/scripts/*.js;get
+      - /aycloudee/document/css/*.css;get
+      - /aycloudee/document/css/img/*.ico;get
+      - /aycloudee/document/css/img/*.gif;get
+      - /aycloudee/document/css/img/*.svg;get
+      - /aycloudee/document/favicon.ico;get
+    dev-white-list:
+      - /*/v3/api-docs/**;get
+      - /webjars/swagger-ui/**;get
+    disable: true
+springdoc:
+  auth2-prefix: http://127.0.0.1:604/authorization

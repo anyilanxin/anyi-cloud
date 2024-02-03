@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 流程实例删除
@@ -49,9 +52,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class DeleteProcessInstanceVo extends ProcessInstanceBatchVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -2625200294039929340L;
 
-    @Schema(name = "reason", title = "删除原因", required = true)
+    @Schema(name = "reason", title = "删除原因", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "删除原因")
     private String reason;
 

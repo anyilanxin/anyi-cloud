@@ -27,22 +27,22 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.controller;
 
-import com.anyilanxin.anyicloud.corecommon.base.Result;
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.SystemRouterModel;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.PathNotBlankOrNull;
-import com.anyilanxin.anyicloud.corewebflux.base.controller.BaseController;
+import com.anyilanxin.anyicloud.corewebflux.base.controller.AnYiBaseController;
 import com.anyilanxin.anyicloud.corewebflux.utils.ServletUtils;
 import com.anyilanxin.anyicloud.gateway.modules.manage.service.IDynamicRouteService;
-import com.anyilanxin.anyicloud.gatewayrpc.model.RouteResponseModel;
+import com.anyilanxin.anyicloud.gatewayadapter.model.RouteResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -51,6 +51,8 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * 动态路由controller
@@ -64,22 +66,22 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/route", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Validated
-public class DynamicRouteController extends BaseController {
+public class DynamicRouteController extends AnYiBaseController {
     private final IDynamicRouteService service;
     private final RouteDefinitionLocator routeDefinitionLocator;
 
     @Operation(summary = "添加路由", tags = {"v1.0.0"}, description = "添加路由")
     @PostMapping("/add")
-    Mono<Result<String>> addRoute(@RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
+    Mono<AnYiResult<String>> addRoute(@RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
         ServletUtils.setServerHttpRequest(request);
         service.addRoute(vo);
-        return ok(I18nUtil.get("Controller.BatchDeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.BatchDeleteSuccess"));
     }
 
 
     @Operation(summary = "更新路由", tags = {"v1.0.0"}, description = "更新路由")
     @PutMapping("/update")
-    Mono<Result<String>> updateRoute(@RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
+    Mono<AnYiResult<String>> updateRoute(@RequestBody @Valid SystemRouterModel vo, final ServerHttpRequest request) {
         ServletUtils.setServerHttpRequest(request);
         service.updateRoute(vo);
         return ok("更新成功");
@@ -89,23 +91,24 @@ public class DynamicRouteController extends BaseController {
     @Operation(summary = "删除路由", tags = {"v1.0.0"}, description = "删除路由")
     @Parameter(in = ParameterIn.PATH, description = "路由编码", name = "routeCode", required = true)
     @DeleteMapping("/delete/{routeCode}")
-    Mono<Result<String>> deleteRoute(@PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode, final ServerHttpRequest request) {
+    Mono<AnYiResult<String>> deleteRoute(@PathVariable @PathNotBlankOrNull(message = "路由编码不能为空") String routeCode, final ServerHttpRequest request) {
         ServletUtils.setServerHttpRequest(request);
         service.deleteRoute(routeCode);
-        return ok(I18nUtil.get("Controller.DeleteSuccess"));
+        return ok(AnYiI18nUtil.get("Controller.DeleteSuccess"));
     }
 
 
     @Operation(summary = "查询路由", tags = {"v1.0.0"}, description = "查询路由")
     @GetMapping("/select/list")
-    Mono<Result<List<RouteResponseModel>>> getRoutes() {
-        return service.getRoutes().collectList().map(BaseController::getResult);
+    Mono<AnYiResult<List<RouteResponseModel>>> getRoutes() {
+        return service.getRoutes().collectList().map(AnYiBaseController::getResult);
     }
 
 
     @Operation(summary = "查询原始路由", tags = {"v1.0.0"}, description = "查询原始路由")
     @GetMapping("/select/list-original")
-    Mono<Result<List<RouteDefinition>>> getOriginalRoutes() {
-        return routeDefinitionLocator.getRouteDefinitions().collectList().map(BaseController::getResult);
+    Mono<AnYiResult<List<RouteDefinition>>> getOriginalRoutes() {
+        return routeDefinitionLocator.getRouteDefinitions().collectList().map(AnYiBaseController::getResult);
     }
+
 }

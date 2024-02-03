@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 授权客户端信息添加或修改Request
@@ -53,13 +56,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacClientDetailsVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -40072152943296674L;
 
-    @Schema(name = "clientId", title = "客户端id", required = true)
+    @Schema(name = "clientId", title = "客户端id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "客户端id不能为空")
     private String clientId;
 
-    @Schema(name = "clientName", title = "客户端名称", required = true)
+    @Schema(name = "clientName", title = "客户端名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "客户端名称不能为空")
     private String clientName;
 
@@ -69,25 +73,25 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "clientSecurity", title = "客户端密码(创建时必填)")
     private String clientSecurity;
 
-    @Schema(name = "limitResource", title = "限制授权资源：0-不限制，1-限制。默认1", required = true)
+    @Schema(name = "limitResource", title = "限制授权资源：0-不限制，1-限制。默认1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否限制授权资源不能为空")
     private Integer limitResource;
 
     @Schema(name = "resourceIds", title = "授权资源ids,json array，json array")
     private List<String> resourceIds;
 
-    @Schema(name = "signatureRequired", title = "是否验签:0-不验签，1-验签，默认1", required = true)
+    @Schema(name = "signatureRequired", title = "是否验签:0-不验签，1-验签，默认1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否验签不能为空")
     private Integer signatureRequired;
 
     @Schema(name = "signatureKey", title = "数据签名key，当需要验签时必填")
     private String signatureKey;
 
-    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源与授权中心常量字典AuthorizedGrantType,json array", required = true)
+    @Schema(name = "authorizedGrantTypes", title = "允许授权类型，来源常量字典AuthorizedGrantTypes,json array", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "允许授权类型不能为空")
     private List<String> authorizedGrantTypes;
 
-    @Schema(name = "singleLogin", title = "是否单设备登录：0-不是,1-是，默认0", required = true)
+    @Schema(name = "singleLogin", title = "是否单设备登录：0-不是,1-是，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否单设备登录不能为空")
     private Integer singleLogin;
 
@@ -97,18 +101,18 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "endpoints", title = "允许登录端点,json array")
     private List<String> endpoints;
 
-    @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0", required = true)
+    @Schema(name = "innerSystem", title = "是否内部系统：0-不是，1-是，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否内部系统不能为空")
     private Integer innerSystem;
 
-    @Schema(name = "limitError", title = "限制授权错误次数:0-不限制,1-限制。默认0", required = true)
+    @Schema(name = "limitError", title = "限制授权错误次数:0-不限制,1-限制。默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "限制授权错误次数不能为空")
     private Integer limitError;
 
     @Schema(name = "maxErrorNum", title = "允许最大授权错误次数，当限制授权错误时必填")
     private Integer maxErrorNum;
 
-    @Schema(name = "clientStatus", title = "状态：0-未启用,1-启用，2-锁定，默认0", required = true)
+    @Schema(name = "clientStatus", title = "状态：0-未启用,1-启用，2-锁定，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "状态不能为空")
     private Integer clientStatus;
 
@@ -124,7 +128,7 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "remark", title = "备注")
     private String remark;
 
-    @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0", required = true)
+    @Schema(name = "havaScoped", title = "是否领域，0-不是,1-是。默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否领域不能为空")
     private Integer havaScoped;
 
@@ -134,7 +138,7 @@ public class RbacClientDetailsVo implements Serializable {
     @Schema(name = "webRegisteredRedirectUri", title = "授权后跳转的URI（授权码模式必填）")
     private String webRegisteredRedirectUri;
 
-    @Schema(name = "havaAutoApprove", title = "是否自动批准：0-不自动，1-自动,默认0", required = true)
+    @Schema(name = "havaAutoApprove", title = "是否自动批准：0-不自动，1-自动,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否自动批准不能为空")
     private Integer havaAutoApprove;
 

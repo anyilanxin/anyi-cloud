@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import org.springframework.cloud.gateway.filter.factory.PrefixPathGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.RewritePathGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.StripPrefixGatewayFilterFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 系统过滤器类型

@@ -27,16 +27,27 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
+// +----------------------------------------------------------------------
+// | AnYi快速开发平台 [ AnYi ]
+// +----------------------------------------------------------------------
+// | 版权所有 2020~2022 zhouxuanhong
+// +----------------------------------------------------------------------
+// | 官方网站: https://anyilanxin.com
+// +----------------------------------------------------------------------
+// | 作者: zxiaozhou <z7630853@163.com>
+// +----------------------------------------------------------------------
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleClientEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDto;
-import java.util.Collection;
-import java.util.Set;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.Set;
 
 /**
  * 角色-客户端(RbacRoleClient)持久层
@@ -49,27 +60,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
 
-    /**
-     * 通过客户端角色id物理删除
-     *
-     * @param roleClient 客户端角色id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:20
-     */
-    int physicalDeleteById(@Param("id") String roleClient);
-
-
-    /**
-     * 通过客户端角色id物理批量删除
-     *
-     * @param idList 客户端角色id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 16:12:20
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
-
 
     /**
      * 获取客户端角色权限
@@ -79,6 +69,13 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      * @author zxh
      * @date 2022-07-04 01:18
      */
+    @Select("""
+            SELECT ali.role_id
+            FROM sys_rbac_role_client srrc
+            LEFT JOIN sys_rbac_role ali ON srrc.role_id = ali.role_id
+            WHERE ali.del_flag = 0
+                  AND srrc.client_detail_id = #{id, jdbcType=VARCHAR}
+               """)
     Set<String> selectRoleListById(@Param("id") String clientDetailId);
 
 
@@ -101,5 +98,52 @@ public interface RbacRoleClientMapper extends BaseMapper<RbacRoleClientEntity> {
      * @author zxh
      * @date 2022-04-06 00:08
      */
+    @Select("""
+            SELECT
+                srr.role_id,
+                srr.role_name,
+                srr.role_code,
+                srcd.client_detail_id,
+                srcd.client_id
+            FROM sys_rbac_client_details srcd
+            INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
+            INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
+            WHERE
+                srr.role_status = 1
+              AND srr.del_flag = 0
+              AND srcd.del_flag = 0
+              AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
+            """)
     Set<RoleInfo> getClientAuthRole(@Param("clientDetailId") String clientDetailId);
+
+
+    /**
+     * 获取客户端授权角色关联的资源权限
+     *
+     * @param clientDetailId
+     * @return List<RbacResourceApiSimpleDto>
+     * @author zxh
+     * @date 2022-07-12 12:18
+     */
+    @Select("""
+            SELECT
+                srra.api_id,
+                srra.resource_id,
+                srra.resource_code,
+                srra.permission_express,
+                srra.permission_action
+            FROM sys_rbac_client_details srcd
+            INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
+            INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
+            INNER JOIN sys_rbac_role_resource_api srrra ON srrra.api_id = srrra.api_id
+            INNER JOIN sys_rbac_resource_api srra ON srra.api_id = srrra.api_id
+            WHERE
+                srr.role_status = 1
+              AND srr.del_flag = 0
+              AND srcd.del_flag = 0
+              AND srra.permission_action IS NOT NULL
+              AND srra.permission_action != ''
+              AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
+            """)
+    Set<RbacResourceApiSimpleDto> selectResourceApiByClientDetailId(@Param("clientDetailId") String clientDetailId);
 }

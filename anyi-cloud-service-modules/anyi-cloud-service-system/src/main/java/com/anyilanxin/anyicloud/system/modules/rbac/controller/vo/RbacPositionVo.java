@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 职位表添加或修改Request
@@ -51,27 +54,29 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacPositionVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 202984047701766420L;
 
-    @Schema(name = "positionName", title = "职位名称", required = true)
+    @Schema(name = "positionName", title = "职位名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "职位名称不能为空")
     private String positionName;
 
-    @Schema(name = "positionCode", title = "职位编码", required = true)
+    @Schema(name = "positionCode", title = "职位编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "职位编码不能为空")
     private String positionCode;
 
     @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0")
     private Integer autoBind;
 
-    @Schema(name = "positionRank", title = "职级", required = true)
+    @Schema(name = "positionRank", title = "职级", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "职级不能为空")
     private Integer positionRank;
 
-    @Schema(name = "positionStatus", title = "职位状态：0-无效，1-有效，默认0", required = true)
+    @Schema(name = "positionStatus", title = "职位状态：0-无效，1-有效，默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "职位状态：0-无效，1-有效，默认0不能为空")
     private Integer positionStatus;
 
     @Schema(name = "remark", title = "备注")
     private String remark;
+
 }

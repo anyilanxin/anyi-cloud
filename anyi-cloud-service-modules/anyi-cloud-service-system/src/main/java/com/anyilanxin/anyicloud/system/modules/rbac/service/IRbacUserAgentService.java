@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacUserAgentVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacUserAgentEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacUserAgentPageDto;
+
 import java.util.List;
 
 /**
@@ -75,12 +77,12 @@ public interface IRbacUserAgentService extends BaseService<RbacUserAgentEntity> 
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacUserAgentPageDto> 分页查询结果
+     * @return AnYiPageResult<RbacUserAgentPageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:12:20
      */
-    PageDto<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacUserAgentPageDto> pageByModel(RbacUserAgentPageQuery vo) throws RuntimeException;
 
 
     /**

@@ -27,19 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleAuthVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRolePageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRolePageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleEntity;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleBasicDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleMenuButtonDto;
-import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRolePageDto;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -79,12 +79,12 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacRolePageDto> 分页查询结果
+     * @return AnYiPageResult<RbacRolePageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-05-02 16:12:20
      */
-    PageDto<RbacRolePageDto> pageByModel(RbacRolePageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacRolePageDto> pageByModel(RbacRolePageQuery vo) throws RuntimeException;
 
 
     /**
@@ -193,9 +193,19 @@ public interface IRbacRoleService extends BaseService<RbacRoleEntity> {
      * 通过角色id查询信息
      *
      * @param roleIds 角色roleIds不能为空
-     * @return List<RbacRoleBasicDto> 角色信息
+     * @return List<RoleInfo>  角色信息
      * @author zxh
      * @date 2021-05-23 00:09
      */
-    List<RbacRoleBasicDto> getRoleListByIds(List<String> roleIds);
+    List<RoleInfo> getRoleListByIds(List<String> roleIds);
+
+    /**
+     * 通过ids查询详细信息(流程引擎建模使用)
+     *
+     * @param ids
+     * @return {@link List }<{@link RbacProcessCommonDto }>
+     * @author zxh
+     * @date 2023-10-17 17:40:27
+     */
+    List<RbacProcessCommonDto> selectProcessDesignerByIds(List<String> ids);
 }

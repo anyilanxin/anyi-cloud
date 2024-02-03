@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 机构角色表添加或修改Request
@@ -51,28 +54,30 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgRoleVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -36211334953329117L;
 
-    @Schema(name = "roleName", title = "角色名称", required = true)
+    @Schema(name = "roleName", title = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色名称不能为空")
     private String roleName;
 
-    @Schema(name = "roleCode", title = "角色编码", required = true)
+    @Schema(name = "roleCode", title = "角色编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色编码不能为空")
     private String roleCode;
 
-    @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0，挂接机构时自动挂接", required = true)
+    @Schema(name = "autoBind", title = "绑定方式:0-手动,1-自动。默认0，挂接机构时自动挂接", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "绑定方式:0-手动,1-自动。默认0，挂接机构时自动挂接不能为空")
     private Integer autoBind;
 
-    @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0", required = true)
+    @Schema(name = "roleStatus", title = "角色状态:0-禁用,1-启用,默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "角色状态:0-禁用,1-启用,默认0不能为空")
     private Integer roleStatus;
 
     @Schema(name = "remark", title = "备注")
     private String remark;
 
-    @Schema(name = "orgId", title = "机构id", required = true)
+    @Schema(name = "orgId", title = "机构id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "机构id不能为空")
     private String orgId;
+
 }

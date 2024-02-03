@@ -27,16 +27,28 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.impl;
 
+import com.anyilanxin.anyicloud.corecommon.base.AnYiResult;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.IProcessIdentityService;
-import com.anyilanxin.anyicloud.processrpc.model.ProcessRoleModel;
-import com.anyilanxin.anyicloud.processrpc.model.ProcessUserModel;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import com.anyilanxin.anyicloud.process.modules.rbac.service.mapstruct.RoleCopyMap;
+import com.anyilanxin.anyicloud.process.modules.rbac.service.mapstruct.UserCopyMap;
+import com.anyilanxin.anyicloud.processadapter.model.AnYiProcessUserModel;
+import com.anyilanxin.anyicloud.processadapter.model.CustomIdentityLink;
+import com.anyilanxin.anyicloud.processadapter.model.ProcessRoleModel;
+import com.anyilanxin.anyicloud.systemadapter.model.SimpleUserModel;
+import com.anyilanxin.anyicloud.systemrpcadapter.rpc.SystemRoleRemoteRpc;
+import com.anyilanxin.anyicloud.systemrpcadapter.rpc.SystemUserRemoteRpc;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 用户组相关
@@ -48,21 +60,45 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class ProcessIdentityServiceImpl implements IProcessIdentityService {
+    private final SystemUserRemoteRpc remoteUserService;
+    private final SystemRoleRemoteRpc remoteRoleService;
+    private final UserCopyMap userCopyMap;
+    private final RoleCopyMap roleCopyMap;
 
     @Override
-    public Map<String, ProcessUserModel> getUserByIds(Set<String> userIds) {
+    public Map<String, AnYiProcessUserModel> getUserByIds(Set<String> userIds) {
+        if (CollUtil.isNotEmpty(userIds)) {
+            AnYiResult<List<SimpleUserModel>> userListByIds = remoteUserService.getUserListByIds(new ArrayList<>(userIds));
+            if (!userListByIds.isSuccess() || CollUtil.isEmpty(userListByIds.getData())) {
+                throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "获取用户信息失败:" + userListByIds.getMessage());
+            }
+            List<SimpleUserModel> data = userListByIds.getData();
+            Map<String, AnYiProcessUserModel> userModelMap = new HashMap<>(data.size());
+            data.forEach(v -> userModelMap.put(v.getUserId(), userCopyMap.bToA(v)));
+            return userModelMap;
+        }
         return Collections.emptyMap();
     }
 
 
     @Override
-    public ProcessUserModel getUserById(String userId) {
+    public AnYiProcessUserModel getUserById(String userId) {
         return null;
     }
 
 
     @Override
     public Map<String, ProcessRoleModel> getRoleByIds(Set<String> roleIds) {
+        if (CollUtil.isNotEmpty(roleIds)) {
+            AnYiResult<List<RoleInfo>> roleListByIds = remoteRoleService.getRoleListByIds(new ArrayList<>(roleIds));
+            if (!roleListByIds.isSuccess() || CollUtil.isEmpty(roleListByIds.getData())) {
+                throw new AnYiResponseException(AnYiResultStatus.API_ERROR, "获取角色信息失败:" + roleListByIds.getMessage());
+            }
+            List<RoleInfo> data = roleListByIds.getData();
+            Map<String, ProcessRoleModel> roleModelMap = new HashMap<>(data.size());
+            data.forEach(v -> roleModelMap.put(v.getRoleId(), roleCopyMap.bToA(v)));
+            return roleModelMap;
+        }
         return Collections.emptyMap();
     }
 
@@ -70,5 +106,46 @@ public class ProcessIdentityServiceImpl implements IProcessIdentityService {
     @Override
     public ProcessRoleModel getRoleById(String roleId) {
         return null;
+    }
+
+
+    @Override
+    public void completionUserOrRole(List<CustomIdentityLink> customIdentityLinkList) {
+        if (CollUtil.isNotEmpty(customIdentityLinkList)) {
+            // 分离出用户与角色
+            Set<String> userIdSet = new HashSet<>(customIdentityLinkList.size());
+            Set<String> roleIdSet = new HashSet<>(customIdentityLinkList.size());
+            customIdentityLinkList.forEach(v -> {
+                if (StringUtils.isNotBlank(v.getUserId())) {
+                    userIdSet.add(v.getUserId());
+                } else {
+                    roleIdSet.add(v.getGroupId());
+                }
+            });
+            Map<String, AnYiProcessUserModel> userByIds = getUserByIds(userIdSet);
+            Map<String, ProcessRoleModel> roleByIds = getRoleByIds(roleIdSet);
+            customIdentityLinkList.forEach(v -> {
+                if (StringUtils.isNotBlank(v.getUserId())) {
+                    AnYiProcessUserModel processUserModel = userByIds.get(v.getUserId());
+                    if (Objects.nonNull(processUserModel)) {
+                        v.setUserRealName(processUserModel.getRealName());
+                    }
+                } else {
+                    ProcessRoleModel processRoleModel = roleByIds.get(v.getGroupId());
+                    if (Objects.nonNull(processRoleModel)) {
+                        v.setGroupName(processRoleModel.getRoleName());
+                    }
+                }
+            });
+        }
+
+    }
+
+
+    @Override
+    public void completionUserOrRole(CustomIdentityLink customIdentityLink) {
+        if (Objects.nonNull(customIdentityLink)) {
+            System.out.println(customIdentityLink);
+        }
     }
 }

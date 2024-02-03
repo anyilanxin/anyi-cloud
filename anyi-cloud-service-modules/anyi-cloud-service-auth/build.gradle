@@ -1,18 +1,32 @@
 description = "AnYi Cloud Auth Service"
 
-bootJar { enabled = true }
-
+def bootJar = true
 
 dependencies {
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-database')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-redis')
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-mvc')
+    implementation project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-commonmvc')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-database')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-redis')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-stream')
+    implementation project(':anyi-cloud-corebase-modules:anyi-cloud-core-logging-mvc')
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-authorization-server"
     implementation 'me.zhyd.oauth:JustAuth'
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-stream')
-    implementation project(':anyi-cloud-core-modules:anyi-cloud-core-logging-mvc')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+
+    implementation 'org.webjars:webjars-locator-core'
+    implementation "org.webjars:bootstrap"
 }
 
+
+configurations.configureEach {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+    include("jwt.jks", "static/**", "templates/**")
+}

@@ -27,14 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.constant.typeimpl;
 
 import com.anyilanxin.anyicloud.corecommon.annotation.ConstantType;
 import com.anyilanxin.anyicloud.corecommon.constant.ISuperType;
 import com.anyilanxin.anyicloud.corecommon.constant.model.ConstantDictModel;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 /**
  * 协议类型前缀
@@ -93,7 +95,7 @@ public enum ProtocolType implements ISuperType {
     public static boolean isHaveByType(String type) {
         ProtocolType[] values = ProtocolType.values();
         for (ProtocolType value : values) {
-            if (value.type.startsWith(type.toUpperCase())) {
+            if (type.toUpperCase().startsWith(value.type)) {
                 return true;
             }
         }

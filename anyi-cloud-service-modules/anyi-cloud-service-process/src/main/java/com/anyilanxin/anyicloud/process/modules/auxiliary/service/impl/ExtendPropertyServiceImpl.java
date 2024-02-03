@@ -27,21 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson2.JSONObject;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.ExtendPropertyEntity;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.mapper.ExtendPropertyMapper;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.service.IExtendPropertyService;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.service.mapstruct.ExtendPropertyCopyMap;
-import com.anyilanxin.anyicloudee.processrpc.model.ExtendPropertyModel;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.entity.ExtendPropertyEntity;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.mapper.ExtendPropertyMapper;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.service.IExtendPropertyService;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.service.mapstruct.ExtendPropertyCopyMap;
+import com.anyilanxin.anyicloud.processadapter.model.ExtendPropertyModel;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 流程定义扩展属性信息(ExtendProperty)业务层实现

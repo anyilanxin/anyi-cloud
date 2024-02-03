@@ -27,11 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.logging.modules.receive.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
-import com.anyilanxin.anyicloud.corecommon.model.auth.UserInfo;
+import com.anyilanxin.anyicloud.corecommon.model.auth.AnYiUserInfo;
+import com.anyilanxin.anyicloud.coremvc.utils.AnYiUserContextUtils;
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.anyilanxin.anyicloud.logging.core.constant.LoggingCommonConstant;
 import com.anyilanxin.anyicloud.logging.modules.manage.entity.AuthDataEntity;
@@ -43,14 +45,18 @@ import com.anyilanxin.anyicloud.logging.modules.receive.service.mapstruct.AuthMo
 import com.anyilanxin.anyicloud.logging.modules.receive.service.mapstruct.OperateModelCopyMap;
 import com.anyilanxin.anyicloud.loggingcommon.model.AuthLogModel;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
-import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
+import net.dreamlu.mica.ip2region.core.IpInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
+import java.util.Objects;
 
 /**
  * 日志接收service
@@ -66,6 +72,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     private final IOperateService operateService;
     private final AuthModelCopyMap authDataCopyMap;
     private final OperateModelCopyMap operateCopyMap;
+    private final Ip2regionSearcher ip2regionSearcher;
     private final IAuthDataService authDataService;
     private final StringRedisTemplate stringRedisTemplate;
 
@@ -73,6 +80,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     public void saveAuth(AuthLogModel model) throws RuntimeException {
         AuthDataEntity authDataEntity = authDataCopyMap.bToA(model);
         setUserInfo(authDataEntity);
+        authDataEntity.setIpAddress(getIpAddress(model.getRequestIp()));
         stringRedisTemplate.opsForList().leftPush(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX, JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerAuthLog();
@@ -85,6 +93,7 @@ public class ReceiveServiceImpl implements IReceiveService {
         models.forEach(v -> {
             AuthDataEntity authDataEntity = authDataCopyMap.bToA(v);
             setUserInfo(authDataEntity);
+            authDataEntity.setIpAddress(getIpAddress(v.getRequestIp()));
             authLogs.add(JSONObject.toJSONString(authDataEntity, JSONWriter.Feature.WriteMapNullValue));
         });
         stringRedisTemplate.opsForList().leftPushAll(LoggingCommonConstant.AUTH_LOG_KEY_PREFIX, authLogs);
@@ -97,6 +106,7 @@ public class ReceiveServiceImpl implements IReceiveService {
     public void saveOperate(OperateLogModel model) throws RuntimeException {
         OperateEntity operateLogModel = operateCopyMap.bToA(model);
         setUserInfo(operateLogModel);
+        operateLogModel.setIpAddress(getIpAddress(model.getRequestIp()));
         stringRedisTemplate.opsForList().leftPush(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX, JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
         // 触发入库
         triggerOperateLog();
@@ -109,6 +119,7 @@ public class ReceiveServiceImpl implements IReceiveService {
         models.forEach(v -> {
             OperateEntity operateLogModel = operateCopyMap.bToA(v);
             setUserInfo(operateLogModel);
+            operateLogModel.setIpAddress(getIpAddress(v.getRequestIp()));
             operateLogs.add(JSONObject.toJSONString(operateLogModel, JSONWriter.Feature.WriteMapNullValue));
         });
         stringRedisTemplate.opsForList().leftPushAll(LoggingCommonConstant.OPERATE_LOG_KEY_PREFIX, operateLogs);
@@ -139,10 +150,30 @@ public class ReceiveServiceImpl implements IReceiveService {
     }
 
 
+    /**
+     * 获取ip归属
+     *
+     * @param ip
+     * @return String
+     * @author zxh
+     * @date 2022-08-03 11:49
+     */
+    private String getIpAddress(String ip) {
+        String ipAddress = "unknown";
+        if (StringUtils.isNotBlank(ip)) {
+            IpInfo ipInfo = ip2regionSearcher.memorySearch(ip);
+            if (Objects.nonNull(ipInfo)) {
+                ipAddress = ipInfo.getAddress();
+            }
+        }
+        return ipAddress;
+    }
+
+
     private <T extends BaseEntity> void setUserInfo(T data) {
         data.setCreateTime(LocalDateTime.now());
         try {
-            UserInfo userInfo = UserContextUtils.getUserInfo();
+            AnYiUserInfo userInfo = AnYiUserContextUtils.getUserInfo();
             data.setCreateUserId(userInfo.getUserId());
             data.setCreateAreaCode(userInfo.getCurrentAreaCode());
             data.setCreateUserName(userInfo.getUserName());

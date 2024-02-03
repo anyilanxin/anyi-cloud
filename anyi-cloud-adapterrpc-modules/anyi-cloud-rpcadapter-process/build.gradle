@@ -1,0 +1,9 @@
+description = "AnYi Cloud Process Rpc"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-process')
+    api project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-process')
+    api 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client'
+}

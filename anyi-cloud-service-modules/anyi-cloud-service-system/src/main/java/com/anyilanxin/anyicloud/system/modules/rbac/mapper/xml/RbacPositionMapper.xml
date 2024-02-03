@@ -107,26 +107,6 @@
         </where>
     </select>
 
-
-    <!-- 通过职位id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_position
-        WHERE position_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_position
-        WHERE position_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_rbac_position
@@ -150,5 +130,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

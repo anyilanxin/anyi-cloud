@@ -27,17 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleAuthVo;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRolePageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRolePageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgRoleVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRoleMenuButtonDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgRolePageDto;
+import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacProcessCommonDto;
+
 import java.util.List;
 import java.util.Set;
 
@@ -77,12 +80,12 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * 分页查询
      *
      * @param vo 分页查询条件
-     * @return PageDto<RbacOrgRolePageDto> 分页查询结果
+     * @return AnYiPageResult<RbacOrgRolePageDto> 分页查询结果
      * @throws RuntimeException
      * @author zxh
      * @date 2022-07-05 00:22:57
      */
-    PageDto<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageVo vo) throws RuntimeException;
+    AnYiPageResult<RbacOrgRolePageDto> pageByModel(RbacOrgRolePageQuery vo) throws RuntimeException;
 
 
     /**
@@ -150,4 +153,15 @@ public interface IRbacOrgRoleService extends BaseService<RbacOrgRoleEntity> {
      * @date 2022-07-07 09:56
      */
     void updateStatus(String orgRoleId, Integer status);
+
+
+    /**
+     * 通过ids查询详细信息(流程引擎建模使用)
+     *
+     * @param ids
+     * @return {@link List }<{@link RbacProcessCommonDto }>
+     * @author zxh
+     * @date 2023-10-17 17:40:41
+     */
+    List<RbacProcessCommonDto> selectProcessDesignerByIds(List<String> ids);
 }

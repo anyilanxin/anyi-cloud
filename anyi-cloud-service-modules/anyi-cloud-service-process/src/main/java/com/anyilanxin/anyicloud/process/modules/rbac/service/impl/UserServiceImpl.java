@@ -27,21 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
+import com.alibaba.fastjson2.JSONObject;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.process.modules.rbac.controller.vo.*;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.IUserService;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDetailDto;
 import com.anyilanxin.anyicloud.process.modules.rbac.service.dto.UserDto;
 import io.seata.spring.annotation.GlobalTransactional;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.IdentityService;
@@ -49,7 +48,10 @@ import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.identity.UserQuery;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 用户相关
@@ -62,7 +64,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
     private static final String DEFAULT_PASSWORD = "anyi_cloud_kkk13689";
-    private static final String DEFAULT_USER_ID = "admin";
+    private final static String DEFAULT_USER_ID = "admin";
     private final IdentityService identityService;
 
     @Override
@@ -153,7 +155,7 @@ public class UserServiceImpl implements IUserService {
             userQuery.memberOfTenant(vo.getTenantId());
         }
         List<User> list = userQuery.list();
-        if (CollectionUtil.isEmpty(list)) {
+        if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
         List<UserDto> userList = new ArrayList<>(list.size());
@@ -167,7 +169,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public PageDto<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException {
+    public AnYiPageResult<UserDto> getUserPage(UserQueryPageVoCamunda vo) throws RuntimeException {
         UserQuery userQuery = identityService.createUserQuery();
         if (StringUtils.isNotBlank(vo.getRealName())) {
             userQuery.userFirstNameLike("%" + vo.getRealName() + "%");
@@ -212,7 +214,7 @@ public class UserServiceImpl implements IUserService {
         }
         long count = userQuery.count();
         if (count == 0L) {
-            return new PageDto<>(0, Collections.emptyList());
+            return PageUtils.toPageData(0, Collections.emptyList());
         }
         List<User> list = userQuery.listPage(vo.getCurrent(), vo.getSize());
         List<UserDto> userList = new ArrayList<>(list.size());
@@ -221,7 +223,7 @@ public class UserServiceImpl implements IUserService {
             UserDto userModel = new UserDto().getUser(v, detailInfo);
             userList.add(userModel);
         });
-        return new PageDto<>(count, userList);
+        return PageUtils.toPageData(count, userList);
     }
 
 
@@ -260,7 +262,7 @@ public class UserServiceImpl implements IUserService {
         if (CollUtil.isNotEmpty(userInfoKeys)) {
             JSONObject jsonObject = new JSONObject();
             userInfoKeys.forEach(v -> jsonObject.put(v, identityService.getUserInfo(userId, v)));
-            detailInfo = CoreCommonUtils.jsonStrToObject(jsonObject.toJSONString(), UserDetailDto.class);
+            detailInfo = AnYiCoreCommonUtils.jsonStrToObject(jsonObject.toJSONString(), UserDetailDto.class);
         }
         return detailInfo;
     }
@@ -316,7 +318,7 @@ public class UserServiceImpl implements IUserService {
         // 查询用户信息
         User user = identityService.createUserQuery().userId(userId).singleResult();
         if (Objects.isNull(user)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "用户不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "用户不存在");
         }
         return user;
     }

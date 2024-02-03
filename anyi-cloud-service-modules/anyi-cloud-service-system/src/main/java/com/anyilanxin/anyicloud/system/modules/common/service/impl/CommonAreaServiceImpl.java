@@ -27,16 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.corecommon.utils.tree.TreeToolUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.corecommon.utils.tree.AnYiTreeToolUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonAreaVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonAreaEntity;
 import com.anyilanxin.anyicloud.system.modules.common.mapper.CommonAreaMapper;
@@ -52,13 +52,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 区域表(CommonArea)业务层实现
@@ -85,7 +87,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         this.checkData(entity);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -103,7 +105,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         if (StringUtils.isBlank(entity.getParentId())) {
             String substring = entity.getAreaId().substring(0, 3).replaceAll("0+$", "");
             if (StringUtils.isNotBlank(substring)) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "顶级区域id只能前2为非零");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "顶级区域id只能前2为非零");
             }
             entity.setAreaLevel(1);
             entity.setParentId("");
@@ -112,7 +114,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         else {
             String[] parentValidInfo = this.getParentValid(entity.getParentId());
             if (!entity.getAreaId().startsWith(parentValidInfo[0])) {
-                throw new ResponseException(Status.VERIFICATION_FAILED, "下级id必须包含上级id末尾除外的部分");
+                throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "下级id必须包含上级id末尾除外的部分");
             }
             entity.setAreaLevel(Integer.parseInt(parentValidInfo[1]) + 1);
         }
@@ -121,7 +123,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         lambdaQueryWrapper.eq(CommonAreaEntity::getAreaId, entity.getAreaId());
         List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "当前区域id已经存在" + entity.getAreaId());
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "当前区域id已经存在" + entity.getAreaId());
         }
     }
 
@@ -134,14 +136,14 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         // 更新数据
         CommonAreaEntity entity = voMap.aToB(vo);
         if (!entity.getParentId().equals(byId.getParentId())) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "上级id不允许改动");
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "上级id不允许改动");
         }
         // 数据校验
         this.checkData(entity);
         entity.setAreaId(areaId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
@@ -172,7 +174,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
             if (CollUtil.isNotEmpty(list)) {
                 activateChildren.addAll(treeCopyMap.bToA(list));
             }
-            TreeToolUtils<CommonAreaTreeDto> treeToolUtils = new TreeToolUtils<>(activateParentAreaList, activateChildren, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<CommonAreaTreeDto> treeToolUtils = new AnYiTreeToolUtils<>(activateParentAreaList, activateChildren, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(CommonAreaTreeDto areaTreeDto) {
                     return areaTreeDto.getAreaId();
@@ -255,9 +257,9 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<CommonAreaPageDto> pageByModel(CommonAreaPageVo vo) throws RuntimeException {
+    public AnYiPageResult<CommonAreaPageDto> pageByModel(CommonAreaPageQuery vo) throws RuntimeException {
         vo.getAscs().add("areaId");
-        IPage<CommonAreaPageDto> page = mapper.pageByModel(vo.getPage(), vo);
+        IPage<CommonAreaPageDto> page = mapper.pageByModel(PageUtils.getPage(vo), vo);
         List<CommonAreaPageDto> records = page.getRecords();
         /*
          * 1. 获取根节点 2. 构建树形
@@ -293,7 +295,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
                 }
             }
             // 构建树形
-            TreeToolUtils<CommonAreaPageDto> treeToolUtils = new TreeToolUtils<>(rootRecords, childRecords, new TreeToolUtils.TreeId<>() {
+            AnYiTreeToolUtils<CommonAreaPageDto> treeToolUtils = new AnYiTreeToolUtils<>(rootRecords, childRecords, new AnYiTreeToolUtils.TreeId<>() {
                 @Override
                 public String getId(CommonAreaPageDto orgTreePageDto) {
                     return orgTreePageDto.getAreaId();
@@ -307,7 +309,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
             });
             records = treeToolUtils.getTree();
         }
-        return new PageDto<>(page, records);
+        return PageUtils.toPageData(page, records);
     }
 
 
@@ -345,7 +347,7 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
     public CommonAreaDto getById(String areaId) throws RuntimeException {
         CommonAreaEntity byId = super.getById(areaId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
@@ -361,11 +363,11 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
         lambdaQueryWrapper.eq(CommonAreaEntity::getParentId, areaId);
         List<CommonAreaEntity> list = this.list(lambdaQueryWrapper);
         if (CollUtil.isNotEmpty(list)) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "区域id:" + areaId + "存在下级,请先删除下级");
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "区域id:" + areaId + "存在下级,请先删除下级");
         }
         boolean b = this.removeById(areaId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -374,14 +376,14 @@ public class CommonAreaServiceImpl extends ServiceImpl<CommonAreaMapper, CommonA
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> areaIds) throws RuntimeException {
         List<CommonAreaEntity> entities = this.listByIds(areaIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getAreaId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 

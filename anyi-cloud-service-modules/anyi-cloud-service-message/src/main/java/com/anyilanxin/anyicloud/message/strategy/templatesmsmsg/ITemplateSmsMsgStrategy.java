@@ -27,11 +27,13 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.strategy.templatesmsmsg;
 
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
-import com.anyilanxin.anyicloud.messagerpc.model.TemplateSmsMsgModel;
+import com.anyilanxin.anyicloud.messageadapter.model.TemplateSmsMsgModel;
+
 import java.util.List;
 
 /**

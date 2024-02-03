@@ -27,36 +27,110 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.core.config;
 
-import com.anyilanxin.anyicloud.message.core.handler.WebSocketHandshakeHandler;
-import com.anyilanxin.anyicloud.message.core.handler.WebSocketMainHandler;
-import com.anyilanxin.anyicloud.message.strategy.afterconnection.AfterConnectionContent;
-import com.anyilanxin.anyicloud.message.strategy.msgsubscribe.MsgSubscribeContent;
-import com.anyilanxin.anyicloud.oauth2mvc.user.IGetLoginUserInfo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.message.core.handler.AuthChannelInterceptor;
+import com.anyilanxin.anyicloud.messageadapter.constant.SocketDestinationPrefixes;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.ChannelRegistration;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
  * websocket配置
  *
  * @author zxh
- * @date 2021-01-08 12:14
+ * @copyright zhouxuanhong（https://anyilanxin.com）
+ * @date 2022-11-08 19:41
  * @since 1.0.0
  */
-@Configuration(proxyBeanMethods = false)
-@EnableWebSocket
+@Configuration
+@EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer {
-    private final AfterConnectionContent afterConnectionContent;
-    private final MsgSubscribeContent msgSubscribeContent;
-    private final IGetLoginUserInfo loginUserInfo;
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    private final AuthChannelInterceptor authChannelInterceptor;
+
+    /**
+     * 消息代理前缀
+     */
+    private final static String[] DESTINATION_PREFIXES = new String[]{
+            SocketDestinationPrefixes.TOPIC_PROCESS,
+            SocketDestinationPrefixes.TOPIC_MENU,
+            SocketDestinationPrefixes.TOPIC_NOTICE,
+            SocketDestinationPrefixes.TOPIC_GROBAL,
+            SocketDestinationPrefixes.TOPIC_CHAT
+    };
+
+    @Value("${spring.rabbitmq.host:}")
+    private String host;
+
+    @Value("${spring.rabbitmq.relay-port:61613}")
+    private int relayPort;
+
+    @Value("${spring.rabbitmq.username:}")
+    private String username;
+
+    @Value("${spring.rabbitmq.password:}")
+    private String password;
+
+    @Value("${spring.rabbitmq.virtual-host:/}")
+    private String virtualHost;
+
+    /**
+     * 启用中继代理
+     */
+    @Value("${anyi.socket-broker-relay:false}")
+    private boolean brokerRelay;
+
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketMainHandler(afterConnectionContent, msgSubscribeContent, loginUserInfo), "socket").setHandshakeHandler(new WebSocketHandshakeHandler()).setAllowedOrigins("*");
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/websocket")
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
+//                .setMessageCodec(new CustomSockJsMessageCodec());
     }
+
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.setApplicationDestinationPrefixes("/app");
+        if (brokerRelay) {
+            if (StringUtils.isBlank(host) || StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+                throw new AnYiResponseException(AnYiResultStatus.ERROR, "启用中继代理时，rabbitmq配置信息不能为空");
+            }
+            registry.enableStompBrokerRelay(DESTINATION_PREFIXES)
+                    .setRelayHost(host)
+                    .setRelayPort(relayPort)
+                    .setClientLogin(username)
+                    .setClientPasscode(password)
+                    .setSystemLogin(username)
+                    .setSystemPasscode(password)
+                    .setVirtualHost(virtualHost);
+        } else {
+            registry.enableSimpleBroker(DESTINATION_PREFIXES);
+        }
+        registry.setUserDestinationPrefix("/user");
+    }
+
+
+    /**
+     * 拦截器方式
+     *
+     * @param registration
+     */
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(authChannelInterceptor);
+    }
+
+
 }

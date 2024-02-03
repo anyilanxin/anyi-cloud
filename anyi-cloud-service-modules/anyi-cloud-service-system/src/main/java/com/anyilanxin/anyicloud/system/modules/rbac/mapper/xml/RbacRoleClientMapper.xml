@@ -63,17 +63,6 @@
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
     </sql>
 
-
-    <!-- 获取客户端角色权限 -->
-    <select id="selectRoleListById" resultType="java.lang.String">
-         SELECT ali.role_id
-         FROM sys_rbac_role_client srrc
-         LEFT JOIN sys_rbac_role ali ON srrc.role_id = ali.role_id
-         WHERE ali.del_flag = 0
-               AND srrc.client_detail_id = #{id, jdbcType=VARCHAR}
-    </select>
-
-
     <!-- 获取客户端角色权限(完整数据) -->
     <select id="selectRoleAllInfoListById"
             resultType="com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleSimpleDto">
@@ -83,45 +72,6 @@
         WHERE ali.del_flag = 0
           AND srrc.client_detail_id = #{id, jdbcType=VARCHAR}
     </select>
-
-
-    <!-- 获取客户端角色 -->
-    <select id="getClientAuthRole" resultType="com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo">
-        SELECT
-            srr.role_id,
-            srr.role_name,
-            srr.role_code,
-            srcd.client_detail_id,
-            srcd.client_id
-        FROM sys_rbac_client_details srcd
-        INNER JOIN sys_rbac_role_client srrc ON srcd.client_detail_id = srrc.client_detail_id
-        INNER JOIN sys_rbac_role srr ON srr.role_id = srrc.role_id
-        WHERE
-            srr.role_status = 1
-          AND srr.del_flag = 0
-          AND srcd.del_flag = 0
-          AND srcd.client_detail_id = #{clientDetailId, jdbcType=VARCHAR}
-    </select>
-
-
-    <!-- 通过客户端角色id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_role_client
-        WHERE role_client = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_role_client
-        WHERE role_client IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
@@ -144,5 +94,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

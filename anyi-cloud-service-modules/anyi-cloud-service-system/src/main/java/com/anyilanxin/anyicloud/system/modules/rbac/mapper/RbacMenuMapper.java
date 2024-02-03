@@ -27,19 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacMenuPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacMenuPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
-import java.util.Set;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Set;
 
 /**
  * 菜单表(RbacMenu)持久层
@@ -60,29 +61,18 @@ public interface RbacMenuMapper extends BaseMapper<RbacMenuEntity> {
      * @author zxh
      * @date 2022-05-02 22:49:09
      */
-    IPage<RbacMenuPageDto> pageByModel(Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageVo vo);
+    IPage<RbacMenuPageDto> pageByModel(Page<RbacMenuPageDto> page, @Param("query") RbacMenuPageQuery vo);
 
 
     /**
-     * 通过权限id物理删除
+     * 获取所有有效的按钮权限信息
      *
-     * @param menuId 权限id
-     * @return int 成功状态:0-失败,1-成功
+     * @param systemCodeSet 系统编码
+     * @return Set<UserRouteModel>
      * @author zxh
-     * @date 2022-05-02 22:49:09
+     * @date 2022-07-12 21:46
      */
-    int physicalDeleteById(@Param("id") String menuId);
-
-
-    /**
-     * 通过权限id物理批量删除
-     *
-     * @param idList 权限id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 22:49:09
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
+    Set<RbacMenuDto> getAllButton(@Param("systemCodes") Set<String> systemCodeSet);
 
 
     /**

@@ -14,34 +14,55 @@ rootProject.name = 'anyi-cloud'
 // 依赖bom
 include 'anyi-cloud-dependencies'
 
+
+// 基础核心模块
+def excludes = [
+]
+
+
+if (file("${rootDir}/anyi-cloud-corebase-modules").directory) {
+    file("${rootDir}/anyi-cloud-corebase-modules").eachDir {
+        if (!excludes.contains(it.name)) {
+            include "anyi-cloud-corebase-modules:${it.name}"
+        }
+    }
+}
+
+// 授权核心模块
+if (file("${rootDir}/anyi-cloud-coreauth-modules").directory) {
+    file("${rootDir}/anyi-cloud-coreauth-modules").eachDir {
+        if (!excludes.contains(it.name)) {
+            include "anyi-cloud-coreauth-modules:${it.name}"
+        }
+
+    }
+}
+
 // 服务模块
-include 'anyi-cloud-service-modules:anyi-cloud-service-auth'
-include 'anyi-cloud-service-modules:anyi-cloud-service-gateway'
-include 'anyi-cloud-service-modules:anyi-cloud-service-logging'
-include 'anyi-cloud-service-modules:anyi-cloud-service-message'
-include 'anyi-cloud-service-modules:anyi-cloud-service-monitor'
-include 'anyi-cloud-service-modules:anyi-cloud-service-process'
-include 'anyi-cloud-service-modules:anyi-cloud-service-storage'
-include 'anyi-cloud-service-modules:anyi-cloud-service-system'
+if (file("${rootDir}/anyi-cloud-service-modules").directory) {
+    file("${rootDir}/anyi-cloud-service-modules").eachDir {
+        if (!excludes.contains(it.name)) {
+            include "anyi-cloud-service-modules:${it.name}"
+        }
 
+    }
+}
 
-// 核心模块
-include 'anyi-cloud-core-modules:anyi-cloud-core-common'
-include 'anyi-cloud-core-modules:anyi-cloud-core-database'
-include 'anyi-cloud-core-modules:anyi-cloud-core-mvc'
-include 'anyi-cloud-core-modules:anyi-cloud-core-redis'
-include 'anyi-cloud-core-modules:anyi-cloud-core-webflux'
-include 'anyi-cloud-core-modules:anyi-cloud-core-stream'
-include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-common'
-include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-mvc'
-include 'anyi-cloud-core-modules:anyi-cloud-core-oauth2-webflux'
-include 'anyi-cloud-core-modules:anyi-cloud-core-logging-common'
-include 'anyi-cloud-core-modules:anyi-cloud-core-logging-mvc'
-include 'anyi-cloud-core-modules:anyi-cloud-core-logging-webflux'
+// 模块间调用适配层接口
+if (file("${rootDir}/anyi-cloud-adapter-modules").directory) {
+    file("${rootDir}/anyi-cloud-adapter-modules").eachDir {
+        if (!excludes.contains(it.name)) {
+            include "anyi-cloud-adapter-modules:${it.name}"
+        }
+    }
+}
 
-// 远程api模块
-include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-process'
-include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-system'
-include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-gateway'
-include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-message'
-include 'anyi-cloud-rpc-modules:anyi-cloud-rpc-storage'
+// 模块间调用远程方式适配层
+if (file("${rootDir}/anyi-cloud-adapterrpc-modules").directory) {
+    file("${rootDir}/anyi-cloud-adapterrpc-modules").eachDir {
+        if (!excludes.contains(it.name)) {
+            include "anyi-cloud-adapterrpc-modules:${it.name}"
+        }
+    }
+}
+

@@ -27,41 +27,47 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 删除服务实例 vo
  *
- * @author zxh zxiaozhou
+ * @author zxh zxh
  * @date 2020-10-11 16:38
  * @since 1.0.0
  */
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class NacosDeregisterInstanceVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8282161660745482124L;
 
-    @Schema(name = "serviceCode", title = "服务编码", required = true)
+    @Schema(name = "serviceCode", title = "服务编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "服务编码不能为空")
     private String serviceCode;
 
-    @Schema(name = "ip", title = "ip", required = true)
+    @Schema(name = "ip", title = "ip", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "ip不能为空")
     private String ip;
 
-    @Schema(name = "port", title = "端口", required = true)
+    @Schema(name = "port", title = "端口", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "端口不能为空")
     private Integer port;
 }

@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
-package com.anyilanxin.skillfull.storage.modules.storage.entity;
+
+package com.anyilanxin.anyicloud.storage.modules.storage.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 本地文件服务(StorageInfoFile)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("storage_info_file")
 public class StorageInfoFileEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 614383241708803778L;
 
     @TableId

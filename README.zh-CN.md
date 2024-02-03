@@ -9,7 +9,7 @@ AnYi Cloud
 -----------------------------------
 spring cloud, spring alibaba, AnYi Cloud(micro service)
 
-当前最新版本： 1.0.0-alpha2（发布日期：2023-06-04）
+当前最新版本： 2.0.0-alpha1（发布日期：2024-02-03）
 
 
 技术文档

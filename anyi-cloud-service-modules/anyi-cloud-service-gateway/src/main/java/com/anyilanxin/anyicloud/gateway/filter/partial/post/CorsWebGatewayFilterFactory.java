@@ -27,14 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.filter.partial.post;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant.PARAM_ENABLED_KEY;
-import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
-
 import com.anyilanxin.anyicloud.gateway.utils.CorsWebUtils;
-import java.util.Collections;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -43,6 +39,12 @@ import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.List;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant.PARAM_ENABLED_KEY;
+import static org.springframework.cloud.gateway.support.GatewayToStringStyler.filterToStringCreator;
 
 /**
  * 跨域处理

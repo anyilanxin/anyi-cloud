@@ -27,19 +27,30 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service.impl;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.TypeReference;
 import com.anyilanxin.anyicloud.auth.modules.login.mapper.ClientAuthMapper;
 import com.anyilanxin.anyicloud.auth.modules.login.service.IClientAuthService;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
+import com.anyilanxin.anyicloud.auth.modules.login.service.dto.ClientAndResourceAuthDto;
+import com.anyilanxin.anyicloud.auth.modules.login.service.mapstruct.ClientAuthCopyMap;
+import com.anyilanxin.anyicloud.corecommon.model.auth.client.ClientBaseModel;
+import com.anyilanxin.anyicloud.corecommon.model.auth.client.ClientSettingModel;
+import com.anyilanxin.anyicloud.corecommon.model.auth.client.TokenSettingModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.ClientAndResourceAuthModel;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * 用户中心
@@ -53,18 +64,65 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClientAuthServiceImpl implements IClientAuthService {
     private final ClientAuthMapper clientAuthMapper;
+    private final ClientAuthCopyMap copyMap;
+
 
     @Override
     public ClientAndResourceAuthModel getByClientId(String clientId) {
-        ClientAndResourceAuthModel clientDetailsModel = clientAuthMapper.selectClientIdByClientId(clientId);
+        var clientDetailsModel = clientAuthMapper.selectClientIdByClientId(clientId);
         if (Objects.isNull(clientDetailsModel)) {
-            throw new ResponseException("客户端信息不存在:" + clientId);
+            throw new OAuth2AuthenticationException("客户端信息不存在:" + clientId);
         }
-        String clientDetailId = clientDetailsModel.getClientDetailId();
+        ClientAndResourceAuthModel clientAndResourceAuthModel = copyMap.bToA(clientDetailsModel);
+        handleSetBase(clientDetailsModel, clientAndResourceAuthModel);
+        return handleData(clientAndResourceAuthModel);
+
+    }
+
+
+    /**
+     * entity数据更新到model中
+     */
+    private void handleSetBase(ClientAndResourceAuthDto entity, ClientBaseModel model) {
+        if (StringUtils.isNotBlank(entity.getAuthorizationGrantTypes())) {
+            Set<String> authorizationGrantTypeInfos = JSONObject.parseObject(entity.getAuthorizationGrantTypes(), new TypeReference<Set<String>>() {
+            });
+            model.setAuthorizationGrantTypeInfos(authorizationGrantTypeInfos);
+        }
+        if (StringUtils.isNotBlank(entity.getClientAuthenticationMethods())) {
+            Set<String> clientAuthenticationMethodInfos = JSONObject.parseObject(entity.getClientAuthenticationMethods(), new TypeReference<Set<String>>() {
+            });
+            model.setClientAuthenticationMethodInfos(clientAuthenticationMethodInfos);
+        }
+        if (StringUtils.isNotBlank(entity.getClientSettings())) {
+            model.setClientSettingInfo(JSONObject.parseObject(entity.getClientSettings(), ClientSettingModel.class));
+        }
+        if (StringUtils.isNotBlank(entity.getPostLogoutRedirectUris())) {
+            Set<String> postLogoutRedirectUriInfos = JSONObject.parseObject(entity.getPostLogoutRedirectUris(), new TypeReference<Set<String>>() {
+            });
+            model.setPostLogoutRedirectUriInfos(postLogoutRedirectUriInfos);
+        }
+        if (StringUtils.isNotBlank(entity.getRedirectUris())) {
+            Set<String> redirectUriInfos = JSONObject.parseObject(entity.getRedirectUris(), new TypeReference<Set<String>>() {
+            });
+            model.setRedirectUriInfos(redirectUriInfos);
+        }
+        if (StringUtils.isNotBlank(entity.getScopes())) {
+            Set<String> scopeInfos = JSONObject.parseObject(entity.getScopes(), new TypeReference<Set<String>>() {
+            });
+            model.setScopeInfos(scopeInfos);
+        }
+        if (StringUtils.isNotBlank(entity.getTokenSettings())) {
+            model.setTokenSettingInfo(JSONObject.parseObject(entity.getTokenSettings(), TokenSettingModel.class));
+        }
+    }
+
+    private ClientAndResourceAuthModel handleData(ClientAndResourceAuthModel clientDetailsModel) {
+        var id = clientDetailsModel.getId();
         // 获取授权角色
-        Set<RoleInfo> clientAuthRole = clientAuthMapper.getClientAuthRole(clientDetailId);
-        Set<String> roleIds = new HashSet<>(64);
-        Set<String> roleCodes = new HashSet<>(64);
+        var clientAuthRole = clientAuthMapper.getClientAuthRole(id);
+        var roleIds = new HashSet<String>(64);
+        var roleCodes = new HashSet<String>(64);
         clientAuthRole.forEach(v -> {
             roleIds.add(v.getRoleId());
             roleCodes.add(v.getRoleCode());
@@ -72,6 +130,42 @@ public class ClientAuthServiceImpl implements IClientAuthService {
         clientDetailsModel.setRoleInfos(clientAuthRole);
         clientDetailsModel.setRoleCodes(roleCodes);
         clientDetailsModel.setRoleIds(roleIds);
+        // 获取授权角色资源权限
+        var resourceApiSimpleDtos = clientAuthMapper.selectResourceRoleApiByClientDetailId(id);
+        if (CollUtil.isEmpty(resourceApiSimpleDtos)) {
+            resourceApiSimpleDtos = new HashSet<>();
+        }
+        // 获取关联资源权限
+        var clientResourceInfos = clientAuthMapper.selectResourceApiByClientDetailId(id);
+        if (CollUtil.isNotEmpty(clientResourceInfos)) {
+            resourceApiSimpleDtos.addAll(clientResourceInfos);
+        }
+        if (CollUtil.isNotEmpty(resourceApiSimpleDtos)) {
+            var actionMap = new HashMap<String, Set<String>>(resourceApiSimpleDtos.size());
+            resourceApiSimpleDtos.forEach(v -> {
+                Set<String> actions = actionMap.get(v.getResourceCode());
+                if (CollUtil.isEmpty(actions)) {
+                    actions = new HashSet<>(64);
+                }
+                if (StringUtils.isNotBlank(v.getPermissionAction())) {
+                    actions.addAll(Set.of(v.getPermissionAction().split("[,，]")));
+                }
+                actionMap.put(v.getResourceCode(), actions);
+            });
+            clientDetailsModel.setActions(actionMap);
+        }
         return clientDetailsModel;
+    }
+
+
+    @Override
+    public ClientAndResourceAuthModel getById(String id) {
+        var clientDetailsModel = clientAuthMapper.selectClientIdById(id);
+        if (Objects.isNull(clientDetailsModel)) {
+            throw new OAuth2AuthenticationException("客户端信息不存在:" + id);
+        }
+        ClientAndResourceAuthModel clientAndResourceAuthModel = copyMap.bToA(clientDetailsModel);
+        handleSetBase(clientDetailsModel, clientAndResourceAuthModel);
+        return handleData(clientAndResourceAuthModel);
     }
 }

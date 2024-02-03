@@ -27,15 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageSendRecordPageVo;
+import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageSendRecordPageQuery;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageSendRecordPageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -52,33 +52,12 @@ public interface ManageSendRecordMapper extends BaseMapper<ManageSendRecordEntit
     /**
      * 分页查询
      *
-     * @param vo   ${@link ManageSendRecordPageVo} 查询条件
-     * @param page ${@link Page< ManageSendRecordPageDto >} 分页信息
+     * @param vo   ${@link ManageSendRecordPageQuery} 查询条件
+     * @param page ${@link Page<   ManageSendRecordPageDto   >} 分页信息
      * @return IPage<ManageSendRecordPageDto> ${@link IPage<ManageSendRecordPageDto>} 结果
      * @author zxh
      * @date 2022-03-29 05:23:41
      */
-    IPage<ManageSendRecordPageDto> pageByModel(Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageVo vo);
+    IPage<ManageSendRecordPageDto> pageByModel(Page<ManageSendRecordPageDto> page, @Param("query") ManageSendRecordPageQuery vo);
 
-
-    /**
-     * 通过消息id物理删除
-     *
-     * @param sendRecordId ${@link String} 消息id
-     * @return int ${@link Integer} 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-03-29 05:23:41
-     */
-    int physicalDeleteById(@Param("id") String sendRecordId);
-
-
-    /**
-     * 通过消息id物理批量删除
-     *
-     * @param idList ${@link Collection} 待删除id
-     * @return int ${@link Integer} 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-03-29 05:23:41
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

@@ -27,25 +27,27 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgRoleMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.mapper.RbacOrgRoleMenuMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.IRbacOrgRoleMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * 机构角色-菜单表(RbacOrgRoleMenu)业务层实现
@@ -71,7 +73,7 @@ public class RbacOrgRoleMenuServiceImpl extends ServiceImpl<RbacOrgRoleMenuMappe
             });
             boolean b = this.saveBatch(roleMenuEntities);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存角色菜单关联失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "保存角色菜单关联失败");
             }
         }
     }
@@ -85,9 +87,9 @@ public class RbacOrgRoleMenuServiceImpl extends ServiceImpl<RbacOrgRoleMenuMappe
             if (CollUtil.isNotEmpty(list)) {
                 Set<String> roleMenuIds = new HashSet<>(list.size());
                 list.forEach(v -> roleMenuIds.add(v.getOrgRoleMenuId()));
-                int i = mapper.physicalDeleteBatchIds(roleMenuIds);
+                int i = mapper.anyiPhysicalDeleteBatchIds(roleMenuIds);
                 if (i <= 0) {
-                    throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+                    throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
                 }
             }
         }

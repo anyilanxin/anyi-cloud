@@ -27,22 +27,23 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRolePageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRolePageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRoleDto;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacRolePageDto;
-import com.anyilanxin.anyicloud.systemrpc.model.UserRoleModel;
+import com.anyilanxin.anyicloud.systemadapter.model.UserRoleModel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * 角色表(RbacRole)持久层
@@ -63,7 +64,7 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      * @author zxh
      * @date 2022-05-02 19:29:58
      */
-    IPage<RbacRolePageDto> pageByModel(Page<RbacRolePageDto> page, @Param("query") RbacRolePageVo vo, @Param("superRoleCode") String superRoleCode);
+    IPage<RbacRolePageDto> pageByModel(Page<RbacRolePageDto> page, @Param("query") RbacRolePageQuery vo, @Param("superRoleCode") String superRoleCode);
 
 
     /**
@@ -82,31 +83,11 @@ public interface RbacRoleMapper extends BaseMapper<RbacRoleEntity> {
      *
      * @param userId ${@link String}
      * @param orgId  ${@link String}
-     * @return Set<UserRoleModel> ${@link Set< UserRoleModel >}
+     * @return Set<UserRoleModel> ${@link Set<  UserRoleModel  >}
      * @author zxh
      * @date 2022-04-06 00:08
      */
     Set<UserRoleModel> getUserAuthRole(String userId, String orgId, @Param("superRoleCode") String superRoleCode);
 
 
-    /**
-     * 通过角色id物理删除
-     *
-     * @param roleId 角色id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 19:29:58
-     */
-    int physicalDeleteById(@Param("id") String roleId);
-
-
-    /**
-     * 通过角色id物理批量删除
-     *
-     * @param idList 角色id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 19:29:58
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

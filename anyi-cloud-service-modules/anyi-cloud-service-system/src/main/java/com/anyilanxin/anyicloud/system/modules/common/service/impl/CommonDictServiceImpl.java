@@ -27,15 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictPageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonDictEntity;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonDictItemEntity;
@@ -48,13 +48,15 @@ import com.anyilanxin.anyicloud.system.modules.common.service.mapstruct.CommonDi
 import com.anyilanxin.anyicloud.system.modules.common.service.mapstruct.CommonDictVoMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 数据字典表(CommonDict)业务层实现
@@ -78,7 +80,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         CommonDictEntity entity = voMap.aToB(vo);
         boolean result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
         log.info("------------CommonDictServiceImpl------------>save:{}", entity);
     }
@@ -94,7 +96,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         entity.setDictId(dictId);
         boolean result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新数据字典失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "更新数据字典失败");
         }
         // 判断编码是否有变动，变动则更新子项
         if (!byId.getDictCode().equals(vo.getDictCode())) {
@@ -108,7 +110,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
                 itemEntity.setDictCode(vo.getDictCode());
                 int update = itemMapper.update(itemEntity, lambdaQueryWrapper);
                 if (update <= 0) {
-                    throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新数据字典子项编码失败");
+                    throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "更新数据字典子项编码失败");
                 }
             }
         }
@@ -117,8 +119,8 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<CommonDictPageDto> pageByModel(CommonDictPageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<CommonDictPageDto> pageByModel(CommonDictPageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
@@ -127,7 +129,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
     public CommonDictDto getById(String dictId) throws RuntimeException {
         CommonDictEntity byId = super.getById(dictId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return dtoMap.bToA(byId);
     }
@@ -140,7 +142,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         this.getById(dictId);
         boolean b = this.removeById(dictId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
         // 查询是否有子项,有子项则删除子项
         // 查询是否有子项
@@ -151,7 +153,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         if (CollUtil.isNotEmpty(commonDictItemEntities)) {
             int delete = itemMapper.delete(lambdaQueryWrapper);
             if (delete <= 0) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除数据字典子项失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除数据字典子项失败");
             }
         }
     }
@@ -161,14 +163,14 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> dictIds) throws RuntimeException {
         List<CommonDictEntity> entities = this.listByIds(dictIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
         List<String> waitDeleteList = new ArrayList<>();
         entities.forEach(v -> waitDeleteList.add(v.getDictId()));
         int i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 
@@ -183,7 +185,7 @@ public class CommonDictServiceImpl extends ServiceImpl<CommonDictMapper, CommonD
         entity.setDictStatus(type == 1 ? 1 : 0);
         boolean b = this.updateById(entity);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新字典状态失败");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "更新字典状态失败");
         }
     }
 }

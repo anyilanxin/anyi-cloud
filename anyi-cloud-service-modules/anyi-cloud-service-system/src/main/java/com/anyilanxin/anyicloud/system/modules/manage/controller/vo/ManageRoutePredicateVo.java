@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Map;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 路由断言添加或修改Request
@@ -47,22 +50,25 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class ManageRoutePredicateVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = 927432054061925798L;
 
-    @Schema(name = "predicateType", title = "断言类型", required = true)
+    @Schema(name = "predicateType", title = "断言类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "断言类型不能为空")
     private String predicateType;
 
-    @Schema(name = "predicateName", title = "断言名称", required = true)
+    @Schema(name = "predicateName", title = "断言名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "断言名称不能为空")
     private String predicateName;
 
-    @Schema(name = "predicateTypeName", title = "断言类型名称", required = true)
+    @Schema(name = "predicateTypeName", title = "断言类型名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "断言类型名称不能为空")
     private String predicateTypeName;
 

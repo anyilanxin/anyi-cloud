@@ -27,20 +27,22 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.SequenceFlowEntity;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.mapper.SequenceFlowMapper;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.service.ISequenceFlowService;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.entity.SequenceFlowEntity;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.mapper.SequenceFlowMapper;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.service.ISequenceFlowService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 流程活动实例连线信息(SequenceFlow)业务层实现

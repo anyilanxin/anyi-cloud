@@ -27,14 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.I18nUtil;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplatePageVo;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiI18nUtil;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
+import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplatePageQuery;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplateVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.mapper.ManageTemplateMapper;
@@ -44,13 +45,15 @@ import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplat
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct.ManageTemplateCopyMap;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 消息模板(ManageTemplate)业务层实现
@@ -70,10 +73,10 @@ public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper,
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void save(ManageTemplateVo vo) throws RuntimeException {
-        ManageTemplateEntity entity = map.vToE(vo);
-        boolean result = super.save(entity);
+        var entity = map.vToE(vo);
+        var result = super.save(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.SaveDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.SaveDataFail"));
         }
     }
 
@@ -84,28 +87,28 @@ public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper,
         // 查询数据是否存在
         this.getById(templateId);
         // 更新数据
-        ManageTemplateEntity entity = map.vToE(vo);
+        var entity = map.vToE(vo);
         entity.setTemplateId(templateId);
-        boolean result = super.updateById(entity);
+        var result = super.updateById(entity);
         if (!result) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.UpdateDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.UpdateDataFail"));
         }
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo) throws RuntimeException {
-        return new PageDto<>(mapper.pageByModel(vo.getPage(), vo));
+    public AnYiPageResult<ManageTemplatePageDto> pageByModel(ManageTemplatePageQuery vo) throws RuntimeException {
+        return PageUtils.toPageData(mapper.pageByModel(PageUtils.getPage(vo), vo));
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
     public ManageTemplateDto getById(String templateId) throws RuntimeException {
-        ManageTemplateEntity byId = super.getById(templateId);
+        var byId = super.getById(templateId);
         if (Objects.isNull(byId)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFail"));
         }
         return map.eToD(byId);
     }
@@ -117,9 +120,9 @@ public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper,
         // 查询数据是否存在
         this.getById(templateId);
         // 删除数据
-        boolean b = this.removeById(templateId);
+        var b = this.removeById(templateId);
         if (!b) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.DeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.DeleteDataFail"));
         }
     }
 
@@ -127,15 +130,15 @@ public class ManageTemplateServiceImpl extends ServiceImpl<ManageTemplateMapper,
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void deleteBatch(List<String> templateIds) throws RuntimeException {
-        List<ManageTemplateEntity> entities = this.listByIds(templateIds);
-        if (CollectionUtil.isEmpty(entities)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
+        var entities = this.listByIds(templateIds);
+        if (CollUtil.isEmpty(entities)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.QueryDataFailOrDelete"));
         }
-        List<String> waitDeleteList = new ArrayList<>();
+        var waitDeleteList = new ArrayList<String>();
         entities.forEach(v -> waitDeleteList.add(v.getTemplateId()));
-        int i = mapper.deleteBatchIds(waitDeleteList);
+        var i = mapper.deleteBatchIds(waitDeleteList);
         if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, I18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, AnYiI18nUtil.get("ServiceImpl.BatchDeleteDataFail"));
         }
     }
 

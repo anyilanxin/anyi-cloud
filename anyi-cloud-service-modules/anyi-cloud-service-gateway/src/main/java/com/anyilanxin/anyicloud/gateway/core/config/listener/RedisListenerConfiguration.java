@@ -27,12 +27,14 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.core.config.listener;
 
 import com.anyilanxin.anyicloud.coreredis.constant.RedisSubscribeConstant;
-import com.anyilanxin.anyicloud.corewebflux.base.service.ICoreWebfluxService;
+import com.anyilanxin.anyicloud.corewebflux.config.dictload.ICoreWebfluxService;
 import com.anyilanxin.anyicloud.gateway.core.handler.RedisSubscribeListenerHandle;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
@@ -42,24 +44,19 @@ import org.springframework.data.redis.listener.ReactiveRedisMessageListenerConta
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 /**
- * redis监听配置
+ * redis订阅监听监听
  *
  * @author zxh
- * @date 2021-07-09 21:47
+ * @date 2021-01-25 21:20
  * @since 1.0.0
  */
 @Configuration
+@Slf4j
 @RequiredArgsConstructor
 public class RedisListenerConfiguration {
     private final RedisMessageListenerContainer redisMessageListenerContainer;
     private final ICoreWebfluxService coreCommonService;
     private final RedisSubscribeListenerHandle redisSubscribeListenerHandle;
-
-    @Bean
-    public ConstantDeleteEventListener constantDeleteEventListener() {
-        return new ConstantDeleteEventListener(redisMessageListenerContainer, coreCommonService);
-    }
-
 
     @Bean
     ReactiveRedisMessageListenerContainer container(ReactiveRedisConnectionFactory connectionFactory) {

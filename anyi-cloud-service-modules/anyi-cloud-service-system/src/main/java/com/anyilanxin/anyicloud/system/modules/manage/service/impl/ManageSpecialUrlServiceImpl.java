@@ -27,12 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageSpecialUrlVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageSpecialUrlEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.ManageSpecialUrlMapper;
@@ -41,16 +40,18 @@ import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageSpecialU
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.ManageSpecialUrlCopyMap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 路由特殊地址(ManageSpecialUrl)业务层实现
  *
- * @author zxh zxiaozhou
+ * @author zxh zxh
  * @copyright zhouxuanhong（https://anyilanxin.com）
  * @date 2021-12-19 09:34:50
  * @since 1.0.0
@@ -75,7 +76,7 @@ public class ManageSpecialUrlServiceImpl extends ServiceImpl<ManageSpecialUrlMap
             manageSpecialUrlEntities.forEach(v -> v.setCustomFilterId(customFilterId));
             boolean b = this.saveBatch(manageSpecialUrlEntities);
             if (!b) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存特殊url失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "保存特殊url失败");
             }
         }
     }
@@ -100,7 +101,7 @@ public class ManageSpecialUrlServiceImpl extends ServiceImpl<ManageSpecialUrlMap
         if (CollUtil.isNotEmpty(manageSpecialUrls)) {
             manageSpecialUrls.forEach(v -> {
                 List<ManageSpecialUrlDto> manageSpecialUrlList = stringListMap.get(v.getCustomFilterId());
-                if (CollectionUtil.isEmpty(manageSpecialUrlList)) {
+                if (CollUtil.isEmpty(manageSpecialUrlList)) {
                     manageSpecialUrlList = new ArrayList<>();
                 }
                 manageSpecialUrlList.add(v);
@@ -122,7 +123,7 @@ public class ManageSpecialUrlServiceImpl extends ServiceImpl<ManageSpecialUrlMap
             // 删除特殊url
             boolean remove = this.remove(lambdaQueryWrapper);
             if (!remove) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除特殊url失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除特殊url失败");
             }
         }
     }
@@ -139,7 +140,7 @@ public class ManageSpecialUrlServiceImpl extends ServiceImpl<ManageSpecialUrlMap
             // 删除特殊url
             boolean remove = this.remove(lambdaQueryWrapper);
             if (!remove) {
-                throw new ResponseException(Status.DATABASE_BASE_ERROR, "删除特殊url失败");
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "删除特殊url失败");
             }
         }
     }

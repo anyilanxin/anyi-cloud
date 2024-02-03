@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 服务管理查询Response
@@ -52,6 +55,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class ManageServiceDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 945013865080704392L;
 
     @Schema(name = "serviceId", title = "服务id")
@@ -60,7 +64,7 @@ public class ManageServiceDto implements Serializable {
     @Schema(name = "serviceCode", title = "服务编码")
     private String serviceCode;
 
-    @Schema(name = "serviceName", title = "服务名")
+    @Schema(name = "serviceName", title = "服务描述")
     private String serviceName;
 
     @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应")
@@ -72,29 +76,11 @@ public class ManageServiceDto implements Serializable {
     @Schema(name = "swaggerConfigUrl", title = "swagger配置地址")
     private String swaggerConfigUrl;
 
-    @Schema(name = "subscribeChange", title = "是否监听系统变化:0-不订阅,1-订阅,默认0")
-    private Integer subscribeChange;
-
-    @Schema(name = "noticeChange", title = "是否发送变化通知:0-不通知,1-通知。默认0")
-    private Integer noticeChange;
-
-    @Schema(name = "noticeType", title = "通知类型:0-邮件,1-短信,2-微信消息，当选择监听服务变化并且通知时必填")
-    private Integer noticeType;
-
     @Schema(name = "serviceState", title = "服务状态:0-禁用,1-启用。默认0")
     private Integer serviceState;
 
     @Schema(name = "serviceMetadataJson", title = "服务元数据,数据库json存储,入库前转为字符串")
     private Map<String, String> serviceMetadataJson;
-
-    @Schema(name = "noticeTemplateId", title = "通知模板id，当选择监听服务变化并且通知时必填")
-    private String noticeTemplateId;
-
-    @Schema(name = "headUserName", title = "负责人姓名，当选择监听服务变化并且通知时必填")
-    private String headUserName;
-
-    @Schema(name = "headUserId", title = "负责人用户id，当选择监听服务变化并且通知时必填")
-    private String headUserId;
 
     @Schema(name = "enableDelete", title = "是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)")
     private Integer enableDelete;

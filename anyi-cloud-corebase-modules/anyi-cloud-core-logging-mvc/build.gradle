@@ -1,0 +1,6 @@
+description = "AnYi Cloud Logging Mvc Core"
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-logging-common')
+}

@@ -1,4 +1,0 @@
-com.anyilanxin.anyicloud.oauth2mvc.config.ResourceServerConfigurer
-com.anyilanxin.anyicloud.oauth2mvc.config.Oauth2MvcCommonConfig
-com.anyilanxin.anyicloud.oauth2mvc.FeignInterceptorMvcSendDownHeader
-com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils

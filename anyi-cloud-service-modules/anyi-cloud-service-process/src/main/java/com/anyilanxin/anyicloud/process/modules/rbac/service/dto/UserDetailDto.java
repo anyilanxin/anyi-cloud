@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.rbac.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.time.LocalDate;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * 用户信息
@@ -48,11 +50,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class UserDetailDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6364921052776119371L;
 
     @Schema(name = "nickName", title = "用户昵称")
@@ -65,7 +70,7 @@ public class UserDetailDto implements Serializable {
     private String avatar;
 
     @Schema(name = "birthday", title = "生日", type = "string", example = "2020-12-21")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDate birthday;
 
     @Schema(name = "sex", title = "性别:0-默认未知,1-男,2-女,默认0")

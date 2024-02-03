@@ -1,0 +1,8 @@
+description = "AnYi Cloud Gateway Rpc"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api project(':anyi-cloud-adapter-modules:anyi-cloud-adapter-gateway')
+}
+

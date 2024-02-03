@@ -27,13 +27,16 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 部门角色-资源表添加或修改Request
@@ -51,17 +54,19 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacOrgRoleResourceApiVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -37552185051204211L;
 
-    @Schema(name = "orgRoleId", title = "机构角色id", required = true)
+    @Schema(name = "orgRoleId", title = "机构角色id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "机构角色id不能为空")
     private String orgRoleId;
 
-    @Schema(name = "apiId", title = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值", required = true)
+    @Schema(name = "apiId", title = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "资源接口id,资源id+请求地址+允许请求方法(排序后的)，md5值不能为空")
     private String apiId;
 
-    @Schema(name = "orgId", title = "机构id", required = true)
+    @Schema(name = "orgId", title = "机构id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "机构id不能为空")
     private String orgId;
+
 }

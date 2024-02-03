@@ -27,23 +27,25 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.oauth2.validate.impl;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
-import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson2.JSONObject;
 import com.anyilanxin.anyicloud.auth.core.constant.AuthCommonConstant;
-import com.anyilanxin.anyicloud.auth.core.properties.AuthProperty;
+import com.anyilanxin.anyicloud.auth.oauth2.config.property.AnYiCustomSecurityProperties;
 import com.anyilanxin.anyicloud.auth.oauth2.validate.*;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
-import com.anyilanxin.skillfull.auth.oauth2.validate.*;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import javax.servlet.http.HttpServletRequest;
+import com.anyilanxin.anyicloud.auth.utils.picture.AnYiCircleCaptcha;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
+import java.awt.*;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 图片验证码实现
@@ -56,24 +58,26 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class PictureValidate implements IValidate {
-    private final AuthProperty authProperty;
+    private final AnYiCustomSecurityProperties securityProperties;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public ValidateDto getVerification(JSONObject parameter, HttpServletRequest request) {
         // 生成验证码
-        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(300, 150, 4, 20);
-        String imageBase64 = captcha.getImageBase64Data();
+        AnYiCircleCaptcha captcha = new AnYiCircleCaptcha(300, 150, 4, 20, new Color(242, 243, 245));
         String code = captcha.getCode();
-        String codeId = CoreCommonUtils.get32UUId();
+        String codeId = AnYiCoreCommonUtils.get32UUId();
         // 存储
-        redisTemplate.opsForValue().set(AuthCommonConstant.PICTURE_CODE_KEY_PREFIX + codeId, code, authProperty.getCodePictureSeconds(), TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(AuthCommonConstant.PICTURE_CODE_KEY_PREFIX + codeId, code, securityProperties.getCodePictureSeconds(), TimeUnit.SECONDS);
         // 构造验证码web端信息
         ValidateDto validateDto = new ValidateDto();
         validateDto.setCodeType(CodeType.PICTURE_CODE);
-        validateDto.setValidTime(authProperty.getCodePictureSeconds());
-        validateDto.setCodeValue(imageBase64);
+        validateDto.setValidTime(securityProperties.getCodePictureSeconds());
+        validateDto.setCodeValue(captcha.getImageBase64Data());
         validateDto.setCodeId(codeId);
+        // 生成黑暗验证码
+        AnYiCircleCaptcha anYiCircleCaptcha = new AnYiCircleCaptcha(300, 150, code, new Color(51, 50, 50), 20);
+        validateDto.setCodeValueDark(anYiCircleCaptcha.getImageBase64Data());
         validateDto.setStatus(true);
         return validateDto;
     }
@@ -96,4 +100,6 @@ public class PictureValidate implements IValidate {
         }
         return checkDto;
     }
+
+
 }

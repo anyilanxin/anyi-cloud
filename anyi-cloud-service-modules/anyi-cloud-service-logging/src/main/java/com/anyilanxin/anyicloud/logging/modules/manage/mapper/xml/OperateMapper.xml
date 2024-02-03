@@ -36,13 +36,13 @@
   <resultMap type="com.anyilanxin.anyicloud.logging.modules.manage.entity.OperateEntity" id="OperateMap">
     <result property="operateId" column="operate_id" jdbcType="VARCHAR"/>
     <result property="operateType" column="operate_type" jdbcType="INTEGER"/>
-    <result property="contentType" column="content_type" jdbcType="INTEGER"/>
     <result property="userId" column="user_id" jdbcType="VARCHAR"/>
     <result property="userName" column="user_name" jdbcType="VARCHAR"/>
     <result property="requestClientCode" column="request_client_code" jdbcType="VARCHAR"/>
     <result property="requestClientName" column="request_client_name" jdbcType="VARCHAR"/>
     <result property="logCode" column="log_code" jdbcType="VARCHAR"/>
     <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
+    <result property="ipAddress" column="ip_address" jdbcType="VARCHAR"/>
     <result property="targetServiceCode" column="target_service_code" jdbcType="VARCHAR"/>
     <result property="targetUrl" column="target_url" jdbcType="VARCHAR"/>
     <result property="requestUrl" column="request_url" jdbcType="VARCHAR"/>
@@ -70,40 +70,44 @@
     <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <result property="contentType" column="content_type" jdbcType="VARCHAR"/>
+    <result property="operateToken" column="operate_token" jdbcType="VARCHAR"/>
+    <result property="costTimeStr" column="cost_time_str" jdbcType="VARCHAR"/>
   </resultMap>
 
   <!-- @formatter:off -->
   <!--数据库字段-->
   <sql id="Column_List">
-    operate_id, operate_type,content_type, user_id, user_name, request_client_code, request_client_name,
-    log_code, request_ip, target_service_code, target_url, request_url, request_method,
-    request_param, request_result, log_other_data, exception_message, operate_status, data_sources,
-    data_sources_describe, cost_time,request_start_time, request_end_time, create_area_code,
-    create_position_code, create_org_sys_code, create_system_code, create_user_id, create_tenant_id,
-    create_user_name, create_time, update_user_id, update_user_name, update_time, remark, del_flag
+    operate_id, operate_type, user_id, user_name, request_client_code, request_client_name, log_code,
+    request_ip, ip_address, target_service_code, target_url, request_url, request_method, request_param,
+    request_result, log_other_data, exception_message, operate_status, data_sources, data_sources_describe,
+    cost_time, request_start_time, request_end_time, create_area_code, create_position_code, create_org_sys_code,
+    create_system_code, create_user_id, create_tenant_id, create_user_name, create_time, update_user_id,
+    update_user_name, update_time, remark, del_flag, content_type, operate_token, cost_time_str
   </sql>
 
   <!--数据库字段待别名-->
   <sql id="Column_List_Ali">
-    ali.operate_id, ali.operate_type,ali.content_type, ali.user_id, ali.user_name, ali.request_client_code,
-    ali.request_client_name, ali.log_code, ali.request_ip, ali.target_service_code,
-    ali.target_url, ali.request_url, ali.request_method, ali.request_param, ali.request_result,
-    ali.log_other_data, ali.exception_message, ali.operate_status, ali.data_sources, ali.data_sources_describe,
-    ali.cost_time, ali.request_start_time, ali.request_end_time, ali.create_area_code, ali.create_position_code,
-    ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name,
-    ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag
+    ali.operate_id, ali.operate_type, ali.user_id, ali.user_name, ali.request_client_code, ali.request_client_name,
+    ali.log_code, ali.request_ip, ali.ip_address, ali.target_service_code, ali.target_url, ali.request_url,
+    ali.request_method, ali.request_param, ali.request_result, ali.log_other_data, ali.exception_message,
+    ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time, ali.request_start_time,
+    ali.request_end_time, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
+    ali.create_system_code, ali.create_user_id, ali.create_tenant_id, ali.create_user_name, ali.create_time,
+    ali.update_user_id, ali.update_user_name, ali.update_time, ali.remark, ali.del_flag, ali.content_type,
+    ali.operate_token, ali.cost_time_str
   </sql>
 
 
   <!--数据库字段-->
   <sql id="Column_List_Page_Ali">
     ali.operate_id, ali.operate_type,ali.content_type, ali.user_id, ali.user_name, ali.request_client_code,
-    ali.request_client_name, ali.log_code, ali.request_ip, ali.target_service_code, ali.target_url,
-    ali.request_url, ali.request_method,ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time,
+    ali.request_client_name, ali.log_code, ali.request_ip, ali.ip_address, ali.target_service_code, ali.target_url,
+    ali.request_url, ali.request_method,ali.operate_status, ali.data_sources, ali.data_sources_describe, ali.cost_time,ali.cost_time_str,
     ali.request_start_time, ali.request_end_time, ali.create_area_code, ali.create_position_code,
     ali.create_org_sys_code, ali.create_system_code, ali.create_user_id, ali.create_tenant_id,
     ali.create_user_name, ali.create_time, ali.update_user_id, ali.update_user_name, ali.update_time,
-    ali.remark, ali.del_flag
+    ali.remark, ali.del_flag, ali.operate_token
   </sql>
 
     <!--通过实体作为筛选条件分页查询-->
@@ -146,25 +150,6 @@
         </where>
     </select>
 
-    <!-- 通过操作日志id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM logging_operate
-        WHERE operate_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM logging_operate
-        WHERE operate_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE logging_operate
@@ -186,5 +171,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

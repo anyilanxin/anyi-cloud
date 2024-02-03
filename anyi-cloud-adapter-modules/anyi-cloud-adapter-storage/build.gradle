@@ -1,0 +1,7 @@
+description = "AnYi Cloud Storage Rpc"
+
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+}
+

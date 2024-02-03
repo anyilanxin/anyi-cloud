@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
 import com.anyilanxin.anyicloud.corecommon.model.system.ConfigDataSecurityModel;
 import com.anyilanxin.anyicloud.corecommon.model.system.UserDataSecurityModel;
 import com.anyilanxin.anyicloud.corecommon.model.web.WebSecurityModel;
@@ -44,5 +45,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2020-09-12 16:33:37
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface SecurityToWebSecurityMap extends BaseThreeMap<UserDataSecurityModel, WebSecurityModel, ConfigDataSecurityModel> {
+public interface SecurityToWebSecurityMap extends AnYiBaseThreeMap<UserDataSecurityModel, WebSecurityModel, ConfigDataSecurityModel> {
 }

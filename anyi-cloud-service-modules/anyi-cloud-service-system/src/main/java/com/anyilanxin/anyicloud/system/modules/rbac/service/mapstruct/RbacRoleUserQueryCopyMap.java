@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
 import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacRoleUserQueryVo;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacRoleUserEntity;
 import org.mapstruct.Builder;
@@ -44,5 +45,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-07-02 23:01:21
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface RbacRoleUserQueryCopyMap extends BaseMap<RbacRoleUserQueryVo, RbacRoleUserEntity> {
+public interface RbacRoleUserQueryCopyMap extends AnYiBaseMap<RbacRoleUserQueryVo, RbacRoleUserEntity> {
 }

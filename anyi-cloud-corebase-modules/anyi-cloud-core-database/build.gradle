@@ -1,0 +1,17 @@
+description = "AnYi Cloud Database Core"
+
+dependencies {
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-common')
+    api 'com.mysql:mysql-connector-j'
+    api 'com.baomidou:mybatis-plus-spring-boot3-starter'
+    api 'com.baomidou:mybatis-plus-extension'
+    api 'com.baomidou:dynamic-datasource-spring-boot3-starter'
+    api 'com.alibaba:druid-spring-boot-3-starter'
+    api 'p6spy:p6spy'
+}
+
+
+processResources {
+    filteringCharset = 'UTF-8'
+    include('spy.properties')
+}

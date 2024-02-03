@@ -27,53 +27,44 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.anyilanxin.anyicloud.corecommon.constant.Status;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonDateUtils;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.oauth2mvc.utils.UserContextUtils;
+import com.anyilanxin.anyicloud.corecommon.constant.AnYiResultStatus;
+import com.anyilanxin.anyicloud.corecommon.exception.AnYiResponseException;
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiDateUtils;
+import com.anyilanxin.anyicloud.coremvc.utils.AnYiUserContextUtils;
+import com.anyilanxin.anyicloud.database.utils.PageUtils;
 import com.anyilanxin.anyicloud.process.core.constant.CommonProcessConstant;
-import com.anyilanxin.anyicloud.process.core.constant.ModelStateType;
-import com.anyilanxin.anyicloud.process.core.constant.ProcessInstanceState;
-import com.anyilanxin.anyicloud.process.modules.base.controller.vo.DesignModelHistoryVo;
-import com.anyilanxin.anyicloud.process.modules.base.entity.DesignModelEntity;
-import com.anyilanxin.anyicloud.process.modules.base.entity.DesignModelHistoryEntity;
-import com.anyilanxin.anyicloud.process.modules.base.mapper.DesignModelHistoryMapper;
-import com.anyilanxin.anyicloud.process.modules.base.mapper.DesignModelMapper;
-import com.anyilanxin.anyicloud.process.modules.base.service.IProcessCategoryService;
-import com.anyilanxin.anyicloud.process.modules.base.service.dto.ProcessCategoryDto;
-import com.anyilanxin.anyicloud.process.modules.base.service.mapstruct.DesignModelToHistoryCopyMap;
+import com.anyilanxin.anyicloud.process.extend.constant.impl.ProcessInstanceState;
 import com.anyilanxin.anyicloud.process.modules.manage.controller.vo.*;
+import com.anyilanxin.anyicloud.process.modules.manage.entity.DesignDraftEntity;
 import com.anyilanxin.anyicloud.process.modules.manage.entity.ReDeploymentEntity;
+import com.anyilanxin.anyicloud.process.modules.manage.mapper.DesignDraftMapper;
 import com.anyilanxin.anyicloud.process.modules.manage.mapper.ReDeploymentMapper;
 import com.anyilanxin.anyicloud.process.modules.manage.service.IDefinitionManageService;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.DeploymentDetailDto;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessDefinitionPageDto;
-import com.anyilanxin.anyicloud.process.modules.manage.service.dto.ProcessInfoDto;
+import com.anyilanxin.anyicloud.process.modules.manage.service.IProcessCategoryService;
+import com.anyilanxin.anyicloud.process.modules.manage.service.dto.*;
 import com.anyilanxin.anyicloud.process.modules.manage.service.mapstruct.ProcessDefinitionPageMap;
 import com.anyilanxin.anyicloud.process.modules.manage.service.mapstruct.ProcessInfoCopyMap;
 import com.anyilanxin.anyicloud.process.utils.Base64FileUtils;
-import com.anyilanxin.skillfull.process.modules.manage.controller.vo.*;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import java.io.InputStream;
-import java.util.*;
+import com.anyilanxin.anyicloud.process.utils.ProcessBpmnUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.impl.persistence.entity.DeploymentEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.camunda.bpm.engine.repository.*;
-import org.camunda.bpm.model.bpmn.impl.BpmnParser;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * 流程定义管理实现
@@ -87,24 +78,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DefinitionManageServiceImpl implements IDefinitionManageService {
     private static final String VERSION = "version";
+    private final DesignDraftMapper draftMapper;
     private static final String DEPLOYMENT_TIME = "deploymentTime";
     private final RepositoryService repositoryService;
-    private final DesignModelMapper modelMapper;
     private final HistoryService historyService;
     private final IProcessCategoryService categoryService;
     private final ReDeploymentMapper deploymentMapper;
-    private final FormService formService;
     private final ProcessInfoCopyMap processInfoCopyMap;
     private final ProcessDefinitionPageMap definitionPageMap;
-    private final BpmnParser bpmnParser;
-    private final DesignModelHistoryMapper modelHistoryMapper;
-    private final DesignModelToHistoryCopyMap toHistoryCopyMap;
 
     @Override
     public ProcessInfoDto getProcessInfo(ProcessInfoVo vo) {
         // 获取流程定义信息
         if (StringUtils.isBlank(vo.getProcessDefinitionId()) && StringUtils.isBlank(vo.getProcessDefinitionKey())) {
-            throw new ResponseException(Status.VERIFICATION_FAILED, "流程定义id与流程定义key必须填写一个");
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "流程定义id与流程定义key必须填写一个");
         }
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
         if (StringUtils.isNotBlank(vo.getProcessDefinitionId())) {
@@ -114,7 +101,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         }
         ProcessDefinition processDefinition = processDefinitionQuery.singleResult();
         if (Objects.isNull(processDefinition)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "流程定义不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "流程定义不存在");
         }
         ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDefinition;
         ProcessInfoDto processInfoDto = processInfoCopyMap.bToA((ProcessDefinitionEntity) processDefinition);
@@ -124,7 +111,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(processDefinitionEntity.getDeploymentId()).singleResult();
         if (Objects.nonNull(deployment)) {
             processInfoDto.setDeploymentName(deployment.getName());
-            processInfoDto.setDeploymentTime(CoreCommonDateUtils.toLocalDateTime(deployment.getDeploymentTime()));
+            processInfoDto.setDeploymentTime(AnYiDateUtils.toLocalDateTime(deployment.getDeploymentTime()));
         }
         // 补全类别信息
         ProcessCategoryDto processCategoryDto = categoryService.selectByCode(processInfoDto.getCategory());
@@ -133,6 +120,10 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         }
         // 获取节点任务信息
         InputStream processModel = repositoryService.getProcessModel(processDefinition.getId());
+        if (Objects.nonNull(processModel)) {
+            List<ProcessTaskInfoDto> bpmnUserTask = ProcessBpmnUtils.getBpmnUserTaskToList(processModel);
+            processInfoDto.setUserTasks(bpmnUserTask);
+        }
         processInfoDto.setDiagramData(Base64FileUtils.inputStreamToBase64(processModel));
         return processInfoDto;
     }
@@ -140,14 +131,18 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, readOnly = true)
-    public PageDto<ProcessDefinitionPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException {
+    public AnYiPageResult<ProcessDefinitionInfoPageDto> selectPageDefinition(ProcessDefinitionPageVo pageVo) throws RuntimeException {
         // 构建查询条件
         ProcessDefinitionQuery leave = repositoryService.createProcessDefinitionQuery();
+        if (!AnYiUserContextUtils.superRole()) {
+            leave.startablePermissionCheck();
+            leave.startableByUser(AnYiUserContextUtils.getUserId());
+        }
         if (StringUtils.isNotBlank(pageVo.getProcessDefinitionKey())) {
             leave.processDefinitionKey(pageVo.getProcessDefinitionKey());
         }
         if (Objects.nonNull(pageVo.getStartTime())) {
-            leave.deployedAfter(CoreCommonDateUtils.toDateTime(pageVo.getStartTime()));
+            leave.deployedAfter(AnYiDateUtils.toDateTime(pageVo.getStartTime()));
         }
         if (Objects.nonNull(pageVo.getSuspensionState())) {
             if (pageVo.getSuspensionState() == 1) {
@@ -160,8 +155,8 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         if (StringUtils.isNotBlank(pageVo.getName())) {
             leave.processDefinitionNameLike('%' + pageVo.getName() + "%");
         }
-        if (StringUtils.isNotBlank(UserContextUtils.getCurrentTenantId())) {
-            leave.tenantIdIn(UserContextUtils.getCurrentTenantId());
+        if (StringUtils.isNotBlank(AnYiUserContextUtils.getCurrentTenantId())) {
+            leave.tenantIdIn(AnYiUserContextUtils.getCurrentTenantId());
         }
         if (StringUtils.isNotBlank(pageVo.getCategory())) {
             leave.processDefinitionCategory(pageVo.getCategory());
@@ -188,21 +183,20 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
         leave.orderByProcessDefinitionVersion().desc();
         long count = leave.count();
         if (count <= 0) {
-            return new PageDto<>();
+            return PageUtils.toPageData();
         }
         // 分页查询
         List<ProcessDefinition> processDefinitions = leave.listPage(pageVo.getCurrent(), pageVo.getSize());
         // 转换为自定义类型
-        List<ProcessDefinitionPageDto> processDefinitionPageDtoList = Collections.emptyList();
+        List<ProcessDefinitionInfoPageDto> processDefinitionPageDtoList = Collections.emptyList();
         Set<String> processDefinitionKeys = new HashSet<>(32);
         Set<String> deploymentIds = new HashSet<>(32);
         Set<String> categoryCodes = new HashSet<>(32);
         if (CollUtil.isNotEmpty(processDefinitions)) {
             processDefinitionPageDtoList = new ArrayList<>();
             for (ProcessDefinition definition : processDefinitions) {
-                if (definition instanceof ProcessDefinitionEntity) {
-                    ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) definition;
-                    ProcessDefinitionPageDto processDefinitionPageDto = definitionPageMap.bToA(processDefinitionEntity);
+                if (definition instanceof ProcessDefinitionEntity processDefinitionEntity) {
+                    ProcessDefinitionInfoPageDto processDefinitionPageDto = definitionPageMap.bToA(processDefinitionEntity);
                     processDefinitionPageDto.setProcessDefinitionKey(processDefinitionEntity.getKey());
                     processDefinitionPageDto.setStartableInTasklist(processDefinitionEntity.isStartableInTasklist());
                     processDefinitionPageDto.setProcessDefinitionId(processDefinitionEntity.getId());
@@ -221,7 +215,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
             if (CollUtil.isNotEmpty(processInstanceList)) {
                 processInstanceList.forEach(v -> {
                     List<HistoricProcessInstance> processInstances = processInstanceMap.get(v.getProcessDefinitionId());
-                    if (CollectionUtil.isEmpty(processInstances)) {
+                    if (CollUtil.isEmpty(processInstances)) {
                         processInstances = new ArrayList<>(16);
                     }
                     processInstances.add(v);
@@ -235,11 +229,7 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
                 reDeploymentEntities.forEach(v -> deploymentEntityMap.put(v.getId(), v));
             }
             // 获取类别信息
-            List<ProcessCategoryDto> processCategoryList = categoryService.selectListByCodes(categoryCodes);
-            Map<String, ProcessCategoryDto> processCategoryMap = new HashMap<>();
-            if (CollUtil.isNotEmpty(processCategoryList)) {
-                processCategoryList.forEach(v -> processCategoryMap.put(v.getCategoryCode(), v));
-            }
+            Map<String, ProcessCategoryDto> processCategoryMap = categoryService.selectMapByCodes(categoryCodes);
             // 补全信息
             processDefinitionPageDtoList.forEach(v -> {
                 List<HistoricProcessInstance> processInstances = processInstanceMap.get(v.getProcessDefinitionId());
@@ -261,76 +251,41 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
                 }
             });
         }
-        return new PageDto<>(count, processDefinitionPageDtoList);
+        return PageUtils.toPageData(count, processDefinitionPageDtoList);
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void createDeployment(DeploymentVo vo) throws RuntimeException {
-        // 查询模型是否存在
-        DesignModelEntity designModelEntity = modelMapper.selectById(vo.getModelId());
-        if (Objects.isNull(designModelEntity)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "未查询到数据");
+        if (StringUtils.isBlank(vo.getBpmnBase64()) && StringUtils.isBlank(vo.getDraftId())) {
+            throw new AnYiResponseException(AnYiResultStatus.VERIFICATION_FAILED, "流程定义与base64模型数据不能同时为空");
         }
-        if (Objects.isNull(designModelEntity.getDiagramData())) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "模型不存在无法部署");
+        String baseBpmn = vo.getBpmnBase64();
+        if (StringUtils.isNotBlank(vo.getDraftId()) && StringUtils.isBlank(vo.getBpmnBase64())) {
+            DesignDraftEntity designDraftEntity = draftMapper.selectById(vo.getDraftId());
+            if (Objects.isNull(designDraftEntity)) {
+                throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "当前模型草稿信息不存在:" + vo.getDraftId());
+            }
+            baseBpmn = designDraftEntity.getBpmnBase64();
+            if (StringUtils.isNotBlank(vo.getDeploymentName())) {
+                vo.setDeploymentName(designDraftEntity.getBpmnProcessNames());
+            }
         }
-        if (designModelEntity.getModelState() == ModelStateType.DEPLOYMENT.getType()) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "模型已经部署");
+        if (StringUtils.isNotBlank(vo.getDeploymentName())) {
+            vo.setDeploymentName("未知流程");
         }
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment().name(vo.getDeploymentName());
-        deploymentBuilder.addInputStream(vo.getDeploymentName() + CommonProcessConstant.MODEL_RESOURCE_SUFFIX, Base64FileUtils.base64ToInputStream(designModelEntity.getDiagramData()));
-        if (StringUtils.isNotBlank(UserContextUtils.getCurrentTenantId())) {
-            deploymentBuilder.tenantId(UserContextUtils.getCurrentTenantId());
+        deploymentBuilder.addInputStream(vo.getDeploymentName() + CommonProcessConstant.MODEL_RESOURCE_SUFFIX, Base64FileUtils.base64ToInputStream(baseBpmn));
+        if (StringUtils.isNotBlank(AnYiUserContextUtils.getCurrentTenantId())) {
+            deploymentBuilder.tenantId(AnYiUserContextUtils.getCurrentTenantId());
         }
         if (Objects.nonNull(vo.getActivateProcessDate())) {
-            deploymentBuilder.activateProcessDefinitionsOn(CoreCommonDateUtils.toDateTime(vo.getActivateProcessDate()));
+            deploymentBuilder.activateProcessDefinitionsOn(AnYiDateUtils.toDateTime(vo.getActivateProcessDate()));
         }
-        Deployment deploy = deploymentBuilder.deploy();
-        // 更新模型管理表状态
-        DesignModelEntity entity = new DesignModelEntity();
-        entity.setModelId(vo.getModelId());
-        entity.setDeploymentTime(CoreCommonDateUtils.toLocalDateTime(deploy.getDeploymentTime()));
-        entity.setDeploymentId(deploy.getId());
-        entity.setModelState(ModelStateType.DEPLOYMENT.getType());
-        entity.setDeploymentName(deploy.getName());
-        // 获取部署资源信息
-        List<Resource> deploymentResources = repositoryService.getDeploymentResources(deploy.getId());
-        List<String> resourceIds = new ArrayList<>(deploymentResources.size());
-        List<String> resourceNames = new ArrayList<>(deploymentResources.size());
-        deploymentResources.forEach(v -> {
-            resourceIds.add(v.getId());
-            resourceNames.add(v.getName());
-        });
-        entity.setResourceNames(StringUtils.join(resourceNames, ","));
-        entity.setResourceIds(StringUtils.join(resourceIds, ","));
-        // 部署流程定义信息
-        List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).list();
-        List<String> diagramNames = new ArrayList<>(processDefinitions.size());
-        List<String> processDefinitionKeys = new ArrayList<>(processDefinitions.size());
-        List<String> processDefinitionIds = new ArrayList<>(processDefinitions.size());
-        ProcessDefinition processDefinition = processDefinitions.get(0);
-        entity.setVersion(processDefinition.getVersion());
-        processDefinitions.forEach(v -> {
-            diagramNames.add(v.getName());
-            processDefinitionKeys.add(v.getKey());
-            processDefinitionIds.add(v.getId());
-        });
-        entity.setDiagramNames(StringUtils.join(diagramNames, ","));
-        entity.setDiagramData(designModelEntity.getDiagramData());
-        entity.setProcessDefinitionIds(StringUtils.join(processDefinitionIds, ","));
-        entity.setProcessDefinitionKeys(StringUtils.join(processDefinitionKeys, ","));
-        int i = modelMapper.updateById(entity);
-        if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新模型状态失败");
-        }
-        // 创建历史部署历史信息
-        DesignModelHistoryVo designModelHistoryVo = toHistoryCopyMap.eToD(entity);
-        designModelHistoryVo.setCategory(designModelEntity.getCategory());
-        int insert = modelHistoryMapper.insert(toHistoryCopyMap.dToV(designModelHistoryVo));
-        if (insert <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存历史部署失败");
+        deploymentBuilder.deploy();
+        if (StringUtils.isNotBlank(vo.getDraftId())) {
+            draftMapper.deleteById(vo.getDraftId());
         }
     }
 
@@ -338,62 +293,16 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class})
     public void historyDeployment(DeploymentHistoryVo vo) {
-        DesignModelHistoryEntity designModelHistoryEntity = modelHistoryMapper.selectById(vo.getHistoryModelId());
-        DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
-        deploymentBuilder.addDeploymentResources(vo.getDeploymentId());
-        if (StringUtils.isNotBlank(UserContextUtils.getCurrentTenantId())) {
-            deploymentBuilder.tenantId(UserContextUtils.getCurrentTenantId());
+        ProcessDefinitionEntity processDefinition = (ProcessDefinitionEntity) repositoryService.createProcessDefinitionQuery().processDefinitionId(vo.getProcessDefinitionKey()).singleResult();
+        if (Objects.isNull(processDefinition)) {
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "流程定义不存在");
         }
-        if (Objects.nonNull(vo.getActivateProcessDate())) {
-            deploymentBuilder.activateProcessDefinitionsOn(CoreCommonDateUtils.toDateTime(vo.getActivateProcessDate()));
-        }
-        deploymentBuilder.name(vo.getDeploymentName());
-        Deployment deploy = deploymentBuilder.deploy();
-        // 更新模型管理表状态
-        DesignModelEntity entity = new DesignModelEntity();
-        entity.setModelId(designModelHistoryEntity.getModelId());
-        entity.setDeploymentTime(CoreCommonDateUtils.toLocalDateTime(deploy.getDeploymentTime()));
-        entity.setDeploymentId(deploy.getId());
-        entity.setDeploymentName(deploy.getName());
-        List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).list();
-        List<String> diagramNames = new ArrayList<>(processDefinitions.size());
-        List<String> processDefinitionKeys = new ArrayList<>(processDefinitions.size());
-        List<String> processDefinitionIds = new ArrayList<>(processDefinitions.size());
-        ProcessDefinition processDefinition = processDefinitions.get(0);
-        entity.setVersion(processDefinition.getVersion());
-        processDefinitions.forEach(v -> {
-            diagramNames.add(v.getName());
-            processDefinitionKeys.add(v.getKey());
-            processDefinitionIds.add(v.getId());
-        });
-        entity.setProcessDefinitionKeys(StringUtils.join(processDefinitionKeys, ","));
-        entity.setProcessDefinitionIds(StringUtils.join(processDefinitionIds, ","));
-        List<Resource> deploymentResources = repositoryService.getDeploymentResources(deploy.getId());
-        List<String> resourceIds = new ArrayList<>(deploymentResources.size());
-        List<String> resourceNames = new ArrayList<>(deploymentResources.size());
-        deploymentResources.forEach(v -> {
-            resourceIds.add(v.getId());
-            resourceNames.add(v.getName());
-        });
-        entity.setResourceNames(StringUtils.join(resourceNames, ","));
-        entity.setResourceIds(StringUtils.join(resourceIds, ","));
-        int i = modelMapper.updateById(entity);
-        if (i <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "更新模型状态失败");
-        }
-        // 创建历史部署历史信息
-        DesignModelHistoryVo designModelHistoryVo = toHistoryCopyMap.eToD(entity);
-        designModelHistoryVo.setDiagramNames(StringUtils.join(diagramNames, ","));
-        designModelHistoryVo.setDiagramData(designModelHistoryEntity.getDiagramData());
-        designModelHistoryVo.setDeploymentId(deploy.getId());
-        designModelHistoryVo.setDeploymentName(deploy.getName());
-        designModelHistoryVo.setCategory(designModelHistoryEntity.getCategory());
-        designModelHistoryVo.setProcessDefinitionKeys(StringUtils.join(processDefinitionKeys, ","));
-        designModelHistoryVo.setProcessDefinitionIds(StringUtils.join(processDefinitionIds, ","));
-        int insert = modelHistoryMapper.insert(toHistoryCopyMap.dToV(designModelHistoryVo));
-        if (insert <= 0) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "保存历史部署失败");
-        }
+        InputStream processModel = repositoryService.getProcessModel(processDefinition.getId());
+        DeploymentVo deploymentVo = new DeploymentVo();
+        deploymentVo.setDeploymentName(vo.getDeploymentName());
+        deploymentVo.setActivateProcessDate(vo.getActivateProcessDate());
+        deploymentVo.setBpmnBase64(Base64FileUtils.inputStreamToBase64(processModel));
+        this.createDeployment(deploymentVo);
     }
 
 
@@ -417,20 +326,6 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
     @Override
     public void deleteProcessDefinition(DeleteProcessDefinitionVo vo) throws RuntimeException {
         repositoryService.deleteProcessDefinition(vo.getProcessDefinitionId(), vo.isCascade(), vo.isSkipCustomListeners(), vo.isSkipIoMappings());
-        // 查询流程定义是否为最后一个，如果是最后一个修改模型管理为未发布
-        long count = repositoryService.createProcessDefinitionQuery().processDefinitionKey(vo.getProcessDefinitionKey()).count();
-        // if (count == 0) {
-        // LambdaQueryWrapper<DesignModelEntity> lambdaQueryWrapper = new
-        // LambdaQueryWrapper<>();
-        // lambdaQueryWrapper.eq(DesignModelEntity::getProcessId,
-        // vo.getProcessDefinitionKey());
-        // DesignModelEntity entity = new DesignModelEntity();
-        // entity.setModelState(0);
-        // int update = modelMapper.update(entity, lambdaQueryWrapper);
-        // if (update <= 0) {
-        // throw new ResponseException(Status.DATABASE_BASE_ERROR, "修改模型管理状态失败");
-        // }
-        // }
     }
 
 
@@ -441,38 +336,25 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
             processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processKeywordId).singleResult();
         }
         if (Objects.isNull(processDefinition)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "当前流程部署信息不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "当前流程部署信息不存在");
         }
         ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDefinition;
         DeploymentEntity deploymentEntity = queryDeploymentById(processDefinition.getDeploymentId());
         DeploymentDetailDto deploymentDetailDto = new DeploymentDetailDto();
         deploymentDetailDto.setNew(deploymentEntity.isNew());
         deploymentDetailDto.setProcessDefinitionKey(processDefinitionEntity.getKey());
-        // 获取流程模型信息
-        LambdaQueryWrapper<DesignModelEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(DesignModelEntity::getDeploymentId, processDefinition.getDeploymentId());
-        DesignModelEntity designModelEntity = modelMapper.selectOne(lambdaQueryWrapper);
-        if (Objects.nonNull(designModelEntity)) {
-            deploymentDetailDto.setModelId(designModelEntity.getModelId());
-            deploymentDetailDto.setResourceNames(deploymentEntity.getName());
-        }
         deploymentDetailDto.setSuspensionState(processDefinitionEntity.getSuspensionState());
         deploymentDetailDto.setCategory(processDefinitionEntity.getCategory());
-        deploymentDetailDto.setHasStartFormKey(processDefinitionEntity.getHasStartFormKey());
         deploymentDetailDto.setDeploymentId(processDefinition.getDeploymentId());
         deploymentDetailDto.setProcessDefinitionId(processDefinitionEntity.getId());
         Integer historyTimeToLive = processDefinition.getHistoryTimeToLive();
         InputStream processModel = repositoryService.getProcessModel(processDefinitionEntity.getId());
         deploymentDetailDto.setDiagramData(Base64FileUtils.inputStreamToBase64(processModel));
+        deploymentDetailDto.setHistoryTimeToLive(historyTimeToLive);
         deploymentDetailDto.setResourceNames(processDefinitionEntity.getDiagramResourceName());
         deploymentDetailDto.setDeploymentName(deploymentEntity.getName());
         deploymentDetailDto.setVersion(processDefinitionEntity.getVersion());
         deploymentDetailDto.setVersionTag(processDefinitionEntity.getVersionTag());
-        // 如果有表单key则去获取
-        if (deploymentDetailDto.isHasStartFormKey()) {
-            String startFormKey = formService.getStartFormKey(deploymentDetailDto.getProcessDefinitionId());
-            deploymentDetailDto.setStartFormKey(startFormKey);
-        }
         return deploymentDetailDto;
     }
 
@@ -486,13 +368,19 @@ public class DefinitionManageServiceImpl implements IDefinitionManageService {
      */
     private DeploymentEntity queryDeploymentById(String deploymentId) {
         DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery().deploymentId(deploymentId);
-        if (StringUtils.isNotBlank(UserContextUtils.getCurrentTenantId())) {
-            deploymentQuery = deploymentQuery.tenantIdIn(UserContextUtils.getCurrentTenantId());
+        if (StringUtils.isNotBlank(AnYiUserContextUtils.getCurrentTenantId())) {
+            deploymentQuery = deploymentQuery.tenantIdIn(AnYiUserContextUtils.getCurrentTenantId());
         }
         Deployment deployment = deploymentQuery.singleResult();
         if (Objects.isNull(deployment) || !(deployment instanceof DeploymentEntity)) {
-            throw new ResponseException(Status.DATABASE_BASE_ERROR, "流程部署信息不存在");
+            throw new AnYiResponseException(AnYiResultStatus.DATABASE_BASE_ERROR, "流程部署信息不存在");
         }
         return (DeploymentEntity) deployment;
+    }
+
+
+    @Override
+    public ProcessDefinitionInfoDto selectProcessById(String processDefinitionKey) {
+        return null;
     }
 }

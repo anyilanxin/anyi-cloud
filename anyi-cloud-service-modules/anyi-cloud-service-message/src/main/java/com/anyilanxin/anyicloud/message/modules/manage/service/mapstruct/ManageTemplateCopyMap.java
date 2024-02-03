@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseThreeMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseThreeMap;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplateVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateDto;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2022-03-29 05:23:43
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ManageTemplateCopyMap extends BaseThreeMap<ManageTemplateEntity, ManageTemplateDto, ManageTemplateVo> {
+public interface ManageTemplateCopyMap extends AnYiBaseThreeMap<ManageTemplateEntity, ManageTemplateDto, ManageTemplateVo> {
 }

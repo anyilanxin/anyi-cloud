@@ -27,17 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.dto;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.TIME_ZONE_GMT8;
-
+import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 服务管理分页查询Response
@@ -50,11 +52,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class ManageServicePageDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 183955098847880674L;
 
     @Schema(name = "serviceId", title = "服务id")
@@ -63,7 +68,7 @@ public class ManageServicePageDto implements Serializable {
     @Schema(name = "serviceCode", title = "服务编码")
     private String serviceCode;
 
-    @Schema(name = "serviceName", title = "服务名")
+    @Schema(name = "serviceName", title = "服务描述")
     private String serviceName;
 
     @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应")
@@ -75,29 +80,11 @@ public class ManageServicePageDto implements Serializable {
     @Schema(name = "swaggerConfigUrl", title = "swagger配置地址")
     private String swaggerConfigUrl;
 
-    @Schema(name = "subscribeChange", title = "是否监听系统变化:0-不订阅,1-订阅,默认0")
-    private Integer subscribeChange;
-
-    @Schema(name = "noticeChange", title = "是否发送变化通知:0-不通知,1-通知。默认0")
-    private Integer noticeChange;
-
-    @Schema(name = "noticeType", title = "通知类型:0-邮件,1-短信,2-微信消息，当选择监听服务变化并且通知时必填")
-    private Integer noticeType;
-
     @Schema(name = "serviceState", title = "服务状态:0-禁用,1-启用。默认0")
     private Integer serviceState;
 
     @Schema(name = "serviceMetadataJson", title = "服务元数据,数据库json存储,入库前转为字符串")
     private Map<String, String> serviceMetadataJson;
-
-    @Schema(name = "noticeTemplateId", title = "通知模板id，当选择监听服务变化并且通知时必填")
-    private String noticeTemplateId;
-
-    @Schema(name = "headUserName", title = "负责人姓名，当选择监听服务变化并且通知时必填")
-    private String headUserName;
-
-    @Schema(name = "headUserId", title = "负责人用户id，当选择监听服务变化并且通知时必填")
-    private String headUserId;
 
     @Schema(name = "enableDelete", title = "是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)")
     private Integer enableDelete;
@@ -109,15 +96,6 @@ public class ManageServicePageDto implements Serializable {
     private String remark;
 
     @Schema(name = "createTime", title = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = TIME_ZONE_GMT8)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = CommonCoreConstant.TIME_ZONE_GMT8)
     private LocalDateTime createTime;
-
-    @Schema(name = "instanceNum", title = "实例数")
-    private int instanceNum;
-
-    @Schema(name = "enableDelete", title = "健康实例数")
-    private int healthyNum;
-
-    @Schema(name = "enableDelete", title = "不健康实例数")
-    private int unhealthyNum;
 }

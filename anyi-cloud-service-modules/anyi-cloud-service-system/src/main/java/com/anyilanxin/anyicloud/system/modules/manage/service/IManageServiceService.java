@@ -27,18 +27,20 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.corecommon.model.system.ManageSwaggerInfoModel;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageServicePageVo;
+import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageServicePageQuery;
 import com.anyilanxin.anyicloud.system.modules.manage.controller.vo.ManageServiceVo;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.ManageServiceEntity;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServiceDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageServicePageDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.SystemStatDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ValidServiceInfoDto;
+
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +80,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
     /**
      * 获取swagger信息
      *
-     * @return Map<String, ManageSwaggerInfoModel> ${@link Map <String, ManageSwaggerInfoModel >}
+     * @return Map<String, ManageSwaggerInfoModel> ${@link Map <String,  ManageSwaggerInfoModel >}
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2020-09-14 03:19
@@ -89,13 +91,13 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
     /**
      * 分页查询
      *
-     * @param vo ${@link ManageServicePageVo} 服务管理分页查询Vo
-     * @return PageDto<ManageServicePageDto> ${@link PageDto< ManageServicePageDto >} 分页查询结果
+     * @param vo ${@link ManageServicePageQuery} 服务管理分页查询Vo
+     * @return AnYiPageResult<ManageServicePageDto> ${@link AnYiPlusPageResult <  ManageServicePageDto  >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2021-12-19 00:22:20
      */
-    PageDto<ManageServicePageDto> pageByModel(ManageServicePageVo vo) throws RuntimeException;
+    AnYiPageResult<ManageServicePageDto> pageByModel(ManageServicePageQuery vo) throws RuntimeException;
 
 
     /**
@@ -126,7 +128,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
      *
      * @return SystemStatDto ${@link SystemStatDto}
      * @throws RuntimeException ${@link RuntimeException}
-     * @author zxh zxiaozhou
+     * @author zxh zxh
      * @date 2021-01-27 16:55
      */
     SystemStatDto systemStat() throws RuntimeException;
@@ -135,7 +137,7 @@ public interface IManageServiceService extends BaseService<ManageServiceEntity> 
     /**
      * 获取有效的服务列表
      *
-     * @return List<ValidServiceInfoDto> ${@link List< ValidServiceInfoDto >}
+     * @return List<ValidServiceInfoDto> ${@link List<  ValidServiceInfoDto  >}
      * @author zxh
      * @date 2021-12-23 23:05
      */

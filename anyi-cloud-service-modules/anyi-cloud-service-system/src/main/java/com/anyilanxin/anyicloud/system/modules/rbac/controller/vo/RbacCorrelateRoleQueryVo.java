@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 角色-关联关系表条件查询Request
@@ -52,6 +55,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacCorrelateRoleQueryVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -86342606217090877L;
 
     @Schema(name = "correlateRoleId", title = "角色关联关系id")
@@ -65,4 +69,5 @@ public class RbacCorrelateRoleQueryVo implements Serializable {
 
     @Schema(name = "roleId", title = "角色id")
     private String roleId;
+
 }

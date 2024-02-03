@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacMenuEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgMenuEntity;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 /**
  * 机构-菜单表(RbacOrgMenu)持久层

@@ -27,15 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 角色菜单按钮
@@ -53,16 +56,17 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema
 public class RbacRoleMenuButtonDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -63399996952662860L;
 
     @Schema(name = "roleCode", title = "角色编码")
     private String roleCode;
 
-    @Schema(name = "superRole", title = "是否为超级管理员角色")
-    private boolean superRole;
-
     @Schema(name = "roleSysCode", title = "角色系统编码(系统自动创建)")
     private String roleSysCode;
+
+    @Schema(name = "superRole", title = "是否为超级管理员角色")
+    private boolean superRole;
 
     @Schema(name = "roleId", title = "角色id")
     private String roleId;
@@ -103,6 +107,7 @@ public class RbacRoleMenuButtonDto implements Serializable {
     @NoArgsConstructor
     @Schema
     public static class Action implements Serializable {
+        @Serial
         private static final long serialVersionUID = 6588630894991792617L;
 
         @Schema(name = "menuId", title = "权限id")

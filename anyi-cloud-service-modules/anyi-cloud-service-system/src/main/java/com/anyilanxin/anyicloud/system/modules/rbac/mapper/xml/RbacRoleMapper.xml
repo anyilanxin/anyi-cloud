@@ -38,7 +38,7 @@
     <result property="roleSysCode" column="role_sys_code" jdbcType="VARCHAR"/>
     <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
     <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
     <result property="parentRoleId" column="parent_role_id" jdbcType="VARCHAR"/>
     <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
@@ -201,7 +201,7 @@
 
 
     <!-- 获取用户授权的角色 -->
-    <select id="getUserAuthRole" resultType="com.anyilanxin.anyicloud.systemrpc.model.UserRoleModel">
+    <select id="getUserAuthRole" resultType="com.anyilanxin.anyicloud.systemadapter.model.UserRoleModel">
         SELECT
         rr.role_id,
         rr.role_name,
@@ -231,39 +231,19 @@
         </if>
         -- 机构角色
         <if test="orgId != null and orgId!=''">
-          UNION
-          SELECT rucr.role_id,ru.user_id
-          FROM sys_rbac_user ru
-          INNER JOIN sys_rbac_user_correlate_role rucr ON ru.user_id = rucr.user_id
-          WHERE rucr.correlate_id = #{orgId, jdbcType=VARCHAR}
-          <if test="userId != null and userId!=''">
-              AND ru.user_id = #{userId, jdbcType=VARCHAR}
-          </if>
+            UNION
+            SELECT rucr.role_id,ru.user_id
+            FROM sys_rbac_user ru
+            INNER JOIN sys_rbac_user_correlate_role rucr ON ru.user_id = rucr.user_id
+            WHERE rucr.correlate_id = #{orgId, jdbcType=VARCHAR}
+            <if test="userId != null and userId!=''">
+                AND ru.user_id = #{userId, jdbcType=VARCHAR}
+            </if>
         </if>
         ) role
         INNER JOIN sys_rbac_role rr ON role.role_id = rr.role_id
         WHERE rr.role_status = 1
     </select>
-
-
-    <!-- 通过角色id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_role
-        WHERE role_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_role
-        WHERE role_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
@@ -288,5 +268,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictPageVo;
+import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictPageQuery;
 import com.anyilanxin.anyicloud.system.modules.common.controller.vo.CommonDictVo;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonDictEntity;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonDictDto;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonDictPageDto;
+
 import java.util.List;
 
 /**
@@ -73,13 +75,13 @@ public interface ICommonDictService extends BaseService<CommonDictEntity> {
     /**
      * 分页查询
      *
-     * @param vo ${@link CommonDictPageVo} 数据字典表分页查询Vo
-     * @return PageDto<CommonDictPageDto> ${@link PageDto< CommonDictPageDto >} 分页查询结果
+     * @param vo ${@link CommonDictPageQuery} 数据字典表分页查询Vo
+     * @return AnYiPageResult<CommonDictPageDto> ${@link AnYiPlusPageResult < CommonDictPageDto >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2020-11-02 09:25:18
      */
-    PageDto<CommonDictPageDto> pageByModel(CommonDictPageVo vo) throws RuntimeException;
+    AnYiPageResult<CommonDictPageDto> pageByModel(CommonDictPageQuery vo) throws RuntimeException;
 
 
     /**

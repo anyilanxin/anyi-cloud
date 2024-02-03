@@ -27,10 +27,11 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service;
 
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto;
-import com.anyilanxin.anyicloud.corecommon.model.system.UserAndResourceAuthModel;
+import com.anyilanxin.anyicloud.corecommon.model.system.AnYiUserAndResourceAuthModel;
 
 /**
  * 用户中心
@@ -45,33 +46,33 @@ public interface IUserAuthService {
      * 通过openId获取用户信息
      *
      * @param openId
-     * @return UserAndResourceAuthModel
+     * @return AnYiUserAndResourceAuthModel
      * @author zxh
      * @date 2022-07-12 13:39
      */
-    UserAndResourceAuthModel getUserByOpenId(String openId);
+    AnYiUserAndResourceAuthModel getUserByOpenId(String openId);
 
 
     /**
      * 通过用户名获取用户信息
      *
      * @param userName
-     * @return UserAndResourceAuthModel
+     * @return AnYiUserAndResourceAuthModel
      * @author zxh
      * @date 2022-07-12 13:40
      */
-    UserAndResourceAuthModel getUserByAccountPhone(String userName);
+    AnYiUserAndResourceAuthModel getUserByAccountPhone(String userName);
 
 
     /**
      * 通过电话号码获取用户信息
      *
      * @param phone
-     * @return UserAndResourceAuthModel
+     * @return AnYiUserAndResourceAuthModel
      * @author zxh
      * @date 2022-07-12 13:40
      */
-    UserAndResourceAuthModel getUserByPhone(String phone);
+    AnYiUserAndResourceAuthModel getUserByPhone(String phone);
 
 
     /**
@@ -80,9 +81,9 @@ public interface IUserAuthService {
      * @param entity
      * @param orgId
      * @param havePassword
-     * @return UserAndResourceAuthModel
+     * @return AnYiUserAndResourceAuthModel
      * @author zxh
      * @date 2022-07-23 20:07
      */
-    UserAndResourceAuthModel getUserInfo(RbacUserDto entity, String orgId, boolean havePassword);
+    AnYiUserAndResourceAuthModel getUserInfo(RbacUserDto entity, String orgId, boolean havePassword);
 }

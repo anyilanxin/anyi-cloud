@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 路由添加或修改Request
@@ -49,29 +52,32 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode
+
 @NoArgsConstructor
 @Schema
 public class ManageRouteVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -75263796196156104L;
 
-    @Schema(name = "routeCode", title = "路由编码(唯一)", required = true)
+    @Schema(name = "routeCode", title = "路由编码(唯一)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "路由编码不能为空")
     private String routeCode;
 
-    @Schema(name = "serviceId", title = "服务id", required = true)
+    @Schema(name = "serviceId", title = "服务id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "服务id不能为空")
     private String serviceId;
 
     @Schema(name = "serviceCode", title = "服务编码,当选择负载均衡器时使用必填")
     private String serviceCode;
 
-    @Schema(name = "routeName", title = "路由名称", required = true)
+    @Schema(name = "routeName", title = "路由名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "路由名称不能为空")
     private String routeName;
 
-    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应", required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时监听信息才可以使用,同时该字段与路由对应", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "是否负载均衡器不能为空")
     private Integer isLoadBalancer;
 
@@ -90,7 +96,7 @@ public class ManageRouteVo implements Serializable {
     @Schema(name = "enableDelete", title = "是否可删除:0-不可删除,1-可删除。默认1(用户系统内置数据不可删除)")
     private Integer enableDelete;
 
-    @Schema(name = "routeState", title = "路由状态:0-禁用,1-启用。默认0", required = true)
+    @Schema(name = "routeState", title = "路由状态:0-禁用,1-启用。默认0", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "路由状态:0-禁用,1-启用。默认0不能为空")
     private Integer routeState;
 
@@ -100,7 +106,7 @@ public class ManageRouteVo implements Serializable {
     @Schema(name = "routeFilters", title = "过滤器")
     private List<ManageRouteFilterVo> routeFilters;
 
-    @Schema(name = "routePredicates", title = "断言", required = true)
+    @Schema(name = "routePredicates", title = "断言", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "断言不能为空")
     @Valid
     private List<ManageRoutePredicateVo> routePredicates;

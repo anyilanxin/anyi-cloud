@@ -27,27 +27,27 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.anyilanxin.anyicloud.auth.modules.login.mapper.UserAuthMapper;
 import com.anyilanxin.anyicloud.auth.modules.login.service.IUserAuthService;
-import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacOrgUserDto;
+import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacResourceApiSimpleDto;
 import com.anyilanxin.anyicloud.auth.modules.login.service.dto.RbacUserDto;
 import com.anyilanxin.anyicloud.auth.modules.login.service.mapstruct.UserAuthCopyMap;
-import com.anyilanxin.anyicloud.corecommon.constant.SysBaseConstant;
-import com.anyilanxin.anyicloud.corecommon.exception.ResponseException;
-import com.anyilanxin.anyicloud.corecommon.model.auth.OrgSimpleInfo;
+import com.anyilanxin.anyicloud.corecommon.constant.AuthConstant;
 import com.anyilanxin.anyicloud.corecommon.model.auth.RoleInfo;
-import com.anyilanxin.anyicloud.corecommon.model.system.UserAndResourceAuthModel;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import com.anyilanxin.anyicloud.corecommon.model.system.AnYiUserAndResourceAuthModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户中心
@@ -64,22 +64,22 @@ public class UserAuthServiceImpl implements IUserAuthService {
     private final UserAuthMapper userAuthMapper;
 
     @Override
-    public UserAndResourceAuthModel getUserByOpenId(String openId) {
-        RbacUserDto entity = userAuthMapper.selectByOpenId(openId);
+    public AnYiUserAndResourceAuthModel getUserByOpenId(String openId) {
+        var entity = userAuthMapper.selectByOpenId(openId);
         return getUserInfo(entity, null, true);
     }
 
 
     @Override
-    public UserAndResourceAuthModel getUserByAccountPhone(String userName) {
-        RbacUserDto entity = userAuthMapper.selectByPhoneOrAccount(userName);
+    public AnYiUserAndResourceAuthModel getUserByAccountPhone(String userName) {
+        var entity = userAuthMapper.selectByPhoneOrAccount(userName);
         return getUserInfo(entity, null, true);
     }
 
 
     @Override
-    public UserAndResourceAuthModel getUserByPhone(String phone) {
-        RbacUserDto entity = userAuthMapper.selectByPhone(phone);
+    public AnYiUserAndResourceAuthModel getUserByPhone(String phone) {
+        var entity = userAuthMapper.selectByPhone(phone);
         return getUserInfo(entity, null, true);
     }
 
@@ -90,20 +90,21 @@ public class UserAuthServiceImpl implements IUserAuthService {
      * @param userAndResourceAuthModel
      * @param orgId
      * @param roleInfos
+     * @param resourceApiSimpleAll
      * @author zxh
      * @date 2022-07-12 18:39
      */
-    void handleOrgInfo(UserAndResourceAuthModel userAndResourceAuthModel, String orgId, Set<RoleInfo> roleInfos) {
+    void handleOrgInfo(AnYiUserAndResourceAuthModel userAndResourceAuthModel, String orgId, Set<RoleInfo> roleInfos, Set<RbacResourceApiSimpleDto> resourceApiSimpleAll) {
         // 如果机构未空，则选择最近一个，并且设置用户最近登录机构信息
         if (StringUtils.isBlank(orgId)) {
-            List<RbacOrgUserDto> rbacOrgUserDtos = userAuthMapper.selectUserOrgListByUserId(userAndResourceAuthModel.getUserId());
+            var rbacOrgUserDtos = userAuthMapper.selectUserOrgListByUserId(userAndResourceAuthModel.getUserId());
             if (CollUtil.isNotEmpty(rbacOrgUserDtos)) {
                 orgId = rbacOrgUserDtos.get(0).getOrgId();
                 userAuthMapper.updateLoginOrgId(userAndResourceAuthModel.getUserId(), orgId);
             }
         }
         if (StringUtils.isNotBlank(orgId)) {
-            OrgSimpleInfo orgDto = userAuthMapper.selectOrgInfoById(orgId);
+            var orgDto = userAuthMapper.selectOrgInfoById(orgId);
             if (Objects.nonNull(orgDto)) {
                 userAndResourceAuthModel.setCurrentOrgCode(orgDto.getOrgCode());
                 userAndResourceAuthModel.setCurrentOrgId(orgDto.getOrgId());
@@ -112,9 +113,16 @@ public class UserAuthServiceImpl implements IUserAuthService {
                 userAndResourceAuthModel.setCurrentAreaName(orgDto.getAreaCodeName());
                 userAndResourceAuthModel.setOrgInfo(orgDto);
                 // 获取机构授权角色
-                Set<RoleInfo> orgRoleInfos = userAuthMapper.selectByUserIdAndOrgId(userAndResourceAuthModel.getUserId(), orgId);
+                var orgRoleInfos = userAuthMapper.selectByUserIdAndOrgId(userAndResourceAuthModel.getUserId(), orgId);
                 if (CollUtil.isNotEmpty(orgRoleInfos)) {
                     roleInfos.addAll(orgRoleInfos);
+                }
+                // 获取机构角色关联资源权限
+                if (!userAndResourceAuthModel.isSuperAdmin()) {
+                    Set<RbacResourceApiSimpleDto> rbacResourceApiSimpleDtos = userAuthMapper.selectOrgResourceApiByUserId(userAndResourceAuthModel.getUserId(), orgId);
+                    if (CollUtil.isNotEmpty(rbacResourceApiSimpleDtos)) {
+                        resourceApiSimpleAll.addAll(rbacResourceApiSimpleDtos);
+                    }
                 }
             }
         }
@@ -122,36 +130,49 @@ public class UserAuthServiceImpl implements IUserAuthService {
 
 
     @Override
-    public UserAndResourceAuthModel getUserInfo(RbacUserDto entity, String orgId, boolean havePassword) {
+    public AnYiUserAndResourceAuthModel getUserInfo(RbacUserDto entity, String orgId, boolean havePassword) {
         if (Objects.isNull(entity)) {
-            throw new ResponseException("用户信息不存在");
+            return null;
         }
         if (StringUtils.isBlank(orgId)) {
             orgId = entity.getCurrentOrgId();
         }
-        UserAndResourceAuthModel userAndResourceAuthModel = authCopyMap.bToA(entity);
+        var userAndResourceAuthModel = authCopyMap.bToA(entity);
         // 获取用户角色信息
-        Set<RoleInfo> roleInfos = userAuthMapper.selectByUserId(entity.getUserId(), SysBaseConstant.SUPER_ROLE);
+        var roleInfos = userAuthMapper.selectByUserId(entity.getUserId(), AuthConstant.SUPER_ROLE);
         if (CollUtil.isEmpty(roleInfos)) {
             roleInfos = new HashSet<>(64);
         } else {
             for (RoleInfo roleInfo : roleInfos) {
-                if (SysBaseConstant.SUPER_ROLE.equals(roleInfo.getRoleCode())) {
+                if (roleInfo.isSuperRole()) {
                     userAndResourceAuthModel.setSuperAdmin(true);
                     break;
                 }
             }
         }
+        var resourceApiSimpleAll = new HashSet<RbacResourceApiSimpleDto>(128);
+        if (userAndResourceAuthModel.isSuperAdmin()) {
+            Set<RbacResourceApiSimpleDto> resourceApiSimpleDtos = userAuthMapper.selectResourceApiAll();
+            if (CollUtil.isNotEmpty(resourceApiSimpleDtos)) {
+                resourceApiSimpleAll.addAll(resourceApiSimpleDtos);
+            }
+        } else {
+            // 获取用户资源授权
+            var resourceApiSimpleDtos = userAuthMapper.selectResourceApiByUserId(entity.getUserId());
+            if (CollUtil.isNotEmpty(resourceApiSimpleDtos)) {
+                resourceApiSimpleAll.addAll(resourceApiSimpleDtos);
+            }
+        }
         // 处理机构相关
-        handleOrgInfo(userAndResourceAuthModel, orgId, roleInfos);
+        handleOrgInfo(userAndResourceAuthModel, orgId, roleInfos, resourceApiSimpleAll);
         // 如果不需要保留密码则去掉
         if (!havePassword) {
             userAndResourceAuthModel.setPassword(null);
             userAndResourceAuthModel.setSalt(null);
         }
         // 处理角色
-        Set<String> roleCodes = new HashSet<>(64);
-        Set<String> roleIds = new HashSet<>(64);
+        var roleCodes = new HashSet<String>(64);
+        var roleIds = new HashSet<String>(64);
         roleInfos.forEach(v -> {
             roleCodes.add(v.getRoleCode());
             roleIds.add(v.getRoleId());
@@ -159,6 +180,21 @@ public class UserAuthServiceImpl implements IUserAuthService {
         userAndResourceAuthModel.setRoleInfos(roleInfos);
         userAndResourceAuthModel.setRoleCodes(roleCodes);
         userAndResourceAuthModel.setRoleIds(roleIds);
+        // 处理授权资源
+        if (CollUtil.isNotEmpty(resourceApiSimpleAll)) {
+            var actionMap = new HashMap<String, Set<String>>(resourceApiSimpleAll.size());
+            resourceApiSimpleAll.forEach(v -> {
+                Set<String> actionSet = actionMap.get(v.getResourceCode());
+                if (CollUtil.isEmpty(actionSet)) {
+                    actionSet = new HashSet<>();
+                }
+                if (StringUtils.isNotBlank(v.getPermissionAction())) {
+                    actionSet.addAll(Set.of(v.getPermissionAction().split("[,，]")));
+                }
+                actionMap.put(v.getResourceCode(), actionSet);
+            });
+            userAndResourceAuthModel.setActions(actionMap);
+        }
         return userAndResourceAuthModel;
     }
 }

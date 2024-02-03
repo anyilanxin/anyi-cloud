@@ -1,0 +1,9 @@
+description = "AnYi Cloud Oauth2 Webflux Core"
+
+
+dependencies {
+    api project(':anyi-cloud-coreauth-modules:anyi-cloud-coreoauth-oauth2-common')
+    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    api project(':anyi-cloud-corebase-modules:anyi-cloud-core-webflux')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}

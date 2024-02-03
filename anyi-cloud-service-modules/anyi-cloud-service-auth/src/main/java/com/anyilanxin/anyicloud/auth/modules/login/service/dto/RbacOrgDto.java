@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.auth.modules.login.service.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-import java.io.Serializable;
-import java.util.Map;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 组织表(RbacOrg)Entity
@@ -51,6 +54,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class RbacOrgDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = -26667015921374659L;
 
     /**
@@ -181,7 +185,7 @@ public class RbacOrgDto implements Serializable {
     /**
      * 扩展信息,json object
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Map<String, Object> additionalInformation;
 
     /**

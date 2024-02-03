@@ -27,16 +27,18 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.modules.manage.service;
 
+import com.anyilanxin.anyicloud.corecommon.model.common.AnYiPageResult;
 import com.anyilanxin.anyicloud.database.datasource.base.service.BaseService;
-import com.anyilanxin.anyicloud.database.datasource.base.service.dto.PageDto;
-import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplatePageVo;
+import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplatePageQuery;
 import com.anyilanxin.anyicloud.message.modules.manage.controller.vo.ManageTemplateVo;
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageTemplateEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplatePageDto;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
+
 import java.util.List;
 
 /**
@@ -75,13 +77,13 @@ public interface IManageTemplateService extends BaseService<ManageTemplateEntity
     /**
      * 分页查询
      *
-     * @param vo ${@link ManageTemplatePageVo} 消息模板分页查询Vo
-     * @return PageDto<ManageTemplatePageDto> ${@link PageDto<  ManageTemplatePageDto  >} 分页查询结果
+     * @param vo ${@link ManageTemplatePageQuery} 消息模板分页查询Vo
+     * @return AnYiPageResult<ManageTemplatePageDto> ${@link AnYiPlusPageResult <   ManageTemplatePageDto   >} 分页查询结果
      * @throws RuntimeException ${@link RuntimeException}
      * @author zxh
      * @date 2022-03-29 05:23:43
      */
-    PageDto<ManageTemplatePageDto> pageByModel(ManageTemplatePageVo vo) throws RuntimeException;
+    AnYiPageResult<ManageTemplatePageDto> pageByModel(ManageTemplatePageQuery vo) throws RuntimeException;
 
 
     /**

@@ -27,19 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.utils;
 
-import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
-
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+
+import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
 
 /**
  * freemarker模板工具类

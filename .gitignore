@@ -1,16 +1,13 @@
 /target/
-/.idea/
 *.iml
 jeecg-boot-modules-demo
 rebel.xml
-/target/
 !.mvn/wrapper/maven-wrapper.jar
 *.pdb
 *.hprof
 bootJar/
 /winsw/
 /templ/
-/target/
 /config/
 /upload/
 .gradle/
@@ -23,11 +20,12 @@ bootJar/
 .settings
 .springBeans
 .sts4-cache
+documents/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
+!.idea/icon.png
 *.iws
-*.iml
 *.ipr
 
 ### NetBeans ###
@@ -44,4 +42,5 @@ build/
 ### Mac ###
 .DS_Store
 logs/
+/logs/
 target

@@ -27,34 +27,37 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.manage.service.impl;
 
-import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.LOCK_EXPIRES;
-
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonCacheConstant;
 import com.anyilanxin.anyicloud.corecommon.constant.CoreCommonGatewayConstant;
+import com.anyilanxin.anyicloud.corecommon.model.auth.ResourceActionModel;
 import com.anyilanxin.anyicloud.corecommon.model.stream.router.*;
 import com.anyilanxin.anyicloud.corecommon.model.system.SpecialUrlModel;
 import com.anyilanxin.anyicloud.coreredis.constant.RedisSubscribeConstant;
-import com.anyilanxin.anyicloud.coreredis.utils.SendRedisMsgUtils;
+import com.anyilanxin.anyicloud.coreredis.utils.AnYiRedisMsgUtils;
 import com.anyilanxin.anyicloud.system.modules.manage.entity.*;
 import com.anyilanxin.anyicloud.system.modules.manage.mapper.*;
 import com.anyilanxin.anyicloud.system.modules.manage.service.IManageSyncService;
 import com.anyilanxin.anyicloud.system.modules.manage.service.dto.ManageRouteCustomFilterDto;
 import com.anyilanxin.anyicloud.system.modules.manage.service.mapstruct.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant.LOCK_EXPIRES;
 
 /**
  * 同步接口实现
@@ -65,6 +68,7 @@ import org.springframework.stereotype.Service;
  * @since 1.0.0
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ManageSyncServiceImpl implements IManageSyncService {
     private final RedisTemplate<String, Object> redisTemplate;
@@ -107,7 +111,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             routerToRedis(serviceIds, false);
         }
         // 通知网关刷新
-        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
+        AnYiRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_RELOAD, "需要重写加载路由");
         // 加锁
         redisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_LOCK, true, LOCK_EXPIRES, TimeUnit.SECONDS);
     }
@@ -122,7 +126,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             keys.forEach(v -> {
                 // 通知网关刷新
                 String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
-                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                AnYiRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
             });
         }
         routerToRedis(Set.of(serviceId), true);
@@ -137,8 +141,9 @@ public class ManageSyncServiceImpl implements IManageSyncService {
             keys.forEach(v -> {
                 String routerId = v.replaceFirst(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX, "");
                 // 通知网关删除
-                SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
+                AnYiRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_DELETE, routerId);
             });
+
         }
     }
 
@@ -151,6 +156,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * @date 2021-12-22 23:42
      */
     private void routerToRedis(Set<String> serviceIds, boolean update) {
+        log.info("------------------------>{}", "开始写入路由");
         if (CollUtil.isNotEmpty(serviceIds)) {
             LambdaQueryWrapper<ManageRouteEntity> routeLambdaQueryWrapper = new LambdaQueryWrapper<>();
             routeLambdaQueryWrapper.in(ManageRouteEntity::getServiceId, serviceIds).eq(ManageRouteEntity::getRouteState, 1);
@@ -174,7 +180,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                 routerInfoModels.forEach(v -> {
                     String routeId = v.getRouteId();
                     List<RouteFilterModel> filter = filters.get(routeId);
-                    if (CollectionUtil.isEmpty(filter)) {
+                    if (CollUtil.isEmpty(filter)) {
                         filter = new ArrayList<>();
                     }
                     List<RouteFilterModel> customFilter = customFilters.get(routeId);
@@ -183,10 +189,15 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     }
                     v.setRouteFilters(filter);
                     v.setRoutePredicates(predicates.get(routeId));
-                    v.setRouteId(v.getServiceCode() + ":" + v.getRouteId());
-                    stringRedisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(), JSON.toJSONString(v, SerializerFeature.WriteMapNullValue));
+                    String prefix = v.getServiceCode();
+                    if (StringUtils.isBlank(prefix)) {
+                        prefix = v.getRouteCode();
+                    }
+                    v.setRouteId(prefix + ":" + v.getRouteId());
+                    log.info("-------------当前写入路由----------->{}", v.getRouteId());
+                    stringRedisTemplate.opsForValue().set(CoreCommonCacheConstant.SYSTEM_ROUTE_INFO_CACHE_PREFIX + v.getRouteId(), JSON.toJSONString(v, JSONWriter.Feature.WriteMapNullValue));
                     if (update) {
-                        SendRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
+                        AnYiRedisMsgUtils.sendMsg(RedisSubscribeConstant.GATEWAY_ROUTER_INFO_UPDATE, routeId);
                     }
                 });
             }
@@ -198,8 +209,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
      * 获取路由断言
      *
      * @param routeIds ${@link Set<String>}
-     * @return Map<String, List < RoutePredicateModel>> ${@link Map<String,
-     * List<RoutePredicateModel>>}
+     * @return Map<String, List < RoutePredicateModel>> ${@link Map<String, List<RoutePredicateModel>>}
      * @author zxh
      * @date 2021-12-23 19:32
      */
@@ -211,7 +221,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         if (CollUtil.isNotEmpty(manageRoutePredicateEntities)) {
             manageRoutePredicateEntities.forEach(v -> {
                 List<RoutePredicateModel> routePredicateModels = routePredicateMap.get(v.getRouteId());
-                if (CollectionUtil.isEmpty(routePredicateModels)) {
+                if (CollUtil.isEmpty(routePredicateModels)) {
                     routePredicateModels = new ArrayList<>();
                 }
                 RoutePredicateModel routePredicateModel = predicateCopyMap.bToA(v);
@@ -239,7 +249,7 @@ public class ManageSyncServiceImpl implements IManageSyncService {
         if (CollUtil.isNotEmpty(manageRouteFilterEntities)) {
             manageRouteFilterEntities.forEach(v -> {
                 List<RouteFilterModel> routeFilterModels = routeFilterMap.get(v.getRouteId());
-                if (CollectionUtil.isEmpty(routeFilterModels)) {
+                if (CollUtil.isEmpty(routeFilterModels)) {
                     routeFilterModels = new ArrayList<>();
                 }
                 RouteFilterModel routeFilterModel = filterCopyMap.bToA(v);
@@ -280,9 +290,26 @@ public class ManageSyncServiceImpl implements IManageSyncService {
                     if (sv.getRouteId().equals(v)) {
                         RouteMetaSpecialUrlModel metaSpecialUrlModel = specialUrls.get(sv.getFilterId());
                         Map<String, String> ruleMap = new HashMap<>();
-                        if (sv.getHaveSpecial() == 1) {
+                        if (!CoreCommonGatewayConstant.AUTHORIZE_FILTER.equals(sv.getFilterType())) {
+                            if (sv.getHaveSpecial() == 1) {
+                                if (Objects.nonNull(metaSpecialUrlModel)) {
+                                    ruleMap.put(CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY, JSONObject.toJSONString(metaSpecialUrlModel));
+                                }
+                            }
+                        }
+                        // 如果是鉴权过滤器还有鉴权指令(具体类型为网关常量:FilterCustomPreType中的值)
+                        else {
+                            List<ResourceActionModel> resourceActionAllList = new ArrayList<>();
                             if (Objects.nonNull(metaSpecialUrlModel)) {
-                                ruleMap.put(CoreCommonGatewayConstant.PARAM_SPECIAL_URL_KEY, JSONObject.toJSONString(metaSpecialUrlModel));
+                                List<SpecialUrlModel> blackSpecialUrls = metaSpecialUrlModel.getBlackSpecialUrls();
+                                List<SpecialUrlModel> whiteSpecialUrls = metaSpecialUrlModel.getWhiteSpecialUrls();
+                                List<SpecialUrlModel> allSpecialUrls = new ArrayList<>();
+                                if (CollUtil.isNotEmpty(blackSpecialUrls)) {
+                                    allSpecialUrls.addAll(blackSpecialUrls);
+                                }
+                                if (CollUtil.isNotEmpty(whiteSpecialUrls)) {
+                                    allSpecialUrls.addAll(whiteSpecialUrls);
+                                }
                             }
                         }
                         RouteFilterModel routeFilterModel = customFilterCopyMap.bToA(sv);
@@ -301,11 +328,18 @@ public class ManageSyncServiceImpl implements IManageSyncService {
     }
 
 
+    @Override
+    public void reloadRouteAndAuth(boolean force) {
+        reloadRoute(force);
+    }
+
+
+
+
     /**
      * 获取特殊url
      *
-     * @return Map<String, RouteMetaSpecialUrlModel> ${@link Map<String,
-     * RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
+     * @return Map<String, RouteMetaSpecialUrlModel> ${@link Map<String, RouteMetaSpecialUrlModel>},map<filterId,RouteMetaSpecialUrlModel>
      * @author zxh
      * @date 2022-03-05 14:42
      */

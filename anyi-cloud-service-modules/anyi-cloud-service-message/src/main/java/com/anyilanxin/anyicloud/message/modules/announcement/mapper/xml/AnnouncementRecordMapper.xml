@@ -196,26 +196,6 @@
         </where>
     </select>
 
-
-    <!-- 通过通知公告阅读记录id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM msg_announcement_record
-        WHERE annt_read_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  msg_announcement_record
-        WHERE annt_read_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE msg_announcement_record
@@ -237,5 +217,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

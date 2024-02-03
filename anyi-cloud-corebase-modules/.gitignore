@@ -1,0 +1,49 @@
+/target/
+/.idea/
+*.iml
+jeecg-boot-modules-demo
+rebel.xml
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+*.pdb
+*.hprof
+bootJar/
+/winsw/
+/templ/
+/target/
+/config/
+/upload/
+.gradle/
+.gradle
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+documents/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+### Mac ###
+.DS_Store
+logs/
+/logs/
+target

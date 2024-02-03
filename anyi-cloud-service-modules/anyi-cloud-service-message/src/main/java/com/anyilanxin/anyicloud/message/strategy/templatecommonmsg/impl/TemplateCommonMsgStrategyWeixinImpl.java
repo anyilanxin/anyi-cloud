@@ -27,15 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.message.strategy.templatecommonmsg.impl;
 
 import com.anyilanxin.anyicloud.message.modules.manage.entity.ManageSendRecordEntity;
 import com.anyilanxin.anyicloud.message.modules.manage.service.dto.ManageTemplateSendInfoDto;
 import com.anyilanxin.anyicloud.message.strategy.templatecommonmsg.ITemplateCommonMsgStrategy;
-import com.anyilanxin.anyicloud.messagerpc.constant.MsgTemplateCommonChannelConstant;
-import com.anyilanxin.anyicloud.messagerpc.model.TemplateCommonMsgModel;
-import java.util.List;
+import com.anyilanxin.anyicloud.messageadapter.constant.MsgTemplateCommonChannelConstant;
+import com.anyilanxin.anyicloud.messageadapter.model.TemplateCommonMsgModel;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 微信模板消息实现

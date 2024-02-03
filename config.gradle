@@ -1,31 +1,24 @@
 ext {
-    // boot启动项目(主build.gradle需要分离出boot项目以便配置docker以及打包环境)
-    bootInfo = [
-            // 服务模块
-            ':anyi-cloud-service-modules:anyi-cloud-service-auth'   : true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-gateway': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-logging': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-message': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-process': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-monitor': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-storage': true,
-            ':anyi-cloud-service-modules:anyi-cloud-service-system' : true,
-    ]
 
-
+    def isAnYiSnapshots = Boolean.parseBoolean(anyiSnapshots)
+    def anyiSnapshotsSuffix = 'asdasd'
+    def anyiReleasesSuffix = 'asdasd'
+    def anyiRepoUrlPrefix = 'https://packages.aliyun.com/maven/repository/'
     // 仓库配置
     repo = [
-            'releasesRepoUrl' : 'maven release仓库地址',
-            'snapshotsRepoUrl': 'maven snapshots仓库地址',
-            'username'        : 'maven账号',
-            'password'        : 'maven密码',
+            'snapshotsRepoUrl': "${anyiRepoUrlPrefix}${anyiSnapshotsSuffix}",
+            'releasesRepoUrl' : "${anyiRepoUrlPrefix}${anyiReleasesSuffix}",
+            'url'             : "${anyiRepoUrlPrefix}${isAnYiSnapshots ? anyiSnapshotsSuffix : anyiReleasesSuffix}",
+            'username'        : 'asdasd',
+            'password'        : 'asdasd',
     ]
 
 
     docker = [
-            'baseImage'        : 'docker基础镜像',
-            'targetImagePrefix': 'docker打包后镜像前缀(例如：harbor.anyilanxin.com/anyi/)',
-            'username'         : 'username',
-            'password'         : 'password',
+            'baseImage'        : 'eclipse-temurin:21.0.1_12-jre-jammy',
+            'targetImagePrefix': 'harbor.anyilanxin.com/anyi/',
+            'username'         : 'asdasdasd',
+            'password'         : 'asdasdasd',
     ]
+
 }

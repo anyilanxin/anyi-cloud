@@ -27,30 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.utils;
 
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
-
-import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import com.anyilanxin.anyicloud.corecommon.constant.CommonCoreConstant;
-import com.anyilanxin.anyicloud.corecommon.utils.CoreCommonUtils;
+import com.anyilanxin.anyicloud.corecommon.utils.AnYiCoreCommonUtils;
 import com.anyilanxin.anyicloud.corewebflux.utils.ServletUtils;
 import com.anyilanxin.anyicloud.gateway.core.constant.CommonGatewayConstant;
 import com.anyilanxin.anyicloud.loggingcommon.model.OperateLogModel;
-import com.anyilanxin.anyicloud.loggingcommon.utils.LogUtils;
-import com.anyilanxin.anyicloud.oauth2common.authinfo.SkillFullUserDetails;
-import java.net.URI;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import com.anyilanxin.anyicloud.loggingcommon.utils.AnYiLogUtils;
+import com.anyilanxin.anyicloud.oauth2common.authinfo.AnYiUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.rewrite.CachedBodyOutputMessage;
@@ -77,6 +68,17 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
+
 /**
  * 鉴权工具
  *
@@ -101,7 +103,7 @@ public class LogRecordUtils {
         OperateLogModel operateLogModel = new OperateLogModel();
         ServerHttpRequest request = exchange.getRequest();
         // 读取日志信息
-        String methodValue = request.getMethodValue();
+        HttpMethod httpMethod = request.getMethod();
         HttpMethod method = request.getMethod();
         LinkedHashSet<URI> sourceUri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         operateLogModel.setRequestUrl(URLDecoder.decode(sourceUri.toArray(new URI[]{})[0].toString(), StandardCharsets.UTF_8));
@@ -117,9 +119,11 @@ public class LogRecordUtils {
         URI targetUri = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
         operateLogModel.setTargetUrl(URLDecoder.decode(targetUri.toString(), StandardCharsets.UTF_8));
         operateLogModel.setRequestIp(ServletUtils.getIpAddr(request));
-        operateLogModel.setRequestMethod(methodValue);
+        operateLogModel.setRequestMethod(httpMethod.name());
+        String authToken = exchange.getAttribute(CommonGatewayConstant.GATEWAY_AUTH_TOKEN);
+        operateLogModel.setOperateToken(authToken);
         // 用户登录信息
-        SkillFullUserDetails userDetails = exchange.getAttribute(CommonGatewayConstant.GATEWAY_USER_INFO);
+        AnYiUserDetails userDetails = exchange.getAttribute(CommonGatewayConstant.GATEWAY_USER_INFO);
         if (Objects.nonNull(userDetails)) {
             operateLogModel.setUserId(userDetails.getUserId());
             operateLogModel.setUserName(userDetails.getUsername());
@@ -153,8 +157,8 @@ public class LogRecordUtils {
             }));
         } else if (HttpMethod.GET.equals(method) || HttpMethod.DELETE.equals(method)) {
             String query = targetUri.getQuery();
-            Map<String, String> queryMap = CoreCommonUtils.getQueryMap(query);
-            operateLogModel.setRequestParam(JSONObject.toJSONString(queryMap, SerializerFeature.WriteMapNullValue));
+            Map<String, String> queryMap = AnYiCoreCommonUtils.getQueryMap(query);
+            operateLogModel.setRequestParam(JSONObject.toJSONString(queryMap, JSONWriter.Feature.WriteMapNullValue));
             exchange.getAttributes().put(CommonGatewayConstant.GATEWAY_LOG_INFO, operateLogModel);
             return chain.filter(exchange);
         } else {
@@ -200,7 +204,7 @@ public class LogRecordUtils {
                             }
                         }
                         // 保存日志
-                        LogUtils.sendOperateLog(operateLogModel);
+                        AnYiLogUtils.sendOperateLog(operateLogModel);
                         byte[] uppedContent = new String(responseData.getBytes(), StandardCharsets.UTF_8).getBytes();
                         originalResponse.getHeaders().setContentLength(uppedContent.length);
                         return bufferFactory.wrap(uppedContent);

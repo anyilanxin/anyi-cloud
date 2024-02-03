@@ -27,9 +27,10 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.common.service.mapstruct;
 
-import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.BaseMap;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
 import com.anyilanxin.anyicloud.system.modules.common.entity.CommonDictEntity;
 import com.anyilanxin.anyicloud.system.modules.common.service.dto.CommonDictDto;
 import org.mapstruct.Builder;
@@ -43,5 +44,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 2020-11-02 09:25:21
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface CommonDictDtoMap extends BaseMap<CommonDictDto, CommonDictEntity> {
+public interface CommonDictDtoMap extends AnYiBaseMap<CommonDictDto, CommonDictEntity> {
 }

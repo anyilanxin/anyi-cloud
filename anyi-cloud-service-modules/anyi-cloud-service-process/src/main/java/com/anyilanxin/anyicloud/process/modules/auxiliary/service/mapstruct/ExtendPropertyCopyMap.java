@@ -27,11 +27,12 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.service.mapstruct;
 
-import com.anyilanxin.anyicloudee.corecommon.base.service.mapstruct.BaseMap;
-import com.anyilanxin.anyicloudee.process.modules.auxiliary.entity.ExtendPropertyEntity;
-import com.anyilanxin.anyicloudee.processrpc.model.ExtendPropertyModel;
+import com.anyilanxin.anyicloud.corecommon.base.service.mapstruct.AnYiBaseMap;
+import com.anyilanxin.anyicloud.process.modules.auxiliary.entity.ExtendPropertyEntity;
+import com.anyilanxin.anyicloud.processadapter.model.ExtendPropertyModel;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -45,5 +46,5 @@ import org.mapstruct.ReportingPolicy;
  * @since 1.0.0
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, builder = @Builder(disableBuilder = true))
-public interface ExtendPropertyCopyMap extends BaseMap<ExtendPropertyEntity, ExtendPropertyModel> {
+public interface ExtendPropertyCopyMap extends AnYiBaseMap<ExtendPropertyEntity, ExtendPropertyModel> {
 }

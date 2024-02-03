@@ -27,15 +27,15 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.mapper;
 
 import com.anyilanxin.anyicloud.database.datasource.base.mapper.BaseMapper;
-import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageVo;
+import com.anyilanxin.anyicloud.system.modules.rbac.controller.vo.RbacOrgPageQuery;
 import com.anyilanxin.anyicloud.system.modules.rbac.entity.RbacOrgEntity;
 import com.anyilanxin.anyicloud.system.modules.rbac.service.dto.RbacOrgTreePageDto;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.Collection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -58,27 +58,7 @@ public interface RbacOrgMapper extends BaseMapper<RbacOrgEntity> {
      * @author zxh
      * @date 2022-05-02 16:39:45
      */
-    IPage<RbacOrgTreePageDto> pageByModel(Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageVo vo);
+    IPage<RbacOrgTreePageDto> pageByModel(Page<RbacOrgTreePageDto> page, @Param("query") RbacOrgPageQuery vo);
 
 
-    /**
-     * 通过组织id物理删除
-     *
-     * @param orgId 组织id
-     * @return int 成功状态:0-失败,1-成功
-     * @author zxh
-     * @date 2022-05-02 16:39:45
-     */
-    int physicalDeleteById(@Param("id") String orgId);
-
-
-    /**
-     * 通过组织id物理批量删除
-     *
-     * @param idList 组织id列表
-     * @return int 成功状态:0-失败,大于1-成功
-     * @author zxh
-     * @date 2022-05-02 16:39:45
-     */
-    int physicalDeleteBatchIds(@Param("coll") Collection<String> idList);
 }

@@ -46,14 +46,14 @@
     <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
     <result property="dataAuthType" column="data_auth_type" jdbcType="INTEGER"/>
     <result property="customDataAuthData" column="custom_data_auth_data" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="roleType" column="role_type" jdbcType="INTEGER"/>
   </resultMap>
 
   <!-- @formatter:off -->
     <sql id="Column_Role_List_Ali">
-        ali.role_id, ali.role_name, ali.role_sys_code, ali.data_auth_type, ali.custom_data_auth_data,
-        ali.role_code, ali.parent_role_id, ali.enable_delete, ali.auto_bind, ali.role_status, ali.remark,
+        ali.org_role_id AS role_id, ali.role_name,  ali.data_auth_type, ali.custom_data_auth_data,
+        ali.role_code, ali.auto_bind, ali.role_status, ali.remark,
         ali.unique_help, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag
@@ -83,42 +83,11 @@
         ali.affix, ali.icon, ali.icon_type, ali.frame_src, ali.transition_name, ali.hide_breadcrumb,
         ali.carry_param, ali.hide_children_in_menu, ali.current_active_menu, ali.hide_tab, ali.hide_menu,
         ali.order_no, ali.ignore_route, ali.show_tag, ali.type, ali.content, ali.dot, ali.hide_path_for_children,
-        ali.system_id, ali.enable_delete, ali.menu_sys_code,
+        ali.button_action_tag, ali.button_express, ali.system_id, ali.enable_delete, ali.menu_sys_code,
         ali.unique_help, ali.remark, ali.create_area_code, ali.create_position_code, ali.create_org_sys_code,
         ali.create_system_code, ali.create_tenant_id, ali.create_user_id, ali.create_user_name, ali.create_time,
         ali.update_user_id, ali.update_user_name, ali.update_time, ali.del_flag, ali.button_action, srs.system_code
     </sql>
-
-
-    <!-- 查询用户在某个机构下的角色信息 -->
-    <select id="selectByUserIdAndOrgId" resultMap="RoleInfoMap">
-        SELECT
-            sror.role_name,
-            sror.role_code,
-            sror.org_role_id AS role_id,
-            sror.data_auth_type,
-            sror.custom_data_auth_data,
-            1 AS role_type
-        FROM sys_rbac_org_role_user sroru
-        INNER JOIN sys_rbac_org_role sror ON sroru.org_role_id = sror.org_role_id
-        WHERE
-            sroru.user_id = #{userId, jdbcType=VARCHAR}
-            AND sror.org_id = #{orgId, jdbcType=VARCHAR}
-            AND sror.role_status = 1
-            AND sror.del_flag = 0
-    </select>
-
-
-    <!-- 获取用户机构角色 -->
-    <select id="selectUserOrgRoleListById" resultType="java.lang.String">
-        SELECT ali.org_role_id
-        FROM sys_rbac_org_role ali
-        INNER JOIN sys_rbac_org_role_user sroru ON ali.org_role_id = sroru.org_role_id
-        WHERE
-            ali.org_id = #{orgId, jdbcType=VARCHAR}
-          AND ali.del_flag = 0
-          AND sroru.user_id = #{userId, jdbcType=VARCHAR}
-    </select>
 
 
     <!-- 获取用户机构角色(完整数据) -->
@@ -160,26 +129,6 @@
             </if>
     </select>
 
-
-    <!-- 通过角色用户id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_rbac_org_role_user
-        WHERE role_user_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM  sys_rbac_org_role_user
-        WHERE orgRoleId IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过用户id物理删除 -->
     <delete id="physicalDeleteByUserId">
         DELETE
@@ -209,5 +158,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

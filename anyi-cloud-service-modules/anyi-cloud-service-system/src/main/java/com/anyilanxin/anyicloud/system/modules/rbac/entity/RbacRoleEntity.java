@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.system.modules.rbac.entity;
 
 import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
-import java.util.Set;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.util.Set;
 
 /**
  * 角色表(RbacRole)Entity
@@ -54,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "sys_rbac_role", autoResultMap = true)
 public class RbacRoleEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = -52197794991227239L;
 
     @TableId
@@ -77,7 +81,7 @@ public class RbacRoleEntity extends BaseEntity {
     /**
      * 自定义类数据权限数据
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private Set<String> customDataAuthData;
 
     /**

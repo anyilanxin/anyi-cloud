@@ -27,14 +27,17 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.manage.controller.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 流程定义状态操作vo
@@ -50,16 +53,17 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class UpdateProcessDefinitionStateVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8339136439559724835L;
 
-    @Schema(name = "processDefinitionId", title = "流程定义id", required = true)
+    @Schema(name = "processDefinitionId", title = "流程定义id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "流程定义id不能为空")
     private String processDefinitionId;
 
     @Schema(name = "processInstances", title = "是否挂起或激活流程实例,默认false")
     private Boolean processInstances;
 
-    @Schema(name = "state", title = "操作状态:true-激活,false-挂起", required = true)
+    @Schema(name = "state", title = "操作状态:true-激活,false-挂起", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "操作状态不能为空")
     private Boolean state;
 }

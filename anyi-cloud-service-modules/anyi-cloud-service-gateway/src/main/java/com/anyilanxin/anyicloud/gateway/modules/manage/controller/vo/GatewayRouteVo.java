@@ -27,18 +27,21 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.gateway.modules.manage.controller.vo;
 
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotBlankOrNull;
 import com.anyilanxin.anyicloud.corecommon.validation.annotation.NotNullSize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.Valid;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 路由入参
@@ -50,21 +53,24 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
+
 @SuperBuilder(toBuilder = true)
+
 @NoArgsConstructor
 @EqualsAndHashCode
 @Schema
 public class GatewayRouteVo implements Serializable {
+    @Serial
     private static final long serialVersionUID = -5358228979136756020L;
 
-    @Schema(name = "routeCode", title = "路由编码(唯一)", required = true)
+    @Schema(name = "routeCode", title = "路由编码(唯一)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "路由编码(唯一)不能为空")
     private String routeCode;
 
     @Schema(name = "url", title = "路由url地址,当选择非负载均衡器时必填")
     private String url;
 
-    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时服务名必填，url不填", required = true)
+    @Schema(name = "isLoadBalancer", title = "是否负载均衡器:0-不是,1-是，默认0。选择均衡器时服务名必填，url不填", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlankOrNull(message = "请确定是否负载均衡器")
     @Builder.Default
     private Integer isLoadBalancer = 0;
@@ -82,7 +88,7 @@ public class GatewayRouteVo implements Serializable {
     @Schema(name = "metadata", title = "路由元数据")
     private Map<String, Object> metadata;
 
-    @Schema(name = "routePredicates", title = "路由断言", required = true)
+    @Schema(name = "routePredicates", title = "路由断言", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNullSize(message = "路由断言不能为空")
     @Valid
     private List<RoutePredicate> routePredicates;
@@ -94,18 +100,21 @@ public class GatewayRouteVo implements Serializable {
     @Getter
     @Setter
     @ToString
+
     @SuperBuilder(toBuilder = true)
+
     @NoArgsConstructor
     @EqualsAndHashCode
     @Schema
     public static class RoutePredicate implements Serializable {
+        @Serial
         private static final long serialVersionUID = -67116125178064715L;
 
-        @Schema(name = "predicateType", title = "断言类型", required = true)
+        @Schema(name = "predicateType", title = "断言类型", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlankOrNull(message = "断言类型不能为空")
         private String predicateType;
 
-        @Schema(name = "rules", title = "断言规则", required = true)
+        @Schema(name = "rules", title = "断言规则", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotNullSize(message = "断言规则不能为空")
         @Valid
         private Set<Rule> ruleSet;
@@ -114,18 +123,21 @@ public class GatewayRouteVo implements Serializable {
     @Getter
     @Setter
     @ToString
+
     @SuperBuilder(toBuilder = true)
+
     @NoArgsConstructor
     @EqualsAndHashCode
     @Schema
     public static class RouteFilter implements Serializable {
+        @Serial
         private static final long serialVersionUID = 5625992009673170739L;
 
-        @Schema(name = "filterType", title = "过滤器类型", required = true)
+        @Schema(name = "filterType", title = "过滤器类型", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlankOrNull(message = "过滤器类型不能为空")
         private String filterType;
 
-        @Schema(name = "rules", title = "过滤器规则", required = true)
+        @Schema(name = "rules", title = "过滤器规则", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotNullSize(message = "过滤器规则不能为空")
         @Valid
         private Set<Rule> ruleSet;
@@ -134,16 +146,18 @@ public class GatewayRouteVo implements Serializable {
     @Getter
     @Setter
     @ToString
+
     @SuperBuilder(toBuilder = true)
+
     @NoArgsConstructor
     @EqualsAndHashCode
     @Schema
     public static class Rule {
-        @Schema(name = "ruleName", title = "规则名称", required = true)
+        @Schema(name = "ruleName", title = "规则名称", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlankOrNull(message = "规则名称不能为空")
         private String ruleName;
 
-        @Schema(name = "ruleValue", title = "规则值", required = true)
+        @Schema(name = "ruleValue", title = "规则值", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlankOrNull(message = "规则值不能为空")
         private String ruleValue;
     }

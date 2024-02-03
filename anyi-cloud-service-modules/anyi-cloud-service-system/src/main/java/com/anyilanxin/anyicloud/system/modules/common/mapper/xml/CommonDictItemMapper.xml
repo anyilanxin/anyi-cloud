@@ -131,23 +131,5 @@
         AND scd.dict_status = 1
     </select>
 
-
-    <!-- 通过字典项id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_common_dict_item
-        WHERE item_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过id逻辑删除 -->
-    <update id="deleteById">
-        UPDATE sys_common_dict_item
-        <set>
-            del_flag = 1,
-            unique_help = item_id,
-        </set>
-        WHERE item_id = #{itemId, jdbcType=VARCHAR}
-    </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

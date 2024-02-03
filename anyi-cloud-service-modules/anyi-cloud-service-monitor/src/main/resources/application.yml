@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    check-template-location: false
   webflux:
     format:
       date: yyyy-mm-dd
@@ -9,27 +11,75 @@ spring:
   jackson:
     time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
+  data:
+    redis:
+      database: ${redis.database:0}
+      host: ${redis.host:localhost}
+      password: ${redis.password:root}
+      port: ${redis.port:6379}
+      timeout: 5000
+      lettuce:
+        pool:
+          max-idle: 20
+          max-wait: -1
+          min-idle: 0
+          max-active: 200
+  #  security:
+  #    oauth2:
+  #      resourceserver:
+  #        jwt:
+  #          jwk-set-uri: http://auth-service/auth/oauth2/jwks
+  rabbitmq:
+    host: ${rbmq.host:localhost}
+    port: ${rbmq.port:5672}
+    username: ${rbmq.username:guest}
+    password: ${rbmq.password:guest}
   boot:
     admin:
       discovery:
         # 排除服务
         ignored-services:
           - seata-server
-
+  threads:
+    virtual:
+      enabled: true
 
 
 # 开启监控
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   endpoints:
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: [ 'shutdown' ]
     web:
       exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+        include:
+          - prometheus
+          - health
+          - info
+          - metrics
   info:
     java:
       enabled: true
+  health:
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+      # k8s环境会自动打开，如果此处为true则强制打开
+      probes:
+        enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+        descriptions: true
+        step: 1m
 
 
 # 日志
@@ -37,12 +87,13 @@ logging:
   level:
     root: ${app.log-root-level:debug}
     com.anyilanxin: ${app.log-package-level:debug}
+    org.camunda: ${app.log-camunda-level:debug}
     com.alibaba.nacos: error
   # 生成日志文件路径(注释不会生成)
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
   file:
-    name: ./logs/${spring.application.name:skillfull}.log
+    name: ./logs/${spring.application.name:anyi}.log
   logback:
     rollingpolicy:
       max-history: 7
@@ -53,15 +104,12 @@ debug: true
 # api文档配置
 springdoc:
   version: ${spring.application.version:1.0.0}
-  api-prefix: /api${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
-  headers:
-    - skill-full-token
-    - Authorization
-  title: ${spring.application.name:skillfull}服务
+  api-prefix: /aycloudee${server.servlet.context-path:} # api接口调试地址前缀(不需要写请求协议,浏览器自动拼接)
+  title: ${spring.application.name:anyi}服务
   contact-email: z7630853@163.com
-  contact-user: zxiaozhou
+  contact-user: zxh
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: com.anyilanxin.skillfull
+  packages-to-scan: com.anyilanxin.anyicloud
   swagger-ui:
     enabled: ${app.enable-doc:false}

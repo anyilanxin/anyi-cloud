@@ -42,7 +42,7 @@
     <result property="isLoadBalancer" column="is_load_balancer" jdbcType="INTEGER"/>
     <result property="loadBalancerType" column="load_balancer_type" jdbcType="INTEGER"/>
     <result property="metadataJson" column="metadata_json" jdbcType="VARCHAR"
-            typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
     <result property="routeOrder" column="route_order" jdbcType="INTEGER"/>
     <result property="enableDelete" column="enable_delete" jdbcType="INTEGER"/>
     <result property="routeState" column="route_state" jdbcType="INTEGER"/>
@@ -273,25 +273,6 @@
     </select>
 
 
-    <!-- 通过路由id物理删除 -->
-    <delete id="physicalDeleteById">
-        DELETE
-        FROM sys_manage_route
-        WHERE route_id = #{id, jdbcType=VARCHAR}
-    </delete>
-
-
-    <!-- 通过字典id物理批量删除 -->
-    <delete id="physicalDeleteBatchIds">
-        DELETE
-        FROM sys_manage_route
-        WHERE route_id IN
-        <foreach collection="coll" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
     <!-- 通过id逻辑删除 -->
     <update id="deleteById">
         UPDATE sys_manage_route
@@ -315,5 +296,5 @@
             #{item}
         </foreach>
     </update>
-    <!-- @formatter:off -->
+    <!-- @formatter:on -->
 </mapper>

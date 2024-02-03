@@ -27,16 +27,19 @@
  *     https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
  *   10.若您的项目无法满足以上几点，可申请商业授权。
  */
+
 package com.anyilanxin.anyicloud.process.modules.auxiliary.entity;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.anyilanxin.anyicloudee.database.datasource.base.entity.BaseEntity;
+import com.anyilanxin.anyicloud.database.datasource.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
 
 /**
  * 流程定义扩展属性信息(ExtendProperty)Entity
@@ -54,6 +57,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName(value = "act_custom_extend_property", autoResultMap = true)
 public class ExtendPropertyEntity extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 151155484181408634L;
 
     @TableId
@@ -72,7 +76,7 @@ public class ExtendPropertyEntity extends BaseEntity {
     /**
      * 扩展属性内容
      */
-    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private JSONObject extendPropertyInfo;
 
     /**

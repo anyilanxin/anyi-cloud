@@ -98,14 +98,14 @@ public class AnYiSystemInfoPrintApplicationRunner implements ApplicationRunner {
 
                     AnYi Cloud Enterprise Application（%s v%s %s）is running! Access URLs:
 
-                           ___      __  ___    __               _  __ _          ____________
-                          /   |  ___\\ \\/ (_)  / /   ____ _____ | |/ /(_)___     / ____/ ____/
-                         / /| | / __ \\  / /  / /   / __ `/ __ \\|   // / __ \\   / __/ / __/
-                        / ___ |/ / / / / /  / /___/ /_/ / / / /   |/ / / / /  / /___/ /___
-                       /_/  |_/_/ /_/_/_/  /_____/\\__,_/_/ /_/_/|_/_/_/ /_/  /_____/_____/
+                                           ___      __  ___    __               _  __ _
+                                          /   |  ___\\ \\/ (_)  / /   ____ _____ | |/ /(_)___
+                                         / /| | / __ \\  / /  / /   / __ `/ __ \\|   // / __ \\
+                                        / ___ |/ / / / / /  / /___/ /_/ / / / /   |/ / / / /
+                                       /_/  |_/_/ /_/_/_/  /_____/\\__,_/_/ /_/_/|_/_/_/ /_/
 
-                        安一兰心(AN YI LAN XIN)，安一出品，必出精品
-
+                                        安一兰心(AN YI LAN XIN)
+                s
 
                     Website Preview:\thttps://anyilanxin.com
                     Api Url  Prefix:\thttp://%s:%s%s

@@ -15,10 +15,10 @@ javaPlatform {
 
 
 def versions = [
-        springdoc: "2.4.0",
+        springdoc: "2.5.0",
         log4j      : "2.22.0",
         mapstruct  : "1.5.5.Final",
-        camunda    : "7.21.0-alpha2",
+        camunda    : "7.21.0",
         mybatisPlus  : '3.5.5',
         mapstructPlus: '1.4.0',
 ]

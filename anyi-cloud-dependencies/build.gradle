@@ -14,15 +14,6 @@ javaPlatform {
 }
 
 
-def versions = [
-        springdoc  : "2.3.0",
-        log4j      : "2.22.0",
-        mapstruct  : "1.5.5.Final",
-        camunda    : "7.21.0-alpha2",
-        mybatisPlus: '3.5.5'
-]
-
-
 dependencies {
     constraints {
         def allProjects = []
@@ -71,67 +62,77 @@ dependencies {
 
 
         // 第三方
-        // spring doc------start
-        api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.springdoc}"
-        api "org.springdoc:springdoc-openapi-starter-webflux-ui:${versions.springdoc}"
-        // spring doc------end
-        api "org.mapstruct:mapstruct:${versions.mapstruct}"
-        api "org.mapstruct:mapstruct-processor:${versions.mapstruct}"
-        // camunda------start
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${versions.camunda}"
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${versions.camunda}"
-        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:${versions.camunda}"
-//        api "org.python:jython:2.7.2"
-//        api "org.jruby:jruby-complete:9.2.9.0"
-//        api 'javax.xml.bind:jaxb-api:2.3.1'
-//        api "org.codehaus.groovy:groovy-all:3.0.13"
-        // camunda------end
-        // mybatis plus------start
-        api "com.baomidou:mybatis-plus-extension:${versions.mybatisPlus}"
-        api "com.baomidou:mybatis-plus-annotation:${versions.mybatisPlus}"
-        api "com.baomidou:mybatis-plus-spring-boot3-starter:${versions.mybatisPlus}"
+        def springdoc = "2.5.0"
+        api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdoc}"
+        api "org.springdoc:springdoc-openapi-starter-webflux-ui:${springdoc}"
+        api "org.springdoc:springdoc-openapi-starter-common:${springdoc}"
+
+        def mapstruct = "1.5.5.Final"
+        api "org.mapstruct:mapstruct:${mapstruct}"
+        api "org.mapstruct:mapstruct-processor:${mapstruct}"
+
+        def mapstructPlus = "1.4.0"
+        api "io.github.linpeilie:mapstruct-plus-spring-boot-starter:${mapstructPlus}"
+        api "io.github.linpeilie:mapstruct-plus-processor:${mapstructPlus}"
+
+        def camunda = "7.21.0"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${camunda}"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camunda}"
+        api "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:${camunda}"
+        api 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
+        def mybatisPlus = "3.5.6"
+        api "com.baomidou:mybatis-plus-extension:${mybatisPlus}"
+        api "com.baomidou:mybatis-plus-annotation:${mybatisPlus}"
+        api "com.baomidou:mybatis-plus-spring-boot3-starter:${mybatisPlus}"
         api "com.baomidou:dynamic-datasource-spring-boot3-starter:4.3.0"
-        // mybatis plus------end
-        // okhttps-----start
-        api 'cn.zhxu:okhttps:4.0.2'
+
+        def mybatisFlex = "1.8.7"
+        api "com.mybatis-flex:mybatis-flex-spring-boot-starter:${mybatisFlex}"
+        api "com.mybatis-flex:mybatis-flex-processor:${mybatisFlex}"
+
+        def zhxuOkhttps = "4.0.2"
+        api "cn.zhxu:okhttps:${zhxuOkhttps}"
+        api "cn.zhxu:okhttps-fastjson2:${zhxuOkhttps}"
+        api "cn.zhxu:okhttps-stomp:${zhxuOkhttps}"
         api 'com.squareup.okio:okio:3.6.0'
-        api 'cn.zhxu:okhttps-fastjson2:4.0.2'
-        api 'cn.zhxu:okhttps-stomp:4.0.2'
         api 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-        // okhttps-----end
+
         api "com.alibaba:druid-spring-boot-3-starter:1.2.21"
-        api "com.alibaba:easyexcel:3.3.3"
+        api "com.alibaba:easyexcel:3.3.4"
         api "com.deepoove:poi-tl:1.12.2"
-        api 'org.dromara.x-easypdf:x-easypdf:2.12.2'
+        api 'org.dromara.x-easypdf:x-easypdf:3.0.0'
         api "org.reflections:reflections:0.10.2"
-        api "de.codecentric:spring-boot-admin-starter-server:3.2.1"
+        api "de.codecentric:spring-boot-admin-starter-server:3.2.3"
         api "me.zhyd.oauth:JustAuth:1.16.6"
         api "com.aliyun:aliyun-java-sdk-core:4.6.4"
         api "com.drewnoakes:metadata-extractor:2.19.0"
         api "io.seata:seata-spring-boot-starter:2.0.0"
-        api "io.github.openfeign:feign-okhttp:13.1"
-        api "com.xuxueli:xxl-job-core:2.4.0"
-        api "net.dreamlu:mica-ip2region:3.2.2"
+        api "io.github.openfeign:feign-okhttp:13.2.1"
+        api "com.xuxueli:xxl-job-core:2.4.1"
+        api "net.dreamlu:mica-ip2region:3.2.4"
         api "com.tencentcloudapi:tencentcloud-sdk-java:4.0.11"
         api "com.sun.xml.ws:jaxws-rt:4.0.2"
-        api 'org.redisson:redisson-spring-boot-starter:3.26.0'
+        api 'org.redisson:redisson-spring-boot-starter:3.27.2'
         api 'p6spy:p6spy:3.9.1'
-        api 'org.webjars:bootstrap:5.2.3'
+        api 'org.webjars:bootstrap:5.3.3'
     }
 
     dependencies {
-        api "org.springdoc:springdoc-openapi-starter-common:${versions.springdoc}"
-        api 'com.alibaba.fastjson2:fastjson2:2.0.43'
-        api 'com.google.guava:guava:32.1.3-jre'
-        api 'org.dromara.hutool:hutool-all:6.0.0-M8'
+        api "org.springdoc:springdoc-openapi-starter-common"
+        api 'com.alibaba.fastjson2:fastjson2:2.0.48'
+        api 'com.google.guava:guava:33.1.0-jre'
+        api 'org.dromara.hutool:hutool-all:6.0.0-M12'
         api 'org.apache.commons:commons-lang3:3.14.0'
-        api 'commons-codec:commons-codec:1.16.0'
-        api 'commons-io:commons-io:2.14.0'
+        api 'commons-codec:commons-codec:1.16.1'
+        api 'commons-io:commons-io:2.16.0'
         api 'org.apache.commons:commons-pool2:2.12.0'
-        api 'org.slf4j:slf4j-api:2.0.9'
-        api "org.apache.logging.log4j:log4j-api:${versions.log4j}"
-        api "org.apache.logging.log4j:log4j-to-slf4j:${versions.log4j}"
-        api "org.apache.logging.log4j:log4j-core:${versions.log4j}"
+        api 'org.slf4j:slf4j-api:2.0.12'
+
+        def log4j = "2.23.1"
+        api "org.apache.logging.log4j:log4j-api:${log4j}"
+        api "org.apache.logging.log4j:log4j-to-slf4j:${log4j}"
+        api "org.apache.logging.log4j:log4j-core:${log4j}"
     }
 }
 

@@ -31,5 +31,5 @@ configurations.configureEach {
 
 processResources {
     filteringCharset = 'UTF-8'
-    include('*.yml', 'META-INF/**')
+    include('*.yml', 'banner.txt')
 }

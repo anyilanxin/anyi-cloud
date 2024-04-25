@@ -127,7 +127,7 @@ dependencies {
         api 'commons-codec:commons-codec:1.16.1'
         api 'commons-io:commons-io:2.16.0'
         api 'org.apache.commons:commons-pool2:2.12.0'
-        api 'org.slf4j:slf4j-api:2.0.12'
+        api 'org.slf4j:slf4j-api:2.0.13'
 
         def log4j = "2.23.1"
         api "org.apache.logging.log4j:log4j-api:${log4j}"

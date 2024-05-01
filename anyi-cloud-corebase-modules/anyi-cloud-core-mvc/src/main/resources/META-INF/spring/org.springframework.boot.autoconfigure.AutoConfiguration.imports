@@ -1,8 +1,8 @@
-com.anyilanxin.anyicloud.coremvc.config.FeignMvcConfig
-com.anyilanxin.anyicloud.coremvc.config.CoreWebMvcCommonConfig
-com.anyilanxin.anyicloud.coremvc.config.ExecutorCoreMvcConfig
-com.anyilanxin.anyicloud.coremvc.config.StartCoreMvcConfig
-com.anyilanxin.anyicloud.coremvc.config.SpringDocConfig
-com.anyilanxin.anyicloud.coremvc.AnYiCoreMvcAutoConfiguration
-com.anyilanxin.anyicloud.coremvc.utils.AnYiUserContextUtils
-com.anyilanxin.anyicloud.coremvc.config.OkHttpConfig
+com.anyilanxin.cloud.coremvc.config.FeignMvcConfig
+com.anyilanxin.cloud.coremvc.config.CoreWebMvcCommonConfig
+com.anyilanxin.cloud.coremvc.config.ExecutorCoreMvcConfig
+com.anyilanxin.cloud.coremvc.config.StartCoreMvcConfig
+com.anyilanxin.cloud.coremvc.config.SpringDocConfig
+com.anyilanxin.cloud.coremvc.AnYiCoreMvcAutoConfiguration
+com.anyilanxin.cloud.coremvc.utils.AnYiUserContextUtils
+com.anyilanxin.cloud.coremvc.config.OkHttpConfig

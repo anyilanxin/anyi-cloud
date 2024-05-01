@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2023-present ZHOUXUANHONG(安一老厨)<anyilanxin@aliyun.com>
+
+    AnYi Cloud Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    AnYi Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+      1.请不要删除和修改根目录下的LICENSE.txt文件；
+      2.请不要删除和修改 AnYi Cloud 源码头部的版权声明；
+      3.请保留源码和相关描述文件的项目出处，作者声明等；
+      4.分发源码时候，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://github.com/anyilanxin/anyi-cloud；
+      6.本软件不允许在国家法律规定范围外使用，如出现违法行为原作者本人不承担任何法律风险；
+      7.进行商用时，不得基于AnYi Cloud的基础，修改包装而成一个与AnYi Cloud EE、AnYi Zeebe EE、AnYi Standalone EE功能类似的程序，进行销售或发布，参与同类软件产品市场的竞争；
+      8.本软件使用的第三方依赖皆为开源软件，如需要修改第三方源码请遵循第三方源码附带开源协议；
+      9.本软件流程部分请遵循camunda开源协议：
+        https://docs.camunda.org/manual/latest/introduction/third-party-libraries
+        https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE
+      10.若您的项目无法满足以上几点，可申请商业授权。
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anyilanxin.cloud.job.modules.manage.mapper.JobInfoMapper">
+    <resultMap type="com.anyilanxin.cloud.job.modules.manage.entity.JobInfoEntity" id="JobInfoMap">
+    <result property="id" column="id" jdbcType="INTEGER"/>
+    <result property="jobGroup" column="job_group" jdbcType="INTEGER"/>
+    <result property="jobDesc" column="job_desc" jdbcType="VARCHAR"/>
+    <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="author" column="author" jdbcType="VARCHAR"/>
+    <result property="alarmEmail" column="alarm_email" jdbcType="VARCHAR"/>
+    <result property="scheduleType" column="schedule_type" jdbcType="VARCHAR"/>
+    <result property="scheduleConf" column="schedule_conf" jdbcType="VARCHAR"/>
+    <result property="misfireStrategy" column="misfire_strategy" jdbcType="VARCHAR"/>
+    <result property="executorRouteStrategy" column="executor_route_strategy" jdbcType="VARCHAR"/>
+    <result property="executorHandler" column="executor_handler" jdbcType="VARCHAR"/>
+    <result property="executorParam" column="executor_param" jdbcType="VARCHAR"/>
+    <result property="executorBlockStrategy" column="executor_block_strategy" jdbcType="VARCHAR"/>
+    <result property="executorTimeout" column="executor_timeout" jdbcType="INTEGER"/>
+    <result property="executorFailRetryCount" column="executor_fail_retry_count" jdbcType="INTEGER"/>
+    <result property="glueType" column="glue_type" jdbcType="VARCHAR"/>
+    <result property="glueSource" column="glue_source" jdbcType="VARCHAR"/>
+    <result property="glueRemark" column="glue_remark" jdbcType="VARCHAR"/>
+    <result property="glueUpdatetime" column="glue_updatetime" jdbcType="TIMESTAMP"/>
+    <result property="childJobid" column="child_jobid" jdbcType="VARCHAR"/>
+    <result property="triggerStatus" column="trigger_status" jdbcType="INTEGER"/>
+    <result property="triggerLastTime" column="trigger_last_time" jdbcType="INTEGER"/>
+    <result property="triggerNextTime" column="trigger_next_time" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <!-- @formatter:off -->
+    <!--数据库字段-->
+    <sql id="Column_List">
+        id, job_group, job_desc, add_time, update_time, author, alarm_email, schedule_type, schedule_conf, misfire_strategy,
+        executor_route_strategy, executor_handler, executor_param, executor_block_strategy, executor_timeout,
+        executor_fail_retry_count, glue_type, glue_source, glue_remark, glue_updatetime, child_jobid, trigger_status,
+        trigger_last_time, trigger_next_time
+    </sql>
+
+    <!--数据库字段待别名-->
+    <sql id="Column_List_Ali">
+        ali.id, ali.job_group, ali.job_desc, ali.add_time, ali.update_time, ali.author, ali.alarm_email, ali.schedule_type,
+        ali.schedule_conf, ali.misfire_strategy, ali.executor_route_strategy, ali.executor_handler, ali.executor_param,
+        ali.executor_block_strategy, ali.executor_timeout, ali.executor_fail_retry_count, ali.glue_type, ali.glue_source,
+        ali.glue_remark, ali.glue_updatetime, ali.child_jobid, ali.trigger_status, ali.trigger_last_time, ali.trigger_next_time
+    </sql>
+
+     <!--数据库字段-->
+    <sql id="Column_List_Page_Ali">
+        ali.id, ali.job_group, ali.job_desc, ali.add_time, ali.update_time, ali.author, ali.alarm_email, ali.schedule_type,
+        ali.schedule_conf, ali.misfire_strategy, ali.executor_route_strategy, ali.executor_handler, ali.executor_param,
+        ali.executor_block_strategy, ali.executor_timeout, ali.executor_fail_retry_count, ali.glue_type, ali.glue_source,
+        ali.glue_remark, ali.glue_updatetime, ali.child_jobid, ali.trigger_status, ali.trigger_last_time, ali.trigger_next_time
+    </sql>
+
+
+    <!--通过实体作为筛选条件分页查询-->
+    <select id="pageByModel" resultType="com.anyilanxin.cloud.job.modules.manage.service.dto.JobInfoPageDto">
+        SELECT
+             <include refid="Column_List_Page_Ali"/>
+        FROM xxl_job_info ali
+        <where>
+             ali.del_flag = 0
+          <if test='query.id != null'>
+             AND ali.id = #{query.id, jdbcType=INTEGER}
+          </if>
+          <if test='query.jobGroup != null'>
+             AND ali.job_group = #{query.jobGroup, jdbcType=INTEGER}
+          </if>
+          <if test='query.jobDesc != null and query.jobDesc != ""'>
+             AND ali.job_desc = #{query.jobDesc, jdbcType=VARCHAR}
+          </if>
+          <if test='query.addTime != null'>
+             AND ali.add_time = #{query.addTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test='query.updateTime != null'>
+             AND ali.update_time = #{query.updateTime, jdbcType=TIMESTAMP}
+          </if>
+          <if test='query.author != null and query.author != ""'>
+             AND ali.author = #{query.author, jdbcType=VARCHAR}
+          </if>
+          <if test='query.alarmEmail != null and query.alarmEmail != ""'>
+             AND ali.alarm_email = #{query.alarmEmail, jdbcType=VARCHAR}
+          </if>
+          <if test='query.scheduleType != null and query.scheduleType != ""'>
+             AND ali.schedule_type = #{query.scheduleType, jdbcType=VARCHAR}
+          </if>
+          <if test='query.scheduleConf != null and query.scheduleConf != ""'>
+             AND ali.schedule_conf = #{query.scheduleConf, jdbcType=VARCHAR}
+          </if>
+          <if test='query.misfireStrategy != null and query.misfireStrategy != ""'>
+             AND ali.misfire_strategy = #{query.misfireStrategy, jdbcType=VARCHAR}
+          </if>
+          <if test='query.executorRouteStrategy != null and query.executorRouteStrategy != ""'>
+             AND ali.executor_route_strategy = #{query.executorRouteStrategy, jdbcType=VARCHAR}
+          </if>
+          <if test='query.executorHandler != null and query.executorHandler != ""'>
+             AND ali.executor_handler = #{query.executorHandler, jdbcType=VARCHAR}
+          </if>
+          <if test='query.executorParam != null and query.executorParam != ""'>
+             AND ali.executor_param = #{query.executorParam, jdbcType=VARCHAR}
+          </if>
+          <if test='query.executorBlockStrategy != null and query.executorBlockStrategy != ""'>
+             AND ali.executor_block_strategy = #{query.executorBlockStrategy, jdbcType=VARCHAR}
+          </if>
+          <if test='query.executorTimeout != null'>
+             AND ali.executor_timeout = #{query.executorTimeout, jdbcType=INTEGER}
+          </if>
+          <if test='query.executorFailRetryCount != null'>
+             AND ali.executor_fail_retry_count = #{query.executorFailRetryCount, jdbcType=INTEGER}
+          </if>
+          <if test='query.glueType != null and query.glueType != ""'>
+             AND ali.glue_type = #{query.glueType, jdbcType=VARCHAR}
+          </if>
+          <if test='query.glueSource != null and query.glueSource != ""'>
+             AND ali.glue_source = #{query.glueSource, jdbcType=VARCHAR}
+          </if>
+          <if test='query.glueRemark != null and query.glueRemark != ""'>
+             AND ali.glue_remark = #{query.glueRemark, jdbcType=VARCHAR}
+          </if>
+          <if test='query.glueUpdatetime != null'>
+             AND ali.glue_updatetime = #{query.glueUpdatetime, jdbcType=TIMESTAMP}
+          </if>
+          <if test='query.childJobid != null and query.childJobid != ""'>
+             AND ali.child_jobid = #{query.childJobid, jdbcType=VARCHAR}
+          </if>
+          <if test='query.triggerStatus != null'>
+             AND ali.trigger_status = #{query.triggerStatus, jdbcType=INTEGER}
+          </if>
+          <if test='query.triggerLastTime != null'>
+             AND ali.trigger_last_time = #{query.triggerLastTime, jdbcType=INTEGER}
+          </if>
+          <if test='query.triggerNextTime != null'>
+             AND ali.trigger_next_time = #{query.triggerNextTime, jdbcType=INTEGER}
+          </if>
+        </where>
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListByModel" resultType="com.anyilanxin.cloud.job.modules.manage.service.dto.JobInfoDto" parameterType="com.anyilanxin.cloud.job.modules.manage.controller.vo.JobInfoQueryVo">
+        SELECT
+            <include refid="Column_List"/>
+        FROM xxl_job_info
+        <where>
+             del_flag = 0
+         <if test='id != null'>
+             AND id = #{id, jdbcType=INTEGER}
+         </if>
+         <if test='jobGroup != null'>
+             AND job_group = #{jobGroup, jdbcType=INTEGER}
+         </if>
+         <if test='jobDesc != null and jobDesc != ""'>
+             AND job_desc = #{jobDesc, jdbcType=VARCHAR}
+         </if>
+         <if test='addTime != null'>
+             AND add_time = #{addTime, jdbcType=TIMESTAMP}
+         </if>
+         <if test='updateTime != null'>
+             AND update_time = #{updateTime, jdbcType=TIMESTAMP}
+         </if>
+         <if test='author != null and author != ""'>
+             AND author = #{author, jdbcType=VARCHAR}
+         </if>
+         <if test='alarmEmail != null and alarmEmail != ""'>
+             AND alarm_email = #{alarmEmail, jdbcType=VARCHAR}
+         </if>
+         <if test='scheduleType != null and scheduleType != ""'>
+             AND schedule_type = #{scheduleType, jdbcType=VARCHAR}
+         </if>
+         <if test='scheduleConf != null and scheduleConf != ""'>
+             AND schedule_conf = #{scheduleConf, jdbcType=VARCHAR}
+         </if>
+         <if test='misfireStrategy != null and misfireStrategy != ""'>
+             AND misfire_strategy = #{misfireStrategy, jdbcType=VARCHAR}
+         </if>
+         <if test='executorRouteStrategy != null and executorRouteStrategy != ""'>
+             AND executor_route_strategy = #{executorRouteStrategy, jdbcType=VARCHAR}
+         </if>
+         <if test='executorHandler != null and executorHandler != ""'>
+             AND executor_handler = #{executorHandler, jdbcType=VARCHAR}
+         </if>
+         <if test='executorParam != null and executorParam != ""'>
+             AND executor_param = #{executorParam, jdbcType=VARCHAR}
+         </if>
+         <if test='executorBlockStrategy != null and executorBlockStrategy != ""'>
+             AND executor_block_strategy = #{executorBlockStrategy, jdbcType=VARCHAR}
+         </if>
+         <if test='executorTimeout != null'>
+             AND executor_timeout = #{executorTimeout, jdbcType=INTEGER}
+         </if>
+         <if test='executorFailRetryCount != null'>
+             AND executor_fail_retry_count = #{executorFailRetryCount, jdbcType=INTEGER}
+         </if>
+         <if test='glueType != null and glueType != ""'>
+             AND glue_type = #{glueType, jdbcType=VARCHAR}
+         </if>
+         <if test='glueSource != null and glueSource != ""'>
+             AND glue_source = #{glueSource, jdbcType=VARCHAR}
+         </if>
+         <if test='glueRemark != null and glueRemark != ""'>
+             AND glue_remark = #{glueRemark, jdbcType=VARCHAR}
+         </if>
+         <if test='glueUpdatetime != null'>
+             AND glue_updatetime = #{glueUpdatetime, jdbcType=TIMESTAMP}
+         </if>
+         <if test='childJobid != null and childJobid != ""'>
+             AND child_jobid = #{childJobid, jdbcType=VARCHAR}
+         </if>
+         <if test='triggerStatus != null'>
+             AND trigger_status = #{triggerStatus, jdbcType=INTEGER}
+         </if>
+         <if test='triggerLastTime != null'>
+             AND trigger_last_time = #{triggerLastTime, jdbcType=INTEGER}
+         </if>
+         <if test='triggerNextTime != null'>
+             AND trigger_next_time = #{triggerNextTime, jdbcType=INTEGER}
+         </if>
+        </where>
+    </select>
+
+    <select id="getJobsByGroup" parameterType="java.util.HashMap" resultMap="JobInfoMap">
+        SELECT <include refid="Column_List_Ali" />
+        FROM xxl_job_info AS ali
+        WHERE ali.job_group = #{jobGroup}
+    </select>
+
+
+    <select id="findAllCount" resultType="int">
+        SELECT count(1)
+        FROM xxl_job_info
+    </select>
+
+
+
+    <select id="scheduleJobQuery" parameterType="java.util.HashMap" resultMap="JobInfoMap">
+        SELECT <include refid="Column_List_Ali" />
+        FROM xxl_job_info AS ali
+        WHERE ali.trigger_status = 1
+        and ali.trigger_next_time <![CDATA[ <= ]]> #{maxNextTime}
+        ORDER BY id ASC
+        LIMIT #{pagesize}
+    </select>
+
+
+    <!-- 通过id逻辑删除 -->
+    <update id="deleteById">
+        UPDATE xxl_job_info
+        <set>
+            del_flag = 1,
+         </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 通过id批量逻辑删除 -->
+    <update id="deleteBatchIds">
+        UPDATE xxl_job_info
+        <set>
+            del_flag = 1,
+        </set>
+        WHERE id IN
+        <foreach collection="coll" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!-- @formatter:on -->
+</mapper>

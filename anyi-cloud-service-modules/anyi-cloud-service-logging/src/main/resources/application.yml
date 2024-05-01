@@ -170,7 +170,7 @@ mybatis-plus:
   # mapper.xml路径
   mapper-locations: classpath*:com/anyilanxin/anyicloud/*/modules/*/mapper/xml/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.anyilanxin.anyicloud.*.modules.*.entity
+  typeAliasesPackage: com.anyilanxin.cloud.*.modules.*.entity
   global-config:
     banner: false
     db-config:
@@ -200,6 +200,6 @@ springdoc:
   contact-user: zxh
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: com.anyilanxin.anyicloud
+  packages-to-scan: com.anyilanxin.cloud
   swagger-ui:
     enabled: ${app.enable-doc:false}

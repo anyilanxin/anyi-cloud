@@ -120,7 +120,7 @@ springdoc:
   contact-user: zxh
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: com.anyilanxin.anyicloud
+  packages-to-scan: com.anyilanxin.cloud
   swagger-ui:
     # 网关统一地址前缀，需要特殊处理，此处还需要配置路由重写，即去掉/api/gateway(如果不需要统一前缀此处可以不用配置)
     custom-path: ${springdoc.api-prefix}/webjars/swagger-ui/index.html?configUrl=${springdoc.api-prefix}/v3/api-docs/swagger-config

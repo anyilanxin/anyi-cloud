@@ -12,7 +12,7 @@ pluginManagement {
 rootProject.name = 'anyi-cloud'
 
 // 依赖bom
-include 'anyi-cloud-dependencies'
+include 'anyi-cloud-bom'
 
 
 // 基础核心模块

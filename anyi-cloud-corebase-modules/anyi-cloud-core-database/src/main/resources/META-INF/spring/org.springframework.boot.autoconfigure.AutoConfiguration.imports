@@ -1,2 +1,2 @@
-com.anyilanxin.anyicloud.database.AnYiDatabaseAutoConfiguration
-com.anyilanxin.anyicloud.database.config.MybatisPlusDatabaseConfig
+com.anyilanxin.cloud.database.AnYiDatabaseAutoConfiguration
+com.anyilanxin.cloud.database.config.MybatisPlusDatabaseConfig

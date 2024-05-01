@@ -110,6 +110,6 @@ springdoc:
   contact-user: zxh
   api-docs:
     enabled: ${app.enable-doc:false}
-  packages-to-scan: com.anyilanxin.anyicloud
+  packages-to-scan: com.anyilanxin.cloud
   swagger-ui:
     enabled: ${app.enable-doc:false}

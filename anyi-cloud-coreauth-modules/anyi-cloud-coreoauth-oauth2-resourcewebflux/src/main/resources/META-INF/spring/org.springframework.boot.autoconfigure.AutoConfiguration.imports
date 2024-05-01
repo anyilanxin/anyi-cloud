@@ -1,4 +1,4 @@
-com.anyilanxin.anyicloud.oauth2resourcewebflux.config.Oauth2WebFluxCommonConfig
-com.anyilanxin.anyicloud.oauth2resourcewebflux.config.ResourceServerConfig
-com.anyilanxin.anyicloud.oauth2resourcewebflux.AnYiOauth2WebfluxAutoConfiguration
-com.anyilanxin.anyicloud.oauth2resourcewebflux.handle.SecurityExceptionHandler
+com.anyilanxin.cloud.oauth2resourcewebflux.config.Oauth2WebFluxCommonConfig
+com.anyilanxin.cloud.oauth2resourcewebflux.config.ResourceServerConfig
+com.anyilanxin.cloud.oauth2resourcewebflux.AnYiOauth2WebfluxAutoConfiguration
+com.anyilanxin.cloud.oauth2resourcewebflux.handle.SecurityExceptionHandler

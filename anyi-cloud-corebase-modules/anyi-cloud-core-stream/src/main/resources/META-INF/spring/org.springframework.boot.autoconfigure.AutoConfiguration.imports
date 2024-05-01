@@ -1,2 +1,2 @@
-com.anyilanxin.anyicloud.stream.component.BindingComponent
-com.anyilanxin.anyicloud.stream.AnYiStreamAutoConfiguration
+com.anyilanxin.cloud.stream.component.BindingComponent
+com.anyilanxin.cloud.stream.AnYiStreamAutoConfiguration

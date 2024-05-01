@@ -1,5 +1,5 @@
-com.anyilanxin.anyicloud.corewebflux.config.CoreWebFluxCommonConfig
-com.anyilanxin.anyicloud.corewebflux.config.StartCoreWebFluxConfig
-com.anyilanxin.anyicloud.corewebflux.config.SpringDocConfig
-com.anyilanxin.anyicloud.corewebflux.AnYiWebfluxAutoConfiguration
-com.anyilanxin.anyicloud.corewebflux.utils.AnYiUserContextUtils
+com.anyilanxin.cloud.corewebflux.config.CoreWebFluxCommonConfig
+com.anyilanxin.cloud.corewebflux.config.StartCoreWebFluxConfig
+com.anyilanxin.cloud.corewebflux.config.SpringDocConfig
+com.anyilanxin.cloud.corewebflux.AnYiWebfluxAutoConfiguration
+com.anyilanxin.cloud.corewebflux.utils.AnYiUserContextUtils

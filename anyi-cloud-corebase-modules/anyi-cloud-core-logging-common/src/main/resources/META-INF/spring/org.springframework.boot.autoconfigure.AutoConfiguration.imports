@@ -1,2 +1,2 @@
-com.anyilanxin.anyicloud.loggingcommon.aspect.LogAspect
-com.anyilanxin.anyicloud.loggingcommon.AnYiLoggingCommonAutoConfiguration
+com.anyilanxin.cloud.loggingcommon.aspect.LogAspect
+com.anyilanxin.cloud.loggingcommon.AnYiLoggingCommonAutoConfiguration

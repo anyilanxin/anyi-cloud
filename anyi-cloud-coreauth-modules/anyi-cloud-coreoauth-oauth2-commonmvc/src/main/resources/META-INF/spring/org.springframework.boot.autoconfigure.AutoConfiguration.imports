@@ -1,6 +1,6 @@
-com.anyilanxin.anyicloud.oauth2commonmvc.config.Oauth2MvcCommonConfig
-com.anyilanxin.anyicloud.oauth2commonmvc.handle.UrlAuthHandle
-com.anyilanxin.anyicloud.oauth2commonmvc.config.listener.Oauth2MvcRedisListenerConfig
-com.anyilanxin.anyicloud.oauth2commonmvc.AnYiOauth2MvcAutoConfiguration
-com.anyilanxin.anyicloud.oauth2commonmvc.config.ResourceServerBaseConfig
-com.anyilanxin.anyicloud.oauth2commonmvc.handle.SecurityExceptionHandler
+com.anyilanxin.cloud.oauth2commonmvc.config.Oauth2MvcCommonConfig
+com.anyilanxin.cloud.oauth2commonmvc.handle.UrlAuthHandle
+com.anyilanxin.cloud.oauth2commonmvc.config.listener.Oauth2MvcRedisListenerConfig
+com.anyilanxin.cloud.oauth2commonmvc.AnYiOauth2MvcAutoConfiguration
+com.anyilanxin.cloud.oauth2commonmvc.config.ResourceServerBaseConfig
+com.anyilanxin.cloud.oauth2commonmvc.handle.SecurityExceptionHandler

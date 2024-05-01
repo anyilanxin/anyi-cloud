@@ -1,5 +1,5 @@
-com.anyilanxin.anyicloud.coreredis.config.CoreRedisCommonConfig
-com.anyilanxin.anyicloud.coreredis.utils.AnYiRedisMsgUtils
-com.anyilanxin.anyicloud.coreredis.utils.AnYiRedisCommonUtils
-com.anyilanxin.anyicloud.coreredis.AnYiRedisAutoConfiguration
-com.anyilanxin.anyicloud.coreredis.utils.GlobalLockUtils
+com.anyilanxin.cloud.coreredis.config.CoreRedisCommonConfig
+com.anyilanxin.cloud.coreredis.utils.AnYiRedisMsgUtils
+com.anyilanxin.cloud.coreredis.utils.AnYiRedisCommonUtils
+com.anyilanxin.cloud.coreredis.AnYiRedisAutoConfiguration
+com.anyilanxin.cloud.coreredis.utils.GlobalLockUtils

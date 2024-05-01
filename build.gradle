@@ -51,7 +51,7 @@ allprojects {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    group = 'com.anyilanxin.anyicloud'
+    group = 'com.anyilanxin.cloud'
     tasks.withType(Jar).configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
@@ -162,8 +162,8 @@ subprojects {
 
         // 公共依赖
         dependencies {
-            implementation platform(project(':anyi-cloud-dependencies'))
-            annotationProcessor platform(project(':anyi-cloud-dependencies'))
+            implementation platform(project(':anyi-cloud-bom'))
+            annotationProcessor platform(project(':anyi-cloud-bom'))
 
             implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}")
             implementation platform("com.alibaba.cloud:aliyun-spring-boot-dependencies:${springAlibabaVersion}")
